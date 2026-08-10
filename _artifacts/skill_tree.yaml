@@ -1,0 +1,45 @@
+# _artifacts/skill_tree.yaml
+library:
+  name: '@eristack/money'
+  version: '0.0.0'
+  repository: 'https://github.com/eristack/business-libs'
+  description: 'JSR 354–inspired immutable money primitives for ERP and business software'
+generated_from:
+  domain_map: '_artifacts/domain_map.yaml'
+  skill_spec: '_artifacts/skill_spec.md'
+generated_at: '2026-08-10'
+
+skills:
+  - name: 'Money amounts'
+    slug: 'money-amounts'
+    type: 'core'
+    domain: 'monetary-amounts'
+    path: 'skills/money-amounts/SKILL.md'
+    package: 'packages/money'
+    description: >
+      Construct Money with strings or minor units, run same-currency arithmetic,
+      compare amounts. Use when creating prices, taxes, discounts, or totals with
+      @eristack/money Money.of Money.ofMinor CurrencyMismatchError.
+    sources:
+      - 'eristack/business-libs:packages/money/docs/getting-started.md'
+      - 'eristack/business-libs:packages/money/docs/concepts.md'
+      - 'eristack/business-libs:packages/money/docs/amounts.md'
+      - 'eristack/business-libs:packages/money/docs/arithmetic.md'
+      - 'eristack/business-libs:packages/money/src/amount/money.ts'
+
+  - name: 'Money ledger'
+    slug: 'money-ledger'
+    type: 'core'
+    domain: 'ledger-operations'
+    path: 'skills/money-ledger/SKILL.md'
+    package: 'packages/money'
+    description: >
+      Round at ledger boundaries, allocate without losing cents, convert with
+      app-supplied FX rates, serialize Money as JSON decimal strings. Use for
+      invoices, payment splits, multi-currency reporting with Rounding Conversion allocate.
+    sources:
+      - 'eristack/business-libs:packages/money/docs/rounding.md'
+      - 'eristack/business-libs:packages/money/docs/allocate.md'
+      - 'eristack/business-libs:packages/money/docs/conversion.md'
+      - 'eristack/business-libs:packages/money/docs/serialization.md'
+      - 'eristack/business-libs:packages/money/docs/recipes.md'

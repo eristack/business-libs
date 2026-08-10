@@ -1,2 +1,6 @@
 packages:
   - "packages/*"
+
+catalog:
+  typescript: ^7.0.0
+  tsup: ^8.5.0
