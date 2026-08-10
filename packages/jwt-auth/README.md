@@ -53,6 +53,18 @@ await auth.revoke(rotated.refreshToken);
 
 Credential checking / password hashing is intentionally out of scope.
 
+## AI agent skills
+
+This package ships [Agent Skills](https://agentskills.io) via [TanStack Intent](https://tanstack.com/intent):
+
+- `@eristack/jwt-auth#jwt-auth-core` — token lifecycle and reuse detection
+- `@eristack/jwt-auth#jwt-auth-adapters` — Drizzle / REST / Express / Nest / client / React
+
+```bash
+npx @tanstack/intent@latest install
+npx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
+```
+
 ## Drizzle
 
 ```ts

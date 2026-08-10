@@ -87,7 +87,11 @@
   "files": [
     "dist",
     "docs",
-    "README.md"
+    "README.md",
+    "skills"
+  ],
+  "keywords": [
+    "tanstack-intent"
   ],
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
@@ -127,6 +131,7 @@
   "devDependencies": {
     "@nestjs/common": "^11.0.12",
     "@nestjs/core": "^11.0.12",
+    "@tanstack/intent": "^0.3.6",
     "@types/express": "^5.0.1",
     "@types/react": "^19.0.12",
     "drizzle-orm": "^0.41.0",
