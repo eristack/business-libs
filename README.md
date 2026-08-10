@@ -1,33 +1,13 @@
-# business-primitives
+# EriStack Business Primitives Library
 
-Eristack Business Primitives — a TypeScript monorepo for shared business domain packages.
+Eristack Business Primitives — a TypeScript monorepo for shared business primitives library.
 
-## Structure
+## Story behind EriStack Business Primitives
 
-```
-packages/
-  core/   @eristack/business-primitives-core
-```
+Node ecosystem lacks the proper enterprise support like Java or C# environment. This pain is especially known to us, as we, at the [Erista](https://github.com/erista), struggles with reusability of so many important and what is supposed to be consistent business primitives.
 
-## Setup
+EriStack aims to fill these gaps by implementing some of the well-known enterprise support on business primitives such as: Date, Money (JSR 354 on Java), Document Number, etc.
 
-```bash
-pnpm install
-```
+## Packages
 
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `pnpm build` | Build all packages |
-| `pnpm dev` | Watch and rebuild all packages |
-| `pnpm typecheck` | Type-check all packages |
-| `pnpm clean` | Remove build artifacts |
-
-## Adding a package
-
-1. Create a directory under `packages/<name>/`
-2. Add a `package.json` with build scripts (`build`, `dev`, `typecheck`, `clean`)
-3. Run `pnpm install` from the repo root
-
-Each package uses [tsup](https://tsup.egoist.dev/) to emit ESM + CJS with TypeScript declarations.
+- [`@eristack/money`](./packages/money) — JSR 354–inspired money primitives (see [`packages/money/docs`](./packages/money/docs))
