@@ -37,3 +37,18 @@ Full guides (docs-site ready) live in [`docs/`](./docs/):
 - [API reference](./docs/api-reference.md)
 
 The `docs/` folder is plain markdown with frontmatter and [`docs/_meta.json`](./docs/_meta.json) so it can be mounted by a future documentation website in another repository.
+
+## AI agent skills
+
+This package ships [Agent Skills](https://agentskills.io) via [TanStack Intent](https://tanstack.com/intent):
+
+- `@eristack/money#money-amounts` — construct amounts and same-currency arithmetic
+- `@eristack/money#money-ledger` — rounding, allocate, FX conversion, JSON
+
+If you use an AI coding agent, run:
+
+```bash
+npx @tanstack/intent@latest install
+npx @tanstack/intent@latest list
+npx @tanstack/intent@latest load @eristack/money#money-amounts
+```

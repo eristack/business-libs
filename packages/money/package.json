@@ -2,6 +2,12 @@
   "name": "@eristack/money",
   "version": "0.0.0",
   "description": "Money primitives for Eristack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/money"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/money",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -21,7 +27,8 @@
   "files": [
     "dist",
     "docs",
-    "README.md"
+    "README.md",
+    "skills"
   ],
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
@@ -32,11 +39,15 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10"
   },
   "dependencies": {
     "decimal.js": "^10.6.0"
-  }
+  },
+  "keywords": [
+    "tanstack-intent"
+  ]
 }
