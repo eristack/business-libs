@@ -11,16 +11,16 @@ EriStack aims to fill these gaps by implementing some of the well-known enterpri
 ## Packages
 
 - [`@eristack/money`](./packages/money) — JSR 354–inspired money primitives (see [`packages/money/docs`](./packages/money/docs))
+- [`@eristack/jwt-auth`](./packages/jwt-auth) — JWT access + refresh-token auth with Drizzle / REST / Express / Nest / React adapters
 
 ## AI agent skills
 
-`@eristack/money` ships versioned [TanStack Intent](https://tanstack.com/intent) skills under `packages/money/skills/`.
+Publishable packages ship versioned [TanStack Intent](https://tanstack.com/intent) skills:
 
 ```bash
 pnpm skills:list
-# or:
 npx @tanstack/intent@latest load @eristack/money#money-amounts
-npx @tanstack/intent@latest load @eristack/money#money-ledger
+npx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 ```
 
-Domain artifacts live in [`_artifacts/`](./_artifacts/). If you use an AI agent, keep the `intent-skills` block in [`AGENTS.md`](./AGENTS.md) near the top.
+Domain artifacts live in [`_artifacts/`](./_artifacts/). Keep the `intent-skills` block in [`AGENTS.md`](./AGENTS.md) near the top.

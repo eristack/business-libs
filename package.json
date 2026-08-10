@@ -9,9 +9,10 @@
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean && rm -rf node_modules",
     "skills:list": "intent list",
-    "skills:validate": "intent validate packages/money"
+    "skills:validate": "intent validate packages/money && intent validate packages/jwt-auth"
   },
   "devDependencies": {
+    "@eristack/jwt-auth": "workspace:*",
     "@eristack/money": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "turbo": "^2.5.4",
@@ -19,7 +20,8 @@
   },
   "intent": {
     "skills": [
-      "workspace:@eristack/money"
+      "workspace:@eristack/money",
+      "workspace:@eristack/jwt-auth"
     ]
   },
   "packageManager": "pnpm@10.14.0",
