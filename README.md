@@ -11,6 +11,7 @@ EriStack aims to fill these gaps by implementing some of the well-known enterpri
 ## Packages
 
 - [`@eristack/money`](./packages/money) — JSR 354–inspired money primitives (see [`packages/money/docs`](./packages/money/docs))
+- [`@eristack/jwt-auth`](./packages/jwt-auth) — JWT access + refresh-token auth with Drizzle / REST / Express / Nest / React adapters
 
 ## AI agent skills
 
