@@ -1,7 +1,4 @@
-import {
-  createMemoryTokenStorage,
-  type TokenStorage,
-} from "./storage.js";
+import type { TokenStorage } from "./storage.js";
 
 export type AuthStatus = "unknown" | "authenticated" | "anonymous";
 
@@ -17,20 +14,45 @@ export interface TokenPairResponse {
   accessTokenExpiresAt: string;
   refreshTokenExpiresAt: string;
   tokenType: "Bearer";
+  sessionId?: string;
 }
 
+export interface AuthSessionResponse {
+  id: string;
+  familyId: string;
+  createdAt: string;
+  expiresAt: string;
+}
+
+export type MaybeAsync<T> = T | Promise<T>;
+
+/**
+ * All runtime dependencies are injected by the app.
+ * This client never creates DB connections, env readers, or framework routers.
+ */
 export interface JwtAuthClientConfig {
-  baseUrl: string;
-  storage?: TokenStorage;
+  /**
+   * API origin, or a getter so the app can resolve it at call time
+   * (env, feature flags, multi-tenant hosts, …).
+   */
+  baseUrl: string | (() => MaybeAsync<string>);
+  /** App-owned token persistence (memory, localStorage, SecureStore, …). */
+  storage: TokenStorage;
   refreshPath?: string;
   logoutPath?: string;
   logoutAllPath?: string;
   issuePath?: string;
+  loginPath?: string;
+  changePasswordPath?: string;
+  sessionsPath?: string;
   /** Refresh this many ms before access token expiry. Default 60_000. */
   refreshSkewMs?: number;
+  /** Injected fetch (defaults to global `fetch`). */
   fetch?: typeof fetch;
-  /** When true (default), send credentials for cookie-based refresh. */
-  credentials?: RequestCredentials;
+  /** Static value or getter for `credentials` (default `"include"`). */
+  credentials?: RequestCredentials | (() => MaybeAsync<RequestCredentials>);
+  /** Extra headers merged into every request (e.g. tenant id, CSRF). */
+  getHeaders?: () => MaybeAsync<Record<string, string>>;
 }
 
 export interface JwtAuthClient {
@@ -40,9 +62,20 @@ export interface JwtAuthClient {
   /** Persist tokens from an app-owned login response. */
   acceptTokenPair(pair: TokenPairResponse): Promise<void>;
   issue(input: { subject: string; claims?: Record<string, unknown> }): Promise<TokenPairResponse>;
+  login(input: {
+    username: string;
+    password: string;
+    claims?: Record<string, unknown>;
+  }): Promise<TokenPairResponse>;
+  changePassword(input: {
+    currentPassword: string;
+    newPassword: string;
+  }): Promise<void>;
   refresh(): Promise<TokenPairResponse>;
   logout(): Promise<void>;
   logoutAll(): Promise<void>;
+  listSessions(): Promise<AuthSessionResponse[]>;
+  revokeSession(sessionId: string): Promise<void>;
   /** Ensures a non-expired access token is available, refreshing if needed. */
   ensureAccessToken(): Promise<string | null>;
   dispose(): void;
@@ -54,11 +87,20 @@ function joinUrl(baseUrl: string, path: string): string {
   return `${base}${suffix}`;
 }
 
+async function resolveValue<T>(value: T | (() => MaybeAsync<T>)): Promise<T> {
+  return typeof value === "function"
+    ? await (value as () => MaybeAsync<T>)()
+    : value;
+}
+
 export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient {
-  const storage = config.storage ?? createMemoryTokenStorage();
+  if (!config.storage) {
+    throw new Error("createJwtAuthClient: storage is required (inject an app-owned TokenStorage)");
+  }
+
+  const storage = config.storage;
   const fetchImpl = config.fetch ?? fetch;
   const refreshSkewMs = config.refreshSkewMs ?? 60_000;
-  const credentials = config.credentials ?? "include";
   const listeners = new Set<(state: JwtAuthClientState) => void>();
 
   let state: JwtAuthClientState = {
@@ -128,38 +170,55 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
     return res.json() as Promise<unknown>;
   }
 
-  async function postJson(path: string, body?: unknown, accessToken?: string | null) {
+  function errorMessage(data: unknown, status: number): string {
+    if (
+      data &&
+      typeof data === "object" &&
+      "error" in data &&
+      data.error &&
+      typeof data.error === "object" &&
+      "message" in data.error
+    ) {
+      return String((data.error as { message: unknown }).message);
+    }
+    return `Request failed with ${status}`;
+  }
+
+  async function requestJson(
+    method: string,
+    path: string,
+    options?: { body?: unknown; accessToken?: string | null },
+  ) {
     const headers: Record<string, string> = {
       Accept: "application/json",
+      ...(config.getHeaders ? await config.getHeaders() : {}),
     };
-    if (body !== undefined) {
+    if (options?.body !== undefined) {
       headers["Content-Type"] = "application/json";
     }
-    if (accessToken) {
-      headers.Authorization = `Bearer ${accessToken}`;
+    if (options?.accessToken) {
+      headers.Authorization = `Bearer ${options.accessToken}`;
     }
 
-    const res = await fetchImpl(joinUrl(config.baseUrl, path), {
-      method: "POST",
+    const baseUrl = await resolveValue(config.baseUrl);
+    const credentials = await resolveValue(config.credentials ?? "include");
+
+    const res = await fetchImpl(joinUrl(baseUrl, path), {
+      method,
       headers,
       credentials,
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: options?.body === undefined ? undefined : JSON.stringify(options.body),
     });
 
     const data = await parseJson(res);
     if (!res.ok) {
-      const message =
-        data &&
-        typeof data === "object" &&
-        "error" in data &&
-        data.error &&
-        typeof data.error === "object" &&
-        "message" in data.error
-          ? String((data.error as { message: unknown }).message)
-          : `Request failed with ${res.status}`;
-      throw new Error(message);
+      throw new Error(errorMessage(data, res.status));
     }
     return data;
+  }
+
+  async function postJson(path: string, body?: unknown, accessToken?: string | null) {
+    return requestJson("POST", path, { body, accessToken });
   }
 
   const client: JwtAuthClient = {
@@ -185,6 +244,24 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
       const data = (await postJson(config.issuePath ?? "/auth/issue", input)) as TokenPairResponse;
       await persistPair(data);
       return data;
+    },
+
+    async login(input) {
+      const data = (await postJson(config.loginPath ?? "/auth/login", input)) as TokenPairResponse;
+      await persistPair(data);
+      return data;
+    },
+
+    async changePassword(input) {
+      const accessToken = await client.ensureAccessToken();
+      if (!accessToken) {
+        throw new Error("Not authenticated");
+      }
+      await postJson(
+        config.changePasswordPath ?? "/auth/change-password",
+        input,
+        accessToken,
+      );
     },
 
     async refresh() {
@@ -224,6 +301,29 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
       } finally {
         await clearSession();
       }
+    },
+
+    async listSessions() {
+      const accessToken = await client.ensureAccessToken();
+      if (!accessToken) {
+        throw new Error("Not authenticated");
+      }
+      const data = (await requestJson("GET", config.sessionsPath ?? "/auth/sessions", {
+        accessToken,
+      })) as { sessions?: AuthSessionResponse[] };
+      return Array.isArray(data.sessions) ? data.sessions : [];
+    },
+
+    async revokeSession(sessionId: string) {
+      if (!sessionId) {
+        throw new Error("sessionId is required");
+      }
+      const accessToken = await client.ensureAccessToken();
+      if (!accessToken) {
+        throw new Error("Not authenticated");
+      }
+      const path = `${config.sessionsPath ?? "/auth/sessions"}/${encodeURIComponent(sessionId)}`;
+      await requestJson("DELETE", path, { accessToken });
     },
 
     async ensureAccessToken() {

@@ -1,36 +1,39 @@
-# Express + `@eristack/jwt-auth`
+# Express + `@eristack/jwt-auth` (Drizzle SQLite injected)
 
-Minimal API showing the Express adapter:
+Injection path:
 
-- `createJwtAuth` + in-memory refresh store
-- `createJwtAuthRouter` → `/auth/issue|refresh|logout|logout-all`
-- `createExpressRequireAuth` → `GET /me`
+1. App schema: [`src/db/schema.ts`](./src/db/schema.ts) (uses jwt-auth table helper)
+2. App migrations: `pnpm db:generate` → committed under [`drizzle/`](./drizzle)
+3. App opens SQLite and runs `migrate()` — [`src/db/client.ts`](./src/db/client.ts)
+4. App injects `{ db, table }` into `createDrizzleRefreshTokenStore`
+
+No hand-written `CREATE TABLE`. Schema changes go through Drizzle Kit.
 
 ## Run
 
 ```bash
-# from repo root (builds jwt-auth if needed)
 pnpm --filter @eristack/jwt-auth build
+pnpm --filter @eristack/example-express db:generate   # after schema changes
 pnpm --filter @eristack/example-express dev
 ```
 
-Server defaults to `http://localhost:3001`.
+SQLite defaults to `data/express-jwt-auth.sqlite` (`SQLITE_PATH` to override).
+
+## DB scripts
+
+| Script | Purpose |
+| --- | --- |
+| `db:generate` | `drizzle-kit generate` from schema |
+| `db:studio` | Drizzle Studio |
+
+Startup applies pending migrations via `drizzle-orm/.../migrator`.
 
 ## Try it
 
 ```bash
-# issue tokens (stand-in for post-login)
 curl -s http://localhost:3001/auth/issue \
   -H 'content-type: application/json' \
   -d '{"subject":"user-1","claims":{"role":"admin"}}' | jq
-
-# copy accessToken / refreshToken from the response, then:
-curl -s http://localhost:3001/me \
-  -H "authorization: Bearer $ACCESS_TOKEN" | jq
-
-curl -s http://localhost:3001/auth/refresh \
-  -H 'content-type: application/json' \
-  -d "{\"refreshToken\":\"$REFRESH_TOKEN\"}" | jq
 ```
 
-Use this server as the backend for [`../react`](../react).
+Backend for [`../react`](../react).

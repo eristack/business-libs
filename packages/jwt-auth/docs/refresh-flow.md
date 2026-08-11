@@ -15,9 +15,12 @@ sidebar_position: 2
 
 ## Issue
 
-1. App authenticates the user (password, SSO, magic link, …)
-2. App calls `issueTokens({ subject, claims })`
-3. Core returns `{ accessToken, refreshToken, … }` and persists hashed refresh metadata with a new `familyId`
+1. Authenticate the user:
+   - **Password:** `login({ username, password })` (requires `credentials` store; hashes via scrypt)
+   - **SSO / magic link / custom:** verify in the app, then `issueTokens({ subject, claims })`
+2. Core returns `{ accessToken, refreshToken, … }` and persists hashed refresh metadata with a new `familyId`
+
+Credentials rows live in `jwt_auth_credentials` with `subject` = app user id (child of `users`, never a replacement for it).
 
 ## Refresh (rotation)
 
@@ -29,5 +32,19 @@ sidebar_position: 2
 
 ## Logout
 
-- `revoke(refreshToken)` — end one session
+- `revoke(refreshToken)` — end one session when the client still holds the refresh token
 - `revokeAllForSubject(subject)` — end every refresh family for that user
+
+## Sessions (device list)
+
+Active sessions are the non-revoked, non-expired refresh-token tips for a subject.
+
+- `listSessions(subject)` — safe metadata only (`id`, `familyId`, `createdAt`, `expiresAt`); never returns plaintext/hash
+- `revokeSession({ sessionId, subject })` — ownership-checked; revokes the whole refresh **family**
+
+HTTP (via REST / Express / Nest), both require `Authorization: Bearer <access>`:
+
+- `GET /auth/sessions`
+- `DELETE /auth/sessions/:sessionId`
+
+Token pair responses also include `sessionId` so clients can recognize the current device.

@@ -32,6 +32,11 @@ yarn-error.log*
 tmp/
 temp/
 
+# Example local databases
+*.sqlite
+*.sqlite-journal
+examples/**/data/
+
 # Test & coverage
 coverage/
 .nyc_output/

@@ -1,7 +1,10 @@
 import type { TokenPair } from "../core/types.js";
 import { toErrorResponse } from "./errors.js";
 import type {
+  AuthSessionBody,
+  ChangePasswordActionBody,
   IssueActionBody,
+  LoginActionBody,
   RestAuthConfig,
   RestRequest,
   RestResponse,
@@ -48,7 +51,16 @@ function toTokenPairBody(
     accessTokenExpiresAt: pair.accessTokenExpiresAt.toISOString(),
     refreshTokenExpiresAt: pair.refreshTokenExpiresAt.toISOString(),
     tokenType: "Bearer",
+    sessionId: pair.sessionId,
   };
+}
+
+function extractAccessToken(req: RestRequest): string | undefined {
+  const authHeader =
+    req.headers.get("authorization") ?? req.headers.get("Authorization");
+  if (!authHeader?.startsWith("Bearer ")) return undefined;
+  const token = authHeader.slice("Bearer ".length).trim();
+  return token || undefined;
 }
 
 function refreshCookieOptions(
@@ -110,6 +122,97 @@ export function createIssueAction(config: RestAuthConfig) {
       }
 
       return response;
+    } catch (error) {
+      return toErrorResponse(error);
+    }
+  };
+}
+
+export function createLoginAction(config: RestAuthConfig) {
+  return async (
+    req: RestRequest,
+  ): Promise<RestResponse<TokenPairBody | ReturnType<typeof toErrorResponse>["body"]>> => {
+    try {
+      const body = readBodyObject(req) as Partial<LoginActionBody>;
+      if (typeof body.username !== "string" || typeof body.password !== "string") {
+        return {
+          status: 400,
+          body: {
+            error: {
+              code: "INVALID_BODY",
+              message: "body.username and body.password are required",
+            },
+          },
+        };
+      }
+
+      const pair = await config.jwtAuth.login({
+        username: body.username,
+        password: body.password,
+        claims: body.claims,
+      });
+
+      const response: RestResponse<TokenPairBody> = {
+        status: 200,
+        body: toTokenPairBody(pair, includeRefreshInBody(config)),
+      };
+
+      if (shouldSetRefreshCookie(config)) {
+        response.cookies = [refreshCookieOptions(config, pair)];
+      }
+
+      return response;
+    } catch (error) {
+      return toErrorResponse(error);
+    }
+  };
+}
+
+export function createChangePasswordAction(config: RestAuthConfig) {
+  return async (
+    req: RestRequest,
+  ): Promise<RestResponse<{ ok: true } | ReturnType<typeof toErrorResponse>["body"]>> => {
+    try {
+      const accessToken = extractAccessToken(req);
+      if (!accessToken) {
+        return {
+          status: 401,
+          body: {
+            error: {
+              code: "MISSING_ACCESS_TOKEN",
+              message: "Authorization Bearer token required",
+            },
+          },
+        };
+      }
+
+      const body = readBodyObject(req) as Partial<ChangePasswordActionBody>;
+      if (
+        typeof body.currentPassword !== "string" ||
+        typeof body.newPassword !== "string"
+      ) {
+        return {
+          status: 400,
+          body: {
+            error: {
+              code: "INVALID_BODY",
+              message: "body.currentPassword and body.newPassword are required",
+            },
+          },
+        };
+      }
+
+      const verified = await config.jwtAuth.verifyAccessToken(accessToken);
+      await config.jwtAuth.changePassword({
+        subject: verified.subject,
+        currentPassword: body.currentPassword,
+        newPassword: body.newPassword,
+      });
+
+      return {
+        status: 200,
+        body: { ok: true },
+      };
     } catch (error) {
       return toErrorResponse(error);
     }
@@ -182,8 +285,8 @@ export function createLogoutAllAction(config: RestAuthConfig) {
     req: RestRequest,
   ): Promise<RestResponse<{ ok: true } | ReturnType<typeof toErrorResponse>["body"]>> => {
     try {
-      const authHeader = req.headers.get("authorization") ?? req.headers.get("Authorization");
-      if (!authHeader?.startsWith("Bearer ")) {
+      const accessToken = extractAccessToken(req);
+      if (!accessToken) {
         return {
           status: 401,
           body: {
@@ -195,7 +298,6 @@ export function createLogoutAllAction(config: RestAuthConfig) {
         };
       }
 
-      const accessToken = authHeader.slice("Bearer ".length).trim();
       const verified = await config.jwtAuth.verifyAccessToken(accessToken);
       await config.jwtAuth.revokeAllForSubject(verified.subject);
 
@@ -215,11 +317,109 @@ export function createLogoutAllAction(config: RestAuthConfig) {
   };
 }
 
+export function createListSessionsAction(config: RestAuthConfig) {
+  return async (
+    req: RestRequest,
+  ): Promise<
+    RestResponse<{ sessions: AuthSessionBody[] } | ReturnType<typeof toErrorResponse>["body"]>
+  > => {
+    try {
+      const accessToken = extractAccessToken(req);
+      if (!accessToken) {
+        return {
+          status: 401,
+          body: {
+            error: {
+              code: "MISSING_ACCESS_TOKEN",
+              message: "Authorization Bearer token required",
+            },
+          },
+        };
+      }
+
+      const verified = await config.jwtAuth.verifyAccessToken(accessToken);
+      const sessions = await config.jwtAuth.listSessions(verified.subject);
+
+      return {
+        status: 200,
+        body: {
+          sessions: sessions.map((session) => ({
+            id: session.id,
+            familyId: session.familyId,
+            createdAt: session.createdAt.toISOString(),
+            expiresAt: session.expiresAt.toISOString(),
+          })),
+        },
+      };
+    } catch (error) {
+      return toErrorResponse(error);
+    }
+  };
+}
+
+export function createRevokeSessionAction(config: RestAuthConfig) {
+  return async (
+    req: RestRequest,
+  ): Promise<RestResponse<{ ok: true } | ReturnType<typeof toErrorResponse>["body"]>> => {
+    try {
+      const accessToken = extractAccessToken(req);
+      if (!accessToken) {
+        return {
+          status: 401,
+          body: {
+            error: {
+              code: "MISSING_ACCESS_TOKEN",
+              message: "Authorization Bearer token required",
+            },
+          },
+        };
+      }
+
+      const body = readBodyObject(req);
+      const sessionId =
+        typeof body.sessionId === "string"
+          ? body.sessionId
+          : typeof req.params?.sessionId === "string"
+            ? req.params.sessionId
+            : undefined;
+
+      if (!sessionId) {
+        return {
+          status: 400,
+          body: {
+            error: {
+              code: "INVALID_BODY",
+              message: "sessionId is required",
+            },
+          },
+        };
+      }
+
+      const verified = await config.jwtAuth.verifyAccessToken(accessToken);
+      await config.jwtAuth.revokeSession({
+        sessionId,
+        subject: verified.subject,
+      });
+
+      return {
+        status: 200,
+        body: { ok: true },
+      };
+    } catch (error) {
+      return toErrorResponse(error);
+    }
+  };
+}
+
 export function createRestActions(config: RestAuthConfig) {
   return {
     issue: createIssueAction(config),
+    login: createLoginAction(config),
+    changePassword: createChangePasswordAction(config),
     refresh: createRefreshAction(config),
     logout: createLogoutAction(config),
     logoutAll: createLogoutAllAction(config),
+    listSessions: createListSessionsAction(config),
+    revokeSession: createRevokeSessionAction(config),
   };
 }

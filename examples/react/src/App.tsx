@@ -1,136 +1,250 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { AuthSessionResponse } from "@eristack/jwt-auth/client";
 import { useJwtAuth } from "@eristack/jwt-auth/react";
-
-type MeResponse = {
-  subject: string;
-  claims?: Record<string, unknown>;
-};
+import { Dashboard } from "./components/Dashboard.js";
+import { LoginForm } from "./components/LoginForm.js";
+import {
+  getCurrentSessionId,
+  setCurrentSessionId,
+} from "./lib/current-session.js";
+import { fetchMe, type MeResponse } from "./lib/me.js";
 
 export function App() {
   const {
+    client,
     status,
     accessToken,
     accessTokenExpiresAt,
-    issue,
-    refresh,
-    logout,
-    ensureAccessToken,
   } = useJwtAuth();
-  const [subject, setSubject] = useState("user-1");
+
   const [me, setMe] = useState<MeResponse | null>(null);
+  const [sessions, setSessions] = useState<AuthSessionResponse[]>([]);
+  const [currentSessionId, setCurrentSessionIdState] = useState<string | null>(
+    () => getCurrentSessionId(),
+  );
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [sessionsLoading, setSessionsLoading] = useState(false);
+  const [bootstrapping, setBootstrapping] = useState(true);
 
-  async function run(action: () => Promise<void>) {
+  const rememberSession = useCallback((sessionId: string | null) => {
+    setCurrentSessionId(sessionId);
+    setCurrentSessionIdState(sessionId);
+  }, []);
+
+  const clearLocal = useCallback(() => {
+    setMe(null);
+    setSessions([]);
+    rememberSession(null);
+  }, [rememberSession]);
+
+  const run = useCallback(async (action: () => Promise<void>) => {
     setBusy(true);
     setError(null);
     try {
       await action();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
+      throw err;
     } finally {
       setBusy(false);
     }
+  }, []);
+
+  const loadProfile = useCallback(async () => {
+    const token = await client.ensureAccessToken();
+    if (!token) {
+      setMe(null);
+      return;
+    }
+    setMe(await fetchMe(token));
+  }, [client]);
+
+  const loadSessions = useCallback(async () => {
+    setSessionsLoading(true);
+    try {
+      setSessions(await client.listSessions());
+    } finally {
+      setSessionsLoading(false);
+    }
+  }, [client]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function bootstrap() {
+      if (status === "unknown") return;
+
+      if (status !== "authenticated") {
+        if (!cancelled) {
+          clearLocal();
+          setBootstrapping(false);
+        }
+        return;
+      }
+
+      try {
+        await loadProfile();
+        await loadSessions();
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : String(err));
+        }
+      } finally {
+        if (!cancelled) setBootstrapping(false);
+      }
+    }
+
+    void bootstrap();
+    return () => {
+      cancelled = true;
+    };
+  }, [status, client, clearLocal, loadProfile, loadSessions]);
+
+  async function handleLogin(input: { username: string; password: string }) {
+    await run(async () => {
+      const pair = await client.login({
+        username: input.username,
+        password: input.password,
+      });
+      rememberSession(pair.sessionId ?? null);
+      await loadProfile();
+      await loadSessions();
+    });
   }
+
+  async function handleRefreshToken() {
+    await run(async () => {
+      const pair = await client.refresh();
+      if (pair.sessionId) rememberSession(pair.sessionId);
+      await loadProfile();
+      await loadSessions();
+    });
+  }
+
+  async function handleLogout() {
+    await run(async () => {
+      await client.logout();
+      clearLocal();
+    });
+  }
+
+  async function handleLogoutAll() {
+    await run(async () => {
+      await client.logoutAll();
+      clearLocal();
+    });
+  }
+
+  async function handleRevokeSession(sessionId: string) {
+    await run(async () => {
+      await client.revokeSession(sessionId);
+
+      if (sessionId === getCurrentSessionId()) {
+        // Family already revoked; clear local tokens without requiring a live refresh token.
+        try {
+          await client.logout();
+        } catch {
+          /* server session already gone */
+        }
+        clearLocal();
+        return;
+      }
+
+      await loadSessions();
+    });
+  }
+
+  const showLogin =
+    status === "anonymous" || (status === "unknown" && !bootstrapping);
 
   return (
     <main className="page">
       <header>
         <p className="eyebrow">@eristack/example-react</p>
-        <h1>Headless JWT auth</h1>
+        <h1>JWT auth demo</h1>
         <p className="lede">
-          Uses <code>JwtAuthProvider</code> / <code>useJwtAuth</code> against the
-          Express example. No login UI ships in the library — this page is yours.
+          Wired against the Express example: username/password login, profile,
+          active sessions, revoke, logout, and logout-all. UI is app-owned; the
+          library stays headless.
         </p>
       </header>
 
-      <section className="panel">
-        <h2>Session</h2>
-        <dl className="meta">
-          <div>
-            <dt>status</dt>
-            <dd>{status}</dd>
-          </div>
-          <div>
-            <dt>access token</dt>
-            <dd className="mono">{accessToken ? `${accessToken.slice(0, 24)}…` : "—"}</dd>
-          </div>
-          <div>
-            <dt>expires</dt>
-            <dd>{accessTokenExpiresAt ?? "—"}</dd>
-          </div>
-        </dl>
-      </section>
+      {bootstrapping && status === "unknown" ? (
+        <section className="panel">
+          <p className="lede">Restoring session…</p>
+        </section>
+      ) : null}
 
-      <section className="panel">
-        <h2>Actions</h2>
-        <label className="field">
-          Subject
-          <input
-            value={subject}
-            onChange={(event) => setSubject(event.target.value)}
-            disabled={busy}
-          />
-        </label>
-        <div className="actions">
-          <button
-            type="button"
-            disabled={busy || !subject}
-            onClick={() =>
-              run(async () => {
-                setMe(null);
-                await issue({ subject, claims: { role: "admin" } });
-              })
+      {showLogin ? (
+        <LoginForm
+          busy={busy}
+          error={error}
+          onLogin={async (input) => {
+            try {
+              await handleLogin(input);
+            } catch {
+              /* surfaced via error state */
             }
-          >
-            Issue tokens
-          </button>
-          <button
-            type="button"
-            disabled={busy || status !== "authenticated"}
-            onClick={() => run(async () => { await refresh(); })}
-          >
-            Refresh
-          </button>
-          <button
-            type="button"
-            disabled={busy || status !== "authenticated"}
-            onClick={() =>
-              run(async () => {
-                const token = await ensureAccessToken();
-                if (!token) {
-                  throw new Error("No access token available");
-                }
-                const response = await fetch("/me", {
-                  headers: { authorization: `Bearer ${token}` },
-                });
-                if (!response.ok) {
-                  throw new Error(`GET /me failed (${response.status})`);
-                }
-                setMe((await response.json()) as MeResponse);
-              })
+          }}
+        />
+      ) : null}
+
+      {status === "authenticated" ? (
+        <Dashboard
+          me={me}
+          status={status}
+          accessToken={accessToken}
+          accessTokenExpiresAt={accessTokenExpiresAt}
+          sessions={sessions}
+          currentSessionId={currentSessionId}
+          busy={busy}
+          sessionsLoading={sessionsLoading}
+          error={error}
+          onRefreshToken={async () => {
+            try {
+              await handleRefreshToken();
+            } catch {
+              /* surfaced via error state */
             }
-          >
-            GET /me
-          </button>
-          <button
-            type="button"
-            disabled={busy || status !== "authenticated"}
-            onClick={() =>
-              run(async () => {
-                setMe(null);
-                await logout();
-              })
+          }}
+          onReloadProfile={async () => {
+            try {
+              await run(loadProfile);
+            } catch {
+              /* surfaced via error state */
             }
-          >
-            Logout
-          </button>
-        </div>
-        {error ? <p className="error">{error}</p> : null}
-        {me ? (
-          <pre className="result">{JSON.stringify(me, null, 2)}</pre>
-        ) : null}
-      </section>
+          }}
+          onReloadSessions={async () => {
+            try {
+              await run(loadSessions);
+            } catch {
+              /* surfaced via error state */
+            }
+          }}
+          onRevokeSession={async (sessionId) => {
+            try {
+              await handleRevokeSession(sessionId);
+            } catch {
+              /* surfaced via error state */
+            }
+          }}
+          onLogout={async () => {
+            try {
+              await handleLogout();
+            } catch {
+              /* surfaced via error state */
+            }
+          }}
+          onLogoutAll={async () => {
+            try {
+              await handleLogoutAll();
+            } catch {
+              /* surfaced via error state */
+            }
+          }}
+        />
+      ) : null}
     </main>
   );
 }

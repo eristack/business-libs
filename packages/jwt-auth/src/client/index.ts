@@ -1,5 +1,6 @@
 export { createJwtAuthClient } from "./create-client.js";
 export type {
+  AuthSessionResponse,
   AuthStatus,
   JwtAuthClient,
   JwtAuthClientConfig,
