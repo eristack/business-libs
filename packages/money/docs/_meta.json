@@ -1,0 +1,15 @@
+{
+  "index": "Overview",
+  "getting-started": "Getting started",
+  "concepts": "Concepts",
+  "currency": "Currency",
+  "amounts": "Amounts",
+  "arithmetic": "Arithmetic",
+  "rounding": "Rounding",
+  "allocate": "Allocate & split",
+  "formatting": "Formatting",
+  "conversion": "Currency conversion",
+  "serialization": "Serialization",
+  "recipes": "ERP recipes",
+  "api-reference": "API reference"
+}

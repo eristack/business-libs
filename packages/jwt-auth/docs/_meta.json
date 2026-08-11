@@ -1,0 +1,8 @@
+{
+  "title": "@eristack/jwt-auth",
+  "pages": [
+    "index",
+    "refresh-flow",
+    "adapters"
+  ]
+}

@@ -7,11 +7,28 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "skills:list": "intent list",
+    "skills:validate": "intent validate packages/money && intent validate packages/jwt-auth",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install --lockfile-only",
+    "release": "changeset publish",
+    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm skills:validate"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.1",
+    "@eristack/jwt-auth": "workspace:*",
+    "@eristack/money": "workspace:*",
+    "@tanstack/intent": "^0.3.6",
     "turbo": "^2.5.4",
-    "typescript": "^5.9.2"
+    "typescript": "catalog:"
+  },
+  "intent": {
+    "skills": [
+      "workspace:@eristack/money",
+      "workspace:@eristack/jwt-auth"
+    ]
   },
   "packageManager": "pnpm@10.14.0",
   "engines": {

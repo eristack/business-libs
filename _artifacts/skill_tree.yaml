@@ -1,0 +1,78 @@
+# _artifacts/skill_tree.yaml
+library:
+  name: 'eristack/business-libs'
+  version: '0.0.0'
+  repository: 'https://github.com/eristack/business-libs'
+  description: 'Eristack business primitives monorepo (money, jwt-auth, …)'
+generated_from:
+  domain_map: '_artifacts/domain_map.yaml'
+  skill_spec: '_artifacts/skill_spec.md'
+generated_at: '2026-08-10'
+
+skills:
+  - name: 'Money amounts'
+    slug: 'money-amounts'
+    type: 'core'
+    domain: 'monetary-amounts'
+    path: 'skills/money-amounts/SKILL.md'
+    package: 'packages/money'
+    description: >
+      Construct Money with strings or minor units, run same-currency arithmetic,
+      compare amounts. Use when creating prices, taxes, discounts, or totals with
+      @eristack/money Money.of Money.ofMinor CurrencyMismatchError.
+    sources:
+      - 'eristack/business-libs:packages/money/docs/getting-started.md'
+      - 'eristack/business-libs:packages/money/docs/concepts.md'
+      - 'eristack/business-libs:packages/money/docs/amounts.md'
+      - 'eristack/business-libs:packages/money/docs/arithmetic.md'
+      - 'eristack/business-libs:packages/money/src/amount/money.ts'
+
+  - name: 'Money ledger'
+    slug: 'money-ledger'
+    type: 'core'
+    domain: 'ledger-operations'
+    path: 'skills/money-ledger/SKILL.md'
+    package: 'packages/money'
+    description: >
+      Round at ledger boundaries, allocate without losing cents, convert with
+      app-supplied FX rates, serialize Money as JSON decimal strings. Use for
+      invoices, payment splits, multi-currency reporting with Rounding Conversion allocate.
+    sources:
+      - 'eristack/business-libs:packages/money/docs/rounding.md'
+      - 'eristack/business-libs:packages/money/docs/allocate.md'
+      - 'eristack/business-libs:packages/money/docs/conversion.md'
+      - 'eristack/business-libs:packages/money/docs/serialization.md'
+      - 'eristack/business-libs:packages/money/docs/recipes.md'
+
+  - name: 'JWT auth core'
+    slug: 'jwt-auth-core'
+    type: 'core'
+    domain: 'jwt-token-lifecycle'
+    path: 'skills/jwt-auth-core/SKILL.md'
+    package: 'packages/jwt-auth'
+    description: >
+      Pure @eristack/jwt-auth token lifecycle: createJwtAuth, issueTokens,
+      verifyAccessToken, refresh rotation, revoke, RefreshTokenReuseError.
+    sources:
+      - 'eristack/business-libs:packages/jwt-auth/docs/index.md'
+      - 'eristack/business-libs:packages/jwt-auth/docs/refresh-flow.md'
+      - 'eristack/business-libs:packages/jwt-auth/src/core/create-jwt-auth.ts'
+      - 'eristack/business-libs:packages/jwt-auth/src/core/types.ts'
+
+  - name: 'JWT auth adapters'
+    slug: 'jwt-auth-adapters'
+    type: 'core'
+    domain: 'jwt-adapters'
+    path: 'skills/jwt-auth-adapters/SKILL.md'
+    package: 'packages/jwt-auth'
+    description: >
+      @eristack/jwt-auth adapters for drizzle pgsql/mysql/sqlite, rest, express,
+      nest, client, and headless react bindings.
+    sources:
+      - 'eristack/business-libs:packages/jwt-auth/docs/adapters.md'
+      - 'eristack/business-libs:packages/jwt-auth/src/drizzle/table.ts'
+      - 'eristack/business-libs:packages/jwt-auth/src/rest/actions.ts'
+      - 'eristack/business-libs:packages/jwt-auth/src/express/router.ts'
+      - 'eristack/business-libs:packages/jwt-auth/src/nest/module.ts'
+      - 'eristack/business-libs:packages/jwt-auth/src/client/create-client.ts'
+      - 'eristack/business-libs:packages/jwt-auth/src/react/hooks.ts'
