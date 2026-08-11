@@ -29,12 +29,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14
+          # npm 12+ needs Node ^22.22.2; track current Node 22 for OIDC publish
+          node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
       - name: Upgrade npm (OIDC trusted publishing)
-        run: npm install -g npm@latest
+        # Pin major: npm@latest can require a newer Node than the runner has yet
+        run: npm install -g npm@11
 
       - name: Install
         run: pnpm install --frozen-lockfile
@@ -52,4 +54,8 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # changesets/action writes ~/.npmrc from NPM_TOKEN
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # setup-node (registry-url) writes an .npmrc that reads NODE_AUTH_TOKEN;
+          # without this, publish looks unauthenticated and npm returns 404
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
