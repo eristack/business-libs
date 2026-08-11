@@ -58,6 +58,31 @@ feature/* ──PR──► main ──(changesets)──► Version Packages PR
 
 ### One-time npm setup
 
-1. Create the `@eristack` org (or packages) on [npmjs.com](https://www.npmjs.com/) if needed.
-2. Add a granular npm automation token as the repo secret `NPM_TOKEN` (Settings → Secrets → Actions).
-3. Optional but recommended: after the first publish, configure [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers) for this repo’s `release.yml` workflow (OIDC). You can then remove `NPM_TOKEN`.
+Packages are not on npm yet, so the first publish needs a classic/granular **automation** token. Trusted Publishing (OIDC) can be added after that.
+
+1. **Own the scope** — sign in at [npmjs.com](https://www.npmjs.com/) and create an `@eristack` [organization](https://www.npmjs.com/org/create) (or ensure your user can publish under that scope).
+
+2. **Create a granular access token** — [npmjs.com/settings/~/tokens](https://www.npmjs.com/settings/~/tokens) → Generate New Token → **Granular Access Token**:
+   - Token name: `business-libs-github-actions`
+   - Expiration: your choice (or no expiry if you prefer)
+   - Packages and scopes: select **`@eristack`** with **Read and write**
+   - Permissions: **Automation** (required for CI; bypasses 2FA on publish)
+
+3. **Add the GitHub Actions secret** — in [eristack/business-libs](https://github.com/eristack/business-libs) → Settings → Secrets and variables → Actions → New repository secret:
+   - Name: `NPM_TOKEN`
+   - Value: the token from step 2
+
+   Or with the GitHub CLI:
+
+   ```bash
+   gh secret set NPM_TOKEN -R eristack/business-libs
+   # paste the token when prompted
+   ```
+
+4. **After the first successful publish** (optional) — on each package’s npm Settings → Trusted Publisher, add GitHub Actions:
+   - Organization or user: `eristack`
+   - Repository: `business-libs`
+   - Workflow filename: `release.yml`
+   - Allowed actions: `npm publish`
+
+   The release workflow already has `id-token: write` for OIDC. Once trusted publishing works, you can revoke `NPM_TOKEN`.
