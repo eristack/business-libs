@@ -42,10 +42,21 @@ pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Commits / PRs:** only when the user asks.
 
+## Examples
+
+Prefer `examples/*` when validating or demonstrating framework wiring:
+
+- `examples/express` — Express router + require-auth
+- `examples/nestjs` — Nest module + guard + controller
+- `examples/react` — headless client/provider against the Express example
+
+Do not invent alternate Express/Nest/React integration patterns when an example already shows the supported one. Examples are private and ignored by Changesets.
+
 ## Monorepo layout
 
 - `packages/money` — `@eristack/money`
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `examples/*` — private runnable demos (not published)
 - `.changeset/` — pending release notes for Changesets
 - `.github/workflows/ci.yml` — PR/main checks
 - `.github/workflows/release.yml` — Version Packages PR + npm publish on `main`

@@ -17,6 +17,18 @@ EriStack fills those gaps with small, well-scoped libraries inspired by establis
 
 Each package has its own README and docs under `packages/<name>/`.
 
+## Examples
+
+Framework demos under [`examples/`](./examples) exercise the real adapters (especially `@eristack/jwt-auth`):
+
+| Example | Command |
+| --- | --- |
+| Express API | `pnpm --filter @eristack/example-express dev` |
+| NestJS API | `pnpm --filter @eristack/example-nestjs dev` |
+| React client (needs Express) | `pnpm --filter @eristack/example-react dev` |
+
+See [`examples/README.md`](./examples/README.md).
+
 ## Local development
 
 ```bash
