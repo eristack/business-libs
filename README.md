@@ -19,11 +19,18 @@ Each package has its own README and docs under `packages/<name>/`.
 
 ## Website
 
-The public site lives in [`apps/web`](./apps/web) (Next.js + Tailwind + shadcn): landing, package marketing, and docs rendered from `packages/*/docs`.
+The public site lives in [`apps/web`](./apps/web) (Next.js 16 + Tailwind + shadcn):
+
+- Landing, packages, blog, story, philosophy, maintainers, support/partners
+- Library docs rendered from `packages/*/docs` (single source of truth)
+- Cmd/Ctrl+K search across pages and package docs
 
 ```bash
-pnpm --filter @eristack/web dev
+pnpm web
+# or: pnpm --filter @eristack/web dev
 ```
+
+Eristack is a subsidiary of [erista.id](https://erista.id). Agent working notes go in [`_ai-docs/`](./_ai-docs/) while a feature is in progress; promote into package/web docs when finished, then delete the topic folder.
 
 ## Examples
 

@@ -74,8 +74,17 @@ Desktop.ini
 .classpath
 .settings/
 
-# Cursor (local agent/session state)
-.cursor/
+# Cursor (local agent/session state) — keep shared rules tracked
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# AI working notes (WIP) — keep README + template; ignore task folders
+_ai-docs/**
+!_ai-docs/README.md
+!_ai-docs/_template/
+!_ai-docs/_template/**
+
 
 # Optional local tooling
 .vercel/

@@ -10,6 +10,8 @@ export type DocMeta = {
   description?: string;
   slug: string;
   href: string;
+  /** Repo-relative path — package docs are the source of truth. */
+  sourcePath: string;
 };
 
 export type DocPage = DocMeta & {
@@ -21,6 +23,10 @@ const repoRoot = path.resolve(process.cwd(), "../..");
 
 function docsDir(packageSlug: string) {
   return path.join(repoRoot, "packages", packageSlug, "docs");
+}
+
+export function docSourcePath(packageSlug: string, slug: string) {
+  return `packages/${packageSlug}/docs/${slug}.md`;
 }
 
 function readMetaOrder(packageSlug: string): string[] {
@@ -80,6 +86,7 @@ export function listDocs(packageSlug: DocPackageSlug): DocMeta[] {
             slug === "index"
               ? `/docs/${packageSlug}`
               : `/docs/${packageSlug}/${slug}`,
+          sourcePath: docSourcePath(packageSlug, slug),
         } satisfies DocMeta,
       ] as const;
     }),
@@ -119,6 +126,7 @@ export function getDoc(
     description: data.description,
     href:
       slug === "index" ? `/docs/${packageSlug}` : `/docs/${packageSlug}/${slug}`,
+    sourcePath: docSourcePath(packageSlug, slug),
     content,
   };
 }

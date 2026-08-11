@@ -1,0 +1,29 @@
+---
+description: Document WIP in _ai-docs/, promote to package/web docs when finished, then delete AI notes
+alwaysApply: true
+---
+
+# AI working documentation
+
+## While working
+
+1. For any non-trivial change, keep notes under `_ai-docs/<topic>/` (create the folder if needed).
+2. Notes must be **good enough to draft public docs** later: problem, decisions, APIs, edge cases, examples, migration notes.
+3. Prefer short markdown files (`overview.md`, `api.md`, `decisions.md`) over chat-only memory.
+4. Update the AI notes as the implementation changes — do not leave them stale.
+
+## When the user says work is finished
+
+1. Promote content into the real docs:
+   - Package guides: `packages/<name>/docs/`
+   - Public site copy (landing, story, support, etc.): `apps/web/`
+   - Skills if Intent guidance changed: `packages/<name>/skills/`
+2. Keep package docs as the **source of truth**; the web app renders `packages/*/docs`.
+3. Delete the corresponding `_ai-docs/<topic>/` folder after promotion.
+4. Do not leave AI working notes as the only documentation.
+
+## Do not
+
+- Put final user-facing docs only in `_ai-docs/`
+- Commit secrets or tokens into AI notes
+- Skip promotion because “the code is obvious”

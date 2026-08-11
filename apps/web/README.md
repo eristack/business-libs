@@ -4,7 +4,7 @@ Public website for Eristack: landing, marketing, docs, blog, and company pages.
 
 ## Stack
 
-- Next.js (App Router) + TypeScript
+- Next.js 16 (App Router, Turbopack) + React 19.2 + TypeScript
 - Tailwind CSS v4 + Inter / JetBrains Mono
 - shadcn/ui primitives
 - Docs from `packages/*/docs/*.md`
@@ -19,18 +19,24 @@ pnpm --filter @eristack/web dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Docs source of truth
+
+Library guides are **not duplicated** here. `apps/web` reads `packages/*/docs` at build/runtime (`src/lib/docs.ts`). Edit package markdown; the site and Cmd/Ctrl+K search pick it up.
+
 ## Routes
 
 | Path | Purpose |
 | --- | --- |
 | `/` | Landing |
 | `/packages` | Package marketing |
-| `/docs/...` | Package documentation |
+| `/docs/...` | Package documentation (from `packages/*/docs`) |
 | `/blog` | Blog index + posts |
 | `/support` | Support, enterprise, partners |
 | `/story` | Origin story |
 | `/philosophy` | Product tenets |
 | `/maintainers` | Maintainers |
+
+**Search:** Cmd/Ctrl+K (or the Search control in the navbar).
 
 ## Build
 

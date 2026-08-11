@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { CommandMenuHost } from "@/components/command-menu-host";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/lib/site";
@@ -43,7 +44,7 @@ export default function RootLayout({
         className={`${sans.variable} ${mono.variable} min-h-screen font-sans antialiased`}
       >
         <div className="flex min-h-screen flex-col">
-          <SiteHeader />
+          <SiteHeader search={<CommandMenuHost />} />
           <main className="flex-1">{children}</main>
           <SiteFooter />
         </div>

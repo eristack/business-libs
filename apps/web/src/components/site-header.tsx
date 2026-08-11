@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -14,7 +15,11 @@ import {
 import { cn } from "@/lib/utils";
 import { companyNav, primaryNav, siteConfig } from "@/lib/site";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  search?: ReactNode;
+};
+
+export function SiteHeader({ search }: SiteHeaderProps) {
   const pathname = usePathname();
   const mobileLinks = [...primaryNav, ...companyNav];
 
@@ -53,49 +58,52 @@ export function SiteHeader() {
           </nav>
         </div>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="ghost" size="sm">
-            <Link href="/philosophy">Philosophy</Link>
-          </Button>
-          <Button asChild size="sm">
-            <a href={siteConfig.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-          </Button>
-        </div>
+        <div className="flex items-center gap-2">
+          {search}
+          <div className="hidden items-center gap-2 lg:flex">
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/philosophy">Philosophy</Link>
+            </Button>
+            <Button asChild size="sm">
+              <a href={siteConfig.github} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+            </Button>
+          </div>
 
-        <div className="lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open menu">
-                <Menu />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <SheetHeader>
-                <SheetTitle>{siteConfig.name}</SheetTitle>
-              </SheetHeader>
-              <div className="mt-8 flex flex-col gap-3">
-                {mobileLinks.map((link) => (
-                  <Link
-                    key={`${link.href}-${link.label}`}
-                    href={link.href}
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Open menu">
+                  <Menu />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle>{siteConfig.name}</SheetTitle>
+                </SheetHeader>
+                <div className="mt-8 flex flex-col gap-3">
+                  {mobileLinks.map((link) => (
+                    <Link
+                      key={`${link.href}-${link.label}`}
+                      href={link.href}
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  <a
+                    href={siteConfig.github}
+                    target="_blank"
+                    rel="noreferrer"
                     className="text-sm font-semibold text-foreground"
                   >
-                    {link.label}
-                  </Link>
-                ))}
-                <a
-                  href={siteConfig.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  GitHub
-                </a>
-              </div>
-            </SheetContent>
-          </Sheet>
+                    GitHub
+                  </a>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>
