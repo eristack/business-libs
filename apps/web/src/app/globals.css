@@ -1,0 +1,224 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --background: #fafafa;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #2563eb;
+  --ink: #18181b;
+  --docs-rail: #f4f4f5;
+  --docs-code: #18181b;
+  --radius: 0.375rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-docs-rail: var(--docs-rail);
+  --color-docs-code: var(--docs-code);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 22%, white);
+  }
+}
+
+@layer utilities {
+  .animate-rise {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-rise-delay-1 {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+  }
+
+  .animate-rise-delay-2 {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+  }
+
+  .animate-rise-delay-3 {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+  }
+
+  .hero-noise {
+    background-image:
+      radial-gradient(circle at 18% 12%, rgb(37 99 235 / 0.12), transparent 40%),
+      radial-gradient(circle at 88% 8%, rgb(24 24 27 / 0.06), transparent 34%),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.4), var(--background));
+  }
+
+  .hero-orbit {
+    background-image:
+      linear-gradient(to right, rgb(24 24 27 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(24 24 27 / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
+    animation: drift 18s linear infinite;
+  }
+}
+
+@keyframes drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 56px 56px;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Docs prose — Inter density + distinctive code rail */
+.prose-docs {
+  @apply max-w-none text-[15px] leading-7 text-foreground;
+}
+
+.prose-docs > :first-child {
+  margin-top: 0;
+}
+
+.prose-docs h1 {
+  @apply mb-3 text-[1.875rem] font-semibold tracking-tight;
+}
+
+.prose-docs h2 {
+  @apply mt-12 mb-3 scroll-mt-24 border-t border-border pt-8 text-xl font-semibold tracking-tight;
+}
+
+.prose-docs h3 {
+  @apply mt-8 mb-2 text-base font-semibold tracking-tight;
+}
+
+.prose-docs p {
+  @apply my-4 text-zinc-700;
+}
+
+.prose-docs a {
+  @apply font-medium text-accent underline decoration-accent/25 underline-offset-[3px] transition-colors hover:decoration-accent;
+}
+
+.prose-docs ul,
+.prose-docs ol {
+  @apply my-4 pl-5 text-zinc-700;
+}
+
+.prose-docs ul {
+  list-style: disc;
+}
+
+.prose-docs ol {
+  list-style: decimal;
+}
+
+.prose-docs li {
+  @apply my-1.5 pl-1;
+}
+
+.prose-docs li::marker {
+  color: #a1a1aa;
+}
+
+.prose-docs code:not(pre code) {
+  @apply rounded-[4px] border border-border bg-zinc-100 px-1.5 py-0.5 font-mono text-[12.5px] text-zinc-800;
+}
+
+.prose-docs pre {
+  @apply my-6 overflow-x-auto rounded-lg border border-zinc-800 bg-docs-code p-4 text-[13px] leading-6 text-zinc-100 shadow-[inset_3px_0_0_0_#2563eb];
+}
+
+.prose-docs pre code {
+  @apply bg-transparent p-0 font-mono text-[13px];
+}
+
+.prose-docs pre [data-line] {
+  @apply px-0;
+}
+
+.prose-docs table {
+  @apply my-6 w-full border-collapse overflow-hidden rounded-lg border border-border text-sm;
+}
+
+.prose-docs th,
+.prose-docs td {
+  @apply border-b border-border px-3 py-2.5 text-left;
+}
+
+.prose-docs th {
+  @apply bg-zinc-50 text-xs font-semibold tracking-wide text-zinc-600 uppercase;
+}
+
+.prose-docs tr:last-child td {
+  @apply border-b-0;
+}
+
+.prose-docs blockquote {
+  @apply my-6 rounded-r-md border-l-[3px] border-accent bg-blue-50/60 py-3 pr-4 pl-4 text-zinc-700;
+}
+
+.prose-docs hr {
+  @apply my-10 border-border;
+}
+
+.prose-docs strong {
+  @apply font-semibold text-foreground;
+}

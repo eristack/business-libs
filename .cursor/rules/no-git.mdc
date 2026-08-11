@@ -1,0 +1,17 @@
+---
+description: Never run git, commits, PRs, pushes, or any VCS operations
+alwaysApply: true
+---
+
+# No git — absolute taboo
+
+Never perform any git or GitHub VCS action. This includes, but is not limited to:
+
+- `git` commands of any kind (`status`, `diff`, `log`, `add`, `commit`, `push`, `pull`, `checkout`, `branch`, `rebase`, `merge`, …)
+- Creating, amending, or suggesting the agent will create commits
+- Opening, updating, or merging pull requests (`gh pr …`)
+- Pushing, force-pushing, tagging, or releasing via git/gh
+
+If the user asks for a commit or PR, refuse and remind them this is taboo for the agent — they handle all version control themselves.
+
+Code edits, docs, builds, and tests are fine. Version control is not.

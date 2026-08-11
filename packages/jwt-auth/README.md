@@ -170,6 +170,10 @@ function Profile() {
 
 ## Docs
 
+- **Source of truth:** [`docs/`](./docs/)
+- **Website:** rendered by [`apps/web`](../../apps/web) at `/docs/jwt-auth` (Cmd/Ctrl+K search on the site)
+
 - [Overview](./docs/index.md)
 - [Refresh-token flow](./docs/refresh-flow.md)
 - [Adapters](./docs/adapters.md)
+

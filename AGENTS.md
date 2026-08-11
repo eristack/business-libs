@@ -40,7 +40,8 @@ pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 - **Money:** never use JS number literals for currency amounts; use `@eristack/money` (`Money.of` / `Money.ofMinor`).
 - **Releases:** user-facing package changes need a Changeset (`pnpm changeset`). Docs-only / CI-only changes do not. Publishing happens only after the Version Packages PR merges to `main`.
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
-- **Commits / PRs:** only when the user asks.
+- **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
+- **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
 
 ## Examples
 
@@ -52,10 +53,20 @@ Prefer `examples/*` when validating or demonstrating framework wiring:
 
 Do not invent alternate Express/Nest/React integration patterns when an example already shows the supported one. Examples are private and ignored by Changesets.
 
+## Docs: package ↔ web
+
+- **Source of truth for library guides:** `packages/<name>/docs/*.md` (+ `_meta.json` for sidebar order).
+- **Web renders those files** via `apps/web/src/lib/docs.ts` (no duplicate markdown in the app).
+- **Site-only pages** (story, support, philosophy, blog posts) live under `apps/web/`.
+- When promoting AI notes for a library change, update `packages/*/docs` first; the site picks them up automatically. Update `apps/web` only for marketing/company copy or search/nav wiring.
+- Web docs UI links back to the GitHub source path for each page.
+
 ## Monorepo layout
 
 - `packages/money` — `@eristack/money`
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `apps/web` — public Next.js site (landing, marketing, docs from `packages/*/docs`, Cmd/Ctrl+K search)
+- `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)
 - `.changeset/` — pending release notes for Changesets
 - `.github/workflows/ci.yml` — PR/main checks

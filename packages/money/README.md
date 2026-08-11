@@ -28,7 +28,10 @@ console.log(total.toJSON());
 
 ## Documentation
 
-Full guides (docs-site ready) live in [`docs/`](./docs/):
+- **Source of truth:** [`docs/`](./docs/) (markdown + [`docs/_meta.json`](./docs/_meta.json))
+- **Website:** rendered by [`apps/web`](../../apps/web) at `/docs/money` (Cmd/Ctrl+K search on the site)
+
+Guides:
 
 - [Overview](./docs/index.md)
 - [Getting started](./docs/getting-started.md)
@@ -36,7 +39,6 @@ Full guides (docs-site ready) live in [`docs/`](./docs/):
 - [ERP recipes](./docs/recipes.md)
 - [API reference](./docs/api-reference.md)
 
-The `docs/` folder is plain markdown with frontmatter and [`docs/_meta.json`](./docs/_meta.json) so it can be mounted by a future documentation website in another repository.
 
 ## AI agent skills
 

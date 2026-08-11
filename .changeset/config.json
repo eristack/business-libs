@@ -10,6 +10,7 @@
   "ignore": [
     "@eristack/example-express",
     "@eristack/example-nestjs",
-    "@eristack/example-react"
+    "@eristack/example-react",
+    "@eristack/web"
   ]
 }
