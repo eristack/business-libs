@@ -14,7 +14,8 @@
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install --lockfile-only",
     "release": "changeset publish",
-    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm skills:validate"
+    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm skills:validate",
+    "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",

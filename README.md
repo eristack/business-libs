@@ -17,6 +17,14 @@ EriStack fills those gaps with small, well-scoped libraries inspired by establis
 
 Each package has its own README and docs under `packages/<name>/`.
 
+## Website
+
+The public site lives in [`apps/web`](./apps/web) (Next.js + Tailwind + shadcn): landing, package marketing, and docs rendered from `packages/*/docs`.
+
+```bash
+pnpm --filter @eristack/web dev
+```
+
 ## Examples
 
 Framework demos under [`examples/`](./examples) exercise the real adapters (especially `@eristack/jwt-auth`):

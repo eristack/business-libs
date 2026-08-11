@@ -56,6 +56,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 
 - `packages/money` — `@eristack/money`
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `apps/web` — public Next.js site (landing, marketing, docs from `packages/*/docs`)
 - `examples/*` — private runnable demos (not published)
 - `.changeset/` — pending release notes for Changesets
 - `.github/workflows/ci.yml` — PR/main checks
