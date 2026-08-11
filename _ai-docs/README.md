@@ -23,3 +23,5 @@ _ai-docs/
 ```
 
 WIP task folders are gitignored; this README is tracked.
+
+Agents must never run git/commit/PR operations — humans own version control.
