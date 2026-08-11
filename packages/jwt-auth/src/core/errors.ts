@@ -35,3 +35,31 @@ export class ConfigurationError extends JwtAuthError {
     this.name = "ConfigurationError";
   }
 }
+
+export class SessionNotFoundError extends JwtAuthError {
+  constructor(message = "Session not found") {
+    super("SESSION_NOT_FOUND", message);
+    this.name = "SessionNotFoundError";
+  }
+}
+
+export class InvalidCredentialsError extends JwtAuthError {
+  constructor(message = "Invalid username or password") {
+    super("INVALID_CREDENTIALS", message);
+    this.name = "InvalidCredentialsError";
+  }
+}
+
+export class UsernameTakenError extends JwtAuthError {
+  constructor(message = "Username is already taken") {
+    super("USERNAME_TAKEN", message);
+    this.name = "UsernameTakenError";
+  }
+}
+
+export class CredentialNotFoundError extends JwtAuthError {
+  constructor(message = "Credentials not found") {
+    super("CREDENTIAL_NOT_FOUND", message);
+    this.name = "CredentialNotFoundError";
+  }
+}

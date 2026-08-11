@@ -1,8 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
   Headers,
   Inject,
+  Param,
   Post,
   Req,
   Res,
@@ -17,7 +20,11 @@ import {
 } from "../rest/index.js";
 import { JWT_AUTH_REST_CONFIG } from "./tokens.js";
 
-function toRestRequest(req: Request, body: unknown) {
+function toRestRequest(
+  req: Request,
+  body: unknown,
+  params?: Record<string, string | undefined>,
+) {
   return {
     method: req.method,
     headers: {
@@ -34,6 +41,7 @@ function toRestRequest(req: Request, body: unknown) {
       },
     },
     body,
+    params,
   };
 }
 
@@ -73,6 +81,27 @@ export class JwtAuthController {
     applyRestResponse(res, await this.actions.issue(toRestRequest(req, body)));
   }
 
+  @Post("login")
+  async login(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Body() body: unknown,
+  ): Promise<void> {
+    applyRestResponse(res, await this.actions.login(toRestRequest(req, body)));
+  }
+
+  @Post("change-password")
+  async changePassword(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Body() body: unknown,
+  ): Promise<void> {
+    applyRestResponse(
+      res,
+      await this.actions.changePassword(toRestRequest(req, body)),
+    );
+  }
+
   @Post("refresh")
   async refresh(
     @Req() req: Request,
@@ -99,5 +128,26 @@ export class JwtAuthController {
     @Headers("authorization") _authorization?: string,
   ): Promise<void> {
     applyRestResponse(res, await this.actions.logoutAll(toRestRequest(req, body)));
+  }
+
+  @Get("sessions")
+  async listSessions(
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<void> {
+    applyRestResponse(res, await this.actions.listSessions(toRestRequest(req, undefined)));
+  }
+
+  @Delete("sessions/:sessionId")
+  async revokeSession(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Param("sessionId") sessionId: string,
+    @Body() body: unknown,
+  ): Promise<void> {
+    applyRestResponse(
+      res,
+      await this.actions.revokeSession(toRestRequest(req, body, { sessionId })),
+    );
   }
 }

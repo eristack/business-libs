@@ -1,5 +1,12 @@
 import type { RefreshTokenRecord, RefreshTokenStore } from "./types.js";
 
+function clone(record: RefreshTokenRecord): RefreshTokenRecord {
+  return {
+    ...record,
+    claims: record.claims ? { ...record.claims } : undefined,
+  };
+}
+
 /** In-memory store for tests and ephemeral use. */
 export function createMemoryRefreshTokenStore(): RefreshTokenStore {
   const byId = new Map<string, RefreshTokenRecord>();
@@ -7,7 +14,7 @@ export function createMemoryRefreshTokenStore(): RefreshTokenStore {
 
   return {
     async save(record) {
-      byId.set(record.id, { ...record, claims: record.claims ? { ...record.claims } : undefined });
+      byId.set(record.id, clone(record));
       byHash.set(record.tokenHash, record.id);
     },
 
@@ -15,7 +22,25 @@ export function createMemoryRefreshTokenStore(): RefreshTokenStore {
       const id = byHash.get(tokenHash);
       if (!id) return null;
       const record = byId.get(id);
-      return record ? { ...record, claims: record.claims ? { ...record.claims } : undefined } : null;
+      return record ? clone(record) : null;
+    },
+
+    async findById(id) {
+      const record = byId.get(id);
+      return record ? clone(record) : null;
+    },
+
+    async listActiveBySubject(subject, now) {
+      const nowMs = now.getTime();
+      return [...byId.values()]
+        .filter(
+          (record) =>
+            record.subject === subject &&
+            record.revokedAt == null &&
+            record.expiresAt.getTime() > nowMs,
+        )
+        .map(clone)
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     },
 
     async revoke(id, revokedAt) {

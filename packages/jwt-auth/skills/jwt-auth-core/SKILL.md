@@ -1,10 +1,11 @@
 ---
 name: jwt-auth-core
 description: >
-  Pure @eristack/jwt-auth token lifecycle: createJwtAuth, issueTokens,
-  verifyAccessToken, refresh rotation, revoke, RefreshTokenStore, opaque
-  refresh hashes, family reuse detection, RefreshTokenReuseError. Use when
-  implementing JWT access + refresh without passwords/HTTP/DB frameworks.
+  Pure @eristack/jwt-auth token + credentials lifecycle: createJwtAuth,
+  registerCredentials, login, changePassword, issueTokens, verifyAccessToken,
+  refresh rotation, revoke, CredentialStore, RefreshTokenStore, opaque refresh
+  hashes, family reuse detection. Use when implementing JWT access + refresh
+  and optional username/password without HTTP/DB frameworks.
 metadata:
   type: core
   library: '@eristack/jwt-auth'
@@ -18,104 +19,104 @@ sources:
 
 # @eristack/jwt-auth — Core Token Lifecycle
 
-Business-only auth primitives. No HTTP, Drizzle, Express, Nest, or React in this entry. App authenticates the user, then calls `issueTokens`.
+Business-only auth primitives. No HTTP, Drizzle, Express, Nest, or React in this entry.
 
 ## Setup
 
 ```ts
-import { createJwtAuth, createMemoryRefreshTokenStore } from "@eristack/jwt-auth";
+import {
+  createJwtAuth,
+  createMemoryCredentialStore,
+  createMemoryRefreshTokenStore,
+} from "@eristack/jwt-auth";
 
 const auth = createJwtAuth({
   accessSecret: process.env.JWT_ACCESS_SECRET!,
   store: createMemoryRefreshTokenStore(),
+  credentials: createMemoryCredentialStore(), // required for login
   accessTokenTtl: "15m",
   refreshTokenTtl: "30d",
   issuer: "my-app",
 });
-
-const tokens = await auth.issueTokens({
-  subject: user.id,
-  claims: { role: user.role },
-});
 ```
 
-Use a real `RefreshTokenStore` (Drizzle) in production. Memory store is for tests/ephemeral use.
+Use Drizzle stores in production. Memory stores are for tests/ephemeral use.
 
 ## Core Patterns
 
-### Issue after app-owned credential check
+### Credentials are a child of app users
 
 ```ts
-// password / SSO / magic-link verification happens in YOUR code
+// App inserts into `users` first
+await db.insert(users).values({ id: userId, … });
+
+// Then attach login credentials (subject = user id) — NOT a users table
+await auth.registerCredentials({
+  subject: userId,
+  username: "demo",
+  password: "password123",
+});
+
+const tokens = await auth.login({ username: "demo", password: "password123" });
+```
+
+Default table name via Drizzle helper: `jwt_auth_credentials`. Never name it `users`.
+
+### Issue without password (SSO / magic link)
+
+```ts
 const tokens = await auth.issueTokens({
   subject: "user_123",
   claims: { tenantId: "t1" },
 });
-// tokens.accessToken — short-lived JWT
-// tokens.refreshToken — opaque secret (store only the hash server-side)
 ```
 
-### Verify access tokens
+### Verify / refresh / revoke
 
 ```ts
 const verified = await auth.verifyAccessToken(accessToken);
-verified.subject; // "user_123"
-verified.claims; // includes custom claims + sub/iat/exp
-```
-
-### Refresh with rotation
-
-```ts
 const next = await auth.refresh(previousRefreshToken);
-// previous refresh is marked replaced; presenting it again is reuse
-```
-
-### Revoke sessions
-
-```ts
-await auth.revoke(refreshToken); // one session
-await auth.revokeAllForSubject(userId); // all families for subject
+await auth.revoke(refreshToken);
+await auth.revokeAllForSubject(userId);
+const sessions = await auth.listSessions(userId);
+await auth.revokeSession({ sessionId: sessions[0]!.id, subject: userId });
 ```
 
 ## Common Mistakes
 
-### CRITICAL Put password hashing or login inside jwt-auth core
+### CRITICAL Put credentials in a `users` table owned by jwt-auth
 
 Wrong:
 
 ```ts
-await auth.login({ email, password });
+createCredentialsTable("pgsql", "users");
 ```
 
 Correct:
 
 ```ts
-const user = await verifyPassword(email, password); // app-owned
-const tokens = await auth.issueTokens({ subject: user.id });
+// App owns `users`. Credentials are a child via subject.
+createCredentialsTable("pgsql"); // jwt_auth_credentials
+await auth.registerCredentials({ subject: user.id, username, password });
 ```
-
-Core only issues/verifies/refreshes/revokes tokens.
 
 Source: packages/jwt-auth/docs/index.md
 
-### CRITICAL Store refresh tokens in plaintext
+### CRITICAL Store refresh tokens or passwords in plaintext
 
 Wrong:
 
 ```ts
 await db.insert(sessions).values({ refreshToken: tokens.refreshToken });
+await db.insert(creds).values({ password: plain });
 ```
 
 Correct:
 
 ```ts
-// RefreshTokenStore.save receives tokenHash from createJwtAuth
-// Persist via createDrizzleRefreshTokenStore — never store the raw refresh secret
+// RefreshTokenStore persists SHA-256 hashes only
+// CredentialStore persists scrypt hashes from hashPassword / registerCredentials
 ```
-
-Only SHA-256 hashes are persisted by the store contract.
-
-Source: packages/jwt-auth/docs/refresh-flow.md
 
 ### HIGH Treat rotated refresh reuse as a soft invalid token
 
@@ -125,7 +126,7 @@ Wrong:
 try {
   await auth.refresh(oldRefresh);
 } catch {
-  // ignore and continue session
+  // ignore
 }
 ```
 
@@ -142,32 +143,6 @@ try {
   }
 }
 ```
-
-Reuse of a revoked/rotated refresh token revokes the whole family.
-
-Source: packages/jwt-auth/docs/refresh-flow.md
-
-### HIGH Put access JWT secrets and refresh TTL in HTTP adapters only
-
-Wrong:
-
-```ts
-// configuring TTLs inside Express middleware only
-```
-
-Correct:
-
-```ts
-const auth = createJwtAuth({
-  accessSecret,
-  accessTokenTtl: "15m",
-  refreshTokenTtl: "30d",
-  store,
-});
-// pass the same auth instance into rest/express/nest
-```
-
-Source: packages/jwt-auth/src/core/create-jwt-auth.ts
 
 ## See also
 

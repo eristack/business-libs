@@ -3,10 +3,10 @@
 tanstackIntent:
   - id: "@eristack/jwt-auth#jwt-auth-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-adapters"
-    for: "@eristack/jwt-auth adapters: drizzle pgsql/mysql/sqlite RefreshTokenStore, headless rest actions createRequireAuth, express createJwtAuthRouter, nest JwtAuthModule JwtAuthGuard, client createJwtAuthClient, react JwtAuthProvider useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
+    for: "@eristack/jwt-auth adapters: drizzle RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), rest login/sessions, express createJwtAuthRouter, nest JwtAuthModule, client login, react useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
   - id: "@eristack/jwt-auth#jwt-auth-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core"
-    for: "Pure @eristack/jwt-auth token lifecycle: createJwtAuth, issueTokens, verifyAccessToken, refresh rotation, revoke, RefreshTokenStore, opaque refresh hashes, family reuse detection, RefreshTokenReuseError. Use when implementing JWT access + refresh without passwords/HTTP/DB frameworks."
+    for: "Pure @eristack/jwt-auth: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore + RefreshTokenStore. Credentials are a child of app users (not a users table). Use for JWT + optional username/password without HTTP frameworks."
   - id: "@eristack/money#money-amounts"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts"
     for: "Construct Money with strings or minor units, run same-currency arithmetic, and compare amounts in @eristack/money. Use when creating prices, taxes, discounts, totals, Money.of, Money.ofMinor, CurrencyMismatchError, or when an agent reaches for JS number literals for money."
@@ -42,10 +42,21 @@ pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Commits / PRs:** only when the user asks.
 
+## Examples
+
+Prefer `examples/*` when validating or demonstrating framework wiring:
+
+- `examples/express` — Express router + require-auth
+- `examples/nestjs` — Nest module + guard + controller
+- `examples/react` — headless client/provider against the Express example
+
+Do not invent alternate Express/Nest/React integration patterns when an example already shows the supported one. Examples are private and ignored by Changesets.
+
 ## Monorepo layout
 
 - `packages/money` — `@eristack/money`
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `examples/*` — private runnable demos (not published)
 - `.changeset/` — pending release notes for Changesets
 - `.github/workflows/ci.yml` — PR/main checks
 - `.github/workflows/release.yml` — Version Packages PR + npm publish on `main`

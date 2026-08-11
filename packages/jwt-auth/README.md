@@ -31,17 +31,30 @@ pnpm add @eristack/jwt-auth
 ## Core
 
 ```ts
-import { createJwtAuth, createMemoryRefreshTokenStore } from "@eristack/jwt-auth";
+import {
+  createJwtAuth,
+  createMemoryCredentialStore,
+  createMemoryRefreshTokenStore,
+} from "@eristack/jwt-auth";
 
 const auth = createJwtAuth({
   accessSecret: process.env.JWT_ACCESS_SECRET!,
   store: createMemoryRefreshTokenStore(), // swap for Drizzle in production
+  credentials: createMemoryCredentialStore(), // optional; required for login
   accessTokenTtl: "15m",
   refreshTokenTtl: "30d",
 });
 
-// After YOUR app verifies credentials:
-const tokens = await auth.issueTokens({
+// App owns `users`. Attach credentials as a child (`subject` = user id):
+await auth.registerCredentials({
+  subject: user.id,
+  username: "demo",
+  password: "password123",
+});
+const tokens = await auth.login({ username: "demo", password: "password123" });
+
+// SSO / magic-link / already-verified subjects can still use issueTokens:
+const issued = await auth.issueTokens({
   subject: user.id,
   claims: { role: user.role },
 });
@@ -49,9 +62,18 @@ const tokens = await auth.issueTokens({
 const verified = await auth.verifyAccessToken(tokens.accessToken);
 const rotated = await auth.refresh(tokens.refreshToken);
 await auth.revoke(rotated.refreshToken);
+
+// Device / session management (safe metadata only — no refresh secrets)
+const sessions = await auth.listSessions(user.id);
+await auth.revokeSession({ sessionId: sessions[0]!.id, subject: user.id });
 ```
 
-Credential checking / password hashing is intentionally out of scope.
+The package stores **username + password hash** in `jwt_auth_credentials` (or your
+name). It does **not** own a `users` table — credentials are always a child of
+the app's users (`subject`).
+
+HTTP routes (Express / Nest / REST): `POST /auth/login`, `POST /auth/change-password`,
+`GET /auth/sessions`, `DELETE /auth/sessions/:sessionId` (Bearer where noted).
 
 ## AI agent skills
 
@@ -70,20 +92,24 @@ npx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 ```ts
 import { createJwtAuth } from "@eristack/jwt-auth";
 import {
+  createCredentialsTable,
+  createDrizzleCredentialStore,
   createDrizzleRefreshTokenStore,
   createRefreshTokenTable,
 } from "@eristack/jwt-auth/drizzle";
 
+// App schema also defines `users`; credentials.subject → users.id
 const refreshTokens = createRefreshTokenTable("pgsql"); // "pgsql" | "mysql" | "sqlite"
-const store = createDrizzleRefreshTokenStore({
-  dialect: "pgsql",
-  db,
-  table: refreshTokens,
-});
+const credentialsTable = createCredentialsTable("pgsql"); // default: jwt_auth_credentials
 
 const auth = createJwtAuth({
   accessSecret: process.env.JWT_ACCESS_SECRET!,
-  store,
+  store: createDrizzleRefreshTokenStore({ dialect: "pgsql", db, table: refreshTokens }),
+  credentials: createDrizzleCredentialStore({
+    dialect: "pgsql",
+    db,
+    table: credentialsTable,
+  }),
 });
 ```
 
@@ -103,18 +129,28 @@ app.get("/me", createExpressRequireAuth({ jwtAuth: auth }), (req, res) => {
   res.json({ subject: req.auth!.subject });
 });
 
-// Nest
+// Nest — inject DB/config via registerAsync when needed
 JwtAuthModule.register({ jwtAuth: auth });
+// JwtAuthModule.registerAsync({ inject: [DRIZZLE], useFactory: (db) => ({ jwtAuth: ... }) })
 // then @UseGuards(JwtAuthGuard)
 ```
 
 ## Headless client + React
 
+Inject host + storage (string or getters). The package does not read env or invent URLs.
+
 ```ts
-import { createJwtAuthClient } from "@eristack/jwt-auth/client";
+import {
+  createJwtAuthClient,
+  createLocalStorageTokenStorage,
+} from "@eristack/jwt-auth/client";
 import { JwtAuthProvider, useJwtAuth } from "@eristack/jwt-auth/react";
 
-const client = createJwtAuthClient({ baseUrl: "https://api.example.com" });
+const client = createJwtAuthClient({
+  baseUrl: () => appConfig.apiBaseUrl,
+  storage: createLocalStorageTokenStorage(),
+  getHeaders: () => ({ "X-Tenant": tenantId }),
+});
 
 function App() {
   return (
@@ -123,6 +159,8 @@ function App() {
     </JwtAuthProvider>
   );
 }
+
+// or: <JwtAuthProvider clientConfig={{ baseUrl, storage }} />
 
 function Profile() {
   const { status, accessToken, ensureAccessToken, logout } = useJwtAuth();

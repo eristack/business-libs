@@ -3,17 +3,26 @@ import { generateId, generateOpaqueToken, hashToken } from "./crypto.js";
 import { addMs, durationToMs } from "./duration.js";
 import {
   ConfigurationError,
+  CredentialNotFoundError,
   InvalidAccessTokenError,
+  InvalidCredentialsError,
   InvalidRefreshTokenError,
   RefreshTokenReuseError,
+  SessionNotFoundError,
+  UsernameTakenError,
 } from "./errors.js";
+import { hashPassword, verifyPassword } from "./password.js";
 import type {
   AccessTokenClaims,
+  AuthSession,
+  ChangePasswordInput,
   Clock,
   IssueTokensInput,
   JwtAuth,
   JwtAuthConfig,
   JwtClaims,
+  LoginInput,
+  RegisterCredentialsInput,
   TokenPair,
   VerifiedAccessToken,
 } from "./types.js";
@@ -101,15 +110,22 @@ export function createJwtAuth(config: JwtAuthConfig): JwtAuth {
       accessTokenExpiresAt: access.expiresAt,
       refreshTokenExpiresAt: refreshExpiresAt,
       tokenType: "Bearer",
+      sessionId: refreshId,
       refreshTokenId: refreshId,
       familyId,
     };
   }
 
   async function issueTokens(input: IssueTokensInput): Promise<TokenPair> {
-    const { refreshTokenId: _id, familyId: _family, ...pair } =
-      await issueTokensInternal(input);
-    return pair;
+    const issued = await issueTokensInternal(input);
+    return {
+      accessToken: issued.accessToken,
+      refreshToken: issued.refreshToken,
+      accessTokenExpiresAt: issued.accessTokenExpiresAt,
+      refreshTokenExpiresAt: issued.refreshTokenExpiresAt,
+      tokenType: "Bearer",
+      sessionId: issued.refreshTokenId,
+    };
   }
 
   async function verifyAccessToken(accessToken: string): Promise<VerifiedAccessToken> {
@@ -174,6 +190,7 @@ export function createJwtAuth(config: JwtAuthConfig): JwtAuth {
       accessTokenExpiresAt: next.accessTokenExpiresAt,
       refreshTokenExpiresAt: next.refreshTokenExpiresAt,
       tokenType: "Bearer",
+      sessionId: next.refreshTokenId,
     };
   }
 
@@ -187,11 +204,137 @@ export function createJwtAuth(config: JwtAuthConfig): JwtAuth {
     await config.store.revokeAllForSubject(subject, clock.now());
   }
 
+  async function listSessions(subject: string): Promise<AuthSession[]> {
+    if (!subject) {
+      throw new ConfigurationError("subject is required");
+    }
+    const records = await config.store.listActiveBySubject(subject, clock.now());
+    return records.map((record) => ({
+      id: record.id,
+      familyId: record.familyId,
+      createdAt: record.createdAt,
+      expiresAt: record.expiresAt,
+    }));
+  }
+
+  async function revokeSession(input: {
+    sessionId: string;
+    subject: string;
+  }): Promise<void> {
+    if (!input.sessionId || !input.subject) {
+      throw new ConfigurationError("sessionId and subject are required");
+    }
+
+    const existing = await config.store.findById(input.sessionId);
+    if (!existing || existing.subject !== input.subject) {
+      throw new SessionNotFoundError();
+    }
+
+    if (existing.revokedAt) return;
+    await config.store.revokeFamily(existing.familyId, clock.now());
+  }
+
+  function requireCredentials() {
+    if (!config.credentials) {
+      throw new ConfigurationError(
+        "credentials store is required for login/registerCredentials/changePassword",
+      );
+    }
+    return config.credentials;
+  }
+
+  async function registerCredentials(
+    input: RegisterCredentialsInput,
+  ): Promise<void> {
+    const credentials = requireCredentials();
+    if (!input.subject || !input.username || !input.password) {
+      throw new ConfigurationError("subject, username, and password are required");
+    }
+    if (input.password.length < 8) {
+      throw new ConfigurationError("password must be at least 8 characters");
+    }
+
+    const username = input.username.trim().toLowerCase();
+    const taken = await credentials.findByUsername(username);
+    if (taken) throw new UsernameTakenError();
+
+    const existingForSubject = await credentials.findBySubject(input.subject);
+    if (existingForSubject) {
+      throw new ConfigurationError(
+        "credentials already exist for this subject; use changePassword instead",
+      );
+    }
+
+    const now = clock.now();
+    await credentials.save({
+      id: generateId(),
+      subject: input.subject,
+      username,
+      passwordHash: await hashPassword(input.password),
+      createdAt: now,
+      updatedAt: now,
+      disabledAt: null,
+    });
+  }
+
+  async function login(input: LoginInput): Promise<TokenPair> {
+    const credentials = requireCredentials();
+    if (!input.username || !input.password) {
+      throw new InvalidCredentialsError();
+    }
+
+    const record = await credentials.findByUsername(
+      input.username.trim().toLowerCase(),
+    );
+    if (!record || record.disabledAt) {
+      throw new InvalidCredentialsError();
+    }
+
+    const ok = await verifyPassword(input.password, record.passwordHash);
+    if (!ok) throw new InvalidCredentialsError();
+
+    return issueTokens({
+      subject: record.subject,
+      claims: input.claims,
+    });
+  }
+
+  async function changePassword(input: ChangePasswordInput): Promise<void> {
+    const credentials = requireCredentials();
+    if (!input.subject || !input.currentPassword || !input.newPassword) {
+      throw new ConfigurationError(
+        "subject, currentPassword, and newPassword are required",
+      );
+    }
+    if (input.newPassword.length < 8) {
+      throw new ConfigurationError("password must be at least 8 characters");
+    }
+
+    const record = await credentials.findBySubject(input.subject);
+    if (!record || record.disabledAt) {
+      throw new CredentialNotFoundError();
+    }
+
+    const ok = await verifyPassword(input.currentPassword, record.passwordHash);
+    if (!ok) throw new InvalidCredentialsError();
+
+    await credentials.updatePasswordHash(
+      record.id,
+      await hashPassword(input.newPassword),
+      clock.now(),
+    );
+  }
+
   return {
     issueTokens,
     verifyAccessToken,
     refresh,
     revoke,
     revokeAllForSubject,
+    listSessions,
+    revokeSession,
+    registerCredentials,
+    login,
+    changePassword,
   };
 }

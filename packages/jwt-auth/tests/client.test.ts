@@ -39,7 +39,7 @@ describe("createJwtAuthClient", () => {
     });
 
     const client = createJwtAuthClient({
-      baseUrl: "https://api.example.com",
+      baseUrl: () => "https://api.example.com",
       storage,
       fetch: fetchMock as unknown as typeof fetch,
       credentials: "omit",
@@ -52,6 +52,39 @@ describe("createJwtAuthClient", () => {
     expect(refreshed.accessToken).toBe("access-2");
     expect(await storage.getRefreshToken()).toBe("refresh-2");
 
+    client.dispose();
+  });
+
+  it("logs in with username/password", async () => {
+    const storage = createMemoryTokenStorage();
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      expect(url.endsWith("/auth/login")).toBe(true);
+      const body = init?.body ? JSON.parse(String(init.body)) : {};
+      expect(body).toEqual({ username: "demo", password: "password123" });
+      return new Response(
+        JSON.stringify({
+          accessToken: "access-login",
+          refreshToken: "refresh-login",
+          accessTokenExpiresAt: new Date(Date.now() + 120_000).toISOString(),
+          refreshTokenExpiresAt: new Date(Date.now() + 86400000).toISOString(),
+          tokenType: "Bearer",
+          sessionId: "sess-1",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
+    });
+
+    const client = createJwtAuthClient({
+      baseUrl: "https://api.example.com",
+      storage,
+      fetch: fetchMock as unknown as typeof fetch,
+      credentials: "omit",
+    });
+
+    const pair = await client.login({ username: "demo", password: "password123" });
+    expect(pair.accessToken).toBe("access-login");
+    expect(await client.getAccessToken()).toBe("access-login");
     client.dispose();
   });
 

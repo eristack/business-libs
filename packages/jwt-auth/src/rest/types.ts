@@ -13,6 +13,8 @@ export interface RestRequest {
   headers: RestHeaders;
   cookies?: RestCookies;
   body?: unknown;
+  /** Path params from framework routers (e.g. sessionId). */
+  params?: Record<string, string | undefined>;
 }
 
 export interface SetCookieOptions {
@@ -48,12 +50,31 @@ export interface IssueActionBody {
   claims?: JwtClaims;
 }
 
+export interface LoginActionBody {
+  username: string;
+  password: string;
+  claims?: JwtClaims;
+}
+
+export interface ChangePasswordActionBody {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export interface TokenPairBody {
   accessToken: string;
   refreshToken?: string;
   accessTokenExpiresAt: string;
   refreshTokenExpiresAt: string;
   tokenType: "Bearer";
+  sessionId: string;
+}
+
+export interface AuthSessionBody {
+  id: string;
+  familyId: string;
+  createdAt: string;
+  expiresAt: string;
 }
 
 export interface AuthContext {

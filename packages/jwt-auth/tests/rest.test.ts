@@ -1,14 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { createJwtAuth, createMemoryRefreshTokenStore } from "../src/index.js";
+import {
+  createJwtAuth,
+  createMemoryCredentialStore,
+  createMemoryRefreshTokenStore,
+} from "../src/index.js";
 import {
   createRequireAuth,
   createRestActions,
 } from "../src/rest/index.js";
 
-function createHarness() {
+function createHarness(withCredentials = false) {
   const jwtAuth = createJwtAuth({
     accessSecret: "test-secret-at-least-16-chars",
     store: createMemoryRefreshTokenStore(),
+    ...(withCredentials
+      ? { credentials: createMemoryCredentialStore() }
+      : {}),
   });
   const actions = createRestActions({
     jwtAuth,
@@ -65,6 +72,53 @@ describe("rest actions", () => {
     }
   });
 
+  it("lists and revokes sessions with access token", async () => {
+    const { actions } = createHarness();
+    const issued = await actions.issue({
+      headers: { get: () => null },
+      body: { subject: "user-1" },
+    });
+    const body = issued.body as {
+      accessToken: string;
+      refreshToken: string;
+      sessionId: string;
+    };
+
+    const listed = await actions.listSessions({
+      headers: {
+        get: (name) =>
+          name.toLowerCase() === "authorization"
+            ? `Bearer ${body.accessToken}`
+            : null,
+      },
+    });
+    expect(listed.status).toBe(200);
+    expect((listed.body as { sessions: { id: string }[] }).sessions).toEqual([
+      expect.objectContaining({ id: body.sessionId }),
+    ]);
+
+    const revoked = await actions.revokeSession({
+      headers: {
+        get: (name) =>
+          name.toLowerCase() === "authorization"
+            ? `Bearer ${body.accessToken}`
+            : null,
+      },
+      params: { sessionId: body.sessionId },
+    });
+    expect(revoked.status).toBe(200);
+
+    const after = await actions.listSessions({
+      headers: {
+        get: (name) =>
+          name.toLowerCase() === "authorization"
+            ? `Bearer ${body.accessToken}`
+            : null,
+      },
+    });
+    expect((after.body as { sessions: unknown[] }).sessions).toEqual([]);
+  });
+
   it("logout clears the refresh token", async () => {
     const { actions } = createHarness();
     const issued = await actions.issue({
@@ -84,5 +138,27 @@ describe("rest actions", () => {
       body: { refreshToken },
     });
     expect(refresh.status).toBe(401);
+  });
+
+  it("logs in with username/password", async () => {
+    const { jwtAuth, actions } = createHarness(true);
+    await jwtAuth.registerCredentials({
+      subject: "user-1",
+      username: "demo",
+      password: "password123",
+    });
+
+    const loggedIn = await actions.login({
+      headers: { get: () => null },
+      body: { username: "demo", password: "password123" },
+    });
+    expect(loggedIn.status).toBe(200);
+    expect((loggedIn.body as { accessToken: string }).accessToken).toBeTruthy();
+
+    const bad = await actions.login({
+      headers: { get: () => null },
+      body: { username: "demo", password: "nope" },
+    });
+    expect(bad.status).toBe(401);
   });
 });

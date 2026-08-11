@@ -1,28 +1,31 @@
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, gt, isNull } from "drizzle-orm";
 import type { RefreshTokenRecord, RefreshTokenStore } from "../core/types.js";
 import type { AnyRefreshTokenTable } from "./table.js";
 import type { DrizzleDialect } from "./types.js";
 
-/** Minimal Drizzle DB surface used by the refresh-token store. */
+/**
+ * App-owned Drizzle database handle.
+ * Typed loosely so real `drizzle(...)` clients (sqlite/pgsql/mysql) inject without friction.
+ */
 export interface DrizzleLikeDb {
-  insert: (table: AnyRefreshTokenTable) => {
-    values: (values: Record<string, unknown>) => Promise<unknown> | { then: Promise<unknown>["then"] };
-  };
-  select: () => {
-    from: (table: AnyRefreshTokenTable) => {
-      where: (condition: unknown) => Promise<Array<Record<string, unknown>>>;
-    };
-  };
-  update: (table: AnyRefreshTokenTable) => {
-    set: (values: Record<string, unknown>) => {
-      where: (condition: unknown) => Promise<unknown> | { then: Promise<unknown>["then"] };
-    };
-  };
+  // Real Drizzle insert/select/update generics vary by dialect — keep this structural.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  insert: (table: any) => { values: (values: any) => any };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  select: () => { from: (table: any) => { where: (condition: any) => any } };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  update: (table: any) => { set: (values: any) => { where: (condition: any) => any } };
 }
 
+/**
+ * App-injected Drizzle binding. The package never opens connections or
+ * chooses a driver — pass your own `db` (and table schema) from the app.
+ */
 export interface CreateDrizzleRefreshTokenStoreOptions {
   dialect: DrizzleDialect;
+  /** Existing Drizzle database instance owned by the application. */
   db: DrizzleLikeDb;
+  /** Table from `createRefreshTokenTable` (or a compatible app schema). */
   table: AnyRefreshTokenTable;
 }
 
@@ -70,12 +73,37 @@ export function createDrizzleRefreshTokenStore(
     },
 
     async findByHash(tokenHash) {
-      const rows = await db
+      const rows = (await db
         .select()
         .from(table)
-        .where(eq(table.tokenHash, tokenHash));
+        .where(eq(table.tokenHash, tokenHash))) as Array<Record<string, unknown>>;
       const row = rows[0];
       return row ? toRecord(row) : null;
+    },
+
+    async findById(id) {
+      const rows = (await db
+        .select()
+        .from(table)
+        .where(eq(table.id, id))) as Array<Record<string, unknown>>;
+      const row = rows[0];
+      return row ? toRecord(row) : null;
+    },
+
+    async listActiveBySubject(subject, now) {
+      const rows = (await db
+        .select()
+        .from(table)
+        .where(
+          and(
+            eq(table.subject, subject),
+            isNull(table.revokedAt),
+            gt(table.expiresAt, now),
+          ),
+        )) as Array<Record<string, unknown>>;
+      return rows
+        .map(toRecord)
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     },
 
     async revoke(id, revokedAt) {

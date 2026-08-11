@@ -6,7 +6,10 @@ import {
   type RestResponse,
 } from "../rest/index.js";
 
-export function toRestRequest(req: Request): RestRequest {
+export function toRestRequest(
+  req: Request,
+  params?: Record<string, string | undefined>,
+): RestRequest {
   return {
     method: req.method,
     headers: {
@@ -22,6 +25,7 @@ export function toRestRequest(req: Request): RestRequest {
       },
     },
     body: req.body,
+    params,
   };
 }
 
