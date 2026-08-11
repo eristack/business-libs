@@ -93,6 +93,9 @@
   "keywords": [
     "tanstack-intent"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",

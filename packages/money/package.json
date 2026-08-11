@@ -49,5 +49,8 @@
   },
   "keywords": [
     "tanstack-intent"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
