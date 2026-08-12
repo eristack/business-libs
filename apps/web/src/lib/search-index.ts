@@ -69,6 +69,14 @@ export function buildSearchIndex(): SearchItem[] {
       group: "Libraries",
       keywords: `${pkg.name} ${pkg.title} ${pkg.description} ${pkg.tagline} ${category} ${pkg.category}`,
     });
+    items.push({
+      id: `changelog-${pkg.slug}`,
+      title: `${pkg.title} · Changelog`,
+      description: `Release history for ${pkg.name}`,
+      href: `/${pkg.slug}/changelog`,
+      group: "Libraries",
+      keywords: `${pkg.name} ${pkg.title} changelog release notes version history ${category}`,
+    });
   }
 
   for (const pkg of getDocPackages()) {

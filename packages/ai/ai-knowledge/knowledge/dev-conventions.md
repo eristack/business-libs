@@ -48,10 +48,10 @@ Category order (docs + filesystem): primitive → capability → service → AI.
 
 ## Documentation
 
-- Library guides: `packages/<name>/docs/*.md` + `_meta.json`
+- Library guides: `packages/<category>/<name>/docs/*.md` + `_meta.json`
 - Do not duplicate library markdown inside `apps/web`
 - Site-only marketing/story/support pages live under `apps/web`
-- When Intent guidance changes, update `packages/<name>/skills/` in the same change
+- When Intent guidance changes, update `packages/<category>/<name>/skills/` in the same change
 
 ## Scope discipline
 

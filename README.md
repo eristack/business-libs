@@ -24,11 +24,14 @@ Each package has its own README and docs under `packages/<category>/<name>/`.
 
 ## Website
 
-The public site lives in [`apps/web`](./apps/web) (Next.js 16 + Tailwind + shadcn):
+The public site lives in [`apps/web`](./apps/web) (Next.js 16 + Tailwind + shadcn).
 
-- Landing, packages, blog, story, philosophy, maintainers, support/partners
+**Information architecture:** Libraries (`/packages`) → Layer (`/primitive`, `/capability`, `/service`, `/ai`) → Library overview (`/money`, …) → Docs (`/docs/money`, …). Changelogs live at `/{slug}/changelog`.
+
+- Landing, libraries index, layer/library landings, blog, story, philosophy, maintainers, support/partners
 - Library docs rendered from `packages/<category>/*/docs` (single source of truth), grouped by category
-- Cmd/Ctrl+K search across pages and package docs
+- Current package version (from `package.json`) and changelog pages (from `CHANGELOG.md` when present)
+- Cmd/Ctrl+K search across pages, layers, libraries, docs, and changelogs
 
 ```bash
 pnpm web

@@ -12,8 +12,8 @@ Package facts in `@eristack/ai-knowledge` are **generated** from sibling package
 
 | Data | Source | Updated by |
 | --- | --- | --- |
-| Package name, version, description, adapters | `packages/*/package.json` | `pnpm knowledge:sync` |
-| Skill ids + descriptions | `packages/*/skills/*/SKILL.md` | `pnpm knowledge:sync` |
+| Package name, version, description, adapters | `packages/*/*/package.json` | `pnpm knowledge:sync` |
+| Skill ids + descriptions | `packages/*/*/skills/*/SKILL.md` | `pnpm knowledge:sync` |
 | Feature recipes | `packages/ai/ai-knowledge/knowledge/recipes.yaml` | Humans (+ validated by sync) |
 | Stack / workflow / toolbox prose | `knowledge/*.md` | Humans |
 

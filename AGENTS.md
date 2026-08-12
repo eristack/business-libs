@@ -52,7 +52,7 @@ This file is for AI coding agents. Keep the `intent-skills` block above near the
 ## Before editing packages
 
 1. Match the task to a skill in the block above and run its `load` command first.
-2. Prefer package docs under `packages/<name>/docs/` and skills under `packages/<name>/skills/`.
+2. Prefer package docs under `packages/<category>/<name>/docs/` and skills under `packages/<category>/<name>/skills/`.
 3. Domain design artifacts (maps, skill specs) live in [`_artifacts/`](./_artifacts/).
 
 Useful commands:
@@ -108,7 +108,7 @@ Categories under `packages/` (order matters):
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
-- `apps/web` — public Next.js site (landing, marketing, docs from `packages/<category>/*/docs`, Cmd/Ctrl+K search)
+- `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)
 - `.changeset/` — pending release notes for Changesets

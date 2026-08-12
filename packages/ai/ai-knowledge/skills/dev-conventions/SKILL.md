@@ -24,7 +24,7 @@ Full guide: `knowledge/dev-conventions.md`.
 - **Changesets** required for user-facing package changes; not for docs/CI-only
 - **Core vs adapters** — no framework imports in core; adapters are separate exports
 - **Child resources** — credentials / refresh / formats hang off app-owned entities
-- **Docs** — `packages/<name>/docs` is source of truth; don’t duplicate in the web app
+- **Docs** — `packages/<category>/<name>/docs` is source of truth; don’t duplicate in the web app
 - **Scope** — change only what the task needs
 
 ## AI working docs (monorepo)
