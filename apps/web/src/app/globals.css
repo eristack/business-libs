@@ -310,6 +310,48 @@
   @apply rounded-[4px] border border-border bg-prose-inline-code-bg px-1.5 py-0.5 font-mono text-[12.5px] text-prose-inline-code-fg;
 }
 
+/*
+ * Docs diagrams — ```text / ```ascii / ```diagram fences.
+ * Use system monospace (not subsetted JetBrains) so box-drawing glyphs
+ * (│ ▼ ←) keep equal advance width and stay aligned.
+ */
+.prose-docs figure.docs-diagram {
+  @apply my-6 overflow-hidden rounded-xl border border-border;
+  background: color-mix(in oklab, var(--muted) 70%, transparent);
+  box-shadow: inset 3px 0 0 0 var(--accent);
+}
+
+.prose-docs figure.docs-diagram::before {
+  content: "Diagram";
+  display: block;
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--prose-muted);
+}
+
+.prose-docs figure.docs-diagram pre,
+.prose-docs figure.docs-diagram .docs-diagram__pre {
+  margin: 0;
+  overflow-x: auto;
+  padding: 1rem 1.15rem 1.15rem;
+  white-space: pre;
+  tab-size: 2;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  color: var(--foreground);
+  background: transparent;
+}
+
 /* Docs code — rehype-pretty-code dual theme (matches Bright / CodePanel) */
 .prose-docs figure[data-rehype-pretty-code-figure] {
   @apply my-6 overflow-hidden rounded-xl border border-border shadow-sm;

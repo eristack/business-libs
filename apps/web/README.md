@@ -24,6 +24,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Library guides are **not duplicated** here. `apps/web` reads `packages/<category>/*/docs` at build/runtime (`src/lib/docs.ts`). Edit package markdown; the site and Cmd/Ctrl+K search pick it up.
 
+ASCII / layering diagrams stay as plain markdown fences (` ```text `, ` ```ascii `, ` ```diagram `). The docs renderer lifts those into a dedicated **Diagram** panel (system monospace, no Shiki) so box-drawing stays aligned on the web.
+
 ## Information architecture
 
 **Libraries** (`/packages`) → **Layer** → **Library overview** → **Docs**. Version badges link to `/{slug}/changelog`.
