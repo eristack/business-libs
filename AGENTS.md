@@ -1,6 +1,30 @@
 <!-- intent-skills:start -->
 # TanStack Intent - before editing files, run the matching guidance command.
 tanstackIntent:
+  - id: "@eristack/ai-workflow#ai-workflow-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core"
+    for: "Local-first @eristack/ai-workflow: .eristack/workflow backlog/sprints/ADR/summary, FTS+vector index, low-token search. Use for project memory and sprint cadence without replacing Intent/git."
+  - id: "@eristack/ai-workflow#ai-workflow-mcp"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
+    for: "Install eristack-workflow MCP alongside existing MCP servers; tool inventory; search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project."
+  - id: "@eristack/ai-knowledge#architecture-recommend"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend"
+    for: "Canon app architecture: TypeScript, Express or NestJS, Drizzle (Postgres prod / SQLite tests), presentation-business-persistence separation, React+Vite+Tailwind+shadcn, TanStack Router file-based + Query + Form + Intent, Zustand, API contracts, pnpm monorepo. Use when scaffolding or choosing stack/structure."
+  - id: "@eristack/ai-knowledge#recommend-eristack"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack"
+    for: "Route product feature asks (invoices, login, document numbers, prices, ERP-ish apps) to @eristack packages first via recommend()/loadPlan() and recipes. Use before choosing random npm libraries or reinventing money/auth/numbering."
+  - id: "@eristack/ai-knowledge#stack-defaults"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#stack-defaults"
+    for: "Preferred stack defaults: TypeScript, Drizzle pgsql dialect, Express/Nest/React headless adapters, string-first money, credentials child of users. Use when scaffolding apps around @eristack packages."
+  - id: "@eristack/ai-knowledge#agent-workflow"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
+    for: "Agent workflow: recommend first, load Intent skills before coding, prefer examples/*, run pnpm knowledge:sync when package skills change. Use for multi-package work."
+  - id: "@eristack/ai-knowledge#dev-conventions"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
+    for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, _ai-docs promote-then-delete."
+  - id: "@eristack/ai-knowledge#ai-toolbox"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
+    for: "AI toolbox: feature-brief prompts, skill-load order, money/auth/doc-number checklists, recipe-authoring template for @eristack/ai-knowledge."
   - id: "@eristack/doc-number#doc-number-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
     for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore, rest format CRUD/preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react useDocNumberFormats. Use when persisting formats or wiring format-config HTTP/frontend shells."
@@ -28,7 +52,7 @@ This file is for AI coding agents. Keep the `intent-skills` block above near the
 ## Before editing packages
 
 1. Match the task to a skill in the block above and run its `load` command first.
-2. Prefer package docs under `packages/<name>/docs/` and skills under `packages/<name>/skills/`.
+2. Prefer package docs under `packages/<category>/<name>/docs/` and skills under `packages/<category>/<name>/skills/`.
 3. Domain design artifacts (maps, skill specs) live in [`_artifacts/`](./_artifacts/).
 
 Useful commands:
@@ -36,6 +60,10 @@ Useful commands:
 ```bash
 pnpm skills:list
 pnpm skills:validate
+pnpm knowledge:sync
+pnpm knowledge:check
+pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend
+pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts
 pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
@@ -48,7 +76,9 @@ pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 - **Releases:** user-facing package changes need a Changeset (`pnpm changeset`). Docs-only / CI-only changes do not. Publishing happens only after the Version Packages PR merges to `main`.
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
-- **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
+- **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
+- **ai-knowledge sync:** when changing another package’s skills/public surface (or adding a package), run `pnpm knowledge:sync` and update `packages/ai/ai-knowledge/knowledge/recipes.yaml` if the capability should be discoverable by product language. CI enforces `pnpm knowledge:check`.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/ai`. Docs UI and site listings follow the same order.
 
 ## Examples
 
@@ -62,18 +92,23 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 
 ## Docs: package ↔ web
 
-- **Source of truth for library guides:** `packages/<name>/docs/*.md` (+ `_meta.json` for sidebar order).
+- **Source of truth for library guides:** `packages/<category>/<name>/docs/*.md` (+ `_meta.json` for sidebar order).
 - **Web renders those files** via `apps/web/src/lib/docs.ts` (no duplicate markdown in the app).
 - **Site-only pages** (story, support, philosophy, blog posts) live under `apps/web/`.
-- When promoting AI notes for a library change, update `packages/*/docs` first; the site picks them up automatically. Update `apps/web` only for marketing/company copy or search/nav wiring.
+- When promoting AI notes for a library change, update `packages/<category>/*/docs` first; the site picks them up automatically. Update `apps/web` only for marketing/company copy or search/nav wiring.
 - Web docs UI links back to the GitHub source path for each page.
+- Docs listing order matches categories: primitive → capability → service → AI.
 
 ## Monorepo layout
 
-- `packages/money` — `@eristack/money`
-- `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
-- `packages/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
-- `apps/web` — public Next.js site (landing, marketing, docs from `packages/*/docs`, Cmd/Ctrl+K search)
+Categories under `packages/` (order matters):
+
+- `packages/primitive/money` — `@eristack/money`
+- `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
+- `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
+- `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
+- `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)
 - `.changeset/` — pending release notes for Changesets

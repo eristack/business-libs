@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { isDocPackageSlug, listDocs } from "@/lib/docs";
+import { allPackageReleases } from "@/lib/package-meta";
 import { packages } from "@/lib/site";
 
 type DocsPackageLayoutProps = {
@@ -17,6 +18,7 @@ export default async function DocsPackageLayout({
 
   const pkg = packages.find((item) => item.slug === packageSlug)!;
   const pages = listDocs(packageSlug);
+  const releases = allPackageReleases();
 
   return (
     <div className="min-h-[calc(100svh-4rem)] border-b border-border bg-docs-rail">
@@ -25,6 +27,7 @@ export default async function DocsPackageLayout({
           packageSlug={packageSlug}
           packageName={pkg.name}
           pages={pages}
+          releases={releases}
         />
         <div className="min-w-0 flex-1">{children}</div>
       </div>

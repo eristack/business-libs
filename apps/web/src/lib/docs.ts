@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseFrontmatter } from "@/lib/frontmatter";
-import { packages } from "@/lib/site";
+import { packageDirectory, packages } from "@/lib/site";
 
 export type DocPackageSlug = (typeof packages)[number]["slug"];
 
@@ -22,11 +22,11 @@ export type DocPage = DocMeta & {
 const repoRoot = path.resolve(process.cwd(), "../..");
 
 function docsDir(packageSlug: string) {
-  return path.join(repoRoot, "packages", packageSlug, "docs");
+  return path.join(repoRoot, packageDirectory(packageSlug), "docs");
 }
 
 export function docSourcePath(packageSlug: string, slug: string) {
-  return `packages/${packageSlug}/docs/${slug}.md`;
+  return `${packageDirectory(packageSlug)}/docs/${slug}.md`;
 }
 
 function readMetaOrder(packageSlug: string): string[] {

@@ -1,0 +1,59 @@
+# Checklists
+
+## Before implementing a multi-feature ask
+
+- [ ] Loaded `architecture-recommend` if scaffolding or choosing stack/structure
+- [ ] Presentation / business / persistence boundaries agreed
+- [ ] Ran recommend / loaded `recommend-eristack`
+- [ ] Listed prioritized `@eristack/*` packages (or explicitly noted no match)
+- [ ] Loaded each required package Intent skill
+- [ ] Loaded `stack-defaults` for Eristack adapter details
+- [ ] Identified app-owned pieces (users table, UX, FX rate source, migrations)
+
+## Architecture canon (new apps)
+
+- [ ] TypeScript + pnpm monorepo when web/api/shared packages exist
+- [ ] Express **or** Nest (not both in one API)
+- [ ] Drizzle: Postgres prod, SQLite tests
+- [ ] React + Vite + Tailwind + shadcn (`components/ui` via CLI)
+- [ ] TanStack Router **file-based** + Query + Form + Intent
+- [ ] Zustand for client/UI state only (server state in Query)
+- [ ] Typed API contracts between web and api
+
+## Money guardrails
+
+- [ ] No `Money.of(19.99, …)` fractional number construction
+- [ ] Same-currency arithmetic only (FX via `Conversion`)
+- [ ] Ledger posts rounded
+- [ ] Allocations use `allocate` (not naive divide)
+- [ ] Serialized amounts are strings
+
+## Auth guardrails
+
+- [ ] App `users` table exists; credentials reference subject
+- [ ] Refresh tokens stored hashed
+- [ ] Refresh reuse path revokes family / surfaces error
+- [ ] Adapter dialect `"pgsql"` for Postgres Drizzle helpers
+- [ ] React layer is headless (provider/hooks), not a UI kit
+
+## Doc-number guardrails
+
+- [ ] Format tokens valid (`{YYYY}`, `{SEQ:n}`, …)
+- [ ] Mutating allocation via `next`, previews via `peekNext`/`preview`
+- [ ] Sequence store used for concurrency-safe increments
+
+## Monorepo change touching another package
+
+- [ ] Updated that package’s skills/docs if public guidance changed
+- [ ] Ran `pnpm knowledge:sync`
+- [ ] Added/updated recipes if users should discover the capability by product language
+- [ ] `pnpm knowledge:check` clean
+- [ ] Changeset added for user-facing package changes
+
+## Skill load order (typical ERP slice)
+
+1. `@eristack/ai-knowledge#recommend-eristack`
+2. `@eristack/ai-knowledge#stack-defaults`
+3. `@eristack/jwt-auth#jwt-auth-core` → `#jwt-auth-adapters` if wiring HTTP/DB
+4. `@eristack/money#money-amounts` → `#money-ledger` if invoices/splits/FX
+5. `@eristack/doc-number#doc-number-core` → `#doc-number-adapters` if persisting formats

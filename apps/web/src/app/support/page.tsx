@@ -23,7 +23,7 @@ export default function SupportPage() {
         {supportTiers.map((tier) => (
           <article
             key={tier.name}
-            className="flex flex-col rounded-xl border border-border bg-white p-6 shadow-sm"
+            className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-sm"
           >
             <p className="text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">
               {tier.name}
@@ -34,7 +34,7 @@ export default function SupportPage() {
             <p className="mt-3 text-[14px] leading-6 text-muted-foreground">
               {tier.description}
             </p>
-            <ul className="mt-6 flex-1 space-y-2 text-[13px] text-zinc-700">
+            <ul className="mt-6 flex-1 space-y-2 text-[13px] text-prose-body">
               {tier.features.map((feature) => (
                 <li key={feature} className="flex gap-2">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />

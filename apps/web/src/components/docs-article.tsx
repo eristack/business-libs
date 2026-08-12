@@ -7,7 +7,10 @@ import {
   type DocMeta,
   type DocPackageSlug,
 } from "@/lib/docs";
-import { siteConfig } from "@/lib/site";
+import { LayerBadge } from "@/components/stack/layer-badge";
+import { VersionBadge } from "@/components/stack/version-badge";
+import { getPackageRelease } from "@/lib/package-meta";
+import { getCategory, packages, siteConfig } from "@/lib/site";
 
 type DocsArticleProps = {
   packageSlug: DocPackageSlug;
@@ -32,22 +35,40 @@ export async function DocsArticle({
   const toc = extractToc(body);
   const sourcePath = docSourcePath(packageSlug, slug);
   const sourceUrl = `${siteConfig.github}/blob/main/${sourcePath}`;
+  const pkg = packages.find((item) => item.slug === packageSlug);
+  const category = pkg ? getCategory(pkg.category) : null;
+  const release = pkg ? getPackageRelease(pkg) : null;
 
   return (
     <div className="flex gap-8 xl:gap-12">
-      <article className="min-w-0 flex-1 rounded-xl border border-border bg-white px-6 py-7 shadow-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <article className="min-w-0 flex-1 rounded-xl border border-border bg-card px-6 py-7 shadow-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <div className="mb-8 border-b border-border pb-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">
               <Link href="/docs" className="hover:text-foreground">
                 Docs
               </Link>
+              {pkg && category ? (
+                <>
+                  <span>/</span>
+                  <span data-layer={pkg.category}>
+                    <LayerBadge categoryId={pkg.category} />
+                  </span>
+                </>
+              ) : null}
+              <span>/</span>
+              <Link
+                href={pkg?.href ?? `/docs/${packageSlug}`}
+                className="font-medium text-foreground hover:text-accent"
+              >
+                {pkg?.title ?? packageName}
+              </Link>
               <span>/</span>
               <Link
                 href={`/docs/${packageSlug}`}
                 className="font-mono hover:text-foreground"
               >
-                {packageName}
+                docs
               </Link>
               {slug !== "index" ? (
                 <>
@@ -56,15 +77,23 @@ export async function DocsArticle({
                 </>
               ) : null}
             </div>
-            <a
-              href={sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
-              title="Package docs are the source of truth"
-            >
-              {sourcePath}
-            </a>
+            <div className="flex flex-wrap items-center gap-2">
+              {release ? (
+                <VersionBadge
+                  version={release.version}
+                  href={release.changelogHref}
+                />
+              ) : null}
+              <a
+                href={sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
+                title="Package docs are the source of truth"
+              >
+                {sourcePath}
+              </a>
+            </div>
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
             {title}

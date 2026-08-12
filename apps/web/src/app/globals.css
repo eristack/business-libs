@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #fafafa;
   --foreground: #18181b;
@@ -23,7 +25,41 @@
   --ink: #18181b;
   --docs-rail: #f4f4f5;
   --docs-code: #18181b;
+  --prose-body: #3f3f46;
+  --prose-muted: #71717a;
+  --prose-inline-code-bg: #f4f4f5;
+  --prose-inline-code-fg: #27272a;
+  --prose-quote-bg: color-mix(in oklab, #2563eb 10%, white);
   --radius: 0.375rem;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --card-foreground: #fafafa;
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #3b82f6;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #3b82f6;
+  --ink: #fafafa;
+  --docs-rail: #0c0c0e;
+  --docs-code: #050505;
+  --prose-body: #d4d4d8;
+  --prose-muted: #a1a1aa;
+  --prose-inline-code-bg: #27272a;
+  --prose-inline-code-fg: #e4e4e7;
+  --prose-quote-bg: color-mix(in oklab, #3b82f6 16%, #18181b);
 }
 
 @theme inline {
@@ -48,6 +84,11 @@
   --color-ink: var(--ink);
   --color-docs-rail: var(--docs-rail);
   --color-docs-code: var(--docs-code);
+  --color-prose-body: var(--prose-body);
+  --color-prose-muted: var(--prose-muted);
+  --color-prose-inline-code-bg: var(--prose-inline-code-bg);
+  --color-prose-inline-code-fg: var(--prose-inline-code-fg);
+  --color-prose-quote-bg: var(--prose-quote-bg);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --radius-sm: calc(var(--radius) - 2px);
@@ -70,7 +111,7 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--accent) 22%, white);
+    background: color-mix(in oklab, var(--accent) 28%, transparent);
   }
 }
 
@@ -98,6 +139,13 @@
       linear-gradient(to bottom, rgb(255 255 255 / 0.4), var(--background));
   }
 
+  .dark .hero-noise {
+    background-image:
+      radial-gradient(circle at 18% 12%, rgb(59 130 246 / 0.18), transparent 42%),
+      radial-gradient(circle at 88% 8%, rgb(255 255 255 / 0.04), transparent 34%),
+      linear-gradient(to bottom, rgb(24 24 27 / 0.55), var(--background));
+  }
+
   .hero-orbit {
     background-image:
       linear-gradient(to right, rgb(24 24 27 / 0.04) 1px, transparent 1px),
@@ -105,6 +153,86 @@
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
     animation: drift 18s linear infinite;
+  }
+
+  .dark .hero-orbit {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  }
+
+  /* Layer themes — scoped via data-layer */
+  [data-layer] {
+    --layer-accent: var(--accent);
+    --layer-soft: color-mix(in oklab, var(--layer-accent) 12%, transparent);
+    --layer-glow: color-mix(in oklab, var(--layer-accent) 22%, transparent);
+    --layer-rail: color-mix(in oklab, var(--layer-accent) 55%, transparent);
+  }
+
+  [data-layer="primitive"] {
+    --layer-accent: #0f766e;
+    --layer-soft: color-mix(in oklab, #0f766e 14%, transparent);
+    --layer-glow: color-mix(in oklab, #0f766e 26%, transparent);
+  }
+
+  [data-layer="capability"] {
+    --layer-accent: #b45309;
+    --layer-soft: color-mix(in oklab, #b45309 14%, transparent);
+    --layer-glow: color-mix(in oklab, #b45309 24%, transparent);
+  }
+
+  [data-layer="service"] {
+    --layer-accent: #2563eb;
+    --layer-soft: color-mix(in oklab, #2563eb 14%, transparent);
+    --layer-glow: color-mix(in oklab, #2563eb 26%, transparent);
+  }
+
+  [data-layer="ai"] {
+    --layer-accent: #0e7490;
+    --layer-soft: color-mix(in oklab, #0e7490 14%, transparent);
+    --layer-glow: color-mix(in oklab, #0e7490 26%, transparent);
+  }
+
+  .dark [data-layer="primitive"] {
+    --layer-accent: #2dd4bf;
+  }
+
+  .dark [data-layer="capability"] {
+    --layer-accent: #fbbf24;
+  }
+
+  .dark [data-layer="service"] {
+    --layer-accent: #60a5fa;
+  }
+
+  .dark [data-layer="ai"] {
+    --layer-accent: #22d3ee;
+  }
+
+  .layer-hero-noise {
+    background-image:
+      radial-gradient(circle at 16% 10%, var(--layer-glow), transparent 42%),
+      radial-gradient(circle at 88% 8%, rgb(24 24 27 / 0.05), transparent 34%),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.35), var(--background));
+  }
+
+  .dark .layer-hero-noise {
+    background-image:
+      radial-gradient(circle at 16% 10%, var(--layer-glow), transparent 44%),
+      radial-gradient(circle at 88% 8%, rgb(255 255 255 / 0.03), transparent 34%),
+      linear-gradient(to bottom, rgb(24 24 27 / 0.55), var(--background));
+  }
+
+  .layer-accent-text {
+    color: var(--layer-accent);
+  }
+
+  .layer-accent-border {
+    border-color: color-mix(in oklab, var(--layer-accent) 45%, var(--border));
+  }
+
+  .layer-chip-active {
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--layer-accent) 35%, transparent);
   }
 }
 
@@ -150,7 +278,7 @@
 }
 
 .prose-docs p {
-  @apply my-4 text-zinc-700;
+  @apply my-4 text-prose-body;
 }
 
 .prose-docs a {
@@ -159,7 +287,7 @@
 
 .prose-docs ul,
 .prose-docs ol {
-  @apply my-4 pl-5 text-zinc-700;
+  @apply my-4 pl-5 text-prose-body;
 }
 
 .prose-docs ul {
@@ -175,23 +303,70 @@
 }
 
 .prose-docs li::marker {
-  color: #a1a1aa;
+  color: var(--prose-muted);
 }
 
 .prose-docs code:not(pre code) {
-  @apply rounded-[4px] border border-border bg-zinc-100 px-1.5 py-0.5 font-mono text-[12.5px] text-zinc-800;
+  @apply rounded-[4px] border border-border bg-prose-inline-code-bg px-1.5 py-0.5 font-mono text-[12.5px] text-prose-inline-code-fg;
 }
 
-.prose-docs pre {
-  @apply my-6 overflow-x-auto rounded-lg border border-zinc-800 bg-docs-code p-4 text-[13px] leading-6 text-zinc-100 shadow-[inset_3px_0_0_0_#2563eb];
+/* Docs code — rehype-pretty-code dual theme (matches Bright / CodePanel) */
+.prose-docs figure[data-rehype-pretty-code-figure] {
+  @apply my-6 overflow-hidden rounded-xl border border-border shadow-sm;
 }
 
-.prose-docs pre code {
-  @apply bg-transparent p-0 font-mono text-[13px];
+.prose-docs figure[data-rehype-pretty-code-figure] pre {
+  @apply m-0 overflow-x-auto p-4 text-[13.5px] leading-[1.7];
+  font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
 }
 
-.prose-docs pre [data-line] {
+.prose-docs figure[data-rehype-pretty-code-figure] code {
+  @apply bg-transparent p-0 font-[inherit] text-[inherit];
+  counter-reset: line;
+}
+
+.prose-docs figure[data-rehype-pretty-code-figure] [data-line] {
   @apply px-0;
+}
+
+.prose-docs code[data-theme*=" "],
+.prose-docs code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+.dark .prose-docs code[data-theme*=" "],
+.dark .prose-docs code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+.prose-docs figure[data-rehype-pretty-code-figure] pre[data-theme*=" "] {
+  background-color: var(--shiki-light-bg) !important;
+}
+
+.dark .prose-docs figure[data-rehype-pretty-code-figure] pre[data-theme*=" "] {
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+/* Bright product panels */
+.code-panel-bright {
+  overflow: hidden !important;
+  border: 1px solid var(--border) !important;
+  box-shadow:
+    0 20px 40px rgb(0 0 0 / 0.12),
+    inset 3px 0 0 0 var(--accent) !important;
+}
+
+.code-panel-bright [data-bright-theme] {
+  font-variant-ligatures: contextual;
+  font-feature-settings: "calt" 1, "ss01" 1;
+}
+
+.code-panel:has(> p) .code-panel-bright {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .prose-docs table {
@@ -204,7 +379,7 @@
 }
 
 .prose-docs th {
-  @apply bg-zinc-50 text-xs font-semibold tracking-wide text-zinc-600 uppercase;
+  @apply bg-muted text-xs font-semibold tracking-wide text-muted-foreground uppercase;
 }
 
 .prose-docs tr:last-child td {
@@ -212,7 +387,7 @@
 }
 
 .prose-docs blockquote {
-  @apply my-6 rounded-r-md border-l-[3px] border-accent bg-blue-50/60 py-3 pr-4 pl-4 text-zinc-700;
+  @apply my-6 rounded-r-md border-l-[3px] border-accent bg-prose-quote-bg py-3 pr-4 pl-4 text-prose-body;
 }
 
 .prose-docs hr {

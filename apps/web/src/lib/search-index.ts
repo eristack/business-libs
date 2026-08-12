@@ -1,13 +1,19 @@
 import { listBlogPosts } from "@/lib/blog";
 import { getDocPackages } from "@/lib/docs";
-import { companyNav, packages, primaryNav, siteConfig } from "@/lib/site";
+import {
+  companyNav,
+  packageCategories,
+  packages,
+  primaryNav,
+  siteConfig,
+} from "@/lib/site";
 
 export type SearchItem = {
   id: string;
   title: string;
   description?: string;
   href: string;
-  group: "Navigation" | "Packages" | "Docs" | "Blog";
+  group: "Navigation" | "Libraries" | "Docs" | "Blog";
   keywords?: string;
 };
 
@@ -40,18 +46,43 @@ export function buildSearchIndex(): SearchItem[] {
     });
   }
 
+  for (const category of packageCategories) {
+    items.push({
+      id: `category-${category.id}`,
+      title: `${category.label} layer`,
+      description: category.tagline,
+      href: category.href,
+      group: "Libraries",
+      keywords: `${category.label} ${category.id} ${category.description} ${category.tagline}`,
+    });
+  }
+
   for (const pkg of packages) {
+    const category =
+      packageCategories.find((item) => item.id === pkg.category)?.label ??
+      pkg.category;
     items.push({
       id: `pkg-${pkg.slug}`,
       title: pkg.title,
-      description: pkg.name,
+      description: `${category} · ${pkg.name}`,
       href: pkg.href,
-      group: "Packages",
-      keywords: `${pkg.name} ${pkg.title} ${pkg.description}`,
+      group: "Libraries",
+      keywords: `${pkg.name} ${pkg.title} ${pkg.description} ${pkg.tagline} ${category} ${pkg.category}`,
+    });
+    items.push({
+      id: `changelog-${pkg.slug}`,
+      title: `${pkg.title} · Changelog`,
+      description: `Release history for ${pkg.name}`,
+      href: `/${pkg.slug}/changelog`,
+      group: "Libraries",
+      keywords: `${pkg.name} ${pkg.title} changelog release notes version history ${category}`,
     });
   }
 
   for (const pkg of getDocPackages()) {
+    const category =
+      packageCategories.find((item) => item.id === pkg.category)?.label ??
+      pkg.category;
     for (const page of pkg.pages) {
       const label = page.slug === "index" ? "Overview" : page.title;
       items.push({
@@ -60,7 +91,7 @@ export function buildSearchIndex(): SearchItem[] {
         description: page.description ?? page.sourcePath,
         href: page.href,
         group: "Docs",
-        keywords: `${pkg.name} ${pkg.title} ${label} ${page.description ?? ""} ${page.sourcePath}`,
+        keywords: `${pkg.name} ${pkg.title} ${label} ${page.description ?? ""} ${page.sourcePath} ${category} ${pkg.category}`,
       });
     }
   }
