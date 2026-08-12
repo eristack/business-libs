@@ -30,6 +30,19 @@ export type { AmountRepresentation } from "./engine/storage.js";
 
 export type { MonetaryOperator, MonetaryQuery } from "./ops/types.js";
 
+export {
+  Discount,
+  Markup,
+  Percent,
+  Tax,
+  DiscountPercent,
+  MarkupPercent,
+  PercentOf,
+  TaxExtractFromInclusive,
+  TaxNetFromInclusive,
+  TaxOnExclusive,
+} from "./ops/percent.js";
+
 export { MonetaryRounding, Rounding } from "./rounding/rounding.js";
 export type { RoundingContext } from "./rounding/rounding.js";
 export type { RoundingMode } from "./rounding/modes.js";

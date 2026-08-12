@@ -14,6 +14,7 @@ Use this package when you need:
 
 - Immutable monetary amounts with strict currency checks
 - Exact arithmetic without binary floating-point surprises
+- Totals, percentages, discounts, and tax helpers for everyday ERP math
 - Currency-aware rounding for ledgers and invoices
 - Allocation/split that always sums back to the original amount
 - Formatting/parsing for UI and JSON-safe serialization for APIs
@@ -24,10 +25,13 @@ Use this package when you need:
 - **Single `Money` type** — callers do not pick FastMoney vs Money
 - **Adaptive engine** — uses `bigint` minor units when safe, promotes to decimal when scale or precision requires it
 - **String-first constructors** — prefer `"19.99"` over `19.99`
+- **Percent points are explicit** — `percentOf("7")` means 7%, not `0.07`
 - **JSR 354-shaped API** — `CurrencyUnit`, `MonetaryAmount`, operators, queries, rounding
 
 ## Next steps
 
 - [Getting started](./getting-started.md)
 - [Concepts](./concepts.md)
+- [Advanced arithmetic](./advanced-arithmetic.md)
 - [ERP recipes](./recipes.md)
+- [API reference](./api-reference.md)

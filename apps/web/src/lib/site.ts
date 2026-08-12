@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Eristack",
   tagline: "Business primitives for TypeScript",
   description:
-    "Small, sharp libraries for money, auth, and the other domain building blocks enterprise stacks take for granted.",
+    "Small, sharp libraries for money, auth, document numbers, and the other domain building blocks enterprise stacks take for granted.",
   url: "https://eristack.dev",
   github: "https://github.com/eristack/business-libs",
   org: "https://github.com/eristack",
@@ -18,7 +18,7 @@ export const packages = [
     name: "@eristack/money",
     title: "Money",
     description:
-      "JSR 354–inspired amounts, rounding, allocation, and FX helpers — string-first, never JS number money.",
+      "JSR 354–inspired amounts, totals, percentages, tax/discount helpers, rounding, allocation, and FX — string-first, never JS number money.",
     href: "/docs/money",
     status: "stable" as const,
   },
@@ -29,6 +29,15 @@ export const packages = [
     description:
       "JWT access + opaque refresh tokens, credentials as a child of your users, Drizzle / REST / Express / Nest / React adapters.",
     href: "/docs/jwt-auth",
+    status: "stable" as const,
+  },
+  {
+    slug: "doc-number",
+    name: "@eristack/doc-number",
+    title: "Doc Number",
+    description:
+      "Token-pattern document numbers with period resets, FormatStore / SequenceStore, and headless Drizzle / REST / Express / Nest / React format-config adapters.",
+    href: "/docs/doc-number",
     status: "stable" as const,
   },
 ] as const;

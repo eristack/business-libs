@@ -22,8 +22,8 @@ import { Money, Monetary, Rounding } from "@eristack/money";
 const usd = Monetary.getCurrency("USD");
 const price = Money.of("19.99", usd);
 
-const tax = price.multiply("0.07");
-const total = price.add(tax).with(Rounding.currencyDefault());
+const tax = price.percentOf("7").with(Rounding.currencyDefault());
+const total = Money.sum([price, tax]);
 
 console.log(total.toString()); // 21.39 USD
 console.log(total.toJSON());
@@ -33,17 +33,19 @@ console.log(total.toJSON());
 ## ERP hello-world
 
 ```ts
-import { Money, Rounding } from "@eristack/money";
+import { Discount, Money, Rounding, Tax } from "@eristack/money";
 
+const round = Rounding.currencyDefault();
 const line = Money.of("120.00", "USD");
-const discount = line.multiply("0.10").with(Rounding.currencyDefault());
-const net = line.subtract(discount);
-const tax = net.multiply("0.11").with(Rounding.currencyDefault());
-const total = net.add(tax);
+const net = line.with(Discount.ofPercent("10")).with(round);
+const tax = net.with(Tax.onExclusive("11")).with(round);
+const total = Money.sum([net, tax]);
 
 const [a, b, c] = total.allocate(3);
 // a + b + c === total
 ```
+
+See [advanced arithmetic](./advanced-arithmetic.md) for totals, percentages, and tax helpers.
 
 ## Rules of thumb
 

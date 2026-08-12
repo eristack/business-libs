@@ -15,15 +15,16 @@ pnpm add @eristack/money
 ## Quick example
 
 ```ts
-import { Money, Rounding } from "@eristack/money";
+import { Money, Rounding, Tax } from "@eristack/money";
 
 const price = Money.of("19.99", "USD");
-const total = price
-  .add(price.multiply("0.07"))
-  .with(Rounding.currencyDefault());
+const tax = price.percentOf("7").with(Rounding.currencyDefault());
+const total = Money.sum([price, tax]);
 
 console.log(total.toJSON());
 // { currency: "USD", amount: "21.39" }
+
+// Or: price.with(Tax.onExclusive("7")).with(Rounding.currencyDefault())
 ```
 
 ## Documentation
@@ -35,7 +36,7 @@ Guides:
 
 - [Overview](./docs/index.md)
 - [Getting started](./docs/getting-started.md)
-- [Concepts](./docs/concepts.md)
+- [Advanced arithmetic](./docs/advanced-arithmetic.md) (totals, %, tax/discount)
 - [ERP recipes](./docs/recipes.md)
 - [API reference](./docs/api-reference.md)
 

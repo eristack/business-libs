@@ -1,0 +1,8 @@
+{
+  "index": "Overview",
+  "getting-started": "Getting started",
+  "format": "Format DSL",
+  "stores": "Stores & Drizzle",
+  "adapters": "HTTP & React adapters",
+  "api-reference": "API reference"
+}

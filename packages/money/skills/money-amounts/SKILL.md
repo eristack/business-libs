@@ -2,8 +2,9 @@
 name: money-amounts
 description: >
   Construct Money with strings or minor units, run same-currency arithmetic,
-  and compare amounts in @eristack/money. Use when creating prices, taxes,
-  discounts, totals, Money.of, Money.ofMinor, CurrencyMismatchError, or when
+  totals (Money.sum/min/max/average), percentages (percentOf/plusPercent/minusPercent),
+  ratios, Discount/Markup/Tax/Percent operators, and compare amounts in
+  @eristack/money. Use when creating prices, taxes, discounts, totals, or when
   an agent reaches for JS number literals for money.
 metadata:
   type: core
@@ -14,7 +15,9 @@ sources:
   - 'eristack/business-libs:packages/money/docs/concepts.md'
   - 'eristack/business-libs:packages/money/docs/amounts.md'
   - 'eristack/business-libs:packages/money/docs/arithmetic.md'
+  - 'eristack/business-libs:packages/money/docs/advanced-arithmetic.md'
   - 'eristack/business-libs:packages/money/src/amount/money.ts'
+  - 'eristack/business-libs:packages/money/src/ops/percent.ts'
 ---
 
 # @eristack/money — Amounts & Arithmetic
@@ -60,6 +63,23 @@ a.multiply("1.07");
 a.divide("3");
 a.negate();
 a.abs();
+```
+
+### Totals and percentages
+
+```ts
+import { Discount, Money, Percent, Rounding, Tax } from "@eristack/money";
+
+Money.sum([a, b]);
+Money.min(a, b);
+a.percentOf("7");       // 7% of a — pass percent points, not 0.07
+a.plusPercent("10");
+a.minusPercent("5");
+Money.percentRatio(a, b); // "a as % of b" decimal string
+
+const round = Rounding.currencyDefault();
+const net = a.with(Discount.ofPercent("5")).with(round);
+const tax = net.with(Tax.onExclusive("11")).with(round);
 ```
 
 Keep tax/discount intermediates precise. Round with the ledger skill before persist/display/post.
