@@ -1,29 +1,60 @@
 ---
-title: @eristack/ai-workflow
-description: Local-first MCP, indexed search, and sprint workflow for AI-native teams
+title: Introduction
+description: Local MCP, FTS+vector search, and sprint workflow — low token, additive
 sidebar_position: 1
 ---
 
 # @eristack/ai-workflow
 
-Make a product repo AI-native on the Eristack stack **without breaking** the tools you already use.
+Local-first project memory for agents: an installable **MCP server**, hybrid **FTS + on-device vector** search, and **sprint / backlog / ADR** folders under `.eristack/workflow`.
 
-## What you get
+It is designed so agents stay effective with **low token usage** — compact search hits and short workflow JSON — without replacing Cursor, TanStack Intent, git, or [`@eristack/ai-knowledge`](/docs/ai-knowledge).
 
-- Installable **MCP server** (`eristack-workflow-mcp`)
-- Local **FTS5 + on-device vector** index (no API key)
-- File-based **backlog / sprint / ADR / summary** workflow under `.eristack/workflow/`
-- Responses tuned for **low tokens + actionable clarity**
+## What it is
 
-## What you keep
+- MCP tools for status, search, backlog, sprints, tasks, ADRs
+- SQLite index (gitignored) with FTS5 and optional MiniLM embeddings
+- File templates for plans, tasks, ADRs, summaries
+- CLI + `createWorkflowClient` for scripts
 
-- Cursor / VS Code / Claude hosts
-- TanStack Intent + `@eristack/ai-knowledge`
-- Your git workflow (this package never owns VCS)
+## What it is not
 
-## Next
+| Not this | Use instead |
+| --- | --- |
+| Package API router | [`@eristack/ai-knowledge`](/docs/ai-knowledge) |
+| Source of truth for code | git |
+| Replacement for Intent skills | `pnpm dlx @tanstack/intent@latest load …` |
+| Cloud-hosted memory | Everything is local to the repo |
 
-- [Getting started](./getting-started.md)
-- [MCP install](./mcp.md)
-- [Search & index](./search.md)
-- [Sprint workflow](./workflow.md)
+## Token discipline
+
+- Search: **max 8 hits**, **≤3-line** snippets (path + lines + score)
+- Workflow tools return **ids / status / paths** — not full markdown bodies
+- Use `read_chunk` after search when you need bounded file text
+
+## Layout
+
+```text
+.eristack/
+  workflow/
+    config.json
+    backlog/items.yaml
+    sprints/<date>-<slug>/
+      plan.md
+      tasks.yaml
+      adr/
+      summary.md
+  index/workflow.sqlite   # gitignored
+```
+
+## Next steps
+
+| Guide | When |
+| --- | --- |
+| [Concepts](./concepts.md) | Boundaries vs Intent / knowledge / git |
+| [Getting started](./getting-started.md) | init → index → search → sprint |
+| [MCP](./mcp.md) | Tool reference + install |
+| [Search & index](./search.md) | FTS, embeddings, CI |
+| [Sprint workflow](./workflow.md) | Backlog, tasks, ADR, summarize |
+| [CLI & client](./cli-and-client.md) | Commands + `createWorkflowClient` |
+| [Recipes](./recipes.md) | Agent loops and closeout |

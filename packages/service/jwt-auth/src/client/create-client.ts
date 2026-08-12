@@ -1,4 +1,11 @@
 import type { TokenStorage } from "./storage.js";
+import {
+  createDataGrid,
+  serializeQuery,
+  type DataGridQueryInput,
+  type DataGridResult,
+} from "@eristack/data-grid";
+import { sessionDataGridSchema } from "../core/session-grid.js";
 
 export type AuthStatus = "unknown" | "authenticated" | "anonymous";
 
@@ -74,7 +81,9 @@ export interface JwtAuthClient {
   refresh(): Promise<TokenPairResponse>;
   logout(): Promise<void>;
   logoutAll(): Promise<void>;
-  listSessions(): Promise<AuthSessionResponse[]>;
+  listSessions(
+    query?: DataGridQueryInput,
+  ): Promise<DataGridResult<AuthSessionResponse>>;
   revokeSession(sessionId: string): Promise<void>;
   /** Ensures a non-expired access token is available, refreshing if needed. */
   ensureAccessToken(): Promise<string | null>;
@@ -303,15 +312,23 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
       }
     },
 
-    async listSessions() {
+    async listSessions(query) {
       const accessToken = await client.ensureAccessToken();
       if (!accessToken) {
         throw new Error("Not authenticated");
       }
-      const data = (await requestJson("GET", config.sessionsPath ?? "/auth/sessions", {
+      const qs = serializeQuery(
+        createDataGrid(sessionDataGridSchema).parse(query),
+      );
+      const path = `${config.sessionsPath ?? "/auth/sessions"}?${qs}`;
+      const data = (await requestJson("GET", path, {
         accessToken,
-      })) as { sessions?: AuthSessionResponse[] };
-      return Array.isArray(data.sessions) ? data.sessions : [];
+      })) as DataGridResult<AuthSessionResponse>;
+      return {
+        items: Array.isArray(data.items) ? data.items : [],
+        pageInfo: data.pageInfo,
+        query: data.query,
+      };
     },
 
     async revokeSession(sessionId: string) {

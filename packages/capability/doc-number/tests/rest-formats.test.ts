@@ -46,7 +46,7 @@ describe("REST format configuration", () => {
       req({ query: { entityKey: "invoice" } }),
     );
     expect(listed.status).toBe(200);
-    expect((listed.body as { formats: unknown[] }).formats).toHaveLength(1);
+    expect((listed.body as { items: unknown[] }).items).toHaveLength(1);
 
     const preview = await actions.preview(
       req({
@@ -101,8 +101,8 @@ describe("REST format configuration", () => {
     });
 
     const listed = await actions.listFormats(req({ query: { entityKey: "po" } }));
-    const formats = (listed.body as { formats: Array<{ id: string; active: boolean }> })
-      .formats;
+    const formats = (listed.body as { items: Array<{ id: string; active: boolean }> })
+      .items;
     expect(formats.find((f) => f.id === "fmt_1")?.active).toBe(false);
     expect(formats.find((f) => f.id === "fmt_2")?.active).toBe(true);
   });

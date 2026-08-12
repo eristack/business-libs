@@ -12,7 +12,9 @@ metadata:
   library_version: '0.0.0'
 sources:
   - 'eristack/business-libs:packages/capability/doc-number/docs/stores.md'
-  - 'eristack/business-libs:packages/capability/doc-number/docs/adapters.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/http-and-ui.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/formats-and-listing.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/recipes.md'
   - 'eristack/business-libs:packages/capability/doc-number/docs/api-reference.md'
   - 'eristack/business-libs:packages/capability/doc-number/src/drizzle/format-table.ts'
   - 'eristack/business-libs:packages/capability/doc-number/src/drizzle/sequence-store.ts'
@@ -79,16 +81,33 @@ Activating a format deactivates siblings for the same `entityKey`.
 
 ```ts
 import { createDocNumberClient } from "@eristack/doc-number/client";
-import { DocNumberProvider, useDocNumberFormats } from "@eristack/doc-number/react";
+import {
+  DocNumberProvider,
+  useDocNumberFormats,
+  createFormatFormOptions,
+} from "@eristack/doc-number/react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { useForm } from "@tanstack/react-form";
 
+// /client = HTTP only (also the base for future Vue/Svelte adapters)
 const client = createDocNumberClient({
   baseUrl: () => appConfig.apiUrl,
   getHeaders: () => ({ Authorization: `Bearer ${token}` }),
 });
 
 function Settings() {
-  const { formats, active, createFormat, updateFormat, preview } =
-    useDocNumberFormats("invoice");
-  // App owns the form UI
+  // TanStack Query under the hood — app owns QueryClientProvider
+  const { formats, active, createFormat } = useDocNumberFormats("invoice");
+
+  const form = useForm({
+    ...createFormatFormOptions({
+      entityKey: "invoice",
+      onSubmit: async (value) => {
+        await createFormat(value);
+      },
+    }),
+  });
 }
 ```
+
+`/react` wraps `/client` with TanStack Query mutations/queries and optional Form option factories — no UI widgets.

@@ -321,7 +321,14 @@ export function createListSessionsAction(config: RestAuthConfig) {
   return async (
     req: RestRequest,
   ): Promise<
-    RestResponse<{ sessions: AuthSessionBody[] } | ReturnType<typeof toErrorResponse>["body"]>
+    RestResponse<
+      | {
+          items: AuthSessionBody[];
+          pageInfo: import("@eristack/data-grid").PageInfo;
+          query: import("@eristack/data-grid").DataGridQuery;
+        }
+      | ReturnType<typeof toErrorResponse>["body"]
+    >
   > => {
     try {
       const accessToken = extractAccessToken(req);
@@ -338,17 +345,22 @@ export function createListSessionsAction(config: RestAuthConfig) {
       }
 
       const verified = await config.jwtAuth.verifyAccessToken(accessToken);
-      const sessions = await config.jwtAuth.listSessions(verified.subject);
+      const result = await config.jwtAuth.listSessions(
+        verified.subject,
+        req.query,
+      );
 
       return {
         status: 200,
         body: {
-          sessions: sessions.map((session) => ({
+          items: result.items.map((session) => ({
             id: session.id,
             familyId: session.familyId,
             createdAt: session.createdAt.toISOString(),
             expiresAt: session.expiresAt.toISOString(),
           })),
+          pageInfo: result.pageInfo,
+          query: result.query,
         },
       };
     } catch (error) {

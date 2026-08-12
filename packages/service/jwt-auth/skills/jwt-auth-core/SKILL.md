@@ -12,7 +12,12 @@ metadata:
   library_version: '0.0.0'
 sources:
   - 'eristack/business-libs:packages/service/jwt-auth/docs/index.md'
-  - 'eristack/business-libs:packages/service/jwt-auth/docs/refresh-flow.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/getting-started.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/concepts.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/credentials.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/tokens-and-refresh.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/sessions.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/security.md'
   - 'eristack/business-libs:packages/service/jwt-auth/src/core/create-jwt-auth.ts'
   - 'eristack/business-libs:packages/service/jwt-auth/src/core/types.ts'
 ---

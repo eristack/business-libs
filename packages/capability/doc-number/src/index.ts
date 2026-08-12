@@ -11,6 +11,7 @@ export type {
 
 export { createMemoryFormatStore } from "./core/memory-format-store.js";
 export { createMemorySequenceStore } from "./core/memory-sequence-store.js";
+export { formatDataGridSchema } from "./core/format-grid.js";
 
 export {
   DocNumberError,

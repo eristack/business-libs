@@ -93,7 +93,7 @@ describe("rest actions", () => {
       },
     });
     expect(listed.status).toBe(200);
-    expect((listed.body as { sessions: { id: string }[] }).sessions).toEqual([
+    expect((listed.body as { items: { id: string }[] }).items).toEqual([
       expect.objectContaining({ id: body.sessionId }),
     ]);
 
@@ -116,7 +116,7 @@ describe("rest actions", () => {
             : null,
       },
     });
-    expect((after.body as { sessions: unknown[] }).sessions).toEqual([]);
+    expect((after.body as { items: unknown[] }).items).toEqual([]);
   });
 
   it("logout clears the refresh token", async () => {

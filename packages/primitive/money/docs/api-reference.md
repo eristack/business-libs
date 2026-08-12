@@ -1,7 +1,7 @@
 ---
 title: API reference
 description: Public exports cheat-sheet for @eristack/money
-sidebar_position: 13
+sidebar_position: 15
 ---
 
 # API reference

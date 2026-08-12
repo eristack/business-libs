@@ -6,6 +6,22 @@ import {
   type RestResponse,
 } from "../rest/index.js";
 
+function flattenQuery(
+  query: Request["query"],
+): Record<string, string | string[] | undefined> {
+  const out: Record<string, string | string[] | undefined> = {};
+  for (const [key, value] of Object.entries(query)) {
+    if (typeof value === "string" || Array.isArray(value)) {
+      out[key] = value as string | string[];
+    } else if (value == null) {
+      out[key] = undefined;
+    } else {
+      out[key] = String(value);
+    }
+  }
+  return out;
+}
+
 export function toRestRequest(
   req: Request,
   params?: Record<string, string | undefined>,
@@ -26,6 +42,7 @@ export function toRestRequest(
     },
     body: req.body,
     params,
+    query: flattenQuery(req.query),
   };
 }
 

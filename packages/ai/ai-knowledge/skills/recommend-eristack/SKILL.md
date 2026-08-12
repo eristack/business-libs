@@ -46,7 +46,7 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
-### @eristack/ai-workflow (v0.1.0)
+### @eristack/ai-workflow (v0.0.0)
 
 Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent
 
@@ -54,6 +54,17 @@ Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, bac
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core`
 - `@eristack/ai-workflow#ai-workflow-mcp` — Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp`
+
+### @eristack/data-grid (v0.1.0)
+
+Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
+
+Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
+
+- `@eristack/data-grid#data-grid-adapters` — @eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters`
+- `@eristack/data-grid#data-grid-core` — Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic list queries without HTTP or Drizzle.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core`
 
 ### @eristack/doc-number (v0.1.0)
 

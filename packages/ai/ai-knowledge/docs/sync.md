@@ -1,55 +1,51 @@
 ---
 title: Catalog sync
-description: Keep ai-knowledge aligned with sibling @eristack packages
-sidebar_position: 4
+description: knowledge:sync, generated files, and CI knowledge:check
+sidebar_position: 8
 ---
 
 # Catalog sync
 
-Package facts in `@eristack/ai-knowledge` are **generated** from sibling packages in this monorepo so agents do not rely on stale skill lists.
-
-## Sources of truth
-
-| Data | Source | Updated by |
-| --- | --- | --- |
-| Package name, version, description, adapters | `packages/*/*/package.json` | `pnpm knowledge:sync` |
-| Skill ids + descriptions | `packages/*/*/skills/*/SKILL.md` | `pnpm knowledge:sync` |
-| Feature recipes | `packages/ai/ai-knowledge/knowledge/recipes.yaml` | Humans (+ validated by sync) |
-| Stack / workflow / toolbox prose | `knowledge/*.md` | Humans |
+The catalog is **generated** from publishable packages under `packages/<category>/`. Recipes are **hand-authored** in YAML and embedded at sync time.
 
 ## Commands
 
-From the monorepo root:
-
 ```bash
-pnpm knowledge:sync    # regenerate catalog + embedded recipes + skill catalog section
-pnpm knowledge:check   # fail if generated output drifts (CI)
+pnpm knowledge:sync    # regenerate catalog + recipes + recommend-eristack catalog block
+pnpm knowledge:check   # CI: fail if generated output is stale
 ```
 
-Package-local equivalents:
+## What sync writes
 
-```bash
-pnpm --filter @eristack/ai-knowledge sync
-pnpm --filter @eristack/ai-knowledge sync:check
-```
+| Path | Content |
+| --- | --- |
+| `src/generated/catalog.ts` | Packages, versions, skills, adapters |
+| `src/generated/recipes.ts` | Embedded `recipes.yaml` |
+| `skills/recommend-eristack/SKILL.md` | `<!-- catalog:* -->` block only |
 
-## When to run sync
+## Do not hand-edit
 
-Run sync when you:
+- Anything under `src/generated/`
+- The catalog fence inside `recommend-eristack`
 
-- Add or rename an `@eristack/*` package
-- Add, remove, or change Intent skill frontmatter
-- Change package version/description/exports that agents should see
-- Edit `knowledge/recipes.yaml`
+Edit sources instead: package `package.json` / skills, or `knowledge/recipes.yaml`.
 
-If a new capability should be **discoverable by product language**, also add triggers to `recipes.yaml`.
+## When you must sync
 
-## CI
+- Add/remove a publishable package under `packages/*/*`
+- Change skill ids or descriptions agents should see
+- Add/change a recipe
+- Change public export surface that the catalog advertises
 
-`.github/workflows/ci.yml` runs `pnpm knowledge:check` so PRs cannot merge with a stale generated catalog or broken recipe references.
+## Failure modes
 
-## Generated files (do not hand-edit)
+| Symptom | Fix |
+| --- | --- |
+| `knowledge:check` fails in CI | Run `knowledge:sync` and commit generated files |
+| Recipe references unknown package/skill | Fix YAML ids to match catalog |
+| Stale recommend-eristack catalog | Sync after skill edits |
 
-- `src/generated/catalog.ts`
-- `src/generated/recipes.ts`
-- Catalog block between `<!-- catalog:start -->` and `<!-- catalog:end -->` in `skills/recommend-eristack/SKILL.md`
+## Related
+
+- [Authoring](./authoring.md)
+- [Recipes](./recipes.md)

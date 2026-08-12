@@ -13,7 +13,10 @@ metadata:
 sources:
   - 'eristack/business-libs:packages/capability/doc-number/docs/index.md'
   - 'eristack/business-libs:packages/capability/doc-number/docs/getting-started.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/concepts.md'
   - 'eristack/business-libs:packages/capability/doc-number/docs/format.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/sequencing.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/formats-and-listing.md'
   - 'eristack/business-libs:packages/capability/doc-number/docs/api-reference.md'
   - 'eristack/business-libs:packages/capability/doc-number/src/core/create-doc-number.ts'
   - 'eristack/business-libs:packages/capability/doc-number/src/core/types.ts'

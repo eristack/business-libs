@@ -1,8 +1,13 @@
 {
-  "index": "Overview",
-  "getting-started": "Getting started",
-  "recommend": "Recommend API",
-  "architecture": "Architecture",
-  "sync": "Catalog sync",
-  "skills": "Agent skills"
+  "title": "AI Knowledge",
+  "pages": [
+    "index",
+    "getting-started",
+    "recommend",
+    "recipes",
+    "authoring",
+    "architecture",
+    "skills",
+    "sync"
+  ]
 }

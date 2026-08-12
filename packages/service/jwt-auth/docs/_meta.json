@@ -2,7 +2,15 @@
   "title": "@eristack/jwt-auth",
   "pages": [
     "index",
-    "refresh-flow",
-    "adapters"
+    "getting-started",
+    "concepts",
+    "credentials",
+    "tokens-and-refresh",
+    "sessions",
+    "http",
+    "database",
+    "client-and-react",
+    "recipes",
+    "security"
   ]
 }

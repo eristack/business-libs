@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  type QueryKey,
+} from "@tanstack/react-query";
+import type { DataGridQueryInput } from "@eristack/data-grid";
+import { createDataGrid, serializeQuery } from "@eristack/data-grid";
+import { formatDataGridSchema } from "../core/format-grid.js";
 import type {
   CreateFormatBody,
   FormatBody,
@@ -7,7 +15,7 @@ import type {
 } from "../rest/types.js";
 import { useDocNumberContext } from "./context.js";
 
-/** Bound client methods for format configuration. */
+/** Bound client methods — no server-state cache. Prefer Query hooks for lists. */
 export function useDocNumber() {
   const { client } = useDocNumberContext();
   return {
@@ -21,75 +29,132 @@ export function useDocNumber() {
   };
 }
 
+export function docNumberFormatsQueryKey(
+  entityKey: string,
+  queryInput?: DataGridQueryInput,
+): QueryKey {
+  const qs = serializeQuery(
+    createDataGrid(formatDataGridSchema).parse(queryInput),
+  ).toString();
+  return ["eristack", "doc-number", "formats", entityKey, qs];
+}
+
+export function docNumberActiveFormatQueryKey(entityKey: string): QueryKey {
+  return ["eristack", "doc-number", "formats", "active", entityKey];
+}
+
 export type FormatsStatus = "idle" | "loading" | "ready" | "error";
 
 /**
- * Headless hook for an entity's format list + active format.
- * Apps render their own settings UI; this only loads/mutates data.
+ * TanStack Query list + active format for an entity.
+ * Requires app-owned `QueryClientProvider`. Mutations invalidate format keys.
  */
-export function useDocNumberFormats(entityKey: string) {
+export function useDocNumberFormats(
+  entityKey: string,
+  gridQuery?: DataGridQueryInput,
+) {
   const { client } = useDocNumberContext();
-  const [formats, setFormats] = useState<FormatBody[]>([]);
-  const [active, setActive] = useState<FormatBody | null>(null);
-  const [status, setStatus] = useState<FormatsStatus>("idle");
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
-  const refresh = useCallback(async () => {
-    if (!entityKey) return;
-    setStatus("loading");
-    setError(null);
-    try {
-      const [list, current] = await Promise.all([
-        client.listFormats(entityKey),
-        client.getActiveFormat(entityKey),
-      ]);
-      setFormats(list);
-      setActive(current);
-      setStatus("ready");
-    } catch (err) {
-      setStatus("error");
-      setError(err instanceof Error ? err.message : "Failed to load formats");
-    }
-  }, [client, entityKey]);
+  const listQuery = useQuery({
+    queryKey: docNumberFormatsQueryKey(entityKey, gridQuery),
+    queryFn: () => client.listFormats(entityKey, gridQuery),
+    enabled: Boolean(entityKey),
+  });
 
-  useEffect(() => {
-    void refresh();
-  }, [refresh]);
+  const activeQuery = useQuery({
+    queryKey: docNumberActiveFormatQueryKey(entityKey),
+    queryFn: () => client.getActiveFormat(entityKey),
+    enabled: Boolean(entityKey),
+  });
 
-  const createFormat = useCallback(
-    async (input: Omit<CreateFormatBody, "entityKey"> & { entityKey?: string }) => {
-      const created = await client.createFormat({
+  const invalidate = async () => {
+    await queryClient.invalidateQueries({
+      queryKey: ["eristack", "doc-number", "formats", entityKey],
+    });
+  };
+
+  const createMutation = useMutation({
+    mutationFn: (
+      input: Omit<CreateFormatBody, "entityKey"> & { entityKey?: string },
+    ) =>
+      client.createFormat({
         ...input,
         entityKey: input.entityKey ?? entityKey,
-      });
-      await refresh();
-      return created;
-    },
-    [client, entityKey, refresh],
-  );
+      }),
+    onSuccess: () => invalidate(),
+  });
 
-  const updateFormat = useCallback(
-    async (id: string, input: UpdateFormatBody) => {
-      const updated = await client.updateFormat(id, input);
-      await refresh();
-      return updated;
-    },
-    [client, refresh],
-  );
+  const updateMutation = useMutation({
+    mutationFn: ({ id, input }: { id: string; input: UpdateFormatBody }) =>
+      client.updateFormat(id, input),
+    onSuccess: () => invalidate(),
+  });
 
-  const preview = useCallback(
-    (input: PreviewBody) => client.preview(input),
-    [client],
-  );
+  const previewMutation = useMutation({
+    mutationFn: (input: PreviewBody) => client.preview(input),
+  });
+
+  const status: FormatsStatus = !entityKey
+    ? "idle"
+    : listQuery.isError || activeQuery.isError
+      ? "error"
+      : listQuery.isPending || activeQuery.isPending
+        ? "loading"
+        : listQuery.isSuccess
+          ? "ready"
+          : "idle";
+
+  const error =
+    listQuery.error?.message ?? activeQuery.error?.message ?? null;
 
   return {
-    formats,
-    active,
+    formats: listQuery.data?.items ?? [],
+    pageInfo: listQuery.data?.pageInfo ?? null,
+    query: listQuery.data?.query ?? null,
+    active: activeQuery.data ?? null,
     status,
     error,
-    refresh,
-    createFormat,
-    updateFormat,
-    preview,
+    listQuery,
+    activeQuery,
+    refresh: invalidate,
+    createFormat: (
+      input: Omit<CreateFormatBody, "entityKey"> & { entityKey?: string },
+    ) => createMutation.mutateAsync(input),
+    updateFormat: (id: string, input: UpdateFormatBody) =>
+      updateMutation.mutateAsync({ id, input }),
+    preview: (input: PreviewBody) => previewMutation.mutateAsync(input),
+    createMutation,
+    updateMutation,
+    previewMutation,
+  };
+}
+
+export function useDocNumberFormat(id: string) {
+  const { client } = useDocNumberContext();
+  return useQuery({
+    queryKey: ["eristack", "doc-number", "format", id],
+    queryFn: () => client.getFormatById(id),
+    enabled: Boolean(id),
+  });
+}
+
+/** Headless TanStack Form options for create-format — no UI. */
+export function createFormatFormOptions(options: {
+  entityKey: string;
+  onSubmit: (value: CreateFormatBody) => Promise<FormatBody | void>;
+  defaultValues?: Partial<CreateFormatBody>;
+}) {
+  return {
+    defaultValues: {
+      entityKey: options.entityKey,
+      pattern: "",
+      reset: "never" as const,
+      active: true,
+      ...options.defaultValues,
+    },
+    onSubmit: async ({ value }: { value: CreateFormatBody }) => {
+      await options.onSubmit(value);
+    },
   };
 }

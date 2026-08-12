@@ -1,28 +1,49 @@
 ---
 title: Getting started
-description: Init, index, and first search
-sidebar_position: 2
+description: init, index, search, and your first sprint
+sidebar_position: 3
 ---
 
 # Getting started
+
+## Install
 
 ```bash
 pnpm add -D @eristack/ai-workflow
 pnpm eristack-workflow init
 pnpm eristack-workflow index
-pnpm eristack-workflow search "login refresh"
 ```
 
-`init` creates `.eristack/workflow/` and appends `.eristack/index/` to `.gitignore` when present.
+`index` may download an on-device embedding model on first embed run. For CI or offline:
 
-First `index` may download the local embedding model (`Xenova/all-MiniLM-L6-v2`). Use `--no-embed` for FTS-only smoke tests.
-
-Programmatic API:
-
-```ts
-import { createWorkflowClient } from "@eristack/ai-workflow";
-
-const wf = createWorkflowClient();
-await wf.reindex();
-const hits = await wf.search("allocate money");
+```bash
+pnpm eristack-workflow index --no-embed
 ```
+
+## First search
+
+```bash
+pnpm eristack-workflow search "refresh token rotation"
+```
+
+Expect ≤8 compact hits. Follow up by opening paths or using MCP `read_chunk`.
+
+## First sprint
+
+```bash
+pnpm eristack-workflow sprint create --title "Auth sessions"
+pnpm eristack-workflow status
+pnpm eristack-workflow sprint summarize
+```
+
+This creates `.eristack/workflow/sprints/<date>-auth-sessions/` with `plan.md`, `tasks.yaml`, `adr/`, and `summary.md`.
+
+## MCP (optional)
+
+Add the server beside your existing MCP config — see [MCP](./mcp.md). Set `ERISTACK_WORKFLOW_CWD` if the server process cwd is not the repo root.
+
+## Next
+
+- [Search & index](./search.md)
+- [Sprint workflow](./workflow.md)
+- [Recipes](./recipes.md)

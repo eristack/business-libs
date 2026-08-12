@@ -4,6 +4,7 @@ export { createMemoryCredentialStore } from "./core/memory-credential-store.js";
 export { hashPassword, verifyPassword } from "./core/password.js";
 export { durationToMs } from "./core/duration.js";
 export { generateId, generateOpaqueToken, hashToken } from "./core/crypto.js";
+export { sessionDataGridSchema } from "./core/session-grid.js";
 export {
   ConfigurationError,
   CredentialNotFoundError,

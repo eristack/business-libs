@@ -11,7 +11,10 @@ metadata:
   library: '@eristack/jwt-auth'
   library_version: '0.0.0'
 sources:
-  - 'eristack/business-libs:packages/service/jwt-auth/docs/adapters.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/http.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/database.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/client-and-react.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/recipes.md'
   - 'eristack/business-libs:packages/service/jwt-auth/src/drizzle/table.ts'
   - 'eristack/business-libs:packages/service/jwt-auth/src/drizzle/credentials-table.ts'
   - 'eristack/business-libs:packages/service/jwt-auth/src/rest/actions.ts'
@@ -86,15 +89,23 @@ JwtAuthModule.register({ jwtAuth: auth });
 
 Express/Nest only map req/res onto `/rest`. Business rules stay in core.
 
-### Headless client + headless React
+### Headless client + headless React (TanStack)
 
 ```ts
 import {
   createJwtAuthClient,
   createLocalStorageTokenStorage,
 } from "@eristack/jwt-auth/client";
-import { JwtAuthProvider, useJwtAuth } from "@eristack/jwt-auth/react";
+import {
+  JwtAuthProvider,
+  useJwtAuth,
+  useAuthSessions,
+  useLogin,
+  createLoginFormOptions,
+} from "@eristack/jwt-auth/react";
+import { useForm } from "@tanstack/react-form";
 
+// /client = HTTP + token machine (framework-agnostic base for Vue/Svelte later)
 const client = createJwtAuthClient({
   baseUrl: () => appConfig.apiBaseUrl,
   storage: createLocalStorageTokenStorage(),
@@ -102,10 +113,21 @@ const client = createJwtAuthClient({
 });
 
 function Profile() {
-  const { status, login, ensureAccessToken, logout } = useJwtAuth();
-  // await login({ username, password }) — package ships no forms
+  const { status } = useJwtAuth(); // subscribe bridge — not Query cache
+  const sessions = useAuthSessions(); // TanStack Query → client.listSessions
+  const login = useLogin();
+
+  const form = useForm({
+    ...createLoginFormOptions({
+      onSubmit: async (value) => {
+        await login.mutateAsync(value);
+      },
+    }),
+  });
 }
 ```
+
+App mounts `QueryClientProvider`. Package ships no form UI.
 
 ## Common Mistakes
 

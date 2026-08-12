@@ -72,7 +72,20 @@ Mount behind your own auth. React settings screens use `@eristack/doc-number/rea
 
 ## Docs
 
-See [`docs/`](./docs/) or the site at `/docs/doc-number`.
+Package docs are the source of truth; the site renders them at `/docs/doc-number`.
+
+| Page | Covers |
+| --- | --- |
+| [Introduction](./docs/index.md) | Problem, layers, allocation vs format configuration, injection rule |
+| [Getting started](./docs/getting-started.md) | Pure format → memory stores → peek → Drizzle |
+| [Concepts](./docs/concepts.md) | `entityKey`, active formats, period buckets, prefix, clock, allocators |
+| [Format DSL](./docs/format.md) | Tokens, validation rules, parse semantics, UTC |
+| [Sequencing](./docs/sequencing.md) | Reset → period key, `next` vs `peekNext`, backfills, concurrency |
+| [Formats & listing](./docs/formats-and-listing.md) | register / update / read, `listFormats`, `formatDataGridSchema` |
+| [Stores & Drizzle](./docs/stores.md) | Store interfaces, tables, dialects, row locking |
+| [HTTP & UI adapters](./docs/http-and-ui.md) | REST bodies, Express, Nest, client, React hooks + Form |
+| [Recipes](./docs/recipes.md) | Monthly invoices, tenants, Redis incrementer, settings screen |
+| [API reference](./docs/api-reference.md) | Every export by entry point |
 
 ## Intent skills
 

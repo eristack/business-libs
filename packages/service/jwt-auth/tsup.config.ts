@@ -16,6 +16,7 @@ export default defineConfig({
   clean: true,
   external: [
     "jose",
+    "@eristack/data-grid",
     "drizzle-orm",
     "drizzle-orm/pg-core",
     "drizzle-orm/mysql-core",
@@ -24,6 +25,8 @@ export default defineConfig({
     "@nestjs/common",
     "@nestjs/core",
     "react",
+    "@tanstack/react-query",
+    "@tanstack/react-form",
     "reflect-metadata",
     "rxjs",
   ],

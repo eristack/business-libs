@@ -1,7 +1,7 @@
 ---
 title: Formatting
 description: Locale-aware format and parse helpers
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # Formatting

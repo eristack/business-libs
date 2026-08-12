@@ -1,5 +1,6 @@
 import type { AuthSessionResponse } from "@eristack/jwt-auth/client";
 import type { MeResponse } from "../lib/me.js";
+import { OrdersGrid } from "./OrdersGrid.js";
 import { SessionList } from "./SessionList.js";
 
 type DashboardProps = {
@@ -120,6 +121,8 @@ export function Dashboard({
 
         {error ? <p className="error">{error}</p> : null}
       </section>
+
+      <OrdersGrid enabled={status === "authenticated"} />
 
       <SessionList
         sessions={sessions}

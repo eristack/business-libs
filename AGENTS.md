@@ -31,6 +31,12 @@ tanstackIntent:
   - id: "@eristack/doc-number#doc-number-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core"
     for: "Pure @eristack/doc-number: createDocNumber, formatDocumentNumber, parseDocumentNumber, registerFormat, updateFormat, listFormats, next, peekNext, token patterns {YYYY}/{YY}/{MM}/{DD}/{SEQ:n}, ResetPeriod, FormatStore + SequenceStore + Incrementer. Use for document numbers without HTTP frameworks."
+  - id: "@eristack/data-grid#data-grid-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters"
+    for: "@eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridQuery/useDataGridList. Use when wiring list HTTP/SQL/UI shells."
+  - id: "@eristack/data-grid#data-grid-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
+    for: "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle."
   - id: "@eristack/jwt-auth#jwt-auth-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-adapters"
     for: "@eristack/jwt-auth adapters: drizzle RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), rest login/sessions, express createJwtAuthRouter, nest JwtAuthModule, client login, react useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
@@ -105,6 +111,7 @@ Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
+- `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)

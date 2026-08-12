@@ -4,6 +4,13 @@ import type {
   PreviewBody,
   UpdateFormatBody,
 } from "../rest/types.js";
+import {
+  createDataGrid,
+  serializeQuery,
+  type DataGridQueryInput,
+  type DataGridResult,
+} from "@eristack/data-grid";
+import { formatDataGridSchema } from "../core/format-grid.js";
 
 export type MaybeAsync<T> = T | Promise<T>;
 
@@ -31,7 +38,10 @@ export interface DocNumberClientConfig {
 }
 
 export interface DocNumberClient {
-  listFormats(entityKey: string): Promise<FormatBody[]>;
+  listFormats(
+    entityKey: string,
+    query?: DataGridQueryInput,
+  ): Promise<DataGridResult<FormatBody>>;
   getActiveFormat(entityKey: string): Promise<FormatBody | null>;
   getFormatById(id: string): Promise<FormatBody>;
   createFormat(input: CreateFormatBody): Promise<FormatBody>;
@@ -104,12 +114,21 @@ export function createDocNumberClient(
   }
 
   return {
-    async listFormats(entityKey) {
-      const qs = new URLSearchParams({ entityKey });
-      const data = await request<{ formats: FormatBody[] }>(
-        `${formatsPath}?${qs}`,
+    async listFormats(entityKey, query) {
+      const qs = serializeQuery(
+        createDataGrid(formatDataGridSchema).parse(query),
       );
-      return data.formats;
+      qs.set("entityKey", entityKey);
+      const data = await request<{
+        items: FormatBody[];
+        pageInfo: DataGridResult<FormatBody>["pageInfo"];
+        query: DataGridResult<FormatBody>["query"];
+      }>(`${formatsPath}?${qs}`);
+      return {
+        items: data.items,
+        pageInfo: data.pageInfo,
+        query: data.query,
+      };
     },
 
     async getActiveFormat(entityKey) {

@@ -1,16 +1,20 @@
 {
-  "index": "Overview",
-  "getting-started": "Getting started",
-  "concepts": "Concepts",
-  "currency": "Currency",
-  "amounts": "Amounts",
-  "arithmetic": "Arithmetic",
-  "advanced-arithmetic": "Advanced arithmetic",
-  "rounding": "Rounding",
-  "allocate": "Allocate & split",
-  "formatting": "Formatting",
-  "conversion": "Currency conversion",
-  "serialization": "Serialization",
-  "recipes": "ERP recipes",
-  "api-reference": "API reference"
+  "title": "@eristack/money",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "gotchas",
+    "currency",
+    "amounts",
+    "arithmetic",
+    "advanced-arithmetic",
+    "rounding",
+    "allocate",
+    "formatting",
+    "conversion",
+    "serialization",
+    "recipes",
+    "api-reference"
+  ]
 }

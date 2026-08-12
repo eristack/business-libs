@@ -10,7 +10,7 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "skills:list": "intent list",
-    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/service/jwt-auth && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow",
+    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow",
     "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
     "changeset": "changeset",
@@ -23,6 +23,7 @@
     "@changesets/cli": "^2.31.1",
     "@eristack/ai-knowledge": "workspace:*",
     "@eristack/ai-workflow": "workspace:*",
+    "@eristack/data-grid": "workspace:*",
     "@eristack/doc-number": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
     "@eristack/money": "workspace:*",
@@ -34,6 +35,7 @@
     "skills": [
       "workspace:@eristack/money",
       "workspace:@eristack/doc-number",
+      "workspace:@eristack/data-grid",
       "workspace:@eristack/jwt-auth",
       "workspace:@eristack/ai-knowledge",
       "workspace:@eristack/ai-workflow"

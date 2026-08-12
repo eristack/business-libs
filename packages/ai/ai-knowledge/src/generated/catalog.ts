@@ -4,11 +4,11 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T04:48:29.984Z",
+  "generatedAt": "2026-08-12T08:09:47.548Z",
   "packages": [
     {
       "name": "@eristack/ai-workflow",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "description": "Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent",
       "slug": "ai-workflow",
       "adapters": [],
@@ -28,6 +28,38 @@ export const catalog = {
           "description": "Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/data-grid",
+      "version": "0.1.0",
+      "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
+      "slug": "data-grid",
+      "adapters": [
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest"
+      ],
+      "skills": [
+        {
+          "id": "data-grid-adapters",
+          "name": "data-grid-adapters",
+          "packageName": "@eristack/data-grid",
+          "description": "@eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters"
+        },
+        {
+          "id": "data-grid-core",
+          "name": "data-grid-core",
+          "packageName": "@eristack/data-grid",
+          "description": "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic list queries without HTTP or Drizzle.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
         }
       ]
     },

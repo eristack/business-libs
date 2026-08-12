@@ -24,6 +24,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Library guides are **not duplicated** here. `apps/web` reads `packages/<category>/*/docs` at build/runtime (`src/lib/docs.ts`). Edit package markdown; the site and Cmd/Ctrl+K search pick it up.
 
+ASCII / layering diagrams stay as plain markdown fences (` ```text `, ` ```ascii `, ` ```diagram `). The docs renderer lifts those into a dedicated **Diagram** panel (system monospace, no Shiki) so box-drawing stays aligned on the web.
+
 ## Information architecture
 
 **Libraries** (`/packages`) → **Layer** → **Library overview** → **Docs**. Version badges link to `/{slug}/changelog`.
@@ -37,7 +39,7 @@ Shared UI lives under `src/components/stack/` (`PageHero`, `StackChrome`, `Layer
 | `/` | Landing |
 | `/packages` | Libraries index (all layers) |
 | `/primitive`, `/capability`, `/service`, `/ai` | Layer landings |
-| `/money`, `/doc-number`, `/jwt-auth`, `/ai-knowledge`, `/ai-workflow` | Library overviews |
+| `/money`, `/doc-number`, `/jwt-auth`, `/data-grid`, `/ai-knowledge`, `/ai-workflow` | Library overviews |
 | `/{slug}/changelog` | Package changelog (`CHANGELOG.md` when present) |
 | `/docs/...` | Package documentation (from `packages/<category>/*/docs`) |
 | `/blog` | Blog index + posts |

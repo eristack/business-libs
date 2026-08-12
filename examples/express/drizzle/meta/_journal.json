@@ -15,6 +15,13 @@
       "when": 1786425594873,
       "tag": "0001_bitter_mysterio",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1786520233675,
+      "tag": "0002_perpetual_puppet_master",
+      "breakpoints": true
     }
   ]
 }

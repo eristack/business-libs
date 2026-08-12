@@ -1,20 +1,53 @@
 ---
 title: Search & index
-description: Local FTS + vector hybrid search
-sidebar_position: 4
+description: FTS5, on-device embeddings, RRF fusion, and CI without embeds
+sidebar_position: 5
 ---
 
 # Search & index
 
-| Layer | Implementation |
+## Hybrid ranking
+
+The index combines:
+
+1. **FTS5** lexical search over chunked project files  
+2. Optional **on-device embeddings** (MiniLM-style; configured via `embedModel`)  
+3. **RRF** (reciprocal rank fusion) to merge rankings  
+
+If the DB has **no vectors**, search skips embedding load (important for Linux CI / `--no-embed` indexes).
+
+## Reindex
+
+```bash
+pnpm eristack-workflow index
+pnpm eristack-workflow index --no-embed
+```
+
+MCP: `index_reindex({ embed?: boolean })`.
+
+Indexing is incremental (content hash). Crawl uses `roots` / `ignore` from config.
+
+## Limits
+
+| Knob | Default / max |
 | --- | --- |
-| Lexical | SQLite FTS5 (BM25) |
-| Vector | `@xenova/transformers` `all-MiniLM-L6-v2` |
-| Fusion | Reciprocal rank fusion |
-| Store | `.eristack/index/workflow.sqlite` |
+| Hit limit | max **8** |
+| Snippet | ≤ **3** lines |
+| `read_chunk` maxLines | max **120** (default ~80) |
 
-Defaults: **8** hits, **3-line** snippets, incremental reindex by content hash.
+## CI guidance
 
-Search loads the embedding model only when the index already has vectors. After `index --no-embed` (or CI FTS smoke tests), search stays FTS-only and does not pull in `@xenova/transformers` / `sharp`.
+- Prefer `--no-embed` in CI to avoid model download and native sharp issues  
+- Commit workflow markdown you care about; keep `workflow.sqlite` gitignored  
+- Reindex locally after large refactors before expecting search hits  
 
-Ignore globs live in `.eristack/workflow/config.json` (`ignore`, `roots`, `embedModel`).
+## Troubleshooting
+
+| Symptom | Likely cause |
+| --- | --- |
+| Empty search | Never indexed / wrong cwd |
+| Slow first index | Embedding model download |
+| Embed errors in CI | Use `--no-embed` |
+| Stale hits | Run `index` again |
+
+See also [Concepts](./concepts.md) for when to search vs load Intent skills.

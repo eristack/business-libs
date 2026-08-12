@@ -20,6 +20,7 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       <div className="absolute top-[-10%] right-[18%] size-[22rem] rounded-full bg-[color:var(--layer-glow)] blur-3xl" />
       {motif === "money" ? <MoneyMotif /> : null}
       {motif === "doc-number" ? <DocNumberMotif /> : null}
+      {motif === "data-grid" ? <DataGridMotif /> : null}
       {motif === "jwt-auth" ? <JwtMotif /> : null}
       {motif === "ai-knowledge" ? <KnowledgeMotif /> : null}
       {motif === "ai-workflow" ? <WorkflowMotif /> : null}
@@ -72,6 +73,28 @@ function DocNumberMotif() {
       </span>
       <span className="absolute top-[62%] left-[10%] font-mono text-[12px] tracking-wide opacity-60">
         DN-26-0318-0007
+      </span>
+    </div>
+  );
+}
+
+function DataGridMotif() {
+  return (
+    <div className="absolute inset-0 font-mono text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <span className="absolute top-[18%] left-[8%] text-[12px] tracking-wide">
+        mode=advanced
+      </span>
+      <span className="absolute top-[32%] left-[8%] text-[12px] tracking-wide opacity-90">
+        {"filters={…FilterNode}"}
+      </span>
+      <span className="absolute top-[46%] left-[8%] text-[12px] tracking-wide opacity-80">
+        {"sorts=[{field,dir}]"}
+      </span>
+      <span className="absolute top-[60%] left-[8%] text-[12px] tracking-wide opacity-70">
+        page=1&amp;pageSize=20
+      </span>
+      <span className="absolute top-[74%] left-[8%] text-[11px] tracking-[0.18em] uppercase opacity-60">
+        items · pageInfo · query
       </span>
     </div>
   );
