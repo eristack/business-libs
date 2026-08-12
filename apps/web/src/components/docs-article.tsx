@@ -7,7 +7,8 @@ import {
   type DocMeta,
   type DocPackageSlug,
 } from "@/lib/docs";
-import { siteConfig } from "@/lib/site";
+import { categoryMeta } from "@/components/category-heading";
+import { packages, siteConfig } from "@/lib/site";
 
 type DocsArticleProps = {
   packageSlug: DocPackageSlug;
@@ -32,6 +33,8 @@ export async function DocsArticle({
   const toc = extractToc(body);
   const sourcePath = docSourcePath(packageSlug, slug);
   const sourceUrl = `${siteConfig.github}/blob/main/${sourcePath}`;
+  const pkg = packages.find((item) => item.slug === packageSlug);
+  const category = pkg ? categoryMeta(pkg.category) : null;
 
   return (
     <div className="flex gap-8 xl:gap-12">
@@ -42,6 +45,17 @@ export async function DocsArticle({
               <Link href="/docs" className="hover:text-foreground">
                 Docs
               </Link>
+              {category ? (
+                <>
+                  <span>/</span>
+                  <Link
+                    href={category.href}
+                    className="font-semibold tracking-[0.12em] text-accent uppercase hover:underline"
+                  >
+                    {category.label}
+                  </Link>
+                </>
+              ) : null}
               <span>/</span>
               <Link
                 href={`/docs/${packageSlug}`}

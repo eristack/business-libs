@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, Layers, Shield } from "lucide-react";
+import { CategoryHeading } from "@/components/category-heading";
 import { Button } from "@/components/ui/button";
-import { packages, siteConfig, tenets } from "@/lib/site";
+import { packagesByCategory, siteConfig, tenets } from "@/lib/site";
 
 export default function HomePage() {
+  const grouped = packagesByCategory();
+
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
@@ -30,7 +33,7 @@ export default function HomePage() {
             </p>
 
             <h1 className="animate-rise-delay-1 mt-3 max-w-xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
-              Business primitives
+              Enterprise business libraries
               <span className="mt-1 block text-muted-foreground">
                 for TypeScript.
               </span>
@@ -43,8 +46,8 @@ export default function HomePage() {
 
             <div className="animate-rise-delay-3 mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-11 px-6 text-sm shadow-sm">
-                <Link href="/docs">
-                  Read the docs
+                <Link href="/packages">
+                  Browse the stack
                   <ArrowRight />
                 </Link>
               </Button>
@@ -58,16 +61,26 @@ export default function HomePage() {
               </Button>
             </div>
 
-            <div className="animate-rise-delay-3 mt-10 flex flex-wrap gap-2">
-              {packages.map((pkg) => (
-                <Link
-                  key={pkg.slug}
-                  href={pkg.href}
-                  className="rounded-md border border-border bg-card px-3 py-1.5 font-mono text-[12px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-foreground"
-                >
-                  {pkg.name}
-                </Link>
-              ))}
+            <div className="animate-rise-delay-3 mt-10 space-y-3">
+              <p className="text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                Four layers
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {grouped.map((category, index) => (
+                  <Link
+                    key={category.id}
+                    href={category.href}
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 transition-colors hover:border-accent/40"
+                  >
+                    <span className="font-mono text-[10px] font-semibold text-accent tabular-nums">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[11px] font-semibold tracking-[0.12em] uppercase">
+                      {category.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -125,8 +138,8 @@ export default function HomePage() {
           {[
             {
               icon: Layers,
-              title: "Injected, not absorbed",
-              body: "Your DB, host, and storage. Our domain contract.",
+              title: "Four explicit layers",
+              body: "Primitive → capability → service → AI. Each layer has its own landing page.",
             },
             {
               icon: Shield,
@@ -136,7 +149,7 @@ export default function HomePage() {
             {
               icon: BookOpen,
               title: "Docs beside code",
-              body: "Guides live in packages/<category>/*/docs — this site just renders them.",
+              body: "Product pages for discovery. Package docs for the contract.",
             },
           ].map((item) => (
             <div key={item.title} className="flex gap-3">
@@ -159,10 +172,10 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                Packages
+                The stack
               </p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-                Start with one sharp library
+                Start with the layer you need
               </h2>
             </div>
             <Link
@@ -173,37 +186,43 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <ul className="mt-8 divide-y divide-border border-y border-border">
-            {packages.map((pkg, index) => (
-              <li key={pkg.slug}>
-                <Link
-                  href={pkg.href}
-                  className="group flex flex-col gap-3 py-7 sm:flex-row sm:items-center sm:justify-between"
-                >
-                  <div className="flex gap-4">
-                    <span className="font-mono text-[12px] text-muted-foreground tabular-nums">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <p className="font-mono text-[12px] text-muted-foreground">
-                        {pkg.name}
-                      </p>
-                      <p className="mt-1 text-xl font-semibold tracking-tight group-hover:text-accent">
-                        {pkg.title}
-                      </p>
-                      <p className="mt-2 max-w-2xl text-[14px] leading-6 text-muted-foreground">
-                        {pkg.description}
-                      </p>
-                    </div>
-                  </div>
-                  <span className="inline-flex items-center gap-1 self-start rounded-md bg-muted px-3 py-1.5 text-[13px] font-semibold text-foreground transition-colors group-hover:bg-foreground group-hover:text-background sm:self-center">
-                    Docs
-                    <ArrowRight className="size-3.5" />
-                  </span>
-                </Link>
-              </li>
+          <div className="mt-10 space-y-12">
+            {grouped.map((category) => (
+              <section key={category.id} className="space-y-4">
+                <CategoryHeading
+                  categoryId={category.id}
+                  count={category.packages.length}
+                  size="lg"
+                />
+                <ul className="divide-y divide-border border-y border-border">
+                  {category.packages.map((pkg) => (
+                    <li key={pkg.slug}>
+                      <Link
+                        href={pkg.href}
+                        className="group flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between"
+                      >
+                        <div>
+                          <p className="font-mono text-[12px] text-muted-foreground">
+                            {pkg.name}
+                          </p>
+                          <p className="mt-1 text-xl font-semibold tracking-tight group-hover:text-accent">
+                            {pkg.title}
+                          </p>
+                          <p className="mt-2 max-w-2xl text-[14px] leading-6 text-muted-foreground">
+                            {pkg.tagline}
+                          </p>
+                        </div>
+                        <span className="inline-flex items-center gap-1 self-start text-[13px] font-semibold text-foreground sm:self-center">
+                          Overview
+                          <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -253,7 +272,7 @@ export default function HomePage() {
             {
               href: "/blog",
               title: "Blog",
-              body: "Design notes and opinions on business domain libraries.",
+              body: "Design notes and opinions on enterprise business libraries.",
             },
             {
               href: "/support",

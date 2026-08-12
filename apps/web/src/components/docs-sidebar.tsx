@@ -6,7 +6,12 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DocMeta } from "@/lib/docs";
-import { packageCategories, packages } from "@/lib/site";
+import {
+  categoryIndex,
+  getCategory,
+  packageCategories,
+  packages,
+} from "@/lib/site";
 
 type DocsSidebarProps = {
   packageSlug: string;
@@ -19,6 +24,7 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
   const current = packages.find((pkg) => pkg.slug === packageSlug)!;
+  const currentCategory = getCategory(current.category)!;
 
   useEffect(() => {
     if (!open) return;
@@ -43,7 +49,7 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
   return (
     <div ref={rootRef} className="relative">
       <p className="mb-2 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-        Package
+        Library
       </p>
 
       <button
@@ -53,26 +59,26 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
         aria-haspopup="listbox"
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "flex w-full items-center gap-2.5 rounded-xl border border-foreground/15 bg-foreground px-3 py-2.5 text-left text-background",
-          "shadow-sm transition-colors",
-          "hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "flex w-full items-center gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5 text-left shadow-sm",
+          "transition-colors hover:border-muted-foreground/30",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         )}
       >
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[15px] font-semibold tracking-tight">
+          <p className="text-[10px] font-medium tracking-[0.12em] text-accent uppercase">
+            {currentCategory.label}
+          </p>
+          <p className="mt-0.5 truncate text-[14px] font-semibold tracking-tight text-foreground">
             {current.title}
           </p>
-          <p className="truncate font-mono text-[11px] text-background/60">
+          <p className="truncate font-mono text-[11px] text-muted-foreground">
             {current.name}
           </p>
         </div>
-        <span className="shrink-0 rounded-md border border-background/20 bg-background/10 px-1.5 py-0.5 font-mono text-[10px] font-medium text-background/80 tabular-nums">
-          {packages.length}
-        </span>
         <ChevronsUpDown
           className={cn(
-            "size-4 shrink-0 text-background/55 transition-colors",
-            open && "text-background",
+            "size-4 shrink-0 text-muted-foreground transition-colors",
+            open && "text-foreground",
           )}
           aria-hidden
         />
@@ -82,83 +88,80 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
         <div
           id={panelId}
           role="listbox"
-          aria-label="Switch documentation package"
-          className="absolute top-[calc(100%+0.4rem)] left-0 z-30 w-full min-w-[16.5rem] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-[0_12px_40px_rgba(0,0,0,0.18)] md:w-[19rem] dark:shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
+          aria-label="Switch documentation library"
+          className="absolute top-[calc(100%+0.35rem)] left-0 z-30 w-[min(100vw-2rem,20rem)] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-lg md:w-[20.5rem]"
         >
-          <div className="border-b border-border bg-muted/60 px-3 py-2">
-            <p className="text-[11px] font-semibold tracking-[0.12em] text-muted-foreground uppercase">
-              Switch package
-            </p>
-            <p className="mt-0.5 text-[11px] leading-4 text-muted-foreground">
-              Primitive → capability → service → AI
-            </p>
-          </div>
-
-          <div className="max-h-[min(22rem,55vh)] overflow-y-auto py-1">
-            {packageCategories.map((category) => {
+          <div className="max-h-[min(26rem,62vh)] overflow-y-auto">
+            {packageCategories.map((category, categoryIdx) => {
               const items = packages.filter(
                 (pkg) => pkg.category === category.id,
               );
               if (items.length === 0) return null;
               return (
-                <div key={category.id} className="py-1">
-                  <p className="px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                    {category.label}
-                  </p>
-                  {items.map((pkg) => {
-                    const active = pkg.slug === packageSlug;
-                    return (
-                      <Link
-                        key={pkg.slug}
-                        href={pkg.href}
-                        role="option"
-                        aria-selected={active}
-                        onClick={() => setOpen(false)}
-                        className={cn(
-                          "flex items-start gap-2.5 px-3 py-2 transition-colors",
-                          active
-                            ? "bg-foreground text-background"
-                            : "text-foreground hover:bg-muted",
-                        )}
-                      >
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-baseline gap-2">
-                            <p className="text-[13px] font-semibold tracking-tight">
-                              {pkg.title}
-                            </p>
-                            <p
-                              className={cn(
-                                "truncate font-mono text-[10px]",
-                                active
-                                  ? "text-background/60"
-                                  : "text-muted-foreground",
-                              )}
-                            >
-                              {pkg.name}
-                            </p>
-                          </div>
-                          <p
+                <div
+                  key={category.id}
+                  className={cn(
+                    categoryIdx > 0 && "border-t border-border",
+                  )}
+                >
+                  <div className="sticky top-0 z-10 flex items-center gap-2 bg-muted/90 px-3 py-2 backdrop-blur-sm">
+                    <span
+                      className="h-4 w-0.5 rounded-full bg-accent"
+                      aria-hidden
+                    />
+                    <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                      {String(categoryIndex(category.id)).padStart(2, "0")}{" "}
+                      {category.label}
+                    </p>
+                  </div>
+                  <ul className="px-1.5 py-1.5">
+                    {items.map((pkg) => {
+                      const active = pkg.slug === packageSlug;
+                      return (
+                        <li key={pkg.slug}>
+                          <Link
+                            href={pkg.docsHref}
+                            role="option"
+                            aria-selected={active}
+                            onClick={() => setOpen(false)}
                             className={cn(
-                              "mt-0.5 line-clamp-2 text-[11px] leading-4",
+                              "flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-colors",
                               active
-                                ? "text-background/60"
-                                : "text-muted-foreground",
+                                ? "bg-accent/10 text-foreground"
+                                : "text-foreground hover:bg-muted",
                             )}
                           >
-                            {pkg.description}
-                          </p>
-                        </div>
-                        {active ? (
-                          <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-accent text-accent-foreground">
-                            <Check className="size-3" strokeWidth={3} />
-                          </span>
-                        ) : null}
-                      </Link>
-                    );
-                  })}
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-[13px] font-semibold tracking-tight">
+                                {pkg.title}
+                              </p>
+                              <p className="truncate font-mono text-[10px] text-muted-foreground">
+                                {pkg.name}
+                              </p>
+                            </div>
+                            {active ? (
+                              <Check
+                                className="size-3.5 shrink-0 text-accent"
+                                strokeWidth={2.5}
+                              />
+                            ) : null}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               );
             })}
+          </div>
+          <div className="border-t border-border bg-muted/40 px-3 py-2">
+            <Link
+              href={current.href}
+              onClick={() => setOpen(false)}
+              className="text-[11px] font-medium text-muted-foreground transition-colors hover:text-accent"
+            >
+              View {current.title} overview →
+            </Link>
           </div>
         </div>
       ) : null}

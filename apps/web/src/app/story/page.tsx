@@ -64,9 +64,9 @@ export default function StoryPage() {
         </p>
         <h2>Where we’re going</h2>
         <p>
-          Keep publishing the primitives we actually use. Keep docs next to the
-          code. Offer support when production stakes are high. Stay small enough
-          that each package remains understandable in an afternoon.
+          Keep publishing the enterprise libraries we actually use. Keep docs
+          next to the code. Offer support when production stakes are high. Stay
+          small enough that each package remains understandable in an afternoon.
         </p>
       </div>
 
