@@ -1,6 +1,6 @@
 {
   "name": "@eristack/rbac",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
   "repository": {
     "type": "git",
@@ -14,29 +14,72 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "require": { "types": "./dist/index.d.ts", "default": "./dist/index.cjs" }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./drizzle": {
-      "import": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.js" },
-      "require": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.cjs" }
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
     },
     "./express": {
-      "import": { "types": "./dist/express/index.d.ts", "default": "./dist/express/index.js" },
-      "require": { "types": "./dist/express/index.d.ts", "default": "./dist/express/index.cjs" }
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
     },
     "./nest": {
-      "import": { "types": "./dist/nest/index.d.ts", "default": "./dist/nest/index.js" },
-      "require": { "types": "./dist/nest/index.d.ts", "default": "./dist/nest/index.cjs" }
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
     },
     "./react": {
-      "import": { "types": "./dist/react/index.d.ts", "default": "./dist/react/index.js" },
-      "require": { "types": "./dist/react/index.d.ts", "default": "./dist/react/index.cjs" }
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.cjs"
+      }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills"],
-  "keywords": ["tanstack-intent", "rbac", "permissions", "roles", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "rbac",
+    "permissions",
+    "roles",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -53,11 +96,21 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@nestjs/common": { "optional": true },
-    "@nestjs/core": { "optional": true },
-    "drizzle-orm": { "optional": true },
-    "express": { "optional": true },
-    "react": { "optional": true }
+    "@nestjs/common": {
+      "optional": true
+    },
+    "@nestjs/core": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@nestjs/common": "^11.0.12",
