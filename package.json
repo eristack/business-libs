@@ -10,7 +10,7 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "skills:list": "intent list",
-    "skills:validate": "intent validate packages/money && intent validate packages/jwt-auth && intent validate packages/doc-number && intent validate packages/ai-knowledge",
+    "skills:validate": "intent validate packages/money && intent validate packages/jwt-auth && intent validate packages/doc-number && intent validate packages/ai-knowledge && intent validate packages/ai-workflow",
     "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
     "changeset": "changeset",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
     "@eristack/ai-knowledge": "workspace:*",
+    "@eristack/ai-workflow": "workspace:*",
     "@eristack/doc-number": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
     "@eristack/money": "workspace:*",
@@ -34,7 +35,8 @@
       "workspace:@eristack/money",
       "workspace:@eristack/jwt-auth",
       "workspace:@eristack/doc-number",
-      "workspace:@eristack/ai-knowledge"
+      "workspace:@eristack/ai-knowledge",
+      "workspace:@eristack/ai-workflow"
     ]
   },
   "packageManager": "pnpm@10.14.0",

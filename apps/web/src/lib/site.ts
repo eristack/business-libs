@@ -49,6 +49,15 @@ export const packages = [
     href: "/docs/ai-knowledge",
     status: "stable" as const,
   },
+  {
+    slug: "ai-workflow",
+    name: "@eristack/ai-workflow",
+    title: "AI Workflow",
+    description:
+      "Local-first MCP, FTS+vector project index, and sprint/backlog/ADR folders — low-token agent tools that do not replace your existing stack.",
+    href: "/docs/ai-workflow",
+    status: "stable" as const,
+  },
 ] as const;
 
 export const primaryNav = [

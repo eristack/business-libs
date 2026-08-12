@@ -4,8 +4,33 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T02:27:39.200Z",
+  "generatedAt": "2026-08-12T03:00:36.198Z",
   "packages": [
+    {
+      "name": "@eristack/ai-workflow",
+      "version": "0.1.0",
+      "description": "Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent",
+      "slug": "ai-workflow",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "ai-workflow-core",
+          "name": "ai-workflow-core",
+          "packageName": "@eristack/ai-workflow",
+          "description": "Local-first @eristack/ai-workflow: .eristack/workflow backlog/sprints/ADR/summary, FTS+vector index, low-token search discipline. Use when scaffolding AI-native project memory or sprint cadence without replacing Intent, git, or editors.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core"
+        },
+        {
+          "id": "ai-workflow-mcp",
+          "name": "ai-workflow-mcp",
+          "packageName": "@eristack/ai-workflow",
+          "description": "Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
+        }
+      ]
+    },
     {
       "name": "@eristack/doc-number",
       "version": "0.1.0",

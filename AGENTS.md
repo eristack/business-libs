@@ -1,6 +1,12 @@
 <!-- intent-skills:start -->
 # TanStack Intent - before editing files, run the matching guidance command.
 tanstackIntent:
+  - id: "@eristack/ai-workflow#ai-workflow-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core"
+    for: "Local-first @eristack/ai-workflow: .eristack/workflow backlog/sprints/ADR/summary, FTS+vector index, low-token search. Use for project memory and sprint cadence without replacing Intent/git."
+  - id: "@eristack/ai-workflow#ai-workflow-mcp"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
+    for: "Install eristack-workflow MCP alongside existing MCP servers; tool inventory; search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project."
   - id: "@eristack/ai-knowledge#architecture-recommend"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend"
     for: "Canon app architecture: TypeScript, Express or NestJS, Drizzle (Postgres prod / SQLite tests), presentation-business-persistence separation, React+Vite+Tailwind+shadcn, TanStack Router file-based + Query + Form + Intent, Zustand, API contracts, pnpm monorepo. Use when scaffolding or choosing stack/structure."
@@ -97,6 +103,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `packages/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
+- `packages/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `apps/web` — public Next.js site (landing, marketing, docs from `packages/*/docs`, Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)

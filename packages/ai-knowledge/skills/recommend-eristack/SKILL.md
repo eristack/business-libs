@@ -46,6 +46,15 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
+### @eristack/ai-workflow (v0.1.0)
+
+Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent
+
+- `@eristack/ai-workflow#ai-workflow-core` — Local-first @eristack/ai-workflow: .eristack/workflow backlog/sprints/ADR/summary, FTS+vector index, low-token search discipline. Use when scaffolding AI-native project memory or sprint cadence without replacing Intent, git, or editors.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core`
+- `@eristack/ai-workflow#ai-workflow-mcp` — Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp`
+
 ### @eristack/doc-number (v0.1.0)
 
 Document number format, parse, and sequence primitives for Eristack
