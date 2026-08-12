@@ -1,6 +1,6 @@
-# @eristack/doc-number
+# @eristack/data-grid
 
-## 0.2.0
+## 0.1.0
 
 ### Minor Changes
 
@@ -13,12 +13,3 @@
 ### Patch Changes
 
 - 03ef4d7: React adapters now wrap `/client` with TanStack Query (lists/mutations) and optional TanStack Form option helpers. `/client` stays framework-agnostic (base for future Vue/Svelte). Apps own `QueryClientProvider`.
-- Updated dependencies [03ef4d7]
-- Updated dependencies [03ef4d7]
-  - @eristack/data-grid@0.1.0
-
-## 0.1.0
-
-### Minor Changes
-
-- 6f7bfa7: Add `@eristack/doc-number`: token-pattern document numbers with optional format/sequence stores (memory + Drizzle), custom incrementers, and headless REST / Express / Nest / client / React adapters for format configuration.
