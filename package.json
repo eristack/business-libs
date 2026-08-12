@@ -10,18 +10,20 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "skills:list": "intent list",
-    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow",
+    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow && intent validate packages/ai/ai-ticket-generator",
     "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
+    "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install --lockfile-only",
     "release": "changeset publish",
-    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm skills:validate && pnpm knowledge:check",
+    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm skills:validate && pnpm knowledge:check && pnpm ticket:check",
     "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
     "@eristack/ai-knowledge": "workspace:*",
+    "@eristack/ai-ticket-generator": "workspace:*",
     "@eristack/ai-workflow": "workspace:*",
     "@eristack/data-grid": "workspace:*",
     "@eristack/doc-number": "workspace:*",
@@ -38,7 +40,8 @@
       "workspace:@eristack/data-grid",
       "workspace:@eristack/jwt-auth",
       "workspace:@eristack/ai-knowledge",
-      "workspace:@eristack/ai-workflow"
+      "workspace:@eristack/ai-workflow",
+      "workspace:@eristack/ai-ticket-generator"
     ]
   },
   "packageManager": "pnpm@10.14.0",

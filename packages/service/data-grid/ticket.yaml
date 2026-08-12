@@ -1,0 +1,14 @@
+package: "@eristack/data-grid"
+title: data-grid
+maintainers:
+  - support@eristack.dev
+scope: >
+  Schema-aware list queries: JSON search params, filters/sorts/pagination,
+  executeDrizzleList, REST/Express/Nest/client adapters, React draft/commit
+  controller and list hooks.
+outOfScope: >
+  App-owned SQL joins/aggregates beyond the projection the app supplies,
+  full DataGrid UI chrome (modals are headless), inventing non-JSON filter DSLs.
+skills:
+  - data-grid-core
+  - data-grid-adapters

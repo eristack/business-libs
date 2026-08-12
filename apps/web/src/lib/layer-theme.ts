@@ -33,7 +33,8 @@ export type LibraryMotifId =
   | "data-grid"
   | "jwt-auth"
   | "ai-knowledge"
-  | "ai-workflow";
+  | "ai-workflow"
+  | "ai-ticket-generator";
 
 export function motifForPackage(slug: string): LibraryMotifId | null {
   const known: PackageSlug[] = [
@@ -43,6 +44,7 @@ export function motifForPackage(slug: string): LibraryMotifId | null {
     "jwt-auth",
     "ai-knowledge",
     "ai-workflow",
+    "ai-ticket-generator",
   ];
   return known.includes(slug as PackageSlug) ? (slug as LibraryMotifId) : null;
 }

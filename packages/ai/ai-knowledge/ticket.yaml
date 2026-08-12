@@ -1,0 +1,17 @@
+package: "@eristack/ai-knowledge"
+title: ai-knowledge
+maintainers:
+  - support@eristack.dev
+scope: >
+  Agent recommend()/loadPlan(), catalog sync from sibling packages, recipes,
+  architecture and stack-default Intent skills.
+outOfScope: >
+  Replacing package docs, hosting models, or inventing non-catalog package ids
+  in recipes.
+skills:
+  - architecture-recommend
+  - recommend-eristack
+  - stack-defaults
+  - agent-workflow
+  - dev-conventions
+  - ai-toolbox

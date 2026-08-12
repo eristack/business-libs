@@ -1,0 +1,12 @@
+package: "@eristack/ai-workflow"
+title: ai-workflow
+maintainers:
+  - support@eristack.dev
+scope: >
+  Local-first .eristack/workflow artifacts, FTS+vector index, MCP tools, CLI,
+  sprint/backlog/ADR cadence — low-token agent helpers.
+outOfScope: >
+  Replacing git, Intent, or the editor; cloud-hosted RAG; dump-everything tools.
+skills:
+  - ai-workflow-core
+  - ai-workflow-mcp

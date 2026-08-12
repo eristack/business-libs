@@ -4,8 +4,33 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T08:27:53.200Z",
+  "generatedAt": "2026-08-12T08:38:01.202Z",
   "packages": [
+    {
+      "name": "@eristack/ai-ticket-generator",
+      "version": "0.0.0",
+      "description": "Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files",
+      "slug": "ai-ticket-generator",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "ai-ticket-bug",
+          "name": "ai-ticket-bug",
+          "packageName": "@eristack/ai-ticket-generator",
+          "description": "Generate a portable @eristack bug ticket (logs, scenario, repro, fix plan, agent handoff) as a markdown file the user can send to maintainers. Use when a consumer hits a package bug or wants a fixer-upper file for support.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-ticket-generator#ai-ticket-bug"
+        },
+        {
+          "id": "ai-ticket-suggest",
+          "name": "ai-ticket-suggest",
+          "packageName": "@eristack/ai-ticket-generator",
+          "description": "Turn a user feature idea into a portable @eristack suggestion ticket with feasibility (possible/partial/unlikely/needs-decision) and an implementation sketch for maintainers/agents. Use when a consumer proposes a change.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-ticket-generator#ai-ticket-suggest"
+        }
+      ]
+    },
     {
       "name": "@eristack/ai-workflow",
       "version": "0.0.0",
