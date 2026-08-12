@@ -1,7 +1,21 @@
 {
-  "pages": ["index", "concepts", "qups", "modifiers", "tax", "stores", "recipes"],
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "gotchas",
+    "form-and-be",
+    "qups",
+    "modifiers",
+    "tax",
+    "stores",
+    "recipes"
+  ],
   "index": "Overview",
+  "getting-started": "Getting started",
   "concepts": "Concepts",
+  "gotchas": "Gotchas",
+  "form-and-be": "Form & backend",
   "qups": "QUPS",
   "modifiers": "Modifiers",
   "tax": "Tax",

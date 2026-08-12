@@ -8,6 +8,7 @@
     "url-search",
     "database",
     "http-and-ui",
+    "edge-cases",
     "recipes"
   ]
 }

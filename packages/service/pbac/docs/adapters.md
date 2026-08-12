@@ -1,10 +1,12 @@
 ---
 title: Adapters
 description: Express, Nest, React shells
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Adapters
+
+Headless shells that load a document bag, call `authorize`, and map denial to **409**.
 
 ## Express
 
@@ -15,6 +17,13 @@ app.post(
   "/goods-receipts",
   requireAuth,
   createRequirePermission({ rbac, permission: "goods-receipt.post" }),
+  createRequirePolicy({
+    abac,
+    policyId: "goods-receipt.book-value-limit",
+    getContext: async (req) => {
+      /* … */
+    },
+  }),
   createRequireBusinessPolicy({
     pbac,
     policyId: "purchase-order.can-receive",
@@ -26,8 +35,63 @@ app.post(
 );
 ```
 
-Denied → **409** with `BUSINESS_POLICY_DENIED`.
+Denied → **409** + `BUSINESS_POLICY_DENIED` (see [Document policies](./document-policies.md#409-response-shape)).
 
-## Nest / React
+Load the PO **inside** `getInput` so the check sees committed state, not only the request body.
 
-`RequireBusinessPolicy` + `PbacInputFactory` + `PbacGuard`; `useBusinessPolicy` for UI.
+## NestJS
+
+```ts
+import {
+  PbacModule,
+  PbacGuard,
+  RequireBusinessPolicy,
+  PbacInputFactory,
+} from "@eristack/pbac/nest";
+
+@Module({
+  imports: [PbacModule.forRoot({ pbac })],
+})
+export class GoodsReceiptModule {}
+
+@Post()
+@RequireBusinessPolicy("purchase-order.can-receive")
+@PbacInputFactory(async (req) => ({
+  document: await loadPo(req.body.purchaseOrderId),
+}))
+@UseGuards(PbacGuard)
+create() {
+  /* … */
+}
+```
+
+Pair with auth + RBAC (+ ABAC) guards in a defined order.
+
+## React
+
+```ts
+import { useBusinessPolicy } from "@eristack/pbac/react";
+
+const { allowed, loading, decision } = useBusinessPolicy({
+  pbac,
+  policyId: "purchase-order.can-receive",
+  input: { document: po },
+});
+
+// Disable "Receive" when !allowed; show decision.reason
+```
+
+UI hints only — server enforces with 409.
+
+## Injection checklist
+
+| Layer | You inject |
+| --- | --- |
+| Core | `createPbac()` + `registerPolicy` |
+| Express / Nest | `pbac`, `policyId`, input factory |
+| React | `pbac`, `policyId`, `input` |
+
+## Next steps
+
+- [Recipes](./recipes.md)
+- [Document policies](./document-policies.md)

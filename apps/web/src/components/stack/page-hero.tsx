@@ -48,7 +48,8 @@ export function PageHero({
     <section
       data-layer={layerId}
       className={cn(
-        "relative overflow-hidden border-b-2 border-foreground/10",
+        /* overflow-x only — never clip tall code / demos in the hero */
+        "relative overflow-x-hidden border-b-2 border-foreground/10",
         tone === "marketing" ? "bg-background" : "bg-docs-rail",
         className,
       )}
@@ -62,19 +63,20 @@ export function PageHero({
       <div className="hero-orbit pointer-events-none absolute inset-0 opacity-70" />
       {motif ? <LibraryMotif motif={motif} /> : null}
       {!motif && layerId ? <LayerMotif layerId={layerId} /> : null}
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent"
-        aria-hidden
-      />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 pt-10 pb-12 sm:px-6 lg:pt-14 lg:pb-16">
+      <div
+        className={cn(
+          "relative mx-auto w-full max-w-6xl px-4 pt-10 sm:px-6 lg:pt-14",
+          aside || footer ? "pb-20 lg:pb-24" : "pb-16 lg:pb-20",
+        )}
+      >
         {chrome ? <div className="mb-8">{chrome}</div> : null}
 
         <div
           className={cn(
             "grid gap-10",
             aside &&
-              "lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start lg:gap-12",
+              "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start lg:gap-12",
           )}
         >
           <div className="min-w-0">
@@ -130,7 +132,7 @@ export function PageHero({
         </div>
 
         {footer ? (
-          <div className="animate-rise-delay-3 mt-10 border-t border-border/80 pt-6">
+          <div className="animate-rise-delay-3 mt-10 min-w-0 border-t border-border/80 pt-6">
             {footer}
           </div>
         ) : null}

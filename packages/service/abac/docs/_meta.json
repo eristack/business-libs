@@ -1,8 +1,20 @@
 {
-  "pages": ["index", "concepts", "getting-started", "adapters", "recipes"],
+  "pages": [
+    "index",
+    "getting-started",
+    "choosing-access-control",
+    "concepts",
+    "attributes",
+    "edge-cases",
+    "adapters",
+    "recipes"
+  ],
   "index": "Overview",
-  "concepts": "Concepts",
   "getting-started": "Getting started",
+  "choosing-access-control": "Choosing access control",
+  "concepts": "Concepts",
+  "attributes": "Attributes",
+  "edge-cases": "Edge cases",
   "adapters": "Adapters",
   "recipes": "Recipes"
 }

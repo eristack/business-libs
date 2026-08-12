@@ -71,6 +71,27 @@ importers:
 
   apps/web:
     dependencies:
+      '@eristack/abac':
+        specifier: workspace:*
+        version: link:../../packages/service/abac
+      '@eristack/ai-knowledge':
+        specifier: workspace:*
+        version: link:../../packages/ai/ai-knowledge
+      '@eristack/data-grid':
+        specifier: workspace:*
+        version: link:../../packages/service/data-grid
+      '@eristack/money':
+        specifier: workspace:*
+        version: link:../../packages/primitive/money
+      '@eristack/pbac':
+        specifier: workspace:*
+        version: link:../../packages/service/pbac
+      '@eristack/qups':
+        specifier: workspace:*
+        version: link:../../packages/capability/qups
+      '@eristack/rbac':
+        specifier: workspace:*
+        version: link:../../packages/service/rbac
       '@radix-ui/react-dialog':
         specifier: ^1.1.23
         version: 1.1.23(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)

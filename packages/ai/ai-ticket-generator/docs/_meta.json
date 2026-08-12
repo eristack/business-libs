@@ -2,13 +2,19 @@
   "pages": [
     "index",
     "concepts",
+    "ticket-schema",
     "bug-tickets",
     "suggestion-tickets",
-    "subscription"
+    "subscription",
+    "workflow",
+    "recipes"
   ],
   "index": "Overview",
   "concepts": "Concepts",
+  "ticket-schema": "Ticket schema",
   "bug-tickets": "Bug tickets",
   "suggestion-tickets": "Suggestion tickets",
-  "subscription": "Subscription"
+  "subscription": "Subscription",
+  "workflow": "Workflow",
+  "recipes": "Recipes"
 }

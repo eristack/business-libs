@@ -5,6 +5,15 @@ const repoRoot = path.join(__dirname, "../..");
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: repoRoot,
+  transpilePackages: [
+    "@eristack/qups",
+    "@eristack/rbac",
+    "@eristack/abac",
+    "@eristack/pbac",
+    "@eristack/data-grid",
+    "@eristack/ai-knowledge",
+    "@eristack/money",
+  ],
   outputFileTracingIncludes: {
     "/docs/**/*": ["./../../packages/**/docs/**/*"],
     "/blog": ["./content/blog/**/*"],

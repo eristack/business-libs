@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CodePanel } from "@/components/code-panel";
+import { hasPackageHeroDemo } from "@/components/package-demos/demo-slugs";
+import { PackageHeroDemo } from "@/components/package-demos/package-hero-demo";
 import { Button } from "@/components/ui/button";
 import { ContentSection } from "@/components/stack/content-section";
 import { FeatureGrid } from "@/components/stack/feature-grid";
@@ -42,6 +44,8 @@ export async function CategoryLanding({ category }: { category: Category }) {
           <StackChrome
             crumbs={libraryCrumbs({ categoryId: category.id })}
             activeLayerId={category.id}
+            showLayerStrip={false}
+            showPackageStrip={false}
           />
         }
         eyebrow={
@@ -114,6 +118,8 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
             })}
             activeLayerId={pkg.category}
             activePackageSlug={pkg.slug}
+            showLayerStrip={false}
+            showPackageStrip={false}
           />
         }
         eyebrow={
@@ -156,6 +162,11 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
           </pre>
         }
         aside={
+          hasPackageHeroDemo(pkg.slug) ? (
+            <PackageHeroDemo slug={pkg.slug} />
+          ) : undefined
+        }
+        footer={
           <CodePanel
             code={pkg.sample.code}
             filename={pkg.sample.filename}
