@@ -52,25 +52,40 @@ export async function searchProject(
   ).map((row, rank) => ({ id: row.id, rank: rank + 1 }));
 
   let vectorRows: Array<{ id: string; rank: number }> = [];
-  try {
-    const [queryVec] = await embedTexts([query], config.embedModel);
-    if (queryVec) {
-      const candidates = db
-        .prepare(
-          `SELECT id, embedding FROM chunks WHERE embedding IS NOT NULL LIMIT 2000`,
-        )
-        .all() as Array<{ id: string; embedding: Buffer }>;
-      const scored = candidates
-        .map((row) => ({
+  // Skip loading @xenova/transformers (and sharp) when the index has no vectors —
+  // e.g. `index --no-embed` / CI FTS smoke tests.
+  const embeddingCount = (
+    db
+      .prepare(
+        `SELECT COUNT(*) AS count FROM chunks WHERE embedding IS NOT NULL`,
+      )
+      .get() as { count: number }
+  ).count;
+
+  if (embeddingCount > 0) {
+    try {
+      const [queryVec] = await embedTexts([query], config.embedModel);
+      if (queryVec) {
+        const candidates = db
+          .prepare(
+            `SELECT id, embedding FROM chunks WHERE embedding IS NOT NULL LIMIT 2000`,
+          )
+          .all() as Array<{ id: string; embedding: Buffer }>;
+        const scored = candidates
+          .map((row) => ({
+            id: row.id,
+            score: cosineSimilarity(queryVec, bufferToVector(row.embedding)),
+          }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 40);
+        vectorRows = scored.map((row, rank) => ({
           id: row.id,
-          score: cosineSimilarity(queryVec, bufferToVector(row.embedding)),
-        }))
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 40);
-      vectorRows = scored.map((row, rank) => ({ id: row.id, rank: rank + 1 }));
+          rank: rank + 1,
+        }));
+      }
+    } catch {
+      // Vector path optional if model download fails; FTS still works.
     }
-  } catch {
-    // Vector path optional if model download fails; FTS still works.
   }
 
   const fused = reciprocalRankFusion([ftsRows, vectorRows], { limit });

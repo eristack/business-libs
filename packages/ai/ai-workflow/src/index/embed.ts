@@ -9,10 +9,17 @@ let activeModel = "";
 async function getPipeline(model: string): Promise<Extractor> {
   if (!pipelinePromise || activeModel !== model) {
     activeModel = model;
-    pipelinePromise = (async () => {
-      const { pipeline } = await import("@xenova/transformers");
-      return pipeline("feature-extraction", model) as Promise<Extractor>;
+    const loading = (async () => {
+      try {
+        const { pipeline } = await import("@xenova/transformers");
+        return pipeline("feature-extraction", model) as Promise<Extractor>;
+      } catch (error) {
+        pipelinePromise = null;
+        activeModel = "";
+        throw error;
+      }
     })();
+    pipelinePromise = loading;
   }
   return pipelinePromise;
 }
