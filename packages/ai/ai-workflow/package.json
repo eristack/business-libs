@@ -1,6 +1,6 @@
 {
   "name": "@eristack/ai-workflow",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent",
   "repository": {
     "type": "git",
