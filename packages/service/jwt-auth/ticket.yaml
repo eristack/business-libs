@@ -1,0 +1,14 @@
+package: "@eristack/jwt-auth"
+title: jwt-auth
+maintainers:
+  - support@eristack.dev
+scope: >
+  JWT access + opaque refresh, credential/refresh stores as children of app
+  users (subject), login/session flows, Drizzle/REST/Express/Nest/client/React
+  adapters.
+outOfScope: >
+  Owning a users table, profile/email fields, OAuth provider hosting, or opening
+  database connections for the app.
+skills:
+  - jwt-auth-core
+  - jwt-auth-adapters

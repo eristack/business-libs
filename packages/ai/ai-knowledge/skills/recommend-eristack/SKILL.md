@@ -46,6 +46,15 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
+### @eristack/ai-ticket-generator (v0.0.0)
+
+Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files
+
+- `@eristack/ai-ticket-generator#ai-ticket-bug` — Generate a portable @eristack bug ticket (logs, scenario, repro, fix plan, agent handoff) as a markdown file the user can send to maintainers. Use when a consumer hits a package bug or wants a fixer-upper file for support.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-ticket-generator#ai-ticket-bug`
+- `@eristack/ai-ticket-generator#ai-ticket-suggest` — Turn a user feature idea into a portable @eristack suggestion ticket with feasibility (possible/partial/unlikely/needs-decision) and an implementation sketch for maintainers/agents. Use when a consumer proposes a change.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-ticket-generator#ai-ticket-suggest`
+
 ### @eristack/ai-workflow (v0.0.0)
 
 Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent

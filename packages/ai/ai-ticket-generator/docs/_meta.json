@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "index",
+    "concepts",
+    "bug-tickets",
+    "suggestion-tickets",
+    "subscription"
+  ],
+  "index": "Overview",
+  "concepts": "Concepts",
+  "bug-tickets": "Bug tickets",
+  "suggestion-tickets": "Suggestion tickets",
+  "subscription": "Subscription"
+}

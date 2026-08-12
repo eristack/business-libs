@@ -84,9 +84,9 @@ export const packageCategories = [
     id: "ai",
     label: "AI",
     href: "/ai",
-    tagline: "Agent knowledge and local workflow for AI-native teams.",
+    tagline: "Agent knowledge, local workflow, and maintainer tickets.",
     description:
-      "AI packages help agents recommend the right Eristack libraries and keep project memory local — without replacing Intent, git, or your editor.",
+      "AI packages help agents recommend the right Eristack libraries, keep project memory local, and generate portable tickets for maintainers — without replacing Intent, git, or your editor.",
     highlights: [
       {
         title: "Recommend first",
@@ -97,8 +97,8 @@ export const packageCategories = [
         body: "FTS + on-device vectors and sprint folders stay on disk.",
       },
       {
-        title: "Low-token tools",
-        body: "MCP responses favor ids, paths, and snippets — not dump-the-repo.",
+        title: "Tickets that travel",
+        body: "Bug and suggestion files consumers can send for an agent fixer-upper.",
       },
     ],
   },
@@ -328,6 +328,43 @@ const plan = loadPlan(result)`,
     }
   }
 }`,
+    },
+  },
+  {
+    slug: "ai-ticket-generator",
+    name: "@eristack/ai-ticket-generator",
+    title: "AI Ticket Generator",
+    category: "ai" as const,
+    directory: "packages/ai/ai-ticket-generator",
+    href: "/ai-ticket-generator",
+    docsHref: "/docs/ai-ticket-generator",
+    tagline: "Portable bug + suggestion tickets for maintainers.",
+    description:
+      "Generate one markdown file with logs, scenario, fix plan, or a feasibility-gated suggestion — send it to maintainers for an immediate agent fixer-upper. Every @eristack package must subscribe via ticket.yaml.",
+    status: "alpha" as const,
+    install: "pnpm add -D @eristack/ai-ticket-generator",
+    highlights: [
+      {
+        title: "Bug tickets that travel",
+        body: "Repro, logs, scenario, and a fix plan in one attachable file.",
+      },
+      {
+        title: "Suggestion + feasibility",
+        body: "possible / partial / unlikely / needs-decision before an agent codes.",
+      },
+      {
+        title: "Mandatory subscription",
+        body: "Every package ships ticket.yaml — pnpm ticket:check enforces it.",
+      },
+    ],
+    sample: {
+      filename: "ticket.sh",
+      language: "bash",
+      code: `pnpm eristack-ticket bug \\
+  --package @eristack/money \\
+  --title "Money.sum mixed currency" \\
+  --summary "Did not throw" \\
+  --fix-plan "Add guard + test"`,
     },
   },
 ] as const;

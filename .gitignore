@@ -80,11 +80,10 @@ Desktop.ini
 !.cursor/rules/
 !.cursor/rules/**
 
-# AI working notes (WIP) — keep README + template; ignore task folders
-_ai-docs/**
-!_ai-docs/README.md
-!_ai-docs/_template/
-!_ai-docs/_template/**
+# AI local artifacts
+.eristack/tickets/
+.eristack/index/
+
 
 
 # Optional local tooling

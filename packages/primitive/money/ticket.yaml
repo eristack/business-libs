@@ -1,0 +1,14 @@
+package: "@eristack/money"
+title: money
+maintainers:
+  - support@eristack.dev
+scope: >
+  Currency-safe Money amounts, arithmetic, totals, percentages, Discount/Markup/Tax
+  operators, ledger rounding, allocate, FX conversion with app-supplied rates,
+  JSON decimal serialization.
+outOfScope: >
+  Hosted FX APIs, invoice UI chrome, using JS number literals as money, inventing
+  a parallel money library in the app.
+skills:
+  - money-amounts
+  - money-ledger

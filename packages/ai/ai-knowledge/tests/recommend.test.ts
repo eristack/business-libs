@@ -14,6 +14,7 @@ describe("catalog", () => {
     const names = packages.map((pkg) => pkg.name).sort();
     expect(names).toEqual(
       [
+        "@eristack/ai-ticket-generator",
         "@eristack/ai-workflow",
         "@eristack/data-grid",
         "@eristack/doc-number",

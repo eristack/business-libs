@@ -1,0 +1,13 @@
+package: "@eristack/ai-ticket-generator"
+title: ai-ticket-generator
+maintainers:
+  - support@eristack.dev
+scope: >
+  Portable bug and suggestion tickets, feasibility assessment, mandatory
+  ticket.yaml subscription checks, eristack-ticket CLI.
+outOfScope: >
+  Hosted issue trackers, automatic PRs, or silently implementing unlikely
+  suggestions without a maintainer.
+skills:
+  - ai-ticket-bug
+  - ai-ticket-suggest

@@ -1,0 +1,14 @@
+package: "@eristack/doc-number"
+title: doc-number
+maintainers:
+  - support@eristack.dev
+scope: >
+  Document number formats, token patterns, sequences, reset periods, FormatStore
+  / SequenceStore, and thin Drizzle/REST/Express/Nest/client/React adapters for
+  format configuration.
+outOfScope: >
+  Owning business documents themselves, invoice domain tables, or auto-creating
+  infrastructure connections.
+skills:
+  - doc-number-core
+  - doc-number-adapters

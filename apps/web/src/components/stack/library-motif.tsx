@@ -24,6 +24,7 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       {motif === "jwt-auth" ? <JwtMotif /> : null}
       {motif === "ai-knowledge" ? <KnowledgeMotif /> : null}
       {motif === "ai-workflow" ? <WorkflowMotif /> : null}
+      {motif === "ai-ticket-generator" ? <TicketMotif /> : null}
     </div>
   );
 }
@@ -178,6 +179,23 @@ function WorkflowMotif() {
       <div className="absolute bottom-[18%] left-[8%] rounded-lg border border-current/40 bg-[color:var(--layer-soft)] px-3 py-2 font-mono text-[11px] leading-5">
         <p className="font-semibold">mcp · search</p>
         <p className="opacity-75">fts5 + vector · rrf</p>
+      </div>
+    </div>
+  );
+}
+
+function TicketMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">.eristack/tickets/</p>
+        <p className="pl-3 opacity-85">…-bug-money-sum-….md</p>
+        <p className="pl-3 opacity-85">…-suggestion-grid-….md</p>
+      </div>
+      <div className="absolute top-[48%] left-[8%] rounded-lg border border-current/40 bg-[color:var(--layer-soft)] px-3 py-2 font-mono text-[11px] leading-5">
+        <p className="font-semibold">kind · bug</p>
+        <p className="opacity-75">logs · scenario · fix plan</p>
+        <p className="opacity-75">agent handoff → maintainer</p>
       </div>
     </div>
   );

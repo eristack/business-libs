@@ -250,5 +250,33 @@ export const recipes = [
         "role": "supporting"
       }
     ]
+  },
+  {
+    "id": "maintainer-tickets",
+    "title": "Bug reports and feature suggestions for maintainers",
+    "priority": 15,
+    "triggers": [
+      "bug report",
+      "bug ticket",
+      "support ticket",
+      "feature request",
+      "feature suggestion",
+      "maintainer ticket",
+      "fixer upper",
+      "report a bug",
+      "suggest a feature",
+      "eristack ticket"
+    ],
+    "rationale": "Use @eristack/ai-ticket-generator to produce a portable markdown ticket (logs/scenario/fix plan or feasibility-gated suggestion) the user can send to maintainers for an agent fixer-upper. Every package has ticket.yaml.",
+    "packages": [
+      {
+        "name": "@eristack/ai-ticket-generator",
+        "skills": [
+          "ai-ticket-bug",
+          "ai-ticket-suggest"
+        ],
+        "role": "primary"
+      }
+    ]
   }
 ] as Recipe[];
