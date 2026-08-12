@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createDataGridClient } from "@eristack/data-grid/client";
-import { useDataGridList } from "@eristack/data-grid/react";
-import { useJwtAuth } from "@eristack/jwt-auth/react";
-import type { FilterNode } from "@eristack/data-grid";
 import {
-  CUSTOMER_REGIONS,
-  ORDER_STATUSES,
+  useDataGridController,
+  useDataGridList,
+  VALUELESS_OPS,
+} from "@eristack/data-grid/react";
+import { useJwtAuth } from "@eristack/jwt-auth/react";
+import {
   orderGridSchema,
   type OrderDetail,
   type OrderListRow,
@@ -14,76 +15,20 @@ import {
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "";
 
-function buildAdvancedFilters(input: {
-  statuses: string[];
-  regions: string[];
-  minTotalMinor: number | null;
-  minLines: number | null;
-  activeOnly: boolean;
-}): FilterNode | undefined {
-  const children: FilterNode[] = [];
-
-  if (input.statuses.length > 0) {
-    children.push({
-      type: "clause",
-      field: "status",
-      op: "in",
-      value: input.statuses,
-    });
-  }
-  if (input.regions.length > 0) {
-    children.push({
-      type: "clause",
-      field: "customerRegion",
-      op: "in",
-      value: input.regions,
-    });
-  }
-  if (input.minTotalMinor != null && input.minTotalMinor > 0) {
-    children.push({
-      type: "clause",
-      field: "totalMinor",
-      op: "gte",
-      value: input.minTotalMinor,
-    });
-  }
-  if (input.minLines != null && input.minLines > 0) {
-    children.push({
-      type: "clause",
-      field: "lineCount",
-      op: "gte",
-      value: input.minLines,
-    });
-  }
-  if (input.activeOnly) {
-    children.push({
-      type: "clause",
-      field: "customerActive",
-      op: "eq",
-      value: true,
-    });
-  }
-
-  if (children.length === 0) return undefined;
-  if (children.length === 1) return children[0];
-  return { type: "group", logic: "and", children };
-}
-
 type OrdersGridProps = {
   enabled: boolean;
 };
 
+/**
+ * Demonstrates headless draft/commit:
+ * - search types into draft; Enter / Search button commits
+ * - filter modal edits rows without refetch; Apply / Close commits
+ * - resetFilters + sortBy reset pagination to page 1
+ */
 export function OrdersGrid({ enabled }: OrdersGridProps) {
   const { client: auth } = useJwtAuth();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [statuses, setStatuses] = useState<string[]>(["open", "fulfilled"]);
-  const [regions, setRegions] = useState<string[]>([]);
-  const [minTotalDollars, setMinTotalDollars] = useState("");
-  const [minLines, setMinLines] = useState("");
-  const [activeOnly, setActiveOnly] = useState(true);
-  const [sortField, setSortField] = useState("orderedAt");
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
-  const [searchText, setSearchText] = useState("");
+  const [filterOpen, setFilterOpen] = useState(false);
 
   const ordersClient = useMemo(
     () =>
@@ -100,23 +45,34 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
     [auth],
   );
 
-  const list = useDataGridList<OrderListRow>({
+  const controller = useDataGridController({
     schema: orderGridSchema,
-    client: ordersClient,
-    scope: ["example", "orders"],
-    enabled,
     initialQuery: {
       mode: "advanced",
-      filters: buildAdvancedFilters({
-        statuses: ["open", "fulfilled"],
-        regions: [],
-        minTotalMinor: null,
-        minLines: null,
-        activeOnly: true,
-      }),
+      filters: {
+        type: "group",
+        logic: "and",
+        children: [
+          {
+            type: "clause",
+            field: "status",
+            op: "in",
+            value: ["open", "fulfilled"],
+          },
+          { type: "clause", field: "customerActive", op: "eq", value: true },
+        ],
+      },
       sorts: [{ field: "orderedAt", dir: "desc" }],
       page: { mode: "offset", page: 1, pageSize: 10 },
     },
+  });
+
+  const list = useDataGridList<OrderListRow>({
+    schema: orderGridSchema,
+    client: ordersClient,
+    controller,
+    scope: ["example", "orders"],
+    enabled,
   });
 
   const detailQuery = useQuery({
@@ -138,45 +94,24 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
     },
   });
 
-  function applyAdvanced() {
-    const dollars = minTotalDollars.trim() === "" ? null : Number(minTotalDollars);
-    const lines = minLines.trim() === "" ? null : Number(minLines);
-    list.setMode("advanced");
-    list.setFilters(
-      buildAdvancedFilters({
-        statuses,
-        regions,
-        minTotalMinor:
-          dollars != null && Number.isFinite(dollars)
-            ? Math.round(dollars * 100)
-            : null,
-        minLines: lines != null && Number.isFinite(lines) ? lines : null,
-        activeOnly,
-      }),
-    );
-    list.setSorts([{ field: sortField, dir: sortDir }]);
-    list.setPage(1);
-  }
-
-  function applySearch() {
-    list.setSearch(searchText);
-    list.setSorts([{ field: sortField, dir: sortDir }]);
-    list.setPage(1);
-  }
-
-  function toggleValue(
-    values: string[],
-    value: string,
-    setter: (next: string[]) => void,
-  ) {
-    setter(
-      values.includes(value)
-        ? values.filter((v) => v !== value)
-        : [...values, value],
-    );
-  }
-
   const pageInfo = list.pageInfo?.mode === "offset" ? list.pageInfo : null;
+  const sortField = list.draftSorts[0]?.field ?? "orderedAt";
+  const sortDir = list.draftSorts[0]?.dir ?? "desc";
+
+  function openFilters() {
+    list.syncDraftFromCommitted();
+    setFilterOpen(true);
+  }
+
+  function applyFilters() {
+    list.commitFilters();
+    setFilterOpen(false);
+  }
+
+  function cancelFilters() {
+    list.syncDraftFromCommitted();
+    setFilterOpen(false);
+  }
 
   return (
     <section className="panel">
@@ -184,9 +119,8 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
         <div>
           <h2>Orders data grid</h2>
           <p className="lede">
-            Custom domain (customers → orders → lines → products) with relation
-            fields, <code>SUM</code>/<code>COUNT</code> aggregates, and JSON
-            search params via <code>@eristack/data-grid</code>.
+            Headless draft/commit: typing and filter rows stay local until Search /
+            Apply. Reset and sort return to page 1.
           </p>
         </div>
         <div className="actions">
@@ -202,95 +136,42 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
       </div>
 
       <div className="grid-controls">
-        <label className="field">
-          <span>Mode</span>
-          <select
-            value={list.query.mode}
+        <label className="field grow">
+          <span>Search (draft)</span>
+          <input
+            value={list.draftSearch}
+            placeholder="customer, number, notes…"
             onChange={(e) => {
-              const mode = e.target.value as "advanced" | "search";
-              if (mode === "search") applySearch();
-              else applyAdvanced();
+              list.setDraftMode("search");
+              list.setDraftSearch(e.target.value);
             }}
-          >
-            <option value="advanced">advanced (filters)</option>
-            <option value="search">search (q)</option>
-          </select>
+            onKeyDown={(e) => {
+              if (e.key === "Enter") list.commitSearch();
+            }}
+            onBlur={() => {
+              /* optional: commit on blur — demo uses explicit Search */
+            }}
+          />
         </label>
-
-        {list.query.mode === "search" ? (
-          <label className="field grow">
-            <span>Search q</span>
-            <input
-              value={searchText}
-              placeholder="customer, number, notes…"
-              onChange={(e) => setSearchText(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") applySearch();
-              }}
-            />
-          </label>
-        ) : (
-          <>
-            <fieldset className="chip-set">
-              <legend>status in</legend>
-              {ORDER_STATUSES.map((status) => (
-                <label key={status} className="chip">
-                  <input
-                    type="checkbox"
-                    checked={statuses.includes(status)}
-                    onChange={() => toggleValue(statuses, status, setStatuses)}
-                  />
-                  {status}
-                </label>
-              ))}
-            </fieldset>
-            <fieldset className="chip-set">
-              <legend>region in</legend>
-              {CUSTOMER_REGIONS.map((region) => (
-                <label key={region} className="chip">
-                  <input
-                    type="checkbox"
-                    checked={regions.includes(region)}
-                    onChange={() => toggleValue(regions, region, setRegions)}
-                  />
-                  {region}
-                </label>
-              ))}
-            </fieldset>
-            <label className="field">
-              <span>total ≥ $</span>
-              <input
-                inputMode="decimal"
-                value={minTotalDollars}
-                placeholder="e.g. 500"
-                onChange={(e) => setMinTotalDollars(e.target.value)}
-              />
-            </label>
-            <label className="field">
-              <span>lines ≥</span>
-              <input
-                inputMode="numeric"
-                value={minLines}
-                placeholder="2"
-                onChange={(e) => setMinLines(e.target.value)}
-              />
-            </label>
-            <label className="chip">
-              <input
-                type="checkbox"
-                checked={activeOnly}
-                onChange={(e) => setActiveOnly(e.target.checked)}
-              />
-              active customers
-            </label>
-          </>
-        )}
+        <button type="button" onClick={() => list.commitSearch()}>
+          Search
+        </button>
+        <button type="button" className="button-secondary" onClick={openFilters}>
+          Filters{list.isDirty ? " •" : ""}
+        </button>
+        <button
+          type="button"
+          className="button-secondary"
+          onClick={() => list.resetFilters()}
+        >
+          Reset filters
+        </button>
 
         <label className="field">
           <span>Sort</span>
           <select
             value={sortField}
-            onChange={(e) => setSortField(e.target.value)}
+            onChange={(e) => list.sortBy(e.target.value, sortDir)}
           >
             <option value="orderedAt">orderedAt</option>
             <option value="totalMinor">totalMinor</option>
@@ -303,27 +184,118 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
           <span>Dir</span>
           <select
             value={sortDir}
-            onChange={(e) => setSortDir(e.target.value as "asc" | "desc")}
+            onChange={(e) =>
+              list.sortBy(sortField, e.target.value as "asc" | "desc")
+            }
           >
             <option value="desc">desc</option>
             <option value="asc">asc</option>
           </select>
         </label>
-
-        <button
-          type="button"
-          onClick={() => {
-            if (list.query.mode === "search") applySearch();
-            else applyAdvanced();
-          }}
-        >
-          Apply
-        </button>
       </div>
 
-      {list.error ? (
-        <p className="error">{list.error.message}</p>
+      {filterOpen ? (
+        <div className="filter-modal" role="dialog" aria-label="Filters">
+          <div className="panel-head">
+            <h3>Filters (draft)</h3>
+            <div className="actions">
+              <button
+                type="button"
+                className="button-secondary"
+                onClick={() => list.addFilterRow()}
+              >
+                Add row
+              </button>
+              <button type="button" className="button-secondary" onClick={cancelFilters}>
+                Cancel
+              </button>
+              <button type="button" onClick={applyFilters}>
+                Apply
+              </button>
+            </div>
+          </div>
+
+          <label className="field">
+            <span>Logic</span>
+            <select
+              value={list.filterLogic}
+              onChange={(e) =>
+                list.setFilterLogic(e.target.value as "and" | "or")
+              }
+            >
+              <option value="and">and</option>
+              <option value="or">or</option>
+            </select>
+          </label>
+
+          <div className="filter-rows">
+            {list.filterRows.length === 0 ? (
+              <p className="lede">No rows — Add row or Apply empty to clear.</p>
+            ) : (
+              list.filterRows.map((row) => {
+                const ops = list.opsForField(row.field);
+                const needsValue = !VALUELESS_OPS.has(row.op);
+                return (
+                  <div key={row.id} className="filter-row">
+                    <select
+                      value={row.field}
+                      onChange={(e) =>
+                        list.updateFilterRow(row.id, { field: e.target.value })
+                      }
+                    >
+                      {list.fields.map((f) => (
+                        <option key={f.name} value={f.name}>
+                          {f.name}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      value={row.op}
+                      onChange={(e) =>
+                        list.updateFilterRow(row.id, {
+                          op: e.target.value as typeof row.op,
+                        })
+                      }
+                    >
+                      {ops.map((op) => (
+                        <option key={op} value={op}>
+                          {op}
+                        </option>
+                      ))}
+                    </select>
+                    {needsValue ? (
+                      <input
+                        value={
+                          Array.isArray(row.value)
+                            ? row.value.join(",")
+                            : row.value == null
+                              ? ""
+                              : String(row.value)
+                        }
+                        placeholder="value (in: a,b)"
+                        onChange={(e) =>
+                          list.updateFilterRow(row.id, { value: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <span className="muted">—</span>
+                    )}
+                    <button
+                      type="button"
+                      className="button-secondary"
+                      onClick={() => list.removeFilterRow(row.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
       ) : null}
+
+      {list.error ? <p className="error">{list.error.message}</p> : null}
 
       <div className="table-wrap">
         <table className="data-table">
@@ -398,7 +370,7 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
       ) : null}
 
       <details className="wire">
-        <summary>Wire query</summary>
+        <summary>Committed query (fetch key)</summary>
         <pre className="mono">{list.queryString || "(empty)"}</pre>
       </details>
 
@@ -431,30 +403,20 @@ export function OrdersGrid({ enabled }: OrdersGridProps) {
                       <th>SKU</th>
                       <th>Product</th>
                       <th>Qty</th>
-                      <th>Unit</th>
                       <th>Line total</th>
                     </tr>
                   </thead>
                   <tbody>
                     {detailQuery.data.lines.length === 0 ? (
                       <tr>
-                        <td colSpan={5}>No lines (zero-sum order).</td>
+                        <td colSpan={4}>No lines.</td>
                       </tr>
                     ) : (
                       detailQuery.data.lines.map((line) => (
                         <tr key={line.id}>
                           <td className="mono">{line.sku}</td>
-                          <td>
-                            {line.productName}{" "}
-                            <span className="muted">({line.category})</span>
-                          </td>
+                          <td>{line.productName}</td>
                           <td>{line.qty}</td>
-                          <td className="mono">
-                            {(line.unitPriceMinor / 100).toLocaleString(
-                              undefined,
-                              { style: "currency", currency: "USD" },
-                            )}
-                          </td>
                           <td className="mono">{line.lineTotal}</td>
                         </tr>
                       ))

@@ -182,3 +182,44 @@ describe("buildDataGridResult", () => {
     });
   });
 });
+
+describe("filter builder", () => {
+  it("builds and/or nodes from draft rows and skips incomplete rows", async () => {
+    const {
+      filterRowsToNode,
+      nodeToFilterRows,
+      resetPagination,
+      suggestedOpsForType,
+    } = await import("../src/index.js");
+
+    const node = filterRowsToNode(
+      [
+        { id: "1", field: "status", op: "eq", value: "open" },
+        { id: "2", field: "name", op: "contains", value: "" }, // skip
+        { id: "3", field: "age", op: "gte", value: 18 },
+      ],
+      "and",
+    );
+    expect(node).toEqual({
+      type: "group",
+      logic: "and",
+      children: [
+        { type: "clause", field: "status", op: "eq", value: "open" },
+        { type: "clause", field: "age", op: "gte", value: 18 },
+      ],
+    });
+
+    const roundTrip = nodeToFilterRows(node);
+    expect(roundTrip.logic).toBe("and");
+    expect(roundTrip.rows).toHaveLength(2);
+    expect(roundTrip.rows[0]?.field).toBe("status");
+
+    expect(resetPagination({ mode: "offset", page: 4, pageSize: 10 })).toEqual({
+      mode: "offset",
+      page: 1,
+      pageSize: 10,
+    });
+    expect(suggestedOpsForType("boolean")).toContain("eq");
+    expect(suggestedOpsForType("string")).toContain("contains");
+  });
+});

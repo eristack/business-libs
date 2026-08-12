@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T08:05:31.811Z",
+  "generatedAt": "2026-08-12T08:09:47.548Z",
   "packages": [
     {
       "name": "@eristack/ai-workflow",
@@ -49,7 +49,7 @@ export const catalog = {
           "id": "data-grid-adapters",
           "name": "data-grid-adapters",
           "packageName": "@eristack/data-grid",
-          "description": "@eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridQuery/useDataGridList. Use when wiring list HTTP/SQL/UI shells.",
+          "description": "@eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells.",
           "type": "adapter",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters"
         },

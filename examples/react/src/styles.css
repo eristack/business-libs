@@ -329,11 +329,36 @@ button:disabled,
   font-size: 0.8rem;
 }
 
-.detail {
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
+.filter-modal {
+  margin: 0.75rem 0 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.9);
 }
+
+.filter-rows {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1.2fr) minmax(6rem, 1fr) minmax(8rem, 1.4fr) auto;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.filter-row select,
+.filter-row input {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
 
 .detail h3 {
   margin: 0;

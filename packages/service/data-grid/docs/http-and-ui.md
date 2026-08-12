@@ -118,40 +118,66 @@ const page = await client.list({
 
 The client serializes with the same JSON search params the server parses. Vue, Svelte, or plain TS can wrap this — React is optional.
 
-## React (TanStack Query)
+## React (TanStack Query + headless controller)
 
 Require an app-owned `QueryClientProvider`.
 
-### Local query state only
+### Draft / commit lifecycle
+
+Typing in a search box or editing filter rows must **not** refetch. Only a commit event updates the committed query (the fetch key):
+
+| Action | Fetch? | Pagination |
+| --- | --- | --- |
+| `setDraftSearch` / `updateFilterRow` / `addFilterRow` | No | — |
+| `commitSearch` / `commitFilters` / `commit` / `commitSorts` | Yes | Reset to page 1 (offset) / clear cursor |
+| `resetFilters` / `resetAll` | Yes | Reset |
+| `sortBy` | Yes | Reset |
+| `setPage` / `setPageSize` / `setCursor` | Yes | As set (`setPageSize` → page 1) |
+
+### Filter modal (headless rows)
 
 ```ts
-import { useDataGridQuery } from "@eristack/data-grid/react";
+import {
+  useDataGridController,
+  useDataGridList,
+  VALUELESS_OPS,
+} from "@eristack/data-grid/react";
 
-const grid = useDataGridQuery({ schema: orderGridSchema });
-// grid.query / setFilters / setSearch / setPage / queryString
+const controller = useDataGridController({ schema });
+const list = useDataGridList({ schema, client, controller, scope: ["orders"] });
+
+// Open modal: copy committed → draft
+controller.syncDraftFromCommitted();
+
+controller.addFilterRow();
+controller.updateFilterRow(id, { field: "status", op: "eq", value: "open" });
+controller.removeFilterRow(id);
+
+// Apply / close modal
+controller.commitFilters(); // FilterNode + mode=advanced + page=1
+
+// Search box
+controller.setDraftSearch(text); // no fetch
+controller.commitSearch();       // blur / Enter / Search button
 ```
 
-### List + cache
+Each draft row is `{ id, field, op, value }`. Incomplete rows are skipped on commit. `opsForField(name)` returns suggested operators for the field type.
+
+### List hook
 
 ```ts
-import { useDataGridList } from "@eristack/data-grid/react";
-
 const list = useDataGridList({
-  schema: orderGridSchema,
+  schema,
   client,
-  scope: ["orders"], // query key segment
-  enabled: status === "authenticated",
+  controller, // recommended
+  scope: ["orders"],
 });
-
-list.items;
-list.pageInfo;
-list.isFetching;
-list.setPage(2);
-list.setFilters(nextFilters);
-list.refetch();
+// list.items / list.pageInfo — TanStack Query
+// list.query — committed only
+// list.draftSearch / list.filterRows — draft surface
 ```
 
-`scope` namespaces the TanStack Query key (`["eristack","data-grid", …scope, queryString]`).
+App owns modal/chrome markup — the library is headless. See `examples/react` and [Recipes](./recipes.md).
 
 You may pass `queryFn` instead of `client` when the loader is not HTTP (e.g. tRPC).
 

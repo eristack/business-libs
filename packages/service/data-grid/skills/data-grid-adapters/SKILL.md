@@ -5,7 +5,8 @@ description: >
   (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery,
   rest createDataGridListAction + {items,pageInfo,query}, express middleware,
   nest DataGridModule + ParseDataGridPipe, client createDataGridClient,
-  react useDataGridQuery/useDataGridList. Use when wiring list HTTP/SQL/UI shells.
+  react useDataGridController (draft/commit filter rows) + useDataGridList.
+  Use when wiring list HTTP/SQL/UI shells.
 metadata:
   type: adapter
   library: '@eristack/data-grid'
@@ -30,7 +31,7 @@ Docs: Database (Drizzle), HTTP & UI, Recipes. Headless only — apps inject `db`
 | `/express` | `createDataGridMiddleware` |
 | `/nest` | `DataGridModule`, `ParseDataGridPipe` |
 | `/client` | `createDataGridClient` |
-| `/react` | `useDataGridQuery`, `useDataGridList` (TanStack Query; wraps `/client`) |
+| `/react` | `useDataGridController`, `useDataGridList` (draft/commit + TanStack Query; wraps `/client`) |
 
 **Split:** app owns the SQL projection (joins / `SUM` / `COUNT`); library runs filter/sort/count/page via `executeDrizzleList`.
 

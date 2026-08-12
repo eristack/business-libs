@@ -6,7 +6,7 @@ import {
   type UseQueryOptions,
   type UseQueryResult,
 } from "@tanstack/react-query";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import type { DataGridClient } from "../client/index.js";
 import { createDataGrid } from "../core/create-data-grid.js";
 import type {
@@ -14,74 +14,21 @@ import type {
   DataGridQueryInput,
   DataGridResult,
   DataGridSchema,
-  FilterNode,
-  QueryMode,
-  SortClause,
 } from "../core/types.js";
+import {
+  useDataGridController,
+  type DataGridController,
+  type UseDataGridControllerOptions,
+} from "./controller.js";
 
-export type UseDataGridQueryOptions = {
-  schema: DataGridSchema;
-  initialQuery?: DataGridQueryInput;
+export {
+  useDataGridController,
+  type DataGridController,
+  type UseDataGridControllerOptions,
 };
 
-export type UseDataGridQueryResult = {
-  query: DataGridQuery;
-  setQuery: (input: DataGridQueryInput) => void;
-  setMode: (mode: QueryMode) => void;
-  setSearch: (q: string) => void;
-  setFilters: (filters: FilterNode | undefined) => void;
-  setSorts: (sorts: SortClause[]) => void;
-  setPage: (page: number) => void;
-  setPageSize: (pageSize: number) => void;
-  setCursor: (cursor: string | null) => void;
-  queryString: string;
-};
-
-/** Local query-builder state (not server cache). Safe for any UI framework pattern. */
-export function useDataGridQuery(
-  options: UseDataGridQueryOptions,
-): UseDataGridQueryResult {
-  const grid = useMemo(() => createDataGrid(options.schema), [options.schema]);
-  const [query, setQueryState] = useState<DataGridQuery>(() =>
-    grid.parse(options.initialQuery),
-  );
-
-  const setQuery = useCallback(
-    (input: DataGridQueryInput) => {
-      setQueryState(grid.parse(input));
-    },
-    [grid],
-  );
-
-  const patch = useCallback(
-    (next: Partial<DataGridQuery>) => {
-      setQueryState((prev) => grid.parse({ ...prev, ...next }));
-    },
-    [grid],
-  );
-
-  return {
-    query,
-    setQuery,
-    setMode: (mode) => patch({ mode }),
-    setSearch: (search) => patch({ mode: "search", search }),
-    setFilters: (filters) => patch({ mode: "advanced", filters }),
-    setSorts: (sorts) => patch({ sorts }),
-    setPage: (page) => {
-      if (query.page.mode !== "offset") return;
-      patch({ page: { ...query.page, page } });
-    },
-    setPageSize: (pageSize) => {
-      if (query.page.mode !== "offset") return;
-      patch({ page: { ...query.page, page: 1, pageSize } });
-    },
-    setCursor: (cursor) => {
-      if (query.page.mode !== "cursor") return;
-      patch({ page: { ...query.page, cursor } });
-    },
-    queryString: grid.serializeString(query),
-  };
-}
+/** @deprecated Prefer `useDataGridController` (draft/commit). */
+export const useDataGridQuery = useDataGridController;
 
 export function dataGridQueryKey(
   scope: QueryKey,
@@ -92,14 +39,15 @@ export function dataGridQueryKey(
 
 export type UseDataGridListOptions<T> = {
   schema: DataGridSchema;
-  /**
-   * Prefer injecting a `/client` instance. Alternative: pass `queryFn` for
-   * custom loaders that still return `DataGridResult`.
-   */
   client?: DataGridClient<T>;
   queryFn?: (query: DataGridQuery) => Promise<DataGridResult<T>>;
+  /**
+   * When set, fetch keys off `controller.query` (committed only).
+   * Draft edits do not refetch until `commit` / `commitFilters` / `commitSearch`.
+   */
+  controller?: DataGridController;
+  /** Initial query when no external `controller` is passed. */
   initialQuery?: DataGridQueryInput;
-  /** Extra query-key segments after `eristack/data-grid`. */
   scope?: QueryKey;
   enabled?: boolean;
 } & Omit<
@@ -107,18 +55,19 @@ export type UseDataGridListOptions<T> = {
   "queryKey" | "queryFn"
 >;
 
-export type UseDataGridListResult<T> = UseDataGridQueryResult &
-  UseQueryResult<DataGridResult<T>, Error> & {
+export type UseDataGridListResult<T> = DataGridController &
+  Omit<UseQueryResult<DataGridResult<T>, Error>, "data"> & {
     items: T[];
     pageInfo: DataGridResult<T>["pageInfo"] | null;
     result: DataGridResult<T> | null;
-    /** @deprecated Prefer `refetch` from TanStack Query. */
+    data: DataGridResult<T> | undefined;
+    /** @deprecated Prefer `refetch`. */
     refresh: () => Promise<unknown>;
   };
 
 /**
- * TanStack Query list hook over a data-grid client (or injected queryFn).
- * Requires an app-owned `QueryClientProvider`.
+ * TanStack Query list over `/client` (or `queryFn`).
+ * Pair with `useDataGridController` for headless filter-modal / search commit lifecycle.
  */
 export function useDataGridList<T>(
   options: UseDataGridListOptions<T>,
@@ -127,13 +76,21 @@ export function useDataGridList<T>(
     schema,
     client,
     queryFn,
+    controller: external,
     initialQuery,
     scope = [],
     enabled = true,
     ...queryOptions
   } = options;
 
-  const gridState = useDataGridQuery({ schema, initialQuery });
+  const internal = useDataGridController({ schema, initialQuery });
+  const controller = external ?? internal;
+
+  const grid = useMemo(() => createDataGrid(schema), [schema]);
+  const queryString = useMemo(
+    () => grid.serializeString(controller.query),
+    [grid, controller.query],
+  );
 
   const load = useCallback(
     (query: DataGridQuery) => {
@@ -146,19 +103,35 @@ export function useDataGridList<T>(
 
   const listQuery = useQuery({
     ...queryOptions,
-    queryKey: dataGridQueryKey(scope, gridState.queryString),
-    queryFn: () => load(gridState.query),
+    queryKey: dataGridQueryKey(scope, queryString),
+    queryFn: () => load(controller.query),
     enabled,
   });
 
   return {
-    ...gridState,
     ...listQuery,
+    ...controller,
+    query: controller.query,
     items: listQuery.data?.items ?? [],
     pageInfo: listQuery.data?.pageInfo ?? null,
     result: listQuery.data ?? null,
+    data: listQuery.data,
     refresh: () => listQuery.refetch(),
   };
 }
 
 export { createDataGrid } from "../core/create-data-grid.js";
+export {
+  createEmptyFilterRow,
+  createFilterRowId,
+  filterRowsToNode,
+  nodeToFilterRows,
+  suggestedOpsForField,
+  suggestedOpsForType,
+  filterableFields,
+  sortableFields,
+  VALUELESS_OPS,
+  resetPagination,
+  withResetPagination,
+  type FilterDraftRow,
+} from "../core/filter-builder.js";

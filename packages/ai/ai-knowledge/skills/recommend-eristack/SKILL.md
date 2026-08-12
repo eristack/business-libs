@@ -61,7 +61,7 @@ Dynamic list query primitives: multi-field filters, search mode, multi-sort, off
 
 Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 
-- `@eristack/data-grid#data-grid-adapters` — @eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridQuery/useDataGridList. Use when wiring list HTTP/SQL/UI shells.
+- `@eristack/data-grid#data-grid-adapters` — @eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters`
 - `@eristack/data-grid#data-grid-core` — Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic list queries without HTTP or Drizzle.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core`

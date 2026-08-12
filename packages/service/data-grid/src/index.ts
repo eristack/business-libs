@@ -18,6 +18,20 @@ export {
 export type { FieldGetter } from "./core/apply.js";
 export { buildDataGridResult } from "./core/page-info.js";
 export type { BuildDataGridResultOptions } from "./core/page-info.js";
+export {
+  createEmptyFilterRow,
+  createFilterRowId,
+  filterRowsToNode,
+  nodeToFilterRows,
+  suggestedOpsForField,
+  suggestedOpsForType,
+  filterableFields,
+  sortableFields,
+  VALUELESS_OPS,
+  resetPagination,
+  withResetPagination,
+} from "./core/filter-builder.js";
+export type { FilterDraftRow } from "./core/filter-builder.js";
 export { matchClause, isFilterOp, normalizeComparable } from "./core/match.js";
 export { encodeCursor, decodeCursor } from "./core/cursor.js";
 export type { CursorPayload } from "./core/cursor.js";

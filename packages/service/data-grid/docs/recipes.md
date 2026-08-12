@@ -59,52 +59,32 @@ This is what `@eristack/jwt-auth` `listSessions` does. Same `DataGridResult` env
 
 **Problem.** Checkbox groups for `status` / `region`, a minimum total, and a sort select.
 
-**Approach.** Build a `FilterNode` in the UI; call `list.setFilters` / `list.setSorts` / `list.setPage(1)`.
+**Approach.** Prefer the headless **draft/commit** controller so typing does not refetch.
 
 ```ts
-function buildFilters(input: {
-  statuses: string[];
-  regions: string[];
-  minTotalMinor: number | null;
-}): FilterNode | undefined {
-  const children: FilterNode[] = [];
-  if (input.statuses.length) {
-    children.push({
-      type: "clause",
-      field: "status",
-      op: "in",
-      value: input.statuses,
-    });
-  }
-  if (input.regions.length) {
-    children.push({
-      type: "clause",
-      field: "customerRegion",
-      op: "in",
-      value: input.regions,
-    });
-  }
-  if (input.minTotalMinor != null) {
-    children.push({
-      type: "clause",
-      field: "totalMinor",
-      op: "gte",
-      value: input.minTotalMinor,
-    });
-  }
-  if (children.length === 0) return undefined;
-  if (children.length === 1) return children[0];
-  return { type: "group", logic: "and", children };
-}
+const controller = useDataGridController({ schema });
+const list = useDataGridList({ schema, client, controller });
 
-// on Apply:
-list.setMode("advanced");
-list.setFilters(buildFilters({ statuses, regions, minTotalMinor }));
-list.setSorts([{ field: sortField, dir: sortDir }]);
-list.setPage(1);
+// Modal open
+controller.syncDraftFromCommitted();
+controller.addFilterRow({ field: "status", op: "in", value: "open,fulfilled" });
+// …userFilterRow for each line …
+
+// Modal Apply / close
+controller.commitFilters(); // page → 1
+
+// Search
+controller.setDraftSearch(q);
+controller.commitSearch(); // Enter / button / blur
+
+// Sort (immediate + page reset)
+controller.sortBy("totalMinor", "desc");
+
+// Clear
+controller.resetFilters();
 ```
 
-Keep money inputs in major units in the form; convert to minor units before building the clause (`Math.round(dollars * 100)`).
+Keep money inputs in major units in the form; convert to minor units in the row value before commit (`Math.round(dollars * 100)`).
 
 ## Recipe: search box vs advanced filters
 
