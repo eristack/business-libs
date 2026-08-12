@@ -1,51 +1,70 @@
 ---
-title: Overview
-description: Dynamic filter, search, sort, and pagination queries
+title: Introduction
+description: Schema-aware list queries for filters, search, sort, and pagination
 sidebar_position: 1
 ---
 
 # @eristack/data-grid
 
-Schema-aware list queries for Eristack **service** and **capability** packages.
+Almost every business screen is a list: orders, sessions, formats, invoices. Those lists need the same four capabilities — **filter**, **search**, **sort**, and **paginate** — whether the data lives in memory or in SQL, and whether the UI is a React table or a plain `curl`.
 
-## What it solves
+`@eristack/data-grid` is the shared contract for that problem. You declare which fields exist and how they may be queried. The library parses URL state, validates it against your schema, and either applies it in memory or pushes it into Drizzle. HTTP and React adapters stay headless: your app owns the database, the fetch client, and the UI kit.
 
-One shared contract for:
+## Why a shared contract?
 
-- Multi-field **advanced** filters (complete operator set)
-- Separate **search** mode (`q` → OR `contains` across searchable fields)
-- Multi-field sorting
-- **Offset** or **cursor** pagination
-- Parse / serialize to URL query strings (JSON nested params, TanStack Router–aligned)
+Without one, each package invents its own query string (`?status=open&sort=-created`), its own response shape, and its own React hook. Frontend and backend drift. Agents and humans re-learn the same rules per endpoint.
 
-Core is pure TypeScript. Adapters are headless (Drizzle SQL helpers, REST/Express/Nest, client, React hooks).
+With data-grid:
 
-## Modes
-
-| Mode | Behavior |
+| Concern | Owned by |
 | --- | --- |
-| `advanced` | Uses JSON `filters` — ignores `q` |
-| `search` | Uses `q` across searchable fields — ignores structured filters |
+| Which fields exist; which are filterable / searchable / sortable | Your **schema** |
+| Normalized query + `{ items, pageInfo, query }` result | **Core** |
+| Joins, aggregates, domain row mapping | Your **app** (projection) |
+| Express / Nest / client / React wiring | **Adapters** (headless) |
 
-## Quick start
+## What you get
 
-```ts
-import { createDataGrid } from "@eristack/data-grid";
+- **Two modes that never mix** — structured `advanced` filters, or free-text `search` (`q`)
+- **A full operator set** — `eq`, `contains`, `in`, `between`, null/empty checks, and more
+- **JSON search params** aligned with [TanStack Router](https://tanstack.com/router/latest/docs/framework/react/guide/search-params)
+- **Offset or cursor** pagination with a uniform `pageInfo`
+- **Drizzle execution** — `executeDrizzleList` runs count + page; you supply the `FROM` projection
+- **Headless adapters** for REST, Express, Nest, HTTP client, and TanStack Query
 
-const grid = createDataGrid({
-  fields: [
-    { name: "name", type: "string", filterable: true, sortable: true, searchable: true },
-    { name: "age", type: "number", filterable: true, sortable: true },
-  ],
-  defaultSorts: [{ field: "name", dir: "asc" }],
-});
+## Mental model
 
-const page = grid.applyInMemory(rows, "mode=search&q=ada&page=1&pageSize=20");
+```text
+URL / Router search
+        │
+        ▼
+   parse / fromSearch     ← schema validates fields & ops
+        │
+        ▼
+   DataGridQuery          ← normalized { mode, filters|search, sorts, page }
+        │
+   ┌────┴────┐
+   ▼         ▼
+applyInMemory   executeDrizzleList(source, columns, …)
+   │         │
+   └────┬────┘
+        ▼
+ DataGridResult<T>        ← { items, pageInfo, query }
 ```
 
-## Consumers
+## Already used by the stack
 
-- `@eristack/jwt-auth` — `listSessions(subject, query?)` → `DataGridResult`
-- `@eristack/doc-number` — `listFormats(entityKey, query?)` → `DataGridResult`
+- [`@eristack/jwt-auth`](/docs/jwt-auth) — `listSessions(subject, query?)`
+- [`@eristack/doc-number`](/docs/doc-number) — `listFormats(entityKey, query?)`
 
-List HTTP bodies use `{ items, pageInfo, query }`.
+Both return `DataGridResult`. Your domain lists should look the same.
+
+## Next steps
+
+- [Getting started](./getting-started.md) — install, schema, first list
+- [Concepts](./concepts.md) — schema, query, result, modes
+- [Querying](./querying.md) — filters, operators, sort, pagination
+- [URL & TanStack Router](./url-search.md) — JSON search params
+- [Database (Drizzle)](./database.md) — projections, joins, aggregates
+- [HTTP & UI adapters](./http-and-ui.md) — Express, Nest, client, React
+- [Recipes](./recipes.md) — end-to-end patterns

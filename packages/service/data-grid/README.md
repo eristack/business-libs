@@ -1,6 +1,6 @@
 # @eristack/data-grid
 
-Dynamic list queries for Eristack services and capabilities: multi-field filters, separate search mode, multi-sort, offset/cursor pagination.
+Schema-aware list queries for Eristack services and capabilities: multi-field filters, separate search mode, multi-sort, offset/cursor pagination.
 
 ## Install
 
@@ -8,47 +8,70 @@ Dynamic list queries for Eristack services and capabilities: multi-field filters
 pnpm add @eristack/data-grid
 ```
 
-## Core
+## Documentation
+
+Package docs are the source of truth (also rendered on the site):
+
+| Guide | Topic |
+| --- | --- |
+| [Introduction](./docs/index.md) | Why a shared list contract |
+| [Getting started](./docs/getting-started.md) | Schema → parse → result |
+| [Concepts](./docs/concepts.md) | Schema, query, result, modes |
+| [Querying](./docs/querying.md) | Operators, search, sort, pagination |
+| [URL & TanStack Router](./docs/url-search.md) | JSON search params |
+| [Database (Drizzle)](./docs/database.md) | Projections, `executeDrizzleList` |
+| [HTTP & UI](./docs/http-and-ui.md) | Express, Nest, client, React |
+| [Recipes](./docs/recipes.md) | Orders with sums, facets, Router |
+
+## Quick taste
 
 ```ts
 import { createDataGrid } from "@eristack/data-grid";
+import {
+  columnsFromSource,
+  executeDrizzleList,
+} from "@eristack/data-grid/drizzle";
 
-const grid = createDataGrid({
-  fields: [
-    { name: "name", type: "string", filterable: true, sortable: true, searchable: true },
-    { name: "age", type: "number", filterable: true, sortable: true },
-  ],
-  defaultSorts: [{ field: "name", dir: "asc" }],
-  defaultPageSize: 20,
+const grid = createDataGrid(schema);
+const query = grid.parse(req.query);
+
+// Small collections:
+const memory = grid.applyInMemory(rows, query);
+
+// SQL — app owns joins/aggregates; library runs filter/sort/count/page:
+const source = orderGridSource(db);
+const sql = await executeDrizzleList({
+  dialect: "sqlite",
+  db,
+  source,
+  columns: columnsFromSource(source, schema),
+  query,
+  schema,
+  map: mapRow,
 });
-
-const result = grid.applyInMemory(rows, "mode=search&q=ada&page=1&pageSize=10");
-// result.items / result.pageInfo / result.query
 ```
 
-**Modes (separate):**
+**Modes:** `advanced` (JSON `filters`) and `search` (`q`) are separate — they never mix.
 
-- `advanced` — structured `filters` JSON (`FilterNode`)
-- `search` — `q` OR-contains across `searchable` fields (ignores advanced filters)
-
-**URL / TanStack Router:** nested `filters` and `sorts` are JSON (objects in Router search; JSON strings on the wire). Use `toSearch` / `fromSearch` / `serializeSearch` with Router `validateSearch`.
-
-**Ops:** `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `contains`, `notContains`, `startsWith`, `endsWith`, `in`, `notIn`, `between`, `notBetween`, `isNull`, `isNotNull`, `isEmpty`, `isNotEmpty`
+**URL:** nested `filters` / `sorts` are JSON (TanStack Router–aligned). Use `toSearch` / `fromSearch`.
 
 ## Adapters
 
 | Import | Role |
 | --- | --- |
 | `@eristack/data-grid/drizzle` | `executeDrizzleList` / `columnsFromSource` / `buildDrizzleQuery` |
-| `@eristack/data-grid/rest` | Parse from RestRequest, `{ items, pageInfo, query }` body |
-| `@eristack/data-grid/express` | Middleware + parse helpers |
-| `@eristack/data-grid/nest` | `DataGridModule` + `ParseDataGridPipe` |
-| `@eristack/data-grid/client` | Framework-agnostic HTTP (`createDataGridClient`) |
-| `@eristack/data-grid/react` | TanStack Query hooks wrapping `/client` |
-
+| `@eristack/data-grid/rest` | Parse + `{ items, pageInfo, query }` body |
+| `@eristack/data-grid/express` | Middleware + helpers |
+| `@eristack/data-grid/nest` | Module + pipe |
+| `@eristack/data-grid/client` | Framework-agnostic HTTP |
+| `@eristack/data-grid/react` | TanStack Query hooks over `/client` |
 
 All adapters are headless — no UI kit.
 
+## Examples
+
+`examples/express` + `examples/react` ship an orders domain with customers, line items, `SUM`/`COUNT`, and a React grid.
+
 ## Consumers
 
-`@eristack/jwt-auth` sessions and `@eristack/doc-number` formats list through this contract.
+`@eristack/jwt-auth` sessions and `@eristack/doc-number` formats list through the same `DataGridResult` contract.

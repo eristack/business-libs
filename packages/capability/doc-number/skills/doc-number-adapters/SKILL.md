@@ -12,7 +12,9 @@ metadata:
   library_version: '0.0.0'
 sources:
   - 'eristack/business-libs:packages/capability/doc-number/docs/stores.md'
-  - 'eristack/business-libs:packages/capability/doc-number/docs/adapters.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/http-and-ui.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/formats-and-listing.md'
+  - 'eristack/business-libs:packages/capability/doc-number/docs/recipes.md'
   - 'eristack/business-libs:packages/capability/doc-number/docs/api-reference.md'
   - 'eristack/business-libs:packages/capability/doc-number/src/drizzle/format-table.ts'
   - 'eristack/business-libs:packages/capability/doc-number/src/drizzle/sequence-store.ts'

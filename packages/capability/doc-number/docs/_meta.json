@@ -1,8 +1,15 @@
 {
-  "index": "Overview",
-  "getting-started": "Getting started",
-  "format": "Format DSL",
-  "stores": "Stores & Drizzle",
-  "adapters": "HTTP & React adapters",
-  "api-reference": "API reference"
+  "title": "Doc Number",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "format",
+    "sequencing",
+    "formats-and-listing",
+    "stores",
+    "http-and-ui",
+    "recipes",
+    "api-reference"
+  ]
 }

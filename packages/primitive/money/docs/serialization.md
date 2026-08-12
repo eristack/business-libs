@@ -1,7 +1,7 @@
 ---
 title: Serialization
 description: JSON shape for APIs and persistence
-sidebar_position: 11
+sidebar_position: 12
 ---
 
 # Serialization

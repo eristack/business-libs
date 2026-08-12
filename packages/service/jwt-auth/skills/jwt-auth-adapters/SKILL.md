@@ -11,7 +11,10 @@ metadata:
   library: '@eristack/jwt-auth'
   library_version: '0.0.0'
 sources:
-  - 'eristack/business-libs:packages/service/jwt-auth/docs/adapters.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/http.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/database.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/client-and-react.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/recipes.md'
   - 'eristack/business-libs:packages/service/jwt-auth/src/drizzle/table.ts'
   - 'eristack/business-libs:packages/service/jwt-auth/src/drizzle/credentials-table.ts'
   - 'eristack/business-libs:packages/service/jwt-auth/src/rest/actions.ts'

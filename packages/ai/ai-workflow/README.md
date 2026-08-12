@@ -68,4 +68,4 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core
 
 ## Docs
 
-See [`docs/`](./docs/).
+See [`docs/`](./docs/) — concepts, MCP tool reference, search/index, sprint workflow, CLI/client, recipes.

@@ -30,8 +30,12 @@ Use this package when you need:
 
 ## Next steps
 
-- [Getting started](./getting-started.md)
-- [Concepts](./concepts.md)
-- [Advanced arithmetic](./advanced-arithmetic.md)
-- [ERP recipes](./recipes.md)
-- [API reference](./api-reference.md)
+- [Getting started](./getting-started.md) — install and first amount
+- [Concepts](./concepts.md) — immutability, currency safety, adaptive engine, operators
+- [Advanced arithmetic](./advanced-arithmetic.md) — totals, percentages, tax and discount
+- [Rounding](./rounding.md) — modes and ledger boundaries
+- [Allocate & split](./allocate.md) — parts that always sum back
+- [Currency conversion](./conversion.md) — rates you supply
+- [Gotchas](./gotchas.md) — rejected constructors, mixed currencies, JSON numbers, scale `-1`
+- [ERP recipes](./recipes.md) — invoices, payment allocation, multi-currency reporting
+- [API reference](./api-reference.md) — public exports cheat-sheet

@@ -1,4 +1,13 @@
 {
   "title": "Data Grid",
-  "pages": ["index", "getting-started", "adapters"]
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "querying",
+    "url-search",
+    "database",
+    "http-and-ui",
+    "recipes"
+  ]
 }

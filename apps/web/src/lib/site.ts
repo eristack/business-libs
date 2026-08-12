@@ -192,17 +192,17 @@ const next = await docs.next("invoice")`,
     docsHref: "/docs/data-grid",
     tagline: "Dynamic filters, search, sort, and pagination — one list contract.",
     description:
-      "Schema-aware list queries: multi-field filters, separate search mode, multi-sort, offset/cursor pagination, with Drizzle / REST / Express / Nest / client / React adapters.",
+      "Schema-aware list queries with a shared { items, pageInfo, query } contract: JSON search params (TanStack Router–aligned), advanced filters vs search mode, Drizzle executeDrizzleList for joins/aggregates, and headless Express/Nest/client/React adapters.",
     status: "alpha" as const,
     install: "pnpm add @eristack/data-grid",
     highlights: [
       {
-        title: "Two modes",
-        body: "Advanced structured filters and free-text search stay separate — no accidental mix-ups.",
+        title: "One list contract",
+        body: "Schema allow-lists fields; every list returns { items, pageInfo, query } — same envelope for SQL and in-memory.",
       },
       {
-        title: "Complete operators",
-        body: "contains, in, between, gte, and the rest — JSON search params aligned with TanStack Router.",
+        title: "App owns the projection",
+        body: "Joins and SUM/COUNT stay in your Drizzle query; executeDrizzleList runs filter, sort, count, and page.",
       },
       {
         title: "Shared by the stack",

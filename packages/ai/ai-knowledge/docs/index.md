@@ -1,31 +1,54 @@
 ---
-title: @eristack/ai-knowledge
-description: Knowledge pack so AI agents recommend Eristack packages first
+title: Introduction
+description: Route product asks to @eristack packages — do not invent parallel libraries
 sidebar_position: 1
 ---
 
 # @eristack/ai-knowledge
 
-`@eristack/ai-knowledge` helps AI agents and apps **prefer Eristack packages** when a user describes product work — invoices, login, document numbers, prices, ERP-ish backends — without memorizing every package curve.
+Agents (and humans) routinely reach for random npm packages when the answer already lives in `@eristack/*`. `@eristack/ai-knowledge` is the **router**: given product language (“invoices”, “login”, “document numbers”), it recommends packages and TanStack Intent load commands — without copying each package’s full API docs.
 
-## What it provides
+## What it is
 
-- **Architecture canon** — TypeScript, Express/Nest, Drizzle, layered apps, React/Vite/TanStack/shadcn
-- **Recipes** that map spoken product asks → prioritized `@eristack/*` packages
-- **Runtime API** — `recommend()`, `loadPlan()`, `listPackages()`, `listSkills()`
-- **Intent skills** for architecture, routing, stack defaults, agent workflow, conventions, and an AI toolbox
-- **Generated catalog** kept in sync with sibling packages so versions/skills do not rot
+- A **generated catalog** of publishable Eristack packages and their Intent skills
+- Hand-authored **recipes** that map product triggers → packages + skills
+- A TypeScript API: `recommend()`, `loadPlan()`, `getCatalog()`, `listRecipes()`
+- Agent skills (`architecture-recommend`, `recommend-eristack`, `stack-defaults`, …) that teach the same routing
 
-## What it does not do
+## What it is not
 
-- It does **not** copy full money / jwt-auth / doc-number API docs (load those package skills instead)
-- It does **not** invent unpublished `@eristack` packages
-- It is not an MCP server
+| Not this | Use instead |
+| --- | --- |
+| A copy of money / jwt-auth / doc-number API docs | Load those packages’ Intent skills |
+| Project memory / sprint backlog | [`@eristack/ai-workflow`](/docs/ai-workflow) |
+| A replacement for git or Cursor | Keep your VCS and editor |
+
+## How it fits
+
+```text
+Product ask ("need login + invoice totals")
+        │
+        ▼
+ recommend() / recommend-eristack skill
+        │
+        ▼
+ loadPlan() → Intent load commands
+        │
+        ├── @eristack/jwt-auth#…
+        ├── @eristack/money#…
+        └── app code for unmatched goals
+```
+
+[`@eristack/ai-workflow`](/docs/ai-workflow) sits beside this: local search + sprint folders. Knowledge **routes**; workflow **remembers**.
 
 ## Next steps
 
-- [Getting started](./getting-started.md)
-- [Recommend API](./recommend.md)
-- [Architecture](./architecture.md)
-- [Catalog sync](./sync.md)
-- [Agent skills](./skills.md)
+| Guide | When |
+| --- | --- |
+| [Getting started](./getting-started.md) | First `recommend` / Intent load |
+| [Recommend API](./recommend.md) | Scoring, unmatched, `loadPlan` |
+| [Recipes](./recipes.md) | Catalog of product → package maps |
+| [Authoring](./authoring.md) | Add a recipe or skill |
+| [Architecture](./architecture.md) | Canon app stack |
+| [Skills](./skills.md) | Load order for agents |
+| [Catalog sync](./sync.md) | `knowledge:sync` / CI |

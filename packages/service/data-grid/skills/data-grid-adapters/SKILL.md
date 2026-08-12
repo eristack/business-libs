@@ -11,7 +11,9 @@ metadata:
   library: '@eristack/data-grid'
   library_version: '0.1.0'
 sources:
-  - 'eristack/business-libs:packages/service/data-grid/docs/adapters.md'
+  - 'eristack/business-libs:packages/service/data-grid/docs/database.md'
+  - 'eristack/business-libs:packages/service/data-grid/docs/http-and-ui.md'
+  - 'eristack/business-libs:packages/service/data-grid/docs/recipes.md'
   - 'eristack/business-libs:packages/service/data-grid/src/drizzle/index.ts'
   - 'eristack/business-libs:packages/service/data-grid/src/rest/index.ts'
   - 'eristack/business-libs:packages/service/data-grid/src/react/index.ts'
@@ -19,15 +21,17 @@ sources:
 
 # @eristack/data-grid — Adapters
 
-Headless only — apps inject `db`, `fetch`, headers, and UI.
+Docs: Database (Drizzle), HTTP & UI, Recipes. Headless only — apps inject `db`, `fetch`, headers, and UI.
 
 | Entry | Export |
 | --- | --- |
-| `/drizzle` | `executeDrizzleList`, `columnsFromSource`, `buildDrizzleQuery` (aliases OK) |
+| `/drizzle` | `executeDrizzleList`, `columnsFromSource`, `buildDrizzleQuery` |
 | `/rest` | `createDataGridListAction`, `toDataGridBody` |
 | `/express` | `createDataGridMiddleware` |
 | `/nest` | `DataGridModule`, `ParseDataGridPipe` |
 | `/client` | `createDataGridClient` |
 | `/react` | `useDataGridQuery`, `useDataGridList` (TanStack Query; wraps `/client`) |
+
+**Split:** app owns the SQL projection (joins / `SUM` / `COUNT`); library runs filter/sort/count/page via `executeDrizzleList`.
 
 Requires app-owned `QueryClientProvider`. React never calls `fetch` directly.

@@ -75,7 +75,24 @@ the app's users (`subject`).
 HTTP routes (Express / Nest / REST): `POST /auth/login`, `POST /auth/change-password`,
 `GET /auth/sessions`, `DELETE /auth/sessions/:sessionId` (Bearer where noted).
 
+## Docs
+
+| Guide | Topic |
+| --- | --- |
+| [Introduction](./docs/index.md) | What / isn’t, layers |
+| [Getting started](./docs/getting-started.md) | Register → login → refresh |
+| [Concepts](./docs/concepts.md) | Users, credentials, families |
+| [Credentials](./docs/credentials.md) | Password lifecycle |
+| [Tokens & refresh](./docs/tokens-and-refresh.md) | Rotation + reuse |
+| [Sessions](./docs/sessions.md) | DataGridResult device list |
+| [HTTP](./docs/http.md) | REST / Express / Nest |
+| [Database](./docs/database.md) | Drizzle tables |
+| [Client & React](./docs/client-and-react.md) | Headless SPA wiring |
+| [Recipes](./docs/recipes.md) | Signup, SSO, examples |
+| [Security](./docs/security.md) | Production checklist |
+
 ## AI agent skills
+
 
 This package ships [Agent Skills](https://agentskills.io) via [TanStack Intent](https://tanstack.com/intent):
 
