@@ -1,0 +1,13 @@
+package: "@eristack/pbac"
+title: pbac
+maintainers:
+  - support@eristack.dev
+scope: >
+  Software/business document policies: registerPolicy, check/authorize, document
+  helpers, Express/Nest/React adapters.
+outOfScope: >
+  Role boolean permissions (use rbac), per-user attribute limits (use abac),
+  owning domain documents themselves.
+skills:
+  - pbac-core
+  - pbac-adapters

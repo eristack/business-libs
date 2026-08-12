@@ -32,6 +32,9 @@ export type LibraryMotifId =
   | "doc-number"
   | "data-grid"
   | "jwt-auth"
+  | "rbac"
+  | "abac"
+  | "pbac"
   | "ai-knowledge"
   | "ai-workflow"
   | "ai-ticket-generator";
@@ -42,6 +45,9 @@ export function motifForPackage(slug: string): LibraryMotifId | null {
     "doc-number",
     "data-grid",
     "jwt-auth",
+    "rbac",
+    "abac",
+    "pbac",
     "ai-knowledge",
     "ai-workflow",
     "ai-ticket-generator",

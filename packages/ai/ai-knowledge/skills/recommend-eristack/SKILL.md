@@ -46,6 +46,17 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
+### @eristack/abac (v0.0.0)
+
+Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes
+
+Adapters: `express`, `nest`, `react`
+
+- `@eristack/abac#abac-adapters` — @eristack/abac adapters: express createRequirePolicy, nest AbacModule + AbacGuard + RequirePolicy + AbacContextFactory, react usePolicy. Use when wiring attribute policy checks into HTTP/UI shells.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-adapters`
+- `@eristack/abac#abac-core` — Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core`
+
 ### @eristack/ai-ticket-generator (v0.0.0)
 
 Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files
@@ -105,6 +116,28 @@ Money primitives for Eristack
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts`
 - `@eristack/money#money-ledger` — Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger`
+
+### @eristack/pbac (v0.0.0)
+
+Policy-based (software) access control for Eristack: business document rules that return true or false
+
+Adapters: `express`, `nest`, `react`
+
+- `@eristack/pbac#pbac-adapters` — @eristack/pbac adapters: express createRequireBusinessPolicy (409 on deny), nest PbacModule + PbacGuard + RequireBusinessPolicy, react useBusinessPolicy. Use when wiring document software policies into HTTP/UI shells.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-adapters`
+- `@eristack/pbac#pbac-core` — Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core`
+
+### @eristack/rbac (v0.0.0)
+
+Role-based access control for Eristack: subjects, roles, and boolean permissions
+
+Adapters: `drizzle`, `express`, `nest`, `react`
+
+- `@eristack/rbac#rbac-adapters` — @eristack/rbac adapters: drizzle createRbacTables + createDrizzleRbacStore (pgsql/mysql/sqlite), express createRequirePermission, nest RbacModule + RbacGuard + RequirePermission, react useCan. Use when wiring RBAC persistence or HTTP/UI shells.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters`
+- `@eristack/rbac#rbac-core` — Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core`
 
 <!-- catalog:end -->
 

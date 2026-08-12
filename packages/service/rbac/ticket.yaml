@@ -1,0 +1,13 @@
+package: "@eristack/rbac"
+title: rbac
+maintainers:
+  - support@eristack.dev
+scope: >
+  Role-based boolean permissions: subjects, roles, permission catalogs, can/authorize,
+  Drizzle/Express/Nest/React adapters.
+outOfScope: >
+  Attribute-based limits (use abac), document/software policies (use pbac), owning
+  users or login (use jwt-auth).
+skills:
+  - rbac-core
+  - rbac-adapters

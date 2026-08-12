@@ -10,7 +10,7 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "skills:list": "intent list",
-    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow && intent validate packages/ai/ai-ticket-generator",
+    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/service/rbac && intent validate packages/service/abac && intent validate packages/service/pbac && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow && intent validate packages/ai/ai-ticket-generator",
     "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
+    "@eristack/abac": "workspace:*",
     "@eristack/ai-knowledge": "workspace:*",
     "@eristack/ai-ticket-generator": "workspace:*",
     "@eristack/ai-workflow": "workspace:*",
@@ -29,6 +30,8 @@
     "@eristack/doc-number": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
     "@eristack/money": "workspace:*",
+    "@eristack/pbac": "workspace:*",
+    "@eristack/rbac": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "turbo": "^2.5.4",
     "typescript": "catalog:"
@@ -39,6 +42,9 @@
       "workspace:@eristack/doc-number",
       "workspace:@eristack/data-grid",
       "workspace:@eristack/jwt-auth",
+      "workspace:@eristack/rbac",
+      "workspace:@eristack/abac",
+      "workspace:@eristack/pbac",
       "workspace:@eristack/ai-knowledge",
       "workspace:@eristack/ai-workflow",
       "workspace:@eristack/ai-ticket-generator"
