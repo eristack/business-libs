@@ -1,0 +1,10 @@
+{
+  "pages": ["index", "concepts", "qups", "modifiers", "tax", "stores", "recipes"],
+  "index": "Overview",
+  "concepts": "Concepts",
+  "qups": "QUPS",
+  "modifiers": "Modifiers",
+  "tax": "Tax",
+  "stores": "Stores & Drizzle",
+  "recipes": "Recipes"
+}

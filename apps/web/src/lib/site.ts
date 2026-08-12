@@ -183,6 +183,52 @@ const next = await docs.next("invoice")`,
     },
   },
   {
+    slug: "qups",
+    name: "@eristack/qups",
+    title: "QUPS",
+    category: "capability" as const,
+    directory: "packages/capability/qups",
+    href: "/qups",
+    docsHref: "/docs/qups",
+    tagline: "Quantity, unit price, subtotal — two sources of truth.",
+    description:
+      "Business line pricing on @eristack/money: QUPS with two sources of truth, modifiers, tax, and Drizzle column injection into your detail tables (alongside itemId).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/qups",
+    highlights: [
+      {
+        title: "Two of three",
+        body: "Pick which pair is authoritative; the third is derived without float loss (10÷3 stays 10/3).",
+      },
+      {
+        title: "Modifiers + tax",
+        body: "Stack discounts/surcharges, then exclusive or inclusive tax via Money operators.",
+      },
+      {
+        title: "Inject into your lines",
+        body: "Spread qupsLineColumns into invoice/order detail tables next to itemId — pricing updates never clobber domain columns.",
+      },
+    ],
+    sample: {
+      filename: "line.ts",
+      language: "ts",
+      code: `import { calculateLine, withQupsColumns } from "@eristack/qups"
+
+const line = calculateLine({
+  truth: "quantity+unitPrice",
+  currency: "USD",
+  quantity: "2",
+  unitPrice: "50",
+  taxRatePercent: "11",
+  round: true,
+})
+
+await db.insert(invoiceLines).values(
+  withQupsColumns({ itemId: "SKU-1" }, line),
+)`,
+    },
+  },
+  {
     slug: "data-grid",
     name: "@eristack/data-grid",
     title: "Data Grid",

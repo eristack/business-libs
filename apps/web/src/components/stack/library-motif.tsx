@@ -20,6 +20,7 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       <div className="absolute top-[-10%] right-[18%] size-[22rem] rounded-full bg-[color:var(--layer-glow)] blur-3xl" />
       {motif === "money" ? <MoneyMotif /> : null}
       {motif === "doc-number" ? <DocNumberMotif /> : null}
+      {motif === "qups" ? <QupsMotif /> : null}
       {motif === "data-grid" ? <DataGridMotif /> : null}
       {motif === "jwt-auth" ? <JwtMotif /> : null}
       {motif === "rbac" ? <RbacMotif /> : null}
@@ -78,6 +79,19 @@ function DocNumberMotif() {
       <span className="absolute top-[62%] left-[10%] font-mono text-[12px] tracking-wide opacity-60">
         DN-26-0318-0007
       </span>
+    </div>
+  );
+}
+
+function QupsMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">truth · unitPrice + subtotal</p>
+        <p className="pl-3 opacity-85">UP 3 · S 10</p>
+        <p className="pl-3 opacity-85">qty = 10/3</p>
+        <p className="pl-3 opacity-70">product() → 10</p>
+      </div>
     </div>
   );
 }

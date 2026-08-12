@@ -31,6 +31,15 @@ tanstackIntent:
   - id: "@eristack/ai-knowledge#ai-toolbox"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
     for: "AI toolbox: feature-brief prompts, skill-load order, money/auth/doc-number checklists, recipe-authoring template for @eristack/ai-knowledge."
+  - id: "@eristack/qups#qups-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core"
+    for: "Pure @eristack/qups business calculator: calculateLine/patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax on @eristack/money."
+  - id: "@eristack/qups#qups-line"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line"
+    for: "@eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money."
+  - id: "@eristack/qups#qups-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters"
+    for: "@eristack/qups adapters: optional qupsLineColumns inject into app detail tables; drizzle stores if needed. Prefer calculateLine for everyday form/BE math."
   - id: "@eristack/doc-number#doc-number-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
     for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore, rest format CRUD/preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react useDocNumberFormats. Use when persisting formats or wiring format-config HTTP/frontend shells."
@@ -135,6 +144,7 @@ Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
+- `packages/capability/qups` — `@eristack/qups` (QUPS 2-of-3 SoT + modifiers + tax on Money; drizzle injects columns into app detail lines)
 - `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
