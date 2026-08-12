@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DocMeta } from "@/lib/docs";
-import { packages } from "@/lib/site";
+import { packageCategories, packages } from "@/lib/site";
 
 type DocsSidebarProps = {
   packageSlug: string;
@@ -90,60 +90,73 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
               Switch package
             </p>
             <p className="mt-0.5 text-[11px] leading-4 text-muted-foreground">
-              Docs are per library — pick one to browse its guides.
+              Primitive → capability → service → AI
             </p>
           </div>
 
           <div className="max-h-[min(22rem,55vh)] overflow-y-auto py-1">
-            {packages.map((pkg) => {
-              const active = pkg.slug === packageSlug;
+            {packageCategories.map((category) => {
+              const items = packages.filter(
+                (pkg) => pkg.category === category.id,
+              );
+              if (items.length === 0) return null;
               return (
-                <Link
-                  key={pkg.slug}
-                  href={pkg.href}
-                  role="option"
-                  aria-selected={active}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-start gap-2.5 px-3 py-2 transition-colors",
-                    active
-                      ? "bg-foreground text-background"
-                      : "text-foreground hover:bg-muted",
-                  )}
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-baseline gap-2">
-                      <p className="text-[13px] font-semibold tracking-tight">
-                        {pkg.title}
-                      </p>
-                      <p
+                <div key={category.id} className="py-1">
+                  <p className="px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                    {category.label}
+                  </p>
+                  {items.map((pkg) => {
+                    const active = pkg.slug === packageSlug;
+                    return (
+                      <Link
+                        key={pkg.slug}
+                        href={pkg.href}
+                        role="option"
+                        aria-selected={active}
+                        onClick={() => setOpen(false)}
                         className={cn(
-                          "truncate font-mono text-[10px]",
+                          "flex items-start gap-2.5 px-3 py-2 transition-colors",
                           active
-                            ? "text-background/60"
-                            : "text-muted-foreground",
+                            ? "bg-foreground text-background"
+                            : "text-foreground hover:bg-muted",
                         )}
                       >
-                        {pkg.name}
-                      </p>
-                    </div>
-                    <p
-                      className={cn(
-                        "mt-0.5 line-clamp-2 text-[11px] leading-4",
-                        active
-                          ? "text-background/60"
-                          : "text-muted-foreground",
-                      )}
-                    >
-                      {pkg.description}
-                    </p>
-                  </div>
-                  {active ? (
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-accent text-accent-foreground">
-                      <Check className="size-3" strokeWidth={3} />
-                    </span>
-                  ) : null}
-                </Link>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-baseline gap-2">
+                            <p className="text-[13px] font-semibold tracking-tight">
+                              {pkg.title}
+                            </p>
+                            <p
+                              className={cn(
+                                "truncate font-mono text-[10px]",
+                                active
+                                  ? "text-background/60"
+                                  : "text-muted-foreground",
+                              )}
+                            >
+                              {pkg.name}
+                            </p>
+                          </div>
+                          <p
+                            className={cn(
+                              "mt-0.5 line-clamp-2 text-[11px] leading-4",
+                              active
+                                ? "text-background/60"
+                                : "text-muted-foreground",
+                            )}
+                          >
+                            {pkg.description}
+                          </p>
+                        </div>
+                        {active ? (
+                          <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-accent text-accent-foreground">
+                            <Check className="size-3" strokeWidth={3} />
+                          </span>
+                        ) : null}
+                      </Link>
+                    );
+                  })}
+                </div>
               );
             })}
           </div>

@@ -7,7 +7,7 @@ Temporary notes written **while** a feature is in progress. Not public documenta
 1. **Start work** → create `_ai-docs/<topic>/` and write notes that could later become package/web docs.
 2. **Ship the feature** → when the user says the work is finished, promote notes into:
    - `packages/<name>/docs/` (source of truth for library guides)
-   - `apps/web/` (marketing / company pages; package docs are rendered from `packages/*/docs`)
+   - `apps/web/` (marketing / company pages; package docs are rendered from `packages/<category>/*/docs`)
    - skills under `packages/<name>/skills/` when agent guidance changes
 3. **Clean up** → delete `_ai-docs/<topic>/`.
 

@@ -53,7 +53,7 @@ skills:
           Money.of(19.99, "USD")
         correct_pattern: |
           Money.of("19.99", "USD")
-        source: 'packages/money/docs/concepts.md'
+        source: 'packages/primitive/money/docs/concepts.md'
         priority: CRITICAL
         status: active
         version_context: 'Agents often default to JS number literals for money'
@@ -64,7 +64,7 @@ skills:
           Money.of("10", "USD").add(Money.of("10", "EUR"))
         correct_pattern: |
           usd.with(Conversion.of({ base: "USD", term: "EUR", factor: "0.92" }))
-        source: 'packages/money/docs/arithmetic.md'
+        source: 'packages/primitive/money/docs/arithmetic.md'
         priority: HIGH
         status: active
         version_context: ''
@@ -77,7 +77,7 @@ skills:
         correct_pattern: |
           const tax = line.multiply("0.11").with(Rounding.currencyDefault())
           await save(tax.toJSON())
-        source: 'packages/money/docs/rounding.md'
+        source: 'packages/primitive/money/docs/rounding.md'
         priority: HIGH
         status: active
         version_context: ''
@@ -108,7 +108,7 @@ skills:
           const share = total.divide(3)
         correct_pattern: |
           const [a, b, c] = total.allocate(3)
-        source: 'packages/money/docs/allocate.md'
+        source: 'packages/primitive/money/docs/allocate.md'
         priority: CRITICAL
         status: active
         version_context: ''
@@ -121,7 +121,7 @@ skills:
           Money.of("100", "USD").with(
             Conversion.of({ base: "USD", term: "IDR", factor: "15000" }),
           )
-        source: 'packages/money/docs/conversion.md'
+        source: 'packages/primitive/money/docs/conversion.md'
         priority: HIGH
         status: active
         version_context: ''
@@ -132,7 +132,7 @@ skills:
           { currency: "USD", amount: 19.99 }
         correct_pattern: |
           { currency: "USD", amount: "19.99" }
-        source: 'packages/money/docs/serialization.md'
+        source: 'packages/primitive/money/docs/serialization.md'
         priority: CRITICAL
         status: active
         version_context: ''
@@ -165,7 +165,7 @@ skills:
         correct_pattern: |
           const user = await verifyPassword(email, password)
           await auth.issueTokens({ subject: user.id })
-        source: 'packages/jwt-auth/docs/index.md'
+        source: 'packages/service/jwt-auth/docs/index.md'
         priority: CRITICAL
         status: active
         version_context: ''
@@ -176,7 +176,7 @@ skills:
           await db.insert(sessions).values({ refreshToken: tokens.refreshToken })
         correct_pattern: |
           createDrizzleRefreshTokenStore({ dialect: "pgsql", db, table })
-        source: 'packages/jwt-auth/docs/refresh-flow.md'
+        source: 'packages/service/jwt-auth/docs/refresh-flow.md'
         priority: CRITICAL
         status: active
         version_context: ''
@@ -189,7 +189,7 @@ skills:
           catch (error) {
             if (error instanceof RefreshTokenReuseError) forceReLogin()
           }
-        source: 'packages/jwt-auth/docs/refresh-flow.md'
+        source: 'packages/service/jwt-auth/docs/refresh-flow.md'
         priority: HIGH
         status: active
         version_context: ''
@@ -221,7 +221,7 @@ skills:
           createRefreshTokenTable("pg")
         correct_pattern: |
           createRefreshTokenTable("pgsql")
-        source: 'packages/jwt-auth/src/drizzle/table.ts'
+        source: 'packages/service/jwt-auth/src/drizzle/table.ts'
         priority: CRITICAL
         status: active
         version_context: ''
@@ -232,7 +232,7 @@ skills:
           app.post("/refresh", async (req, res) => res.json(await auth.refresh(req.body.refreshToken)))
         correct_pattern: |
           app.use("/auth", createJwtAuthRouter({ jwtAuth: auth }))
-        source: 'packages/jwt-auth/docs/adapters.md'
+        source: 'packages/service/jwt-auth/docs/adapters.md'
         priority: HIGH
         status: active
         version_context: ''
@@ -243,7 +243,7 @@ skills:
           import { LoginForm } from "@eristack/jwt-auth/react"
         correct_pattern: |
           import { JwtAuthProvider, useJwtAuth } from "@eristack/jwt-auth/react"
-        source: 'packages/jwt-auth/docs/adapters.md'
+        source: 'packages/service/jwt-auth/docs/adapters.md'
         priority: HIGH
         status: active
         version_context: ''

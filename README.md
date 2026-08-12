@@ -10,20 +10,24 @@ EriStack fills those gaps with small, well-scoped libraries inspired by establis
 
 ## Packages
 
-| Package                                     | Description                                                                               |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [`@eristack/money`](./packages/money)           | JSR 354–inspired amounts, totals/%/tax helpers, rounding, allocation, FX                  |
-| [`@eristack/jwt-auth`](./packages/jwt-auth)     | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
-| [`@eristack/doc-number`](./packages/doc-number) | Document numbers + format-config adapters (Drizzle / REST / Express / Nest / React)       |
+Packages live under `packages/<category>/<name>/` in this order: **primitive → capability → service → AI**.
 
-Each package has its own README and docs under `packages/<name>/`.
+| Category | Package | Description |
+| --- | --- | --- |
+| Primitive | [`@eristack/money`](./packages/primitive/money) | JSR 354–inspired amounts, totals/%/tax helpers, rounding, allocation, FX |
+| Capability | [`@eristack/doc-number`](./packages/capability/doc-number) | Document numbers + format-config adapters (Drizzle / REST / Express / Nest / React) |
+| Service | [`@eristack/jwt-auth`](./packages/service/jwt-auth) | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
+| AI | [`@eristack/ai-knowledge`](./packages/ai/ai-knowledge) | Agent knowledge pack: recommend `@eristack/*`, Intent skills, synced catalog |
+| AI | [`@eristack/ai-workflow`](./packages/ai/ai-workflow) | Local-first MCP, FTS+vector index, sprint/backlog workflow |
+
+Each package has its own README and docs under `packages/<category>/<name>/`.
 
 ## Website
 
 The public site lives in [`apps/web`](./apps/web) (Next.js 16 + Tailwind + shadcn):
 
 - Landing, packages, blog, story, philosophy, maintainers, support/partners
-- Library docs rendered from `packages/*/docs` (single source of truth)
+- Library docs rendered from `packages/<category>/*/docs` (single source of truth), grouped by category
 - Cmd/Ctrl+K search across pages and package docs
 
 ```bash

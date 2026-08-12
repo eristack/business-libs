@@ -136,7 +136,7 @@ export default function HomePage() {
             {
               icon: BookOpen,
               title: "Docs beside code",
-              body: "Guides live in packages/*/docs — this site just renders them.",
+              body: "Guides live in packages/<category>/*/docs — this site just renders them.",
             },
           ].map((item) => (
             <div key={item.title} className="flex gap-3">

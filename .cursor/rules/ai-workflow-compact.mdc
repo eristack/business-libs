@@ -2,12 +2,12 @@
 description: Keep @eristack/ai-workflow MCP/CLI responses compact when changing tools
 alwaysApply: false
 globs:
-  - packages/ai-workflow/**
+  - packages/ai/ai-workflow/**
 ---
 
 # ai-workflow compactness
 
-When changing MCP tools or search formatting in `packages/ai-workflow`:
+When changing MCP tools or search formatting in `packages/ai/ai-workflow`:
 
 1. Keep search defaults at max 8 hits and ≤3-line snippets (`format/compact.ts`).
 2. Workflow tools should return ids/status/paths — not full markdown bodies.

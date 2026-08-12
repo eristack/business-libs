@@ -15,10 +15,10 @@ alwaysApply: true
 ## When the user says work is finished
 
 1. Promote content into the real docs:
-   - Package guides: `packages/<name>/docs/`
+   - Package guides: `packages/<category>/<name>/docs/`
    - Public site copy (landing, story, support, etc.): `apps/web/`
-   - Skills if Intent guidance changed: `packages/<name>/skills/`
-2. Keep package docs as the **source of truth**; the web app renders `packages/*/docs`.
+   - Skills if Intent guidance changed: `packages/<category>/<name>/skills/`
+2. Keep package docs as the **source of truth**; the web app renders `packages/<category>/*/docs`.
 3. Delete the corresponding `_ai-docs/<topic>/` folder after promotion.
 4. Do not leave AI working notes as the only documentation.
 

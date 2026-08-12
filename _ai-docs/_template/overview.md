@@ -20,7 +20,7 @@ APIs, tables, routes, or pages that will need real docs.
 ## Examples
 
 ```ts
-// snippet good enough to land in packages/*/docs later
+// snippet good enough to land in packages/<category>/*/docs later
 ```
 
 ## Open questions

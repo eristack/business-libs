@@ -12,38 +12,72 @@ export const siteConfig = {
   partnersEmail: "partners@eristack.dev",
 } as const;
 
+/** Display / filesystem order: primitive → capability → service → ai */
+export const packageCategories = [
+  {
+    id: "primitive",
+    label: "Primitive",
+    description: "Core domain value types and pure calculation building blocks.",
+  },
+  {
+    id: "capability",
+    label: "Capability",
+    description: "Reusable business capabilities apps compose into products.",
+  },
+  {
+    id: "service",
+    label: "Service",
+    description: "Lifecycle services with stores and framework adapters.",
+  },
+  {
+    id: "ai",
+    label: "AI",
+    description: "Agent knowledge, MCP, and AI-native workflow tooling.",
+  },
+] as const;
+
+export type PackageCategoryId = (typeof packageCategories)[number]["id"];
+
 export const packages = [
   {
     slug: "money",
     name: "@eristack/money",
     title: "Money",
+    category: "primitive" as const,
+    directory: "packages/primitive/money",
     description:
       "JSR 354–inspired amounts, totals, percentages, tax/discount helpers, rounding, allocation, and FX — string-first, never JS number money.",
     href: "/docs/money",
     status: "stable" as const,
   },
   {
-    slug: "jwt-auth",
-    name: "@eristack/jwt-auth",
-    title: "JWT Auth",
-    description:
-      "JWT access + opaque refresh tokens, credentials as a child of your users, Drizzle / REST / Express / Nest / React adapters.",
-    href: "/docs/jwt-auth",
-    status: "stable" as const,
-  },
-  {
     slug: "doc-number",
     name: "@eristack/doc-number",
     title: "Doc Number",
+    category: "capability" as const,
+    directory: "packages/capability/doc-number",
     description:
       "Token-pattern document numbers with period resets, FormatStore / SequenceStore, and headless Drizzle / REST / Express / Nest / React format-config adapters.",
     href: "/docs/doc-number",
     status: "stable" as const,
   },
   {
+    slug: "jwt-auth",
+    name: "@eristack/jwt-auth",
+    title: "JWT Auth",
+    category: "service" as const,
+    directory: "packages/service/jwt-auth",
+    description:
+      "JWT access + opaque refresh tokens, credentials as a child of your users, Drizzle / REST / Express / Nest / React adapters.",
+    href: "/docs/jwt-auth",
+    status: "stable" as const,
+  },
+  {
     slug: "ai-knowledge",
     name: "@eristack/ai-knowledge",
     title: "AI Knowledge",
+    category: "ai" as const,
+    directory: "packages/ai/ai-knowledge",
     description:
       "Knowledge pack for AI agents: recommend @eristack packages first, load the right Intent skills, and keep the catalog synced with sibling packages.",
     href: "/docs/ai-knowledge",
@@ -53,12 +87,26 @@ export const packages = [
     slug: "ai-workflow",
     name: "@eristack/ai-workflow",
     title: "AI Workflow",
+    category: "ai" as const,
+    directory: "packages/ai/ai-workflow",
     description:
       "Local-first MCP, FTS+vector project index, and sprint/backlog/ADR folders — low-token agent tools that do not replace your existing stack.",
     href: "/docs/ai-workflow",
     status: "stable" as const,
   },
 ] as const;
+
+export function packagesByCategory() {
+  return packageCategories.map((category) => ({
+    ...category,
+    packages: packages.filter((pkg) => pkg.category === category.id),
+  }));
+}
+
+export function packageDirectory(slug: string) {
+  const pkg = packages.find((item) => item.slug === slug);
+  return pkg?.directory ?? `packages/${slug}`;
+}
 
 export const primaryNav = [
   { href: "/packages", label: "Packages" },
