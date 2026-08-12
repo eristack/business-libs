@@ -129,7 +129,7 @@ export default function HomePage() {
             {
               icon: Shield,
               title: "Production-shaped",
-              body: "Refresh rotation, scrypt credentials, money that adds up.",
+              body: "Refresh rotation, scrypt credentials, money and doc numbers that add up.",
             },
             {
               icon: BookOpen,

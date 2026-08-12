@@ -5,6 +5,7 @@
   "currency": "Currency",
   "amounts": "Amounts",
   "arithmetic": "Arithmetic",
+  "advanced-arithmetic": "Advanced arithmetic",
   "rounding": "Rounding",
   "allocate": "Allocate & split",
   "formatting": "Formatting",

@@ -26,12 +26,13 @@ Round before post/persist/display. Allocate so parts always sum to the original.
 ```ts
 import { Conversion, Money, Rounding } from "@eristack/money";
 
+import { Discount, Money, Rounding, Tax } from "@eristack/money";
+
 const round = Rounding.currencyDefault();
 const line = Money.of("149.70", "USD");
-const discount = line.multiply("0.05").with(round);
-const net = line.subtract(discount);
-const tax = net.multiply("0.11").with(round);
-const total = net.add(tax).with(round);
+const net = line.with(Discount.ofPercent("5")).with(round);
+const tax = net.with(Tax.onExclusive("11")).with(round);
+const total = Money.sum([net, tax]).with(round);
 ```
 
 ## Core Patterns

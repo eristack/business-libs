@@ -42,3 +42,4 @@ Multiplication/division by non-integers typically promotes to the decimal path u
 - Keep intermediate tax/discount calculations precise
 - Apply [rounding](./rounding.md) before persisting journal lines
 - Never exchange currencies with `add` — use [conversion](./conversion.md)
+- For totals, percents, discounts, and tax helpers see [advanced arithmetic](./advanced-arithmetic.md)

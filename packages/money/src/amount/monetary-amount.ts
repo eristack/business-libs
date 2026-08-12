@@ -37,6 +37,13 @@ export interface MonetaryAmount {
   abs(): MonetaryAmount;
   plus(): MonetaryAmount;
 
+  /** `this * (percent / 100)` — `"7"` means 7%. */
+  percentOf(percent: string | number | bigint): MonetaryAmount;
+  /** `this * (1 + percent / 100)`. */
+  plusPercent(percent: string | number | bigint): MonetaryAmount;
+  /** `this * (1 - percent / 100)`. */
+  minusPercent(percent: string | number | bigint): MonetaryAmount;
+
   /**
    * Split into n parts using largest-remainder so parts sum to this amount.
    * Amount should typically be currency-rounded first.

@@ -12,8 +12,9 @@ EriStack fills those gaps with small, well-scoped libraries inspired by establis
 
 | Package                                     | Description                                                                               |
 | ------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [`@eristack/money`](./packages/money)       | JSR 354–inspired money amounts, rounding, allocation, and FX helpers                      |
-| [`@eristack/jwt-auth`](./packages/jwt-auth) | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
+| [`@eristack/money`](./packages/money)           | JSR 354–inspired amounts, totals/%/tax helpers, rounding, allocation, FX                  |
+| [`@eristack/jwt-auth`](./packages/jwt-auth)     | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
+| [`@eristack/doc-number`](./packages/doc-number) | Document numbers + format-config adapters (Drizzle / REST / Express / Nest / React)       |
 
 Each package has its own README and docs under `packages/<name>/`.
 

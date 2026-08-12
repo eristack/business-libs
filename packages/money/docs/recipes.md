@@ -9,17 +9,16 @@ sidebar_position: 12
 ## Invoice line → discount → tax → total
 
 ```ts
-import { Money, Rounding } from "@eristack/money";
+import { Discount, Money, Rounding, Tax } from "@eristack/money";
 
 const round = Rounding.currencyDefault();
 
 const qty = 3;
 const unitPrice = Money.of("49.90", "USD");
 const line = unitPrice.multiply(qty); // 149.70
-const discount = line.multiply("0.05").with(round);
-const net = line.subtract(discount);
-const tax = net.multiply("0.11").with(round);
-const total = net.add(tax).with(round);
+const net = line.with(Discount.ofPercent("5")).with(round);
+const tax = net.with(Tax.onExclusive("11")).with(round);
+const total = Money.sum([net, tax]).with(round);
 ```
 
 ## Split payment across open invoices

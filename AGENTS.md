@@ -1,6 +1,12 @@
 <!-- intent-skills:start -->
 # TanStack Intent - before editing files, run the matching guidance command.
 tanstackIntent:
+  - id: "@eristack/doc-number#doc-number-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
+    for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore, rest format CRUD/preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react useDocNumberFormats. Use when persisting formats or wiring format-config HTTP/frontend shells."
+  - id: "@eristack/doc-number#doc-number-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core"
+    for: "Pure @eristack/doc-number: createDocNumber, formatDocumentNumber, parseDocumentNumber, registerFormat, updateFormat, listFormats, next, peekNext, token patterns {YYYY}/{YY}/{MM}/{DD}/{SEQ:n}, ResetPeriod, FormatStore + SequenceStore + Incrementer. Use for document numbers without HTTP frameworks."
   - id: "@eristack/jwt-auth#jwt-auth-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-adapters"
     for: "@eristack/jwt-auth adapters: drizzle RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), rest login/sessions, express createJwtAuthRouter, nest JwtAuthModule, client login, react useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
@@ -9,7 +15,7 @@ tanstackIntent:
     for: "Pure @eristack/jwt-auth: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore + RefreshTokenStore. Credentials are a child of app users (not a users table). Use for JWT + optional username/password without HTTP frameworks."
   - id: "@eristack/money#money-amounts"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts"
-    for: "Construct Money with strings or minor units, run same-currency arithmetic, and compare amounts in @eristack/money. Use when creating prices, taxes, discounts, totals, Money.of, Money.ofMinor, CurrencyMismatchError, or when an agent reaches for JS number literals for money."
+    for: "Construct Money with strings or minor units, run same-currency arithmetic, totals (Money.sum/min/max/average), percentages (percentOf/plusPercent/minusPercent), Discount/Markup/Tax operators, and compare amounts in @eristack/money. Use when creating prices, taxes, discounts, totals, or when an agent reaches for JS number literals for money."
   - id: "@eristack/money#money-ledger"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger"
     for: "Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON."
@@ -32,6 +38,7 @@ pnpm skills:list
 pnpm skills:validate
 pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts
 pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
+pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 ```
 
 ## Repo conventions agents must follow
@@ -65,6 +72,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 
 - `packages/money` — `@eristack/money`
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `packages/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `apps/web` — public Next.js site (landing, marketing, docs from `packages/*/docs`, Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)

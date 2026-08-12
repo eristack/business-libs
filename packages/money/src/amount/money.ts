@@ -26,10 +26,16 @@ import {
   CurrencyMismatchError,
   ParseError,
 } from "../errors/index.js";
+import { MoneyDecimal } from "../engine/decimal.js";
 import {
   allocateMinorUnits,
   minorUnitsToStorage,
 } from "../ops/allocate.js";
+import {
+  minusPercentFactor,
+  percentFactor,
+  plusPercentFactor,
+} from "../ops/factors.js";
 import type { MonetaryOperator, MonetaryQuery } from "../ops/types.js";
 import { toDecimalRounding, type RoundingMode } from "../rounding/modes.js";
 import {
@@ -40,6 +46,21 @@ import type { MonetaryAmount } from "./monetary-amount.js";
 import { NumberValue } from "./number-value.js";
 
 export type MoneyInput = string | number | bigint;
+
+function assertSameCurrency(amounts: readonly MonetaryAmount[]): CurrencyUnit {
+  const first = amounts[0];
+  if (!first) {
+    throw new ArithmeticError("Expected at least one monetary amount");
+  }
+  const code = first.currency.currencyCode;
+  for (let i = 1; i < amounts.length; i++) {
+    const next = amounts[i]!;
+    if (next.currency.currencyCode !== code) {
+      throw new CurrencyMismatchError(code, next.currency.currencyCode);
+    }
+  }
+  return first.currency;
+}
 
 export class Money implements MonetaryAmount {
   readonly currency: CurrencyUnit;
@@ -94,6 +115,115 @@ export class Money implements MonetaryAmount {
 
   static fromJSON(json: { currency: string; amount: string }): Money {
     return Money.of(json.amount, json.currency);
+  }
+
+  /** Sum same-currency amounts. Empty list requires `currency` → zero. */
+  static sum(
+    amounts: readonly MonetaryAmount[],
+    currency?: string | CurrencyUnit,
+  ): Money {
+    if (amounts.length === 0) {
+      if (currency === undefined) {
+        throw new ArithmeticError(
+          "Money.sum([]) requires a currency argument for the zero result",
+        );
+      }
+      return Money.zero(currency);
+    }
+    const unit = assertSameCurrency(amounts);
+    if (currency !== undefined) {
+      const expected = resolveCurrency(currency).currencyCode;
+      if (unit.currencyCode !== expected) {
+        throw new CurrencyMismatchError(expected, unit.currencyCode);
+      }
+    }
+    let total = Money.zero(unit);
+    for (const amount of amounts) {
+      total = total.add(amount);
+    }
+    return total;
+  }
+
+  static min(...amounts: MonetaryAmount[]): Money {
+    if (amounts.length === 0) {
+      throw new ArithmeticError("Money.min requires at least one amount");
+    }
+    assertSameCurrency(amounts);
+    let best =
+      amounts[0] instanceof Money
+        ? amounts[0]
+        : Money.of(amounts[0]!.getNumber().toString(), amounts[0]!.currency);
+    for (let i = 1; i < amounts.length; i++) {
+      const current =
+        amounts[i] instanceof Money
+          ? (amounts[i] as Money)
+          : Money.of(amounts[i]!.getNumber().toString(), amounts[i]!.currency);
+      if (current.isLessThan(best)) best = current;
+    }
+    return best;
+  }
+
+  static max(...amounts: MonetaryAmount[]): Money {
+    if (amounts.length === 0) {
+      throw new ArithmeticError("Money.max requires at least one amount");
+    }
+    assertSameCurrency(amounts);
+    let best =
+      amounts[0] instanceof Money
+        ? amounts[0]
+        : Money.of(amounts[0]!.getNumber().toString(), amounts[0]!.currency);
+    for (let i = 1; i < amounts.length; i++) {
+      const current =
+        amounts[i] instanceof Money
+          ? (amounts[i] as Money)
+          : Money.of(amounts[i]!.getNumber().toString(), amounts[i]!.currency);
+      if (current.isGreaterThan(best)) best = current;
+    }
+    return best;
+  }
+
+  /** Arithmetic mean. Empty list requires `currency` → zero. */
+  static average(
+    amounts: readonly MonetaryAmount[],
+    currency?: string | CurrencyUnit,
+  ): Money {
+    if (amounts.length === 0) {
+      return Money.sum([], currency);
+    }
+    return Money.sum(amounts, currency).divide(amounts.length);
+  }
+
+  /** Dimensionless `numerator / denominator` as a decimal string. */
+  static ratio(
+    numerator: MonetaryAmount,
+    denominator: MonetaryAmount,
+  ): string {
+    if (numerator.currency.currencyCode !== denominator.currency.currencyCode) {
+      throw new CurrencyMismatchError(
+        numerator.currency.currencyCode,
+        denominator.currency.currencyCode,
+      );
+    }
+    const den =
+      denominator instanceof Money
+        ? denominator
+        : Money.of(denominator.getNumber().toString(), denominator.currency);
+    if (den.isZero()) {
+      throw new ArithmeticError("Money.ratio denominator must be non-zero");
+    }
+    const num =
+      numerator instanceof Money
+        ? numerator
+        : Money.of(numerator.getNumber().toString(), numerator.currency);
+    return new MoneyDecimal(num.amountString()).div(den.amountString()).toFixed();
+  }
+
+  /** `numerator` as a percent of `denominator` (e.g. `"12.5"`). */
+  static percentRatio(
+    numerator: MonetaryAmount,
+    denominator: MonetaryAmount,
+  ): string {
+    return new MoneyDecimal(Money.ratio(numerator, denominator)).mul(100).toFixed();
   }
 
   getNumber(): NumberValue {
@@ -206,6 +336,21 @@ export class Money implements MonetaryAmount {
       multiplyStorage(this._storage, multiplicand),
       this.currency,
     );
+  }
+
+  /** `this * (percent / 100)` — pass `"7"` for 7%, not `"0.07"`. */
+  percentOf(percent: MoneyInput): Money {
+    return this.multiply(percentFactor(percent));
+  }
+
+  /** Increase by a percent: `this * (1 + percent / 100)`. */
+  plusPercent(percent: MoneyInput): Money {
+    return this.multiply(plusPercentFactor(percent));
+  }
+
+  /** Decrease by a percent: `this * (1 - percent / 100)`. */
+  minusPercent(percent: MoneyInput): Money {
+    return this.multiply(minusPercentFactor(percent));
   }
 
   divide(divisor: MoneyInput): Money {
