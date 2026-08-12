@@ -55,7 +55,7 @@ Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, bac
 - `@eristack/ai-workflow#ai-workflow-mcp` — Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp`
 
-### @eristack/data-grid (v0.1.0)
+### @eristack/data-grid (v0.0.0)
 
 Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
 
