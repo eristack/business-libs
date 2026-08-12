@@ -26,7 +26,7 @@ export default function DocsIndexPage() {
             <Link
               key={pkg.slug}
               href={pkg.href}
-              className="group rounded-xl border border-border bg-white p-6 shadow-sm transition-colors hover:border-zinc-400"
+              className="group rounded-xl border border-border bg-card p-6 shadow-sm transition-colors hover:border-muted-foreground/40"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -37,7 +37,7 @@ export default function DocsIndexPage() {
                     {pkg.title}
                   </h2>
                 </div>
-                <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-600">
+                <span className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
                   {pkg.pages.length} pages
                 </span>
               </div>

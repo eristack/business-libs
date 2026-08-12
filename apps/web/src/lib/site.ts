@@ -40,6 +40,15 @@ export const packages = [
     href: "/docs/doc-number",
     status: "stable" as const,
   },
+  {
+    slug: "ai-knowledge",
+    name: "@eristack/ai-knowledge",
+    title: "AI Knowledge",
+    description:
+      "Knowledge pack for AI agents: recommend @eristack packages first, load the right Intent skills, and keep the catalog synced with sibling packages.",
+    href: "/docs/ai-knowledge",
+    status: "stable" as const,
+  },
 ] as const;
 
 export const primaryNav = [

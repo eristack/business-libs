@@ -3,7 +3,7 @@ import { companyNav, primaryNav, siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-white">
+    <footer className="border-t border-border bg-card">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
         <div>
           <p className="text-sm font-semibold tracking-tight">{siteConfig.name}</p>

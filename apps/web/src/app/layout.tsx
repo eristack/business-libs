@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import { CommandMenuHost } from "@/components/command-menu-host";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { ThemeProvider } from "@/components/theme-provider";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -33,21 +36,28 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);document.documentElement.style.colorScheme=d?"dark":"light";}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${sans.variable} ${mono.variable} min-h-screen font-sans antialiased`}
       >
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader search={<CommandMenuHost />} />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
+        <Script id="eristack-theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
+        <ThemeProvider>
+          <div className="flex min-h-screen flex-col">
+            <SiteHeader search={<CommandMenuHost />} />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -22,9 +22,9 @@ export default function MaintainersPage() {
         {maintainers.map((person) => (
           <article
             key={person.name}
-            className="rounded-xl border border-border bg-white p-6 shadow-sm md:col-span-1"
+            className="rounded-xl border border-border bg-card p-6 shadow-sm md:col-span-1"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-zinc-900 text-sm font-semibold tracking-tight text-white">
+            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-foreground text-sm font-semibold tracking-tight text-background">
               {person.name
                 .split(" ")
                 .map((part) => part[0])
@@ -48,7 +48,7 @@ export default function MaintainersPage() {
                 erista.id
               </a>
             </p>
-            <p className="mt-4 text-[14px] leading-6 text-zinc-700">
+            <p className="mt-4 text-[14px] leading-6 text-prose-body">
               {person.bio}
             </p>
             <div className="mt-5 flex flex-wrap gap-4 text-[13px] font-medium">
@@ -72,7 +72,7 @@ export default function MaintainersPage() {
           </article>
         ))}
 
-        <article className="rounded-xl border border-dashed border-border bg-zinc-50 p-6">
+        <article className="rounded-xl border border-dashed border-border bg-muted/50 p-6">
           <h2 className="text-lg font-semibold tracking-tight">
             Subsidiary of Erista
           </h2>

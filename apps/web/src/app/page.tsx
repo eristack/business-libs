@@ -12,7 +12,7 @@ export default function HomePage() {
 
         <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
           <div>
-            <div className="animate-rise inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-white/80 px-2.5 py-1 text-[12px] font-medium text-zinc-600 shadow-sm backdrop-blur">
+            <div className="animate-rise inline-flex items-center gap-2 rounded-md border border-border bg-card/80 px-2.5 py-1 text-[12px] font-medium text-muted-foreground shadow-sm backdrop-blur">
               <span className="size-1.5 rounded-sm bg-accent" />
               Subsidiary of{" "}
               <a
@@ -25,13 +25,15 @@ export default function HomePage() {
               </a>
             </div>
 
-            <p className="animate-rise-delay-1 mt-6 text-[13px] font-semibold tracking-[0.18em] text-zinc-500 uppercase">
+            <p className="animate-rise-delay-1 mt-6 text-[13px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
               {siteConfig.name}
             </p>
 
             <h1 className="animate-rise-delay-1 mt-3 max-w-xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
               Business primitives
-              <span className="mt-1 block text-zinc-400">for TypeScript.</span>
+              <span className="mt-1 block text-muted-foreground">
+                for TypeScript.
+              </span>
             </h1>
 
             <p className="animate-rise-delay-2 mt-5 max-w-lg text-[15px] leading-7 text-muted-foreground sm:text-base">
@@ -50,7 +52,7 @@ export default function HomePage() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="h-11 border-zinc-300 px-6 text-sm"
+                className="h-11 px-6 text-sm"
               >
                 <Link href="/story">Why we built this</Link>
               </Button>
@@ -61,7 +63,7 @@ export default function HomePage() {
                 <Link
                   key={pkg.slug}
                   href={pkg.href}
-                  className="rounded-md border border-zinc-200 bg-white px-3 py-1.5 font-mono text-[12px] text-zinc-600 transition-colors hover:border-accent/40 hover:text-foreground"
+                  className="rounded-md border border-border bg-card px-3 py-1.5 font-mono text-[12px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-foreground"
                 >
                   {pkg.name}
                 </Link>
@@ -152,7 +154,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-border bg-white">
+      <section className="border-b border-border bg-card">
         <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
           <div className="flex items-end justify-between gap-4">
             <div>
@@ -179,7 +181,7 @@ export default function HomePage() {
                   className="group flex flex-col gap-3 py-7 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="flex gap-4">
-                    <span className="font-mono text-[12px] text-zinc-400 tabular-nums">
+                    <span className="font-mono text-[12px] text-muted-foreground tabular-nums">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div>
@@ -194,7 +196,7 @@ export default function HomePage() {
                       </p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1 self-start rounded-md bg-zinc-100 px-3 py-1.5 text-[13px] font-semibold text-zinc-700 transition-colors group-hover:bg-zinc-900 group-hover:text-white sm:self-center">
+                  <span className="inline-flex items-center gap-1 self-start rounded-md bg-muted px-3 py-1.5 text-[13px] font-semibold text-foreground transition-colors group-hover:bg-foreground group-hover:text-background sm:self-center">
                     Docs
                     <ArrowRight className="size-3.5" />
                   </span>
@@ -217,7 +219,7 @@ export default function HomePage() {
             {tenets.slice(0, 3).map((tenet, index) => (
               <div
                 key={tenet.title}
-                className="rounded-xl border border-border bg-white p-5 shadow-sm"
+                className="rounded-xl border border-border bg-card p-5 shadow-sm"
               >
                 <p className="font-mono text-[11px] text-accent">
                   {String(index + 1).padStart(2, "0")}
@@ -240,7 +242,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-card">
         <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-16 sm:px-6 md:grid-cols-3">
           {[
             {
@@ -262,7 +264,7 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="group rounded-xl border border-border p-6 transition-all hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow-sm"
+              className="group rounded-xl border border-border bg-background p-6 transition-all hover:-translate-y-0.5 hover:border-muted-foreground/40 hover:shadow-sm"
             >
               <h3 className="text-sm font-semibold tracking-tight group-hover:text-accent">
                 {item.title}
@@ -270,7 +272,7 @@ export default function HomePage() {
               <p className="mt-2 text-[13px] leading-6 text-muted-foreground">
                 {item.body}
               </p>
-              <p className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-zinc-500 group-hover:text-foreground">
+              <p className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground group-hover:text-foreground">
                 Explore
                 <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
               </p>

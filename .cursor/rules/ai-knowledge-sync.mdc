@@ -1,0 +1,14 @@
+---
+description: Keep @eristack/ai-knowledge catalog/recipes in sync when packages or skills change
+alwaysApply: true
+---
+
+# ai-knowledge sync
+
+When you change **another** `@eristack/*` package’s Intent skills, public exports, version/description that agents should see, or add a new publishable package under `packages/`:
+
+1. Run `pnpm knowledge:sync` (regenerates `packages/ai-knowledge` catalog + embedded recipes).
+2. If the change is **discoverable by product language** (e.g. users will say “invoices” / “login”), add or update a recipe in `packages/ai-knowledge/knowledge/recipes.yaml`, then sync again.
+3. Confirm `pnpm knowledge:check` would pass.
+
+Do not hand-edit `packages/ai-knowledge/src/generated/*` or the `<!-- catalog:* -->` block in `skills/recommend-eristack/SKILL.md`.

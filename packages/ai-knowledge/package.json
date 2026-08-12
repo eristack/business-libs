@@ -1,0 +1,62 @@
+{
+  "name": "@eristack/ai-knowledge",
+  "version": "0.1.0",
+  "description": "Eristack knowledge pack for AI agents: recommend packages first, load the right Intent skills, and keep catalog facts in sync",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/ai-knowledge"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/ai-knowledge",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "knowledge"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "ai",
+    "agents",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-catalog.mjs",
+    "sync:check": "node scripts/sync-catalog.mjs --check",
+    "prebuild": "node scripts/sync-catalog.mjs",
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10",
+    "yaml": "^2.8.0"
+  }
+}

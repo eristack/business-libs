@@ -44,3 +44,6 @@ jobs:
 
       - name: Validate skills
         run: pnpm skills:validate
+
+      - name: Check ai-knowledge catalog sync
+        run: pnpm knowledge:check

@@ -21,7 +21,7 @@ export function DocsPager({ pages, currentSlug }: DocsPagerProps) {
       {prev ? (
         <Link
           href={prev.href}
-          className="group rounded-lg border border-border bg-white p-4 transition-colors hover:border-zinc-400"
+          className="group rounded-lg border border-border bg-card p-4 transition-colors hover:border-muted-foreground/40"
         >
           <p className="flex items-center gap-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
             <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-0.5" />
@@ -37,7 +37,7 @@ export function DocsPager({ pages, currentSlug }: DocsPagerProps) {
       {next ? (
         <Link
           href={next.href}
-          className="group rounded-lg border border-border bg-white p-4 text-right transition-colors hover:border-zinc-400 sm:justify-self-end sm:text-right"
+          className="group rounded-lg border border-border bg-card p-4 text-right transition-colors hover:border-muted-foreground/40 sm:justify-self-end sm:text-right"
         >
           <p className="flex items-center justify-end gap-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
             Next

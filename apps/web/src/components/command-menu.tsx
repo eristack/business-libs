@@ -58,20 +58,20 @@ export function CommandMenu({ items }: CommandMenuProps) {
         <button
           type="button"
           className={cn(
-            "inline-flex h-9 items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-2.5 text-[12px] font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:bg-white hover:text-foreground",
+            "inline-flex h-9 items-center gap-2 rounded-md border border-border bg-muted px-2.5 text-[12px] font-medium text-muted-foreground transition-colors hover:border-border hover:bg-card hover:text-foreground",
           )}
           aria-label="Open search"
         >
           <span className="hidden sm:inline">Search…</span>
-          <kbd className="rounded border border-zinc-200 bg-white px-1.5 py-0.5 font-mono text-[10px] text-zinc-500">
+          <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
             {shortcut}
           </kbd>
         </button>
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-zinc-950/40 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <Dialog.Content className="fixed top-[18%] left-1/2 z-50 w-[min(100%-1.5rem,36rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 dark:bg-black/70" />
+        <Dialog.Content className="fixed top-[18%] left-1/2 z-50 w-[min(100%-1.5rem,36rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
           <Dialog.Title className="sr-only">Search</Dialog.Title>
           <Dialog.Description className="sr-only">
             Search documentation, packages, and pages

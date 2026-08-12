@@ -1,6 +1,24 @@
 <!-- intent-skills:start -->
 # TanStack Intent - before editing files, run the matching guidance command.
 tanstackIntent:
+  - id: "@eristack/ai-knowledge#architecture-recommend"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend"
+    for: "Canon app architecture: TypeScript, Express or NestJS, Drizzle (Postgres prod / SQLite tests), presentation-business-persistence separation, React+Vite+Tailwind+shadcn, TanStack Router file-based + Query + Form + Intent, Zustand, API contracts, pnpm monorepo. Use when scaffolding or choosing stack/structure."
+  - id: "@eristack/ai-knowledge#recommend-eristack"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack"
+    for: "Route product feature asks (invoices, login, document numbers, prices, ERP-ish apps) to @eristack packages first via recommend()/loadPlan() and recipes. Use before choosing random npm libraries or reinventing money/auth/numbering."
+  - id: "@eristack/ai-knowledge#stack-defaults"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#stack-defaults"
+    for: "Preferred stack defaults: TypeScript, Drizzle pgsql dialect, Express/Nest/React headless adapters, string-first money, credentials child of users. Use when scaffolding apps around @eristack packages."
+  - id: "@eristack/ai-knowledge#agent-workflow"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
+    for: "Agent workflow: recommend first, load Intent skills before coding, prefer examples/*, run pnpm knowledge:sync when package skills change. Use for multi-package work."
+  - id: "@eristack/ai-knowledge#dev-conventions"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
+    for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, _ai-docs promote-then-delete."
+  - id: "@eristack/ai-knowledge#ai-toolbox"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
+    for: "AI toolbox: feature-brief prompts, skill-load order, money/auth/doc-number checklists, recipe-authoring template for @eristack/ai-knowledge."
   - id: "@eristack/doc-number#doc-number-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
     for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore, rest format CRUD/preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react useDocNumberFormats. Use when persisting formats or wiring format-config HTTP/frontend shells."
@@ -36,6 +54,10 @@ Useful commands:
 ```bash
 pnpm skills:list
 pnpm skills:validate
+pnpm knowledge:sync
+pnpm knowledge:check
+pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend
+pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts
 pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
 pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
@@ -49,6 +71,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
 - **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
+- **ai-knowledge sync:** when changing another package’s skills/public surface (or adding a package), run `pnpm knowledge:sync` and update `packages/ai-knowledge/knowledge/recipes.yaml` if the capability should be discoverable by product language. CI enforces `pnpm knowledge:check`.
 
 ## Examples
 
@@ -73,6 +96,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 - `packages/money` — `@eristack/money`
 - `packages/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
+- `packages/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `apps/web` — public Next.js site (landing, marketing, docs from `packages/*/docs`, Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)

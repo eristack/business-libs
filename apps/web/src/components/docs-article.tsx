@@ -35,7 +35,7 @@ export async function DocsArticle({
 
   return (
     <div className="flex gap-8 xl:gap-12">
-      <article className="min-w-0 flex-1 rounded-xl border border-border bg-white px-6 py-7 shadow-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <article className="min-w-0 flex-1 rounded-xl border border-border bg-card px-6 py-7 shadow-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <div className="mb-8 border-b border-border pb-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">

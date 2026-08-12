@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -24,11 +25,11 @@ export function SiteHeader({ search }: SiteHeaderProps) {
   const mobileLinks = [...primaryNav, ...companyNav];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white shadow-[0_1px_0_rgba(0,0,0,0.03)]">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-md dark:shadow-[0_1px_0_rgba(255,255,255,0.04)]">
       <div className="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 xl:px-10">
         <div className="flex items-center gap-8">
           <Link href="/" className="group flex items-center gap-2.5">
-            <span className="flex size-8 items-center justify-center rounded-lg bg-zinc-950 text-[11px] font-bold tracking-tight text-white transition-transform group-hover:scale-[1.03]">
+            <span className="flex size-8 items-center justify-center rounded-lg bg-foreground text-[11px] font-bold tracking-tight text-background transition-transform group-hover:scale-[1.03]">
               E
             </span>
             <span className="text-[15px] font-semibold tracking-tight text-foreground">
@@ -47,8 +48,8 @@ export function SiteHeader({ search }: SiteHeaderProps) {
                   className={cn(
                     "rounded-md px-3 py-1.5 text-[13px] font-semibold transition-colors",
                     active
-                      ? "bg-zinc-100 text-foreground"
-                      : "text-zinc-600 hover:bg-zinc-50 hover:text-foreground",
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
                   )}
                 >
                   {link.label}
@@ -60,6 +61,7 @@ export function SiteHeader({ search }: SiteHeaderProps) {
 
         <div className="flex items-center gap-2">
           {search}
+          <ThemeToggle />
           <div className="hidden items-center gap-2 lg:flex">
             <Button asChild variant="ghost" size="sm">
               <Link href="/philosophy">Philosophy</Link>
