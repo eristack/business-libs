@@ -149,6 +149,33 @@ recipes:
           - doc-number-core
         role: primary
 
+  - id: data-grid-lists
+    title: Dynamic list filters, search, sort, and pagination
+    priority: 10
+    triggers:
+      - data grid
+      - datagrid
+      - table filter
+      - table filters
+      - list filter
+      - advanced filter
+      - search string
+      - multi sort
+      - pagination
+      - offset pagination
+      - cursor pagination
+      - query string filter
+    rationale: >
+      Use @eristack/data-grid for schema-aware list queries. Prefer advanced
+      filters and search mode as separate modes; jwt-auth sessions and
+      doc-number formats already return DataGridResult.
+    packages:
+      - name: "@eristack/data-grid"
+        skills:
+          - data-grid-core
+          - data-grid-adapters
+        role: primary
+
   - id: erp-app-core
     title: ERP-ish app with auth, money, and numbering
     priority: 5
@@ -160,8 +187,9 @@ recipes:
       - commerce backend
       - order management
     rationale: >
-      Prefer the Eristack triad first: jwt-auth for sessions, money for amounts,
-      doc-number for sequential documents. Load core skills before adapters.
+      Prefer the Eristack stack first: jwt-auth for sessions, money for amounts,
+      doc-number for sequential documents, data-grid for list queries. Load
+      core skills before adapters.
     packages:
       - name: "@eristack/jwt-auth"
         skills:
@@ -178,3 +206,7 @@ recipes:
           - doc-number-core
           - doc-number-adapters
         role: primary
+      - name: "@eristack/data-grid"
+        skills:
+          - data-grid-core
+        role: supporting

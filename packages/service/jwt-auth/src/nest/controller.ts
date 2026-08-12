@@ -20,6 +20,22 @@ import {
 } from "../rest/index.js";
 import { JWT_AUTH_REST_CONFIG } from "./tokens.js";
 
+function flattenQuery(
+  query: Request["query"],
+): Record<string, string | string[] | undefined> {
+  const out: Record<string, string | string[] | undefined> = {};
+  for (const [key, value] of Object.entries(query)) {
+    if (typeof value === "string" || Array.isArray(value)) {
+      out[key] = value as string | string[];
+    } else if (value == null) {
+      out[key] = undefined;
+    } else {
+      out[key] = String(value);
+    }
+  }
+  return out;
+}
+
 function toRestRequest(
   req: Request,
   body: unknown,
@@ -42,6 +58,7 @@ function toRestRequest(
     },
     body,
     params,
+    query: flattenQuery(req.query),
   };
 }
 

@@ -17,6 +17,8 @@ import {
 } from "@eristack/jwt-auth/express";
 import { createAppDatabase } from "./db/client.js";
 import { users } from "./db/schema.js";
+import { createOrdersRouter } from "./orders/router.js";
+import { seedOrdersDemo } from "./orders/seed-orders.js";
 
 const accessSecret =
   process.env.JWT_ACCESS_SECRET ?? "dev-only-access-secret-change-me";
@@ -76,6 +78,7 @@ async function seedDemoUser() {
 }
 
 await seedDemoUser();
+await seedOrdersDemo(db);
 
 const app = express();
 app.use(
@@ -109,6 +112,8 @@ app.get(
   },
 );
 
+app.use("/orders", createOrdersRouter({ db, jwtAuth }));
+
 app.listen(port, () => {
   console.log(`[@eristack/example-express] http://localhost:${port}`);
   console.log(`  sqlite db: ${file}`);
@@ -118,4 +123,6 @@ app.listen(port, () => {
   console.log(`  GET    /auth/sessions           Authorization: Bearer <accessToken>`);
   console.log(`  DELETE /auth/sessions/:id       Authorization: Bearer <accessToken>`);
   console.log(`  GET    /me                      Authorization: Bearer <accessToken>`);
+  console.log(`  GET    /orders?…                data-grid JSON search (auth)`);
+  console.log(`  GET    /orders/:id              order + lines + sums (auth)`);
 });

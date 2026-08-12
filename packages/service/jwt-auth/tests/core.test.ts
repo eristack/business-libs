@@ -91,8 +91,8 @@ describe("createJwtAuth", () => {
     const b = await auth.issueTokens({ subject: "user-1" });
 
     const sessions = await auth.listSessions("user-1");
-    expect(sessions).toHaveLength(2);
-    expect(sessions.map((s) => s.id).sort()).toEqual([a.sessionId, b.sessionId].sort());
+    expect(sessions.items).toHaveLength(2);
+    expect(sessions.items.map((s) => s.id).sort()).toEqual([a.sessionId, b.sessionId].sort());
 
     await auth.revokeSession({ sessionId: a.sessionId, subject: "user-1" });
 
@@ -100,8 +100,8 @@ describe("createJwtAuth", () => {
       RefreshTokenReuseError,
     );
     const remaining = await auth.listSessions("user-1");
-    expect(remaining).toHaveLength(1);
-    expect(remaining[0]?.id).toBe(b.sessionId);
+    expect(remaining.items).toHaveLength(1);
+    expect(remaining.items[0]?.id).toBe(b.sessionId);
 
     await expect(
       auth.revokeSession({ sessionId: a.sessionId, subject: "user-2" }),

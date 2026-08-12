@@ -123,8 +123,11 @@ export interface JwtAuth {
   refresh(refreshToken: string): Promise<TokenPair>;
   revoke(refreshToken: string): Promise<void>;
   revokeAllForSubject(subject: string): Promise<void>;
-  /** Active sessions (refresh tips) for a subject. */
-  listSessions(subject: string): Promise<AuthSession[]>;
+  /** Active sessions (refresh tips) for a subject — `@eristack/data-grid` result. */
+  listSessions(
+    subject: string,
+    query?: import("@eristack/data-grid").DataGridQueryInput,
+  ): Promise<import("@eristack/data-grid").DataGridResult<AuthSession>>;
   /**
    * Revoke a session by record id. `subject` must own the session.
    * Revokes the entire refresh family (device/session).

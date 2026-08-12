@@ -30,7 +30,7 @@ const result = await actions.listFormats({
 
 | Action | Typical HTTP |
 | --- | --- |
-| `listFormats` | `GET /formats?entityKey=` |
+| `listFormats` | `GET /formats?entityKey=` (+ data-grid query params) → `{ items, pageInfo, query }` |
 | `getActiveFormat` | `GET /formats/active?entityKey=` |
 | `getFormatById` | `GET /formats/:id` |
 | `createFormat` | `POST /formats` |

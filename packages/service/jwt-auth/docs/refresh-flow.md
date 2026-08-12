@@ -39,7 +39,7 @@ Credentials rows live in `jwt_auth_credentials` with `subject` = app user id (ch
 
 Active sessions are the non-revoked, non-expired refresh-token tips for a subject.
 
-- `listSessions(subject)` — safe metadata only (`id`, `familyId`, `createdAt`, `expiresAt`); never returns plaintext/hash
+- `listSessions(subject, query?)` — `@eristack/data-grid` result (`items` / `pageInfo` / `query`); safe metadata only (`id`, `familyId`, `createdAt`, `expiresAt`); never returns plaintext/hash
 - `revokeSession({ sessionId, subject })` — ownership-checked; revokes the whole refresh **family**
 
 HTTP (via REST / Express / Nest), both require `Authorization: Bearer <access>`:

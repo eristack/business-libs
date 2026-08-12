@@ -16,6 +16,7 @@ Packages live under `packages/<category>/<name>/` in this order: **primitive →
 | --- | --- | --- |
 | Primitive | [`@eristack/money`](./packages/primitive/money) | JSR 354–inspired amounts, totals/%/tax helpers, rounding, allocation, FX |
 | Capability | [`@eristack/doc-number`](./packages/capability/doc-number) | Document numbers + format-config adapters (Drizzle / REST / Express / Nest / React) |
+| Service | [`@eristack/data-grid`](./packages/service/data-grid) | Dynamic list queries: filters, search mode, multi-sort, offset/cursor pagination |
 | Service | [`@eristack/jwt-auth`](./packages/service/jwt-auth) | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
 | AI | [`@eristack/ai-knowledge`](./packages/ai/ai-knowledge) | Agent knowledge pack: recommend `@eristack/*`, Intent skills, synced catalog |
 | AI | [`@eristack/ai-workflow`](./packages/ai/ai-workflow) | Local-first MCP, FTS+vector index, sprint/backlog workflow |

@@ -9,7 +9,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@eristack/data-grid": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
+    "@tanstack/react-form": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

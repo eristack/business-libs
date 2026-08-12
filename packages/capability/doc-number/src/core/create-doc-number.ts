@@ -1,7 +1,9 @@
 import { FormatNotFoundError, MissingDependencyError } from "./errors.js";
 import { formatDocumentNumber, parseDocumentNumber, previewDocumentNumber } from "./format.js";
+import { formatDataGridSchema } from "./format-grid.js";
 import { periodKeyFor } from "./period.js";
 import { parsePattern } from "./tokens.js";
+import { createDataGrid } from "@eristack/data-grid";
 import type {
   Clock,
   DocNumberResult,
@@ -31,7 +33,10 @@ export interface DocNumberApi {
   updateFormat(input: UpdateFormatInput): Promise<FormatRecord>;
   getFormat(entityKey: string): Promise<FormatRecord | null>;
   getFormatById(id: string): Promise<FormatRecord | null>;
-  listFormats(entityKey: string): Promise<FormatRecord[]>;
+  listFormats(
+    entityKey: string,
+    query?: import("@eristack/data-grid").DataGridQueryInput,
+  ): Promise<import("@eristack/data-grid").DataGridResult<FormatRecord>>;
   next(input: NextDocumentNumberInput): Promise<DocNumberResult>;
   peekNext(input: PeekNextInput): Promise<{ sequence: number; periodKey: string; value: string }>;
   preview(input: PreviewInput): string;
@@ -157,8 +162,9 @@ export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumber
       return requireFormats().findById(id);
     },
 
-    async listFormats(entityKey) {
-      return requireFormats().listByEntityKey(entityKey);
+    async listFormats(entityKey, query) {
+      const rows = await requireFormats().listByEntityKey(entityKey);
+      return createDataGrid(formatDataGridSchema).applyInMemory(rows, query);
     },
 
     async next(input) {

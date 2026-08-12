@@ -51,6 +51,7 @@ const next = await docNumber.next({ entityKey: "invoice" });
 // { value, sequence, periodKey, formatId, … }
 
 await docNumber.listFormats("invoice");
+// → { items, pageInfo, query } via @eristack/data-grid
 await docNumber.peekNext({ entityKey: "invoice" });
 ```
 

@@ -37,7 +37,7 @@ Shared UI lives under `src/components/stack/` (`PageHero`, `StackChrome`, `Layer
 | `/` | Landing |
 | `/packages` | Libraries index (all layers) |
 | `/primitive`, `/capability`, `/service`, `/ai` | Layer landings |
-| `/money`, `/doc-number`, `/jwt-auth`, `/ai-knowledge`, `/ai-workflow` | Library overviews |
+| `/money`, `/doc-number`, `/jwt-auth`, `/data-grid`, `/ai-knowledge`, `/ai-workflow` | Library overviews |
 | `/{slug}/changelog` | Package changelog (`CHANGELOG.md` when present) |
 | `/docs/...` | Package documentation (from `packages/<category>/*/docs`) |
 | `/blog` | Blog index + posts |

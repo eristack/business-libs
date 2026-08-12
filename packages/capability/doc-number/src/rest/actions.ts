@@ -38,7 +38,14 @@ function isReset(value: unknown): value is ResetPeriod {
 export function createListFormatsAction(config: RestDocNumberConfig) {
   return async (
     req: RestRequest,
-  ): Promise<RestResponse<{ formats: FormatBody[] } | RestErrorBody>> => {
+  ): Promise<RestResponse<
+    | {
+        items: FormatBody[];
+        pageInfo: import("@eristack/data-grid").PageInfo;
+        query: import("@eristack/data-grid").DataGridQuery;
+      }
+    | RestErrorBody
+  >> => {
     try {
       const entityKey = queryString(req.query, "entityKey");
       if (!entityKey) {
@@ -52,8 +59,15 @@ export function createListFormatsAction(config: RestDocNumberConfig) {
           },
         };
       }
-      const formats = await config.docNumber.listFormats(entityKey);
-      return { status: 200, body: { formats: formats.map(toFormatBody) } };
+      const result = await config.docNumber.listFormats(entityKey, req.query);
+      return {
+        status: 200,
+        body: {
+          items: result.items.map(toFormatBody),
+          pageInfo: result.pageInfo,
+          query: result.query,
+        },
+      };
     } catch (error) {
       return toErrorResponse(error);
     }

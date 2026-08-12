@@ -1,4 +1,9 @@
 import * as jose from "jose";
+import {
+  createDataGrid,
+  type DataGridQueryInput,
+  type DataGridResult,
+} from "@eristack/data-grid";
 import { generateId, generateOpaqueToken, hashToken } from "./crypto.js";
 import { addMs, durationToMs } from "./duration.js";
 import {
@@ -12,6 +17,7 @@ import {
   UsernameTakenError,
 } from "./errors.js";
 import { hashPassword, verifyPassword } from "./password.js";
+import { sessionDataGridSchema } from "./session-grid.js";
 import type {
   AccessTokenClaims,
   AuthSession,
@@ -204,17 +210,24 @@ export function createJwtAuth(config: JwtAuthConfig): JwtAuth {
     await config.store.revokeAllForSubject(subject, clock.now());
   }
 
-  async function listSessions(subject: string): Promise<AuthSession[]> {
+  async function listSessions(
+    subject: string,
+    queryInput?: DataGridQueryInput,
+  ): Promise<DataGridResult<AuthSession>> {
     if (!subject) {
       throw new ConfigurationError("subject is required");
     }
     const records = await config.store.listActiveBySubject(subject, clock.now());
-    return records.map((record) => ({
+    const sessions = records.map((record) => ({
       id: record.id,
       familyId: record.familyId,
       createdAt: record.createdAt,
       expiresAt: record.expiresAt,
     }));
+    return createDataGrid(sessionDataGridSchema).applyInMemory(
+      sessions,
+      queryInput,
+    );
   }
 
   async function revokeSession(input: {

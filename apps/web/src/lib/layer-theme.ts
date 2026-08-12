@@ -30,6 +30,7 @@ export const layerThemes = {
 export type LibraryMotifId =
   | "money"
   | "doc-number"
+  | "data-grid"
   | "jwt-auth"
   | "ai-knowledge"
   | "ai-workflow";
@@ -38,6 +39,7 @@ export function motifForPackage(slug: string): LibraryMotifId | null {
   const known: PackageSlug[] = [
     "money",
     "doc-number",
+    "data-grid",
     "jwt-auth",
     "ai-knowledge",
     "ai-workflow",

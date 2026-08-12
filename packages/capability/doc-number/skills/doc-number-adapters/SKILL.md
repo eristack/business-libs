@@ -79,16 +79,33 @@ Activating a format deactivates siblings for the same `entityKey`.
 
 ```ts
 import { createDocNumberClient } from "@eristack/doc-number/client";
-import { DocNumberProvider, useDocNumberFormats } from "@eristack/doc-number/react";
+import {
+  DocNumberProvider,
+  useDocNumberFormats,
+  createFormatFormOptions,
+} from "@eristack/doc-number/react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { useForm } from "@tanstack/react-form";
 
+// /client = HTTP only (also the base for future Vue/Svelte adapters)
 const client = createDocNumberClient({
   baseUrl: () => appConfig.apiUrl,
   getHeaders: () => ({ Authorization: `Bearer ${token}` }),
 });
 
 function Settings() {
-  const { formats, active, createFormat, updateFormat, preview } =
-    useDocNumberFormats("invoice");
-  // App owns the form UI
+  // TanStack Query under the hood — app owns QueryClientProvider
+  const { formats, active, createFormat } = useDocNumberFormats("invoice");
+
+  const form = useForm({
+    ...createFormatFormOptions({
+      entityKey: "invoice",
+      onSubmit: async (value) => {
+        await createFormat(value);
+      },
+    }),
+  });
 }
 ```
+
+`/react` wraps `/client` with TanStack Query mutations/queries and optional Form option factories — no UI widgets.

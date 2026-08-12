@@ -56,7 +56,7 @@ Credential + session routes:
 
 - `POST /login` → `login` (username/password → token pair)
 - `POST /change-password` → `changePassword` (Bearer access token)
-- `GET /sessions` → `listSessions` (Bearer)
+- `GET /sessions` → `listSessions` (Bearer) — `{ items, pageInfo, query }` via `@eristack/data-grid`
 - `DELETE /sessions/:sessionId` → `revokeSession` (ownership-checked family revoke)
 
 `registerCredentials` stays in core (call from your signup/seed after inserting
@@ -66,5 +66,5 @@ Nest apps that need DB/config injection should use `JwtAuthModule.registerAsync(
 
 ## Frontend
 
-- `/client` — inject `baseUrl` / `storage` / `fetch` / `getHeaders`; use `client.login(...)`
-- `/react` — pass `client` **or** `clientConfig` with those same injected fields; no UI widgets
+- `/client` — framework-agnostic HTTP + token machine (base for React / future Vue / Svelte); inject `baseUrl` / `storage` / `fetch` / `getHeaders`
+- `/react` — TanStack Query hooks + Form option helpers wrapping `/client`; pass `client` **or** `clientConfig`; no UI widgets; app owns `QueryClientProvider`

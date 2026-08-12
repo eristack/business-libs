@@ -15,6 +15,8 @@ export interface RestRequest {
   body?: unknown;
   /** Path params from framework routers (e.g. sessionId). */
   params?: Record<string, string | undefined>;
+  /** Query string for data-grid listSessions and similar. */
+  query?: Record<string, string | string[] | undefined>;
 }
 
 export interface SetCookieOptions {

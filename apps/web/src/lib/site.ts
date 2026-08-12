@@ -183,6 +183,43 @@ const next = await docs.next("invoice")`,
     },
   },
   {
+    slug: "data-grid",
+    name: "@eristack/data-grid",
+    title: "Data Grid",
+    category: "service" as const,
+    directory: "packages/service/data-grid",
+    href: "/data-grid",
+    docsHref: "/docs/data-grid",
+    tagline: "Dynamic filters, search, sort, and pagination — one list contract.",
+    description:
+      "Schema-aware list queries: multi-field filters, separate search mode, multi-sort, offset/cursor pagination, with Drizzle / REST / Express / Nest / client / React adapters.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/data-grid",
+    highlights: [
+      {
+        title: "Two modes",
+        body: "Advanced structured filters and free-text search stay separate — no accidental mix-ups.",
+      },
+      {
+        title: "Complete operators",
+        body: "contains, in, between, gte, and the rest — JSON search params aligned with TanStack Router.",
+      },
+      {
+        title: "Shared by the stack",
+        body: "jwt-auth sessions and doc-number formats list through the same DataGridResult contract.",
+      },
+    ],
+    sample: {
+      filename: "list.ts",
+      language: "ts",
+      code: `import { createDataGrid, toSearch, fromSearch } from "@eristack/data-grid"
+
+const grid = createDataGrid(schema)
+const search = toSearch(grid.parse({ mode: "search", q: "ada", page: 1 }))
+const query = fromSearch(search, schema)`,
+    },
+  },
+  {
     slug: "jwt-auth",
     name: "@eristack/jwt-auth",
     title: "JWT Auth",

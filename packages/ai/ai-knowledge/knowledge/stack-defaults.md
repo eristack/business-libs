@@ -25,10 +25,13 @@ Supported integration patterns (copy from `examples/*` when available):
 | --- | --- |
 | Express | Package `create*Router` + require-auth style middleware |
 | Nest | Package `*Module` + guard |
-| React | Headless provider/hooks — no opinionated UI kit |
 | REST | Headless handlers the app mounts |
+| **Client** | Framework-agnostic HTTP (`create*Client`) — base for React / future Vue / Svelte |
+| **React** | Headless TanStack **Query** hooks + **Form** option helpers wrapping `/client` — no UI kit |
 
 Do not invent alternate Express/Nest/React wiring when an Eristack example already shows the supported pattern.
+
+**Client vs React:** same idea as REST vs Express/Nest. Put fetch/URL/token machine in `/client`. Put React-only Query/Form adapters in `/react`. Apps mount `QueryClientProvider` themselves.
 
 ## Money
 
