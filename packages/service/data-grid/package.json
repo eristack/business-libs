@@ -1,6 +1,6 @@
 {
   "name": "@eristack/data-grid",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
   "repository": {
     "type": "git",
@@ -118,13 +118,27 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@nestjs/common": { "optional": true },
-    "@nestjs/core": { "optional": true },
-    "@tanstack/react-form": { "optional": true },
-    "@tanstack/react-query": { "optional": true },
-    "drizzle-orm": { "optional": true },
-    "express": { "optional": true },
-    "react": { "optional": true }
+    "@nestjs/common": {
+      "optional": true
+    },
+    "@nestjs/core": {
+      "optional": true
+    },
+    "@tanstack/react-form": {
+      "optional": true
+    },
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@nestjs/common": "^11.0.12",
