@@ -15,6 +15,7 @@ describe("catalog", () => {
     expect(names).toEqual(
       [
         "@eristack/ai-workflow",
+        "@eristack/data-grid",
         "@eristack/doc-number",
         "@eristack/jwt-auth",
         "@eristack/money",

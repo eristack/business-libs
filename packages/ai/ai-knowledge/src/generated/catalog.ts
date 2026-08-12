@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T08:09:47.548Z",
+  "generatedAt": "2026-08-12T08:27:53.200Z",
   "packages": [
     {
       "name": "@eristack/ai-workflow",
@@ -33,7 +33,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/data-grid",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
