@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DocMeta } from "@/lib/docs";
+import { LayerBadge } from "@/components/stack/layer-badge";
 import {
   categoryIndex,
   getCategory,
@@ -65,10 +66,10 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
         )}
       >
         <div className="min-w-0 flex-1">
-          <p className="text-[10px] font-medium tracking-[0.12em] text-accent uppercase">
-            {currentCategory.label}
-          </p>
-          <p className="mt-0.5 truncate text-[14px] font-semibold tracking-tight text-foreground">
+          <div className="mb-1">
+            <LayerBadge categoryId={current.category} link={false} />
+          </div>
+          <p className="truncate text-[14px] font-semibold tracking-tight text-foreground">
             {current.title}
           </p>
           <p className="truncate font-mono text-[11px] text-muted-foreground">

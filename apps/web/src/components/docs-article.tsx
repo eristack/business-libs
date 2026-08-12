@@ -7,8 +7,8 @@ import {
   type DocMeta,
   type DocPackageSlug,
 } from "@/lib/docs";
-import { categoryMeta } from "@/components/category-heading";
-import { packages, siteConfig } from "@/lib/site";
+import { LayerBadge } from "@/components/stack/layer-badge";
+import { getCategory, packages, siteConfig } from "@/lib/site";
 
 type DocsArticleProps = {
   packageSlug: DocPackageSlug;
@@ -34,7 +34,7 @@ export async function DocsArticle({
   const sourcePath = docSourcePath(packageSlug, slug);
   const sourceUrl = `${siteConfig.github}/blob/main/${sourcePath}`;
   const pkg = packages.find((item) => item.slug === packageSlug);
-  const category = pkg ? categoryMeta(pkg.category) : null;
+  const category = pkg ? getCategory(pkg.category) : null;
 
   return (
     <div className="flex gap-8 xl:gap-12">
@@ -45,23 +45,25 @@ export async function DocsArticle({
               <Link href="/docs" className="hover:text-foreground">
                 Docs
               </Link>
-              {category ? (
+              {pkg && category ? (
                 <>
                   <span>/</span>
-                  <Link
-                    href={category.href}
-                    className="font-semibold tracking-[0.12em] text-accent uppercase hover:underline"
-                  >
-                    {category.label}
-                  </Link>
+                  <LayerBadge categoryId={pkg.category} />
                 </>
               ) : null}
+              <span>/</span>
+              <Link
+                href={pkg?.href ?? `/docs/${packageSlug}`}
+                className="font-medium text-foreground hover:text-accent"
+              >
+                {pkg?.title ?? packageName}
+              </Link>
               <span>/</span>
               <Link
                 href={`/docs/${packageSlug}`}
                 className="font-mono hover:text-foreground"
               >
-                {packageName}
+                docs
               </Link>
               {slug !== "index" ? (
                 <>

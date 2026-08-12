@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CategoryHeading } from "@/components/category-heading";
 import { Button } from "@/components/ui/button";
-import { PageHeader } from "@/components/page-header";
+import { ContentSection } from "@/components/stack/content-section";
+import { LayerSection } from "@/components/stack/library-list";
+import { PageHero } from "@/components/stack/page-hero";
+import { StackChrome } from "@/components/stack/stack-chrome";
 import { packagesByCategory, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Packages",
+  title: "Libraries",
   description: `Open-source enterprise libraries under ${siteConfig.name}.`,
 };
 
@@ -15,78 +17,73 @@ export default function PackagesPage() {
   const grouped = packagesByCategory();
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-      <PageHeader
-        eyebrow="Packages"
-        title="The Eristack library stack"
-        description="Each layer and each library has its own landing page — TanStack-style product pages — plus docs that live next to the code."
+    <>
+      <PageHero
+        tone="marketing"
+        chrome={
+          <StackChrome
+            crumbs={[{ label: "Libraries", href: "/packages" }]}
+            showLayerStrip
+          />
+        }
+        eyebrow={
+          <span className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+            Library stack
+          </span>
+        }
+        title="Libraries by layer"
+        tagline="Pick a layer, open a library overview, then read the docs."
+        description="Eristack is organized as Primitive → Capability → Service → AI. Product pages explain each library; docs next to the code carry the contract."
+        actions={
+          <>
+            <Button asChild size="lg">
+              <Link href="#stack">
+                Browse the stack
+                <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/docs">Go to docs</Link>
+            </Button>
+          </>
+        }
+        meta={
+          <ol className="grid max-w-2xl gap-2 text-[13px] text-muted-foreground sm:grid-cols-3">
+            {[
+              "1 · Choose a layer",
+              "2 · Open a library",
+              "3 · Read its docs",
+            ].map((step) => (
+              <li
+                key={step}
+                className="rounded-lg border border-border bg-card/80 px-3 py-2 font-medium text-foreground/80"
+              >
+                {step}
+              </li>
+            ))}
+          </ol>
+        }
       />
 
-      <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        {grouped.map((category, index) => (
-          <Link
-            key={category.id}
-            href={category.href}
-            className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2.5 transition-colors hover:border-accent/40"
-          >
-            <span className="font-mono text-[10px] font-semibold text-accent tabular-nums">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <span className="text-[11px] font-semibold tracking-[0.12em] uppercase">
-              {category.label}
-            </span>
-          </Link>
-        ))}
-      </div>
-
-      <div className="mt-14 space-y-16">
-        {grouped.map((category) => (
-          <section key={category.id} className="space-y-5">
-            <CategoryHeading
+      <ContentSection
+        id="stack"
+        tone="muted"
+        eyebrow="The stack"
+        title="Four layers, one list style"
+        description="Every page that shows libraries — home, this index, layer landings, docs — uses the same layer headers and library rows."
+      >
+        <div className="space-y-14">
+          {grouped.map((category) => (
+            <LayerSection
+              key={category.id}
               categoryId={category.id}
-              count={category.packages.length}
-              size="lg"
+              items={category.packages}
+              variant="actions"
+              description={category.description}
             />
-
-            <div className="divide-y divide-border border-y border-border">
-              {category.packages.map((pkg) => (
-                <article
-                  key={pkg.slug}
-                  className="grid gap-6 py-10 md:grid-cols-[1fr_auto] md:items-end"
-                >
-                  <div>
-                    <p className="font-mono text-[12px] text-muted-foreground">
-                      {pkg.name}
-                    </p>
-                    <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-                      <Link href={pkg.href} className="hover:text-accent">
-                        {pkg.title}
-                      </Link>
-                    </h2>
-                    <p className="mt-2 text-[15px] font-medium text-foreground/80">
-                      {pkg.tagline}
-                    </p>
-                    <p className="mt-3 max-w-2xl text-[15px] leading-7 text-muted-foreground">
-                      {pkg.description}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    <Button asChild>
-                      <Link href={pkg.href}>
-                        Overview
-                        <ArrowRight />
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline">
-                      <Link href={pkg.docsHref}>Docs</Link>
-                    </Button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      </ContentSection>
+    </>
   );
 }

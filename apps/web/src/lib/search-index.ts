@@ -13,7 +13,7 @@ export type SearchItem = {
   title: string;
   description?: string;
   href: string;
-  group: "Navigation" | "Packages" | "Docs" | "Blog";
+  group: "Navigation" | "Libraries" | "Docs" | "Blog";
   keywords?: string;
 };
 
@@ -52,7 +52,7 @@ export function buildSearchIndex(): SearchItem[] {
       title: `${category.label} layer`,
       description: category.tagline,
       href: category.href,
-      group: "Packages",
+      group: "Libraries",
       keywords: `${category.label} ${category.id} ${category.description} ${category.tagline}`,
     });
   }
@@ -66,7 +66,7 @@ export function buildSearchIndex(): SearchItem[] {
       title: pkg.title,
       description: `${category} · ${pkg.name}`,
       href: pkg.href,
-      group: "Packages",
+      group: "Libraries",
       keywords: `${pkg.name} ${pkg.title} ${pkg.description} ${pkg.tagline} ${category} ${pkg.category}`,
     });
   }

@@ -6,6 +6,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import { visit } from "unist-util-visit";
 import type { Root } from "hast";
+import { codeTheme } from "@/lib/code-theme";
 
 function rewriteDocHref(href: string, packageSlug?: string) {
   if (!packageSlug) return href;
@@ -48,8 +49,12 @@ export async function Markdown({ content, packageSlug }: MarkdownProps) {
     .use(rehypeSlug)
     .use(rehypeRewriteDocLinks, packageSlug)
     .use(rehypePrettyCode, {
-      theme: "github-dark",
-      keepBackground: false,
+      theme: {
+        dark: codeTheme.dark,
+        light: codeTheme.light,
+      },
+      keepBackground: true,
+      defaultLang: "ts",
     })
     .use(rehypeStringify)
     .process(content);

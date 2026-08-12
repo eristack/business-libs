@@ -20,7 +20,7 @@ type CommandMenuProps = {
 
 const groups: SearchItem["group"][] = [
   "Navigation",
-  "Packages",
+  "Libraries",
   "Docs",
   "Blog",
 ];

@@ -14,11 +14,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { companyNav, primaryNav, siteConfig } from "@/lib/site";
+import {
+  companyNav,
+  isLibrariesNavActive,
+  primaryNav,
+  siteConfig,
+} from "@/lib/site";
 
 type SiteHeaderProps = {
   search?: ReactNode;
 };
+
+function navActive(pathname: string, href: string) {
+  if (href === "/packages") return isLibrariesNavActive(pathname);
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function SiteHeader({ search }: SiteHeaderProps) {
   const pathname = usePathname();
@@ -39,8 +49,7 @@ export function SiteHeader({ search }: SiteHeaderProps) {
 
           <nav className="hidden items-center gap-1 lg:flex">
             {primaryNav.map((link) => {
-              const active =
-                pathname === link.href || pathname.startsWith(`${link.href}/`);
+              const active = navActive(pathname, link.href);
               return (
                 <Link
                   key={link.href}

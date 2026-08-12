@@ -136,6 +136,7 @@ export const packages = [
     ],
     sample: {
       filename: "money.ts",
+      language: "ts",
       code: `import { Money } from "@eristack/money"
 
 const total = Money.of("19.99", "USD")
@@ -171,6 +172,7 @@ const total = Money.of("19.99", "USD")
     ],
     sample: {
       filename: "invoice-number.ts",
+      language: "ts",
       code: `import { createDocNumber } from "@eristack/doc-number"
 
 const docs = createDocNumber({ store, sequences })
@@ -206,9 +208,10 @@ const next = await docs.next("invoice")`,
     ],
     sample: {
       filename: "login.ts",
+      language: "ts",
       code: `import { createJwtAuth } from "@eristack/jwt-auth"
 
-const auth = createJwtAuth({ credentials, refreshTokens, ... })
+const auth = createJwtAuth({ credentials, refreshTokens, secrets })
 const session = await auth.login({ username, password })`,
     },
   },
@@ -241,6 +244,7 @@ const session = await auth.login({ username, password })`,
     ],
     sample: {
       filename: "recommend.ts",
+      language: "ts",
       code: `import { recommend, loadPlan } from "@eristack/ai-knowledge"
 
 const result = recommend(["invoices", "login"])
@@ -276,6 +280,7 @@ const plan = loadPlan(result)`,
     ],
     sample: {
       filename: "mcp.json",
+      language: "json",
       code: `{
   "mcpServers": {
     "eristack-workflow": {
@@ -319,11 +324,18 @@ export const librarySlugs = [
 ] as const;
 
 export const primaryNav = [
-  { href: "/packages", label: "Packages" },
+  { href: "/packages", label: "Libraries" },
   { href: "/docs", label: "Docs" },
   { href: "/blog", label: "Blog" },
   { href: "/support", label: "Support" },
 ] as const;
+
+/** Paths that should light up the Libraries nav item. */
+export function isLibrariesNavActive(pathname: string) {
+  if (pathname === "/packages" || pathname.startsWith("/packages/")) return true;
+  if (librarySlugs.some((slug) => pathname === `/${slug}`)) return true;
+  return false;
+}
 
 export const companyNav = [
   { href: "/story", label: "Story" },
