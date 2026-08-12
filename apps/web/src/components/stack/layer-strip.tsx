@@ -17,10 +17,7 @@ export function LayerStrip({ activeId, className }: LayerStripProps) {
   return (
     <nav
       aria-label="Library layers"
-      className={cn(
-        "grid gap-2 sm:grid-cols-2 lg:grid-cols-4",
-        className,
-      )}
+      className={cn("grid gap-2 sm:grid-cols-2 lg:grid-cols-4", className)}
     >
       {grouped.map((category) => {
         const active = category.id === activeId;
@@ -29,15 +26,16 @@ export function LayerStrip({ activeId, className }: LayerStripProps) {
           <Link
             key={category.id}
             href={category.href}
+            data-layer={category.id}
             className={cn(
               "group flex flex-col gap-1 rounded-xl border px-3 py-3 transition-colors",
               active
-                ? "border-accent/50 bg-accent/5"
-                : "border-border bg-background/70 hover:border-accent/35",
+                ? "border-[color:var(--layer-accent)] bg-[color:var(--layer-soft)]"
+                : "border-border bg-background/70 hover:border-[color:var(--layer-accent)]/40",
             )}
           >
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] font-semibold text-accent tabular-nums">
+              <span className="font-mono text-[10px] font-semibold text-[color:var(--layer-accent)] tabular-nums">
                 {String(index).padStart(2, "0")}
               </span>
               <span className="text-[11px] font-semibold tracking-[0.14em] uppercase">

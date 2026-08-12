@@ -8,6 +8,8 @@ import {
   type DocPackageSlug,
 } from "@/lib/docs";
 import { LayerBadge } from "@/components/stack/layer-badge";
+import { VersionBadge } from "@/components/stack/version-badge";
+import { getPackageRelease } from "@/lib/package-meta";
 import { getCategory, packages, siteConfig } from "@/lib/site";
 
 type DocsArticleProps = {
@@ -35,6 +37,7 @@ export async function DocsArticle({
   const sourceUrl = `${siteConfig.github}/blob/main/${sourcePath}`;
   const pkg = packages.find((item) => item.slug === packageSlug);
   const category = pkg ? getCategory(pkg.category) : null;
+  const release = pkg ? getPackageRelease(pkg) : null;
 
   return (
     <div className="flex gap-8 xl:gap-12">
@@ -48,7 +51,9 @@ export async function DocsArticle({
               {pkg && category ? (
                 <>
                   <span>/</span>
-                  <LayerBadge categoryId={pkg.category} />
+                  <span data-layer={pkg.category}>
+                    <LayerBadge categoryId={pkg.category} />
+                  </span>
                 </>
               ) : null}
               <span>/</span>
@@ -72,15 +77,23 @@ export async function DocsArticle({
                 </>
               ) : null}
             </div>
-            <a
-              href={sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
-              title="Package docs are the source of truth"
-            >
-              {sourcePath}
-            </a>
+            <div className="flex flex-wrap items-center gap-2">
+              {release ? (
+                <VersionBadge
+                  version={release.version}
+                  href={release.changelogHref}
+                />
+              ) : null}
+              <a
+                href={sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
+                title="Package docs are the source of truth"
+              >
+                {sourcePath}
+              </a>
+            </div>
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
             {title}

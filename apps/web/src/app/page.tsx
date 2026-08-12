@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ContentSection } from "@/components/stack/content-section";
 import { LayerSection } from "@/components/stack/library-list";
 import { LayerStrip } from "@/components/stack/layer-strip";
+import { PackageStrip } from "@/components/stack/package-strip";
 import { PageHero } from "@/components/stack/page-hero";
 import { packagesByCategory, siteConfig, tenets } from "@/lib/site";
 
@@ -70,11 +71,14 @@ export default async function HomePage() {
           />
         }
         footer={
-          <div className="space-y-3">
-            <p className="text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-              Start in a layer
-            </p>
-            <LayerStrip />
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                Layers
+              </p>
+              <LayerStrip />
+            </div>
+            <PackageStrip />
           </div>
         }
       />

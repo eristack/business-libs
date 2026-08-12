@@ -160,6 +160,80 @@
       linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
   }
+
+  /* Layer themes — scoped via data-layer */
+  [data-layer] {
+    --layer-accent: var(--accent);
+    --layer-soft: color-mix(in oklab, var(--layer-accent) 12%, transparent);
+    --layer-glow: color-mix(in oklab, var(--layer-accent) 22%, transparent);
+    --layer-rail: color-mix(in oklab, var(--layer-accent) 55%, transparent);
+  }
+
+  [data-layer="primitive"] {
+    --layer-accent: #0f766e;
+    --layer-soft: color-mix(in oklab, #0f766e 14%, transparent);
+    --layer-glow: color-mix(in oklab, #0f766e 26%, transparent);
+  }
+
+  [data-layer="capability"] {
+    --layer-accent: #b45309;
+    --layer-soft: color-mix(in oklab, #b45309 14%, transparent);
+    --layer-glow: color-mix(in oklab, #b45309 24%, transparent);
+  }
+
+  [data-layer="service"] {
+    --layer-accent: #2563eb;
+    --layer-soft: color-mix(in oklab, #2563eb 14%, transparent);
+    --layer-glow: color-mix(in oklab, #2563eb 26%, transparent);
+  }
+
+  [data-layer="ai"] {
+    --layer-accent: #0e7490;
+    --layer-soft: color-mix(in oklab, #0e7490 14%, transparent);
+    --layer-glow: color-mix(in oklab, #0e7490 26%, transparent);
+  }
+
+  .dark [data-layer="primitive"] {
+    --layer-accent: #2dd4bf;
+  }
+
+  .dark [data-layer="capability"] {
+    --layer-accent: #fbbf24;
+  }
+
+  .dark [data-layer="service"] {
+    --layer-accent: #60a5fa;
+  }
+
+  .dark [data-layer="ai"] {
+    --layer-accent: #22d3ee;
+  }
+
+  .layer-hero-noise {
+    background-image:
+      radial-gradient(circle at 16% 10%, var(--layer-glow), transparent 42%),
+      radial-gradient(circle at 88% 8%, rgb(24 24 27 / 0.05), transparent 34%),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.35), var(--background));
+  }
+
+  .dark .layer-hero-noise {
+    background-image:
+      radial-gradient(circle at 16% 10%, var(--layer-glow), transparent 44%),
+      radial-gradient(circle at 88% 8%, rgb(255 255 255 / 0.03), transparent 34%),
+      linear-gradient(to bottom, rgb(24 24 27 / 0.55), var(--background));
+  }
+
+  .layer-accent-text {
+    color: var(--layer-accent);
+  }
+
+  .layer-accent-border {
+    border-color: color-mix(in oklab, var(--layer-accent) 45%, var(--border));
+  }
+
+  .layer-chip-active {
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--layer-accent) 35%, transparent);
+  }
 }
 
 @keyframes drift {

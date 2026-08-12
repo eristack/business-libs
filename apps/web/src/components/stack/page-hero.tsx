@@ -1,9 +1,17 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import type { PackageCategoryId } from "@/lib/site";
+import type { LibraryMotifId } from "@/lib/layer-theme";
+import {
+  LayerMotif,
+  LibraryMotif,
+} from "@/components/stack/library-motif";
 
 type PageHeroProps = {
   /** marketing = home/stack; product = layer/library landings */
   tone?: "marketing" | "product";
+  layerId?: PackageCategoryId;
+  motif?: LibraryMotifId | null;
   chrome?: ReactNode;
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -23,6 +31,8 @@ type PageHeroProps = {
  */
 export function PageHero({
   tone = "product",
+  layerId,
+  motif,
   chrome,
   eyebrow,
   title,
@@ -36,14 +46,22 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <section
+      data-layer={layerId}
       className={cn(
         "relative overflow-hidden border-b-2 border-foreground/10",
         tone === "marketing" ? "bg-background" : "bg-docs-rail",
         className,
       )}
     >
-      <div className="hero-noise pointer-events-none absolute inset-0" />
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0",
+          layerId ? "layer-hero-noise" : "hero-noise",
+        )}
+      />
       <div className="hero-orbit pointer-events-none absolute inset-0 opacity-70" />
+      {motif ? <LibraryMotif motif={motif} /> : null}
+      {!motif && layerId ? <LayerMotif layerId={layerId} /> : null}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent"
         aria-hidden
@@ -55,7 +73,8 @@ export function PageHero({
         <div
           className={cn(
             "grid gap-10",
-            aside && "lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start lg:gap-12",
+            aside &&
+              "lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start lg:gap-12",
           )}
         >
           <div className="min-w-0">
@@ -65,7 +84,12 @@ export function PageHero({
               </div>
             ) : null}
 
-            <div className="animate-rise-delay-1 border-l-2 border-accent pl-4 sm:pl-5">
+            <div
+              className={cn(
+                "animate-rise-delay-1 border-l-2 pl-4 sm:pl-5",
+                layerId ? "border-[color:var(--layer-accent)]" : "border-accent",
+              )}
+            >
               <h1
                 className={cn(
                   "font-semibold tracking-tight text-foreground",
@@ -112,12 +136,18 @@ export function PageHero({
         ) : null}
       </div>
 
-      {/* Hard seam: hero surface ends, page content begins */}
       <div
         className="relative h-2 border-t border-border bg-background"
         aria-hidden
       >
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-accent/50 via-accent/20 to-transparent" />
+        <div
+          className={cn(
+            "absolute inset-x-0 top-0 h-px bg-gradient-to-r to-transparent",
+            layerId
+              ? "from-[color:var(--layer-accent)] via-[color:var(--layer-rail)]"
+              : "from-accent/50 via-accent/20",
+          )}
+        />
       </div>
     </section>
   );

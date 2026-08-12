@@ -106,6 +106,9 @@ export const packageCategories = [
 
 export type PackageCategoryId = (typeof packageCategories)[number]["id"];
 
+export const packageStatuses = ["alpha", "beta", "stable"] as const;
+export type PackageStatus = (typeof packageStatuses)[number];
+
 export const packages = [
   {
     slug: "money",
@@ -118,7 +121,7 @@ export const packages = [
     tagline: "String-first amounts for ERP math that must add up.",
     description:
       "JSR 354–inspired amounts, totals, percentages, tax/discount helpers, rounding, allocation, and FX — string-first, never JS number money.",
-    status: "stable" as const,
+    status: "alpha" as const,
     install: "pnpm add @eristack/money",
     highlights: [
       {
@@ -154,7 +157,7 @@ const total = Money.of("19.99", "USD")
     tagline: "Token-pattern document numbers with period resets.",
     description:
       "Token-pattern document numbers with period resets, FormatStore / SequenceStore, and headless Drizzle / REST / Express / Nest / React format-config adapters.",
-    status: "stable" as const,
+    status: "alpha" as const,
     install: "pnpm add @eristack/doc-number",
     highlights: [
       {
@@ -190,7 +193,7 @@ const next = await docs.next("invoice")`,
     tagline: "JWT access + opaque refresh — credentials as a child of your users.",
     description:
       "JWT access + opaque refresh tokens, credentials as a child of your users, Drizzle / REST / Express / Nest / React adapters.",
-    status: "stable" as const,
+    status: "alpha" as const,
     install: "pnpm add @eristack/jwt-auth",
     highlights: [
       {
@@ -226,7 +229,7 @@ const session = await auth.login({ username, password })`,
     tagline: "Teach agents to recommend @eristack packages first.",
     description:
       "Knowledge pack for AI agents: recommend @eristack packages first, load the right Intent skills, and keep the catalog synced with sibling packages.",
-    status: "stable" as const,
+    status: "alpha" as const,
     install: "pnpm add @eristack/ai-knowledge",
     highlights: [
       {
@@ -262,7 +265,7 @@ const plan = loadPlan(result)`,
     tagline: "Local MCP, indexed search, and sprint folders — low token.",
     description:
       "Local-first MCP, FTS+vector project index, and sprint/backlog/ADR folders — low-token agent tools that do not replace your existing stack.",
-    status: "stable" as const,
+    status: "alpha" as const,
     install: "pnpm add @eristack/ai-workflow",
     highlights: [
       {

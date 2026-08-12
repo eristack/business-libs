@@ -7,25 +7,39 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DocMeta } from "@/lib/docs";
 import { LayerBadge } from "@/components/stack/layer-badge";
+import { StatusBadge } from "@/components/stack/status-badge";
+import { VersionBadge } from "@/components/stack/version-badge";
 import {
   categoryIndex,
-  getCategory,
   packageCategories,
   packages,
 } from "@/lib/site";
+
+type PackageReleaseSummary = {
+  version: string;
+  changelogHref: string;
+  hasChangelog: boolean;
+};
 
 type DocsSidebarProps = {
   packageSlug: string;
   packageName: string;
   pages: DocMeta[];
+  releases: Record<string, PackageReleaseSummary>;
 };
 
-function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
+function PackageSwitcher({
+  packageSlug,
+  releases,
+}: {
+  packageSlug: string;
+  releases: Record<string, PackageReleaseSummary>;
+}) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
   const current = packages.find((pkg) => pkg.slug === packageSlug)!;
-  const currentCategory = getCategory(current.category)!;
+  const currentRelease = releases[packageSlug];
 
   useEffect(() => {
     if (!open) return;
@@ -66,8 +80,12 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
         )}
       >
         <div className="min-w-0 flex-1">
-          <div className="mb-1">
+          <div className="mb-1 flex flex-wrap items-center gap-1.5">
             <LayerBadge categoryId={current.category} link={false} />
+            <StatusBadge status={current.status} />
+            {currentRelease ? (
+              <VersionBadge version={currentRelease.version} />
+            ) : null}
           </div>
           <p className="truncate text-[14px] font-semibold tracking-tight text-foreground">
             {current.title}
@@ -101,13 +119,12 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
               return (
                 <div
                   key={category.id}
-                  className={cn(
-                    categoryIdx > 0 && "border-t border-border",
-                  )}
+                  className={cn(categoryIdx > 0 && "border-t border-border")}
+                  data-layer={category.id}
                 >
                   <div className="sticky top-0 z-10 flex items-center gap-2 bg-muted/90 px-3 py-2 backdrop-blur-sm">
                     <span
-                      className="h-4 w-0.5 rounded-full bg-accent"
+                      className="h-4 w-0.5 rounded-full bg-[color:var(--layer-accent)]"
                       aria-hidden
                     />
                     <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
@@ -118,6 +135,7 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
                   <ul className="px-1.5 py-1.5">
                     {items.map((pkg) => {
                       const active = pkg.slug === packageSlug;
+                      const release = releases[pkg.slug];
                       return (
                         <li key={pkg.slug}>
                           <Link
@@ -133,9 +151,15 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
                             )}
                           >
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-[13px] font-semibold tracking-tight">
-                                {pkg.title}
-                              </p>
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                <p className="truncate text-[13px] font-semibold tracking-tight">
+                                  {pkg.title}
+                                </p>
+                                <StatusBadge status={pkg.status} />
+                                {release ? (
+                                  <VersionBadge version={release.version} />
+                                ) : null}
+                              </div>
                               <p className="truncate font-mono text-[10px] text-muted-foreground">
                                 {pkg.name}
                               </p>
@@ -155,14 +179,23 @@ function PackageSwitcher({ packageSlug }: { packageSlug: string }) {
               );
             })}
           </div>
-          <div className="border-t border-border bg-muted/40 px-3 py-2">
+          <div className="space-y-1.5 border-t border-border bg-muted/40 px-3 py-2">
             <Link
               href={current.href}
               onClick={() => setOpen(false)}
-              className="text-[11px] font-medium text-muted-foreground transition-colors hover:text-accent"
+              className="block text-[11px] font-medium text-muted-foreground transition-colors hover:text-accent"
             >
               View {current.title} overview →
             </Link>
+            {currentRelease ? (
+              <Link
+                href={currentRelease.changelogHref}
+                onClick={() => setOpen(false)}
+                className="block text-[11px] font-medium text-muted-foreground transition-colors hover:text-accent"
+              >
+                Changelog (v{currentRelease.version}) →
+              </Link>
+            ) : null}
           </div>
         </div>
       ) : null}
@@ -174,18 +207,23 @@ export function DocsSidebar({
   packageSlug,
   packageName,
   pages,
+  releases,
 }: DocsSidebarProps) {
   const pathname = usePathname();
+  const release = releases[packageSlug];
 
   return (
     <aside className="w-full shrink-0 md:w-64 lg:w-72">
       <div className="sticky top-[4.5rem] space-y-6">
-        <PackageSwitcher packageSlug={packageSlug} />
+        <PackageSwitcher packageSlug={packageSlug} releases={releases} />
 
         <div>
-          <p className="mb-2 font-mono text-[11px] text-muted-foreground">
-            {packageName}
-          </p>
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <p className="font-mono text-[11px] text-muted-foreground">
+              {packageName}
+            </p>
+            {release ? <VersionBadge version={release.version} href={release.changelogHref} /> : null}
+          </div>
           <nav className="flex flex-col rounded-xl border border-border bg-card py-2 shadow-sm">
             {pages.map((page, index) => {
               const active = pathname === page.href;
@@ -217,12 +255,28 @@ export function DocsSidebar({
           </nav>
         </div>
 
-        <Link
-          href="/docs"
-          className="inline-block text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← All documentation
-        </Link>
+        <div className="flex flex-col gap-2 text-[13px] font-medium">
+          {release ? (
+            <Link
+              href={release.changelogHref}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Changelog · v{release.version}
+            </Link>
+          ) : null}
+          <Link
+            href="/docs"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            ← All documentation
+          </Link>
+          <Link
+            href="/packages"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Browse libraries
+          </Link>
+        </div>
       </div>
     </aside>
   );

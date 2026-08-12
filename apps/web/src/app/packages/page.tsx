@@ -24,6 +24,7 @@ export default function PackagesPage() {
           <StackChrome
             crumbs={[{ label: "Libraries", href: "/packages" }]}
             showLayerStrip
+            showPackageStrip
           />
         }
         eyebrow={

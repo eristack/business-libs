@@ -27,9 +27,9 @@ export function LayerBadge({
   const target = href === null ? null : (href ?? category.href);
 
   const classNames = cn(
-    "inline-flex items-center gap-1.5 rounded-md border border-border bg-background/80 text-foreground shadow-sm backdrop-blur",
+    "layer-accent-border inline-flex items-center gap-1.5 rounded-md border bg-background/80 text-foreground shadow-sm backdrop-blur",
     link && target
-      ? "transition-colors hover:border-accent/40 hover:text-accent"
+      ? "transition-colors hover:border-[color:var(--layer-accent)]"
       : null,
     size === "sm" ? "px-2 py-1" : "px-2.5 py-1.5",
     className,
@@ -39,7 +39,7 @@ export function LayerBadge({
     <>
       <span
         className={cn(
-          "font-mono font-semibold text-accent tabular-nums",
+          "font-mono font-semibold text-[color:var(--layer-accent)] tabular-nums",
           size === "sm" ? "text-[10px]" : "text-[11px]",
         )}
       >
@@ -57,11 +57,15 @@ export function LayerBadge({
   );
 
   if (!link || !target) {
-    return <span className={classNames}>{inner}</span>;
+    return (
+      <span data-layer={categoryId} className={classNames}>
+        {inner}
+      </span>
+    );
   }
 
   return (
-    <Link href={target} className={classNames}>
+    <Link data-layer={categoryId} href={target} className={classNames}>
       {inner}
     </Link>
   );

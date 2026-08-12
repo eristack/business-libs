@@ -10,7 +10,7 @@ export function FeatureGrid({ highlights }: FeatureGridProps) {
           key={item.title}
           className="rounded-xl border border-border bg-card/80 px-4 py-4"
         >
-          <p className="font-mono text-[11px] text-accent tabular-nums">
+          <p className="font-mono text-[11px] text-[color:var(--layer-accent,var(--accent))] tabular-nums">
             {String(index + 1).padStart(2, "0")}
           </p>
           <h3 className="mt-2 text-[15px] font-semibold tracking-tight">

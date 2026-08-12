@@ -7,10 +7,13 @@ import { FeatureGrid } from "@/components/stack/feature-grid";
 import { LayerBadge } from "@/components/stack/layer-badge";
 import { LibraryList } from "@/components/stack/library-list";
 import { PageHero } from "@/components/stack/page-hero";
+import { ReleaseMeta } from "@/components/stack/release-meta";
 import {
   libraryCrumbs,
   StackChrome,
 } from "@/components/stack/stack-chrome";
+import { motifForPackage } from "@/lib/layer-theme";
+import { getPackageRelease } from "@/lib/package-meta";
 import {
   categoryIndex,
   getCategory,
@@ -31,9 +34,10 @@ export async function CategoryLanding({ category }: { category: Category }) {
   const index = categoryIndex(category.id as PackageCategoryId);
 
   return (
-    <>
+    <div data-layer={category.id}>
       <PageHero
         tone="product"
+        layerId={category.id}
         chrome={
           <StackChrome
             crumbs={libraryCrumbs({ categoryId: category.id })}
@@ -84,7 +88,7 @@ export async function CategoryLanding({ category }: { category: Category }) {
       >
         <LibraryList items={siblings.packages} variant="actions" />
       </ContentSection>
-    </>
+    </div>
   );
 }
 
@@ -93,11 +97,15 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
   const siblings = packagesByCategory().find(
     (item) => item.id === pkg.category,
   )!.packages;
+  const motif = motifForPackage(pkg.slug);
+  const release = getPackageRelease(pkg);
 
   return (
-    <>
+    <div data-layer={pkg.category}>
       <PageHero
         tone="product"
+        layerId={pkg.category}
+        motif={motif}
         chrome={
           <StackChrome
             crumbs={libraryCrumbs({
@@ -105,6 +113,7 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
               packageSlug: pkg.slug,
             })}
             activeLayerId={pkg.category}
+            activePackageSlug={pkg.slug}
           />
         }
         eyebrow={
@@ -113,9 +122,7 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
             <span className="font-mono text-[12px] text-muted-foreground">
               {pkg.name}
             </span>
-            <span className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">
-              {pkg.status}
-            </span>
+            <ReleaseMeta status={pkg.status} release={release} size="md" />
           </>
         }
         title={pkg.title}
@@ -128,6 +135,9 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
                 Read the docs
                 <ArrowRight />
               </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href={release.changelogHref}>Changelog</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <a
@@ -196,6 +206,6 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
           />
         </ContentSection>
       ) : null}
-    </>
+    </div>
   );
 }
