@@ -256,6 +256,125 @@ const session = await auth.login({ username, password })`,
     },
   },
   {
+    slug: "rbac",
+    name: "@eristack/rbac",
+    title: "RBAC",
+    category: "service" as const,
+    directory: "packages/service/rbac",
+    href: "/rbac",
+    docsHref: "/docs/rbac",
+    tagline: "Roles and boolean permissions on your subjects.",
+    description:
+      "Role-based access control: subjects get roles, roles grant named permissions, every check is true or false. App owns users; RBAC hangs off subject like jwt-auth credentials.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rbac",
+    highlights: [
+      {
+        title: "Boolean only",
+        body: "can / authorize — either the subject has orders.create or they do not.",
+      },
+      {
+        title: "Child of users",
+        body: "Assign roles by subject (your user id). No stolen users table.",
+      },
+      {
+        title: "Thin shells",
+        body: "Drizzle tables, Express/Nest require-permission, React useCan.",
+      },
+    ],
+    sample: {
+      filename: "rbac.ts",
+      language: "ts",
+      code: `import { createRbac, createMemoryRbacStore } from "@eristack/rbac"
+
+const rbac = createRbac({ store: createMemoryRbacStore() })
+await rbac.definePermission({ name: "orders.create" })
+await rbac.assignRole({ subject: userId, role: "clerk" })
+await rbac.can(userId, "orders.create")`,
+    },
+  },
+  {
+    slug: "abac",
+    name: "@eristack/abac",
+    title: "ABAC",
+    category: "service" as const,
+    directory: "packages/service/abac",
+    href: "/abac",
+    docsHref: "/docs/abac",
+    tagline: "Attribute policies — algorithms that return true or false.",
+    description:
+      "Attribute-based access control: register policy functions over subject/resource/environment attributes. Use for per-user limits (e.g. goods receipt book value ≤ max).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/abac",
+    highlights: [
+      {
+        title: "Policy = function",
+        body: "Attributes in, allow/deny out — beyond static role membership.",
+      },
+      {
+        title: "Helpers for limits",
+        body: "attrs.subjectLimitAtLeastResource and friends cover majority cases.",
+      },
+      {
+        title: "Stack with RBAC",
+        body: "RBAC decides who may try; ABAC applies their attribute ceiling.",
+      },
+    ],
+    sample: {
+      filename: "abac.ts",
+      language: "ts",
+      code: `import { createAbac, attrs } from "@eristack/abac"
+
+const abac = createAbac()
+abac.registerPolicy({
+  id: "goods-receipt.book-value-limit",
+  evaluate: attrs.subjectLimitAtLeastResource({
+    subjectPath: "subject.attrs.maxBookValueMinor",
+    resourcePath: "resource.attrs.bookValueMinor",
+  }),
+})`,
+    },
+  },
+  {
+    slug: "pbac",
+    name: "@eristack/pbac",
+    title: "PBAC",
+    category: "service" as const,
+    directory: "packages/service/pbac",
+    href: "/pbac",
+    docsHref: "/docs/pbac",
+    tagline: "Software policies over business documents.",
+    description:
+      "Policy-based access control for document laws that usually are not per-user — e.g. cannot post goods receipt when PO outstanding ≤ 0.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/pbac",
+    highlights: [
+      {
+        title: "Document first",
+        body: "Rules about PO/invoice state — same for every actor.",
+      },
+      {
+        title: "409 not 403",
+        body: "HTTP adapters signal business conflict vs personal forbid.",
+      },
+      {
+        title: "Completes the stack",
+        body: "RBAC who · ABAC limits · PBAC document law.",
+      },
+    ],
+    sample: {
+      filename: "pbac.ts",
+      language: "ts",
+      code: `import { createPbac, documents } from "@eristack/pbac"
+
+const pbac = createPbac()
+pbac.registerPolicy({
+  id: "purchase-order.can-receive",
+  evaluate: documents.positiveAmount("outstandingMinor"),
+})`,
+    },
+  },
+  {
     slug: "ai-knowledge",
     name: "@eristack/ai-knowledge",
     title: "AI Knowledge",

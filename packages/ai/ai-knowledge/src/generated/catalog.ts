@@ -4,8 +4,37 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T08:38:01.202Z",
+  "generatedAt": "2026-08-12T09:51:49.334Z",
   "packages": [
+    {
+      "name": "@eristack/abac",
+      "version": "0.0.0",
+      "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
+      "slug": "abac",
+      "adapters": [
+        "express",
+        "nest",
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "abac-adapters",
+          "name": "abac-adapters",
+          "packageName": "@eristack/abac",
+          "description": "@eristack/abac adapters: express createRequirePolicy, nest AbacModule + AbacGuard + RequirePolicy + AbacContextFactory, react usePolicy. Use when wiring attribute policy checks into HTTP/UI shells.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-adapters"
+        },
+        {
+          "id": "abac-core",
+          "name": "abac-core",
+          "packageName": "@eristack/abac",
+          "description": "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
+        }
+      ]
+    },
     {
       "name": "@eristack/ai-ticket-generator",
       "version": "0.0.0",
@@ -174,6 +203,65 @@ export const catalog = {
           "description": "Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/pbac",
+      "version": "0.0.0",
+      "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
+      "slug": "pbac",
+      "adapters": [
+        "express",
+        "nest",
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "pbac-adapters",
+          "name": "pbac-adapters",
+          "packageName": "@eristack/pbac",
+          "description": "@eristack/pbac adapters: express createRequireBusinessPolicy (409 on deny), nest PbacModule + PbacGuard + RequireBusinessPolicy, react useBusinessPolicy. Use when wiring document software policies into HTTP/UI shells.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-adapters"
+        },
+        {
+          "id": "pbac-core",
+          "name": "pbac-core",
+          "packageName": "@eristack/pbac",
+          "description": "Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/rbac",
+      "version": "0.0.0",
+      "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
+      "slug": "rbac",
+      "adapters": [
+        "drizzle",
+        "express",
+        "nest",
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "rbac-adapters",
+          "name": "rbac-adapters",
+          "packageName": "@eristack/rbac",
+          "description": "@eristack/rbac adapters: drizzle createRbacTables + createDrizzleRbacStore (pgsql/mysql/sqlite), express createRequirePermission, nest RbacModule + RbacGuard + RequirePermission, react useCan. Use when wiring RBAC persistence or HTTP/UI shells.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters"
+        },
+        {
+          "id": "rbac-core",
+          "name": "rbac-core",
+          "packageName": "@eristack/rbac",
+          "description": "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
         }
       ]
     }

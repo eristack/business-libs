@@ -1,0 +1,13 @@
+package: "@eristack/abac"
+title: abac
+maintainers:
+  - support@eristack.dev
+scope: >
+  Attribute-based access policies: registerPolicy, evaluate/authorize, attribute
+  helpers, Express/Nest/React adapters.
+outOfScope: >
+  Boolean role membership (use rbac), document software policies without user
+  attributes (use pbac), persisting policy function bodies in SQL.
+skills:
+  - abac-core
+  - abac-adapters

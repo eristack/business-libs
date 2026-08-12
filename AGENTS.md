@@ -43,6 +43,24 @@ tanstackIntent:
   - id: "@eristack/data-grid#data-grid-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
     for: "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle."
+  - id: "@eristack/rbac#rbac-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
+    for: "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, can/authorize — boolean role-based permissions on app subjects."
+  - id: "@eristack/rbac#rbac-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters"
+    for: "@eristack/rbac adapters: drizzle createRbacTables + store, express createRequirePermission, nest RbacGuard, react useCan."
+  - id: "@eristack/abac#abac-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
+    for: "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute policies (algorithms → boolean)."
+  - id: "@eristack/abac#abac-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-adapters"
+    for: "@eristack/abac adapters: express createRequirePolicy, nest AbacGuard, react usePolicy."
+  - id: "@eristack/pbac#pbac-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core"
+    for: "Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software policies over document state."
+  - id: "@eristack/pbac#pbac-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-adapters"
+    for: "@eristack/pbac adapters: express createRequireBusinessPolicy (409), nest PbacGuard, react useBusinessPolicy."
   - id: "@eristack/jwt-auth#jwt-auth-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-adapters"
     for: "@eristack/jwt-auth adapters: drizzle RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), rest login/sessions, express createJwtAuthRouter, nest JwtAuthModule, client login, react useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
@@ -119,6 +137,9 @@ Categories under `packages/` (order matters):
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
+- `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
+- `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)

@@ -18,6 +18,9 @@ Packages live under `packages/<category>/<name>/` in this order: **primitive →
 | Capability | [`@eristack/doc-number`](./packages/capability/doc-number) | Document numbers + format-config adapters (Drizzle / REST / Express / Nest / React) |
 | Service | [`@eristack/data-grid`](./packages/service/data-grid) | Dynamic list queries: filters, search mode, multi-sort, offset/cursor pagination |
 | Service | [`@eristack/jwt-auth`](./packages/service/jwt-auth) | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
+| Service | [`@eristack/rbac`](./packages/service/rbac) | Role-based boolean permissions on subjects |
+| Service | [`@eristack/abac`](./packages/service/abac) | Attribute policies (algorithms → true/false) |
+| Service | [`@eristack/pbac`](./packages/service/pbac) | Software policies over business documents |
 | AI | [`@eristack/ai-knowledge`](./packages/ai/ai-knowledge) | Agent knowledge pack: recommend `@eristack/*`, Intent skills, synced catalog |
 | AI | [`@eristack/ai-workflow`](./packages/ai/ai-workflow) | Local-first MCP, FTS+vector index, sprint/backlog workflow |
 | AI | [`@eristack/ai-ticket-generator`](./packages/ai/ai-ticket-generator) | Portable bug/suggestion tickets for maintainers; mandatory `ticket.yaml` |

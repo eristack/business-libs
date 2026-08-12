@@ -22,6 +22,9 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       {motif === "doc-number" ? <DocNumberMotif /> : null}
       {motif === "data-grid" ? <DataGridMotif /> : null}
       {motif === "jwt-auth" ? <JwtMotif /> : null}
+      {motif === "rbac" ? <RbacMotif /> : null}
+      {motif === "abac" ? <AbacMotif /> : null}
+      {motif === "pbac" ? <PbacMotif /> : null}
       {motif === "ai-knowledge" ? <KnowledgeMotif /> : null}
       {motif === "ai-workflow" ? <WorkflowMotif /> : null}
       {motif === "ai-ticket-generator" ? <TicketMotif /> : null}
@@ -118,6 +121,48 @@ function JwtMotif() {
       <span className="absolute bottom-[18%] left-[6%] max-w-[55%] break-all font-mono text-[10px] leading-4 tracking-tight opacity-80">
         eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyXzE4ZjIifQ
       </span>
+    </div>
+  );
+}
+
+function RbacMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">role · clerk</p>
+        <p className="pl-3 opacity-85">orders.read ✓</p>
+        <p className="pl-3 opacity-85">orders.create ✓</p>
+        <p className="pl-3 opacity-60">orders.approve ✗</p>
+      </div>
+      <div className="absolute bottom-[20%] left-[8%] font-mono text-[11px] opacity-75">
+        can(subject, permission) → boolean
+      </div>
+    </div>
+  );
+}
+
+function AbacMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">policy · book-value-limit</p>
+        <p className="pl-3 opacity-85">subject.max ≤ 5_000_000</p>
+        <p className="pl-3 opacity-85">resource.book = 1_200_000</p>
+        <p className="pl-3 opacity-70">→ allow</p>
+      </div>
+    </div>
+  );
+}
+
+function PbacMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">document · purchase-order</p>
+        <p className="pl-3 opacity-85">outstandingMinor &gt; 0</p>
+        <p className="pl-3 opacity-85">status ∈ open | partial</p>
+        <p className="pl-3 opacity-70">→ can-receive</p>
+      </div>
     </div>
   );
 }

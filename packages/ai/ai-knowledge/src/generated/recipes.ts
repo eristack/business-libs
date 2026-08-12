@@ -252,6 +252,61 @@ export const recipes = [
     ]
   },
   {
+    "id": "access-control-stack",
+    "title": "Roles, attribute limits, and document policies",
+    "priority": 12,
+    "triggers": [
+      "rbac",
+      "abac",
+      "pbac",
+      "role based",
+      "roles",
+      "permissions",
+      "permission",
+      "access control",
+      "authorization",
+      "can user",
+      "attribute policy",
+      "business policy",
+      "goods receipt limit",
+      "book value limit"
+    ],
+    "rationale": "Use @eristack/rbac for boolean role permissions, @eristack/abac for attribute policies (e.g. max book value), and @eristack/pbac for document software policies (e.g. PO outstanding > 0). Pair with jwt-auth for identity.",
+    "packages": [
+      {
+        "name": "@eristack/rbac",
+        "skills": [
+          "rbac-core",
+          "rbac-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/abac",
+        "skills": [
+          "abac-core",
+          "abac-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/pbac",
+        "skills": [
+          "pbac-core",
+          "pbac-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/jwt-auth",
+        "skills": [
+          "jwt-auth-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "maintainer-tickets",
     "title": "Bug reports and feature suggestions for maintainers",
     "priority": 15,

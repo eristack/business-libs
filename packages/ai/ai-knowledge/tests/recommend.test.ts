@@ -14,12 +14,15 @@ describe("catalog", () => {
     const names = packages.map((pkg) => pkg.name).sort();
     expect(names).toEqual(
       [
+        "@eristack/abac",
         "@eristack/ai-ticket-generator",
         "@eristack/ai-workflow",
         "@eristack/data-grid",
         "@eristack/doc-number",
         "@eristack/jwt-auth",
         "@eristack/money",
+        "@eristack/pbac",
+        "@eristack/rbac",
       ].sort(),
     );
     expect(listSkills().length).toBeGreaterThanOrEqual(6);
