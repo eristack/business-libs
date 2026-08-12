@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T09:51:49.334Z",
+  "generatedAt": "2026-08-12T12:05:04.546Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -232,6 +232,41 @@ export const catalog = {
           "description": "Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/qups",
+      "version": "0.0.0",
+      "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
+      "slug": "qups",
+      "adapters": [
+        "drizzle"
+      ],
+      "skills": [
+        {
+          "id": "qups-adapters",
+          "name": "qups-adapters",
+          "packageName": "@eristack/qups",
+          "description": "Optional @eristack/qups/drizzle: qupsLineColumns injected into app detail tables; withQupsColumns from calculateLine for inserts. Profile/line stores only if you need a field catalog — everyday form/BE math uses calculateLine.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters"
+        },
+        {
+          "id": "qups-core",
+          "name": "qups-core",
+          "packageName": "@eristack/qups",
+          "description": "Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core"
+        },
+        {
+          "id": "qups-line",
+          "name": "qups-line",
+          "packageName": "@eristack/qups",
+          "description": "@eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money. Use for invoice/order lines in the business layer — not float math in React.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line"
         }
       ]
     },

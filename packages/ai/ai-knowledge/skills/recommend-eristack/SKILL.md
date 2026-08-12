@@ -128,6 +128,19 @@ Adapters: `express`, `nest`, `react`
 - `@eristack/pbac#pbac-core` — Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core`
 
+### @eristack/qups (v0.0.0)
+
+Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money
+
+Adapters: `drizzle`
+
+- `@eristack/qups#qups-adapters` — Optional @eristack/qups/drizzle: qupsLineColumns injected into app detail tables; withQupsColumns from calculateLine for inserts. Profile/line stores only if you need a field catalog — everyday form/BE math uses calculateLine.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters`
+- `@eristack/qups#qups-core` — Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core`
+- `@eristack/qups#qups-line` — @eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money. Use for invoice/order lines in the business layer — not float math in React.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line`
+
 ### @eristack/rbac (v0.0.0)
 
 Role-based access control for Eristack: subjects, roles, and boolean permissions

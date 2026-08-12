@@ -22,6 +22,7 @@ describe("catalog", () => {
         "@eristack/jwt-auth",
         "@eristack/money",
         "@eristack/pbac",
+        "@eristack/qups",
         "@eristack/rbac",
       ].sort(),
     );

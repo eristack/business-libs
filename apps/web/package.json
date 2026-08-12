@@ -13,6 +13,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@eristack/abac": "workspace:*",
+    "@eristack/ai-knowledge": "workspace:*",
+    "@eristack/data-grid": "workspace:*",
+    "@eristack/money": "workspace:*",
+    "@eristack/pbac": "workspace:*",
+    "@eristack/qups": "workspace:*",
+    "@eristack/rbac": "workspace:*",
     "@radix-ui/react-dialog": "^1.1.23",
     "@radix-ui/react-scroll-area": "^1.2.18",
     "@radix-ui/react-separator": "^1.1.15",

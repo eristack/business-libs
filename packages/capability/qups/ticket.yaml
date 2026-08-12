@@ -1,0 +1,15 @@
+package: "@eristack/qups"
+title: qups
+maintainers:
+  - support@eristack.dev
+scope: >
+  Quantity/unit-price/subtotal with 2-of-3 sources of truth, stacked
+  discount/surcharge modifiers, tax, and Drizzle column injection into
+  app-owned detail lines (itemId + qups columns) on @eristack/money.
+outOfScope: >
+  UI form chrome, HTTP routers, inventing float money math, inventory unit
+  conversion catalogs.
+skills:
+  - qups-core
+  - qups-line
+  - qups-adapters

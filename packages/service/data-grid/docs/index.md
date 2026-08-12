@@ -66,5 +66,6 @@ Both return `DataGridResult`. Your domain lists should look the same.
 - [Querying](./querying.md) — filters, operators, sort, pagination
 - [URL & TanStack Router](./url-search.md) — JSON search params
 - [Database (Drizzle)](./database.md) — projections, joins, aggregates
-- [HTTP & UI adapters](./http-and-ui.md) — Express, Nest, client, React
+- [HTTP & UI adapters](./http-and-ui.md) — Express, Nest, client, React draft/commit
+- [Edge cases](./edge-cases.md) — mode mixing, invalid ops, empty pages
 - [Recipes](./recipes.md) — end-to-end patterns

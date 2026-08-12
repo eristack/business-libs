@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { LibrariesNav } from "@/components/libraries-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,8 @@ import {
 import { cn } from "@/lib/utils";
 import {
   companyNav,
-  isLibrariesNavActive,
+  packageCategories,
+  packagesByCategory,
   primaryNav,
   siteConfig,
 } from "@/lib/site";
@@ -26,13 +28,16 @@ type SiteHeaderProps = {
 };
 
 function navActive(pathname: string, href: string) {
-  if (href === "/packages") return isLibrariesNavActive(pathname);
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export function SiteHeader({ search }: SiteHeaderProps) {
   const pathname = usePathname();
-  const mobileLinks = [...primaryNav, ...companyNav];
+  const mobileLinks = [
+    ...primaryNav.filter((l) => l.href !== "/packages"),
+    ...companyNav,
+  ];
+  const grouped = packagesByCategory();
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-md dark:shadow-[0_1px_0_rgba(255,255,255,0.04)]">
@@ -48,23 +53,26 @@ export function SiteHeader({ search }: SiteHeaderProps) {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            {primaryNav.map((link) => {
-              const active = navActive(pathname, link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "rounded-md px-3 py-1.5 text-[13px] font-semibold transition-colors",
-                    active
-                      ? "bg-muted text-foreground"
-                      : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            <LibrariesNav />
+            {primaryNav
+              .filter((link) => link.href !== "/packages")
+              .map((link) => {
+                const active = navActive(pathname, link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "rounded-md px-3 py-1.5 text-[13px] font-semibold transition-colors",
+                      active
+                        ? "bg-muted text-foreground"
+                        : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
           </nav>
         </div>
 
@@ -89,28 +97,64 @@ export function SiteHeader({ search }: SiteHeaderProps) {
                   <Menu />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>{siteConfig.name}</SheetTitle>
                 </SheetHeader>
-                <div className="mt-8 flex flex-col gap-3">
-                  {mobileLinks.map((link) => (
-                    <Link
-                      key={`${link.href}-${link.label}`}
-                      href={link.href}
+                <div className="mt-6 space-y-6">
+                  <div>
+                    <p className="mb-2 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+                      Libraries
+                    </p>
+                    <div className="space-y-3">
+                      {grouped.map((layer) => {
+                        const category = packageCategories.find(
+                          (c) => c.id === layer.id,
+                        )!;
+                        return (
+                          <div key={layer.id} data-layer={layer.id}>
+                            <Link
+                              href={category.href}
+                              className="text-sm font-semibold text-[color:var(--layer-accent)]"
+                            >
+                              {category.label}
+                            </Link>
+                            <ul className="mt-1 space-y-1 pl-2">
+                              {layer.packages.map((pkg) => (
+                                <li key={pkg.slug}>
+                                  <Link
+                                    href={pkg.href}
+                                    className="text-[13px] text-muted-foreground hover:text-foreground"
+                                  >
+                                    {pkg.title}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-3 border-t border-border pt-4">
+                    {mobileLinks.map((link) => (
+                      <Link
+                        key={`${link.href}-${link.label}`}
+                        href={link.href}
+                        className="text-sm font-semibold text-foreground"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                    <a
+                      href={siteConfig.github}
+                      target="_blank"
+                      rel="noreferrer"
                       className="text-sm font-semibold text-foreground"
                     >
-                      {link.label}
-                    </Link>
-                  ))}
-                  <a
-                    href={siteConfig.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm font-semibold text-foreground"
-                  >
-                    GitHub
-                  </a>
+                      GitHub
+                    </a>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
