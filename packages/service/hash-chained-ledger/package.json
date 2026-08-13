@@ -1,6 +1,6 @@
 {
   "name": "@eristack/hash-chained-ledger",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
   "repository": {
     "type": "git",
@@ -14,15 +14,32 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "require": { "types": "./dist/index.d.ts", "default": "./dist/index.cjs" }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./drizzle": {
-      "import": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.js" },
-      "require": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.cjs" }
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills"],
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills"
+  ],
   "keywords": [
     "tanstack-intent",
     "ledger",
@@ -30,7 +47,9 @@
     "append-only",
     "eristack"
   ],
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -46,7 +65,9 @@
     "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0"
   },
   "peerDependenciesMeta": {
-    "drizzle-orm": { "optional": true }
+    "drizzle-orm": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",
