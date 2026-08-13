@@ -1,0 +1,13 @@
+package: "@eristack/hash-chained-ledger"
+title: hash-chained-ledger
+maintainers:
+  - support@eristack.dev
+scope: >
+  Append-only hash-chained ledger entries (opening/in/out/adjustment/closing),
+  type + typeId, snapshots, chain verify/tamper detection, Drizzle store.
+outOfScope: >
+  Domain-specific stock/finance/valuation rules (use capability packages),
+  owning product/account masters.
+skills:
+  - hash-chained-ledger-core
+  - hash-chained-ledger-adapters

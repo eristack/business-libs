@@ -229,6 +229,140 @@ await db.insert(invoiceLines).values(
     },
   },
   {
+    slug: "stock-movement",
+    name: "@eristack/stock-movement",
+    title: "Stock Movement",
+    category: "capability" as const,
+    directory: "packages/capability/stock-movement",
+    href: "/stock-movement",
+    docsHref: "/docs/stock-movement",
+    tagline: "Hash-chained inventory qty by location and lot.",
+    description:
+      "Stock quantity ledger on @eristack/hash-chained-ledger: composable locations, lotId, optional owner field, snapshots, and tamper detection.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/stock-movement",
+    highlights: [
+      {
+        title: "Composable locations",
+        body: "Build locationId from warehouse + bin + machine parts — apps append dimensions freely.",
+      },
+      {
+        title: "Snapshots",
+        body: "Read on-hand without replaying the full chain.",
+      },
+      {
+        title: "Tamper-aware",
+        body: "Hash chain verify warns when history was altered.",
+      },
+    ],
+    sample: {
+      filename: "stock.ts",
+      language: "ts",
+      code: `import { createStockMovement, locationIdFromParts } from "@eristack/stock-movement"
+import { createDrizzleLedgerStore, createHashChainedLedgerTables } from "@eristack/stock-movement/drizzle"
+
+const locationId = await locationIdFromParts([
+  { key: "warehouseId", value: "WH-A" },
+  { key: "machineId", value: "CNC-1" },
+])
+const stock = createStockMovement({
+  store: createDrizzleLedgerStore({ db, tables: createHashChainedLedgerTables("pgsql") }),
+})
+await stock.append({ locationId, lotId: "LOT-1", openingBalance: "0", inAmount: "100", entryType: "receipt", entryTypeId: "gr-1" })`,
+    },
+  },
+  {
+    slug: "financial-ledger",
+    name: "@eristack/financial-ledger",
+    title: "Financial Ledger",
+    category: "capability" as const,
+    directory: "packages/capability/financial-ledger",
+    href: "/financial-ledger",
+    docsHref: "/docs/financial-ledger",
+    tagline: "Hash-chained GL balances per account and currency.",
+    description:
+      "Accounting ledger on @eristack/hash-chained-ledger keyed by accountId, amounts via @eristack/money, with snapshots and tamper checks.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/financial-ledger",
+    highlights: [
+      {
+        title: "Account streams",
+        body: "One hash chain per accountId + currency.",
+      },
+      {
+        title: "Money-native",
+        body: "Post with Money or decimal strings — never JS number currency.",
+      },
+      {
+        title: "Audit trail",
+        body: "Verify the chain before trusting a snapshot.",
+      },
+    ],
+    sample: {
+      filename: "gl.ts",
+      language: "ts",
+      code: `import { createFinancialLedger } from "@eristack/financial-ledger"
+import { Money } from "@eristack/money"
+
+await fin.post({
+  accountId: "1000",
+  currency: "USD",
+  openingBalance: Money.of("0", "USD"),
+  inAmount: Money.of("100.00", "USD"),
+  entryType: "journal",
+  entryTypeId: "jv-1",
+})`,
+    },
+  },
+  {
+    slug: "valuations",
+    name: "@eristack/valuations",
+    title: "Valuations",
+    category: "capability" as const,
+    directory: "packages/capability/valuations",
+    href: "/valuations",
+    docsHref: "/docs/valuations",
+    tagline: "FIFO, averages, standard cost — with a hash-chained cost ledger.",
+    description:
+      "Canon product/lot valuation methods (FIFO, LIFO, FEFO, HIFO, LOFO, moving/weighted average, standard cost, specific ID) posting qty and value hash chains.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/valuations",
+    highlights: [
+      {
+        title: "Full method set",
+        body: "Layer picks for FIFO/LIFO/FEFO/HIFO/LOFO plus averages and standard/specific.",
+      },
+      {
+        title: "Dual chains",
+        body: "Quantity and value ledgers stay hash-linked and verifiable.",
+      },
+      {
+        title: "Cost layers",
+        body: "Open layers drive issues; snapshots expose on-hand cost quickly.",
+      },
+    ],
+    sample: {
+      filename: "fifo.ts",
+      language: "ts",
+      code: `import { createValuationEngine } from "@eristack/valuations"
+import {
+  createDrizzleLedgerStore,
+  createDrizzleLayerStore,
+  createHashChainedLedgerTables,
+  createValuationLayerTables,
+} from "@eristack/valuations/drizzle"
+
+const tables = createHashChainedLedgerTables("pgsql")
+const layerTable = createValuationLayerTables("pgsql")
+const engine = createValuationEngine({
+  method: "fifo",
+  ledger: { store: createDrizzleLedgerStore({ db, tables }) },
+  layers: createDrizzleLayerStore({ db, table: layerTable }),
+})
+await engine.receive({ key: { productId: "SKU", currency: "USD" }, qty: "10", unitCost: "5", entryTypeId: "po-1" })`,
+    },
+  },
+  {
     slug: "data-grid",
     name: "@eristack/data-grid",
     title: "Data Grid",
@@ -331,9 +465,11 @@ const session = await auth.login({ username, password })`,
     sample: {
       filename: "rbac.ts",
       language: "ts",
-      code: `import { createRbac, createMemoryRbacStore } from "@eristack/rbac"
+      code: `import { createRbac } from "@eristack/rbac"
+import { createRbacTables, createDrizzleRbacStore } from "@eristack/rbac/drizzle"
 
-const rbac = createRbac({ store: createMemoryRbacStore() })
+const tables = createRbacTables("pgsql")
+const rbac = createRbac({ store: createDrizzleRbacStore({ db, tables }) })
 await rbac.definePermission({ name: "orders.create" })
 await rbac.assignRole({ subject: userId, role: "clerk" })
 await rbac.can(userId, "orders.create")`,
@@ -418,6 +554,46 @@ pbac.registerPolicy({
   id: "purchase-order.can-receive",
   evaluate: documents.positiveAmount("outstandingMinor"),
 })`,
+    },
+  },
+  {
+    slug: "hash-chained-ledger",
+    name: "@eristack/hash-chained-ledger",
+    title: "Hash-Chained Ledger",
+    category: "service" as const,
+    directory: "packages/service/hash-chained-ledger",
+    href: "/hash-chained-ledger",
+    docsHref: "/docs/hash-chained-ledger",
+    tagline: "Append-only balances with SHA-256 tamper detection.",
+    description:
+      "Service building block for any ledger: opening/in/out/adjustment/closing, type refs, snapshots, hash chain verify. Stock, finance, and valuations specialize it.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/hash-chained-ledger",
+    highlights: [
+      {
+        title: "Balance equation",
+        body: "closing = opening + in − out + adjustment — decimal strings only.",
+      },
+      {
+        title: "Hash chain",
+        body: "Each entry seals the previous hash; verify() warns on tamper.",
+      },
+      {
+        title: "Durable store",
+        body: "Drizzle tables for Vercel + Postgres; memory only for tests.",
+      },
+    ],
+    sample: {
+      filename: "ledger.ts",
+      language: "ts",
+      code: `import { createHashChainedLedger } from "@eristack/hash-chained-ledger"
+import { createDrizzleLedgerStore, createHashChainedLedgerTables } from "@eristack/hash-chained-ledger/drizzle"
+
+const ledger = createHashChainedLedger({
+  store: createDrizzleLedgerStore({ db, tables: createHashChainedLedgerTables("pgsql") }),
+})
+await ledger.append({ chainId: "demo", openingBalance: "0", inAmount: "10", entryType: "receipt", entryTypeId: "r1" })
+await ledger.verify("demo")`,
     },
   },
   {

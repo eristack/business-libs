@@ -42,7 +42,15 @@ Adjust names to the product; keep the boundaries.
 - **Drizzle ORM**
   - **PostgreSQL** for production (`"pgsql"` dialect with Eristack Drizzle helpers — not `"pg"`)
   - **SQLite** for tests / local ephemeral runs
-- Wire Eristack adapters (`@eristack/jwt-auth`, `@eristack/doc-number`, …) at the persistence/presentation edges; keep cores in business
+- Wire Eristack adapters (`@eristack/jwt-auth`, `@eristack/doc-number`, `@eristack/rbac`, …) at the persistence/presentation edges; keep cores in business
+- **`createMemory*Store` is tests/demos only** — never production persistence (especially on serverless)
+
+### Deployment (prefer Vercel)
+
+- Prefer **Vercel** for shipping the web app and compatible Node APIs
+- On Vercel, treat every instance as **ephemeral**: no in-process maps for refresh tokens, document sequences, or RBAC grants
+- Persist with **hosted Postgres** (Neon / Supabase / Vercel Postgres / etc.) behind Drizzle adapters
+- Filesystem under the deploy (except build output) is not a durable store; local-only tools like `@eristack/ai-workflow` stay on the developer machine, not as cloud memory
 
 ### Frontend
 
@@ -97,6 +105,7 @@ When the user asks “how should we structure this app?” or starts a new produ
 2. Enforce presentation / business / persistence separation in the proposal.
 3. Prefer pnpm monorepo if web + api + shared contracts exist.
 4. Call out Express vs Nest choice once; don’t mix both in one API app.
-5. Prod DB = Postgres; tests = SQLite (Drizzle).
-6. Frontend = Vite + React + Tailwind + shadcn + TanStack Router (file-based) + Query + Form + Zustand.
-7. Then map features → `@eristack/*` via `recommend-eristack`.
+5. Prod DB = Postgres; tests = SQLite (Drizzle). **No memory stores in prod.**
+6. Prefer **Vercel** + hosted Postgres for deployables that fit serverless.
+7. Frontend = Vite + React + Tailwind + shadcn + TanStack Router (file-based) + Query + Form + Zustand.
+8. Then map features → `@eristack/*` via `recommend-eristack`.

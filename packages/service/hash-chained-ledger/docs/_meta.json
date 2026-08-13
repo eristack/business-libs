@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "hashing",
+    "adapters",
+    "recipes"
+  ],
+  "index": "Overview",
+  "getting-started": "Getting started",
+  "concepts": "Concepts",
+  "hashing": "Hashing & tamper",
+  "adapters": "Adapters",
+  "recipes": "Recipes"
+}

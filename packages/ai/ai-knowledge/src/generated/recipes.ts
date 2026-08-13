@@ -345,6 +345,111 @@ export const recipes = [
     ]
   },
   {
+    "id": "stock-inventory-ledger",
+    "title": "Inventory stock movements by location and lot",
+    "priority": 28,
+    "triggers": [
+      "stock",
+      "inventory",
+      "warehouse",
+      "lot",
+      "stock movement",
+      "goods receipt",
+      "goods issue",
+      "on hand"
+    ],
+    "rationale": "Use @eristack/stock-movement on @eristack/hash-chained-ledger for qty ledgers with composable locations, lots, snapshots, and tamper checks.",
+    "packages": [
+      {
+        "name": "@eristack/stock-movement",
+        "skills": [
+          "stock-movement-core",
+          "stock-movement-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/hash-chained-ledger",
+        "skills": [
+          "hash-chained-ledger-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "financial-gl-ledger",
+    "title": "Financial / GL account ledger",
+    "priority": 29,
+    "triggers": [
+      "general ledger",
+      "gl",
+      "chart of accounts",
+      "account balance",
+      "journal entry",
+      "financial ledger"
+    ],
+    "rationale": "Use @eristack/financial-ledger for accountId+currency hash-chained balances with @eristack/money amounts.",
+    "packages": [
+      {
+        "name": "@eristack/financial-ledger",
+        "skills": [
+          "financial-ledger-core",
+          "financial-ledger-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/hash-chained-ledger",
+        "skills": [
+          "hash-chained-ledger-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-amounts"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "inventory-valuation",
+    "title": "FIFO, average, and other inventory valuations",
+    "priority": 30,
+    "triggers": [
+      "fifo",
+      "lifo",
+      "fefo",
+      "moving average",
+      "weighted average",
+      "standard cost",
+      "inventory valuation",
+      "costing",
+      "cost layers"
+    ],
+    "rationale": "Use @eristack/valuations for canon costing methods with qty+value hash-chained ledgers.",
+    "packages": [
+      {
+        "name": "@eristack/valuations",
+        "skills": [
+          "valuations-core",
+          "valuations-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/hash-chained-ledger",
+        "skills": [
+          "hash-chained-ledger-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "maintainer-tickets",
     "title": "Bug reports and feature suggestions for maintainers",
     "priority": 15,

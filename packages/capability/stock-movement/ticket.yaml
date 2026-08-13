@@ -1,0 +1,12 @@
+package: "@eristack/stock-movement"
+title: stock-movement
+maintainers:
+  - support@eristack.dev
+scope: >
+  Inventory qty ledger on hash-chained-ledger with locationId, lotId, optional
+  owner field, composable locations, snapshots, tamper verify.
+outOfScope: >
+  Costing/valuation (use valuations), financial GL (use financial-ledger).
+skills:
+  - stock-movement-core
+  - stock-movement-adapters

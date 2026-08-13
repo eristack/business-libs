@@ -87,7 +87,7 @@ const second = await docNumber.next({ entityKey: "invoice" });
 3. Allocate the next 1-based integer for `(formatId, periodKey)`.
 4. Render `pattern` and prepend `prefix` if the record has one.
 
-The memory stores are real implementations, not stubs — `createMemorySequenceStore` serialises `allocateNext` through an async mutex — so they are fine for unit tests and demos, and useless the moment you run two processes.
+The memory stores are real implementations, not stubs — `createMemorySequenceStore` serialises `allocateNext` through an async mutex — so they are fine for **unit tests and demos**. They are **useless** the moment you run two processes or deploy to **Vercel** (cold starts / multiple instances). Production: Drizzle sequence + format stores on Postgres — see [Stores](./stores.md).
 
 ## Step 3 — Peek without consuming
 

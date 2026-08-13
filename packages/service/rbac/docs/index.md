@@ -61,23 +61,27 @@ rbac_subject_permissions ──────────────────�
 ## A minute of code
 
 ```ts
-import { createRbac, createMemoryRbacStore } from "@eristack/rbac";
+import { createRbac } from "@eristack/rbac";
+import {
+  createRbacTables,
+  createDrizzleRbacStore,
+} from "@eristack/rbac/drizzle";
 
-const rbac = createRbac({ store: createMemoryRbacStore() });
+const tables = createRbacTables("pgsql");
+const rbac = createRbac({
+  store: createDrizzleRbacStore({ db, tables }),
+});
 
 await rbac.definePermission({ name: "orders.create" });
 await rbac.defineRole({
   name: "clerk",
   permissions: ["orders.create"],
 });
-await rbac.assignRole({ subject: "user_1", role: "clerk" });
-
-if (await rbac.can("user_1", "orders.create")) {
-  // …
-}
-
-await rbac.authorize("user_1", "orders.create"); // throws ForbiddenError
+await rbac.assignRole({ subject: userId, role: "clerk" });
+await rbac.can(userId, "orders.create");
 ```
+
+> Prefer **Drizzle + Postgres** in production (including **Vercel**). `createMemoryRbacStore` is for tests/demos only — serverless instances do not share memory. See [Getting started](./getting-started.md) and [Adapters](./adapters.md).
 
 ## Stack with ABAC / PBAC
 

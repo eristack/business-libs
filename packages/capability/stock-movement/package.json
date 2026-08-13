@@ -1,0 +1,51 @@
+{
+  "name": "@eristack/stock-movement",
+  "version": "0.0.0",
+  "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/capability/stock-movement"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/capability/stock-movement",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.ts", "default": "./dist/index.cjs" }
+    },
+    "./drizzle": {
+      "import": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.js" },
+      "require": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.cjs" }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills"],
+  "keywords": ["tanstack-intent", "inventory", "stock", "ledger", "eristack"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@eristack/hash-chained-ledger": "workspace:*"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0"
+  },
+  "peerDependenciesMeta": {
+    "drizzle-orm": { "optional": true }
+  },
+  "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "drizzle-orm": "^0.44.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  }
+}

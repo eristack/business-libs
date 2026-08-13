@@ -1,0 +1,13 @@
+package: "@eristack/financial-ledger"
+title: financial-ledger
+maintainers:
+  - support@eristack.dev
+scope: >
+  Accounting ledger on hash-chained-ledger keyed by accountId + currency,
+  Money amounts, snapshots, tamper verify.
+outOfScope: >
+  Inventory qty (stock-movement), product costing methods (valuations),
+  chart-of-accounts UI.
+skills:
+  - financial-ledger-core
+  - financial-ledger-adapters

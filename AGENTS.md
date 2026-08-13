@@ -40,6 +40,30 @@ tanstackIntent:
   - id: "@eristack/qups#qups-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters"
     for: "@eristack/qups adapters: optional qupsLineColumns inject into app detail tables; drizzle stores if needed. Prefer calculateLine for everyday form/BE math."
+  - id: "@eristack/stock-movement#stock-movement-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
+    for: "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional owner). Default Drizzle — memory tests only."
+  - id: "@eristack/stock-movement#stock-movement-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-adapters"
+    for: "@eristack/stock-movement/drizzle re-exports hash-chained ledger Drizzle tables/store — production default."
+  - id: "@eristack/financial-ledger#financial-ledger-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core"
+    for: "@eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default Drizzle — memory tests only."
+  - id: "@eristack/financial-ledger#financial-ledger-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-adapters"
+    for: "@eristack/financial-ledger/drizzle createHashChainedLedgerTables + createDrizzleLedgerStore — production default."
+  - id: "@eristack/valuations#valuations-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core"
+    for: "@eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/averages/standard/specific + qty/value chains. Default Drizzle ledger+layers — memory tests only."
+  - id: "@eristack/valuations#valuations-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-adapters"
+    for: "@eristack/valuations/drizzle ledger tables/store + valuation layer tables/store — both required in production."
+  - id: "@eristack/hash-chained-ledger#hash-chained-ledger-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
+    for: "Pure @eristack/hash-chained-ledger: append/snapshot/verify with Drizzle by default; SHA-256 chain; memory store is unit tests only."
+  - id: "@eristack/hash-chained-ledger#hash-chained-ledger-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-adapters"
+    for: "@eristack/hash-chained-ledger/drizzle createHashChainedLedgerTables + createDrizzleLedgerStore (Postgres for Vercel)."
   - id: "@eristack/doc-number#doc-number-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
     for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore, rest format CRUD/preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react useDocNumberFormats. Use when persisting formats or wiring format-config HTTP/frontend shells."
@@ -145,11 +169,15 @@ Categories under `packages/` (order matters):
 - `packages/primitive/money` — `@eristack/money`
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `packages/capability/qups` — `@eristack/qups` (QUPS 2-of-3 SoT + modifiers + tax on Money; drizzle injects columns into app detail lines)
+- `packages/capability/stock-movement` — `@eristack/stock-movement` (qty ledger + composable locations/lots on hash-chained-ledger)
+- `packages/capability/financial-ledger` — `@eristack/financial-ledger` (accountId+currency GL on hash-chained-ledger + money)
+- `packages/capability/valuations` — `@eristack/valuations` (FIFO/LIFO/FEFO/averages/standard/specific + qty/value chains)
 - `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
 - `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
+- `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)

@@ -45,6 +45,14 @@ packages/contracts# shared API types / schemas
   - **PostgreSQL** production — Eristack dialect id is **`pgsql`** (not `"pg"`)
   - **SQLite** for tests / local ephemeral runs
 - Wire Eristack **adapters** at persistence/presentation edges; keep **cores** in business
+- **Memory stores (`createMemory*`) are tests/demos only** — not for production
+
+### Deployment (prefer Vercel)
+
+- Prefer **Vercel** for web / compatible API deployables
+- Serverless instances do **not** share process memory — jwt refresh, doc-number sequences, RBAC grants, and similar must live in **hosted Postgres** (Neon, Supabase, Vercel Postgres, …) via Drizzle adapters
+- Do not use in-memory maps or local disk as production persistence on Vercel
+- `@eristack/ai-workflow` is **local repo memory** for agents — not a Vercel-hosted store
 
 ### Frontend
 
