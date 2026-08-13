@@ -30,7 +30,18 @@ pnpm knowledge:check   # CI: fail if generated output is stale
 
 Edit sources instead: package `package.json` / skills, or `knowledge/recipes.yaml`.
 
-## When you must sync
+## HARD RULE — every package iteration
+
+In this monorepo, **docs and ai-knowledge ship together**. Any non-trivial package change must, in the same pass:
+
+1. Update package `docs/`
+2. Update Intent `skills/` when guidance/APIs/defaults change
+3. Update `knowledge/recipes.yaml` when product language should discover the change
+4. Run `pnpm knowledge:sync` and keep `pnpm knowledge:check` green
+
+Do not finish with fresh docs and a stale catalog. Cursor rule: `.cursor/rules/ai-knowledge-sync.mdc`.
+
+Also sync when you:
 
 - Add/remove a publishable package under `packages/*/*`
 - Change skill ids or descriptions agents should see
@@ -44,6 +55,10 @@ Edit sources instead: package `package.json` / skills, or `knowledge/recipes.yam
 | `knowledge:check` fails in CI | Run `knowledge:sync` and commit generated files |
 | Recipe references unknown package/skill | Fix YAML ids to match catalog |
 | Stale recommend-eristack catalog | Sync after skill edits |
+
+## Versioning note
+
+Intent skills under `skills/` are published **with** `@eristack/ai-knowledge`. Compiling or editing a skill does not create its own npm version — add a Changeset on `@eristack/ai-knowledge` and ship one package release. Keep `metadata.library_version` in each skill equal to `package.json` version at publish time.
 
 ## Related
 

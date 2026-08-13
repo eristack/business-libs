@@ -9,7 +9,7 @@ description: >
 metadata:
   type: core
   library: '@eristack/ai-knowledge'
-  library_version: '0.1.0'
+  library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/recipes.yaml'
   - 'eristack/business-libs:packages/ai/ai-knowledge/docs/recommend.md'
@@ -46,7 +46,7 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
-### @eristack/abac (v0.0.0)
+### @eristack/abac (v0.1.0)
 
 Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes
 
@@ -57,7 +57,7 @@ Adapters: `express`, `nest`, `react`
 - `@eristack/abac#abac-core` — Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core`
 
-### @eristack/ai-ticket-generator (v0.0.0)
+### @eristack/ai-ticket-generator (v0.1.0)
 
 Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files
 
@@ -66,7 +66,7 @@ Generate portable maintainer tickets (bugs + suggestions) for every @eristack pa
 - `@eristack/ai-ticket-generator#ai-ticket-suggest` — Turn a user feature idea into a portable @eristack suggestion ticket with feasibility (possible/partial/unlikely/needs-decision) and an implementation sketch for maintainers/agents. Use when a consumer proposes a change.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-ticket-generator#ai-ticket-suggest`
 
-### @eristack/ai-workflow (v0.0.0)
+### @eristack/ai-workflow (v0.1.0)
 
 Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent
 
@@ -75,7 +75,7 @@ Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, bac
 - `@eristack/ai-workflow#ai-workflow-mcp` — Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp`
 
-### @eristack/data-grid (v0.0.0)
+### @eristack/data-grid (v0.1.0)
 
 Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
 
@@ -86,7 +86,7 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 - `@eristack/data-grid#data-grid-core` — Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic list queries without HTTP or Drizzle.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core`
 
-### @eristack/doc-number (v0.1.0)
+### @eristack/doc-number (v0.2.0)
 
 Document number format, parse, and sequence primitives for Eristack
 
@@ -97,7 +97,7 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 - `@eristack/doc-number#doc-number-core` — Pure @eristack/doc-number: token patterns ({YYYY}/{YY}/{MM}/{DD}/{SEQ:n}), formatDocumentNumber, parseDocumentNumber, createDocNumber, registerFormat, updateFormat, listFormats, getFormatById, next, peekNext, preview, ResetPeriod, FormatStore, SequenceStore, Incrementer, memory stores. Use for document numbers without HTTP or Drizzle.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core`
 
-### @eristack/financial-ledger (v0.0.0)
+### @eristack/financial-ledger (v0.0.1)
 
 Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money
 
@@ -108,7 +108,7 @@ Adapters: `drizzle`
 - `@eristack/financial-ledger#financial-ledger-core` — @eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default store is Drizzle — memory is tests only.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core`
 
-### @eristack/hash-chained-ledger (v0.0.0)
+### @eristack/hash-chained-ledger (v0.0.1)
 
 Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection
 
@@ -119,7 +119,7 @@ Adapters: `drizzle`
 - `@eristack/hash-chained-ledger#hash-chained-ledger-core` — Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core`
 
-### @eristack/jwt-auth (v0.2.0)
+### @eristack/jwt-auth (v0.3.0)
 
 Canonical JWT access + refresh-token auth primitives for Eristack
 
@@ -139,7 +139,7 @@ Money primitives for Eristack
 - `@eristack/money#money-ledger` — Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger`
 
-### @eristack/pbac (v0.0.0)
+### @eristack/pbac (v0.1.0)
 
 Policy-based (software) access control for Eristack: business document rules that return true or false
 
@@ -150,7 +150,7 @@ Adapters: `express`, `nest`, `react`
 - `@eristack/pbac#pbac-core` — Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core`
 
-### @eristack/qups (v0.0.0)
+### @eristack/qups (v0.1.0)
 
 Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money
 
@@ -163,7 +163,7 @@ Adapters: `drizzle`
 - `@eristack/qups#qups-line` — @eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money. Use for invoice/order lines in the business layer — not float math in React.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line`
 
-### @eristack/rbac (v0.0.0)
+### @eristack/rbac (v0.1.0)
 
 Role-based access control for Eristack: subjects, roles, and boolean permissions
 
@@ -174,7 +174,7 @@ Adapters: `drizzle`, `express`, `nest`, `react`
 - `@eristack/rbac#rbac-core` — Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core`
 
-### @eristack/stock-movement (v0.0.0)
+### @eristack/stock-movement (v0.0.1)
 
 Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks
 
@@ -185,7 +185,7 @@ Adapters: `drizzle`
 - `@eristack/stock-movement#stock-movement-core` — @eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core`
 
-### @eristack/valuations (v0.0.0)
+### @eristack/valuations (v0.0.1)
 
 Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger
 

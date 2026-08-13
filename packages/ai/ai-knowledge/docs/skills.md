@@ -10,6 +10,8 @@ Load with:
 
 ```bash
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#<skill-id>
+
+These skills ship inside the `@eristack/ai-knowledge` npm package. Editing a skill does **not** need its own release — bump and publish this package once (Changesets).
 ```
 
 ## Inventory

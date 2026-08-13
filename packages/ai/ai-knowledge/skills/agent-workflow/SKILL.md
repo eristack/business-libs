@@ -3,12 +3,13 @@ name: agent-workflow
 description: >
   How AI agents should use @eristack/ai-knowledge and package Intent skills:
   recommend first, load skills before coding, prefer examples for adapters,
-  keep the generated catalog in sync when package skills change. Use when
-  starting multi-package work or contributing inside the business-libs monorepo.
+  HARD RULE update docs+skills+recipes and pnpm knowledge:sync every package
+  iteration. Use when starting multi-package work or contributing inside the
+  business-libs monorepo.
 metadata:
   type: core
   library: '@eristack/ai-knowledge'
-  library_version: '0.1.0'
+  library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/agent-workflow.md'
   - 'eristack/business-libs:packages/ai/ai-knowledge/docs/sync.md'
@@ -26,20 +27,21 @@ Full guide: `knowledge/agent-workflow.md`.
 4. **Follow examples** — `examples/express`, `examples/nestjs`, `examples/react`
 5. **Implement** — app owns domain tables, UX, FX feeds, migrations
 
-## Monorepo freshness (authors)
+## HARD RULE — docs + ai-knowledge every iteration
 
-When changing another package’s skills, public exports, or discoverable capabilities:
+Same change set must include:
 
-```bash
-pnpm knowledge:sync
-```
+1. Package `docs/`
+2. Package Intent `skills/`
+3. `recipes.yaml` when product-discoverable
+4. `pnpm knowledge:sync` + `pnpm knowledge:check`
 
-Add/update `packages/ai/ai-knowledge/knowledge/recipes.yaml` when users should discover the capability by product language. CI enforces `pnpm knowledge:check`.
+Do not ship fresh docs with a stale catalog.
 
 ## Docs while implementing
 
-- WIP → `_ai-docs/<topic>/`
-- Finished → promote to `packages/<category>/*/docs`, delete the topic folder
+- WIP → `_ai-docs/<topic>/` (note skill/recipe impact)
+- Finished → promote to `packages/<category>/*/docs`, sync ai-knowledge, delete the topic folder
 - Package docs are source of truth; the website renders them
 
 ## Version control

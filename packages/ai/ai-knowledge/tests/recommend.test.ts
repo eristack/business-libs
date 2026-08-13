@@ -19,11 +19,15 @@ describe("catalog", () => {
         "@eristack/ai-workflow",
         "@eristack/data-grid",
         "@eristack/doc-number",
+        "@eristack/financial-ledger",
+        "@eristack/hash-chained-ledger",
         "@eristack/jwt-auth",
         "@eristack/money",
         "@eristack/pbac",
         "@eristack/qups",
         "@eristack/rbac",
+        "@eristack/stock-movement",
+        "@eristack/valuations",
       ].sort(),
     );
     expect(listSkills().length).toBeGreaterThanOrEqual(6);

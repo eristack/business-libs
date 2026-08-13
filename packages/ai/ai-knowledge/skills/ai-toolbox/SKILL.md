@@ -8,7 +8,7 @@ description: >
 metadata:
   type: core
   library: '@eristack/ai-knowledge'
-  library_version: '0.1.0'
+  library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/toolbox/prompts.md'
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/toolbox/checklists.md'

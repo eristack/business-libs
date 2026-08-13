@@ -24,10 +24,10 @@ tanstackIntent:
     for: "Preferred stack defaults: TypeScript, Drizzle pgsql dialect, Express/Nest/React headless adapters, string-first money, credentials child of users. Use when scaffolding apps around @eristack packages."
   - id: "@eristack/ai-knowledge#agent-workflow"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
-    for: "Agent workflow: recommend first, load Intent skills before coding, prefer examples/*, run pnpm knowledge:sync when package skills change. Use for multi-package work."
+    for: "Agent workflow: recommend first, load Intent skills before coding, prefer examples/*, HARD RULE update docs+skills+recipes and pnpm knowledge:sync every package iteration. Use for multi-package work."
   - id: "@eristack/ai-knowledge#dev-conventions"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
-    for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, _ai-docs promote-then-delete."
+    for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, HARD RULE docs+ai-knowledge every iteration, _ai-docs promote-then-delete."
   - id: "@eristack/ai-knowledge#ai-toolbox"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
     for: "AI toolbox: feature-brief prompts, skill-load order, money/auth/doc-number checklists, recipe-authoring template for @eristack/ai-knowledge."
@@ -140,7 +140,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
 - **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
-- **ai-knowledge sync:** when changing another package’s skills/public surface (or adding a package), run `pnpm knowledge:sync` and update `packages/ai/ai-knowledge/knowledge/recipes.yaml` if the capability should be discoverable by product language. CI enforces `pnpm knowledge:check`.
+- **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. Do not finish with fresh docs and stale agent knowledge. See `.cursor/rules/ai-knowledge-sync.mdc`. CI enforces catalog freshness.
 - **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/ai`. Docs UI and site listings follow the same order.
 
 ## Examples
