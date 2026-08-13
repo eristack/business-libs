@@ -1,0 +1,12 @@
+package: "@eristack/valuations"
+title: valuations
+maintainers:
+  - support@eristack.dev
+scope: >
+  Product/lot valuation methods (FIFO, LIFO, FEFO, HIFO, LOFO, moving/weighted
+  average, standard cost, specific identification) with hash-chained qty+value ledgers.
+outOfScope: >
+  Warehouse locations (stock-movement), GL posting rules (financial-ledger).
+skills:
+  - valuations-core
+  - valuations-adapters

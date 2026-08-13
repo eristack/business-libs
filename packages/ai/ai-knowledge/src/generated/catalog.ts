@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-12T12:05:04.546Z",
+  "generatedAt": "2026-08-12T15:25:04.206Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -146,6 +146,60 @@ export const catalog = {
           "description": "Pure @eristack/doc-number: token patterns ({YYYY}/{YY}/{MM}/{DD}/{SEQ:n}), formatDocumentNumber, parseDocumentNumber, createDocNumber, registerFormat, updateFormat, listFormats, getFormatById, next, peekNext, preview, ResetPeriod, FormatStore, SequenceStore, Incrementer, memory stores. Use for document numbers without HTTP or Drizzle.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/financial-ledger",
+      "version": "0.0.0",
+      "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
+      "slug": "financial-ledger",
+      "adapters": [
+        "drizzle"
+      ],
+      "skills": [
+        {
+          "id": "financial-ledger-adapters",
+          "name": "financial-ledger-adapters",
+          "packageName": "@eristack/financial-ledger",
+          "description": "@eristack/financial-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore for durable GL chains on Postgres (Vercel).",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-adapters"
+        },
+        {
+          "id": "financial-ledger-core",
+          "name": "financial-ledger-core",
+          "packageName": "@eristack/financial-ledger",
+          "description": "@eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default store is Drizzle — memory is tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/hash-chained-ledger",
+      "version": "0.0.0",
+      "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
+      "slug": "hash-chained-ledger",
+      "adapters": [
+        "drizzle"
+      ],
+      "skills": [
+        {
+          "id": "hash-chained-ledger-adapters",
+          "name": "hash-chained-ledger-adapters",
+          "packageName": "@eristack/hash-chained-ledger",
+          "description": "@eristack/hash-chained-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore. Use for durable chains on Postgres (Vercel).",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-adapters"
+        },
+        {
+          "id": "hash-chained-ledger-core",
+          "name": "hash-chained-ledger-core",
+          "packageName": "@eristack/hash-chained-ledger",
+          "description": "Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
         }
       ]
     },
@@ -297,6 +351,60 @@ export const catalog = {
           "description": "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/stock-movement",
+      "version": "0.0.0",
+      "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
+      "slug": "stock-movement",
+      "adapters": [
+        "drizzle"
+      ],
+      "skills": [
+        {
+          "id": "stock-movement-adapters",
+          "name": "stock-movement-adapters",
+          "packageName": "@eristack/stock-movement",
+          "description": "@eristack/stock-movement/drizzle: re-exports createHashChainedLedgerTables + createDrizzleLedgerStore for Postgres on Vercel. Use as the app default store.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-adapters"
+        },
+        {
+          "id": "stock-movement-core",
+          "name": "stock-movement-core",
+          "packageName": "@eristack/stock-movement",
+          "description": "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/valuations",
+      "version": "0.0.0",
+      "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
+      "slug": "valuations",
+      "adapters": [
+        "drizzle"
+      ],
+      "skills": [
+        {
+          "id": "valuations-adapters",
+          "name": "valuations-adapters",
+          "packageName": "@eristack/valuations",
+          "description": "@eristack/valuations/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore + createValuationLayerTables + createDrizzleLayerStore. Both stores required for production engines on Postgres (Vercel).",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-adapters"
+        },
+        {
+          "id": "valuations-core",
+          "name": "valuations-core",
+          "packageName": "@eristack/valuations",
+          "description": "@eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/movingAverage/weightedAverage/ standardCost/specificIdentification with dual qty/value hash chains. Default stores are Drizzle ledger + Drizzle layers — memory is tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core"
         }
       ]
     }

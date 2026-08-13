@@ -28,6 +28,8 @@ Read the Eristack-focused guide: `knowledge/stack-defaults.md`.
 | --- | --- |
 | Language | TypeScript strict, ESM |
 | SQL | Drizzle; Postgres dialect **`"pgsql"`** (not `"pg"`) |
+| Deploy | **Vercel** + hosted Postgres (not process memory) |
+| Stores | Drizzle adapters in prod; `createMemory*` only for tests/demos |
 | Users | App-owned `users` table; Eristack tables are children |
 | Money | `@eristack/money` via `Money.of("…")` / `Money.ofMinor` |
 | Auth | `@eristack/jwt-auth` access JWT + opaque refresh |
@@ -43,6 +45,12 @@ Prefer patterns from Eristack examples when present:
 - React → provider/hooks only (no UI kit)
 
 Do not invent alternate adapter shapes when an example already shows the supported one.
+
+## Persistence / Vercel
+
+- **Never** ship `createMemory*Store` on Vercel — cold starts and multiple instances drop or diverge state (auth, sequences, RBAC).
+- Production: Drizzle + Postgres. Local tests: memory or SQLite.
+- data-grid `applyInMemory` is fine for small already-loaded lists; it is not a database.
 
 ## Money / auth / numbers reminders
 

@@ -97,6 +97,28 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 - `@eristack/doc-number#doc-number-core` — Pure @eristack/doc-number: token patterns ({YYYY}/{YY}/{MM}/{DD}/{SEQ:n}), formatDocumentNumber, parseDocumentNumber, createDocNumber, registerFormat, updateFormat, listFormats, getFormatById, next, peekNext, preview, ResetPeriod, FormatStore, SequenceStore, Incrementer, memory stores. Use for document numbers without HTTP or Drizzle.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core`
 
+### @eristack/financial-ledger (v0.0.0)
+
+Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money
+
+Adapters: `drizzle`
+
+- `@eristack/financial-ledger#financial-ledger-adapters` — @eristack/financial-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore for durable GL chains on Postgres (Vercel).
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-adapters`
+- `@eristack/financial-ledger#financial-ledger-core` — @eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default store is Drizzle — memory is tests only.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core`
+
+### @eristack/hash-chained-ledger (v0.0.0)
+
+Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection
+
+Adapters: `drizzle`
+
+- `@eristack/hash-chained-ledger#hash-chained-ledger-adapters` — @eristack/hash-chained-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore. Use for durable chains on Postgres (Vercel).
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-adapters`
+- `@eristack/hash-chained-ledger#hash-chained-ledger-core` — Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core`
+
 ### @eristack/jwt-auth (v0.2.0)
 
 Canonical JWT access + refresh-token auth primitives for Eristack
@@ -151,6 +173,28 @@ Adapters: `drizzle`, `express`, `nest`, `react`
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters`
 - `@eristack/rbac#rbac-core` — Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core`
+
+### @eristack/stock-movement (v0.0.0)
+
+Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks
+
+Adapters: `drizzle`
+
+- `@eristack/stock-movement#stock-movement-adapters` — @eristack/stock-movement/drizzle: re-exports createHashChainedLedgerTables + createDrizzleLedgerStore for Postgres on Vercel. Use as the app default store.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-adapters`
+- `@eristack/stock-movement#stock-movement-core` — @eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core`
+
+### @eristack/valuations (v0.0.0)
+
+Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger
+
+Adapters: `drizzle`
+
+- `@eristack/valuations#valuations-adapters` — @eristack/valuations/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore + createValuationLayerTables + createDrizzleLayerStore. Both stores required for production engines on Postgres (Vercel).
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-adapters`
+- `@eristack/valuations#valuations-core` — @eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/movingAverage/weightedAverage/ standardCost/specificIdentification with dual qty/value hash chains. Default stores are Drizzle ledger + Drizzle layers — memory is tests only.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core`
 
 <!-- catalog:end -->
 

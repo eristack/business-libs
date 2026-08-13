@@ -5,9 +5,13 @@ import { AiKnowledgeHeroDemo } from "@/components/package-demos/ai-knowledge-her
 import { AiTicketHeroDemo } from "@/components/package-demos/ai-ticket-hero-demo";
 import { AiWorkflowHeroDemo } from "@/components/package-demos/ai-workflow-hero-demo";
 import { DataGridHeroDemo } from "@/components/package-demos/data-grid-hero-demo";
+import { FinancialLedgerHeroDemo } from "@/components/package-demos/financial-ledger-hero-demo";
+import { HashChainedLedgerHeroDemo } from "@/components/package-demos/hash-chained-ledger-hero-demo";
 import { PbacHeroDemo } from "@/components/package-demos/pbac-hero-demo";
 import { QupsHeroDemo } from "@/components/package-demos/qups-hero-demo";
 import { RbacHeroDemo } from "@/components/package-demos/rbac-hero-demo";
+import { StockMovementHeroDemo } from "@/components/package-demos/stock-movement-hero-demo";
+import { ValuationsHeroDemo } from "@/components/package-demos/valuations-hero-demo";
 
 /**
  * Package landing hero visualization — client-mounted, auto lifecycle.
@@ -30,6 +34,14 @@ export function PackageHeroDemo({
       return <PbacHeroDemo className={className} />;
     case "data-grid":
       return <DataGridHeroDemo className={className} />;
+    case "hash-chained-ledger":
+      return <HashChainedLedgerHeroDemo className={className} />;
+    case "stock-movement":
+      return <StockMovementHeroDemo className={className} />;
+    case "financial-ledger":
+      return <FinancialLedgerHeroDemo className={className} />;
+    case "valuations":
+      return <ValuationsHeroDemo className={className} />;
     case "ai-knowledge":
       return <AiKnowledgeHeroDemo className={className} />;
     case "ai-workflow":

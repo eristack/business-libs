@@ -46,10 +46,13 @@ Unknown permissions follow the same unknown-permission policy as `can`.
 `assignRole` throws `RoleNotFoundError` if the role catalog entry is missing.
 Define permissions → define roles → assign.
 
-## Multi-tenant
+## Multi-tenant / serverless
 
 Scope `subject` (and optionally permission names) with your tenant strategy.
 The library stores opaque strings — prefix or composite ids in the app.
+
+On **Vercel** (or any multi-instance host), use **Drizzle + Postgres** — never
+`createMemoryRbacStore`. Memory maps are not shared across cold starts.
 
 ## Next
 

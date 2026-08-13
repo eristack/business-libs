@@ -6,7 +6,11 @@ sidebar_position: 2
 
 # Getting started
 
-This guide gets you from `pnpm add` to a complete session lifecycle in a single file. No database, no HTTP server — just the core, so the moving parts stay visible. Swap in Drizzle ([Database](./database.md)) and routes ([HTTP adapters](./http.md)) once the flow makes sense.
+This guide gets you from `pnpm add` to a complete session lifecycle in a single file. No database, no HTTP server — just the core, so the moving parts stay visible.
+
+> **Production / Vercel:** use Drizzle credential + refresh stores against **Postgres** ([Database](./database.md)). `createMemory*Store` is for tests and local scratch — serverless instances do not share memory, so logins and refresh rotation will break if you ship memory stores.
+
+Swap in Drizzle and routes ([HTTP adapters](./http.md)) once the flow makes sense.
 
 ## Installation
 

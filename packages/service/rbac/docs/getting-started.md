@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Getting started
 
-From `pnpm add` to a complete define → assign → `can` / `authorize` loop with the memory store. Swap in Drizzle before anyone else uses the app.
+From `pnpm add` to a complete define → assign → `can` / `authorize` loop. The snippets below start with the **memory store for learning**; swap to Drizzle before any shared or Vercel deploy.
 
 ## Installation
 
@@ -33,7 +33,7 @@ const rbac = createRbac({
 });
 ```
 
-> **Memory stores are for tests and prototypes.** They lose assignments on restart. Move to [Drizzle](./adapters.md#drizzle) for real apps.
+> **Memory stores are for tests and prototypes only.** They lose assignments on restart and **cannot** be shared across Vercel/serverless instances. Production: [Drizzle + Postgres](./adapters.md#drizzle).
 
 ## Define permissions and a role
 

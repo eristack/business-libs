@@ -77,7 +77,7 @@ export function LibrariesNav({ className }: { className?: string }) {
             <Link
               href="/packages"
               onClick={() => setOpen(false)}
-              className="text-[12px] font-semibold text-muted-foreground hover:text-foreground"
+              className="text-[12px] font-semibold text-foreground/70 hover:text-foreground"
             >
               All libraries
             </Link>
@@ -89,19 +89,19 @@ export function LibrariesNav({ className }: { className?: string }) {
                 <div
                   key={layer.id}
                   data-layer={layer.id}
-                  className="min-w-0 rounded-lg bg-muted/40 p-2.5"
+                  className="min-w-0 rounded-xl border border-[color:var(--layer-accent)]/35 bg-[color:var(--layer-soft)] p-3 shadow-sm"
                 >
                   <Link
                     href={category.href}
                     onClick={() => setOpen(false)}
-                    className="text-[12px] font-semibold text-[color:var(--layer-accent)] hover:underline"
+                    className="text-[13px] font-semibold tracking-tight text-[color:var(--layer-accent)] hover:underline"
                   >
                     {category.label}
                   </Link>
-                  <p className="mt-0.5 line-clamp-2 text-[11px] text-muted-foreground">
+                  <p className="mt-0.5 line-clamp-2 text-[11px] text-foreground/65">
                     {category.tagline}
                   </p>
-                  <ul className="mt-2 space-y-1">
+                  <ul className="mt-2.5 space-y-0.5">
                     {layer.packages.map((pkg) => {
                       const pkgActive =
                         pathname === pkg.href ||
@@ -113,14 +113,14 @@ export function LibrariesNav({ className }: { className?: string }) {
                             href={pkg.href}
                             onClick={() => setOpen(false)}
                             className={cn(
-                              "block rounded-md px-1.5 py-1 text-[12px] font-medium transition-colors",
+                              "block rounded-md px-2 py-1.5 text-[12px] font-semibold transition-colors",
                               pkgActive
-                                ? "bg-background text-foreground"
-                                : "text-muted-foreground hover:bg-background/80 hover:text-foreground",
+                                ? "bg-background text-foreground shadow-sm ring-1 ring-[color:var(--layer-accent)]/40"
+                                : "text-foreground/85 hover:bg-background hover:text-foreground hover:shadow-sm",
                             )}
                           >
                             {pkg.title}
-                            <span className="ml-1.5 font-mono text-[10px] opacity-60">
+                            <span className="ml-1.5 font-mono text-[10px] font-medium text-foreground/55">
                               {pkg.name.replace("@eristack/", "")}
                             </span>
                           </Link>

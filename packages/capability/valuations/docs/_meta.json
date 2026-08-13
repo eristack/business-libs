@@ -1,0 +1,8 @@
+{
+  "pages": ["index", "getting-started", "methods", "concepts", "recipes"],
+  "index": "Overview",
+  "getting-started": "Getting started",
+  "methods": "Methods",
+  "concepts": "Concepts",
+  "recipes": "Recipes"
+}

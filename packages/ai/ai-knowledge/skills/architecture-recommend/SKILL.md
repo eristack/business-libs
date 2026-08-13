@@ -27,7 +27,8 @@ Full guide: `knowledge/architecture.md` in `@eristack/ai-knowledge`.
 | --- | --- |
 | Language / repo | TypeScript; **pnpm monorepo** when web/api/shared packages exist |
 | API | **Express** *or* **NestJS** (one per app) |
-| Persistence | **Drizzle**; **Postgres** production (`"pgsql"`); **SQLite** tests |
+| Persistence | **Drizzle**; **Postgres** production (`"pgsql"`); **SQLite** tests; **no `createMemory*` in prod** |
+| Deploy | Prefer **Vercel** + hosted Postgres (serverless has no shared memory) |
 | Layering | **Presentation / Business / Persistence** — required |
 | UI | **React + Vite + Tailwind + shadcn** (CLI `components/ui`, compose don’t fork) |
 | Client state | **Zustand** (UI only) |
@@ -43,7 +44,8 @@ Full guide: `knowledge/architecture.md` in `@eristack/ai-knowledge`.
 2. Do **not** invent a non-file-based TanStack Router setup when starting fresh.
 3. Do **not** put server entity caches in Zustand — use Query.
 4. Do **not** mix Express and Nest in the same API app without an explicit user override.
-5. After architecture, load `recommend-eristack` for money/auth/doc-number features.
+5. Do **not** ship `createMemory*Store` to Vercel/production — use Drizzle + Postgres.
+6. After architecture, load `recommend-eristack` for money/auth/doc-number features.
 
 ## Suggested layout
 

@@ -14,8 +14,28 @@ For the full product architecture canon (pnpm monorepo, Express/Nest, Drizzle Po
 ## Persistence
 
 - **Drizzle ORM** for SQL stores shipped by Eristack adapters
-- Postgres dialect string is **`"pgsql"`** (not `"pg"`) in jwt-auth / doc-number Drizzle helpers
-- App owns the `users` (and domain) tables; Eristack credentials/refresh/format tables are **children**, not replacements
+- Postgres dialect string is **`"pgsql"`** (not `"pg"`) in jwt-auth / doc-number / rbac Drizzle helpers
+- App owns the `users` (and domain) tables; Eristack credentials/refresh/format/rbac tables are **children**, not replacements
+- **Production = durable SQL (Postgres).** Prefer hosted Postgres that works with **Vercel** (e.g. Neon, Supabase, Vercel Postgres) — serverless/edge instances do not share process memory
+
+### Memory stores are not production
+
+`createMemory*Store` helpers exist for **unit tests, demos, and local scratch**. Do **not** ship them on Vercel (or any multi-instance / serverless host):
+
+| If you use memory for… | What breaks on Vercel |
+| --- | --- |
+| jwt-auth refresh / credentials | Logins evaporate per cold start; reuse detection is wrong across instances |
+| doc-number sequences | Duplicate numbers; lost formats |
+| rbac roles / grants | Permissions reset; two instances disagree |
+| Any other mutable store | No shared state between lambdas |
+
+**Prefer:** `@eristack/*/drizzle` stores + Postgres. Keep `applyInMemory` on **data-grid** only for small already-loaded collections (e.g. one user’s sessions) — that is query apply, not persistence.
+
+## Deployment
+
+- Prefer **Vercel** for web/API deployables when the product fits serverless/Node on Vercel
+- Pair Vercel with **external Postgres**; never rely on filesystem or process memory for auth, sequences, or RBAC
+- Local/dev may use SQLite via Drizzle; production stays **pgsql**
 
 ## HTTP and frontend shells
 
