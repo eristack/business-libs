@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.2
+
+### Patch Changes
+
+- 9c3ef3d: Refresh agent knowledge for release: catalog includes ledger family packages, docs+skills hard-rule for every iteration, and Intent skill metadata aligned to the package version. Skills ship inside this npm package — they are not versioned or published separately.
+
 ## 0.1.1
 
 ### Patch Changes
