@@ -1,14 +1,38 @@
 ---
-description: Keep @eristack/ai-knowledge catalog/recipes in sync when packages or skills change
+description: HARD RULE — every package iteration must update docs AND ai-knowledge (skills/recipes/sync)
 alwaysApply: true
 ---
 
-# ai-knowledge sync
+# HARD RULE: docs + ai-knowledge every iteration
 
-When you change **another** `@eristack/*` package’s Intent skills, public exports, version/description that agents should see, or add a new publishable package under `packages/<category>/`:
+Treat `@eristack/ai-knowledge` as a **required deliverable** of every incremental change — same priority as package docs. Do not ship code/docs without updating agent knowledge in the same pass.
 
-1. Run `pnpm knowledge:sync` (regenerates `packages/ai/ai-knowledge` catalog + embedded recipes).
-2. If the change is **discoverable by product language** (e.g. users will say “invoices” / “login”), add or update a recipe in `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then sync again.
-3. Confirm `pnpm knowledge:check` would pass.
+## When this applies
 
-Do not hand-edit `packages/ai/ai-knowledge/src/generated/*` or the `<!-- catalog:* -->` block in `skills/recommend-eristack/SKILL.md`.
+Any non-trivial change to a publishable `@eristack/*` package (or adding one under `packages/<category>/`), including:
+
+- APIs, defaults, adapters, persistence (e.g. Drizzle-first)
+- Behavior agents must follow
+- Docs, Intent skills, public exports, package description/version agents see
+- New discoverable product language (“stock”, “FIFO”, “login”, …)
+
+Trivial typo-only edits with **no** behavioral/API/guidance change may skip recipes — still run `pnpm knowledge:check` if you touched skills or package.json fields the catalog reads.
+
+## Required every iteration (same change set)
+
+1. **Package docs** — update `packages/<category>/<name>/docs/` (not chat-only, not `_ai-docs` alone).
+2. **Intent skills** — update `packages/<category>/<name>/skills/**/SKILL.md` when guidance/defaults/APIs change.
+3. **Recipes** — add/update `packages/ai/ai-knowledge/knowledge/recipes.yaml` when the capability should be found by product language (`recommend()`). New packages need a primary recipe unless they are pure internals with no user-facing ask (still catalogued via sync).
+4. **Sync** — run `pnpm knowledge:sync`, then confirm `pnpm knowledge:check` passes.
+5. **WIP notes** — if using `_ai-docs/<topic>/`, note what catalog/recipe/skill changed so promotion stays complete.
+
+## Do not
+
+- Finish an iteration with fresh docs but stale skills/recipes/catalog
+- Hand-edit `packages/ai/ai-knowledge/src/generated/*` or the `<!-- catalog:* -->` block in `skills/recommend-eristack/SKILL.md`
+- Defer knowledge sync to “later” / a follow-up PR unless the human explicitly scopes that out
+- Present memory/test-only stores as the default in skills or recipes (Drizzle/DB-first)
+
+## Definition of done (agent)
+
+Code works **and** docs updated **and** skills/recipes reflect the change **and** `pnpm knowledge:check` is green.

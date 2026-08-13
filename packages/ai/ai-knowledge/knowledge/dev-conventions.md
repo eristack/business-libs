@@ -46,12 +46,13 @@ Category order (docs + filesystem): primitive → capability → service → AI.
 - Memory stores are for tests/ephemeral use; Drizzle stores for production paths
 - Examples prove end-to-end wiring; they are not published packages
 
-## Documentation
+## Documentation + ai-knowledge (hard rule)
 
 - Library guides: `packages/<category>/<name>/docs/*.md` + `_meta.json`
 - Do not duplicate library markdown inside `apps/web`
 - Site-only marketing/story/support pages live under `apps/web`
-- When Intent guidance changes, update `packages/<category>/<name>/skills/` in the same change
+- **Every iteration:** update `docs/` + Intent `skills/` together; update `packages/ai/ai-knowledge/knowledge/recipes.yaml` when discoverable by product language; run `pnpm knowledge:sync` / `knowledge:check`
+- Stale ai-knowledge after a docs/API change is incomplete work
 
 ## Scope discipline
 

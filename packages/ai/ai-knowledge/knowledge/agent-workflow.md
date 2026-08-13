@@ -35,22 +35,26 @@ In the `business-libs` monorepo:
 
 Copy those patterns instead of inventing new adapter shapes.
 
-## 4. Keep ai-knowledge fresh (monorepo authors)
+## 4. HARD RULE — docs + ai-knowledge every iteration (monorepo authors)
 
-When you change another package’s **skills**, **public exports**, or **discoverable capabilities**:
+Every incremental package change must update **docs and agent knowledge in the same pass**:
+
+1. Package `docs/`
+2. Package Intent `skills/`
+3. `knowledge/recipes.yaml` when product language should discover the change
+4. `pnpm knowledge:sync` then `pnpm knowledge:check`
+
+Do not finish an iteration with fresh docs and a stale catalog/recipes. CI fails on catalog drift (`pnpm knowledge:check`).
 
 ```bash
 pnpm knowledge:sync
+pnpm knowledge:check
 ```
-
-If a new product ask should be discoverable, add/update a recipe in `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then sync again.
-
-CI runs `pnpm knowledge:check` so generated catalog drift fails the build.
 
 ## 5. Docs while implementing (monorepo)
 
-- WIP notes under `_ai-docs/<topic>/`
-- When work is finished: promote into `packages/<category>/*/docs` (and site copy if needed), then delete the topic folder
+- WIP notes under `_ai-docs/<topic>/` (include which skills/recipes will change)
+- When work is finished: promote into `packages/<category>/*/docs` (and site copy if needed), sync ai-knowledge, then delete the topic folder
 - Package docs are the source of truth; the website renders them
 
 ## 6. Version control ownership
