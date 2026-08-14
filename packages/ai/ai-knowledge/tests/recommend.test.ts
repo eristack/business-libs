@@ -28,6 +28,8 @@ describe("catalog", () => {
         "@eristack/rbac",
         "@eristack/stock-movement",
         "@eristack/valuations",
+        "@eristack/backseat",
+        "@eristack/multitab",
       ].sort(),
     );
     expect(listSkills().length).toBeGreaterThanOrEqual(6);

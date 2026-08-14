@@ -16,15 +16,19 @@ Conventions for apps consuming Eristack and for contributors to the business-lib
 | `packages/primitive/money` | `@eristack/money` (primitive) |
 | `packages/capability/doc-number` | `@eristack/doc-number` (capability) |
 | `packages/service/jwt-auth` | `@eristack/jwt-auth` (service) |
+| `packages/infrastructure/backseat` | `@eristack/backseat` (infrastructure; mock backend — coming soon) |
+| `packages/ui/multitab` | `@eristack/multitab` (UI; tab workspace — coming soon) |
+| `packages/features/` | ERP feature modules (coming soon) |
 | `packages/ai/ai-knowledge` | `@eristack/ai-knowledge` (AI; this pack) |
 | `packages/ai/ai-workflow` | `@eristack/ai-workflow` (AI) |
+| `roadmap/` | Living priority stack for future packages |
 | `examples/*` | Private runnable demos (not published) |
 | `apps/web` | Public site; renders `packages/<category>/*/docs` by category |
 | `_ai-docs/` | Temporary AI working notes |
 | `_artifacts/` | Domain maps / skill specs |
 | `.changeset/` | Pending release notes |
 
-Category order (docs + filesystem): primitive → capability → service → AI.
+Category order (docs + filesystem): primitive → capability → service → infrastructure → ui → features → AI.
 
 ## Branching and releases
 

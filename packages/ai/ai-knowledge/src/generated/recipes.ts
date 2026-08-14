@@ -290,6 +290,57 @@ export const recipes = [
     ]
   },
   {
+    "id": "backseat-mock-backend",
+    "title": "Frontend mock REST backend for prototypes",
+    "priority": 8,
+    "triggers": [
+      "mock api",
+      "fake backend",
+      "frontend backend",
+      "prototype api",
+      "storybook api",
+      "msw alternative",
+      "json-server browser",
+      "in-browser api",
+      "backseat"
+    ],
+    "rationale": "Use @eristack/backseat for frontend-first prototypes: flexible registerRoute controllers, registerAction for complex Query logic, IndexedDB store (memory for tests), and BackseatDevtools for insert/reset/re-seed. Not production persistence. When the real backend is built later, agents peek at Backseat handlers/snapshots — no shared route contract required now.",
+    "packages": [
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "multitab-workspace",
+    "title": "Multi-document ERP tab workspace",
+    "priority": 9,
+    "triggers": [
+      "multitab",
+      "multi tab",
+      "document tabs",
+      "erp tabs",
+      "tab workspace",
+      "workspace tabs",
+      "open in tab",
+      "browser tabs erp"
+    ],
+    "rationale": "Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs, /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard, and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns tab bar UI and keyboard shortcuts.",
+    "packages": [
+      {
+        "name": "@eristack/multitab",
+        "skills": [
+          "multitab-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "access-control-stack",
     "title": "Roles, attribute limits, and document policies",
     "priority": 12,
@@ -444,6 +495,82 @@ export const recipes = [
         "name": "@eristack/hash-chained-ledger",
         "skills": [
           "hash-chained-ledger-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "erp-modules",
+    "title": "ERP modules (PO, SO, product, inventory, finance)",
+    "priority": 6,
+    "triggers": [
+      "erp",
+      "enterprise resource planning",
+      "purchase order",
+      "sales order",
+      "goods receipt",
+      "product master",
+      "item master",
+      "procurement",
+      "order to cash",
+      "procure to pay",
+      "inventory transfer",
+      "stocktake",
+      "accounts payable",
+      "accounts receivable",
+      "work order",
+      "bill of materials"
+    ],
+    "rationale": "@eristack/feature-* ERP packages are coming soon — full backlog in roadmap/erp.md (reprioritize there). Until they ship, compose the spine: qups lines, stock-movement, financial-ledger, valuations, pbac, doc-number, data-grid, jwt-auth, rbac. Partner/product masters stay app-owned until feature-partner and feature-product land.",
+    "packages": [
+      {
+        "name": "@eristack/qups",
+        "skills": [
+          "qups-core",
+          "qups-line"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/stock-movement",
+        "skills": [
+          "stock-movement-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/pbac",
+        "skills": [
+          "pbac-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/doc-number",
+        "skills": [
+          "doc-number-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/financial-ledger",
+        "skills": [
+          "financial-ledger-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/data-grid",
+        "skills": [
+          "data-grid-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/jwt-auth",
+        "skills": [
+          "jwt-auth-core"
         ],
         "role": "supporting"
       }

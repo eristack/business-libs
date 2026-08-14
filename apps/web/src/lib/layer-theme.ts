@@ -22,6 +22,21 @@ export const layerThemes = {
     /** cyan — agents / local index (avoid purple default) */
     swatch: "cyan",
   },
+  infrastructure: {
+    label: "Infrastructure",
+    /** slate-violet — runtime / deploy glue */
+    swatch: "violet",
+  },
+  ui: {
+    label: "UI",
+    /** rose — surfaces / workspace chrome */
+    swatch: "rose",
+  },
+  features: {
+    label: "Features",
+    /** emerald — product modules (ERP verticals) */
+    swatch: "emerald",
+  },
 } as const satisfies Record<
   PackageCategoryId,
   { label: string; swatch: string }
@@ -38,7 +53,9 @@ export type LibraryMotifId =
   | "pbac"
   | "ai-knowledge"
   | "ai-workflow"
-  | "ai-ticket-generator";
+  | "ai-ticket-generator"
+  | "backseat"
+  | "multitab";
 
 export function motifForPackage(slug: string): LibraryMotifId | null {
   const known: PackageSlug[] = [
@@ -53,6 +70,8 @@ export function motifForPackage(slug: string): LibraryMotifId | null {
     "ai-knowledge",
     "ai-workflow",
     "ai-ticket-generator",
+    "backseat",
+    "multitab",
   ];
   return known.includes(slug as PackageSlug) ? (slug as LibraryMotifId) : null;
 }

@@ -25,6 +25,11 @@ const statusStyles: Record<
     className:
       "bg-emerald-500/15 text-emerald-800 ring-emerald-500/25 dark:text-emerald-300",
   },
+  "coming-soon": {
+    label: "Coming soon",
+    className:
+      "bg-violet-500/15 text-violet-800 ring-violet-500/25 dark:text-violet-300",
+  },
 };
 
 type StatusBadgeProps = {
@@ -57,4 +62,8 @@ export function StatusBadge({
 
 export function isPackageStatus(value: string): value is PackageStatus {
   return (packageStatuses as readonly string[]).includes(value);
+}
+
+export function isComingSoon(status: PackageStatus) {
+  return status === "coming-soon";
 }

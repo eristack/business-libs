@@ -21,6 +21,7 @@ import {
   packagesByCategory,
   primaryNav,
   siteConfig,
+  startNav,
 } from "@/lib/site";
 
 type SiteHeaderProps = {
@@ -34,7 +35,9 @@ function navActive(pathname: string, href: string) {
 export function SiteHeader({ search }: SiteHeaderProps) {
   const pathname = usePathname();
   const mobileLinks = [
-    ...primaryNav.filter((l) => l.href !== "/packages"),
+    ...primaryNav.filter(
+      (l) => l.href !== "/packages" && l.href !== startNav.href,
+    ),
     ...companyNav,
   ];
   const grouped = packagesByCategory();
@@ -53,9 +56,23 @@ export function SiteHeader({ search }: SiteHeaderProps) {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
+            <Link
+              href={startNav.href}
+              className={cn(
+                "mr-1 rounded-md px-3 py-1.5 text-[13px] font-semibold transition-colors",
+                navActive(pathname, startNav.href)
+                  ? "bg-foreground text-background"
+                  : "text-foreground ring-1 ring-border hover:bg-muted/70",
+              )}
+            >
+              {startNav.label}
+            </Link>
             <LibrariesNav />
             {primaryNav
-              .filter((link) => link.href !== "/packages")
+              .filter(
+                (link) =>
+                  link.href !== "/packages" && link.href !== startNav.href,
+              )
               .map((link) => {
                 const active = navActive(pathname, link.href);
                 return (
@@ -102,6 +119,15 @@ export function SiteHeader({ search }: SiteHeaderProps) {
                   <SheetTitle>{siteConfig.name}</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 space-y-6">
+                  <Link
+                    href={startNav.href}
+                    className="block rounded-lg border border-border bg-muted/50 px-4 py-3 text-sm font-semibold text-foreground"
+                  >
+                    {startNav.label}
+                    <span className="mt-1 block text-[13px] font-normal text-muted-foreground">
+                      New here? Skip the layer tour.
+                    </span>
+                  </Link>
                   <div>
                     <p className="mb-2 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
                       Libraries

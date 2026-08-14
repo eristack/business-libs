@@ -141,7 +141,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 - **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
 - **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
 - **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. Do not finish with fresh docs and stale agent knowledge. See `.cursor/rules/ai-knowledge-sync.mdc`. CI enforces catalog freshness.
-- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/ai`. Docs UI and site listings follow the same order.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Docs UI and site listings follow the same order.
 
 ## Examples
 
@@ -160,7 +160,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 - **Site-only pages** (story, support, philosophy, blog posts) live under `apps/web/`.
 - When promoting AI notes for a library change, update `packages/<category>/*/docs` first; the site picks them up automatically. Update `apps/web` only for marketing/company copy or search/nav wiring.
 - Web docs UI links back to the GitHub source path for each page.
-- Docs listing order matches categories: primitive → capability → service → AI.
+- Docs listing order matches categories: primitive → capability → service → infrastructure → ui → features → AI.
 
 ## Monorepo layout
 
@@ -178,9 +178,13 @@ Categories under `packages/` (order matters):
 - `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
 - `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
+- `packages/infrastructure/backseat` — `@eristack/backseat` (frontend mock backend engine — coming soon)
+- `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab ERP workspace — coming soon)
+- `packages/features/` — ERP feature modules (product, procurement, …) — layer coming soon; see `roadmap/`
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)
+- `roadmap/` — living priority stack for future packages (also rendered at `/roadmap` on the site)
 - `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)

@@ -34,7 +34,7 @@ export default function PackagesPage() {
         }
         title="Libraries by layer"
         tagline="Pick a layer, open a library overview, then read the docs."
-        description="Eristack is organized as Primitive → Capability → Service → AI. Product pages explain each library; docs next to the code carry the contract."
+        description="Eristack is organized as Primitive → Capability → Service → Infrastructure → UI → Features → AI. Product pages explain each library; docs next to the code carry the contract."
         actions={
           <>
             <Button asChild size="lg">
@@ -70,7 +70,7 @@ export default function PackagesPage() {
         id="stack"
         tone="muted"
         eyebrow="The stack"
-        title="Four layers, one list style"
+        title="Seven layers, one list style"
         description="Every page that shows libraries — home, this index, layer landings, docs — uses the same layer headers and library rows."
       >
         <div className="space-y-14">

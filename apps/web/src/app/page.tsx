@@ -47,8 +47,8 @@ export default async function HomePage() {
         actions={
           <>
             <Button asChild size="lg" className="h-11 px-6 text-sm shadow-sm">
-              <Link href="/packages">
-                Browse libraries
+              <Link href="/start">
+                Start here
                 <ArrowRight />
               </Link>
             </Button>
@@ -58,7 +58,7 @@ export default async function HomePage() {
               size="lg"
               className="h-11 px-6 text-sm"
             >
-              <Link href="/story">Why we built this</Link>
+              <Link href="/packages">Browse libraries</Link>
             </Button>
           </>
         }

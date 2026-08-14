@@ -12,7 +12,7 @@ export const siteConfig = {
   partnersEmail: "partners@eristack.dev",
 } as const;
 
-/** Display / filesystem order: primitive → capability → service → ai */
+/** Display / filesystem order: primitive → capability → service → infrastructure → ui → features → ai */
 export const packageCategories = [
   {
     id: "primitive",
@@ -81,6 +81,72 @@ export const packageCategories = [
     ],
   },
   {
+    id: "infrastructure",
+    label: "Infrastructure",
+    href: "/infrastructure",
+    tagline: "Headless runtime glue for apps that deploy anywhere.",
+    description:
+      "Infrastructure packages wire observability, mock backends, and REST shells — without absorbing your domain or database.",
+    highlights: [
+      {
+        title: "Deploy-aware",
+        body: "Structured logging and tracing that read well on Vercel, Fly, or bare metal.",
+      },
+      {
+        title: "Mock without lying",
+        body: "Frontends get a real engine-backed fake backend — not ad-hoc fetch stubs.",
+      },
+      {
+        title: "Thin HTTP shells",
+        body: "Headless route tables mount on Express or Nest — apps own handlers and schemas.",
+      },
+    ],
+  },
+  {
+    id: "ui",
+    label: "UI",
+    href: "/ui",
+    tagline: "Composable React surfaces for dense ERP workspaces.",
+    description:
+      "UI libraries for patterns every operations app repeats — multi-tab workspaces, data-dense chrome, and headless shells over your TanStack stack.",
+    highlights: [
+      {
+        title: "Headless first",
+        body: "Behavior and state live in the package; your design system owns pixels.",
+      },
+      {
+        title: "TanStack-native",
+        body: "Query, Router, and Form assumptions baked in — not fighting your stack.",
+      },
+      {
+        title: "ERP-shaped",
+        body: "Built for document-heavy, multi-entity screens — not marketing sites.",
+      },
+    ],
+  },
+  {
+    id: "features",
+    label: "Features",
+    href: "/features",
+    tagline: "ERP modules — PO, SO, product, inventory, finance.",
+    description:
+      "Operational ERP as composable libraries: purchase orders, goods receipts, sales orders, product master, stock transfers, journals, and AP/AR — each a separate package on the shared spine (qups, stock, ledgers, pbac, doc-number). Coming soon while masters and procure-to-pay design land.",
+    highlights: [
+      {
+        title: "Real ERP documents",
+        body: "Headers, lines, statuses, postings — not generic CRUD wrappers.",
+      },
+      {
+        title: "Spine underneath",
+        body: "Money, stock, GL, valuations, and document rules stay in lower layers.",
+      },
+      {
+        title: "Reprioritize freely",
+        body: "Module backlog in roadmap/erp.md — partner, product, and procurement lead by default.",
+      },
+    ],
+  },
+  {
     id: "ai",
     label: "AI",
     href: "/ai",
@@ -106,7 +172,7 @@ export const packageCategories = [
 
 export type PackageCategoryId = (typeof packageCategories)[number]["id"];
 
-export const packageStatuses = ["alpha", "beta", "stable"] as const;
+export const packageStatuses = ["alpha", "beta", "stable", "coming-soon"] as const;
 export type PackageStatus = (typeof packageStatuses)[number];
 
 export const packages = [
@@ -597,6 +663,105 @@ await ledger.verify("demo")`,
     },
   },
   {
+    slug: "backseat",
+    name: "@eristack/backseat",
+    title: "Backseat",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/backseat",
+    href: "/backseat",
+    docsHref: "/docs/backseat",
+    tagline: "A fake backend engine your frontend can actually wire to.",
+    description:
+      "Frontend mock backend with an Eristack engine: TanStack Query-friendly routes, in-browser persistence, and the same contract shape as production — for prototypes and UX iteration without standing up an API.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/backseat",
+    highlights: [
+      {
+        title: "Query-ready",
+        body: "Hooks and handlers shaped for useQuery/useMutation — not one-off fetch mocks.",
+      },
+      {
+        title: "Own engine",
+        body: "Deterministic in-browser store with optional seed/import — not MSW-only tape.",
+      },
+      {
+        title: "Graduate to real API",
+        body: "Same DTO contracts when you swap Backseat for Express/Nest + Drizzle.",
+      },
+    ],
+    sample: {
+      filename: "backseat.ts",
+      language: "ts",
+      code: `import { createBackseat } from "@eristack/backseat"
+import { createIndexedDbBackseatStore } from "@eristack/backseat/store"
+import { createErpDemoSnapshot } from "@eristack/backseat/seeds"
+
+const api = createBackseat({
+  store: createIndexedDbBackseatStore({ dbName: "demo" }),
+  baseUrl: "/api",
+  collections: { products: {}, partners: {} },
+})
+
+await api.seed(createErpDemoSnapshot())
+// useQuery({ queryKey: ["products"], queryFn: () => api.handlers.products.list() })`,
+    },
+  },
+  {
+    slug: "multitab",
+    name: "@eristack/multitab",
+    title: "Multitab",
+    category: "ui" as const,
+    directory: "packages/ui/multitab",
+    href: "/multitab",
+    docsHref: "/docs/multitab",
+    tagline: "Multi-document tabs on one page — ERP workspace chrome.",
+    description:
+      "Headless multi-tab workspace for React: pathname-keyed document tabs, /new/{uuid} placeholders, closeGuard, localStorage persistence, and TanStack Router sync — you render tab chrome.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/multitab @tanstack/react-router",
+    highlights: [
+      {
+        title: "Document tabs",
+        body: "PO, SO, GR, invoice — each tab keeps its own form state.",
+      },
+      {
+        title: "Headless core",
+        body: "Tab model + events; you render shadcn or your design system.",
+      },
+      {
+        title: "Router sync",
+        body: "Deep-link a tab without losing the rest of the workspace.",
+      },
+    ],
+    sample: {
+      filename: "multitab.tsx",
+      language: "tsx",
+      code: `import {
+  MultitabRouterProvider,
+  useMultitabRouter,
+  navigateToTab,
+} from "@eristack/multitab/react/tanstack"
+
+<MultitabRouterProvider
+  storageKey="erp.multitab"
+  resolveRouteTab={(path) =>
+    path === "/orders" ? { title: "Orders" } : null
+  }
+>
+  <Shell />
+</MultitabRouterProvider>
+
+function Shell() {
+  const mt = useMultitabRouter()
+  return mt.tabs.map((tab) => (
+    <button key={tab.id} onClick={() => navigateToTab(mt, tab)}>
+      {tab.title}
+    </button>
+  ))
+}`,
+    },
+  },
+  {
     slug: "ai-knowledge",
     name: "@eristack/ai-knowledge",
     title: "AI Knowledge",
@@ -741,7 +906,10 @@ export const librarySlugs = [
   ...packages.map((pkg) => pkg.slug),
 ] as const;
 
+export const startNav = { href: "/start", label: "Start here" } as const;
+
 export const primaryNav = [
+  startNav,
   { href: "/packages", label: "Libraries" },
   { href: "/docs", label: "Docs" },
   { href: "/blog", label: "Blog" },
@@ -756,6 +924,7 @@ export function isLibrariesNavActive(pathname: string) {
 }
 
 export const companyNav = [
+  { href: "/roadmap", label: "Roadmap" },
   { href: "/story", label: "Story" },
   { href: "/philosophy", label: "Philosophy" },
   { href: "/maintainers", label: "Maintainers" },

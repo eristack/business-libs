@@ -90,7 +90,25 @@ export async function CategoryLanding({ category }: { category: Category }) {
         title={`In the ${category.label} layer`}
         description="Open a library overview, then jump into docs when you are ready to wire it."
       >
-        <LibraryList items={siblings.packages} variant="actions" />
+        {siblings.packages.length > 0 ? (
+          <LibraryList items={siblings.packages} variant="actions" />
+        ) : (
+          <div className="rounded-2xl border border-dashed border-[color:var(--layer-accent)]/40 bg-[color:var(--layer-soft)] px-6 py-10 text-center">
+            <p className="text-lg font-semibold tracking-tight">Coming soon</p>
+            <p className="mx-auto mt-2 max-w-lg text-[14px] leading-6 text-muted-foreground">
+              ERP modules — PO, SO, product master, goods receipt, inventory
+              transfer, journals, AP/AR — ship as separate packages here. Browse
+              the full prioritized catalog in{" "}
+              <Link
+                href="/roadmap/erp"
+                className="font-semibold text-[color:var(--layer-accent)] hover:underline"
+              >
+                ERP catalog
+              </Link>{" "}
+              (edit priorities anytime).
+            </p>
+          </div>
+        )}
       </ContentSection>
     </div>
   );

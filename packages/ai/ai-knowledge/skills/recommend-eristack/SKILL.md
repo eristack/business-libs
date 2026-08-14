@@ -75,6 +75,15 @@ Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, bac
 - `@eristack/ai-workflow#ai-workflow-mcp` — Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp`
 
+### @eristack/backseat (v0.1.0)
+
+Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks
+
+Adapters: `react`, `seeds`, `store`
+
+- `@eristack/backseat#backseat-core` — @eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core`
+
 ### @eristack/data-grid (v0.1.0)
 
 Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
@@ -138,6 +147,15 @@ Money primitives for Eristack
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts`
 - `@eristack/money#money-ledger` — Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger`
+
+### @eristack/multitab (v0.1.0)
+
+Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync
+
+Adapters: `react`, `react/tanstack`
+
+- `@eristack/multitab#multitab-core` — @eristack/multitab: headless multi-tab workspace for React ERP screens — tab model, closeGuard, TanStack Router sync. UI chrome stays in the app.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core`
 
 ### @eristack/pbac (v0.1.0)
 
