@@ -1,5 +1,11 @@
 # @eristack/multitab
 
+## 0.2.0
+
+### Minor Changes
+
+- 12eb114: Close active tab activates the most-recently-used remaining tab (MRU), not the first tab in order. Persists optional `recentTabIds` in localStorage state.
+
 ## 0.1.0
 
 ### Minor Changes
