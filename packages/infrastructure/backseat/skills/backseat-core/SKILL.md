@@ -39,6 +39,7 @@ Frontend-first **fake backend** in the browser — store + router + **your** con
 | Import | Use |
 | --- | --- |
 | `@eristack/backseat` | `createBackseat`, memory store, types |
+| `@eristack/backseat/adapters` | `registerRestLikeRoutes`, REST bridge helpers |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore()` — **browser default** |
 | `@eristack/backseat/react` | Provider, hooks, `BackseatDevtools` |
 | `@eristack/backseat/seeds` | `createErpDemoSnapshot()` |

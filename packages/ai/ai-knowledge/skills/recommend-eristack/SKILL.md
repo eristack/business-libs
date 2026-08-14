@@ -50,7 +50,7 @@ const plan = loadPlan(result);
 
 Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes
 
-Adapters: `express`, `nest`, `react`
+Adapters: `backseat`, `backseat/store`, `express`, `nest`, `react`
 
 - `@eristack/abac#abac-adapters` — @eristack/abac adapters: express createRequirePolicy, nest AbacModule + AbacGuard + RequirePolicy + AbacContextFactory, react usePolicy. Use when wiring attribute policy checks into HTTP/UI shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-adapters`
@@ -79,7 +79,7 @@ Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, bac
 
 Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks
 
-Adapters: `react`, `seeds`, `store`
+Adapters: `adapters`, `react`, `seeds`, `store`
 
 - `@eristack/backseat#backseat-core` — @eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core`
@@ -88,7 +88,7 @@ Adapters: `react`, `seeds`, `store`
 
 Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
 
-Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
+Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 
 - `@eristack/data-grid#data-grid-adapters` — @eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters`
@@ -99,7 +99,7 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 
 Document number format, parse, and sequence primitives for Eristack
 
-Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
+Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 
 - `@eristack/doc-number#doc-number-adapters` — @eristack/doc-number adapters: drizzle FormatStore + SequenceStore (doc_number_formats / doc_number_sequences), rest format CRUD + preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react DocNumberProvider / useDocNumberFormats. Use when persisting formats or wiring format-configuration HTTP/frontend shells; app injects db + docNumber.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters`
@@ -110,7 +110,7 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 
 Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money
 
-Adapters: `drizzle`
+Adapters: `backseat`, `backseat/store`, `drizzle`
 
 - `@eristack/financial-ledger#financial-ledger-adapters` — @eristack/financial-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore for durable GL chains on Postgres (Vercel).
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-adapters`
@@ -121,7 +121,7 @@ Adapters: `drizzle`
 
 Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection
 
-Adapters: `drizzle`
+Adapters: `backseat`, `backseat/store`, `drizzle`
 
 - `@eristack/hash-chained-ledger#hash-chained-ledger-adapters` — @eristack/hash-chained-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore. Use for durable chains on Postgres (Vercel).
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-adapters`
@@ -132,7 +132,7 @@ Adapters: `drizzle`
 
 Canonical JWT access + refresh-token auth primitives for Eristack
 
-Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`
+Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, `react`, `rest`
 
 - `@eristack/jwt-auth#jwt-auth-adapters` — @eristack/jwt-auth adapters: drizzle pgsql/mysql/sqlite RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), headless rest login/ sessions, express createJwtAuthRouter, nest JwtAuthModule JwtAuthGuard, client createJwtAuthClient login, react JwtAuthProvider useJwtAuth. Use when wiring persistence or HTTP/frontend shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-adapters`
@@ -161,7 +161,7 @@ Adapters: `react`, `react/tanstack`
 
 Policy-based (software) access control for Eristack: business document rules that return true or false
 
-Adapters: `express`, `nest`, `react`
+Adapters: `backseat`, `backseat/store`, `express`, `nest`, `react`
 
 - `@eristack/pbac#pbac-adapters` — @eristack/pbac adapters: express createRequireBusinessPolicy (409 on deny), nest PbacModule + PbacGuard + RequireBusinessPolicy, react useBusinessPolicy. Use when wiring document software policies into HTTP/UI shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-adapters`
@@ -172,7 +172,7 @@ Adapters: `express`, `nest`, `react`
 
 Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money
 
-Adapters: `drizzle`
+Adapters: `backseat`, `backseat/store`, `drizzle`
 
 - `@eristack/qups#qups-adapters` — Optional @eristack/qups/drizzle: qupsLineColumns injected into app detail tables; withQupsColumns from calculateLine for inserts. Profile/line stores only if you need a field catalog — everyday form/BE math uses calculateLine.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters`
@@ -185,7 +185,7 @@ Adapters: `drizzle`
 
 Role-based access control for Eristack: subjects, roles, and boolean permissions
 
-Adapters: `drizzle`, `express`, `nest`, `react`
+Adapters: `backseat`, `backseat/store`, `drizzle`, `express`, `nest`, `react`
 
 - `@eristack/rbac#rbac-adapters` — @eristack/rbac adapters: drizzle createRbacTables + createDrizzleRbacStore (pgsql/mysql/sqlite), express createRequirePermission, nest RbacModule + RbacGuard + RequirePermission, react useCan. Use when wiring RBAC persistence or HTTP/UI shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters`
@@ -196,7 +196,7 @@ Adapters: `drizzle`, `express`, `nest`, `react`
 
 Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks
 
-Adapters: `drizzle`
+Adapters: `backseat`, `backseat/store`, `drizzle`
 
 - `@eristack/stock-movement#stock-movement-adapters` — @eristack/stock-movement/drizzle: re-exports createHashChainedLedgerTables + createDrizzleLedgerStore for Postgres on Vercel. Use as the app default store.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-adapters`
@@ -207,7 +207,7 @@ Adapters: `drizzle`
 
 Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger
 
-Adapters: `drizzle`
+Adapters: `backseat`, `backseat/store`, `drizzle`
 
 - `@eristack/valuations#valuations-adapters` — @eristack/valuations/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore + createValuationLayerTables + createDrizzleLayerStore. Both stores required for production engines on Postgres (Vercel).
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-adapters`

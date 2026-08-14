@@ -52,6 +52,26 @@
         "types": "./dist/react/index.d.ts",
         "default": "./dist/react/index.cjs"
       }
+    },
+    "./backseat": {
+      "import": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.cjs"
+      }
+    },
+    "./backseat/store": {
+      "import": {
+        "types": "./dist/backseat/store/index.d.ts",
+        "default": "./dist/backseat/store/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/store/index.d.ts",
+        "default": "./dist/backseat/store/index.cjs"
+      }
     }
   },
   "files": [
@@ -82,7 +102,8 @@
     "@nestjs/common": "^10.0.0 || ^11.0.0",
     "@nestjs/core": "^10.0.0 || ^11.0.0",
     "express": "^4.0.0 || ^5.0.0",
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "@eristack/backseat": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@nestjs/common": {
@@ -95,6 +116,9 @@
       "optional": true
     },
     "react": {
+      "optional": true
+    },
+    "@eristack/backseat": {
       "optional": true
     }
   },
@@ -111,6 +135,7 @@
     "rxjs": "^7.8.2",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "@eristack/backseat": "workspace:*"
   }
 }

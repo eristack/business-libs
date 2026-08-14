@@ -2,6 +2,8 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   entry: [
+    "src/backseat/index.ts",
+    "src/backseat/store/index.ts",
     "src/index.ts",
     "src/drizzle/index.ts",
     "src/rest/index.ts",
@@ -15,6 +17,9 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
+    "@eristack/backseat",
+    "@eristack/backseat/store",
+    "@eristack/backseat/adapters",
     "@eristack/data-grid",
     "drizzle-orm",
     "drizzle-orm/pg-core",

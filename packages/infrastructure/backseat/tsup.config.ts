@@ -6,6 +6,7 @@ export default defineConfig({
     "src/store/index.ts",
     "src/react/index.ts",
     "src/seeds/index.ts",
+    "src/adapters/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,

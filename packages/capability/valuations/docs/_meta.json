@@ -1,5 +1,12 @@
 {
-  "pages": ["index", "getting-started", "methods", "concepts", "recipes"],
+  "pages": [
+    "index",
+    "getting-started",
+    "methods",
+    "concepts",
+    "recipes",
+    "backseat"
+  ],
   "index": "Overview",
   "getting-started": "Getting started",
   "methods": "Methods",

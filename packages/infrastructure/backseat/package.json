@@ -52,6 +52,16 @@
         "types": "./dist/seeds/index.d.ts",
         "default": "./dist/seeds/index.cjs"
       }
+    },
+    "./adapters": {
+      "import": {
+        "types": "./dist/adapters/index.d.ts",
+        "default": "./dist/adapters/index.js"
+      },
+      "require": {
+        "types": "./dist/adapters/index.d.ts",
+        "default": "./dist/adapters/index.cjs"
+      }
     }
   },
   "files": ["dist", "docs", "README.md", "skills"],

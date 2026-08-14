@@ -6,7 +6,8 @@
     "document-policies",
     "edge-cases",
     "adapters",
-    "recipes"
+    "recipes",
+    "backseat"
   ],
   "index": "Overview",
   "getting-started": "Getting started",
