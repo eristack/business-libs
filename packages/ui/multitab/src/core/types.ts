@@ -13,6 +13,8 @@ export type Tab = {
 export type MultitabState = {
   readonly tabs: readonly Tab[];
   readonly activeTabId: string | null;
+  /** MRU stack — most recently active tab ids (excludes current active). */
+  readonly recentTabIds?: readonly string[];
 };
 
 export type OpenTabInput = {

@@ -1,5 +1,12 @@
 import type { MultitabState, OpenTabInput, Tab } from "./types.js";
-import { closeTab, findTabById, openNewTab, openRouteTabAdjacent } from "./state.js";
+import {
+  activateTab,
+  clearActiveTab,
+  closeTab,
+  findTabById,
+  openNewTab,
+  openRouteTabAdjacent,
+} from "./state.js";
 import {
   NEW_TAB_DEFAULT_DESCRIPTION,
   NEW_TAB_DEFAULT_TITLE,
@@ -72,13 +79,13 @@ export function syncStateForRouteVisit(
   const parsed = parseMultitabRoute(pathname);
 
   if (parsed.kind === "empty") {
-    return { tabs: state.tabs, activeTabId: null };
+    return clearActiveTab(state);
   }
 
   if (parsed.kind === "new") {
     const existing = findTabById(state, parsed.tabId);
     if (existing) {
-      return { tabs: state.tabs, activeTabId: parsed.tabId };
+      return activateTab(state, parsed.tabId);
     }
 
     return openNewTab(state, {
@@ -91,7 +98,7 @@ export function syncStateForRouteVisit(
 
   const meta = resolveRouteTab(parsed.pathname);
   if (!meta) {
-    return { tabs: state.tabs, activeTabId: null };
+    return clearActiveTab(state);
   }
 
   const tabId = resolveTabId(parsed.pathname);

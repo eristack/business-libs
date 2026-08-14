@@ -33,6 +33,7 @@ description: Core vs React vs TanStack Router responsibilities
 | Module | Responsibility |
 | --- | --- |
 | `state.ts` | Reducer actions: open, close, reorder, replace, ensure |
+| `mru.ts` | Activation history (`recentTabIds`) and MRU pick on close |
 | `routes.ts` | Parse `/`, `/new/{uuid}`, module paths; navigation plans |
 | `persistence.ts` | Serialize/sanitize localStorage payloads |
 | `workspace.ts` | New-tab ids, `closeGuard` helpers |
@@ -56,13 +57,22 @@ Saved state drops invalid entries:
 - New tabs without UUID ids
 - Route tabs whose id does not start with `/`
 
-Active tab id is revalidated against remaining tabs on load.
+Active tab id is revalidated against remaining tabs on load. Optional `recentTabIds` (MRU stack) is persisted for browser-like close behavior.
+
+## MRU close
+
+`MultitabState` tracks `recentTabIds` — previous activations, newest first. When the **active** tab closes:
+
+1. Walk `recentTabIds` and activate the first id still open
+2. If none, fall back to the tab **left** of the closed tab (then last tab)
+
+Closing the last tab still navigates to `/` with an empty workspace.
 
 ## Edge cases covered in tests
 
 - Reactivate existing tab without duplicating or overwriting title
 - Close last tab → empty workspace + navigate to `/`
-- Close active tab → sibling becomes active
+- Close active tab → **MRU** tab becomes active (not `tabs[0]`)
 - `replaceTab` when target id already exists on another tab
 - `ensureTab` adds without stealing focus
 - Trailing slash normalization on tab ids

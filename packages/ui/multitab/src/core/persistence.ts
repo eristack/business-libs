@@ -1,4 +1,8 @@
 import type { MultitabState, Tab } from "./types.js";
+import {
+  emptyRecentTabIds,
+  normalizeRecentTabIds,
+} from "./mru.js";
 import { isNewTab, isNewTabId } from "./workspace.js";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -32,7 +36,13 @@ function pickActiveTabId(
   if (preferredId && tabs.some((tab) => tab.id === preferredId)) {
     return preferredId;
   }
-  return tabs[0]?.id ?? null;
+  return tabs[tabs.length - 1]?.id ?? null;
+}
+
+function parseRecentTabIds(value: unknown, tabs: readonly Tab[]): readonly string[] {
+  if (!Array.isArray(value)) return emptyRecentTabIds();
+  const ids = value.filter((item): item is string => typeof item === "string");
+  return normalizeRecentTabIds(ids, tabs);
 }
 
 export function sanitizePersistedState(state: MultitabState): MultitabState {
@@ -44,8 +54,12 @@ export function sanitizePersistedState(state: MultitabState): MultitabState {
   );
   const activeTabId =
     tabs.length === 0 ? null : pickActiveTabId(tabs, state.activeTabId);
+  const recentTabIds = normalizeRecentTabIds(
+    (state.recentTabIds ?? []).filter((id) => id !== activeTabId),
+    tabs,
+  );
 
-  return { tabs, activeTabId };
+  return { tabs, activeTabId, recentTabIds };
 }
 
 export function parseMultitabState(raw: string): MultitabState | null {
@@ -60,8 +74,9 @@ export function parseMultitabState(raw: string): MultitabState | null {
       typeof parsed.activeTabId === "string" || parsed.activeTabId === null
         ? parsed.activeTabId
         : null;
+    const recentTabIds = parseRecentTabIds(parsed.recentTabIds, tabs);
 
-    return sanitizePersistedState({ tabs, activeTabId });
+    return sanitizePersistedState({ tabs, activeTabId, recentTabIds });
   } catch {
     return null;
   }

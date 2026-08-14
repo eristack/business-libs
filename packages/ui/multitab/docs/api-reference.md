@@ -34,7 +34,7 @@ description: Core and React exports
 
 ### Types
 
-- `Tab`, `TabKind`, `MultitabState`, `MultitabAction`, `OpenTabInput`
+- `Tab`, `TabKind`, `MultitabState` (`tabs`, `activeTabId`, optional `recentTabIds`), `MultitabAction`, `OpenTabInput`
 - `RouteTabResolver`, `BeforeCloseHandler`
 
 ## React (`@eristack/multitab/react`)

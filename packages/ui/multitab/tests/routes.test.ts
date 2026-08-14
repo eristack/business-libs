@@ -134,7 +134,30 @@ describe("planCloseTabNavigation", () => {
     expect(plan.nextPath).toBe(emptyTabPath());
   });
 
-  it("navigates to the next tab path when closing the active tab", () => {
+  it("navigates to MRU tab when closing the active tab", () => {
+    let state = openTab(initialMultitabState, {
+      id: "/inventory/products",
+      title: "Products",
+      kind: "route",
+    });
+    state = openTab(state, {
+      id: "/procurement/purchase-orders",
+      title: "Purchase orders",
+      kind: "route",
+    });
+    state = openTab(state, {
+      id: "/dashboard",
+      title: "Dashboard",
+      kind: "route",
+    });
+
+    const plan = planCloseTabNavigation(state, "/dashboard");
+
+    expect(plan.nextState.activeTabId).toBe("/procurement/purchase-orders");
+    expect(plan.nextPath).toBe("/procurement/purchase-orders");
+  });
+
+  it("navigates to the previous tab when closing the active tab (two tabs)", () => {
     let state = openTab(initialMultitabState, {
       id: "/dashboard",
       title: "Dashboard",
