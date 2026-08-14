@@ -32,6 +32,21 @@ describe("multitab persistence", () => {
     );
   });
 
+  it("persists recentTabIds across save/load", () => {
+    let state = openTab(initialMultitabState, {
+      id: "/a",
+      title: "A",
+      kind: "route",
+    });
+    state = openTab(state, { id: "/b", title: "B", kind: "route" });
+    state = openTab(state, { id: "/c", title: "C", kind: "route" });
+
+    const restored = parseMultitabState(serializeMultitabState(state));
+
+    expect(restored?.activeTabId).toBe("/c");
+    expect(restored?.recentTabIds).toEqual(["/b", "/a"]);
+  });
+
   it("round-trips persisted state through json", () => {
     const state = openTab(initialMultitabState, {
       id: "/inventory/uom",

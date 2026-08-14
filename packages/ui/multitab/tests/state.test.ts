@@ -298,6 +298,58 @@ describe("multitab state", () => {
     expect(replaced.tabs[0]?.kind).toBe("route");
   });
 
+  it("closes active tab using MRU — A then B then C, close C activates B", () => {
+    let state = openTab(initialMultitabState, {
+      id: "/inventory/products",
+      title: "Products",
+      kind: "route",
+    });
+    state = openTab(state, {
+      id: "/procurement/purchase-orders",
+      title: "Purchase orders",
+      kind: "route",
+    });
+    state = openTab(state, {
+      id: "/dashboard",
+      title: "Dashboard",
+      kind: "route",
+    });
+
+    state = closeTab(state, "/dashboard");
+
+    expect(state.tabs.map((tab) => tab.id)).toEqual([
+      "/inventory/products",
+      "/procurement/purchase-orders",
+    ]);
+    expect(state.activeTabId).toBe("/procurement/purchase-orders");
+  });
+
+  it("closes active tab using MRU after re-activating an older tab", () => {
+    let state = openTab(initialMultitabState, {
+      id: "/a",
+      title: "A",
+      kind: "route",
+    });
+    state = openTab(state, { id: "/b", title: "B", kind: "route" });
+    state = openTab(state, { id: "/a", title: "A", kind: "route" });
+
+    state = closeTab(state, "/a");
+
+    expect(state.activeTabId).toBe("/b");
+  });
+
+  it("falls back to adjacent tab when MRU is empty", () => {
+    let state = openTab(initialMultitabState, {
+      id: "/a",
+      title: "A",
+      kind: "route",
+    });
+    state = openTab(state, { id: "/b", title: "B", kind: "route" });
+    state = closeTab(state, "/b");
+
+    expect(state.activeTabId).toBe("/a");
+  });
+
   it("setTabCloseGuard marks tabs as protected from close", () => {
     let state = openTab(initialMultitabState, { id: "/a", title: "A" });
     state = setTabCloseGuard(state, "/a", true);
