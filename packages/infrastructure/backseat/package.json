@@ -1,6 +1,6 @@
 {
   "name": "@eristack/backseat",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
   "repository": {
     "type": "git",
@@ -54,7 +54,12 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills"],
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills"
+  ],
   "keywords": [
     "tanstack-intent",
     "mock",
@@ -65,7 +70,9 @@
     "json-server",
     "eristack"
   ],
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
@@ -77,8 +84,12 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@tanstack/react-query": { "optional": true },
-    "react": { "optional": true }
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",
