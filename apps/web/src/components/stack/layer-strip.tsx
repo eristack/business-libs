@@ -17,7 +17,7 @@ export function LayerStrip({ activeId, className }: LayerStripProps) {
   return (
     <nav
       aria-label="Library layers"
-      className={cn("grid gap-2 sm:grid-cols-2 lg:grid-cols-4", className)}
+      className={cn("grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7", className)}
     >
       {grouped.map((category) => {
         const active = category.id === activeId;

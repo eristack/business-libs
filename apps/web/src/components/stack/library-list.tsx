@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ReleaseMeta } from "@/components/stack/release-meta";
 import { VersionBadge } from "@/components/stack/version-badge";
-import { StatusBadge } from "@/components/stack/status-badge";
+import { StatusBadge, isComingSoon } from "@/components/stack/status-badge";
 import { getPackageRelease } from "@/lib/package-meta";
 import {
   categoryIndex,
@@ -118,7 +118,9 @@ function LibraryCopy({
         ) : (
           <>
             <StatusBadge status={pkg.status} />
-            <VersionBadge version={release.version} />
+            {!isComingSoon(pkg.status) ? (
+              <VersionBadge version={release.version} />
+            ) : null}
           </>
         )}
       </div>
@@ -183,7 +185,17 @@ export function LayerSection({
           </Link>
         ) : null}
       </div>
-      <LibraryList items={items} variant={variant} />
+      {items.length > 0 ? (
+        <LibraryList items={items} variant={variant} />
+      ) : (
+        <p className="rounded-xl border border-dashed border-border px-5 py-8 text-center text-[13px] text-muted-foreground">
+          No published libraries yet — see{" "}
+          <Link href="/roadmap" className="font-semibold text-accent hover:underline">
+            roadmap
+          </Link>
+          .
+        </p>
+      )}
     </section>
   );
 }

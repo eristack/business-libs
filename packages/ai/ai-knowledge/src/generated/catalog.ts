@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-13T06:37:52.072Z",
+  "generatedAt": "2026-08-14T03:18:54.469Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -82,6 +82,27 @@ export const catalog = {
           "description": "Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/backseat",
+      "version": "0.1.0",
+      "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
+      "slug": "backseat",
+      "adapters": [
+        "react",
+        "seeds",
+        "store"
+      ],
+      "skills": [
+        {
+          "id": "backseat-core",
+          "name": "backseat-core",
+          "packageName": "@eristack/backseat",
+          "description": "@eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core"
         }
       ]
     },
@@ -257,6 +278,26 @@ export const catalog = {
           "description": "Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/multitab",
+      "version": "0.1.0",
+      "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
+      "slug": "multitab",
+      "adapters": [
+        "react",
+        "react/tanstack"
+      ],
+      "skills": [
+        {
+          "id": "multitab-core",
+          "name": "multitab-core",
+          "packageName": "@eristack/multitab",
+          "description": "@eristack/multitab: headless multi-tab workspace for React ERP screens — tab model, closeGuard, TanStack Router sync. UI chrome stays in the app.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core"
         }
       ]
     },

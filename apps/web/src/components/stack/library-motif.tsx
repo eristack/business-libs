@@ -29,6 +29,8 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       {motif === "ai-knowledge" ? <KnowledgeMotif /> : null}
       {motif === "ai-workflow" ? <WorkflowMotif /> : null}
       {motif === "ai-ticket-generator" ? <TicketMotif /> : null}
+      {motif === "backseat" ? <BackseatMotif /> : null}
+      {motif === "multitab" ? <MultitabMotif /> : null}
     </div>
   );
 }
@@ -256,6 +258,47 @@ function TicketMotif() {
         <p className="opacity-75">logs · scenario · fix plan</p>
         <p className="opacity-75">agent handoff → maintainer</p>
       </div>
+    </div>
+  );
+}
+
+function BackseatMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[14%] left-[8%] space-y-1.5 font-mono text-[11px] leading-5">
+        <p className="font-semibold">GET /api/products</p>
+        <p className="opacity-80">POST /api/partners</p>
+        <p className="opacity-70">PATCH /api/purchaseOrders/po-1001</p>
+      </div>
+      <div className="absolute top-[46%] left-[8%] rounded-lg border border-current/40 bg-[color:var(--layer-soft)] px-3 py-2 font-mono text-[11px] leading-5">
+        <p className="font-semibold">in-browser REST</p>
+        <p className="opacity-75">IndexedDB · devtools · seed</p>
+      </div>
+    </div>
+  );
+}
+
+function MultitabMotif() {
+  const tabs = ["PO 1001", "SO 2044", "New tab", "Stock"];
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[20%] left-[8%] flex gap-1">
+        {tabs.map((tab, i) => (
+          <span
+            key={tab}
+            className={cn(
+              "rounded-md border border-current/30 px-2 py-1 font-mono text-[10px]",
+              i === 1 && "bg-[color:var(--layer-soft)] opacity-100",
+            )}
+            style={{ opacity: i === 1 ? 1 : 0.55 + i * 0.05 }}
+          >
+            {tab}
+          </span>
+        ))}
+      </div>
+      <span className="absolute top-[38%] left-[8%] font-mono text-[12px] tracking-wide opacity-80">
+        /sales/orders · active
+      </span>
     </div>
   );
 }

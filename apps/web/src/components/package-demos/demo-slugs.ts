@@ -1,5 +1,10 @@
 /** Slugs with a live hero visualization. Keep in sync with PackageHeroDemo. */
 export const PACKAGE_HERO_DEMO_SLUGS = [
+  "money",
+  "doc-number",
+  "jwt-auth",
+  "backseat",
+  "multitab",
   "qups",
   "rbac",
   "abac",

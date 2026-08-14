@@ -5,6 +5,35 @@ const repoRoot = path.join(__dirname, "../..");
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: repoRoot,
+  async redirects() {
+    return [
+      {
+        source: "/roadmap/near-term",
+        destination: "/roadmap/priorities",
+        permanent: true,
+      },
+      {
+        source: "/roadmap/infrastructure",
+        destination: "/roadmap/priorities",
+        permanent: true,
+      },
+      {
+        source: "/roadmap/features-erp",
+        destination: "/roadmap/erp",
+        permanent: true,
+      },
+      {
+        source: "/roadmap/features-catalog",
+        destination: "/roadmap/erp",
+        permanent: true,
+      },
+      {
+        source: "/roadmap/start-here",
+        destination: "/start",
+        permanent: true,
+      },
+    ];
+  },
   transpilePackages: [
     "@eristack/qups",
     "@eristack/rbac",

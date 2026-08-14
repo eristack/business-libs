@@ -1,0 +1,82 @@
+{
+  "name": "@eristack/multitab",
+  "version": "0.1.0",
+  "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/ui/multitab"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/ui/multitab",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.cjs"
+      }
+    },
+    "./react/tanstack": {
+      "import": {
+        "types": "./dist/react/tanstack.d.ts",
+        "default": "./dist/react/tanstack.js"
+      },
+      "require": {
+        "types": "./dist/react/tanstack.d.ts",
+        "default": "./dist/react/tanstack.cjs"
+      }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills"],
+  "keywords": [
+    "tanstack-intent",
+    "react",
+    "tabs",
+    "workspace",
+    "erp",
+    "eristack",
+    "tanstack-router"
+  ],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@tanstack/react-router": "^1.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/react-router": { "optional": true },
+    "react": { "optional": true }
+  },
+  "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
+    "@tanstack/react-router": "^1.121.0",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  }
+}

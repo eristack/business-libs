@@ -1,0 +1,11 @@
+package: "@eristack/multitab"
+title: multitab
+maintainers:
+  - support@eristack.dev
+scope: >
+  Headless multi-tab workspace for React: open/focus/close document tabs, dirty
+  guards, optional TanStack Router sync for ERP-style single-page apps.
+outOfScope: >
+  Server data fetching, opinionated tab bar components (headless core first).
+skills:
+  - multitab-core

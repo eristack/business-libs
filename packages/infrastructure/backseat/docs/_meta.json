@@ -1,0 +1,13 @@
+{
+  "title": "Backseat",
+  "pages": [
+    "index",
+    "getting-started",
+    "architecture",
+    "controllers",
+    "api-reference",
+    "devtools",
+    "graduation",
+    "vision"
+  ]
+}

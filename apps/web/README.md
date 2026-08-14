@@ -7,7 +7,7 @@ Public website for Eristack: landing, marketing, docs, blog, and company pages.
 - Next.js 16 (App Router, Turbopack) + React 19.2 + TypeScript
 - Tailwind CSS v4 + Inter / JetBrains Mono
 - shadcn/ui primitives
-- Docs from `packages/<category>/*/docs/*.md` (primitive → capability → service → AI)
+- Docs from `packages/<category>/*/docs/*.md` (primitive → capability → service → infrastructure → ui → features → AI)
 - Blog from `apps/web/content/blog/*.md`
 - Package versions / changelogs from each package’s `package.json` + `CHANGELOG.md` (`src/lib/package-meta.ts`)
 
@@ -38,8 +38,9 @@ Shared UI lives under `src/components/stack/` (`PageHero`, `StackChrome`, `Layer
 | --- | --- |
 | `/` | Landing |
 | `/packages` | Libraries index (all layers) |
-| `/primitive`, `/capability`, `/service`, `/ai` | Layer landings |
-| `/money`, `/doc-number`, `/jwt-auth`, `/data-grid`, `/ai-knowledge`, `/ai-workflow` | Library overviews |
+| `/primitive`, `/capability`, `/service`, `/infrastructure`, `/ui`, `/features`, `/ai` | Layer landings |
+| `/backseat`, `/multitab`, `/money`, … | Library overviews |
+| `/roadmap`, `/roadmap/[slug]` | Product roadmap (from repo `roadmap/`) |
 | `/{slug}/changelog` | Package changelog (`CHANGELOG.md` when present) |
 | `/docs/...` | Package documentation (from `packages/<category>/*/docs`) |
 | `/blog` | Blog index + posts |

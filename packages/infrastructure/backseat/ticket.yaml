@@ -1,0 +1,11 @@
+package: "@eristack/backseat"
+title: backseat
+maintainers:
+  - support@eristack.dev
+scope: >
+  In-browser mock backend engine for frontend prototypes: TanStack Query-friendly
+  resource handlers, seed/import, contract alignment with production REST shapes.
+outOfScope: >
+  Production auth/persistence, replacing Drizzle or jwt-auth, server-side deployment.
+skills:
+  - backseat-core

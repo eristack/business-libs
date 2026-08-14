@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { StatusBadge } from "@/components/stack/status-badge";
+import { StatusBadge, isComingSoon } from "@/components/stack/status-badge";
 import { VersionBadge } from "@/components/stack/version-badge";
 import type { PackageRelease } from "@/lib/package-meta";
 import type { PackageStatus } from "@/lib/site";
@@ -24,21 +24,25 @@ export function ReleaseMeta({
   return (
     <div className={cn("flex flex-wrap items-center gap-1.5", className)}>
       <StatusBadge status={status} size={size} />
-      <VersionBadge
-        version={release.version}
-        href={release.changelogHref}
-        size={size}
-      />
-      {showChangelogLink ? (
-        <Link
-          href={release.changelogHref}
-          className={cn(
-            "font-medium text-muted-foreground transition-colors hover:text-accent",
-            size === "sm" ? "text-[11px]" : "text-[12px]",
-          )}
-        >
-          Changelog
-        </Link>
+      {!isComingSoon(status) ? (
+        <>
+          <VersionBadge
+            version={release.version}
+            href={release.changelogHref}
+            size={size}
+          />
+          {showChangelogLink ? (
+            <Link
+              href={release.changelogHref}
+              className={cn(
+                "font-medium text-muted-foreground transition-colors hover:text-accent",
+                size === "sm" ? "text-[11px]" : "text-[12px]",
+              )}
+            >
+              Changelog
+            </Link>
+          ) : null}
+        </>
       ) : null}
     </div>
   );
