@@ -761,13 +761,13 @@ importers:
 
   packages/service/hash-chained-ledger:
     dependencies:
-      '@eristack/backseat':
-        specifier: workspace:*
-        version: link:../../infrastructure/backseat
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
