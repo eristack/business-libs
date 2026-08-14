@@ -1,6 +1,6 @@
 {
   "name": "@eristack/rbac",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
   "repository": {
     "type": "git",
