@@ -16,6 +16,10 @@ export default defineConfig({
   clean: true,
   external: [
     "jose",
+    "@noble/hashes",
+    "@noble/hashes/scrypt",
+    "@noble/hashes/sha2",
+    "@noble/hashes/utils",
     "@eristack/data-grid",
     "drizzle-orm",
     "drizzle-orm/pg-core",

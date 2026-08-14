@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-14T03:18:54.469Z",
+  "generatedAt": "2026-08-14T06:57:21.674Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -87,7 +87,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -283,7 +283,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/multitab",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
       "slug": "multitab",
       "adapters": [
