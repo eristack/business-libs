@@ -12,5 +12,8 @@
     "@eristack/example-nestjs",
     "@eristack/example-react",
     "@eristack/web"
-  ]
+  ],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  }
 }
