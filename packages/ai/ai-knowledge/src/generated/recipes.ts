@@ -304,7 +304,7 @@ export const recipes = [
       "in-browser api",
       "backseat"
     ],
-    "rationale": "Use @eristack/backseat for frontend-first prototypes: flexible registerRoute controllers, registerAction for complex Query logic, IndexedDB store (memory for tests), and BackseatDevtools for insert/reset/re-seed. Not production persistence. When the real backend is built later, agents peek at Backseat handlers/snapshots — no shared route contract required now.",
+    "rationale": "Use @eristack/backseat for frontend-first prototypes: flexible registerRoute controllers, registerAction for complex Query logic, IndexedDB store (memory for tests), and BackseatDevtools for insert/reset/re-seed. Spine packages expose @eristack/*/backseat + /backseat/store adapters (jwt-auth, doc-number, ledgers, rbac, …). Not production persistence. When the real backend is built later, agents peek at Backseat handlers/snapshots — no shared route contract required now.",
     "packages": [
       {
         "name": "@eristack/backseat",

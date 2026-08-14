@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-14T07:24:29.832Z",
+  "generatedAt": "2026-08-14T12:03:06.752Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -12,6 +12,8 @@ export const catalog = {
       "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
       "slug": "abac",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "express",
         "nest",
         "react"
@@ -91,6 +93,7 @@ export const catalog = {
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
+        "adapters",
         "react",
         "seeds",
         "store"
@@ -112,6 +115,8 @@ export const catalog = {
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "client",
         "drizzle",
         "express",
@@ -144,6 +149,8 @@ export const catalog = {
       "description": "Document number format, parse, and sequence primitives for Eristack",
       "slug": "doc-number",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "client",
         "drizzle",
         "express",
@@ -176,6 +183,8 @@ export const catalog = {
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "drizzle"
       ],
       "skills": [
@@ -203,6 +212,8 @@ export const catalog = {
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "drizzle"
       ],
       "skills": [
@@ -230,6 +241,8 @@ export const catalog = {
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "client",
         "drizzle",
         "express",
@@ -307,6 +320,8 @@ export const catalog = {
       "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
       "slug": "pbac",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "express",
         "nest",
         "react"
@@ -336,6 +351,8 @@ export const catalog = {
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "drizzle"
       ],
       "skills": [
@@ -371,6 +388,8 @@ export const catalog = {
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
       "slug": "rbac",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "drizzle",
         "express",
         "nest",
@@ -401,6 +420,8 @@ export const catalog = {
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
       "slug": "stock-movement",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "drizzle"
       ],
       "skills": [
@@ -428,6 +449,8 @@ export const catalog = {
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [
+        "backseat",
+        "backseat/store",
         "drizzle"
       ],
       "skills": [

@@ -82,6 +82,26 @@
         "types": "./dist/react/index.d.ts",
         "default": "./dist/react/index.cjs"
       }
+    },
+    "./backseat": {
+      "import": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.cjs"
+      }
+    },
+    "./backseat/store": {
+      "import": {
+        "types": "./dist/backseat/store/index.d.ts",
+        "default": "./dist/backseat/store/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/store/index.d.ts",
+        "default": "./dist/backseat/store/index.cjs"
+      }
     }
   },
   "files": [
@@ -116,7 +136,8 @@
     "@tanstack/react-query": "catalog:",
     "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
     "express": "^4.0.0 || ^5.0.0",
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "@eristack/backseat": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@nestjs/common": {
@@ -139,6 +160,9 @@
     },
     "react": {
       "optional": true
+    },
+    "@eristack/backseat": {
+      "optional": true
     }
   },
   "devDependencies": {
@@ -156,6 +180,7 @@
     "rxjs": "^7.8.2",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "@eristack/backseat": "workspace:*"
   }
 }

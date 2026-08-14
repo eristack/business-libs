@@ -2,6 +2,8 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   entry: [
+    "src/backseat/index.ts",
+    "src/backseat/store/index.ts",
     "src/index.ts",
     "src/express/index.ts",
     "src/nest/index.ts",
@@ -12,6 +14,9 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
+    "@eristack/backseat",
+    "@eristack/backseat/store",
+    "@eristack/backseat/adapters",
     "express",
     "@nestjs/common",
     "@nestjs/core",

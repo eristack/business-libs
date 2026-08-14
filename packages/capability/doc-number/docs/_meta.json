@@ -10,6 +10,7 @@
     "stores",
     "http-and-ui",
     "recipes",
-    "api-reference"
+    "api-reference",
+    "backseat"
   ]
 }

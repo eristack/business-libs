@@ -9,6 +9,7 @@
     "database",
     "http-and-ui",
     "edge-cases",
-    "recipes"
+    "recipes",
+    "backseat"
   ]
 }
