@@ -1,5 +1,11 @@
 # @eristack/jwt-auth
 
+## 0.3.1
+
+### Patch Changes
+
+- 5d508e1: Fix import-time crash in Vite browser bundles: replace Node-only `crypto.scrypt` / `util.promisify` with isomorphic Web Crypto + `@noble/hashes` scrypt so `createJwtAuth` and `createRestActions` load in Backseat prototypes.
+
 ## 0.3.0
 
 ### Minor Changes
