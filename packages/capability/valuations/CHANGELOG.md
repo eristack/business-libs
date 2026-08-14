@@ -1,5 +1,16 @@
 # @eristack/valuations
 
+## 0.1.0
+
+### Minor Changes
+
+- 8015590: Add `./backseat` and `./backseat/store` adapters across spine packages for browser prototypes (IndexedDB persistence + registerRoute/registerAction wiring). Adds `@eristack/backseat/adapters` REST bridge utilities.
+
+### Patch Changes
+
+- Updated dependencies [8015590]
+  - @eristack/hash-chained-ledger@0.1.0
+
 ## 0.0.1
 
 ### Patch Changes

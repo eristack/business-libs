@@ -1,6 +1,6 @@
 {
   "name": "@eristack/hash-chained-ledger",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
   "repository": {
     "type": "git",
