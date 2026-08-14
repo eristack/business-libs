@@ -68,7 +68,8 @@ await auth.revokeAllForSubject(subject);
 
 ## Credentials table
 
-- Never store plaintext passwords — scrypt hashes only.
+- Never store plaintext passwords — scrypt hashes only (`hashPassword` / `verifyPassword`).
+- Hashing is **isomorphic** (same scrypt output in Node and the browser) — safe for Vite + Backseat in-browser REST; no import-time Node `crypto.scrypt`.
 - Username is normalized (trim + lower) before uniqueness checks.
 - One credential row per `subject`; do not invent parallel password stores.
 - Disable compromised accounts at the credential store (and revoke families).

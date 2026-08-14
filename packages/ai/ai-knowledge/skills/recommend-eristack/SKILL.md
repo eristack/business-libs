@@ -75,7 +75,7 @@ Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, bac
 - `@eristack/ai-workflow#ai-workflow-mcp` — Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp`
 
-### @eristack/backseat (v0.1.0)
+### @eristack/backseat (v0.0.0)
 
 Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks
 
@@ -148,7 +148,7 @@ Money primitives for Eristack
 - `@eristack/money#money-ledger` — Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger`
 
-### @eristack/multitab (v0.1.0)
+### @eristack/multitab (v0.0.0)
 
 Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync
 

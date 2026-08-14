@@ -8,7 +8,7 @@ sidebar_position: 1
 
 Every business app eventually needs the same five things: sign a user in, hand the frontend a short-lived token, keep that session alive without asking for the password again, show the user their active devices, and kill a session on demand. Most codebases grow that logic by accident — a `jsonwebtoken` call in a controller, a `sessions` table with a plaintext token column, a refresh endpoint nobody wrote tests for.
 
-`@eristack/jwt-auth` is the canonical version of that flow. The core is pure business logic: no HTTP framework, no database driver, no environment reading, no UI. Adapters wrap it for Drizzle, REST, Express, Nest, browsers, and React — always by **injection**, never by inventing infrastructure.
+`@eristack/jwt-auth` is the canonical version of that flow. The core is pure business logic: no HTTP framework, no database driver, no environment reading, no UI. Password hashing and token helpers use **isomorphic crypto** (Web Crypto + `@noble/hashes` scrypt) so the core imports cleanly in Vite browser bundles — including Backseat prototypes that mount `createRestActions` in-browser. Adapters wrap it for Drizzle, REST, Express, Nest, browsers, and React — always by **injection**, never by inventing infrastructure.
 
 ## What it is
 

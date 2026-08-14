@@ -47,6 +47,8 @@ const auth = createJwtAuth({
 
 Use Drizzle stores in production. Memory stores are for tests/ephemeral use.
 
+**Browser / Vite:** core + `/rest` import without Node `crypto.scrypt`. Mount `createRestActions({ jwtAuth })` on Backseat for in-browser login — same scrypt hashes as Node.
+
 ## Core Patterns
 
 ### Credentials are a child of app users
