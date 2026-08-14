@@ -1,6 +1,6 @@
 {
   "name": "@eristack/multitab",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
   "repository": {
     "type": "git",
@@ -44,7 +44,12 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills"],
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills"
+  ],
   "keywords": [
     "tanstack-intent",
     "react",
@@ -54,7 +59,9 @@
     "eristack",
     "tanstack-router"
   ],
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
@@ -66,8 +73,12 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@tanstack/react-router": { "optional": true },
-    "react": { "optional": true }
+    "@tanstack/react-router": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",
