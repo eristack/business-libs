@@ -447,6 +447,9 @@ importers:
         specifier: workspace:*
         version: link:../../service/data-grid
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -502,6 +505,9 @@ importers:
         specifier: workspace:*
         version: link:../../primitive/money
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
@@ -530,6 +536,9 @@ importers:
         specifier: ^10.6.0
         version: 10.6.0
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
@@ -552,6 +561,9 @@ importers:
         specifier: workspace:*
         version: link:../../service/hash-chained-ledger
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
@@ -583,6 +595,9 @@ importers:
         specifier: ^10.6.0
         version: 10.6.0
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
@@ -650,6 +665,9 @@ importers:
 
   packages/service/abac:
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -692,6 +710,9 @@ importers:
 
   packages/service/data-grid:
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -740,6 +761,9 @@ importers:
 
   packages/service/hash-chained-ledger:
     dependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0
@@ -775,6 +799,9 @@ importers:
         specifier: ^6.0.11
         version: 6.2.8
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -823,6 +850,9 @@ importers:
 
   packages/service/pbac:
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -865,6 +895,9 @@ importers:
 
   packages/service/rbac:
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
