@@ -1,5 +1,12 @@
 # @eristack/ai-knowledge
 
+## 0.1.6
+
+### Patch Changes
+
+- 237f114: Add `@eristack/epoch` to catalog, `epoch-cache-invalidation` recipe, upgrading Backseat matrix row, and AGENTS intent entries.
+- 7847ca5: Add MIT license: root `LICENSE`, per-package `LICENSE` in publish tarball, and `"license": "MIT"` in `package.json`.
+
 ## 0.1.5
 
 ### Patch Changes
