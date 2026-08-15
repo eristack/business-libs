@@ -663,6 +663,46 @@ await ledger.verify("demo")`,
     },
   },
   {
+    slug: "epoch",
+    name: "@eristack/epoch",
+    title: "Epoch",
+    category: "service" as const,
+    directory: "packages/service/epoch",
+    href: "/epoch",
+    docsHref: "/docs/epoch",
+    tagline: "Scope counters for cache invalidation — bump on mutation, compare on read.",
+    description:
+      "Headless data-version epochs: monotonic counters per scope (orders, products, …), resolveCachePolicy returns use-cache or refetch for TanStack Query, Drizzle persistence, Express/Nest/React/Backseat adapters.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/epoch",
+    highlights: [
+      {
+        title: "Two policies only",
+        body: "clientEpoch === serverEpoch → use-cache; otherwise refetch — no staleTime guessing.",
+      },
+      {
+        title: "Bump after mutation",
+        body: "POST a receipt → bump(\"orders\"). Optimistic bump with expected guards concurrent writers.",
+      },
+      {
+        title: "Query-friendly shells",
+        body: "React hook + client fetch; Backseat route for prototypes without a real API.",
+      },
+    ],
+    sample: {
+      filename: "epoch.ts",
+      language: "ts",
+      code: `import { createEpoch } from "@eristack/epoch"
+import { createEpochTables, createDrizzleEpochStore } from "@eristack/epoch/drizzle"
+
+const epoch = createEpoch({
+  store: createDrizzleEpochStore({ db, tables: createEpochTables("pgsql") }),
+})
+await epoch.bump("orders")
+const { policy } = await epoch.resolveCachePolicy("orders", clientEpoch)`,
+    },
+  },
+  {
     slug: "backseat",
     name: "@eristack/backseat",
     title: "Backseat",
@@ -911,6 +951,7 @@ export const startNav = { href: "/start", label: "Start here" } as const;
 export const primaryNav = [
   startNav,
   { href: "/packages", label: "Libraries" },
+  { href: "/compose", label: "Compose" },
   { href: "/docs", label: "Docs" },
   { href: "/blog", label: "Blog" },
   { href: "/support", label: "Support" },

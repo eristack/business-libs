@@ -4,11 +4,11 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-15T04:06:40.245Z",
+  "generatedAt": "2026-08-15T09:11:21.059Z",
   "packages": [
     {
       "name": "@eristack/abac",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
       "slug": "abac",
       "adapters": [
@@ -89,7 +89,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -111,7 +111,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/data-grid",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
@@ -145,7 +145,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-number",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "description": "Document number format, parse, and sequence primitives for Eristack",
       "slug": "doc-number",
       "adapters": [
@@ -178,8 +178,42 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/epoch",
+      "version": "0.0.0",
+      "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
+      "slug": "epoch",
+      "adapters": [
+        "backseat",
+        "backseat/store",
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest"
+      ],
+      "skills": [
+        {
+          "id": "epoch-adapters",
+          "name": "epoch-adapters",
+          "packageName": "@eristack/epoch",
+          "description": "Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore, Express createEpochRouter, Nest EpochModule, createEpochClient, useEpochCachePolicy React hook, registerEpochBackseat for prototypes.",
+          "type": "adapters",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-adapters"
+        },
+        {
+          "id": "epoch-core",
+          "name": "epoch-core",
+          "packageName": "@eristack/epoch",
+          "description": "@eristack/epoch headless data-version counters: current/bump per scope, compareEpochs use-cache vs refetch, resolveCachePolicy, StaleEpochError. Drizzle default; memory store tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/financial-ledger",
-      "version": "0.0.1",
+      "version": "0.1.0",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -208,7 +242,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/hash-chained-ledger",
-      "version": "0.0.1",
+      "version": "0.1.0",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
@@ -237,7 +271,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -316,7 +350,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/pbac",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
       "slug": "pbac",
       "adapters": [
@@ -347,7 +381,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/qups",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
@@ -384,7 +418,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rbac",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
       "slug": "rbac",
       "adapters": [
@@ -416,7 +450,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/stock-movement",
-      "version": "0.0.1",
+      "version": "0.1.0",
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
       "slug": "stock-movement",
       "adapters": [
@@ -445,7 +479,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/valuations",
-      "version": "0.0.1",
+      "version": "0.1.0",
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [

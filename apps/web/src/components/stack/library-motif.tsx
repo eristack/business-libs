@@ -22,6 +22,7 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       {motif === "doc-number" ? <DocNumberMotif /> : null}
       {motif === "qups" ? <QupsMotif /> : null}
       {motif === "data-grid" ? <DataGridMotif /> : null}
+      {motif === "epoch" ? <EpochMotif /> : null}
       {motif === "jwt-auth" ? <JwtMotif /> : null}
       {motif === "rbac" ? <RbacMotif /> : null}
       {motif === "abac" ? <AbacMotif /> : null}
@@ -116,6 +117,22 @@ function DataGridMotif() {
       <span className="absolute top-[74%] left-[8%] text-[11px] tracking-[0.18em] uppercase opacity-60">
         items · pageInfo · query
       </span>
+    </div>
+  );
+}
+
+function EpochMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">scope · orders</p>
+        <p className="pl-3 opacity-85">server epoch 7</p>
+        <p className="pl-3 opacity-85">client epoch 6</p>
+        <p className="pl-3 opacity-70">→ refetch</p>
+      </div>
+      <div className="absolute bottom-[20%] left-[8%] font-mono text-[11px] opacity-75">
+        bump(scope) after mutation · compare on read
+      </div>
     </div>
   );
 }
