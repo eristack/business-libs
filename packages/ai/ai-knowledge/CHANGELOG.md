@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.4
+
+### Patch Changes
+
+- 525f3b3: Add consumer upgrade guide (`knowledge/upgrading.md`, site docs), `upgrading-eristack` Intent skill, `eristack-upgrade` recipe, and Backseat peer/changelog guidance in dev-conventions, stack-defaults, and checklists. Regenerated catalog and recipes.
+
 ## 0.1.3
 
 ### Patch Changes
