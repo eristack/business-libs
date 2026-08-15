@@ -339,6 +339,20 @@ export const recipes = [
           "backseat-core"
         ],
         "role": "primary"
+      },
+      {
+        "name": "@eristack/jwt-auth",
+        "skills": [
+          "jwt-auth-adapters"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/doc-number",
+        "skills": [
+          "doc-number-adapters"
+        ],
+        "role": "supporting"
       }
     ]
   },

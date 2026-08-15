@@ -290,6 +290,14 @@ recipes:
         skills:
           - backseat-core
         role: primary
+      - name: "@eristack/jwt-auth"
+        skills:
+          - jwt-auth-adapters
+        role: supporting
+      - name: "@eristack/doc-number"
+        skills:
+          - doc-number-adapters
+        role: supporting
 
   - id: multitab-workspace
     title: Multi-document ERP tab workspace
