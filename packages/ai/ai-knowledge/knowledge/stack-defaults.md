@@ -85,15 +85,13 @@ Use `@eristack/backseat` + spine **`@eristack/*/backseat`** adapters for Storybo
 | Spine wiring | `register*Backseat` + `createIndexedDb*Stores` from `@eristack/<pkg>/backseat/store` |
 | Optional peer | `"@eristack/backseat": "^0.1.0"` (semver on published apps; `workspace:*` dev only in monorepo) |
 
-Production paths stay **`./drizzle`**, **`./express`**, **`./react`**. See each package **`docs/backseat.md`**.
+Production paths stay **`./drizzle`**, **`./express`**, **`./react`**. Full spine matrix, bootstrap, peers: **one doc** — `@eristack/ai-knowledge` [`knowledge/upgrading.md`](./upgrading.md) §3 · load `#upgrading-eristack`. Do not read eleven `docs/backseat.md` files.
 
 ## Upgrading (consumer apps)
 
-1. `pnpm outdated '@eristack/*'` or `pnpm npm view @eristack/<pkg> version`
-2. Site changelogs: `/{slug}/changelog`
-3. Load `@eristack/ai-knowledge#upgrading-eristack` before large bumps
-
-Full guide: [`knowledge/upgrading.md`](./upgrading.md).
+1. Load `@eristack/ai-knowledge#upgrading-eristack` — **read only** `knowledge/upgrading.md` (canonical)
+2. `pnpm outdated '@eristack/*'` + `/{slug}/changelog` for deps you bump
+3. Per-package skill **only** if production `./drizzle` / HTTP wiring changed
 
 ## Releases (when contributing to Eristack)
 

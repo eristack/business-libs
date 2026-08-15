@@ -1,0 +1,49 @@
+---
+description: HARD RULE — documentation must be in-depth AND token-efficient (one canonical doc, no pointer chains)
+alwaysApply: true
+---
+
+# HARD RULE: in-depth docs, minimal file reads
+
+Eristack packages exist for **AI agents first**. Documentation that spreads facts across dozens of stub files forces agents to read 100+ files — that is a **failure mode**, not “good coverage.”
+
+## Definition of good documentation
+
+| Good | Bad |
+| --- | --- |
+| **One canonical doc** per cross-cutting topic with complete API, migration, examples | Eleven near-identical stubs each saying “see other doc” |
+| Agent completes the task after **1–3 files** (skill + one guide, or one guide alone) | “Read each package’s `docs/backseat.md`” for a monorepo-wide change |
+| **In-depth**: types, defaults, routes, collections, peer deps, breaking changes **in the doc** | One-liner stubs, tables with missing columns, “graduation → see other package” with no detail |
+| Package docs cover **only what is unique** to that package | Repeating monorepo-wide policy in every package |
+| Skills with **one** `sources` entry to the canonical markdown | Skills listing 5+ repo paths agents will fetch |
+
+## Required patterns
+
+### Cross-cutting changes (Backseat, upgrading, auth conventions, money rules)
+
+1. Write **one** canonical guide under `@eristack/ai-knowledge` (`knowledge/<topic>.md`) **and** mirror it in `docs/<topic>.md` for the site.
+2. Intent skill body must be **actionable without opening other files**; `sources` → **that one file only**.
+3. Per-package docs: **≤15 lines** redirect to the canonical guide + **only** package-unique deltas (default `basePath`, required register fields).
+4. Update `recipes.yaml` rationale to name the **single** load target (`#upgrading-eristack`), not a file hunt.
+
+### Per-package docs
+
+- **Getting started** pages must include end-to-end wiring (install, imports, minimal example, production path) — not “see adapters skill.”
+- **Adapter pages** include copy-paste blocks for Express/Nest/Drizzle/React — not bullet lists of export paths only.
+- Do not add a new doc file when a section in an existing canonical page would suffice.
+
+### ai-knowledge iteration
+
+Same pass as code: canonical guide, skill, recipe, `pnpm knowledge:sync`, `pnpm knowledge:check`.
+
+## Agent stop rule
+
+If you wrote “see X for each package” or “load N skills per package” for a **single user task**, stop and **consolidate** into the canonical guide instead.
+
+## Definition of done (documentation)
+
+Facts are **complete** in the canonical doc **and** agents need **at most three files** to execute an upgrade or cross-package integration.
+
+## Publish gate (exports)
+
+Cross-package imports must not ship without matching `package.json` exports. After `pnpm build`, **`pnpm exports:check`** must pass before merge (validates dist artifacts + internal `@eristack/*` subpath imports). See `scripts/check-package-exports.mjs`.

@@ -1,19 +1,12 @@
 ---
 title: Backseat adapters
-description: Package backseat subpaths for browser prototypes
+description: Redirect — full spine matrix lives in ai-knowledge upgrading guide
 ---
 
 # Package Backseat adapters
 
-Spine packages expose `./backseat` and `./backseat/store`:
+**Canonical guide (read this instead):** [Upgrading @eristack packages — §3 Backseat](/docs/ai-knowledge/upgrading) · Intent: `@eristack/ai-knowledge#upgrading-eristack`.
 
-| Subpath | Use |
-| --- | --- |
-| `@eristack/<pkg>/backseat` | Memory-backed stores (tests) + `register*Backseat(api)` routes/actions |
-| `@eristack/<pkg>/backseat/store` | `createIndexedDb*Stores()` — browser IndexedDB via `@eristack/backseat/store` |
+Eleven spine packages expose `./backseat` (memory + register) and `./backseat/store` (IndexedDB). Shared REST bridge: `@eristack/backseat/adapters`.
 
-Shared bridge utilities live at `@eristack/backseat/adapters` (`registerRestLikeRoutes`, date JSON helpers).
-
-Packages with Backseat adapters: `doc-number`, `financial-ledger`, `qups`, `stock-movement`, `valuations`, `data-grid`, `hash-chained-ledger`, `jwt-auth`, `pbac`, `rbac`, `abac`.
-
-See each package's `docs/backseat.md` for wiring examples.
+Per-package `docs/backseat.md` files list **only package-unique defaults** (route prefix, required register fields). Do not use them as the primary integration guide.

@@ -55,6 +55,15 @@ Routine features/fixes on packages already past `0.0.0`: use **`patch`**. Use **
 
 Consumer upgrade steps: [`upgrading.md`](./upgrading.md) · skill `@eristack/ai-knowledge#upgrading-eristack`.
 
+### Publish gate — package exports (hard rule)
+
+1. Every subpath imported by spine packages must appear in **`package.json` `exports`** (e.g. `"./adapters"` on `@eristack/backseat`).
+2. Every export subpath must have a **`tsup` entry** that builds `dist/…`.
+3. After **`pnpm build`**, run **`pnpm exports:check`** — CI enforces; catches Vite `Missing "./adapters" specifier`.
+4. Add **`import("@eristack/pkg/subpath")`** tests for new public subpaths.
+
+Do not document/catalog an export unless it passes `exports:check`.
+
 ## Adapter design rules
 
 - Core entry is framework-agnostic (no Express/Nest/React/Drizzle imports in core)
@@ -75,6 +84,17 @@ Consumer upgrade steps: [`upgrading.md`](./upgrading.md) · skill `@eristack/ai-
 - Site-only marketing/story/support pages live under `apps/web`
 - **Every iteration:** update `docs/` + Intent `skills/` together; update `packages/ai/ai-knowledge/knowledge/recipes.yaml` when discoverable by product language; run `pnpm knowledge:sync` / `knowledge:check`
 - Stale ai-knowledge after a docs/API change is incomplete work
+
+### Token-efficient documentation (hard rule)
+
+Agents are the primary audience. **In-depth** does not mean **many files**.
+
+| Cross-cutting topic | One canonical doc |
+| --- | --- |
+| Upgrades, Backseat spine, peers, Changesets | `packages/ai/ai-knowledge/knowledge/upgrading.md` + `@eristack/ai-knowledge#upgrading-eristack` |
+| Product routing | `recipes.yaml` + `recommend-eristack` skill |
+
+Per-package docs: full detail for **that package’s production adapters**; for monorepo-wide Backseat wiring, **redirect** to upgrading §3 with a small delta table only. See `.cursor/rules/docs-depth-tokens.mdc`.
 
 ## Scope discipline
 

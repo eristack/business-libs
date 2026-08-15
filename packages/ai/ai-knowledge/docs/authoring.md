@@ -38,6 +38,20 @@ pnpm knowledge:sync
 
 Never hand-edit `src/generated/*` or the `<!-- catalog:* -->` block in `skills/recommend-eristack/SKILL.md`.
 
+## Token-efficient documentation (hard rule)
+
+**In-depth ≠ many files.** Agents are the primary readers; token budget matters.
+
+| Topic scope | Where facts live |
+| --- | --- |
+| Cross-package (upgrade, Backseat spine, peers) | **One** `knowledge/<topic>.md` + site `docs/<topic>.md` + one Intent skill with **one** `sources` entry |
+| Single package production wiring | That package’s `docs/` + skills |
+| Package-only Backseat delta | ≤15-line redirect in `docs/backseat.md` pointing to upgrading §3 |
+
+If your recipe rationale says “see each package’s doc”, rewrite it to name the **single canonical load command** instead.
+
+See `.cursor/rules/docs-depth-tokens.mdc`.
+
 ## Releasing `@eristack/ai-knowledge`
 
 One Changeset → one package version bump → one npm publish. That publish includes:

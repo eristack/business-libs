@@ -37,6 +37,7 @@ Do **not** use it for production auth, server validation, or deployed persistenc
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore` — **browser prototype default** |
 | `@eristack/backseat/react` | Provider, Query hooks, `<BackseatDevtools />` |
 | `@eristack/backseat/seeds` | `createErpDemoSnapshot()` — partners, products, open PO |
+| `@eristack/backseat/adapters` | `registerRestLikeRoutes`, `asDate`, `asNullableDate`, `toRestLikeRequest` — **required by spine `./backseat` packages** |
 
 ## Mental model
 

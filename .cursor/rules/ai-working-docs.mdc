@@ -33,3 +33,4 @@ Paired hard rule: every iteration must also update **ai-knowledge** (skills + re
 - Commit secrets or tokens into AI notes
 - Skip promotion because “the code is obvious”
 - Skip ai-knowledge because “docs were enough”
+- Scatter cross-cutting facts across many stub files (see `.cursor/rules/docs-depth-tokens.mdc`)

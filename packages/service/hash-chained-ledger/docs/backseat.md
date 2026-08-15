@@ -1,25 +1,16 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/hash-chained-ledger into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/hash-chained-ledger/backseat` — `createBackseatHashChainedLedgerStores()`, `registerHashChainedLedgerBackseat()`
-- `@eristack/hash-chained-ledger/backseat/store` — `createIndexedDbHashChainedLedgerStores()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: hashChainedLedger.entries, hashChainedLedger.snapshots.
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatHashChainedLedgerStores } from "@eristack/hash-chained-ledger/backseat";
-import { registerHashChainedLedgerBackseat } from "@eristack/hash-chained-ledger/backseat";
-
-const { backseatStore, ...stores } = createBackseatHashChainedLedgerStores();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerHashChainedLedgerBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbHashChainedLedgerStores({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/hash-chained-ledger/backseat`, `@eristack/hash-chained-ledger/backseat/store` |
+| Factories | `createBackseatHashChainedLedgerStores()` / `createIndexedDbHashChainedLedgerStores({ dbName })` |
+| Register | `registerHashChainedLedgerBackseat(api, { ledger?, basePath? })` |
+| Default `basePath` | `/ledger` |
+| Collections | `hashChainedLedger.entries` |

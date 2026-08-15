@@ -1,25 +1,16 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/doc-number into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/doc-number/backseat` — `createBackseatDocNumberStores()`, `registerDocNumberBackseat()`
-- `@eristack/doc-number/backseat/store` — `createIndexedDbDocNumberStores()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: docNumber.formats, docNumber.sequences.
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatDocNumberStores } from "@eristack/doc-number/backseat";
-import { registerDocNumberBackseat } from "@eristack/doc-number/backseat";
-
-const { backseatStore, ...stores } = createBackseatDocNumberStores();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerDocNumberBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbDocNumberStores({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/doc-number/backseat`, `@eristack/doc-number/backseat/store` |
+| Factories | `createBackseatDocNumberStores()` / `createIndexedDbDocNumberStores({ dbName })` |
+| Register | `registerDocNumberBackseat(api, RestDocNumberConfig & { basePath?, paths? })` |
+| Default `basePath` | `/doc-number` |
+| Collections | `docNumber.formats`, `docNumber.sequences` |
