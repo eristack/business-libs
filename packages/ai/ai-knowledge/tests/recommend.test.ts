@@ -19,6 +19,7 @@ describe("catalog", () => {
         "@eristack/ai-workflow",
         "@eristack/data-grid",
         "@eristack/doc-number",
+        "@eristack/epoch",
         "@eristack/financial-ledger",
         "@eristack/hash-chained-ledger",
         "@eristack/jwt-auth",
