@@ -68,7 +68,8 @@
     "dist",
     "docs",
     "README.md",
-    "skills"
+    "skills",
+    "LICENSE"
   ],
   "keywords": [
     "tanstack-intent",
@@ -110,5 +111,6 @@
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10"
-  }
+  },
+  "license": "MIT"
 }

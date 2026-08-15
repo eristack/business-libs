@@ -108,7 +108,8 @@
     "dist",
     "docs",
     "README.md",
-    "skills"
+    "skills",
+    "LICENSE"
   ],
   "keywords": [
     "tanstack-intent",
@@ -139,13 +140,27 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@eristack/backseat": { "optional": true },
-    "@nestjs/common": { "optional": true },
-    "@nestjs/core": { "optional": true },
-    "@tanstack/react-query": { "optional": true },
-    "drizzle-orm": { "optional": true },
-    "express": { "optional": true },
-    "react": { "optional": true }
+    "@eristack/backseat": {
+      "optional": true
+    },
+    "@nestjs/common": {
+      "optional": true
+    },
+    "@nestjs/core": {
+      "optional": true
+    },
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eristack/backseat": "workspace:*",
@@ -164,5 +179,6 @@
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10"
-  }
+  },
+  "license": "MIT"
 }

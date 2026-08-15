@@ -29,7 +29,8 @@
     "docs",
     "README.md",
     "skills",
-    "knowledge"
+    "knowledge",
+    "LICENSE"
   ],
   "keywords": [
     "tanstack-intent",
@@ -58,5 +59,6 @@
     "typescript": "catalog:",
     "vitest": "^4.1.10",
     "yaml": "^2.8.0"
-  }
+  },
+  "license": "MIT"
 }
