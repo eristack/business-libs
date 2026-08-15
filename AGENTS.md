@@ -79,6 +79,12 @@ tanstackIntent:
   - id: "@eristack/data-grid#data-grid-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
     for: "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle."
+  - id: "@eristack/epoch#epoch-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core"
+    for: "Pure @eristack/epoch: createEpoch, compareEpochs, resolveCachePolicy use-cache vs refetch, bump per scope, StaleEpochError. Headless data-version counters for TanStack Query cache decisions. Drizzle default."
+  - id: "@eristack/epoch#epoch-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-adapters"
+    for: "@eristack/epoch adapters: drizzle createEpochTables + store, rest/express/nest HTTP, createEpochClient, useEpochCachePolicy react hook, registerEpochBackseat. Use when wiring cache-policy endpoints or Backseat prototypes."
   - id: "@eristack/rbac#rbac-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
     for: "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, can/authorize — boolean role-based permissions on app subjects."
@@ -179,6 +185,7 @@ Categories under `packages/` (order matters):
 - `packages/capability/financial-ledger` — `@eristack/financial-ledger` (accountId+currency GL on hash-chained-ledger + money)
 - `packages/capability/valuations` — `@eristack/valuations` (FIFO/LIFO/FEFO/averages/standard/specific + qty/value chains)
 - `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
+- `packages/service/epoch` — `@eristack/epoch` (data-version epochs for cache invalidation + drizzle/rest/express/nest/client/react/backseat)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
 - `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
 - `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)

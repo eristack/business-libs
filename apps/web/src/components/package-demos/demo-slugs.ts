@@ -10,6 +10,7 @@ export const PACKAGE_HERO_DEMO_SLUGS = [
   "abac",
   "pbac",
   "data-grid",
+  "epoch",
   "hash-chained-ledger",
   "stock-movement",
   "financial-ledger",

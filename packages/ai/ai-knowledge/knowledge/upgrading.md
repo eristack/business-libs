@@ -122,6 +122,7 @@ Use **one shared** `dbName` across `createIndexedDb*…()` calls so all packages
 | `@eristack/rbac` | `createBackseatRbacStores()` → `{ backseatStore, rbac }` | `createIndexedDbRbacStores({ dbName })` | `registerRbacBackseat` | `/rbac` | `RbacConfig` fields or prebuilt `rbac`, + optional `basePath` |
 | `@eristack/abac` | `createBackseatAbacContext()` → `{ backseatStore }` | `createIndexedDbAbacContext({ dbName })` | `registerAbacBackseat` | `/abac` | `abac` instance (policies are code-registered), + optional `basePath` |
 | `@eristack/pbac` | `createBackseatPbacContext()` → `{ backseatStore }` | `createIndexedDbPbacContext({ dbName })` | `registerPbacBackseat` | `/pbac` | `pbac` instance, + optional `basePath` |
+| `@eristack/epoch` | `createBackseatEpochStores()` → `{ backseatStore, epochStore }` | `createIndexedDbEpochStores({ dbName })` | `registerEpochBackseat` | `/epoch` | optional prebuilt `epoch`, + optional `basePath` |
 
 **IndexedDB collection prefixes (debugging in Devtools):**
 
@@ -134,6 +135,7 @@ Use **one shared** `dbName` across `createIndexedDb*…()` calls so all packages
 | valuations | layer docs + ledger (see `VALUATIONS_COLLECTIONS`) |
 | rbac | `rbac.roles`, `rbac.grants` (see `RBAC_COLLECTIONS`) |
 | abac / pbac / data-grid | no extra collections — HTTP/actions only |
+| epoch | `epoch.counters` |
 
 ### 3.3 Full ERP prototype bootstrap (copy-paste)
 

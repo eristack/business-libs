@@ -47,6 +47,9 @@ importers:
       '@eristack/doc-number':
         specifier: workspace:*
         version: link:packages/capability/doc-number
+      '@eristack/epoch':
+        specifier: workspace:*
+        version: link:packages/service/epoch
       '@eristack/financial-ledger':
         specifier: workspace:*
         version: link:packages/capability/financial-ledger
@@ -104,6 +107,9 @@ importers:
       '@eristack/doc-number':
         specifier: workspace:*
         version: link:../../packages/capability/doc-number
+      '@eristack/epoch':
+        specifier: workspace:*
+        version: link:../../packages/service/epoch
       '@eristack/financial-ledger':
         specifier: workspace:*
         version: link:../../packages/capability/financial-ledger
@@ -758,6 +764,57 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+
+  packages/service/epoch:
+    devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
+      '@nestjs/common':
+        specifier: ^11.0.12
+        version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/core':
+        specifier: ^11.0.12
+        version: 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@tanstack/react-query':
+        specifier: ^5.90.2
+        version: 5.101.4(react@19.2.8)
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.18
+      drizzle-orm:
+        specifier: ^0.44.0
+        version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
+      express:
+        specifier: ^5.0.0
+        version: 5.2.1
+      react:
+        specifier: ^19.0.0
+        version: 19.2.8
+      reflect-metadata:
+        specifier: ^0.2.2
+        version: 0.2.2
+      rxjs:
+        specifier: ^7.8.2
+        version: 7.8.2
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/service/hash-chained-ledger:
     dependencies:

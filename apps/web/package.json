@@ -18,6 +18,7 @@
     "@eristack/backseat": "workspace:*",
     "@eristack/data-grid": "workspace:*",
     "@eristack/doc-number": "workspace:*",
+    "@eristack/epoch": "workspace:*",
     "@eristack/financial-ledger": "workspace:*",
     "@eristack/hash-chained-ledger": "workspace:*",
     "@eristack/money": "workspace:*",

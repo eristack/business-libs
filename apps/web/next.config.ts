@@ -40,6 +40,7 @@ const nextConfig: NextConfig = {
     "@eristack/abac",
     "@eristack/pbac",
     "@eristack/data-grid",
+    "@eristack/epoch",
     "@eristack/hash-chained-ledger",
     "@eristack/stock-movement",
     "@eristack/financial-ledger",

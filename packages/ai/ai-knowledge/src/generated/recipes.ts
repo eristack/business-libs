@@ -290,6 +290,32 @@ export const recipes = [
     ]
   },
   {
+    "id": "epoch-cache-invalidation",
+    "title": "Data-version epochs for cache invalidation",
+    "priority": 14,
+    "triggers": [
+      "cache invalidation",
+      "stale cache",
+      "refetch data",
+      "use cache",
+      "data version",
+      "epoch",
+      "optimistic cache",
+      "tanstack query invalidate"
+    ],
+    "rationale": "Use @eristack/epoch for headless per-scope version counters: bump after mutations, resolveCachePolicy returns use-cache vs refetch for TanStack Query. Drizzle default; client/react/express/backseat adapters. Read docs/getting-started.md only.",
+    "packages": [
+      {
+        "name": "@eristack/epoch",
+        "skills": [
+          "epoch-core",
+          "epoch-adapters"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "eristack-upgrade",
     "title": "Upgrade @eristack dependencies",
     "priority": 6,

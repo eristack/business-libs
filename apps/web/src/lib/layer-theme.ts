@@ -47,6 +47,7 @@ export type LibraryMotifId =
   | "doc-number"
   | "qups"
   | "data-grid"
+  | "epoch"
   | "jwt-auth"
   | "rbac"
   | "abac"
@@ -63,6 +64,7 @@ export function motifForPackage(slug: string): LibraryMotifId | null {
     "doc-number",
     "qups",
     "data-grid",
+    "epoch",
     "jwt-auth",
     "rbac",
     "abac",

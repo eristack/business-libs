@@ -67,6 +67,11 @@ const heroDemos: Record<PackageHeroDemoSlug, ReturnType<typeof lazyHero>> = {
       default: m.DataGridHeroDemo,
     })),
   ),
+  epoch: lazyHero(() =>
+    import("@/components/package-demos/epoch-hero-demo").then((m) => ({
+      default: m.EpochHeroDemo,
+    })),
+  ),
   "hash-chained-ledger": lazyHero(() =>
     import("@/components/package-demos/hash-chained-ledger-hero-demo").then(
       (m) => ({ default: m.HashChainedLedgerHeroDemo }),

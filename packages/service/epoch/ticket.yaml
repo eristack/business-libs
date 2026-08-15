@@ -1,0 +1,14 @@
+package: "@eristack/epoch"
+title: epoch
+maintainers:
+  - support@eristack.dev
+scope: >
+  Headless data-version epochs for cache invalidation: monotonic counters per scope,
+  compare client epoch vs server (use-cache vs refetch), optimistic bump with
+  StaleEpochError, Drizzle default, REST/Express/Nest/client/React/Backseat adapters.
+outOfScope: >
+  Full audit trails (app-owned), ETag/HTTP caching middleware (app composes),
+  document sequences (doc-number), list UI (data-grid react).
+skills:
+  - epoch-core
+  - epoch-adapters
