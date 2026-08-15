@@ -10,9 +10,9 @@ Load with:
 
 ```bash
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#<skill-id>
+```
 
 These skills ship inside the `@eristack/ai-knowledge` npm package. Editing a skill does **not** need its own release — bump and publish this package once (Changesets).
-```
 
 ## Inventory
 
@@ -24,14 +24,16 @@ These skills ship inside the `@eristack/ai-knowledge` npm package. Editing a ski
 | `agent-workflow` | recommend → load skills → prefer examples → knowledge:sync |
 | `dev-conventions` | GitHub Flow, Changesets, docs source of truth, `_ai-docs` |
 | `ai-toolbox` | Feature-brief prompts, checklists, recipe authoring template |
+| `upgrading-eristack` | Bump `@eristack/*`, changelogs, Backseat peer ranges, Changesets 0.x |
 
 ## Load order
 
 1. **Architecture** — when scaffolding or choosing structure  
-2. **Recommend** — when the user states a product feature  
-3. **Package skills** — money / jwt-auth / doc-number / data-grid core then adapters  
-4. **Stack defaults** — while generating app code  
-5. **Dev conventions / toolbox** — as needed for contribution or briefs  
+2. **Upgrading** — when bumping dependencies or reading changelogs (`upgrading-eristack`)  
+3. **Recommend** — when the user states a product feature  
+4. **Package skills** — money / jwt-auth / doc-number / data-grid core then adapters  
+5. **Stack defaults** — while generating app code  
+6. **Dev conventions / toolbox** — as needed for contribution or briefs  
 
 ## What these skills do *not* cover
 

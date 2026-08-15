@@ -27,6 +27,10 @@ Full guide: `knowledge/agent-workflow.md`.
 4. **Follow examples** — `examples/express`, `examples/nestjs`, `examples/react`
 5. **Implement** — app owns domain tables, UX, FX feeds, migrations
 
+## Upgrading consumer apps
+
+When bumping `@eristack/*`: load `upgrading-eristack`, check `pnpm outdated` + site changelogs, then per-package skills.
+
 ## HARD RULE — docs + ai-knowledge every iteration
 
 Same change set must include:

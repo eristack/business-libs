@@ -290,6 +290,32 @@ export const recipes = [
     ]
   },
   {
+    "id": "eristack-upgrade",
+    "title": "Upgrade @eristack dependencies",
+    "priority": 6,
+    "triggers": [
+      "upgrade eristack",
+      "bump eristack",
+      "update @eristack",
+      "new version",
+      "changelog",
+      "outdated packages",
+      "what changed",
+      "migration guide",
+      "semver peer"
+    ],
+    "rationale": "Consumer upgrades: pnpm outdated '@eristack/*', site /{slug}/changelog, then load @eristack/ai-knowledge#upgrading-eristack (knowledge/upgrading.md). Optional Backseat peer ^0.1.0 when using @eristack/*/backseat. Changesets 0.x rules apply to monorepo contributors only.",
+    "packages": [
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "backseat-mock-backend",
     "title": "Frontend mock REST backend for prototypes",
     "priority": 8,
@@ -302,9 +328,10 @@ export const recipes = [
       "msw alternative",
       "json-server browser",
       "in-browser api",
-      "backseat"
+      "backseat",
+      "indexeddb api"
     ],
-    "rationale": "Use @eristack/backseat for frontend-first prototypes: flexible registerRoute controllers, registerAction for complex Query logic, IndexedDB store (memory for tests), and BackseatDevtools for insert/reset/re-seed. Spine packages expose @eristack/*/backseat + /backseat/store adapters (jwt-auth, doc-number, ledgers, rbac, …). Not production persistence. When the real backend is built later, agents peek at Backseat handlers/snapshots — no shared route contract required now.",
+    "rationale": "Use @eristack/backseat for frontend-first prototypes: registerRoute controllers, registerAction for Query logic, IndexedDB via @eristack/backseat/store (memory for tests), BackseatDevtools. Eleven spine packages ship ./backseat + ./backseat/store (jwt-auth, doc-number, qups, stock-movement, financial-ledger, valuations, data-grid, hash-chained-ledger, rbac, abac, pbac). Optional peer @eristack/backseat ^0.1.0. Not production — use ./drizzle for real persistence. See docs/backseat.md per package and knowledge/upgrading.md for version bumps.",
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -312,6 +339,20 @@ export const recipes = [
           "backseat-core"
         ],
         "role": "primary"
+      },
+      {
+        "name": "@eristack/jwt-auth",
+        "skills": [
+          "jwt-auth-adapters"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/doc-number",
+        "skills": [
+          "doc-number-adapters"
+        ],
+        "role": "supporting"
       }
     ]
   },

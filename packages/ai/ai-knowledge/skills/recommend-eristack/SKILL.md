@@ -128,7 +128,7 @@ Adapters: `backseat`, `backseat/store`, `drizzle`
 - `@eristack/hash-chained-ledger#hash-chained-ledger-core` — Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core`
 
-### @eristack/jwt-auth (v0.3.0)
+### @eristack/jwt-auth (v0.3.1)
 
 Canonical JWT access + refresh-token auth primitives for Eristack
 
@@ -148,7 +148,7 @@ Money primitives for Eristack
 - `@eristack/money#money-ledger` — Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger`
 
-### @eristack/multitab (v0.0.0)
+### @eristack/multitab (v0.2.0)
 
 Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync
 

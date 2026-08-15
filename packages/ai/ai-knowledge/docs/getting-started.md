@@ -60,6 +60,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts
 
 ## Next
 
+- [Upgrading packages](./upgrading.md) — new versions, changelogs, Backseat peers
 - [Recommend API](./recommend.md) — scoring details
 - [Recipes](./recipes.md) — full trigger table
 - [Skills](./skills.md) — load order

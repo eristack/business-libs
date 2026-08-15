@@ -19,3 +19,10 @@ Updated `backseat-mock-backend` recipe rationale. `backseat-core` skill mentions
 ## Changeset
 
 `.changeset/backseat-package-adapters.md` (minor bumps)
+
+## ai-knowledge (promoted)
+
+- `packages/ai/ai-knowledge/knowledge/upgrading.md` + `docs/upgrading.md`
+- Skill `@eristack/ai-knowledge#upgrading-eristack`
+- Recipe `eristack-upgrade`; expanded `backseat-mock-backend`
+- `pnpm knowledge:sync` + `knowledge:check` green

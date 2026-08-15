@@ -34,10 +34,11 @@ Build: <A>, <B>, <C>.
 ## Typical skill load order
 
 1. `ai-knowledge#architecture-recommend` (new apps / structure)
-2. `ai-knowledge#recommend-eristack`
-3. `ai-knowledge#stack-defaults` (Eristack wiring)
-4. Package cores (`jwt-auth-core`, `money-amounts`, `doc-number-core`)
-5. Package adapters only when wiring DB/HTTP/UI shells
+2. `ai-knowledge#upgrading-eristack` (bump deps / changelogs / Backseat peers)
+3. `ai-knowledge#recommend-eristack`
+4. `ai-knowledge#stack-defaults` (Eristack wiring)
+5. Package cores (`jwt-auth-core`, `money-amounts`, `doc-number-core`)
+6. Package adapters only when wiring DB/HTTP/UI shells
 
 ## Guardrails (minimum)
 

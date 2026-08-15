@@ -16,7 +16,7 @@ Conventions for apps consuming Eristack and for contributors to the business-lib
 | `packages/primitive/money` | `@eristack/money` (primitive) |
 | `packages/capability/doc-number` | `@eristack/doc-number` (capability) |
 | `packages/service/jwt-auth` | `@eristack/jwt-auth` (service) |
-| `packages/infrastructure/backseat` | `@eristack/backseat` (infrastructure; mock backend — coming soon) |
+| `packages/infrastructure/backseat` | `@eristack/backseat` (infrastructure; browser mock REST + IndexedDB) |
 | `packages/ui/multitab` | `@eristack/multitab` (UI; tab workspace — coming soon) |
 | `packages/features/` | ERP feature modules (coming soon) |
 | `packages/ai/ai-knowledge` | `@eristack/ai-knowledge` (AI; this pack) |
@@ -36,6 +36,24 @@ Category order (docs + filesystem): primitive → capability → service → inf
 - Do not revive a long-lived `dev` integration branch
 - User-facing package changes need `pnpm changeset`
 - Docs-only / CI-only changes do not need a changeset
+
+### Changesets on `0.x` (contributors)
+
+| Changeset type | On `0.0.0` | On `0.1.0+` (still pre-1.0) |
+| --- | --- | --- |
+| **`patch`** | `0.0.1` | next **`0.(n+1).0`** (stay pre-1.0) |
+| **`minor`** | **`0.1.0`** (first publish) | **`1.0.0`** (intentional exit from 0.x) |
+
+Routine features/fixes on packages already past `0.0.0`: use **`patch`**. Use **`minor`** on `0.0.0` for first release, or when you **mean 1.0.0**.
+
+### Internal optional peers (Backseat spine)
+
+- Published **`peerDependencies`**: semver (`^0.1.0`), not `workspace:*`
+- Monorepo **`devDependencies`**: `workspace:*`
+- `.changeset/config.json`: `onlyUpdatePeerDependentsWhenOutOfRange: true` — dependents bump only when the new peer is outside the declared range
+- No **`fixed`** / **`linked`** Changesets groups
+
+Consumer upgrade steps: [`upgrading.md`](./upgrading.md) · skill `@eristack/ai-knowledge#upgrading-eristack`.
 
 ## Adapter design rules
 
