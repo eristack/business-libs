@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.5
+
+### Patch Changes
+
+- 525f3b3: Add canonical upgrade guide (`knowledge/upgrading.md`): full Backseat spine matrix, ERP bootstrap, peers, Changesets — one file for agents (not eleven stubs). `upgrading-eristack` skill, publish gate (`pnpm exports:check`), docs-depth-tokens hard rule. Per-package `docs/backseat.md` redirect + deltas.
+
 ## 0.1.4
 
 ### Patch Changes
