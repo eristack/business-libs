@@ -12,6 +12,7 @@ metadata:
   library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/dev-conventions.md'
+  - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/upgrading.md'
   - 'eristack/business-libs:AGENTS.md'
 ---
 

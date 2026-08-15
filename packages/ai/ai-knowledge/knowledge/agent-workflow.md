@@ -57,6 +57,15 @@ pnpm knowledge:check
 - When work is finished: promote into `packages/<category>/*/docs` (and site copy if needed), sync ai-knowledge, then delete the topic folder
 - Package docs are the source of truth; the website renders them
 
-## 6. Version control ownership
+## 6. Upgrading consumer apps
+
+When the user asks to **upgrade**, **bump**, or **what changed** in `@eristack/*`:
+
+1. Load `@eristack/ai-knowledge#upgrading-eristack`
+2. Check `pnpm outdated '@eristack/*'` and site `/{slug}/changelog` for touched packages
+3. Load each bumped package’s core/adapters skill before editing wiring
+4. For Backseat: confirm optional peer `^0.1.0`; read `docs/backseat.md` per spine package
+
+## 7. Version control ownership
 
 In Eristack repos, agents do **not** run git/commit/PR operations unless a human explicitly owns that workflow outside agent taboo rules. Humans handle branches, commits, and PRs.

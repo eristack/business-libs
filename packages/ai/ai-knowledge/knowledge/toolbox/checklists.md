@@ -50,6 +50,15 @@
 - [ ] `pnpm knowledge:check` clean
 - [ ] Changeset added for user-facing package changes
 
+## Upgrading @eristack (consumer app)
+
+- [ ] Loaded `upgrading-eristack` skill (or read `knowledge/upgrading.md`)
+- [ ] Checked `pnpm outdated '@eristack/*'` and `/{slug}/changelog` for each dependency
+- [ ] Bumped semver ranges; did not use `workspace:*` on published peers
+- [ ] Optional Backseat: peer `"@eristack/backseat": "^0.1.0"` if importing `@eristack/*/backseat`
+- [ ] Loaded per-package Intent skills for anything whose wiring changed
+- [ ] Typecheck / tests green
+
 ## Skill load order (typical ERP slice)
 
 1. `@eristack/ai-knowledge#recommend-eristack`

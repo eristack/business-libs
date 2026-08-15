@@ -75,6 +75,26 @@ Do not invent alternate Express/Nest/React wiring when an Eristack example alrea
 - Token patterns: `{YYYY}`, `{YY}`, `{MM}`, `{DD}`, `{SEQ:n}`
 - Use `next` for allocation, `peekNext` / `preview` for non-mutating previews
 
+## Backseat (browser prototypes only)
+
+Use `@eristack/backseat` + spine **`@eristack/*/backseat`** adapters for Storybook, local UX, and frontend-first spikes — **not** production persistence.
+
+| Layer | Prefer |
+| --- | --- |
+| Engine | `createBackseat` + `createIndexedDbBackseatStore` from `@eristack/backseat/store` |
+| Spine wiring | `register*Backseat` + `createIndexedDb*Stores` from `@eristack/<pkg>/backseat/store` |
+| Optional peer | `"@eristack/backseat": "^0.1.0"` (semver on published apps; `workspace:*` dev only in monorepo) |
+
+Production paths stay **`./drizzle`**, **`./express`**, **`./react`**. See each package **`docs/backseat.md`**.
+
+## Upgrading (consumer apps)
+
+1. `pnpm outdated '@eristack/*'` or `pnpm npm view @eristack/<pkg> version`
+2. Site changelogs: `/{slug}/changelog`
+3. Load `@eristack/ai-knowledge#upgrading-eristack` before large bumps
+
+Full guide: [`knowledge/upgrading.md`](./upgrading.md).
+
 ## Releases (when contributing to Eristack)
 
 - User-facing package changes need a **Changeset**

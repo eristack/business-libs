@@ -35,6 +35,7 @@ npx @tanstack/intent@latest load @eristack/ai-knowledge#stack-defaults
 npx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow
 npx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions
 npx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox
+npx @tanstack/intent@latest load @eristack/ai-knowledge#upgrading-eristack
 ```
 
 ## Keeping the catalog fresh

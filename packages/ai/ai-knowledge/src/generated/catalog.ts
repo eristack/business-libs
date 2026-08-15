@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-14T12:03:06.752Z",
+  "generatedAt": "2026-08-15T03:41:51.077Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -237,7 +237,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -296,7 +296,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/multitab",
-      "version": "0.0.0",
+      "version": "0.2.0",
       "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
       "slug": "multitab",
       "adapters": [

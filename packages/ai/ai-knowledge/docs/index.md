@@ -46,6 +46,7 @@ Product ask ("need login + invoice totals")
 | Guide | When |
 | --- | --- |
 | [Getting started](./getting-started.md) | First `recommend` / Intent load |
+| [Upgrading packages](./upgrading.md) | New versions, changelogs, Backseat peers |
 | [Recommend API](./recommend.md) | Scoring, unmatched, `loadPlan` |
 | [Recipes](./recipes.md) | Catalog of product → package maps |
 | [Authoring](./authoring.md) | Add a recipe or skill |
