@@ -1,25 +1,15 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/abac into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/abac/backseat` — `createBackseatAbacContext()`, `registerAbacBackseat()`
-- `@eristack/abac/backseat/store` — `createIndexedDbAbacContext()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: (policies are code-registered).
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatAbacContext } from "@eristack/abac/backseat";
-import { registerAbacBackseat } from "@eristack/abac/backseat";
-
-const { backseatStore, ...stores } = createBackseatAbacContext();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerAbacBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbAbacContext({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/abac/backseat`, `@eristack/abac/backseat/store` |
+| Factories | `createBackseatAbacContext()` / `createIndexedDbAbacContext({ dbName })` — policies registered in code |
+| Register | `registerAbacBackseat(api, { abac, basePath? })` |
+| Default `basePath` | `/abac` |

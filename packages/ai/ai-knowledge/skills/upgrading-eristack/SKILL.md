@@ -1,59 +1,52 @@
 ---
 name: upgrading-eristack
 description: >
-  Upgrade @eristack consumer apps: check npm/site changelogs, bump semver ranges,
-  optional Backseat peer ^0.1.0, wire @eristack/*/backseat adapters. Monorepo
-  Changesets 0.x rules and onlyUpdatePeerDependentsWhenOutOfRange policy.
+  Single canonical upgrade guide: pnpm outdated, changelogs, full Backseat spine
+  matrix with register/store APIs, ERP bootstrap, peer ^0.1.0, Changesets 0.x.
+  Read this skill only — do not open per-package docs/backseat.md files.
 metadata:
   type: core
   library: '@eristack/ai-knowledge'
   library_version: '0.1.3'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/upgrading.md'
-  - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/dev-conventions.md'
-  - 'eristack/business-libs:packages/infrastructure/backseat/docs/package-adapters.md'
 ---
 
 # Upgrading Eristack
 
-Load when the user asks to **upgrade**, **bump**, **what changed**, or **new versions** of `@eristack/*`.
+**Stop.** Load this skill once. The full guide is in `knowledge/upgrading.md` (one file). **Do not** read eleven `docs/backseat.md` files or grep the monorepo for upgrade facts.
 
-Full guide: `knowledge/upgrading.md` · Site: `/docs/ai-knowledge/upgrading`.
+## When to use
 
-## Check versions (consumer)
+Upgrade, bump, changelog, Backseat `./backseat` adapters, peer ranges, Changesets policy.
+
+## Quick path
 
 ```bash
 pnpm outdated '@eristack/*'
-pnpm npm view @eristack/backseat version
+pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#upgrading-eristack
+# then read knowledge/upgrading.md sections 1–3 only if not inlined in your context
 ```
 
-Changelogs: site `/{slug}/changelog` (e.g. `/backseat/changelog`, `/jwt-auth/changelog`).
+Changelogs: `https://eristack.dev/{slug}/changelog`.
 
-## Backseat 0.1.0 train (what’s new)
+## Backseat (summary — full matrix in source doc)
 
-- `@eristack/backseat@^0.1.0` — engine, IndexedDB store, React, `./adapters` REST bridge
-- Spine packages: **`./backseat`** + **`./backseat/store`** (see `docs/backseat.md` per package)
-- Optional peer: `"@eristack/backseat": "^0.1.0"` (never `workspace:*` on published peers)
+| Layer | Import |
+| --- | --- |
+| Engine | `@eristack/backseat`, `@eristack/backseat/store`, `@eristack/backseat/react` |
+| Spine | `@eristack/<pkg>/backseat` (memory + `register*Backseat`) |
+| Browser | `@eristack/<pkg>/backseat/store` (`createIndexedDb*…({ dbName })`) |
 
-Prototype wiring pattern:
+Peer on published apps: `"@eristack/backseat": "^0.1.0"` (optional). Production stays `./drizzle` + HTTP adapters.
 
-```ts
-import { createBackseat } from "@eristack/backseat";
-import { createIndexedDbBackseatStore } from "@eristack/backseat/store";
-import { registerJwtAuthBackseat, createIndexedDbJwtAuthStores } from "@eristack/jwt-auth/backseat/store";
-```
+**All eleven packages, register options, collections, and copy-paste bootstrap:** see `knowledge/upgrading.md` §3 (complete table + jwt-auth/doc-number/data-grid/valuations examples).
 
-Production: keep `./drizzle`, `./express`, `./react` — not Backseat.
+## Contributors
 
-## After bumping
+- Changeset **`patch`** on `0.1.x` → next pre-1.0 minor; **`minor`** → **1.0.0**
+- Peers `^0.1.0`; devDeps `workspace:*`; `onlyUpdatePeerDependentsWhenOutOfRange: true`
 
-1. Read each touched package changelog + `docs/backseat.md` if using Backseat
-2. Load package skills (`#…-core`, `#…-adapters`, `#backseat-core`)
-3. Typecheck / test
+## Agent rule
 
-## Contributors (Changesets)
-
-- `0.x` + changeset **`patch`** → next `0.(n+1).0` (stay pre-1.0)
-- `0.x` + changeset **`minor`** → **`1.0.0`** (intentional exit from 0.x)
-- Internal optional peers: **`^0.1.0`** + `onlyUpdatePeerDependentsWhenOutOfRange: true`
-- Monorepo devDeps: **`workspace:*`** only
+Max **three files** for an upgrade task: this skill + `knowledge/upgrading.md` + one package adapters skill if production wiring changed.

@@ -1,25 +1,15 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/pbac into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/pbac/backseat` — `createBackseatPbacContext()`, `registerPbacBackseat()`
-- `@eristack/pbac/backseat/store` — `createIndexedDbPbacContext()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: (policies are code-registered).
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatPbacContext } from "@eristack/pbac/backseat";
-import { registerPbacBackseat } from "@eristack/pbac/backseat";
-
-const { backseatStore, ...stores } = createBackseatPbacContext();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerPbacBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbPbacContext({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/pbac/backseat`, `@eristack/pbac/backseat/store` |
+| Factories | `createBackseatPbacContext()` / `createIndexedDbPbacContext({ dbName })` |
+| Register | `registerPbacBackseat(api, { pbac, basePath? })` |
+| Default `basePath` | `/pbac` |

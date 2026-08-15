@@ -1,25 +1,15 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/financial-ledger into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/financial-ledger/backseat` — `createBackseatFinancialLedgerStores()`, `registerFinancialLedgerBackseat()`
-- `@eristack/financial-ledger/backseat/store` — `createIndexedDbFinancialLedgerStores()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: hashChainedLedger.entries.
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatFinancialLedgerStores } from "@eristack/financial-ledger/backseat";
-import { registerFinancialLedgerBackseat } from "@eristack/financial-ledger/backseat";
-
-const { backseatStore, ...stores } = createBackseatFinancialLedgerStores();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerFinancialLedgerBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbFinancialLedgerStores({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/financial-ledger/backseat`, `@eristack/financial-ledger/backseat/store` |
+| Factories | `createBackseatFinancialLedgerStores()` / `createIndexedDbFinancialLedgerStores({ dbName })` |
+| Register | `registerFinancialLedgerBackseat(api, { financialLedger?, basePath? })` |
+| Default `basePath` | `/financial-ledger` |

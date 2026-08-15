@@ -62,9 +62,9 @@ pnpm knowledge:check
 When the user asks to **upgrade**, **bump**, or **what changed** in `@eristack/*`:
 
 1. Load `@eristack/ai-knowledge#upgrading-eristack`
-2. Check `pnpm outdated '@eristack/*'` and site `/{slug}/changelog` for touched packages
-3. Load each bumped package’s core/adapters skill before editing wiring
-4. For Backseat: confirm optional peer `^0.1.0`; read `docs/backseat.md` per spine package
+2. Read **`knowledge/upgrading.md` only** — do not open eleven `docs/backseat.md` files
+3. `pnpm outdated '@eristack/*'` + site `/{slug}/changelog` for touched packages
+4. Load **one** package core/adapters skill only if that package’s **production** wiring changed
 
 ## 7. Version control ownership
 

@@ -1,25 +1,16 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/qups into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/qups/backseat` — `createBackseatQupsStores()`, `registerQupsBackseat()`
-- `@eristack/qups/backseat/store` — `createIndexedDbQupsStores()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: qups.profiles, qups.lines.
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatQupsStores } from "@eristack/qups/backseat";
-import { registerQupsBackseat } from "@eristack/qups/backseat";
-
-const { backseatStore, ...stores } = createBackseatQupsStores();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerQupsBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbQupsStores({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/qups/backseat`, `@eristack/qups/backseat/store` |
+| Factories | `createBackseatQupsStores()` / `createIndexedDbQupsStores({ dbName })` |
+| Register | `registerQupsBackseat(api, CreateQupsOptions & { qups?, basePath? })` |
+| Default `basePath` | `/qups` |
+| Collections | `qups.profiles`, `qups.lines` |

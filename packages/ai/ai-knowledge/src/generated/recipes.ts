@@ -304,7 +304,7 @@ export const recipes = [
       "migration guide",
       "semver peer"
     ],
-    "rationale": "Consumer upgrades: pnpm outdated '@eristack/*', site /{slug}/changelog, then load @eristack/ai-knowledge#upgrading-eristack (knowledge/upgrading.md). Optional Backseat peer ^0.1.0 when using @eristack/*/backseat. Changesets 0.x rules apply to monorepo contributors only.",
+    "rationale": "Consumer upgrades: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md only (full Backseat matrix, peers, Changesets). pnpm outdated '@eristack/*', site /{slug}/changelog. Do not open per-package docs/backseat.md for upgrade scope.",
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -331,7 +331,7 @@ export const recipes = [
       "backseat",
       "indexeddb api"
     ],
-    "rationale": "Use @eristack/backseat for frontend-first prototypes: registerRoute controllers, registerAction for Query logic, IndexedDB via @eristack/backseat/store (memory for tests), BackseatDevtools. Eleven spine packages ship ./backseat + ./backseat/store (jwt-auth, doc-number, qups, stock-movement, financial-ledger, valuations, data-grid, hash-chained-ledger, rbac, abac, pbac). Optional peer @eristack/backseat ^0.1.0. Not production — use ./drizzle for real persistence. See docs/backseat.md per package and knowledge/upgrading.md for version bumps.",
+    "rationale": "Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps.",
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -339,20 +339,6 @@ export const recipes = [
           "backseat-core"
         ],
         "role": "primary"
-      },
-      {
-        "name": "@eristack/jwt-auth",
-        "skills": [
-          "jwt-auth-adapters"
-        ],
-        "role": "supporting"
-      },
-      {
-        "name": "@eristack/doc-number",
-        "skills": [
-          "doc-number-adapters"
-        ],
-        "role": "supporting"
       }
     ]
   },

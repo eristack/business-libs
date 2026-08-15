@@ -29,7 +29,7 @@ Full guide: `knowledge/agent-workflow.md`.
 
 ## Upgrading consumer apps
 
-When bumping `@eristack/*`: load `upgrading-eristack`, check `pnpm outdated` + site changelogs, then per-package skills.
+When bumping `@eristack/*`: load `upgrading-eristack`, read **`knowledge/upgrading.md` only** (canonical). Do not open eleven `docs/backseat.md` files. One package skill only if production wiring changed.
 
 ## HARD RULE — docs + ai-knowledge every iteration
 

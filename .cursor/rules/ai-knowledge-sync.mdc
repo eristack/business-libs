@@ -35,4 +35,8 @@ Trivial typo-only edits with **no** behavioral/API/guidance change may skip reci
 
 ## Definition of done (agent)
 
-Code works **and** docs updated **and** skills/recipes reflect the change **and** `pnpm knowledge:check` is green.
+Code works **and** docs updated **and** skills/recipes reflect the change **and** `pnpm knowledge:check` is green **and** (when exports/build changed) `pnpm exports:check` is green after `pnpm build`.
+
+## Documentation quality (HARD RULE — token budget)
+
+See `.cursor/rules/docs-depth-tokens.mdc`. Cross-cutting topics = **one canonical** `knowledge/<topic>.md` (+ site mirror). Per-package docs = unique deltas only. Agents must finish upgrade/integration tasks in **≤3 files**, not by reading every package doc.

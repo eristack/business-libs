@@ -1,25 +1,14 @@
 ---
 title: Backseat adapter
-description: Wire @eristack/data-grid into @eristack/backseat browser prototypes
+description: Package-unique defaults — full guide is ai-knowledge upgrading §3
 ---
 
 # Backseat adapter
 
-Exports:
+**Canonical guide:** [Upgrading §3 Backseat](/docs/ai-knowledge/upgrading) · `@eristack/ai-knowledge#upgrading-eristack`.
 
-- `@eristack/data-grid/backseat` — `createBackseatDataGridContext()`, `registerDataGridBackseat / registerDataGridBackseatRoute()`
-- `@eristack/data-grid/backseat/store` — `createIndexedDbDataGridContext()` (IndexedDB via `@eristack/backseat/store`)
-
-Collections / notes: (app collections — grid parses query only).
-
-```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { createBackseatDataGridContext } from "@eristack/data-grid/backseat";
-import { registerDataGridBackseat } from "@eristack/data-grid/backseat";
-
-const { backseatStore, ...stores } = createBackseatDataGridContext();
-const api = createBackseat({ store: backseatStore, baseUrl: "/api" });
-registerDataGridBackseat(api, { /* package instance */ });
-```
-
-Browser: swap `createIndexedDbDataGridContext({ dbName: "my-erp" })`. Graduation → Drizzle + REST adapters.
+| This package | Value |
+| --- | --- |
+| Imports | `@eristack/data-grid/backseat`, `@eristack/data-grid/backseat/store` |
+| Factories | `createBackseatDataGridContext()` / `createIndexedDbDataGridContext({ dbName })` — **no grid store** |
+| Register | `registerDataGridBackseatRoute` / `registerDataGridBackseat({ routes })` — you supply list loaders |
