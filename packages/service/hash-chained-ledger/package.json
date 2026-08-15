@@ -58,7 +58,8 @@
     "dist",
     "docs",
     "README.md",
-    "skills"
+    "skills",
+    "LICENSE"
   ],
   "keywords": [
     "tanstack-intent",
@@ -101,5 +102,6 @@
     "typescript": "catalog:",
     "vitest": "^4.1.10",
     "@eristack/backseat": "workspace:*"
-  }
+  },
+  "license": "MIT"
 }
