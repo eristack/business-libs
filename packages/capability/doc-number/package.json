@@ -1,6 +1,6 @@
 {
   "name": "@eristack/doc-number",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Document number format, parse, and sequence primitives for Eristack",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/epoch",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
   "repository": {
     "type": "git",

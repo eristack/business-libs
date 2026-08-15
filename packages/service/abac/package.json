@@ -1,6 +1,6 @@
 {
   "name": "@eristack/abac",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
   "repository": {
     "type": "git",

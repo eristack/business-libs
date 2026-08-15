@@ -1,5 +1,13 @@
 # @eristack/qups
 
+## 0.2.1
+
+### Patch Changes
+
+- 7847ca5: Add MIT license: root `LICENSE`, per-package `LICENSE` in publish tarball, and `"license": "MIT"` in `package.json`.
+- Updated dependencies [7847ca5]
+  - @eristack/money@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
