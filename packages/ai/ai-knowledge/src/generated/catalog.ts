@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-22T08:40:57.152Z",
+  "generatedAt": "2026-08-22T10:17:56.580Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -490,6 +490,39 @@ export const catalog = {
           "description": "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/timestamp",
+      "version": "0.0.0",
+      "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
+      "slug": "timestamp",
+      "adapters": [
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "timestamp-adapters",
+          "name": "timestamp-adapters",
+          "packageName": "@eristack/timestamp",
+          "description": "@eristack/timestamp adapters (mirror money): Drizzle SQL columns, REST wire codec, Zod 4, Express/Nest HTTP, client revive, React form helpers. Use when persisting instants or wall times in SQL or validating API bodies.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-adapters"
+        },
+        {
+          "id": "timestamp-core",
+          "name": "timestamp-core",
+          "packageName": "@eristack/timestamp",
+          "description": "Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
         }
       ]
     },

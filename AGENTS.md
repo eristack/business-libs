@@ -115,6 +115,12 @@ tanstackIntent:
   - id: "@eristack/money#money-ledger"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger"
     for: "Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON."
+  - id: "@eristack/timestamp#timestamp-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
+    for: "@eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe). Use for transaction_date, posted_at, due_at — not raw Date timezone math."
+  - id: "@eristack/timestamp#timestamp-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-adapters"
+    for: "@eristack/timestamp adapters (mirror money): Drizzle, REST, Zod 4, Express, Nest, client, React. Hub docs/adapters.md — load when persisting or validating timestamps in SQL/HTTP/forms."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)

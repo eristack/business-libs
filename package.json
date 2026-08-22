@@ -10,7 +10,7 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "skills:list": "intent list",
-    "skills:validate": "intent validate packages/primitive/money && intent validate packages/capability/doc-number && intent validate packages/capability/qups && intent validate packages/capability/stock-movement && intent validate packages/capability/financial-ledger && intent validate packages/capability/valuations && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/service/epoch && intent validate packages/service/rbac && intent validate packages/service/abac && intent validate packages/service/pbac && intent validate packages/service/hash-chained-ledger && intent validate packages/infrastructure/backseat && intent validate packages/ui/multitab && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow && intent validate packages/ai/ai-ticket-generator",
+    "skills:validate": "intent validate packages/primitive/money && intent validate packages/primitive/timestamp && intent validate packages/capability/doc-number && intent validate packages/capability/qups && intent validate packages/capability/stock-movement && intent validate packages/capability/financial-ledger && intent validate packages/capability/valuations && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/service/epoch && intent validate packages/service/rbac && intent validate packages/service/abac && intent validate packages/service/pbac && intent validate packages/service/hash-chained-ledger && intent validate packages/infrastructure/backseat && intent validate packages/ui/multitab && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow && intent validate packages/ai/ai-ticket-generator",
     "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
     "exports:check": "node scripts/check-package-exports.mjs",
@@ -35,6 +35,7 @@
     "@eristack/hash-chained-ledger": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
     "@eristack/money": "workspace:*",
+    "@eristack/timestamp": "workspace:*",
     "@eristack/multitab": "workspace:*",
     "@eristack/pbac": "workspace:*",
     "@eristack/qups": "workspace:*",
@@ -48,6 +49,7 @@
   "intent": {
     "skills": [
       "workspace:@eristack/money",
+      "workspace:@eristack/timestamp",
       "workspace:@eristack/doc-number",
       "workspace:@eristack/qups",
       "workspace:@eristack/stock-movement",
