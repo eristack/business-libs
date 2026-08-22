@@ -4,7 +4,7 @@ Seven layers organize the monorepo and site. Lower layers never import higher on
 
 | # | Layer | Role | Shipped / scaffold |
 | ---: | --- | --- | --- |
-| 01 | **Primitive** | Pure value types — no HTTP, DB, or React | money (alpha) |
+| 01 | **Primitive** | Pure value types — no HTTP, DB, or React | money, timestamp (alpha) |
 | 02 | **Capability** | Reusable business capabilities + optional Drizzle | doc-number, qups, stock-movement, financial-ledger, valuations |
 | 03 | **Service** | Auth, access, lists, ledger primitive | jwt-auth, rbac, abac, pbac, data-grid, hash-chained-ledger |
 | 04 | **Infrastructure** | Runtime glue — logging, mock backend, REST shells | backseat (alpha), logger (planned), rest (planned) |
@@ -17,6 +17,7 @@ Seven layers organize the monorepo and site. Lower layers never import higher on
 | Layer | Idea | When |
 | --- | --- | --- |
 | Primitive | UoM conversion, fiscal calendar | Second consumer needs it |
+| Primitive | `@eristack/timestamp` adapters (drizzle/rest/zod) | After core publish |
 | Capability | Tax engine, partner normalization | Before matching feature module |
 | Service | Audit event stream, notification outbox | After spine is boring |
 | UI | doc-shell, command palette | With multitab alpha |

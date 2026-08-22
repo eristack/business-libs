@@ -28,6 +28,7 @@ describe("catalog", () => {
         "@eristack/qups",
         "@eristack/rbac",
         "@eristack/stock-movement",
+        "@eristack/timestamp",
         "@eristack/valuations",
         "@eristack/backseat",
         "@eristack/multitab",

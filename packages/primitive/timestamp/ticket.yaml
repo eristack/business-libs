@@ -1,0 +1,12 @@
+package: "@eristack/timestamp"
+title: timestamp
+maintainers:
+  - support@eristack.dev
+scope: >
+  Business timestamps with two modes: UTC instant (when it happened) and wall-clock
+  (when it will happen, DST-safe). IANA timezones, Temporal core, wire JSON for adapters.
+outOfScope: >
+  Recurrence/cron engines, fiscal calendar, raw Date timezone math, storing wall times as UTC.
+skills:
+  - timestamp-core
+  - timestamp-adapters

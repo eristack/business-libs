@@ -218,6 +218,17 @@ Adapters: `backseat`, `backseat/store`, `drizzle`
 - `@eristack/stock-movement#stock-movement-core` — @eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core`
 
+### @eristack/timestamp (v0.0.0)
+
+Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)
+
+Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`, `zod`
+
+- `@eristack/timestamp#timestamp-adapters` — @eristack/timestamp adapters (mirror money): Drizzle SQL columns, REST wire codec, Zod 4, Express/Nest HTTP, client revive, React form helpers. Use when persisting instants or wall times in SQL or validating API bodies.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-adapters`
+- `@eristack/timestamp#timestamp-core` — Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core`
+
 ### @eristack/valuations (v0.2.0)
 
 Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger

@@ -213,6 +213,44 @@ const total = Money.of("19.99", "USD")
     },
   },
   {
+    slug: "timestamp",
+    name: "@eristack/timestamp",
+    title: "Timestamp",
+    category: "primitive" as const,
+    directory: "packages/primitive/timestamp",
+    href: "/timestamp",
+    docsHref: "/docs/timestamp",
+    tagline: "UTC instants for facts, wall-clock for schedules.",
+    description:
+      "Business time with instant mode (when it happened) and wall mode (when it will happen, DST-safe). Temporal core; adapter subpaths planned to mirror @eristack/money.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/timestamp",
+    highlights: [
+      {
+        title: "Two explicit modes",
+        body: "instant = UTC fact + IANA zone for local dates. wall = local intent without silent UTC conversion.",
+      },
+      {
+        title: "DST-safe schedules",
+        body: "Store 9:00 Paris as wall local + timezone; resolve to UTC only via wallToInstantOnce.",
+      },
+      {
+        title: "Adapter-ready core",
+        body: "TimestampJSON + validate layer frozen for upcoming ./drizzle, ./rest, ./zod (money spine).",
+      },
+    ],
+    sample: {
+      filename: "timestamp.ts",
+      language: "ts",
+      code: `import { instantOf, toLocalDateString, wallOf } from "@eristack/timestamp"
+
+const posted = instantOf("2026-08-22T02:30:00Z", "Asia/Jakarta")
+toLocalDateString(posted)
+
+const due = wallOf("2026-09-15T00:00:00", "Europe/Paris")`,
+    },
+  },
+  {
     slug: "doc-number",
     name: "@eristack/doc-number",
     title: "Doc Number",

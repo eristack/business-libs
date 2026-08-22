@@ -1,0 +1,23 @@
+{
+  "title": "@eristack/timestamp",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "instant",
+    "wall",
+    "timezone",
+    "gotchas",
+    "serialization",
+    "recipes",
+    "adapters",
+    "drizzle",
+    "rest",
+    "zod",
+    "express",
+    "nest",
+    "client",
+    "react",
+    "api-reference"
+  ]
+}

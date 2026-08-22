@@ -31,6 +31,7 @@ export type ComposeStep = {
 /** Short chip label in code gutters */
 export const composePackageShort: Record<ComposePackageSlug, string> = {
   money: "money",
+  timestamp: "time",
   "doc-number": "doc#",
   qups: "qups",
   "stock-movement": "stock",
@@ -52,6 +53,7 @@ export const composePackageShort: Record<ComposePackageSlug, string> = {
 
 export const composePackageMoment: Record<ComposePackageSlug, string> = {
   money: "Amounts, tax, and journal lines — never JS number literals",
+  timestamp: "Instant vs wall time — transaction dates and due dates without Date TZ bugs",
   "doc-number": "PO-2026-00042 from your sequence + token format",
   qups: "Line math: qty × price, modifiers, tax on Money",
   "stock-movement": "Receipt qty into locations/lots on a hash chain",

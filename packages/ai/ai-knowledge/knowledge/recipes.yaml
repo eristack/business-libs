@@ -80,6 +80,48 @@ recipes:
           - money-ledger
         role: primary
 
+  - id: timestamp-instant
+    title: Transaction dates and posted-at times
+    priority: 14
+    triggers:
+      - transaction date
+      - transaction_date
+      - posted at
+      - posted_at
+      - occurred at
+      - occurred_at
+      - business date
+      - posting date
+    rationale: >
+      Use @eristack/timestamp instant mode: UTC instant + IANA timezone for local
+      transaction_date labels. Not raw Date or server timezone.
+    packages:
+      - name: "@eristack/timestamp"
+        skills:
+          - timestamp-core
+        role: primary
+
+  - id: timestamp-wall
+    title: Due dates, appointments, and local schedules
+    priority: 15
+    triggers:
+      - due date
+      - due_at
+      - scheduled
+      - scheduled at
+      - appointment
+      - local midnight
+      - dst
+      - timezone schedule
+    rationale: >
+      Use @eristack/timestamp wall mode for local wall-clock intent (DST-safe).
+      Convert to UTC only via wallToInstantOnce for single occurrences.
+    packages:
+      - name: "@eristack/timestamp"
+        skills:
+          - timestamp-core
+        role: primary
+
   - id: line-pricing-qups
     title: Line quantity, unit price, discounts, and tax
     priority: 12
