@@ -184,9 +184,15 @@ export const recipes = [
       "discount percent",
       "goods receipt line",
       "order line",
-      "invoice line"
+      "invoice line",
+      "truth mode",
+      "source of truth",
+      "qups truth",
+      "amount only",
+      "flat amount",
+      "shared currency line"
     ],
-    "rationale": "Use @eristack/qups calculateLine/patchLine for quantity/unit-price/subtotal (exact ratio when UP+S), modifiers, and tax — same math in TanStack Form and on the BE. Inject qupsLineColumns (shared currency + *_amount numeric columns) into detail tables; withQupsColumns for inserts. See qups stores.md + money drizzle.md. Do not invent float qty = subtotal/unitPrice in the UI.",
+    "rationale": "Use @eristack/qups calculateLine/patchLine for quantity/unit-price/subtotal (exact ratio when UP+S), modifiers, and tax — same math in TanStack Form and on the BE. Import QUPS_TRUTH_MODES and isQupsTruthMode — do not copy the three truth strings; qupsRolesFor(truth) for required SoT fields. Flat amount + row currency: createAmountOnlyFieldValidators from @eristack/money/react (not nested MoneyJSON). Inject qupsLineColumns into detail tables; withQupsColumns for inserts. See qups stores.md + money drizzle.md.",
     "packages": [
       {
         "name": "@eristack/qups",
@@ -201,7 +207,8 @@ export const recipes = [
         "name": "@eristack/money",
         "skills": [
           "money-amounts",
-          "money-ledger"
+          "money-ledger",
+          "money-adapters"
         ],
         "role": "supporting"
       }
@@ -331,9 +338,15 @@ export const recipes = [
       "pagination",
       "offset pagination",
       "cursor pagination",
-      "query string filter"
+      "query string filter",
+      "sort price",
+      "filter price",
+      "decimal column",
+      "money column",
+      "unit price list",
+      "decimal string"
     ],
-    "rationale": "Use @eristack/data-grid for schema-aware list queries. Prefer advanced filters and search mode as separate modes; jwt-auth sessions and doc-number formats already return DataGridResult.",
+    "rationale": "Use @eristack/data-grid for schema-aware list queries. For decimal money columns (unitPrice, amounts as strings) set schema type decimal or money — applyInMemory sort/filter without Number(). Use type number only for true numeric columns (qty counts). Prefer advanced filters and search mode as separate modes.",
     "packages": [
       {
         "name": "@eristack/data-grid",

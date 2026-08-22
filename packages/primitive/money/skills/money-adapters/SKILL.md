@@ -2,12 +2,14 @@
 name: money-adapters
 description: >
   Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4
-  schemas, Express/Nest HTTP, client revive, React form helpers. Use when storing
-  prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON.
+  schemas, Express/Nest HTTP, client revive, React form helpers including
+  createAmountOnlyFieldValidators for flat amount strings + shared row currency
+  (QUPS lines). Use when storing prices in SQL, validating API bodies, or mapping
+  flat DB columns vs MoneyJSON.
 metadata:
   type: adapter
   library: '@eristack/money'
-  library_version: '0.2.1'
+  library_version: '0.3.0'
 sources:
   - 'eristack/business-libs:packages/primitive/money/docs/adapters.md'
 ---
