@@ -4,12 +4,14 @@ Business time primitives: **instant** mode (UTC facts) and **wall** mode (local 
 
 - `@js-temporal/polyfill` in core — not raw `Date` math for zones
 - IANA `timezone` on both modes
-- `TimestampJSON` wire shape ready for future `./drizzle`, `./rest`, `./zod` adapters (mirror `@eristack/money`)
+- Full adapter spine mirroring `@eristack/money`: Drizzle, REST, Zod 4, Express, Nest, client, React
 
 ## Install
 
 ```bash
 pnpm add @eristack/timestamp
+# Optional adapters (peer deps):
+pnpm add drizzle-orm zod@^4 express @nestjs/common @tanstack/react-form
 ```
 
 ## Quick example
@@ -31,9 +33,19 @@ const due = wallOf("2026-09-15T00:00:00", "Europe/Paris");
 const dueInstant = wallToInstantOnce(due);
 ```
 
+## HTTP / SQL (adapters)
+
+```ts
+import { parseTimestampJSON, serializeTimestamp } from "@eristack/timestamp/rest";
+import { instantField } from "@eristack/timestamp/drizzle";
+```
+
+See [Adapters](./docs/adapters.md) for the full subpath map.
+
 ## Documentation
 
-See [`docs/`](./docs/) on the site: `/docs/timestamp`.
+- **Source of truth:** [`docs/`](./docs/) (markdown + [`docs/_meta.json`](./docs/_meta.json))
+- **Website:** rendered by [`apps/web`](../../../apps/web) at `/docs/timestamp`
 
 ## Skills
 

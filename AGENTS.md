@@ -185,6 +185,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
+- `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `packages/capability/qups` — `@eristack/qups` (QUPS 2-of-3 SoT + modifiers + tax on Money; drizzle injects columns into app detail lines)
 - `packages/capability/stock-movement` — `@eristack/stock-movement` (qty ledger + composable locations/lots on hash-chained-ledger)
@@ -197,7 +198,7 @@ Categories under `packages/` (order matters):
 - `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
 - `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
-- `packages/infrastructure/backseat` — `@eristack/backseat` (frontend mock backend engine — coming soon)
+- `packages/infrastructure/backseat` — `@eristack/backseat` (in-browser mock REST engine — alpha)
 - `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab ERP workspace — coming soon)
 - `packages/features/` — ERP feature modules (product, procurement, …) — layer coming soon; see `roadmap/`
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
