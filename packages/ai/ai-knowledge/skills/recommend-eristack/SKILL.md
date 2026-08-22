@@ -92,7 +92,7 @@ Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, 
 
 - `@eristack/data-grid#data-grid-adapters` — @eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters`
-- `@eristack/data-grid#data-grid-core` — Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic list queries without HTTP or Drizzle.
+- `@eristack/data-grid#data-grid-core` — Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), decimal/money field types for string amount sort/filter without Number(), toSearch/fromSearch, advanced vs search modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core`
 
 ### @eristack/doc-number (v0.3.1)
@@ -156,7 +156,7 @@ Money primitives for Eristack
 
 Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`, `zod`
 
-- `@eristack/money#money-adapters` — Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4 schemas, Express/Nest HTTP, client revive, React form helpers. Use when storing prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON.
+- `@eristack/money#money-adapters` — Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4 schemas, Express/Nest HTTP, client revive, React form helpers including createAmountOnlyFieldValidators for flat amount strings + shared row currency (QUPS lines). Use when storing prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-adapters`
 - `@eristack/money#money-amounts` — Construct Money with strings or minor units, run same-currency arithmetic, totals (Money.sum/min/max/average), percentages (percentOf/plusPercent/minusPercent), ratios, Discount/Markup/Tax/Percent operators, and compare amounts in @eristack/money. Use when creating prices, taxes, discounts, totals, or when an agent reaches for JS number literals for money.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts`
@@ -191,7 +191,7 @@ Adapters: `backseat`, `backseat/store`, `drizzle`
 
 - `@eristack/qups#qups-adapters` — Optional @eristack/qups/drizzle: qupsLineColumns injected into app detail tables; withQupsColumns from calculateLine for inserts. Profile/line stores only if you need a field catalog — everyday form/BE math uses calculateLine.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters`
-- `@eristack/qups#qups-core` — Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL.
+- `@eristack/qups#qups-core` — Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, QUPS_TRUTH_MODES, isQupsTruthMode, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core`
 - `@eristack/qups#qups-line` — @eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money. Use for invoice/order lines in the business layer — not float math in React.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line`

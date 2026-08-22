@@ -2,12 +2,13 @@
 name: qups-core
 description: >
   Pure @eristack/qups business calculator: calculateLine / patchLine (plain
-  strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax.
-  Prefer calculateLine over inventing float qty/price math in UI or SQL.
+  strings for TanStack Form + BE), Qups 2-of-3 SoT, QUPS_TRUTH_MODES,
+  isQupsTruthMode, PricingLine, modifiers, tax. Prefer calculateLine over
+  inventing float qty/price math in UI or SQL.
 metadata:
   type: core
   library: '@eristack/qups'
-  library_version: '0.0.0'
+  library_version: '0.3.0'
 sources:
   - 'eristack/business-libs:packages/capability/qups/docs/index.md'
   - 'eristack/business-libs:packages/capability/qups/docs/recipes.md'

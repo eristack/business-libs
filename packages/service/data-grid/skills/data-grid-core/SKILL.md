@@ -2,14 +2,14 @@
 name: data-grid-core
 description: >
   Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params
-  (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs
-  search modes, filter ops (eq/contains/in/between/gte/…), multi-sort,
-  offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic
-  list queries without HTTP or Drizzle.
+  (TanStack Router–aligned filters/sorts), decimal/money field types for string
+  amount sort/filter without Number(), toSearch/fromSearch, advanced vs search
+  modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory.
+  Use for dynamic list queries without HTTP or Drizzle.
 metadata:
   type: core
   library: '@eristack/data-grid'
-  library_version: '0.1.0'
+  library_version: '0.2.1'
 sources:
   - 'eristack/business-libs:packages/service/data-grid/docs/index.md'
   - 'eristack/business-libs:packages/service/data-grid/docs/getting-started.md'

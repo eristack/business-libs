@@ -7,7 +7,7 @@ description: >
 metadata:
   type: core
   library: '@eristack/qups'
-  library_version: '0.0.0'
+  library_version: '0.3.0'
 sources:
   - 'eristack/business-libs:packages/capability/qups/docs/recipes.md'
   - 'eristack/business-libs:packages/capability/qups/src/core/calculate.ts'

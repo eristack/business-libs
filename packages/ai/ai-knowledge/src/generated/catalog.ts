@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-22T11:42:02.271Z",
+  "generatedAt": "2026-08-22T11:49:53.695Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -137,7 +137,7 @@ export const catalog = {
           "id": "data-grid-core",
           "name": "data-grid-core",
           "packageName": "@eristack/data-grid",
-          "description": "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory, buildDataGridResult. Use for dynamic list queries without HTTP or Drizzle.",
+          "description": "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), decimal/money field types for string amount sort/filter without Number(), toSearch/fromSearch, advanced vs search modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
         }
@@ -322,7 +322,7 @@ export const catalog = {
           "id": "money-adapters",
           "name": "money-adapters",
           "packageName": "@eristack/money",
-          "description": "Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4 schemas, Express/Nest HTTP, client revive, React form helpers. Use when storing prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON.",
+          "description": "Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4 schemas, Express/Nest HTTP, client revive, React form helpers including createAmountOnlyFieldValidators for flat amount strings + shared row currency (QUPS lines). Use when storing prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON.",
           "type": "adapter",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/money#money-adapters"
         },
@@ -418,7 +418,7 @@ export const catalog = {
           "id": "qups-core",
           "name": "qups-core",
           "packageName": "@eristack/qups",
-          "description": "Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL.",
+          "description": "Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, QUPS_TRUTH_MODES, isQupsTruthMode, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core"
         },

@@ -76,6 +76,24 @@ describe("recommend", () => {
     expect(result.unmatched.length).toBeGreaterThan(0);
     expect(result.fallbackNote).toMatch(/Some goals had no Eristack recipe/i);
   });
+
+  it("routes qups truth mode and amount-only form language to line-pricing-qups", () => {
+    const result = recommend(["qups truth mode", "flat amount line form"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "line-pricing-qups"),
+    ).toBe(true);
+    const qups = result.matches.find((m) => m.recipe.id === "line-pricing-qups");
+    expect(
+      qups?.recipe.packages.some((p) => p.name === "@eristack/money"),
+    ).toBe(true);
+  });
+
+  it("routes decimal money list columns to data-grid-lists", () => {
+    const result = recommend(["sort unit price list", "decimal column filter"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "data-grid-lists"),
+    ).toBe(true);
+  });
 });
 
 describe("loadPlan", () => {
