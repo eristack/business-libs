@@ -7,6 +7,8 @@ alwaysApply: true
 
 Eristack packages exist for **AI agents first**. Documentation that spreads facts across dozens of stub files forces agents to read 100+ files — that is a **failure mode**, not “good coverage.”
 
+Package design targets (cheap, predictable, reliable, clear boundaries): see `.cursor/rules/eristack-package-targets.mdc`.
+
 ## Definition of good documentation
 
 | Good | Bad |

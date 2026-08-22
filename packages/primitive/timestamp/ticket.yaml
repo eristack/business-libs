@@ -3,10 +3,13 @@ title: timestamp
 maintainers:
   - support@eristack.dev
 scope: >
-  Business timestamps with two modes: UTC instant (when it happened) and wall-clock
-  (when it will happen, DST-safe). IANA timezones, Temporal core, wire JSON for adapters.
+  Business timestamps: instant mode (UTC facts + IANA zone) and wall mode (local intent,
+  DST-safe). Core on Temporal polyfill; full adapter spine (drizzle, rest, zod, express,
+  nest, client, react) mirroring @eristack/money.
 outOfScope: >
-  Recurrence/cron engines, fiscal calendar, raw Date timezone math, storing wall times as UTC.
+  Recurrence/cron engines, fiscal calendar, raw Date timezone math, storing wall local
+  in timestamptz without explicit conversion, Backseat ./backseat subpath (primitives
+  embed TimestampJSON in documents).
 skills:
   - timestamp-core
   - timestamp-adapters

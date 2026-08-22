@@ -20,7 +20,8 @@ import {
   moneySchemaDefault,
 } from "../src/zod/index.js";
 import { reviveMoney } from "../src/client/index.js";
-import { moneyFormValue, submitMoneyFormValue } from "../src/react/index.js";
+import { moneyFormValue, submitMoneyFormValue, createAmountOnlyFieldValidators, submitAmountOnlyFormValue } from "../src/react/index.js";
+import { parseRoundedAmount } from "../src/core/amount/amount-only.js";
 
 describe("@eristack/money/rest", () => {
   it("parses valid MoneyJSON", () => {
@@ -147,5 +148,26 @@ describe("@eristack/money/client + react", () => {
     const form = moneyFormValue(original);
     const submitted = submitMoneyFormValue(form);
     expect(submitted.isEqualTo(Money.of("12.34", "USD"))).toBe(true);
+  });
+});
+
+describe("@eristack/money amount-only", () => {
+  it("parseRoundedAmount rounds at currency scale", () => {
+    const money = parseRoundedAmount("19.999", "USD");
+    expect(money.isEqualTo(Money.of("20.00", "USD"))).toBe(true);
+  });
+
+  it("rejects non-string amounts", () => {
+    expect(() => parseRoundedAmount(19.99, "USD")).toThrow();
+  });
+
+  it("amount-only validators accept flat strings", () => {
+    const validators = createAmountOnlyFieldValidators({ currency: "IDR" });
+    expect(validators.onChange({ value: "4990000.00" })).toBeUndefined();
+  });
+
+  it("submitAmountOnlyFormValue returns Money", () => {
+    const money = submitAmountOnlyFormValue("10.5", "USD");
+    expect(money.isEqualTo(Money.of("10.50", "USD"))).toBe(true);
   });
 });

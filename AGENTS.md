@@ -24,7 +24,7 @@ tanstackIntent:
     for: "Preferred stack defaults: TypeScript, Drizzle pgsql dialect, Express/Nest/React headless adapters, string-first money, credentials child of users. Use when scaffolding apps around @eristack packages."
   - id: "@eristack/ai-knowledge#agent-workflow"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
-    for: "Agent workflow: recommend first, load Intent skills before coding, prefer examples/*, HARD RULE update docs+skills+recipes and pnpm knowledge:sync every package iteration. Use for multi-package work."
+    for: "Agent workflow: four package targets (cheap tokens, predictable, reliable, clear boundaries — no reinventing exports), recommend first, load skills before coding, prefer examples/*, HARD RULE docs+skills+recipes and pnpm knowledge:sync every iteration. Use for multi-package work."
   - id: "@eristack/ai-knowledge#dev-conventions"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
     for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, HARD RULE docs+ai-knowledge every iteration, _ai-docs promote-then-delete."
@@ -158,6 +158,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 - **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
 - **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. Do not finish with fresh docs and stale agent knowledge. See `.cursor/rules/ai-knowledge-sync.mdc`. CI enforces catalog freshness.
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
+- **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.
 - **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Docs UI and site listings follow the same order.
 

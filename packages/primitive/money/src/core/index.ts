@@ -1,4 +1,6 @@
 export { Money, type MoneyInput } from "./amount/money.js";
+export { parseRoundedAmount } from "./amount/amount-only.js";
+export type { ParseRoundedAmountOptions } from "./amount/amount-only.js";
 export type { MonetaryAmount } from "./amount/monetary-amount.js";
 export type { MonetaryContext } from "./amount/monetary-context.js";
 export { NumberValue } from "./amount/number-value.js";

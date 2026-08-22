@@ -221,5 +221,60 @@ describe("filter builder", () => {
     });
     expect(suggestedOpsForType("boolean")).toContain("eq");
     expect(suggestedOpsForType("string")).toContain("contains");
+    expect(suggestedOpsForType("decimal")).toContain("gte");
+  });
+});
+
+describe("decimal field type", () => {
+  const decimalSchema = {
+    fields: [
+      {
+        name: "unitPrice",
+        type: "decimal" as const,
+        filterable: true,
+        sortable: true,
+      },
+    ],
+    defaultPageSize: 10,
+    maxPageSize: 50,
+  };
+
+  const products = [
+    { unitPrice: "300.00" },
+    { unitPrice: "4990000.00" },
+    { unitPrice: "1200.50" },
+  ];
+
+  it("sorts decimal strings without Number() corruption", () => {
+    const grid = createDataGrid(decimalSchema);
+    const result = grid.applyInMemory(products, {
+      mode: "advanced",
+      sorts: [{ field: "unitPrice", dir: "asc" }],
+      page: { mode: "offset", page: 1, pageSize: 10 },
+    });
+    expect(result.items.map((row) => row.unitPrice)).toEqual([
+      "300.00",
+      "1200.50",
+      "4990000.00",
+    ]);
+  });
+
+  it("filters with gte on decimal strings", () => {
+    const grid = createDataGrid(decimalSchema);
+    const result = grid.applyInMemory(products, {
+      mode: "advanced",
+      filters: {
+        type: "clause",
+        field: "unitPrice",
+        op: "gte",
+        value: "1000.00",
+      },
+      sorts: [{ field: "unitPrice", dir: "asc" }],
+      page: { mode: "offset", page: 1, pageSize: 10 },
+    });
+    expect(result.items.map((row) => row.unitPrice)).toEqual([
+      "1200.50",
+      "4990000.00",
+    ]);
   });
 });

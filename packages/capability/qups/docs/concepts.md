@@ -62,6 +62,19 @@ Modifiers never rewrite the QUPS SoT; they consume subtotal as base. Tax consume
 
 `CalculatedLine.roles` (and `qupsRolesFor`) tells the UI which QUPS fields to enable:
 
+## Truth mode registry
+
+Import the runtime tuple — do not copy the three strings in app code:
+
+```ts
+import { QUPS_TRUTH_MODES, isQupsTruthMode } from "@eristack/qups";
+
+QUPS_TRUTH_MODES; // readonly ["quantity+unitPrice", "quantity+subtotal", "unitPrice+subtotal"]
+isQupsTruthMode(draft.truth); // narrows wire input for selects / parsers
+```
+
+Use `qupsRolesFor(truth)` for which fields are sources vs derived — not hand-rolled `needsQty` flags.
+
 ```ts
 // truth: "quantity+unitPrice"
 roles = {

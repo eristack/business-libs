@@ -1,10 +1,29 @@
-import { FILTER_OPS, type FilterOp, type FilterClause } from "./types.js";
+import { FILTER_OPS, type FilterOp, type FilterClause, type FieldType, type DataGridSchema } from "./types.js";
+import {
+  compareDecimalStrings,
+  isDecimalFieldType,
+} from "./decimal-compare.js";
 
 export function isFilterOp(value: unknown): value is FilterOp {
   return typeof value === "string" && (FILTER_OPS as readonly string[]).includes(value);
 }
 
-export function normalizeComparable(value: unknown): unknown {
+export function fieldTypeFor(
+  schema: DataGridSchema | undefined,
+  fieldName: string,
+): FieldType | undefined {
+  return schema?.fields.find((f) => f.name === fieldName)?.type;
+}
+
+export function normalizeComparable(
+  value: unknown,
+  options?: { decimal?: boolean },
+): unknown {
+  if (options?.decimal) {
+    if (value == null) return value;
+    if (typeof value === "string") return value.trim();
+    return String(value);
+  }
   if (value instanceof Date) return value.getTime();
   if (typeof value === "string") {
     const asNum = Number(value);
@@ -42,8 +61,31 @@ function asPair(value: unknown): [unknown, unknown] | null {
   return null;
 }
 
-export function matchClause(fieldValue: unknown, clause: FilterClause): boolean {
+function compareDecimalOp(
+  left: unknown,
+  right: unknown,
+  op: "gt" | "gte" | "lt" | "lte",
+): boolean {
+  const cmp = compareDecimalStrings(String(left ?? ""), String(right ?? ""));
+  switch (op) {
+    case "gt":
+      return cmp > 0;
+    case "gte":
+      return cmp >= 0;
+    case "lt":
+      return cmp < 0;
+    case "lte":
+      return cmp <= 0;
+  }
+}
+
+export function matchClause(
+  fieldValue: unknown,
+  clause: FilterClause,
+  fieldType?: FieldType,
+): boolean {
   const { op, value } = clause;
+  const decimal = isDecimalFieldType(fieldType);
 
   switch (op) {
     case "isNull":
@@ -58,13 +100,29 @@ export function matchClause(fieldValue: unknown, clause: FilterClause): boolean 
       break;
   }
 
-  const left = normalizeComparable(fieldValue);
-  const right = normalizeComparable(value);
+  if (decimal && (op === "gt" || op === "gte" || op === "lt" || op === "lte")) {
+    return compareDecimalOp(fieldValue, value, op);
+  }
+
+  const left = normalizeComparable(fieldValue, { decimal });
+  const right = normalizeComparable(value, { decimal });
 
   switch (op) {
     case "eq":
+      if (decimal) {
+        return (
+          compareDecimalStrings(String(fieldValue ?? ""), String(value ?? "")) ===
+          0
+        );
+      }
       return left === normalizeComparable(right);
     case "neq":
+      if (decimal) {
+        return (
+          compareDecimalStrings(String(fieldValue ?? ""), String(value ?? "")) !==
+          0
+        );
+      }
       return left !== normalizeComparable(right);
     case "gt":
       return (left as number) > (normalizeComparable(right) as number);
@@ -83,24 +141,56 @@ export function matchClause(fieldValue: unknown, clause: FilterClause): boolean 
     case "endsWith":
       return toString(fieldValue).toLowerCase().endsWith(toString(value).toLowerCase());
     case "in": {
-      const list = asList(value).map(normalizeComparable);
-      return list.includes(normalizeComparable(fieldValue));
+      const list = asList(value).map((entry) =>
+        normalizeComparable(entry, { decimal }),
+      );
+      const current = normalizeComparable(fieldValue, { decimal });
+      return list.some((entry) =>
+        decimal
+          ? compareDecimalStrings(String(fieldValue ?? ""), String(entry ?? "")) ===
+            0
+          : entry === current,
+      );
     }
     case "notIn": {
-      const list = asList(value).map(normalizeComparable);
-      return !list.includes(normalizeComparable(fieldValue));
+      const list = asList(value).map((entry) =>
+        normalizeComparable(entry, { decimal }),
+      );
+      const current = normalizeComparable(fieldValue, { decimal });
+      return !list.some((entry) =>
+        decimal
+          ? compareDecimalStrings(String(fieldValue ?? ""), String(entry ?? "")) ===
+            0
+          : entry === current,
+      );
     }
     case "between": {
       const pair = asPair(value);
       if (!pair) return false;
-      const [min, max] = pair.map(normalizeComparable);
+      if (decimal) {
+        const current = String(fieldValue ?? "");
+        const [min, max] = pair;
+        return (
+          compareDecimalOp(current, min, "gte") &&
+          compareDecimalOp(current, max, "lte")
+        );
+      }
+      const [min, max] = pair.map((v) => normalizeComparable(v));
       const current = normalizeComparable(fieldValue) as number;
       return current >= (min as number) && current <= (max as number);
     }
     case "notBetween": {
       const pair = asPair(value);
       if (!pair) return true;
-      const [min, max] = pair.map(normalizeComparable);
+      if (decimal) {
+        const current = String(fieldValue ?? "");
+        const [min, max] = pair;
+        return !(
+          compareDecimalOp(current, min, "gte") &&
+          compareDecimalOp(current, max, "lte")
+        );
+      }
+      const [min, max] = pair.map((v) => normalizeComparable(v));
       const current = normalizeComparable(fieldValue) as number;
       return !(current >= (min as number) && current <= (max as number));
     }

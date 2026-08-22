@@ -2,6 +2,25 @@
 
 How AI coding agents should work with Eristack knowledge and packages.
 
+## Design targets (every package)
+
+These four targets apply to **contributors shipping libraries** and **agents wiring them into apps**. Do not close an iteration if one is missing.
+
+| Target | Meaning | Ship signals |
+| --- | --- | --- |
+| **Cheap (tokens)** | Agent finishes integration in **≤3 files** | One canonical guide; getting-started with copy-paste blocks; recipes → one `load` command; export registries/helpers instead of copy-paste lists |
+| **Predictable** | Same inputs → same outputs in core, forms, and API | String-first domain values; no silent coercion; one obvious entrypoint; defaults and edge cases in docs/skills |
+| **Reliable** | Production ERP behavior, not demo glue | Real-path tests; Drizzle/DB as default in skills; memory stores **tests only**; round at boundaries; `exports:check` green |
+| **Clear boundaries** | App does not reinvent library work | Core vs adapters; recommend before inventing; export what consumers would duplicate; app owns UX + domain tables |
+
+**Examples of “don’t make consumers reinvent”:**
+
+- Truth modes, field types, wire codecs, form validators → **library exports**
+- Money/QUPS line math → **`@eristack/money` / `@eristack/qups`**, not float helpers in the app
+- List filter/sort on decimal columns → **`type: "decimal"` / `"money"`** in data-grid schema, not `Number()` in the app
+
+Cursor rule: `.cursor/rules/eristack-package-targets.mdc`.
+
 ## 1. Architecture, then recommend, before inventing
 
 When starting a new app or choosing structure:

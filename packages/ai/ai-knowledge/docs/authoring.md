@@ -38,6 +38,17 @@ pnpm knowledge:sync
 
 Never hand-edit `src/generated/*` or the `<!-- catalog:* -->` block in `skills/recommend-eristack/SKILL.md`.
 
+## Package design targets (hard rule)
+
+Every recipe/skill/docs change should support the four targets in `knowledge/agent-workflow.md` § Design targets:
+
+1. **Cheap (tokens)** — one load path; ≤3 files to integrate
+2. **Predictable** — string-first domain values; documented defaults
+3. **Reliable** — Drizzle/DB default in guidance; no demo stores as production path
+4. **Clear boundaries** — export registries/helpers; consumers must not reinvent parallel lists or coercion logic
+
+See `.cursor/rules/eristack-package-targets.mdc`.
+
 ## Token-efficient documentation (hard rule)
 
 **In-depth ≠ many files.** Agents are the primary readers; token budget matters.

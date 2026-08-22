@@ -1,5 +1,17 @@
 # Checklists
 
+## Package design targets (contributors + consumers)
+
+Before shipping or accepting a package change:
+
+- [ ] Agent can integrate in **≤3 files** (skill + one guide ± adapter doc)
+- [ ] Getting-started has copy-paste install/import/example/production path
+- [ ] Exported registries/helpers replace copy-paste constants in apps (truth modes, validators, field types, codecs)
+- [ ] Core behavior matches in forms and on the server (string-first, no float money, no silent `Number()` on decimals)
+- [ ] Tests cover real wiring paths; Drizzle/DB is the documented default (memory = tests only)
+- [ ] Core vs adapters split clean; app owns UX and domain tables
+- [ ] Recipe/skill points to **one** load target, not a doc hunt
+
 ## Before implementing a multi-feature ask
 
 - [ ] Loaded `architecture-recommend` if scaffolding or choosing stack/structure

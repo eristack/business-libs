@@ -36,4 +36,5 @@ await db.insert(t).values(withQupsColumns({ itemId }, line));
 ```
 
 Lower-level: `Qups`, `PricingLine`, `AdjustedAmount`, `LineTax` when you already hold `Money`.
+Truth mode registry: `QUPS_TRUTH_MODES`, `isQupsTruthMode` — do not copy the three strings in consumers. UI roles: `qupsRolesFor(truth)`.
 Drizzle column injection: `@eristack/qups/drizzle` → `qupsLineColumns`.

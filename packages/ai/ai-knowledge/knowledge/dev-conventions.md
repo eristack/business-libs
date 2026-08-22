@@ -4,10 +4,18 @@ Conventions for apps consuming Eristack and for contributors to the business-lib
 
 ## Product priorities
 
-1. **Correct money and identity** beat clever abstractions.
-2. **Small, sharp packages** with clear boundaries (core vs adapters).
-3. **Headless shells** — Express/Nest/React adapters stay thin; the app owns UX and domain tables.
-4. **Agent-readable docs and skills** ship with packages (`docs/`, `skills/`).
+Four **design targets** govern every package (details: [`agent-workflow.md`](./agent-workflow.md) § Design targets; Cursor: `.cursor/rules/eristack-package-targets.mdc`):
+
+1. **Cheap to implement (tokens)** — integration in ≤3 files; canonical docs; export registries/helpers consumers would copy.
+2. **Predictable result** — same behavior in core, forms, and API; string-first domain values; documented defaults.
+3. **High reliability** — production paths tested; Drizzle/DB default; no demo-only stores in skills.
+4. **Clear boundaries** — sharp packages; recommend before inventing; app owns UX and domain tables; **consumers must not reinvent** library exports.
+
+Supporting norms:
+
+- **Correct money and identity** beat clever abstractions.
+- **Headless shells** — Express/Nest/React adapters stay thin.
+- **Agent-readable docs and skills** ship with every package (`docs/`, `skills/`).
 
 ## Monorepo layout (business-libs)
 

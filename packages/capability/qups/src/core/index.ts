@@ -1,4 +1,6 @@
-export { Qups, type QupsInput, type QupsTruthMode, type QuantityRatio } from "./qups.js";
+export type { QupsTruthMode } from "./truth-mode.js";
+export { QUPS_TRUTH_MODES, isQupsTruthMode } from "./truth-mode.js";
+export { Qups, type QupsInput, type QuantityRatio } from "./qups.js";
 export {
   AdjustedAmount,
   type AdjustedInput,

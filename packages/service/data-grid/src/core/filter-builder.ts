@@ -30,6 +30,8 @@ export function suggestedOpsForType(type: FieldType): FilterOp[] {
     case "boolean":
       return ["eq", "neq", "isNull", "isNotNull"];
     case "number":
+    case "decimal":
+    case "money":
     case "date":
       return [
         "eq",

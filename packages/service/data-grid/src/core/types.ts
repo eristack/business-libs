@@ -78,7 +78,14 @@ export type DataGridQuery = {
   page: DataGridPage;
 };
 
-export type FieldType = "string" | "number" | "boolean" | "date" | "enum";
+export type FieldType =
+  | "string"
+  | "number"
+  | "boolean"
+  | "date"
+  | "enum"
+  | "decimal"
+  | "money";
 
 export type DataGridFieldDef = {
   name: string;

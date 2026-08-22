@@ -20,6 +20,15 @@ sources:
 
 Full guide: `knowledge/dev-conventions.md`.
 
+## Package design targets
+
+1. **Cheap (tokens)** — ≤3 files to integrate; export what apps would copy
+2. **Predictable** — same core in React + server; string-first; no silent coercion
+3. **Reliable** — Drizzle/DB default; tests on real paths; memory stores tests-only
+4. **Clear boundaries** — recommend first; consumers must not reinvent domain glue
+
+Full table: `knowledge/agent-workflow.md` § Design targets.
+
 ## Quick rules
 
 - **GitHub Flow** — feature branch → PR → `main` only

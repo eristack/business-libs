@@ -32,7 +32,11 @@ export {
   withResetPagination,
 } from "./core/filter-builder.js";
 export type { FilterDraftRow } from "./core/filter-builder.js";
-export { matchClause, isFilterOp, normalizeComparable } from "./core/match.js";
+export {
+  compareDecimalStrings,
+  isDecimalFieldType,
+} from "./core/decimal-compare.js";
+export { fieldTypeFor, matchClause, isFilterOp, normalizeComparable } from "./core/match.js";
 export { encodeCursor, decodeCursor } from "./core/cursor.js";
 export type { CursorPayload } from "./core/cursor.js";
 
