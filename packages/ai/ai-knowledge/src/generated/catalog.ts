@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-22T10:31:04.166Z",
+  "generatedAt": "2026-08-22T10:32:58.340Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -495,7 +495,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/timestamp",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
       "slug": "timestamp",
       "adapters": [
