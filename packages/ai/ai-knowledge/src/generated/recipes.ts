@@ -143,6 +143,33 @@ export const recipes = [
     ]
   },
   {
+    "id": "timestamp-persist",
+    "title": "Store timestamps in SQL and validate API bodies",
+    "priority": 17,
+    "triggers": [
+      "store timestamp",
+      "persist timestamp",
+      "drizzle timestamp",
+      "timestamptz",
+      "posted_at column",
+      "due_at column",
+      "timestamp schema",
+      "zod timestamp",
+      "parse postedat"
+    ],
+    "rationale": "Use @eristack/timestamp/drizzle (docs/drizzle.md) for instant/wall SQL columns; ./rest or ./zod for TimestampJSON; ./express or ./nest for HTTP. Hub: docs/adapters.md.",
+    "packages": [
+      {
+        "name": "@eristack/timestamp",
+        "skills": [
+          "timestamp-adapters",
+          "timestamp-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "line-pricing-qups",
     "title": "Line quantity, unit price, discounts, and tax",
     "priority": 12,

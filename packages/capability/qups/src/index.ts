@@ -2,6 +2,8 @@ export {
   Qups,
   type QupsInput,
   type QupsTruthMode,
+  QUPS_TRUTH_MODES,
+  isQupsTruthMode,
   type QuantityRatio,
   AdjustedAmount,
   type AdjustedInput,

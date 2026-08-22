@@ -19,7 +19,7 @@ sources:
 Use the installed markdown tools:
 
 - `knowledge/toolbox/prompts.md` — copy/paste agent briefs
-- `knowledge/toolbox/checklists.md` — preflight and guardrails
+- `knowledge/toolbox/checklists.md` — preflight, **package design targets**, guardrails
 
 ## Feature brief (short)
 

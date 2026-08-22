@@ -2,4 +2,4 @@
 "@eristack/ai-knowledge": patch
 ---
 
-Add timestamp-instant and timestamp-wall recipes; catalog sync for @eristack/timestamp.
+Add timestamp-instant, timestamp-wall, and timestamp-persist recipes; catalog sync for @eristack/timestamp.

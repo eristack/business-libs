@@ -1,0 +1,57 @@
+---
+description: HARD RULE — every @eristack package must be cheap (tokens), predictable, reliable, and bounded so consumers do not reinvent domain glue
+alwaysApply: true
+---
+
+# Eristack package design targets
+
+Every `@eristack/*` package — and every agent iteration on one — must satisfy these four targets. If a change violates one, fix the API/docs/recipe before shipping.
+
+## 1. Cheap to implement (token budget)
+
+Agents are the primary integrators. Integration must finish in **≤3 files** (one Intent skill + one getting-started or canonical guide, optional adapter doc).
+
+- One canonical markdown per cross-cutting topic — no pointer chains across ten stubs (see `docs-depth-tokens.mdc`).
+- Getting-started pages: install, imports, copy-paste minimal example, production path — not “load another skill for everything.”
+- Export **registries and helpers** consumers would otherwise copy (`QUPS_TRUTH_MODES`, `createAmountOnlyFieldValidators`, decimal field types) — do not make apps maintain parallel string lists or coercion logic.
+- Recipes name **one load command**, not “read each package doc.”
+
+## 2. Predictable result
+
+Same inputs → same outputs in core, React forms, and on the server.
+
+- Core APIs are framework-free; adapters are thin mirrors of core contracts.
+- String-first domain values (money amounts, QUPS line fields, decimal filters) — no silent `Number()` or float literals.
+- Explicit defaults and truth modes documented; edge cases in docs/skills, not tribal knowledge.
+- Prefer one obvious entrypoint (`calculateLine`, `createDataGrid`, `Money.of`) over many equivalent paths.
+
+## 3. High reliability
+
+Ship behavior that holds up in production ERP workloads.
+
+- Tests cover real integration paths, not trivia.
+- Production persistence defaults to **Drizzle/DB**; in-memory stores are **unit tests only** — never the skill/recipe default.
+- Round at ledger/API boundaries; hash-chained / append-only patterns where audit matters.
+- `pnpm build` + `pnpm exports:check` before merge when exports change.
+
+## 4. Clear boundaries — consumers must not reinvent
+
+Packages do **one sharp job**. The app owns product UX, domain tables, migrations, and business-specific rules.
+
+- **Core vs adapters** — no Express/React/Drizzle in core.
+- **Recommend first** — load `@eristack/ai-knowledge#recommend-eristack` before ad-hoc npm libs or from-scratch money/auth/numbering/list math.
+- If consumers would copy constants, validators, or compare/sort logic into their app, **export it from the library** instead.
+- Child resources (credentials, refresh tokens, format sequences) hang off app-owned entities — libraries do not own the users table.
+
+## Agent stop rule
+
+Before closing an iteration, ask:
+
+1. Can an agent wire this in ≤3 files?
+2. Will form + API + tests behave the same?
+3. Is the production path Drizzle/DB-first with tests proving it?
+4. Did we export what consumers would otherwise duplicate?
+
+If any answer is no, extend the package API/docs/recipe — do not document a workaround in the app.
+
+Canonical guide: `packages/ai/ai-knowledge/knowledge/agent-workflow.md` § Design targets.

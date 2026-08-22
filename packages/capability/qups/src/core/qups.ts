@@ -1,20 +1,15 @@
 import { Money, type CurrencyUnit } from "@eristack/money";
 import Decimal from "decimal.js";
 import { CurrencyMismatchError, InvalidTruthError } from "./errors.js";
+import type { QupsTruthMode } from "./truth-mode.js";
+
+export type { QupsTruthMode } from "./truth-mode.js";
+export { QUPS_TRUTH_MODES, isQupsTruthMode } from "./truth-mode.js";
 
 const QtyDecimal = Decimal.clone({
   precision: 40,
   rounding: Decimal.ROUND_HALF_EVEN,
 });
-
-/**
- * Which two of quantity / unit price / subtotal are authoritative.
- * The third is always derived.
- */
-export type QupsTruthMode =
-  | "quantity+unitPrice"
-  | "quantity+subtotal"
-  | "unitPrice+subtotal";
 
 export type QupsInput =
   | {

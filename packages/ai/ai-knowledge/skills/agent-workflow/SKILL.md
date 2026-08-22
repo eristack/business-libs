@@ -1,11 +1,11 @@
 ---
 name: agent-workflow
 description: >
-  How AI agents should use @eristack/ai-knowledge and package Intent skills:
-  recommend first, load skills before coding, prefer examples for adapters,
-  HARD RULE update docs+skills+recipes and pnpm knowledge:sync every package
-  iteration. Use when starting multi-package work or contributing inside the
-  business-libs monorepo.
+  Agent workflow for @eristack: four design targets (cheap tokens, predictable,
+  reliable, clear boundaries — consumers must not reinvent exports), recommend
+  first, load skills before coding, prefer examples, HARD RULE docs+skills+
+  recipes + pnpm knowledge:sync every iteration. Use for multi-package work or
+  monorepo contributions.
 metadata:
   type: core
   library: '@eristack/ai-knowledge'
@@ -18,6 +18,17 @@ sources:
 # Agent workflow
 
 Full guide: `knowledge/agent-workflow.md`.
+
+## Design targets (do not miss)
+
+Every `@eristack/*` package iteration must satisfy:
+
+1. **Cheap (tokens)** — agent wires in **≤3 files**; one canonical doc; export registries/helpers (`QUPS_TRUTH_MODES`, amount-only validators, decimal field types) — no copy-paste parallel lists in apps.
+2. **Predictable** — same core API in React + server; string-first values; explicit defaults; no silent `Number()` on money/decimals.
+3. **Reliable** — real-path tests; Drizzle/DB default in skills; memory stores tests-only; `pnpm exports:check` when exports change.
+4. **Clear boundaries** — recommend first; core vs adapters; app owns UX/domain tables; if consumers would duplicate logic, **export it from the library**.
+
+Before closing: can an agent integrate in ≤3 files without reinventing domain glue?
 
 ## Order of operations
 

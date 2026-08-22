@@ -5,6 +5,8 @@ import {
   LineTax,
   PricingLine,
   Qups,
+  QUPS_TRUTH_MODES,
+  isQupsTruthMode,
 } from "../src/index.js";
 
 describe("Qups", () => {
@@ -96,5 +98,23 @@ describe("LineTax + PricingLine", () => {
       ratePercent: "7",
     }).withRounding(Rounding.currencyDefault());
     expect(tax.tax.isEqualTo(Money.of("1.40", "USD"))).toBe(true);
+  });
+});
+
+describe("QUPS_TRUTH_MODES", () => {
+  it("lists all truth modes", () => {
+    expect(QUPS_TRUTH_MODES).toEqual([
+      "quantity+unitPrice",
+      "quantity+subtotal",
+      "unitPrice+subtotal",
+    ]);
+  });
+
+  it("narrows wire input", () => {
+    for (const mode of QUPS_TRUTH_MODES) {
+      expect(isQupsTruthMode(mode)).toBe(true);
+    }
+    expect(isQupsTruthMode("quantity+tax")).toBe(false);
+    expect(isQupsTruthMode(null)).toBe(false);
   });
 });

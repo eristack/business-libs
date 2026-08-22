@@ -44,6 +44,8 @@ Hub: `packages/primitive/money/docs/adapters.md`. Open **one** subpath guide for
 
 **Browser after fetch:** `client.md`. **Form state:** `react.md` (strings in state, Money on submit).
 
+**QUPS / shared row currency:** `createAmountOnlyFieldValidators({ currency })` + `submitAmountOnlyFormValue` — flat amount strings, not nested MoneyJSON.
+
 ## Rules
 
 1. Round before SQL pack (`Rounding.currencyDefault()`).

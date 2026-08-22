@@ -69,6 +69,23 @@ Returns `{ onChange, onSubmit }` validators compatible with TanStack Form field 
 
 `@eristack/qups` `calculateLine` uses flat strings (`currency`, `unitPrice`, `subtotal`) — same convention. You can bind QUPS calculated fields directly without putting `Money` in form state.
 
+When the row has **one shared `currency`** and amount-only fields (typical QUPS / ERP lines), use amount-only helpers instead of nested `MoneyJSON`:
+
+```ts
+import {
+  createAmountOnlyFieldValidators,
+  submitAmountOnlyFormValue,
+  parseRoundedAmount,
+} from "@eristack/money/react";
+
+validators: createAmountOnlyFieldValidators({ currency: rowCurrency, required: true });
+
+const unitPrice = submitAmountOnlyFormValue(formValue.unitPrice, rowCurrency);
+// or core-only: parseRoundedAmount("19.99", "USD")
+```
+
+Nested `{ currency, amount }` fields still use `createMoneyFieldValidators` / `moneyFormValue`.
+
 Display formatting: `formatMoney` from core `@eristack/money`.
 
 ## What this is not
@@ -84,7 +101,10 @@ Display formatting: `formatMoney` from core `@eristack/money`.
 | `moneyFormValue(money)` | `Money` → form wire object |
 | `parseMoneyFormValue(value, path?)` | Form value → `Money` |
 | `submitMoneyFormValue(value, { round? })` | Submit path with default rounding |
-| `createMoneyFieldValidators(options)` | TanStack Form validators |
+| `createMoneyFieldValidators(options)` | TanStack Form validators for MoneyJSON |
+| `createAmountOnlyFieldValidators({ currency, … })` | Flat amount string + shared row currency |
+| `submitAmountOnlyFormValue(value, currency)` | Amount string → rounded `Money` |
+| `parseRoundedAmount(amount, currency)` | Core parse (re-exported from `./react`) |
 | `moneyFormValueSchema` | Zod wire schema re-export |
 
 ## See also

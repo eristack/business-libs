@@ -72,6 +72,9 @@ Field flags:
 | `sortable` | Allowed in `sorts` |
 | `searchable` | Included when `mode=search` (OR `contains` across these fields) |
 | `enumValues` | Documentation / UI hint for `type: "enum"` |
+| `type: "decimal"` / `"money"` | Decimal **strings** for sort/filter in `applyInMemory` — never `Number()` on money columns |
+
+> **Money columns:** Use `type: "decimal"` or `"money"` when `applyInMemory` sorts/filters string amounts (e.g. `"4990000.00"`). Keep `type: "number"` for true numeric columns (counts, page sizes). For typed `Money` compare in app code, use `@eristack/money` — the grid compares decimal strings only.
 
 > **Important:** The schema describes the **list row** you expose — not necessarily a single database table. Relation fields (`customerName`) and aggregates (`totalMinor`) belong on the schema if the UI can filter them. See [Database](./database.md).
 
