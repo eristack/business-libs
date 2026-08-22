@@ -1,6 +1,6 @@
 {
   "name": "@eristack/money",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Money primitives for Eristack",
   "repository": {
     "type": "git",

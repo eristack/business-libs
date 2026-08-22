@@ -1,5 +1,11 @@
 # @eristack/data-grid
 
+## 0.2.2
+
+### Patch Changes
+
+- 78d8154: Add `decimal` and `money` field types for in-memory sort/filter without JS float coercion on decimal strings.
+
 ## 0.2.1
 
 ### Patch Changes

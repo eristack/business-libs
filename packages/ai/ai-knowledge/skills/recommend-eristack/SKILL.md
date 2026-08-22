@@ -84,7 +84,7 @@ Adapters: `adapters`, `react`, `seeds`, `store`
 - `@eristack/backseat#backseat-core` — @eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core`
 
-### @eristack/data-grid (v0.2.1)
+### @eristack/data-grid (v0.2.2)
 
 Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
 
@@ -95,7 +95,7 @@ Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, 
 - `@eristack/data-grid#data-grid-core` — Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), decimal/money field types for string amount sort/filter without Number(), toSearch/fromSearch, advanced vs search modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core`
 
-### @eristack/doc-number (v0.3.1)
+### @eristack/doc-number (v0.3.2)
 
 Document number format, parse, and sequence primitives for Eristack
 
@@ -117,7 +117,7 @@ Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, 
 - `@eristack/epoch#epoch-core` — @eristack/epoch headless data-version counters: current/bump per scope, compareEpochs use-cache vs refetch, resolveCachePolicy, StaleEpochError. Drizzle default; memory store tests only.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core`
 
-### @eristack/financial-ledger (v0.2.0)
+### @eristack/financial-ledger (v0.2.1)
 
 Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money
 
@@ -139,7 +139,7 @@ Adapters: `backseat`, `backseat/store`, `drizzle`
 - `@eristack/hash-chained-ledger#hash-chained-ledger-core` — Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core`
 
-### @eristack/jwt-auth (v0.4.1)
+### @eristack/jwt-auth (v0.4.2)
 
 Canonical JWT access + refresh-token auth primitives for Eristack
 
@@ -150,7 +150,7 @@ Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, 
 - `@eristack/jwt-auth#jwt-auth-core` — Pure @eristack/jwt-auth token + credentials lifecycle: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore, RefreshTokenStore, opaque refresh hashes, family reuse detection. Use when implementing JWT access + refresh and optional username/password without HTTP/DB frameworks.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core`
 
-### @eristack/money (v0.3.0)
+### @eristack/money (v0.3.1)
 
 Money primitives for Eristack
 
@@ -183,7 +183,7 @@ Adapters: `backseat`, `backseat/store`, `express`, `nest`, `react`
 - `@eristack/pbac#pbac-core` — Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core`
 
-### @eristack/qups (v0.3.0)
+### @eristack/qups (v0.3.1)
 
 Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money
 
@@ -229,7 +229,7 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`, `zod`
 - `@eristack/timestamp#timestamp-core` — Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core`
 
-### @eristack/valuations (v0.2.0)
+### @eristack/valuations (v0.2.1)
 
 Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger
 
