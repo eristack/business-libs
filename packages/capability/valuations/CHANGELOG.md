@@ -1,5 +1,16 @@
 # @eristack/valuations
 
+## 0.2.0
+
+### Minor Changes
+
+- c6cf43f: Breaking: cost layer Drizzle table uses `unitCostAmount` (numeric) instead of `unitCost` TEXT. `receive` value chain uses `Money.multiply`.
+
+### Patch Changes
+
+- Updated dependencies [c6cf43f]
+  - @eristack/money@0.3.0
+
 ## 0.1.1
 
 ### Patch Changes

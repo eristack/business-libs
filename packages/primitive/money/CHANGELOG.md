@@ -1,5 +1,11 @@
 # @eristack/money
 
+## 0.3.0
+
+### Minor Changes
+
+- c6cf43f: Add adapter subpaths (`./drizzle`, `./rest`, `./zod`, `./express`, `./nest`, `./client`, `./react`). Move implementation under `src/core/`; root export unchanged. Zod 4 only (`peer: zod ^4`). Per-subpath docs.
+
 ## 0.2.1
 
 ### Patch Changes

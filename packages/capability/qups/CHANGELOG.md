@@ -1,5 +1,16 @@
 # @eristack/qups
 
+## 0.3.0
+
+### Minor Changes
+
+- c6cf43f: Breaking: `qupsLineColumns()` uses one shared `currency` column and numeric `*Amount` fields via `@eristack/money/drizzle`. Updates `QupsColumnValues`, stores, and `withQupsColumns`. Migration notes in docs.
+
+### Patch Changes
+
+- Updated dependencies [c6cf43f]
+  - @eristack/money@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes

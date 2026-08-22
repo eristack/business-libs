@@ -117,7 +117,7 @@ Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, 
 - `@eristack/epoch#epoch-core` — @eristack/epoch headless data-version counters: current/bump per scope, compareEpochs use-cache vs refetch, resolveCachePolicy, StaleEpochError. Drizzle default; memory store tests only.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core`
 
-### @eristack/financial-ledger (v0.1.1)
+### @eristack/financial-ledger (v0.2.0)
 
 Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money
 
@@ -150,7 +150,7 @@ Adapters: `backseat`, `backseat/store`, `client`, `drizzle`, `express`, `nest`, 
 - `@eristack/jwt-auth#jwt-auth-core` — Pure @eristack/jwt-auth token + credentials lifecycle: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore, RefreshTokenStore, opaque refresh hashes, family reuse detection. Use when implementing JWT access + refresh and optional username/password without HTTP/DB frameworks.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core`
 
-### @eristack/money (v0.2.1)
+### @eristack/money (v0.3.0)
 
 Money primitives for Eristack
 
@@ -183,7 +183,7 @@ Adapters: `backseat`, `backseat/store`, `express`, `nest`, `react`
 - `@eristack/pbac#pbac-core` — Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core`
 
-### @eristack/qups (v0.2.1)
+### @eristack/qups (v0.3.0)
 
 Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money
 
@@ -229,7 +229,7 @@ Adapters: `client`, `drizzle`, `express`, `nest`, `react`, `rest`, `zod`
 - `@eristack/timestamp#timestamp-core` — Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core`
 
-### @eristack/valuations (v0.1.1)
+### @eristack/valuations (v0.2.0)
 
 Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger
 

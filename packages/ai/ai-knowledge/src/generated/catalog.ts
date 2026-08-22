@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-22T10:17:56.580Z",
+  "generatedAt": "2026-08-22T10:31:04.166Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -213,7 +213,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/financial-ledger",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -305,7 +305,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/money",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "description": "Money primitives for Eristack",
       "slug": "money",
       "adapters": [
@@ -397,7 +397,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/qups",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
@@ -528,7 +528,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/valuations",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [

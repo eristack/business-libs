@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.7
+
+### Patch Changes
+
+- c6cf43f: Document Zod 4-only stack default; update `money-persist` and `line-pricing-qups` recipes for money adapter and qups column conventions.
+
 ## 0.1.6
 
 ### Patch Changes
