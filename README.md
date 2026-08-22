@@ -14,19 +14,21 @@ Packages live under `packages/<category>/<name>/` in this order: **primitive →
 
 | Category | Package | Description |
 | --- | --- | --- |
-| Primitive | [`@eristack/money`](./packages/primitive/money) | JSR 354–inspired amounts, totals/%/tax helpers, rounding, allocation, FX |
+| Primitive | [`@eristack/money`](./packages/primitive/money) | JSR 354–inspired amounts, totals/%/tax helpers, rounding, allocation, FX + adapters (Drizzle / REST / Zod / Express / Nest / client / React) |
+| Primitive | [`@eristack/timestamp`](./packages/primitive/timestamp) | Business time: UTC **instant** facts + **wall** schedules (DST-safe), Temporal core + same adapter spine as money |
 | Capability | [`@eristack/doc-number`](./packages/capability/doc-number) | Document numbers + format-config adapters (Drizzle / REST / Express / Nest / React) |
 | Capability | [`@eristack/qups`](./packages/capability/qups) | Quantity / unit price / subtotal (2-of-3 SoT), modifiers, tax on Money |
 | Capability | [`@eristack/stock-movement`](./packages/capability/stock-movement) | Inventory qty ledger on hash-chained-ledger |
 | Capability | [`@eristack/financial-ledger`](./packages/capability/financial-ledger) | GL balances per account + currency |
 | Capability | [`@eristack/valuations`](./packages/capability/valuations) | FIFO/LIFO/average costing + cost layers |
 | Service | [`@eristack/data-grid`](./packages/service/data-grid) | Dynamic list queries: filters, search mode, multi-sort, offset/cursor pagination |
+| Service | [`@eristack/epoch`](./packages/service/epoch) | Per-scope data-version counters for TanStack Query cache policy (use-cache vs refetch) |
 | Service | [`@eristack/jwt-auth`](./packages/service/jwt-auth) | JWT access + opaque refresh tokens, with Drizzle / REST / Express / Nest / React adapters |
 | Service | [`@eristack/rbac`](./packages/service/rbac) | Role-based boolean permissions on subjects |
 | Service | [`@eristack/abac`](./packages/service/abac) | Attribute policies (algorithms → true/false) |
 | Service | [`@eristack/pbac`](./packages/service/pbac) | Software policies over business documents |
 | Service | [`@eristack/hash-chained-ledger`](./packages/service/hash-chained-ledger) | Append-only hash-chained ledger primitive |
-| Infrastructure | [`@eristack/backseat`](./packages/infrastructure/backseat) | Frontend mock backend engine (coming soon) |
+| Infrastructure | [`@eristack/backseat`](./packages/infrastructure/backseat) | In-browser mock REST engine + IndexedDB store for frontend-first prototypes (alpha) |
 | UI | [`@eristack/multitab`](./packages/ui/multitab) | Headless multi-tab ERP workspace (coming soon) |
 | Features | *(coming soon)* | ERP modules — product, procurement, … — see [`roadmap/`](./roadmap/README.md) |
 | AI | [`@eristack/ai-knowledge`](./packages/ai/ai-knowledge) | Agent knowledge pack: recommend `@eristack/*`, Intent skills, synced catalog |

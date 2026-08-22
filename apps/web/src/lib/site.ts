@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Eristack",
   tagline: "Enterprise business libraries for TypeScript",
   description:
-    "Open enterprise libraries for money, auth, document numbers, AI workflow, and the other domain building blocks business stacks take for granted.",
+    "Open enterprise libraries for money, timestamps, auth, document numbers, AI workflow, and the other domain building blocks business stacks take for granted.",
   url: "https://eristack.dev",
   github: "https://github.com/eristack/business-libs",
   org: "https://github.com/eristack",
@@ -20,7 +20,7 @@ export const packageCategories = [
     href: "/primitive",
     tagline: "Domain value types you can trust in a ledger.",
     description:
-      "Core domain value types — money and other pure calculation building blocks. No frameworks, no HTTP, no database — just correct types.",
+      "Core domain value types — money, timestamps, and other pure calculation building blocks. Core is framework-free; optional adapters for SQL, HTTP, and forms.",
     highlights: [
       {
         title: "Correct by construction",
@@ -31,8 +31,8 @@ export const packageCategories = [
         body: "Use the same primitive from a Nest service, a React form, or a batch job.",
       },
       {
-        title: "String-first money",
-        body: "Prefer decimal strings over JS number literals. Ledgers stay honest.",
+        title: "Business time",
+        body: "Instant (UTC facts) and wall (local schedules) with IANA zones — DST gaps handled explicitly.",
       },
     ],
   },
@@ -222,7 +222,7 @@ const total = Money.of("19.99", "USD")
     docsHref: "/docs/timestamp",
     tagline: "UTC instants for facts, wall-clock for schedules.",
     description:
-      "Business time with instant mode (when it happened) and wall mode (when it will happen, DST-safe). Temporal core; adapter subpaths planned to mirror @eristack/money.",
+      "Business time with instant mode (when it happened) and wall mode (when it will happen, DST-safe). Temporal core plus adapters: Drizzle, REST, Zod 4, Express, Nest, client, React — same spine as @eristack/money.",
     status: "alpha" as const,
     install: "pnpm add @eristack/timestamp",
     highlights: [
@@ -235,8 +235,8 @@ const total = Money.of("19.99", "USD")
         body: "Store 9:00 Paris as wall local + timezone; resolve to UTC only via wallToInstantOnce.",
       },
       {
-        title: "Adapter-ready core",
-        body: "TimestampJSON + validate layer frozen for upcoming ./drizzle, ./rest, ./zod (money spine).",
+        title: "Full adapter spine",
+        body: "Drizzle for SQL columns; REST/Zod for wire JSON; Express/Nest/client/React for HTTP and forms.",
       },
     ],
     sample: {

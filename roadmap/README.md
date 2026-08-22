@@ -13,7 +13,7 @@ Living priority stack for `@eristack/*` — not a calendar, not a promise date.
 
 ## Principles
 
-1. **Spine before verticals** — money, auth, ledgers, and access control before ERP feature packages.
+1. **Spine before verticals** — money, timestamps, auth, ledgers, and access control before ERP feature packages.
 2. **Drizzle-default** — memory stores are tests and browser demos only.
 3. **One sharp package** — focused libraries, not a platform.
 4. **Docs + skills + recipes together** — every iteration updates `@eristack/ai-knowledge`.
@@ -32,10 +32,10 @@ Living priority stack for `@eristack/*` — not a calendar, not a promise date.
 ## Layer stack
 
 ```text
-01 Primitive       money
+01 Primitive       money, timestamp
 02 Capability      doc-number, qups, stock, financial, valuations
 03 Service         jwt-auth, rbac, abac, pbac, data-grid, hash-chained-ledger
-04 Infrastructure  backseat (scaffold), logger, rest (planned)
+04 Infrastructure  backseat (alpha), logger, rest (planned)
 05 UI              multitab (scaffold), doc-shell (planned)
 06 Features        ERP modules — coming soon
 07 AI              ai-knowledge, ai-workflow, ai-ticket-generator
