@@ -53,6 +53,13 @@ Do not invent alternate Express/Nest/React wiring when an Eristack example alrea
 
 **Client vs React:** same idea as REST vs Express/Nest. Put fetch/URL/token machine in `/client`. Put React-only Query/Form adapters in `/react`. Apps mount `QueryClientProvider` themselves.
 
+## Validation (Zod)
+
+- **Zod 4 only** for Eristack adapter schemas (`@eristack/money/zod`, future package zod peers)
+- Peer dependency: `"zod": "^4.0.0"` — do not pin or support Zod 3
+- Import `{ z } from "zod"` or `"zod/v4"` (equivalent on v4); use `superRefine` / native v4 APIs — no manual `ZodError` construction in transforms
+- Apps on Zod 3 must upgrade before adopting Eristack zod adapters
+
 ## Money
 
 - Always `@eristack/money` for currency amounts

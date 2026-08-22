@@ -257,4 +257,5 @@ try {
 
 - [Concepts](./concepts.md) — why these rules exist
 - [Rounding](./rounding.md) · [Allocate & split](./allocate.md) · [Currency conversion](./conversion.md)
-- [Serialization](./serialization.md) — the wire format in detail
+- [Serialization](./serialization.md) — wire JSON
+- [Adapters overview](./adapters.md) · [Drizzle](./drizzle.md) · [REST](./rest.md) · [Zod](./zod.md)

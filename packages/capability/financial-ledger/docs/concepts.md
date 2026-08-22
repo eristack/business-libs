@@ -21,7 +21,33 @@ One stream per **account and currency**. Multi-currency charts = parallel chains
 `Money`, currency must match the chain’s currency or the call fails.
 
 Internally the hash-chained service still stores **decimal strings** — Money is
-the typed boundary for apps.
+the typed boundary for apps. Hashed payloads must stay text (changing types
+invalidates chains). See [@eristack/money adapters](/docs/money/adapters)
+§ hash-chained ledgers.
+
+## Hydrate on read
+
+List/snapshot APIs return decimal strings. Map to `Money` for UI and reports:
+
+```ts
+import {
+  createFinancialLedger,
+  hydrateLedgerEntry,
+  hydrateLedgerSnapshot,
+} from "@eristack/financial-ledger";
+
+const entries = await fin.list("1000", "USD");
+for (const entry of entries) {
+  const { closingBalance, inAmount } = hydrateLedgerEntry(entry, "USD");
+}
+
+const snap = await fin.snapshot("1000", "USD");
+if (snap) {
+  const { balance } = hydrateLedgerSnapshot(snap, "USD");
+}
+```
+
+`post()` still accepts `Money | string` and converts to decimal text before append.
 
 ## Sign convention
 

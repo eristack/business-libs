@@ -186,7 +186,7 @@ export const packages = [
     docsHref: "/docs/money",
     tagline: "String-first amounts for ERP math that must add up.",
     description:
-      "JSR 354–inspired amounts, totals, percentages, tax/discount helpers, rounding, allocation, and FX — string-first, never JS number money.",
+      "JSR 354–inspired amounts, totals, tax/discount helpers, rounding, allocation, FX — plus optional adapters: Drizzle (SQL), REST, Zod 4, Express, Nest, client, React.",
     status: "alpha" as const,
     install: "pnpm add @eristack/money",
     highlights: [
@@ -199,8 +199,8 @@ export const packages = [
         body: "Add, subtract, totals, percentages, tax, discount, and markup with explicit rules.",
       },
       {
-        title: "Ledger boundaries",
-        body: "Round, allocate without losing cents, convert with rates you supply, serialize as decimal strings.",
+        title: "Adapter subpaths",
+        body: "Drizzle for SQL columns; REST/Zod for wire JSON; Express/Nest/client/React for HTTP and forms.",
       },
     ],
     sample: {

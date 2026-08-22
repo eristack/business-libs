@@ -48,5 +48,28 @@ await fin.verify("1000", "USD");
 `inAmount` / `outAmount` / `adjustment` accept `Money` or decimal strings.
 Currency must match the chain.
 
+## Read paths (hydrate)
+
+Hashed ledger payloads stay decimal **strings**. For UI and reports, hydrate on read:
+
+```ts
+import {
+  createFinancialLedger,
+  hydrateLedgerEntry,
+  hydrateLedgerSnapshot,
+} from "@eristack/financial-ledger";
+
+const entries = await fin.list("1000", "USD");
+const hydrated = entries.map((e) => hydrateLedgerEntry(e, "USD"));
+expect(hydrated[0].closingBalance.toJSON().amount).toBe("100");
+
+const snap = await fin.snapshot("1000", "USD");
+if (snap) {
+  const { balance } = hydrateLedgerSnapshot(snap, "USD");
+}
+```
+
+Do not change SQL ledger column types — only map strings ↔ `Money` at boundaries.
+
 Unit tests may import `createMemoryLedgerStore` from
 `@eristack/hash-chained-ledger` — never as the deployed default.

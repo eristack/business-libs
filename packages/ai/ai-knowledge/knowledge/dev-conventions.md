@@ -55,6 +55,23 @@ Routine features/fixes on packages already past `0.0.0`: use **`patch`**. Use **
 
 Consumer upgrade steps: [`upgrading.md`](./upgrading.md) · skill `@eristack/ai-knowledge#upgrading-eristack`.
 
+### Two-PR release model (contributors)
+
+Ship features in **one feature PR**; let Changesets + CI own version bumps in a **second PR**. Do not run `pnpm changeset version` locally on a feature branch.
+
+| Ship in the **feature PR** | Do **not** touch in the feature PR | CI / Version Packages PR |
+| --- | --- | --- |
+| Source, tests, `package.json` **exports** (not `version`) | `package.json` `version` fields | `changeset version` bumps versions |
+| Package `docs/` + Intent `skills/` **content** | Hand-edited `CHANGELOG.md` | Generated changelog sections |
+| `recipes.yaml`, `pnpm knowledge:sync` output (`catalog.ts`, `recipes.ts`, `recommend-eristack` catalog block) | Deleting skill/recipe work when reverting a mistaken local version | `pnpm knowledge:sync` again (via `version-packages`) so catalog versions match bumped `package.json` |
+| One or more `.changeset/*.md` files | Running `changeset publish` locally | `pnpm release` on npm after Version PR merges |
+
+**If you accidentally ran `changeset version` locally:** revert only `version` + `CHANGELOG` + lockfile drift. Keep skills, recipes, generated catalog content, and docs — those are the feature.
+
+**Feature PR green bar:** `pnpm ci` (build, typecheck, test, exports:check, skills:validate, knowledge:check).
+
+**After feature PR merges to `main`:** the Release workflow opens **“chore: version packages”**. Review and merge it; npm publish runs on that merge.
+
 ### Publish gate — package exports (hard rule)
 
 1. Every subpath imported by spine packages must appear in **`package.json` `exports`** (e.g. `"./adapters"` on `@eristack/backseat`).

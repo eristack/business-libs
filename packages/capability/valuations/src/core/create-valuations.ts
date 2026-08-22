@@ -1,4 +1,4 @@
-import Decimal from "decimal.js";
+import { Money } from "@eristack/money";
 import {
   createHashChainedLedger,
   type CreateHashChainedLedgerOptions,
@@ -97,7 +97,9 @@ export function createValuationEngine(options: {
 
       const tipQty = await ledger.tip(valuationChainId(input.key, "qty"));
       const tipVal = await ledger.tip(valuationChainId(input.key, "value"));
-      const valueIn = new Decimal(input.qty).times(input.unitCost).toFixed();
+      const valueIn = Money.of(input.unitCost, input.key.currency)
+        .multiply(input.qty)
+        .toJSON().amount;
 
       const qtyEntry = await ledger.append({
         chainId: valuationChainId(input.key, "qty"),

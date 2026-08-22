@@ -17,6 +17,10 @@ sources:
 
 Prefer `calculateLine` / `patchLine` / `withQupsColumns` from the main package.
 
+Injectable columns use **one shared `currency`** plus `@eristack/money/drizzle`
+amount columns (`unitPriceAmount` → SQL `unit_price_amount`, …). No per-field
+`currency_*` duplicates.
+
 ```ts
 import { calculateLine, withQupsColumns } from "@eristack/qups";
 import { qupsLineColumns } from "@eristack/qups/drizzle";

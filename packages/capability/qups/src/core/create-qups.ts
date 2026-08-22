@@ -225,27 +225,20 @@ export function createQups(options: CreateQupsOptions = {}): QupsApi {
       if (input.line) {
         line = input.line;
       } else {
-        const currencyUnitPrice =
-          input.currencyUnitPrice ??
-          existing?.currencyUnitPrice ??
+        const currency =
+          input.currency ??
+          existing?.currency ??
           (() => {
-            throw new Error(
-              "currencyUnitPrice is required when line is omitted",
-            );
+            throw new Error("currency is required when line is omitted");
           })();
-        const currencySubtotal =
-          input.currencySubtotal ??
-          existing?.currencySubtotal ??
-          currencyUnitPrice;
         const truth = input.truth ?? existing?.truth ?? "quantity+unitPrice";
         line = PricingLine.of(
           pricingLineInputFromParts({
             truth,
-            currencyUnitPrice,
-            currencySubtotal,
+            currency,
             quantity: input.quantity ?? existing?.quantity,
-            unitPrice: input.unitPrice ?? existing?.unitPrice,
-            subtotal: input.subtotal ?? existing?.subtotal,
+            unitPrice: input.unitPrice ?? existing?.unitPriceAmount,
+            subtotal: input.subtotal ?? existing?.subtotalAmount,
             modifiers:
               input.modifiers ??
               (existing

@@ -53,4 +53,14 @@ const issued = await engine.issue({
 await engine.verify(key); // { qty: true, value: true }
 ```
 
+## Cost layer columns
+
+`createValuationLayerTables` stores layers with **shared row `currency`** and
+`unitCostAmount` (SQL `unit_cost_amount`, numeric via `@eristack/money/drizzle`).
+The value hash chain still uses decimal **text** inside hashed entries — do not
+change ledger SQL types.
+
+Core API `unitCost` remains a decimal string; Drizzle maps `unitCostAmount` ↔
+`CostLayer.unitCost`.
+
 `createMemoryLayerStore` / `createMemoryLedgerStore` are for Vitest only.

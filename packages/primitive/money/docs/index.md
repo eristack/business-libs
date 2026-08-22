@@ -28,6 +28,23 @@ Use this package when you need:
 - **Percent points are explicit** — `percentOf("7")` means 7%, not `0.07`
 - **JSR 354-shaped API** — `CurrencyUnit`, `MonetaryAmount`, operators, queries, rounding
 
+## Adapter subpaths
+
+Core stays framework-free. Optional exports map wire JSON, SQL columns, and form state:
+
+```text
+@eristack/money                      core — Money, round, allocate, FX
+        ├── /drizzle                 SQL columns + pack/unpack
+        ├── /rest                    parseMoneyJSON / serializeMoney
+        ├── /zod                     Zod 4 schemas (peer zod ^4)
+        ├── /express                 readMoney / sendMoney
+        ├── /nest                    ParseMoneyPipe
+        ├── /client                  reviveMoney after fetch
+        └── /react                   TanStack Form string helpers
+```
+
+Start at [Adapters overview](./adapters.md), then open the guide for the subpath you wire.
+
 ## Next steps
 
 - [Getting started](./getting-started.md) — install and first amount
@@ -37,5 +54,7 @@ Use this package when you need:
 - [Allocate & split](./allocate.md) — parts that always sum back
 - [Currency conversion](./conversion.md) — rates you supply
 - [Gotchas](./gotchas.md) — rejected constructors, mixed currencies, JSON numbers, scale `-1`
+- [Serialization](./serialization.md) — wire JSON for APIs
+- [Adapters overview](./adapters.md) — then [Drizzle](./drizzle.md) · [REST](./rest.md) · [Zod](./zod.md) · [Express](./express.md) · [Nest](./nest.md) · [Client](./client.md) · [React](./react.md)
 - [ERP recipes](./recipes.md) — invoices, payment allocation, multi-currency reporting
 - [API reference](./api-reference.md) — public exports cheat-sheet

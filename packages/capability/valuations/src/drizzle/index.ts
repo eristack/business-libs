@@ -3,6 +3,7 @@ import {
   integer,
   pgTable,
   text as pgText,
+  varchar as pgVarchar,
 } from "drizzle-orm/pg-core";
 import {
   int as mysqlInt,
@@ -14,6 +15,7 @@ import {
   sqliteTable,
   text as sqliteText,
 } from "drizzle-orm/sqlite-core";
+import { moneyAmountColumn } from "@eristack/money/drizzle";
 import type { CostLayer } from "../core/methods.js";
 import type { LayerStore, ValuationKey } from "../core/create-valuations.js";
 import {
@@ -43,13 +45,14 @@ export function createValuationLayerTables(
   dialect: DrizzleDialect,
   prefix = "val",
 ) {
+  const unitCostAmount = moneyAmountColumn(dialect, "unitCost");
   if (dialect === "pgsql") {
     return pgTable(`${prefix}_cost_layers`, {
       keyId: pgText("key_id").notNull(),
       id: pgText("id").notNull(),
       qty: pgText("qty").notNull(),
-      unitCost: pgText("unit_cost").notNull(),
-      currency: pgText("currency").notNull(),
+      ...unitCostAmount,
+      currency: pgVarchar("currency", { length: 16 }).notNull(),
       receivedAt: pgText("received_at").notNull(),
       expiresAt: pgText("expires_at"),
       sort: integer("sort").notNull(),
@@ -60,7 +63,7 @@ export function createValuationLayerTables(
       keyId: sqliteText("key_id").notNull(),
       id: sqliteText("id").notNull(),
       qty: sqliteText("qty").notNull(),
-      unitCost: sqliteText("unit_cost").notNull(),
+      ...unitCostAmount,
       currency: sqliteText("currency").notNull(),
       receivedAt: sqliteText("received_at").notNull(),
       expiresAt: sqliteText("expires_at"),
@@ -71,8 +74,8 @@ export function createValuationLayerTables(
     keyId: mysqlVarchar("key_id", { length: 191 }).notNull(),
     id: mysqlVarchar("id", { length: 64 }).notNull(),
     qty: mysqlVarchar("qty", { length: 64 }).notNull(),
-    unitCost: mysqlVarchar("unit_cost", { length: 64 }).notNull(),
-    currency: mysqlVarchar("currency", { length: 8 }).notNull(),
+    ...unitCostAmount,
+    currency: mysqlVarchar("currency", { length: 16 }).notNull(),
     receivedAt: mysqlVarchar("received_at", { length: 40 }).notNull(),
     expiresAt: mysqlVarchar("expires_at", { length: 40 }),
     sort: mysqlInt("sort").notNull(),
@@ -101,7 +104,7 @@ export function createDrizzleLayerStore(options: {
       return (rows as Array<{
         id: string;
         qty: string;
-        unitCost: string;
+        unitCostAmount: string;
         currency: string;
         receivedAt: string;
         expiresAt: string | null;
@@ -109,7 +112,7 @@ export function createDrizzleLayerStore(options: {
         (row): CostLayer => ({
           id: row.id,
           qty: row.qty,
-          unitCost: row.unitCost,
+          unitCost: row.unitCostAmount,
           currency: row.currency,
           receivedAt: row.receivedAt,
           expiresAt: row.expiresAt ?? undefined,
@@ -125,7 +128,7 @@ export function createDrizzleLayerStore(options: {
           keyId: kid,
           id: layer.id,
           qty: layer.qty,
-          unitCost: layer.unitCost,
+          unitCostAmount: layer.unitCost,
           currency: layer.currency,
           receivedAt: layer.receivedAt,
           expiresAt: layer.expiresAt ?? null,

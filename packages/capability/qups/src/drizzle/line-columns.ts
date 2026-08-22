@@ -2,6 +2,7 @@ import {
   text as pgText,
   integer as pgInteger,
   timestamp as pgTimestamp,
+  varchar as pgVarchar,
 } from "drizzle-orm/pg-core";
 import {
   varchar as mysqlVarchar,
@@ -12,7 +13,12 @@ import {
   text as sqliteText,
   integer as sqliteInteger,
 } from "drizzle-orm/sqlite-core";
+import {
+  moneyAmountColumn,
+} from "@eristack/money/drizzle";
 import type { DrizzleDialect } from "./types.js";
+
+const CURRENCY_LENGTH = 16;
 
 export type QupsLineColumnOptions = {
   /**
@@ -32,9 +38,43 @@ export type QupsLineColumnOptions = {
   includeTimestamps?: boolean;
 };
 
+function sharedCurrencyColumns(dialect: DrizzleDialect) {
+  switch (dialect) {
+    case "pgsql":
+      return {
+        currency: pgVarchar("currency", { length: CURRENCY_LENGTH }).notNull(),
+      };
+    case "mysql":
+      return {
+        currency: mysqlVarchar("currency", { length: CURRENCY_LENGTH }).notNull(),
+      };
+    case "sqlite":
+      return {
+        currency: sqliteText("currency").notNull(),
+      };
+    default: {
+      const _e: never = dialect;
+      throw new Error(`Unsupported dialect: ${String(_e)}`);
+    }
+  }
+}
+
+function qupsMoneyAmountColumns(dialect: DrizzleDialect) {
+  return {
+    ...moneyAmountColumn(dialect, "unitPrice"),
+    ...moneyAmountColumn(dialect, "subtotal"),
+    ...moneyAmountColumn(dialect, "tax"),
+    ...moneyAmountColumn(dialect, "net"),
+    ...moneyAmountColumn(dialect, "gross"),
+  };
+}
+
 /**
  * Injectable QUPS pricing columns for an app-owned detail table
  * (invoice lines, order lines, GR lines, …).
+ *
+ * One shared `currency` column plus numeric `*_amount` columns via
+ * `@eristack/money/drizzle` defaults (`unit_price_amount`, …).
  *
  * Spread into your table next to `itemId` and other domain columns:
  *
@@ -92,18 +132,10 @@ function pgsqlQupsLineColumns(options: QupsLineColumnOptions) {
     quantity: pgText("quantity").notNull(),
     quantityRatioNumerator: pgText("quantity_ratio_numerator"),
     quantityRatioDenominator: pgText("quantity_ratio_denominator"),
-    currencyUnitPrice: pgText("currency_unit_price").notNull(),
-    unitPrice: pgText("unit_price").notNull(),
-    currencySubtotal: pgText("currency_subtotal").notNull(),
-    subtotal: pgText("subtotal").notNull(),
+    ...sharedCurrencyColumns("pgsql"),
+    ...qupsMoneyAmountColumns("pgsql"),
     taxRatePercent: pgText("tax_rate_percent"),
     taxMode: pgText("tax_mode"),
-    currencyTax: pgText("currency_tax"),
-    taxAmount: pgText("tax_amount"),
-    currencyNet: pgText("currency_net"),
-    net: pgText("net"),
-    currencyGross: pgText("currency_gross"),
-    gross: pgText("gross"),
     ...(includePosition ? { position: pgInteger("position") } : {}),
     ...(includeTimestamps
       ? {
@@ -137,22 +169,10 @@ function mysqlQupsLineColumns(options: QupsLineColumnOptions) {
     quantityRatioDenominator: mysqlVarchar("quantity_ratio_denominator", {
       length: 64,
     }),
-    currencyUnitPrice: mysqlVarchar("currency_unit_price", {
-      length: 16,
-    }).notNull(),
-    unitPrice: mysqlVarchar("unit_price", { length: 64 }).notNull(),
-    currencySubtotal: mysqlVarchar("currency_subtotal", {
-      length: 16,
-    }).notNull(),
-    subtotal: mysqlVarchar("subtotal", { length: 64 }).notNull(),
+    ...sharedCurrencyColumns("mysql"),
+    ...qupsMoneyAmountColumns("mysql"),
     taxRatePercent: mysqlVarchar("tax_rate_percent", { length: 32 }),
     taxMode: mysqlVarchar("tax_mode", { length: 32 }),
-    currencyTax: mysqlVarchar("currency_tax", { length: 16 }),
-    taxAmount: mysqlVarchar("tax_amount", { length: 64 }),
-    currencyNet: mysqlVarchar("currency_net", { length: 16 }),
-    net: mysqlVarchar("net", { length: 64 }),
-    currencyGross: mysqlVarchar("currency_gross", { length: 16 }),
-    gross: mysqlVarchar("gross", { length: 64 }),
     ...(includePosition ? { position: mysqlInt("position") } : {}),
     ...(includeTimestamps
       ? {
@@ -176,18 +196,10 @@ function sqliteQupsLineColumns(options: QupsLineColumnOptions) {
     quantity: sqliteText("quantity").notNull(),
     quantityRatioNumerator: sqliteText("quantity_ratio_numerator"),
     quantityRatioDenominator: sqliteText("quantity_ratio_denominator"),
-    currencyUnitPrice: sqliteText("currency_unit_price").notNull(),
-    unitPrice: sqliteText("unit_price").notNull(),
-    currencySubtotal: sqliteText("currency_subtotal").notNull(),
-    subtotal: sqliteText("subtotal").notNull(),
+    ...sharedCurrencyColumns("sqlite"),
+    ...qupsMoneyAmountColumns("sqlite"),
     taxRatePercent: sqliteText("tax_rate_percent"),
     taxMode: sqliteText("tax_mode"),
-    currencyTax: sqliteText("currency_tax"),
-    taxAmount: sqliteText("tax_amount"),
-    currencyNet: sqliteText("currency_net"),
-    net: sqliteText("net"),
-    currencyGross: sqliteText("currency_gross"),
-    gross: sqliteText("gross"),
     ...(includePosition ? { position: sqliteInteger("position") } : {}),
     ...(includeTimestamps
       ? {
@@ -209,16 +221,12 @@ export const QUPS_LINE_SQL_COLUMNS = [
   "quantity",
   "quantity_ratio_numerator",
   "quantity_ratio_denominator",
-  "currency_unit_price",
-  "unit_price",
-  "currency_subtotal",
-  "subtotal",
+  "currency",
+  "unit_price_amount",
+  "subtotal_amount",
   "tax_rate_percent",
   "tax_mode",
-  "currency_tax",
   "tax_amount",
-  "currency_net",
-  "net",
-  "currency_gross",
-  "gross",
+  "net_amount",
+  "gross_amount",
 ] as const;
