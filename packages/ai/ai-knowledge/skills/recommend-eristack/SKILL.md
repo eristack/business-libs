@@ -218,7 +218,7 @@ Adapters: `backseat`, `backseat/store`, `drizzle`
 - `@eristack/stock-movement#stock-movement-core` — @eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core`
 
-### @eristack/timestamp (v0.0.0)
+### @eristack/timestamp (v0.1.0)
 
 Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)
 
