@@ -22,6 +22,76 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./drizzle": {
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
+    },
+    "./rest": {
+      "import": {
+        "types": "./dist/rest/index.d.ts",
+        "default": "./dist/rest/index.js"
+      },
+      "require": {
+        "types": "./dist/rest/index.d.ts",
+        "default": "./dist/rest/index.cjs"
+      }
+    },
+    "./zod": {
+      "import": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.js"
+      },
+      "require": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.cjs"
+      }
+    },
+    "./express": {
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
+    },
+    "./nest": {
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.cjs"
+      }
     }
   },
   "files": [
@@ -39,14 +109,46 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "devDependencies": {
-    "@tanstack/intent": "^0.3.6",
-    "tsup": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "^4.1.10"
-  },
   "dependencies": {
     "decimal.js": "^10.6.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0 || ^11.0.0",
+    "@tanstack/react-form": "catalog:",
+    "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
+    "express": "^4.0.0 || ^5.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "zod": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/common": {
+      "optional": true
+    },
+    "@tanstack/react-form": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.0.12",
+    "@tanstack/intent": "^0.3.6",
+    "drizzle-orm": "^0.44.0",
+    "express": "^5.1.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10",
+    "zod": "^4.4.3"
   },
   "keywords": [
     "tanstack-intent"

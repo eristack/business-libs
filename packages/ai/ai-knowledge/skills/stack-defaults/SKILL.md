@@ -32,6 +32,7 @@ Read the Eristack-focused guide: `knowledge/stack-defaults.md`.
 | Stores | Drizzle adapters in prod; `createMemory*` only for tests/demos |
 | Users | App-owned `users` table; Eristack tables are children |
 | Money | `@eristack/money` via `Money.of("…")` / `Money.ofMinor` |
+| Validation | **Zod 4 only** — peer `^4.0.0`; import `"zod"` or `"zod/v4"`; no Zod 3 adapters |
 | Auth | `@eristack/jwt-auth` access JWT + opaque refresh |
 | Doc numbers | `@eristack/doc-number` token patterns + stores |
 | Express / Nest / React | Headless routers/modules/hooks from package adapters |

@@ -57,3 +57,17 @@ Hand-maintained cheat-sheet of the public surface. Signatures are simplified.
 ## Errors
 
 `MoneyError`, `CurrencyMismatchError`, `UnknownCurrencyError`, `ArithmeticError`, `ParseError`
+
+## Adapters (subpaths)
+
+| Subpath | Guide |
+| --- | --- |
+| `./drizzle` | [Drizzle adapter](./drizzle.md) |
+| `./rest` | [REST adapter](./rest.md) |
+| `./zod` | [Zod adapter](./zod.md) |
+| `./express` | [Express adapter](./express.md) |
+| `./nest` | [Nest adapter](./nest.md) |
+| `./client` | [Client adapter](./client.md) |
+| `./react` | [React adapter](./react.md) |
+
+Overview: [Adapters](./adapters.md).

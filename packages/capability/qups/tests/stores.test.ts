@@ -35,8 +35,8 @@ describe("core layer field catalog", () => {
       "sku",
     ]);
     expect(moneyColumnPair("unit_price")).toEqual({
-      amount: "unit_price",
-      currency: "currency_unit_price",
+      amount: "unit_price_amount",
+      currency: "currency",
     });
   });
 });
@@ -88,7 +88,7 @@ describe("createQups profiles + columnar lines", () => {
       position: 0,
     });
 
-    expect(record.currencyUnitPrice).toBe("USD");
+    expect(record.currency).toBe("USD");
     expect(record.rowExtras).toEqual({ itemId: "item_9" });
     expect(qups.lineFields(record).sku).toEqual({ value: "WIDGET-1" });
   });
@@ -105,10 +105,9 @@ describe("injectable drizzle columns", () => {
 
     expect(invoiceLines.itemId).toBeTruthy();
     expect(invoiceLines.quantity).toBeTruthy();
-    expect(invoiceLines.currencyUnitPrice).toBeTruthy();
-    expect(invoiceLines.unitPrice).toBeTruthy();
-    expect(invoiceLines.currencySubtotal).toBeTruthy();
-    expect(invoiceLines.subtotal).toBeTruthy();
+    expect(invoiceLines.currency).toBeTruthy();
+    expect(invoiceLines.unitPriceAmount).toBeTruthy();
+    expect(invoiceLines.subtotalAmount).toBeTruthy();
   });
 
   it("builds optional profile + side tables without a lines table", () => {

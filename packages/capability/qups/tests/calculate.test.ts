@@ -21,13 +21,13 @@ describe("calculateLine (form + BE)", () => {
     expect(line.net).toBe("90");
     expect(line.total).toBe("99");
     expect(line.roles.subtotal).toBe("derived");
-    expect(line.columns.currencyUnitPrice).toBe("USD");
-    expect(line.columns.unitPrice).toBe("50");
+    expect(line.columns.currency).toBe("USD");
+    expect(line.columns.unitPriceAmount).toBe("50");
 
     const row = withQupsColumns({ itemId: "SKU-1", invoiceId: "inv_1" }, line);
     expect(row.itemId).toBe("SKU-1");
     expect(row.quantity).toBe("2");
-    expect(row.gross).toBe("99");
+    expect(row.grossAmount).toBe("99");
   });
 
   it("keeps exact qty ratio for unitPrice+subtotal", () => {

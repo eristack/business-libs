@@ -59,8 +59,8 @@ export function recordsToModifiers(
 }
 
 function qupsInputFromRecord(record: PricingLineRecord): QupsInput {
-  const unitPrice = Money.of(record.unitPrice, record.currencyUnitPrice);
-  const subtotal = Money.of(record.subtotal, record.currencySubtotal);
+  const unitPrice = Money.of(record.unitPriceAmount, record.currency);
+  const subtotal = Money.of(record.subtotalAmount, record.currency);
   if (record.truth === "quantity+unitPrice") {
     return {
       truth: "quantity+unitPrice",
@@ -96,10 +96,7 @@ function taxFromRecord(
 export function pricingLineFromRecord(record: PricingLineRecord): PricingLine {
   return PricingLine.of({
     qups: qupsInputFromRecord(record),
-    modifiers: recordsToModifiers(
-      record.modifiers,
-      record.currencyUnitPrice,
-    ),
+    modifiers: recordsToModifiers(record.modifiers, record.currency),
     tax: taxFromRecord(record),
   });
 }
@@ -126,18 +123,14 @@ export function recordFromPricingLine(options: {
     quantity: line.qups.quantity,
     quantityRatioNumerator: line.qups.quantityRatio?.numerator,
     quantityRatioDenominator: line.qups.quantityRatio?.denominator,
-    currencyUnitPrice: currency,
-    unitPrice: line.qups.unitPrice.toJSON().amount,
-    currencySubtotal: line.qups.subtotal.currency.currencyCode,
-    subtotal: line.qups.subtotal.toJSON().amount,
+    currency,
+    unitPriceAmount: line.qups.unitPrice.toJSON().amount,
+    subtotalAmount: line.qups.subtotal.toJSON().amount,
     taxRatePercent: tax?.ratePercent,
     taxMode: tax?.mode,
-    currencyTax: line.tax.tax.currency.currencyCode,
     taxAmount: line.tax.tax.toJSON().amount,
-    currencyNet: line.tax.net.currency.currencyCode,
-    net: line.tax.net.toJSON().amount,
-    currencyGross: line.tax.gross.currency.currencyCode,
-    gross: line.tax.gross.toJSON().amount,
+    netAmount: line.tax.net.toJSON().amount,
+    grossAmount: line.tax.gross.toJSON().amount,
     modifiers: modifiersToRecords(line.adjusted.modifiers, options.idFactory),
     fieldValues: options.fieldValues ?? [],
     position: options.position,
@@ -156,8 +149,7 @@ function taxOpts(line: PricingLine): PricingTaxDefaults | undefined {
 
 export function pricingLineInputFromParts(input: {
   truth: QupsTruthMode;
-  currencyUnitPrice: string;
-  currencySubtotal: string;
+  currency: string;
   quantity?: string;
   unitPrice?: string;
   subtotal?: string;
@@ -172,7 +164,7 @@ export function pricingLineInputFromParts(input: {
     qups = {
       truth: "quantity+unitPrice",
       quantity: input.quantity,
-      unitPrice: Money.of(input.unitPrice, input.currencyUnitPrice),
+      unitPrice: Money.of(input.unitPrice, input.currency),
     };
   } else if (input.truth === "quantity+subtotal") {
     if (input.quantity == null || input.subtotal == null) {
@@ -181,7 +173,7 @@ export function pricingLineInputFromParts(input: {
     qups = {
       truth: "quantity+subtotal",
       quantity: input.quantity,
-      subtotal: Money.of(input.subtotal, input.currencySubtotal),
+      subtotal: Money.of(input.subtotal, input.currency),
     };
   } else {
     if (input.unitPrice == null || input.subtotal == null) {
@@ -189,8 +181,8 @@ export function pricingLineInputFromParts(input: {
     }
     qups = {
       truth: "unitPrice+subtotal",
-      unitPrice: Money.of(input.unitPrice, input.currencyUnitPrice),
-      subtotal: Money.of(input.subtotal, input.currencySubtotal),
+      unitPrice: Money.of(input.unitPrice, input.currency),
+      subtotal: Money.of(input.subtotal, input.currency),
     };
   }
 
@@ -213,29 +205,29 @@ export function lineFieldMap(record: PricingLineRecord): Record<
   const map: Record<string, { value: string; currency?: string }> = {
     quantity: { value: record.quantity },
     unit_price: {
-      value: record.unitPrice,
-      currency: record.currencyUnitPrice,
+      value: record.unitPriceAmount,
+      currency: record.currency,
     },
     subtotal: {
-      value: record.subtotal,
-      currency: record.currencySubtotal,
+      value: record.subtotalAmount,
+      currency: record.currency,
     },
   };
   if (record.taxRatePercent != null) {
     map.tax = { value: record.taxRatePercent };
   }
-  if (record.taxAmount != null && record.currencyTax) {
+  if (record.taxAmount != null) {
     map.tax_amount = {
       value: record.taxAmount,
-      currency: record.currencyTax,
+      currency: record.currency,
     };
   }
-  if (record.net != null && record.currencyNet) {
-    map.net = { value: record.net, currency: record.currencyNet };
+  if (record.netAmount != null) {
+    map.net = { value: record.netAmount, currency: record.currency };
   }
-  if (record.gross != null && record.currencyGross) {
-    map.gross = { value: record.gross, currency: record.currencyGross };
-    map.total = { value: record.gross, currency: record.currencyGross };
+  if (record.grossAmount != null) {
+    map.gross = { value: record.grossAmount, currency: record.currency };
+    map.total = { value: record.grossAmount, currency: record.currency };
   }
   for (const fv of record.fieldValues) {
     map[fv.fieldKey] = { value: fv.value, currency: fv.currency };

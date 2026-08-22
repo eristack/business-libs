@@ -14,6 +14,14 @@
     "formatting",
     "conversion",
     "serialization",
+    "adapters",
+    "drizzle",
+    "rest",
+    "zod",
+    "express",
+    "nest",
+    "client",
+    "react",
     "recipes",
     "api-reference"
   ]

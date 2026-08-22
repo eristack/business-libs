@@ -76,18 +76,14 @@ export function qupsPatchFromRecord(
     quantity: record.quantity,
     quantityRatioNumerator: record.quantityRatioNumerator ?? null,
     quantityRatioDenominator: record.quantityRatioDenominator ?? null,
-    currencyUnitPrice: record.currencyUnitPrice,
-    unitPrice: record.unitPrice,
-    currencySubtotal: record.currencySubtotal,
-    subtotal: record.subtotal,
+    currency: record.currency,
+    unitPriceAmount: record.unitPriceAmount,
+    subtotalAmount: record.subtotalAmount,
     taxRatePercent: record.taxRatePercent ?? null,
     taxMode: record.taxMode ?? null,
-    currencyTax: record.currencyTax ?? null,
     taxAmount: record.taxAmount ?? null,
-    currencyNet: record.currencyNet ?? null,
-    net: record.net ?? null,
-    currencyGross: record.currencyGross ?? null,
-    gross: record.gross ?? null,
+    netAmount: record.netAmount ?? null,
+    grossAmount: record.grossAmount ?? null,
   };
 
   if (hasCol(table, "profileId")) {
@@ -127,23 +123,18 @@ export function pricingFieldsFromRow(
       row.quantityRatioDenominator == null
         ? undefined
         : String(row.quantityRatioDenominator),
-    currencyUnitPrice: String(row.currencyUnitPrice),
-    unitPrice: String(row.unitPrice),
-    currencySubtotal: String(row.currencySubtotal),
-    subtotal: String(row.subtotal),
+    currency: String(row.currency),
+    unitPriceAmount: String(row.unitPriceAmount),
+    subtotalAmount: String(row.subtotalAmount),
     taxRatePercent:
       row.taxRatePercent == null ? undefined : String(row.taxRatePercent),
     taxMode:
       row.taxMode == null
         ? undefined
         : (String(row.taxMode) as "exclusive" | "inclusive"),
-    currencyTax: row.currencyTax == null ? undefined : String(row.currencyTax),
     taxAmount: row.taxAmount == null ? undefined : String(row.taxAmount),
-    currencyNet: row.currencyNet == null ? undefined : String(row.currencyNet),
-    net: row.net == null ? undefined : String(row.net),
-    currencyGross:
-      row.currencyGross == null ? undefined : String(row.currencyGross),
-    gross: row.gross == null ? undefined : String(row.gross),
+    netAmount: row.netAmount == null ? undefined : String(row.netAmount),
+    grossAmount: row.grossAmount == null ? undefined : String(row.grossAmount),
     position: row.position == null ? undefined : Number(row.position),
     createdAt: row.createdAt != null ? asDate(row.createdAt) : new Date(0),
     updatedAt: row.updatedAt != null ? asDate(row.updatedAt) : new Date(0),

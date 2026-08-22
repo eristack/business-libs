@@ -152,6 +152,8 @@ const payload = Money.of("19.99", "USD").toJSON();
 
 Wire format uses a decimal string so transit never corrupts money via binary float.
 
+For **database columns**, load `money-adapters` → `docs/drizzle.md`. For **HTTP**, `docs/rest.md` or `docs/zod.md`.
+
 Source: packages/primitive/money/docs/serialization.md
 
 ## See also

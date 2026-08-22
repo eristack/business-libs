@@ -55,8 +55,8 @@ function moneyField(
 
 /**
  * Build a headless field catalog from a truth mode.
- * Money fields are first-class (`unit_price`, `subtotal`) — currency companions
- * are columns (`currency_unit_price`, …), not separate catalog entries.
+ * Money fields are first-class (`unit_price`, `subtotal`) — one shared `currency`
+ * column plus `*_amount` SQL columns, not separate catalog entries.
  */
 export function fieldsForTruth(
   truth: QupsTruthMode,
@@ -202,22 +202,22 @@ export function editableFieldKeys(
 
 /**
  * Headless column map for a money field key → { amountCol, currencyCol }.
- * Used by adapters/UI without inventing schema.
+ * QUPS lines use one shared `currency` column for all money amounts.
  */
 export function moneyColumnPair(
   key: "unit_price" | "subtotal" | "tax" | "net" | "gross",
 ): { amount: string; currency: string } {
   if (key === "unit_price") {
-    return { amount: "unit_price", currency: "currency_unit_price" };
+    return { amount: "unit_price_amount", currency: "currency" };
   }
   if (key === "subtotal") {
-    return { amount: "subtotal", currency: "currency_subtotal" };
+    return { amount: "subtotal_amount", currency: "currency" };
   }
   if (key === "tax") {
-    return { amount: "tax_amount", currency: "currency_tax" };
+    return { amount: "tax_amount", currency: "currency" };
   }
   if (key === "net") {
-    return { amount: "net", currency: "currency_net" };
+    return { amount: "net_amount", currency: "currency" };
   }
-  return { amount: "gross", currency: "currency_gross" };
+  return { amount: "gross_amount", currency: "currency" };
 }

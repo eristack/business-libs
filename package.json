@@ -16,7 +16,7 @@
     "exports:check": "node scripts/check-package-exports.mjs",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
     "changeset": "changeset",
-    "version-packages": "changeset version && pnpm install --lockfile-only",
+    "version-packages": "changeset version && pnpm knowledge:sync && pnpm install --lockfile-only",
     "release": "changeset publish",
     "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm exports:check && pnpm skills:validate && pnpm knowledge:check && pnpm ticket:check",
     "web": "pnpm --filter @eristack/web dev"

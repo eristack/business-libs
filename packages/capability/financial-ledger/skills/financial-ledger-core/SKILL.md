@@ -43,4 +43,13 @@ await fin.post({
 await fin.verify("1000", "USD");
 ```
 
-Do **not** default to `createMemoryLedgerStore` in apps.
+**Read path:** ledger stores decimal strings in the hash. Hydrate for UI:
+
+```ts
+import { hydrateLedgerEntry } from "@eristack/financial-ledger";
+
+const entries = await fin.list("1000", "USD");
+entries.map((e) => hydrateLedgerEntry(e, "USD").closingBalance);
+```
+
+Do **not** default to `createMemoryLedgerStore` in apps. Do **not** change hashed amount column types to numeric.

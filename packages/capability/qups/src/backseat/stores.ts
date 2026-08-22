@@ -111,23 +111,18 @@ function lineFromDoc(doc: Record<string, unknown>): PricingLineRecord {
       doc.quantityRatioDenominator == null
         ? undefined
         : String(doc.quantityRatioDenominator),
-    currencyUnitPrice: String(doc.currencyUnitPrice),
-    unitPrice: String(doc.unitPrice),
-    currencySubtotal: String(doc.currencySubtotal),
-    subtotal: String(doc.subtotal),
+    currency: String(doc.currency),
+    unitPriceAmount: String(doc.unitPriceAmount),
+    subtotalAmount: String(doc.subtotalAmount),
     taxRatePercent:
       doc.taxRatePercent == null ? undefined : String(doc.taxRatePercent),
     taxMode:
       doc.taxMode == null
         ? undefined
         : (String(doc.taxMode) as "exclusive" | "inclusive"),
-    currencyTax: doc.currencyTax == null ? undefined : String(doc.currencyTax),
     taxAmount: doc.taxAmount == null ? undefined : String(doc.taxAmount),
-    currencyNet: doc.currencyNet == null ? undefined : String(doc.currencyNet),
-    net: doc.net == null ? undefined : String(doc.net),
-    currencyGross:
-      doc.currencyGross == null ? undefined : String(doc.currencyGross),
-    gross: doc.gross == null ? undefined : String(doc.gross),
+    netAmount: doc.netAmount == null ? undefined : String(doc.netAmount),
+    grossAmount: doc.grossAmount == null ? undefined : String(doc.grossAmount),
     modifiers: Array.isArray(doc.modifiers)
       ? (doc.modifiers as PricingModifierRecord[])
       : [],
@@ -153,18 +148,14 @@ function lineToDoc(record: PricingLineRecord): Record<string, unknown> {
     quantity: record.quantity,
     quantityRatioNumerator: record.quantityRatioNumerator ?? null,
     quantityRatioDenominator: record.quantityRatioDenominator ?? null,
-    currencyUnitPrice: record.currencyUnitPrice,
-    unitPrice: record.unitPrice,
-    currencySubtotal: record.currencySubtotal,
-    subtotal: record.subtotal,
+    currency: record.currency,
+    unitPriceAmount: record.unitPriceAmount,
+    subtotalAmount: record.subtotalAmount,
     taxRatePercent: record.taxRatePercent ?? null,
     taxMode: record.taxMode ?? null,
-    currencyTax: record.currencyTax ?? null,
     taxAmount: record.taxAmount ?? null,
-    currencyNet: record.currencyNet ?? null,
-    net: record.net ?? null,
-    currencyGross: record.currencyGross ?? null,
-    gross: record.gross ?? null,
+    netAmount: record.netAmount ?? null,
+    grossAmount: record.grossAmount ?? null,
     modifiers: record.modifiers,
     fieldValues: record.fieldValues,
     rowExtras: record.rowExtras ?? null,

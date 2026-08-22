@@ -4,7 +4,7 @@ import type { PricingLine } from "../line.js";
 
 /**
  * Built-in headless field keys (snake_case — map 1:1 to columns where applicable).
- * Money fields use companion `currency_*` columns, not nested JSON.
+ * Money fields share one `currency` column; amounts use `*_amount` SQL columns.
  */
 export type BuiltinPricingFieldKey =
   | "quantity"
@@ -86,8 +86,8 @@ export type PricingFieldValue = {
 };
 
 /**
- * Persisted pricing line with real money columns:
- * `quantity`, `currency_unit_price` / `unit_price`, `currency_subtotal` / `subtotal`, …
+ * Persisted pricing line with shared currency + amount columns
+ * (`currency`, `unitPriceAmount`, `subtotalAmount`, …).
  */
 export type PricingLineRecord = {
   id: string;
@@ -99,19 +99,15 @@ export type PricingLineRecord = {
   quantityRatioNumerator?: string;
   quantityRatioDenominator?: string;
 
-  currencyUnitPrice: string;
-  unitPrice: string;
-  currencySubtotal: string;
-  subtotal: string;
+  currency: string;
+  unitPriceAmount: string;
+  subtotalAmount: string;
 
   taxRatePercent?: string;
   taxMode?: "exclusive" | "inclusive";
-  currencyTax?: string;
   taxAmount?: string;
-  currencyNet?: string;
-  net?: string;
-  currencyGross?: string;
-  gross?: string;
+  netAmount?: string;
+  grossAmount?: string;
 
   modifiers: PricingModifierRecord[];
   /** App-defined field values (separate rows in persistence). */
@@ -173,10 +169,9 @@ export type SaveLineInput = {
   line?: PricingLine;
   truth?: QupsTruthMode;
   quantity?: string;
+  currency?: string;
   unitPrice?: string;
-  currencyUnitPrice?: string;
   subtotal?: string;
-  currencySubtotal?: string;
   modifiers?: readonly ModifierSpec[];
   tax?: PricingTaxDefaults;
   fieldValues?: PricingFieldValue[];

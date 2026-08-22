@@ -4,11 +4,11 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-15T09:11:21.059Z",
+  "generatedAt": "2026-08-22T08:40:57.152Z",
   "packages": [
     {
       "name": "@eristack/abac",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
       "slug": "abac",
       "adapters": [
@@ -39,7 +39,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-ticket-generator",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files",
       "slug": "ai-ticket-generator",
       "adapters": [],
@@ -64,7 +64,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-workflow",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent",
       "slug": "ai-workflow",
       "adapters": [],
@@ -89,7 +89,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.0",
+      "version": "0.1.2",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -111,7 +111,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/data-grid",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
@@ -145,7 +145,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-number",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Document number format, parse, and sequence primitives for Eristack",
       "slug": "doc-number",
       "adapters": [
@@ -179,7 +179,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/epoch",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
       "slug": "epoch",
       "adapters": [
@@ -213,7 +213,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/financial-ledger",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -242,7 +242,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/hash-chained-ledger",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
@@ -271,7 +271,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -305,11 +305,27 @@ export const catalog = {
     },
     {
       "name": "@eristack/money",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Money primitives for Eristack",
       "slug": "money",
-      "adapters": [],
+      "adapters": [
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest",
+        "zod"
+      ],
       "skills": [
+        {
+          "id": "money-adapters",
+          "name": "money-adapters",
+          "packageName": "@eristack/money",
+          "description": "Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4 schemas, Express/Nest HTTP, client revive, React form helpers. Use when storing prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/money#money-adapters"
+        },
         {
           "id": "money-amounts",
           "name": "money-amounts",
@@ -330,7 +346,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/multitab",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
       "slug": "multitab",
       "adapters": [
@@ -350,7 +366,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/pbac",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
       "slug": "pbac",
       "adapters": [
@@ -381,7 +397,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/qups",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
@@ -418,7 +434,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rbac",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
       "slug": "rbac",
       "adapters": [
@@ -450,7 +466,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/stock-movement",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
       "slug": "stock-movement",
       "adapters": [
@@ -479,7 +495,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/valuations",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [

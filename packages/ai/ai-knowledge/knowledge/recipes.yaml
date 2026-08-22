@@ -49,12 +49,35 @@ recipes:
       - serialize money
     rationale: >
       Round at ledger boundaries, allocate without losing cents, convert with
-      app-supplied FX rates, and serialize amounts as decimal strings.
+      app-supplied FX rates, and serialize amounts as decimal strings. For SQL
+      columns and HTTP validation load money-adapters (drizzle.md / rest.md / zod.md).
     packages:
       - name: "@eristack/money"
         skills:
           - money-ledger
           - money-amounts
+        role: primary
+
+  - id: money-persist
+    title: Store money in SQL and validate API bodies
+    priority: 18
+    triggers:
+      - store money
+      - persist money
+      - drizzle money
+      - money column
+      - filter by amount
+      - sort price
+      - money schema
+      - zod money
+    rationale: >
+      Use @eristack/money/drizzle (docs/drizzle.md) for SQL columns; ./rest or ./zod
+      for wire MoneyJSON; ./express or ./nest for HTTP. Hub: docs/adapters.md.
+    packages:
+      - name: "@eristack/money"
+        skills:
+          - money-adapters
+          - money-ledger
         role: primary
 
   - id: line-pricing-qups
@@ -75,8 +98,9 @@ recipes:
     rationale: >
       Use @eristack/qups calculateLine/patchLine for quantity/unit-price/subtotal
       (exact ratio when UP+S), modifiers, and tax — same math in TanStack Form and
-      on the BE. Inject qupsLineColumns into detail tables when persisting. Do not
-      invent float qty = subtotal/unitPrice in the UI.
+      on the BE. Inject qupsLineColumns (shared currency + *_amount numeric columns)
+      into detail tables; withQupsColumns for inserts. See qups stores.md + money
+      drizzle.md. Do not invent float qty = subtotal/unitPrice in the UI.
     packages:
       - name: "@eristack/qups"
         skills:

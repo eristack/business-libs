@@ -165,7 +165,7 @@ withQupsColumns({ itemId }, line);
 // equivalent to { itemId, ...line.columns }
 ```
 
-`columns` keys match `qupsLineColumns()` property names (`currencyUnitPrice`, `unitPrice`, `quantityRatioNumerator`, …). See [Stores & Drizzle](./stores.md).
+`columns` keys match `qupsLineColumns()` property names (`currency`, `unitPriceAmount`, `quantityRatioNumerator`, …). See [Stores & Drizzle](./stores.md).
 
 ## Lower-level `PricingLine` (optional)
 

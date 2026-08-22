@@ -52,5 +52,6 @@ See [advanced arithmetic](./advanced-arithmetic.md) for totals, percentages, and
 1. Construct with **strings** (or minor-unit integers), not fractional `number`s
 2. Round to currency scale at ledger boundaries (persist, display, post)
 3. Keep FX rates outside the library; pass them into `Conversion.of(...)`
+4. **Adapters:** [overview](./adapters.md) → [Drizzle](./drizzle.md) (SQL) · [REST](./rest.md) / [Zod](./zod.md) (wire) · [Express](./express.md) / [Nest](./nest.md) · [Client](./client.md) / [React](./react.md)
 
 Continue with [Concepts](./concepts.md).

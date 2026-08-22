@@ -62,7 +62,7 @@ export type CalculatedLine = {
   roles: ReturnType<typeof qupsRolesFor>;
   /**
    * Values shaped for injectable Drizzle columns / SQL insert
-   * (`currency_unit_price`, `unit_price`, …).
+   * (`currency`, `unit_price_amount`, …).
    */
   columns: QupsColumnValues;
 };
@@ -73,18 +73,14 @@ export type QupsColumnValues = {
   quantity: string;
   quantityRatioNumerator: string | null;
   quantityRatioDenominator: string | null;
-  currencyUnitPrice: string;
-  unitPrice: string;
-  currencySubtotal: string;
-  subtotal: string;
+  currency: string;
+  unitPriceAmount: string;
+  subtotalAmount: string;
   taxRatePercent: string | null;
   taxMode: "exclusive" | "inclusive" | null;
-  currencyTax: string | null;
   taxAmount: string | null;
-  currencyNet: string;
-  net: string;
-  currencyGross: string;
-  gross: string;
+  netAmount: string;
+  grossAmount: string;
 };
 
 export type PatchLineInput = {
@@ -243,18 +239,14 @@ function snapshotFromLine(
       quantity: line.qups.quantity,
       quantityRatioNumerator: qtyRatio?.numerator ?? null,
       quantityRatioDenominator: qtyRatio?.denominator ?? null,
-      currencyUnitPrice: currency,
-      unitPrice: amount(line.qups.unitPrice),
-      currencySubtotal: currency,
-      subtotal: amount(line.qups.subtotal),
+      currency,
+      unitPriceAmount: amount(line.qups.unitPrice),
+      subtotalAmount: amount(line.qups.subtotal),
       taxRatePercent: resolvedRate,
       taxMode: resolvedTaxMode,
-      currencyTax: currency,
       taxAmount: amount(line.tax.tax),
-      currencyNet: currency,
-      net: amount(line.tax.net),
-      currencyGross: currency,
-      gross: amount(line.total),
+      netAmount: amount(line.tax.net),
+      grossAmount: amount(line.total),
     },
   };
 }
