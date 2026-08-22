@@ -1,5 +1,11 @@
 # @eristack/money
 
+## 0.3.1
+
+### Patch Changes
+
+- 78d8154: Add `parseRoundedAmount` and amount-only TanStack Form helpers (`createAmountOnlyFieldValidators`, `submitAmountOnlyFormValue`) for shared-currency ERP/QUPS line fields.
+
 ## 0.3.0
 
 ### Minor Changes

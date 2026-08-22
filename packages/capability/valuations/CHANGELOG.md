@@ -1,5 +1,12 @@
 # @eristack/valuations
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [78d8154]
+  - @eristack/money@0.3.1
+
 ## 0.2.0
 
 ### Minor Changes

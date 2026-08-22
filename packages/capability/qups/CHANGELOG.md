@@ -1,5 +1,13 @@
 # @eristack/qups
 
+## 0.3.1
+
+### Patch Changes
+
+- 78d8154: Export `QUPS_TRUTH_MODES` and `isQupsTruthMode` so consumers validate truth modes from the library instead of copying string literals.
+- Updated dependencies [78d8154]
+  - @eristack/money@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes

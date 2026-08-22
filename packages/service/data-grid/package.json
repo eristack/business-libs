@@ -1,6 +1,6 @@
 {
   "name": "@eristack/data-grid",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
   "repository": {
     "type": "git",

@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.9
+
+### Patch Changes
+
+- 54e2430: Add package design targets to agent-workflow and dev-conventions. Update line-pricing-qups and data-grid-lists recipes (and catalog skill descriptions) for QUPS_TRUTH_MODES, amount-only form validators, and decimal/money list field types so consumers discover the new exports. Add timestamp-persist recipe.
+
 ## 0.1.8
 
 ### Patch Changes
