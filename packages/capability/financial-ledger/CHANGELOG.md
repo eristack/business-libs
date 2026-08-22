@@ -1,5 +1,16 @@
 # @eristack/financial-ledger
 
+## 0.2.0
+
+### Minor Changes
+
+- c6cf43f: Add `hydrateLedgerEntry`, `hydrateLedgerSnapshot`, and `moneyFromLedgerAmount` for read paths. Hashed ledger SQL unchanged.
+
+### Patch Changes
+
+- Updated dependencies [c6cf43f]
+  - @eristack/money@0.3.0
+
 ## 0.1.1
 
 ### Patch Changes
