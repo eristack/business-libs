@@ -1,7 +1,5 @@
 import type { BackseatDocument, BackseatStore } from "@eristack/backseat";
-import { applyInMemory } from "../core/apply.js";
 import { createDataGrid, type DataGrid } from "../core/create-data-grid.js";
-import { parseQuery } from "../core/parse.js";
 import type {
   DataGridQuery,
   DataGridQueryInput,
@@ -44,7 +42,6 @@ export async function executeBackseatList<TRow, TItem = TRow>(
   options: ExecuteBackseatListOptions<TRow, TItem>,
 ): Promise<DataGridResult<TItem>> {
   const grid = options.grid ?? createDataGrid(options.schema);
-  const query = parseQuery(options.query, options.schema);
   const docs = await filterDocs(
     await options.store.list(options.collection),
     options.prefilter,
@@ -55,9 +52,7 @@ export async function executeBackseatList<TRow, TItem = TRow>(
     rows.push(await options.toRow(doc));
   }
 
-  const result = applyInMemory(rows, query, options.schema, (item, field) =>
-    (item as Record<string, unknown>)[field],
-  );
+  const result = grid.applyInMemory(rows, options.query);
   const map = options.map ?? ((row: TRow) => row as unknown as TItem);
   return {
     ...result,
