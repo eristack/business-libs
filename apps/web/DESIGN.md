@@ -51,6 +51,18 @@ Scripts auto-discover packages with a `docs/` folder (`scripts/doc-packages.mjs`
 
 **Agent workflow:** add/edit markdown → run `pnpm docs:sync` → commit `_meta.json` with the doc change. CI fails if catalog is stale.
 
-## Next (S3+)
+## Marketing unification (S4)
 
-Marketing/docs hub refresh, layer + package motifs, agent chrome (deferred).
+- **Library landings** — getting-started primary CTA, copyable install, `LibraryDocsCta`
+- **EditorialProseShell** — shared article card for changelog + blog
+- **Blog / start / philosophy** — PageHero + ContentSection bands
+
+## Layer & package identity (S5)
+
+- **LayerGlyph** — 7 layer SVG icons (`stack/layer-glyphs.tsx`)
+- **Package motifs** — all 19 packages in `library-motif.tsx`
+- **Docs chrome** — layer left rail on article cards; glyphs in matrix + badges
+
+## Next (Phase 5+)
+
+Agent skill strips, callouts, polish (S6–S7).

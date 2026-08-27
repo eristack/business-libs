@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DocsInstallSnippet } from "@/components/docs-install-snippet";
 import { DocsPager } from "@/components/docs-pager";
 import { DocsToc } from "@/components/docs-toc";
 import { extractToc } from "@/lib/doc-toc";
@@ -42,7 +43,10 @@ export async function DocsArticle({
 
   return (
     <div className="flex gap-8 xl:gap-12">
-      <article className="min-w-0 flex-1 rounded-xl border border-border/80 bg-card px-6 py-7 shadow-[0_1px_2px_rgba(26,24,20,0.04)] sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <article
+        data-layer={pkg?.category}
+        className="min-w-0 flex-1 rounded-xl border border-border/80 border-l-[3px] border-l-[color:var(--layer-accent)] bg-card px-6 py-7 shadow-[0_1px_2px_rgba(26,24,20,0.04)] sm:px-8 sm:py-8 lg:px-12 lg:py-10"
+      >
         <div className="mb-8 border-b border-border pb-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">
@@ -102,6 +106,7 @@ export async function DocsArticle({
           {description ? (
             <p className="type-lead mt-3 max-w-2xl">{description}</p>
           ) : null}
+          {pkg ? <DocsInstallSnippet packageName={pkg.name} /> : null}
         </div>
 
         <div className="prose-measure">

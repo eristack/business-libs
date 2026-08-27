@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { LayerGlyph } from "@/components/stack/layer-glyphs";
 import {
   categoryIndex,
   packagesByCategory,
@@ -35,6 +36,7 @@ export function LayerStrip({ activeId, className }: LayerStripProps) {
             )}
           >
             <div className="flex items-center gap-2">
+              <LayerGlyph layerId={category.id} size={15} />
               <span className="font-mono text-[10px] font-semibold text-[color:var(--layer-accent)] tabular-nums">
                 {String(index).padStart(2, "0")}
               </span>

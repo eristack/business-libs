@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { EditorialProseShell } from "@/components/editorial-prose-shell";
 import { Markdown } from "@/components/markdown";
+import { ContentSection } from "@/components/stack/content-section";
+import { PageHero } from "@/components/stack/page-hero";
 import { getBlogPost, listBlogPosts } from "@/lib/blog";
 
 type PageProps = {
@@ -30,30 +35,40 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
-      <Link
-        href="/blog"
-        className="text-[13px] font-medium text-muted-foreground hover:text-foreground"
-      >
-        ← Blog
-      </Link>
-      <header className="mt-6 border-b border-border pb-8">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground">
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span>·</span>
-          <span>{post.author}</span>
-        </div>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          {post.title}
-        </h1>
-        <p className="mt-3 text-[15px] leading-7 text-muted-foreground">
-          {post.description}
-        </p>
-      </header>
-      <article className="mt-10">
-        <Markdown content={post.content} />
-      </article>
-    </div>
+    <>
+      <PageHero
+        tone="marketing"
+        eyebrow={
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:text-accent"
+          >
+            <ArrowLeft className="size-3.5" />
+            Blog
+          </Link>
+        }
+        title={post.title}
+        tagline={post.description}
+        meta={
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground">
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            <span>·</span>
+            <span>{post.author}</span>
+          </div>
+        }
+        actions={
+          <Button asChild variant="outline" size="sm">
+            <Link href="/blog">All posts</Link>
+          </Button>
+        }
+      />
+
+      <ContentSection>
+        <EditorialProseShell>
+          <Markdown content={post.content} />
+        </EditorialProseShell>
+      </ContentSection>
+    </>
   );
 }
 

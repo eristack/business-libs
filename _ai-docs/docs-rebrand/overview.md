@@ -1,6 +1,6 @@
 # Eristack Docs — Total Restyle Plan
 
-> **Status:** **S1 in progress** — tokens, typography, BrandMark, slim docs header shipped; S2 docs shell next  
+> **Status:** **S5 in progress** — full package motifs + layer glyphs; Phase 5 agent chrome next  
 > **Scope:** `apps/web` + brand assets. Package markdown in `packages/*/docs` stays source of truth.
 
 ## Decisions log
@@ -238,20 +238,28 @@ Cmd+K groups: Packages · Doc pages · Blog · Roadmap · Commands (`load @erist
 - “Start here” path: Getting started → Adapters → Core skill load command
 - Docs CTA uses new visual language
 
-### 3.2 Docs hub (`/docs`)
+### 3.1 Library landings (`/[slug]`) — **S4 shipped**
 
-- Replace generic index with **layer matrix** (7 columns, package cards, search)
-- Featured paths: “New app”, “Upgrade”, “Money + QUPS line”, “Auth + RBAC”
+- Primary CTA → **Getting started** doc page
+- Copyable install snippet in hero (same as docs articles)
+- `LibraryDocsCta` — documentation path band (getting started → docs → agent skill)
 
-### 3.3 Changelog & blog
+### 3.2 Docs hub (`/docs`) — **S3 shipped**
 
-- Changelog: package-scoped template matching docs chrome
-- Blog: editorial template (hero image optional), same Prose system
+- Layer matrix — compact cards per layer with package links + version
+- Featured paths: New app, Upgrade, Money + QUPS, Auth + RBAC
+- Hero with Cmd+K search hint and library count
+- Article pages: copyable `pnpm add @eristack/…` install snippet (2.3 partial)
 
-### 3.4 `/start` and `/philosophy`
+### 3.3 Changelog & blog — **S4 shipped**
 
-- Align copy blocks with four design targets (cheap, predictable, reliable, boundaries)
-- Visual consistency with docs callouts
+- Changelog prose in `EditorialProseShell` (matches docs article card)
+- Blog index + posts use `PageHero` + editorial shell
+
+### 3.4 `/start` and `/philosophy` — **S4 shipped**
+
+- `/start` — PageHero + step bands with CodePanel
+- `/philosophy` — design targets grid + product tenets, aligned with agent-workflow
 
 ---
 
@@ -259,23 +267,15 @@ Cmd+K groups: Packages · Doc pages · Blog · Roadmap · Commands (`load @erist
 
 **Goal:** every `@eristack/*` package feels intentional.
 
-### 4.1 Layer system as brand
+### 4.1 Layer system as brand — **S5 shipped**
 
-Each layer gets:
+- `LayerGlyph` SVG icons for all 7 layers (badges, strip, docs matrix)
+- `LayerStrip` on `/docs` hub hero footer
+- Docs article card: layer-accent left rail via `data-layer`
 
-- Icon glyph (not just color dot)
-- Hero background pattern (CSS, no heavy images)
-- Docs sidebar accent stripe
-- Badge shape consistent across site
+### 4.2 Package motifs — **S5 shipped (full catalog)**
 
-### 4.2 Package motifs — **decided: layer + package (both)**
-
-**Two-level identity:**
-
-| Level | Scope | Deliverable |
-| --- | --- | --- |
-| **Layer** | 7 categories | Shared glyph, background pattern, docs chrome accent, landing section frame |
-| **Package** | Every publishable `@eristack/*` | Unique rich visual in `library-motif.tsx` + standardized hero demo slot on `/[slug]` |
+All 19 publishable packages have hero motifs in `library-motif.tsx` (added: timestamp, stock-movement, financial-ledger, valuations, hash-chained-ledger). `motifForPackage()` maps every package slug — no fallback-only landings.
 
 **Rules:**
 

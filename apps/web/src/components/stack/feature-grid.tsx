@@ -3,8 +3,13 @@ type FeatureGridProps = {
 };
 
 export function FeatureGrid({ highlights }: FeatureGridProps) {
+  const gridClass =
+    highlights.length === 4
+      ? "sm:grid-cols-2 lg:grid-cols-4"
+      : "sm:grid-cols-3";
+
   return (
-    <div className="grid gap-6 sm:grid-cols-3">
+    <div className={`grid gap-6 ${gridClass}`}>
       {highlights.map((item, index) => (
         <div
           key={item.title}

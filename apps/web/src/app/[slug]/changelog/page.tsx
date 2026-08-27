@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Markdown } from "@/components/markdown";
+import { EditorialProseShell } from "@/components/editorial-prose-shell";
 import { Button } from "@/components/ui/button";
 import { ContentSection } from "@/components/stack/content-section";
 import { LayerBadge } from "@/components/stack/layer-badge";
@@ -106,12 +107,15 @@ export default async function PackageChangelogPage({ params }: PageProps) {
 
       <ContentSection tone="muted">
         {markdown ? (
-          <article className="rounded-2xl border border-border bg-card px-6 py-7 shadow-sm sm:px-8">
-            <p className="mb-6 font-mono text-[11px] text-muted-foreground">
-              {release.changelogPath}
-            </p>
+          <EditorialProseShell
+            meta={
+              <p className="font-mono text-[11px] text-muted-foreground">
+                {release.changelogPath}
+              </p>
+            }
+          >
             <Markdown content={markdown} />
-          </article>
+          </EditorialProseShell>
         ) : (
           <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-10">
             <p className="text-[15px] font-semibold tracking-tight">
