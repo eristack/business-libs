@@ -1,5 +1,11 @@
 # @eristack/abac
 
+## 0.2.2
+
+### Patch Changes
+
+- 294445c: Add `matchesAssignmentPair` and `attrs.assignmentPairMatch` for Role × Branch × Trade scope.
+
 ## 0.2.1
 
 ### Patch Changes

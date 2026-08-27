@@ -1,5 +1,13 @@
 # @eristack/data-grid
 
+## 0.2.3
+
+### Patch Changes
+
+- 294445c: Add `type: wall` field filters (uses `@eristack/timestamp`). Add `executeBackseatList` for mock register parity with Drizzle list envelope.
+- Updated dependencies [294445c]
+  - @eristack/timestamp@0.1.1
+
 ## 0.2.2
 
 ### Patch Changes

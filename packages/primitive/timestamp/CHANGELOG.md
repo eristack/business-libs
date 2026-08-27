@@ -1,5 +1,11 @@
 # @eristack/timestamp
 
+## 0.1.1
+
+### Patch Changes
+
+- 294445c: Add `compareWall`, `isWallInRange`, and `addWallDays` for wall-mode list filters and due-date arithmetic.
+
 ## 0.1.0
 
 ### Minor Changes

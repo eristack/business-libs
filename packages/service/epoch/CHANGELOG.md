@@ -1,5 +1,11 @@
 # @eristack/epoch
 
+## 0.1.1
+
+### Patch Changes
+
+- 294445c: Add `bumpMany(scopes)` for multi-scope cache invalidation after writes.
+
 ## 0.1.0
 
 ### Minor Changes
