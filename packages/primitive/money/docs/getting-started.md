@@ -54,4 +54,7 @@ See [advanced arithmetic](./advanced-arithmetic.md) for totals, percentages, and
 3. Keep FX rates outside the library; pass them into `Conversion.of(...)`
 4. **Adapters:** [overview](./adapters.md) → [Drizzle](./drizzle.md) (SQL) · [REST](./rest.md) / [Zod](./zod.md) (wire) · [Express](./express.md) / [Nest](./nest.md) · [Client](./client.md) / [React](./react.md)
 
+> [!AGENT]
+> Load `@eristack/money#money-amounts` before wiring prices — construct with strings, never JS `number` literals for currency amounts. The docs skill strip above copies the Intent command.
+
 Continue with [Concepts](./concepts.md).

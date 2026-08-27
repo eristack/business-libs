@@ -29,7 +29,7 @@ export function DocsMobileNav({
   const pkg = packages.find((item) => item.slug === packageSlug);
 
   return (
-    <div className="mb-4 md:hidden">
+    <div className="no-print mb-4 md:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant="outline" size="sm" className="h-9 w-full justify-start gap-2">

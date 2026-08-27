@@ -237,7 +237,7 @@ export function DocsSidebar({
   const release = releases[packageSlug];
 
   return (
-    <aside className="hidden w-full shrink-0 md:block md:w-[15.5rem] lg:w-[16.5rem]">
+    <aside className="no-print hidden w-full shrink-0 md:block md:w-[15.5rem] lg:w-[16.5rem]">
       <div className="sticky top-[3.75rem] flex max-h-[calc(100svh-4.25rem)] flex-col gap-4">
         <PackageSwitcher packageSlug={packageSlug} releases={releases} />
 

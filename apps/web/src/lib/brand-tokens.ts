@@ -41,9 +41,9 @@ export const brand = {
 /** Layer accents — navigation chrome only. */
 export const layerAccents = {
   primitive: { light: "#0d6b62", dark: "#3dd9c6" },
-  capability: { light: "#a16207", dark: "#facc15" },
+  capability: { light: "#92600a", dark: "#facc15" },
   service: { light: "#0d5568", dark: "#5ebad4" },
-  ai: { light: "#0c6e82", dark: "#22d3ee" },
+  ai: { light: "#0e7490", dark: "#22d3ee" },
   infrastructure: { light: "#534687", dark: "#a78bfa" },
   ui: { light: "#b01842", dark: "#fb7185" },
   features: { light: "#047857", dark: "#34d399" },

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { DocsInstallSnippet } from "@/components/docs-install-snippet";
+import { DocsSkillStrip } from "@/components/docs-skill-strip";
 import { DocsPager } from "@/components/docs-pager";
-import { DocsToc } from "@/components/docs-toc";
+import { DocsToc, DocsTocMobile } from "@/components/docs-toc";
 import { extractToc } from "@/lib/doc-toc";
 import { Markdown } from "@/components/markdown";
+import { resolveDocSkills } from "@/lib/doc-agent-skills";
 import {
   docSourcePath,
   type DocMeta,
@@ -40,6 +42,7 @@ export async function DocsArticle({
   const pkg = packages.find((item) => item.slug === packageSlug);
   const category = pkg ? getCategory(pkg.category) : null;
   const release = pkg ? getPackageRelease(pkg) : null;
+  const agentSkills = resolveDocSkills(packageSlug, slug);
 
   return (
     <div className="flex gap-8 xl:gap-12">
@@ -107,7 +110,10 @@ export async function DocsArticle({
             <p className="type-lead mt-3 max-w-2xl">{description}</p>
           ) : null}
           {pkg ? <DocsInstallSnippet packageName={pkg.name} /> : null}
+          <DocsSkillStrip skills={agentSkills} />
         </div>
+
+        <DocsTocMobile items={toc} />
 
         <div className="prose-measure">
           <Markdown content={body} packageSlug={packageSlug} />

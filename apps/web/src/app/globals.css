@@ -232,9 +232,9 @@
   }
 
   [data-layer="capability"] {
-    --layer-accent: #a16207;
-    --layer-soft: color-mix(in oklab, #a16207 12%, transparent);
-    --layer-glow: color-mix(in oklab, #a16207 20%, transparent);
+    --layer-accent: #92600a;
+    --layer-soft: color-mix(in oklab, #92600a 12%, transparent);
+    --layer-glow: color-mix(in oklab, #92600a 20%, transparent);
   }
 
   [data-layer="service"] {
@@ -262,9 +262,9 @@
   }
 
   [data-layer="features"] {
-    --layer-accent: #059669;
-    --layer-soft: color-mix(in oklab, #059669 14%, transparent);
-    --layer-glow: color-mix(in oklab, #059669 26%, transparent);
+    --layer-accent: #047857;
+    --layer-soft: color-mix(in oklab, #047857 14%, transparent);
+    --layer-glow: color-mix(in oklab, #047857 26%, transparent);
   }
 
   .dark [data-layer="primitive"] {
@@ -553,10 +553,120 @@
   @apply my-6 rounded-r-md border-l-[3px] border-accent bg-prose-quote-bg py-3 pr-4 pl-4 text-prose-body;
 }
 
+.prose-docs .docs-callout {
+  @apply my-6 overflow-hidden rounded-xl border text-[14px] leading-6;
+}
+
+.prose-docs .docs-callout__label {
+  @apply px-4 py-2 text-[11px] font-semibold tracking-[0.1em] uppercase;
+}
+
+.prose-docs .docs-callout__body {
+  @apply px-4 pb-4 text-prose-body;
+}
+
+.prose-docs .docs-callout__body > :first-child {
+  @apply mt-0;
+}
+
+.prose-docs .docs-callout--agent {
+  @apply border-violet-500/25 bg-violet-500/[0.06] dark:border-violet-400/20 dark:bg-violet-400/[0.08];
+}
+
+.prose-docs .docs-callout--agent .docs-callout__label {
+  @apply text-violet-900 dark:text-violet-200;
+}
+
+.prose-docs .docs-callout--note {
+  @apply border-accent/30 bg-accent/[0.06];
+}
+
+.prose-docs .docs-callout--note .docs-callout__label {
+  @apply text-accent;
+}
+
+.prose-docs .docs-callout--warn {
+  @apply border-amber-500/30 bg-amber-500/[0.08];
+}
+
+.prose-docs .docs-callout--warn .docs-callout__label {
+  @apply text-amber-900 dark:text-amber-200;
+}
+
+.prose-docs .docs-callout--tip {
+  @apply border-emerald-500/25 bg-emerald-500/[0.06];
+}
+
+.prose-docs .docs-callout--tip .docs-callout__label {
+  @apply text-emerald-900 dark:text-emerald-200;
+}
+
 .prose-docs hr {
   @apply my-10 border-border;
 }
 
 .prose-docs strong {
   @apply font-semibold text-foreground;
+}
+
+.prose-docs a:focus-visible {
+  @apply rounded-sm outline-2 outline-offset-2 outline-[color:var(--ring)];
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--ring) 85%, transparent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: #131316 !important;
+  }
+
+  .prose-docs a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .prose-docs a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+
+  article[data-layer] {
+    box-shadow: none !important;
+    border: 1px solid #d4d2cc !important;
+    border-left-width: 3px !important;
+    break-inside: avoid;
+  }
+
+  .docs-skill-strip {
+    display: none !important;
+  }
+
+  pre,
+  .code-panel {
+    break-inside: avoid;
+    border: 1px solid #d4d2cc !important;
+  }
 }

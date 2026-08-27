@@ -15,12 +15,14 @@ import "./globals.css";
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-brand-sans",
   display: "swap",
 });
 
 const display = Newsreader({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-brand-display",
   display: "swap",
   adjustFontFallback: true,
@@ -28,6 +30,7 @@ const display = Newsreader({
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-brand-mono",
   display: "swap",
 });

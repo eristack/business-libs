@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ContentSection } from "@/components/stack/content-section";
+import { DocsHubRecommend } from "@/components/docs-hub-recommend";
 import { DocsHubPaths } from "@/components/docs-hub-paths";
 import { DocsLayerMatrix } from "@/components/docs-layer-matrix";
 import { LayerStrip } from "@/components/stack/layer-strip";
@@ -56,6 +57,15 @@ export default function DocsIndexPage() {
         }
         footer={<LayerStrip className="max-w-5xl" />}
       />
+
+      <ContentSection
+        eyebrow="Agent routing"
+        title="What recommend() suggests"
+        description="Example product language mapped through @eristack/ai-knowledge recipes at build time."
+        tone="card"
+      >
+        <DocsHubRecommend />
+      </ContentSection>
 
       <ContentSection
         eyebrow="Guided paths"

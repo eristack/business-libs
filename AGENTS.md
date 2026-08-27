@@ -142,6 +142,7 @@ pnpm knowledge:sync
 pnpm knowledge:check
 pnpm docs:sync        # after package docs add/remove/reorder — updates _meta.json sections
 pnpm docs:check       # CI — validates docs/_meta.json vs on-disk markdown
+pnpm --filter @eristack/web contrast:check  # CI — layer accent WCAG AA + brand-tokens ↔ globals.css sync
 pnpm exports:check   # after pnpm build — validates export map + dist artifacts
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
