@@ -207,7 +207,7 @@ Categories under `packages/` (order matters):
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)
-- `roadmap/` — living priority stack for future packages (also rendered at `/roadmap` on the site)
+- `roadmap/` — living priority stack for future packages (also rendered at `/roadmap` on the site); draft-only catalog at `roadmap/horizon.md`
 - `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)

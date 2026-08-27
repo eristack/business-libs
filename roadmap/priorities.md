@@ -57,6 +57,8 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 - GraphQL gateway — REST + typed clients first
 - Replacing TanStack Intent — skills stay the guidance layer
 
+Draft package catalog (not sequenced here): [Horizon](./horizon.md).
+
 ## Onboarding
 
 [/start](/start) on the site — pnpm monorepo, selective `@eristack/*` installs, Intent / ai-knowledge. Not a package.

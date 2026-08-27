@@ -22,3 +22,5 @@ Seven layers organize the monorepo and site. Lower layers never import higher on
 | UI | doc-shell, command palette | With multitab alpha |
 
 Full horizon list: [Backlog](./backlog.md). Sequenced work: [Priorities](./priorities.md).
+
+**Draft-only ideas** (do not change this table until promoted): [Horizon](./horizon.md).
