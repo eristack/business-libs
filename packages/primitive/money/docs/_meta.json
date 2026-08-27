@@ -24,5 +24,50 @@
     "react",
     "recipes",
     "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "gotchas",
+        "currency",
+        "amounts",
+        "arithmetic",
+        "advanced-arithmetic",
+        "rounding",
+        "allocate",
+        "formatting",
+        "conversion",
+        "serialization"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "adapters",
+        "drizzle",
+        "rest",
+        "zod",
+        "express",
+        "nest",
+        "client",
+        "react"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes",
+        "api-reference"
+      ]
+    }
   ]
 }

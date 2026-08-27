@@ -1,5 +1,6 @@
 import { listBlogPosts } from "@/lib/blog";
-import { getDocPackages } from "@/lib/docs";
+import { getDoc, getDocPackages } from "@/lib/docs";
+import { stripMarkdownForSearch } from "@/lib/doc-search-text";
 import {
   companyNav,
   packageCategories,
@@ -21,28 +22,49 @@ export type SearchItem = {
 export function buildSearchIndex(): SearchItem[] {
   const items: SearchItem[] = [];
 
-  const nav = [
-    { href: "/", label: "Home", description: siteConfig.tagline },
-    ...primaryNav.map((link) => ({
-      href: link.href,
-      label: link.label,
-      description: undefined as string | undefined,
-    })),
-    ...companyNav.map((link) => ({
-      href: link.href,
-      label: link.label,
-      description: undefined as string | undefined,
-    })),
-  ];
+  const navLinks = new Map<
+    string,
+    { href: string; label: string; description?: string; keywords: string[] }
+  >();
 
-  for (const link of nav) {
+  const addNavLink = (link: {
+    href: string;
+    label: string;
+    description?: string;
+  }) => {
+    const existing = navLinks.get(link.href);
+    if (existing) {
+      if (!existing.keywords.includes(link.label)) {
+        existing.keywords.push(link.label);
+      }
+      if (link.description && !existing.description) {
+        existing.description = link.description;
+      }
+      return;
+    }
+
+    navLinks.set(link.href, {
+      href: link.href,
+      label: link.label,
+      description: link.description,
+      keywords: [link.label, link.description].filter(
+        (value): value is string => Boolean(value),
+      ),
+    });
+  };
+
+  addNavLink({ href: "/", label: "Home", description: siteConfig.tagline });
+  for (const link of primaryNav) addNavLink(link);
+  for (const link of companyNav) addNavLink(link);
+
+  for (const link of navLinks.values()) {
     items.push({
       id: `nav-${link.href}`,
       title: link.label,
       description: link.description,
       href: link.href,
       group: "Navigation",
-      keywords: link.label,
+      keywords: link.keywords.join(" "),
     });
   }
 
@@ -85,13 +107,15 @@ export function buildSearchIndex(): SearchItem[] {
       pkg.category;
     for (const page of pkg.pages) {
       const label = page.slug === "index" ? "Overview" : page.title;
+      const doc = getDoc(pkg.slug, page.slug === "index" ? "index" : page.slug);
+      const bodyText = doc ? stripMarkdownForSearch(doc.content) : "";
       items.push({
         id: `doc-${pkg.slug}-${page.slug}`,
         title: `${pkg.title} · ${label}`,
         description: page.description ?? page.sourcePath,
         href: page.href,
         group: "Docs",
-        keywords: `${pkg.name} ${pkg.title} ${label} ${page.description ?? ""} ${page.sourcePath} ${category} ${pkg.category}`,
+        keywords: `${pkg.name} ${pkg.title} ${label} ${page.description ?? ""} ${page.sourcePath} ${category} ${pkg.category} ${bodyText}`,
       });
     }
   }

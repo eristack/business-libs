@@ -140,6 +140,8 @@ pnpm skills:list
 pnpm skills:validate
 pnpm knowledge:sync
 pnpm knowledge:check
+pnpm docs:sync        # after package docs add/remove/reorder — updates _meta.json sections
+pnpm docs:check       # CI — validates docs/_meta.json vs on-disk markdown
 pnpm exports:check   # after pnpm build — validates export map + dist artifacts
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
@@ -156,7 +158,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
 - **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
-- **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. Do not finish with fresh docs and stale agent knowledge. See `.cursor/rules/ai-knowledge-sync.mdc`. CI enforces catalog freshness.
+- **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. When doc **pages** change, also run `pnpm docs:sync` and commit `_meta.json`. CI runs `pnpm docs:check`. Do not finish with fresh docs and stale agent knowledge or nav catalog. See `.cursor/rules/ai-knowledge-sync.mdc`.
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.

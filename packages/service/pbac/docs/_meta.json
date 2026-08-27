@@ -15,5 +15,40 @@
   "document-policies": "Document policies",
   "edge-cases": "Edge cases",
   "adapters": "Adapters",
-  "recipes": "Recipes"
+  "recipes": "Recipes",
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "document-policies",
+        "edge-cases"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "adapters"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
+  ]
 }

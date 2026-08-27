@@ -12,5 +12,38 @@
     "recipes",
     "api-reference",
     "backseat"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "format",
+        "sequencing",
+        "formats-and-listing",
+        "stores",
+        "http-and-ui"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes",
+        "api-reference"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
   ]
 }

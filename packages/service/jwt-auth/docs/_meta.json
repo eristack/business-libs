@@ -13,5 +13,44 @@
     "recipes",
     "security",
     "backseat"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "credentials",
+        "tokens-and-refresh",
+        "sessions",
+        "http",
+        "database",
+        "client-and-react"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "security"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
   ]
 }

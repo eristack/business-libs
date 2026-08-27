@@ -9,5 +9,32 @@
   "index": "Overview",
   "getting-started": "Getting started",
   "concepts": "Concepts",
-  "recipes": "Recipes"
+  "recipes": "Recipes",
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
+  ]
 }

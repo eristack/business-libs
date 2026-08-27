@@ -16,5 +16,30 @@
   "suggestion-tickets": "Suggestion tickets",
   "subscription": "Subscription",
   "workflow": "Workflow",
-  "recipes": "Recipes"
+  "recipes": "Recipes",
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "ticket-schema",
+        "bug-tickets",
+        "suggestion-tickets",
+        "subscription",
+        "workflow"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    }
+  ]
 }

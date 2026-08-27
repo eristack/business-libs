@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, ChevronsUpDown, History } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { DocMeta } from "@/lib/docs";
-import { LayerBadge } from "@/components/stack/layer-badge";
+import type { DocNavSection } from "@/lib/docs";
+import { DocsNavTree } from "@/components/docs-nav-tree";
 import { StatusBadge } from "@/components/stack/status-badge";
 import { VersionBadge } from "@/components/stack/version-badge";
 import {
@@ -24,7 +23,7 @@ type PackageReleaseSummary = {
 type DocsSidebarProps = {
   packageSlug: string;
   packageName: string;
-  pages: DocMeta[];
+  sections: DocNavSection[];
   releases: Record<string, PackageReleaseSummary>;
 };
 
@@ -62,11 +61,7 @@ function PackageSwitcher({
   }, [open]);
 
   return (
-    <div ref={rootRef} className="relative">
-      <p className="mb-2 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-        Library
-      </p>
-
+    <div ref={rootRef} className="relative" data-layer={current.category}>
       <button
         type="button"
         aria-expanded={open}
@@ -74,33 +69,40 @@ function PackageSwitcher({
         aria-haspopup="listbox"
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "flex w-full items-center gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5 text-left shadow-sm",
-          "transition-colors hover:border-muted-foreground/30",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "group flex w-full overflow-hidden rounded-lg border border-border/60 bg-card/70 text-left shadow-[0_1px_2px_rgba(26,24,20,0.03)] backdrop-blur-sm",
+          "transition-[border-color,background-color,box-shadow] duration-150",
+          "hover:border-border hover:bg-card hover:shadow-sm",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          open && "border-border bg-card shadow-sm",
         )}
       >
-        <div className="min-w-0 flex-1">
-          <div className="mb-1 flex flex-wrap items-center gap-1.5">
-            <LayerBadge categoryId={current.category} link={false} />
-            <StatusBadge status={current.status} />
-            {currentRelease ? (
-              <VersionBadge version={currentRelease.version} />
-            ) : null}
-          </div>
-          <p className="truncate text-[14px] font-semibold tracking-tight text-foreground">
-            {current.title}
-          </p>
-          <p className="truncate font-mono text-[11px] text-muted-foreground">
-            {current.name}
-          </p>
-        </div>
-        <ChevronsUpDown
-          className={cn(
-            "size-4 shrink-0 text-muted-foreground transition-colors",
-            open && "text-foreground",
-          )}
+        <span
+          className="w-[3px] shrink-0 self-stretch bg-[color:var(--layer-accent)]"
           aria-hidden
         />
+        <div className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2.5">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[13px] font-semibold tracking-tight text-foreground">
+              {current.title}
+            </p>
+            <p className="mt-0.5 truncate font-mono text-[10.5px] text-muted-foreground">
+              {current.name}
+              {currentRelease ? (
+                <span className="text-muted-foreground/70">
+                  {" "}
+                  · v{currentRelease.version}
+                </span>
+              ) : null}
+            </p>
+          </div>
+          <ChevronsUpDown
+            className={cn(
+              "size-3.5 shrink-0 text-muted-foreground/70 transition-colors group-hover:text-muted-foreground",
+              open && "text-foreground",
+            )}
+            aria-hidden
+          />
+        </div>
       </button>
 
       {open ? (
@@ -108,9 +110,9 @@ function PackageSwitcher({
           id={panelId}
           role="listbox"
           aria-label="Switch documentation library"
-          className="absolute top-[calc(100%+0.35rem)] left-0 z-30 w-[min(100vw-2rem,20rem)] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-lg md:w-[20.5rem]"
+          className="absolute top-[calc(100%+0.4rem)] left-0 z-30 w-[min(100vw-2rem,20rem)] overflow-hidden rounded-xl border border-border/80 bg-popover/95 text-popover-foreground shadow-xl backdrop-blur-md md:w-[20.5rem]"
         >
-          <div className="max-h-[min(26rem,62vh)] overflow-y-auto">
+          <div className="docs-sidebar-scroll max-h-[min(26rem,62vh)] overflow-y-auto">
             {packageCategories.map((category, categoryIdx) => {
               const items = packages.filter(
                 (pkg) => pkg.category === category.id,
@@ -119,12 +121,12 @@ function PackageSwitcher({
               return (
                 <div
                   key={category.id}
-                  className={cn(categoryIdx > 0 && "border-t border-border")}
+                  className={cn(categoryIdx > 0 && "border-t border-border/60")}
                   data-layer={category.id}
                 >
-                  <div className="sticky top-0 z-10 flex items-center gap-2 bg-muted/90 px-3 py-2 backdrop-blur-sm">
+                  <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-border/40 bg-muted/80 px-3 py-2 backdrop-blur-md">
                     <span
-                      className="h-4 w-0.5 rounded-full bg-[color:var(--layer-accent)]"
+                      className="h-3.5 w-0.5 rounded-full bg-[color:var(--layer-accent)]"
                       aria-hidden
                     />
                     <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
@@ -132,7 +134,7 @@ function PackageSwitcher({
                       {category.label}
                     </p>
                   </div>
-                  <ul className="px-1.5 py-1.5">
+                  <ul className="p-1.5">
                     {items.map((pkg) => {
                       const active = pkg.slug === packageSlug;
                       const release = releases[pkg.slug];
@@ -144,15 +146,15 @@ function PackageSwitcher({
                             aria-selected={active}
                             onClick={() => setOpen(false)}
                             className={cn(
-                              "flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-colors",
+                              "flex items-center gap-2 rounded-md px-2.5 py-2 transition-colors",
                               active
-                                ? "bg-accent/10 text-foreground"
-                                : "text-foreground hover:bg-muted",
+                                ? "bg-accent/8 text-foreground ring-1 ring-accent/12"
+                                : "text-foreground hover:bg-muted/80",
                             )}
                           >
                             <div className="min-w-0 flex-1">
                               <div className="flex flex-wrap items-center gap-1.5">
-                                <p className="truncate text-[13px] font-semibold tracking-tight">
+                                <p className="truncate text-[13px] font-medium tracking-tight">
                                   {pkg.title}
                                 </p>
                                 <StatusBadge status={pkg.status} />
@@ -179,7 +181,7 @@ function PackageSwitcher({
               );
             })}
           </div>
-          <div className="space-y-1.5 border-t border-border bg-muted/40 px-3 py-2">
+          <div className="space-y-1 border-t border-border/60 bg-muted/30 px-3 py-2.5">
             <Link
               href={current.href}
               onClick={() => setOpen(false)}
@@ -203,80 +205,82 @@ function PackageSwitcher({
   );
 }
 
+function SidebarLink({
+  href,
+  icon: Icon,
+  children,
+}: {
+  href: string;
+  icon: typeof BookOpen;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:bg-card/60 hover:text-foreground"
+    >
+      <Icon
+        className="size-3.5 shrink-0 opacity-50 transition-opacity group-hover:opacity-80"
+        aria-hidden
+      />
+      <span className="truncate">{children}</span>
+    </Link>
+  );
+}
+
 export function DocsSidebar({
   packageSlug,
-  packageName,
-  pages,
+  sections,
   releases,
 }: DocsSidebarProps) {
-  const pathname = usePathname();
+  const current = packages.find((pkg) => pkg.slug === packageSlug)!;
   const release = releases[packageSlug];
 
   return (
-    <aside className="w-full shrink-0 md:w-64 lg:w-72">
-      <div className="sticky top-[4.5rem] space-y-6">
+    <aside className="hidden w-full shrink-0 md:block md:w-[15.5rem] lg:w-[16.5rem]">
+      <div className="sticky top-[3.75rem] flex max-h-[calc(100svh-4.25rem)] flex-col gap-4">
         <PackageSwitcher packageSlug={packageSlug} releases={releases} />
 
-        <div>
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <p className="font-mono text-[11px] text-muted-foreground">
-              {packageName}
+        <div
+          data-layer={current.category}
+          className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border/50 bg-card/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] dark:bg-card/20 dark:shadow-none"
+        >
+          <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border/40 px-3 py-2.5">
+            <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              Contents
             </p>
-            {release ? <VersionBadge version={release.version} href={release.changelogHref} /> : null}
+            {release ? (
+              <VersionBadge
+                version={release.version}
+                href={release.changelogHref}
+              />
+            ) : null}
           </div>
-          <nav className="flex flex-col rounded-xl border border-border bg-card py-2 shadow-sm">
-            {pages.map((page, index) => {
-              const active = pathname === page.href;
-              return (
-                <Link
-                  key={page.slug}
-                  href={page.href}
-                  className={cn(
-                    "group flex items-baseline gap-3 py-1.5 pr-3 pl-3 text-[13px] transition-colors",
-                    active
-                      ? "bg-accent/10 font-medium text-foreground dark:bg-accent/15"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "w-5 font-mono text-[10px] tabular-nums",
-                      active ? "text-accent" : "text-muted-foreground/70",
-                    )}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0 truncate">
-                    {page.slug === "index" ? "Overview" : page.title}
-                  </span>
-                </Link>
-              );
-            })}
-          </nav>
+
+          <div className="docs-sidebar-scroll min-h-0 flex-1 overflow-y-auto px-1.5 py-2">
+            <DocsNavTree
+              sections={sections}
+              layerId={current.category}
+            />
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2 text-[13px] font-medium">
+        <nav
+          aria-label="Documentation shortcuts"
+          className="shrink-0 space-y-0.5 border-t border-border/45 pt-3"
+        >
           {release ? (
-            <Link
-              href={release.changelogHref}
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
+            <SidebarLink href={release.changelogHref} icon={History}>
               Changelog · v{release.version}
-            </Link>
+            </SidebarLink>
           ) : null}
-          <Link
-            href="/docs"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            ← All documentation
-          </Link>
-          <Link
-            href="/packages"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <SidebarLink href="/docs" icon={ArrowLeft}>
+            All documentation
+          </SidebarLink>
+          <SidebarLink href="/packages" icon={BookOpen}>
             Browse libraries
-          </Link>
-        </div>
+          </SidebarLink>
+        </nav>
       </div>
     </aside>
   );

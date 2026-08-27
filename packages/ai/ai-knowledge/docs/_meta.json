@@ -10,5 +10,36 @@
     "architecture",
     "skills",
     "sync"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "upgrading",
+        "recommend"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "authoring",
+        "architecture",
+        "skills",
+        "sync"
+      ]
+    }
   ]
 }

@@ -13,5 +13,39 @@
   "concepts": "Concepts",
   "hashing": "Hashing & tamper",
   "adapters": "Adapters",
-  "recipes": "Recipes"
+  "recipes": "Recipes",
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "hashing"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "adapters"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
+  ]
 }
