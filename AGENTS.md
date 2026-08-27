@@ -13,6 +13,9 @@ tanstackIntent:
   - id: "@eristack/ai-workflow#ai-workflow-mcp"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
     for: "Install eristack-workflow MCP alongside existing MCP servers; tool inventory; search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project."
+  - id: "@eristack/ai-dev#ai-dev-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core"
+    for: "Unified eristack CLI: plan --json (token-minimal), check profiles (catalog/pr/full = CI), sync docs/knowledge, eristack-mcp dev tools. Use before chaining pnpm scripts."
   - id: "@eristack/ai-knowledge#architecture-recommend"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend"
     for: "Canon app architecture: TypeScript, Express or NestJS, Drizzle (Postgres prod / SQLite tests), presentation-business-persistence separation, React+Vite+Tailwind+shadcn, TanStack Router file-based + Query + Form + Intent, Zustand, API contracts, pnpm monorepo. Use when scaffolding or choosing stack/structure."
@@ -136,19 +139,14 @@ This file is for AI coding agents. Keep the `intent-skills` block above near the
 Useful commands:
 
 ```bash
+pnpm eristack plan --json          # token-minimal: what to run next (agents start here)
+pnpm eristack check --profile pr --skip-build   # CI gate (after pnpm build)
+pnpm ci                            # build + full profile
+pnpm eristack sync knowledge       # after recipes/skills/catalog edits
+pnpm eristack sync docs            # after package docs nav edits
 pnpm skills:list
-pnpm skills:validate
-pnpm knowledge:sync
-pnpm knowledge:check
-pnpm docs:sync        # after package docs add/remove/reorder — updates _meta.json sections
-pnpm docs:check       # CI — validates docs/_meta.json vs on-disk markdown
-pnpm --filter @eristack/web contrast:check  # CI — layer accent WCAG AA + brand-tokens ↔ globals.css sync
-pnpm exports:check   # after pnpm build — validates export map + dist artifacts
-pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend
+pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
-pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts
-pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core
-pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core
 ```
 
 ## Repo conventions agents must follow
@@ -205,6 +203,7 @@ Categories under `packages/` (order matters):
 - `packages/infrastructure/backseat` — `@eristack/backseat` (in-browser mock REST engine — alpha)
 - `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab ERP workspace — coming soon)
 - `packages/features/` — ERP feature modules (product, procurement, …) — layer coming soon; see `roadmap/`
+- `packages/ai/ai-dev` — `@eristack/ai-dev` (unified `eristack` CLI + MCP: plan, check profiles, sync)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)

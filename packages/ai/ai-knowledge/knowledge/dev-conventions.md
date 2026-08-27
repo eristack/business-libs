@@ -82,7 +82,7 @@ Ship features in **one feature PR**; let Changesets + CI own version bumps in a 
 
 **If you accidentally ran `changeset version` locally:** revert only `version` + `CHANGELOG` + lockfile drift. Keep skills, recipes, generated catalog content, and docs — those are the feature.
 
-**Feature PR green bar:** `pnpm ci` (build, typecheck, test, exports:check, skills:validate, knowledge:check).
+**Feature PR green bar:** `pnpm ci` (=`pnpm build && pnpm eristack check --profile full --skip-build`). Agents: run `pnpm eristack plan --json` first for a minimal command list.
 
 **After feature PR merges to `main`:** the Release workflow opens **“chore: version packages”**. Review and merge it; npm publish runs on that merge.
 

@@ -778,6 +778,27 @@ recipes:
           - ai-workflow-core
         role: primary
 
+  - id: ai-dev-tooling
+    title: Monorepo plan, check profiles, and dev MCP
+    priority: 11
+    triggers:
+      - eristack plan
+      - dev tooling
+      - monorepo check
+      - ci profile
+      - pnpm ci
+      - dev mcp
+      - check profile
+      - token minimal check
+    rationale: >
+      Use @eristack/ai-dev before chaining scripts: eristack plan --json for minimal
+      next steps, eristack check --profile pr for CI parity, eristack-mcp for dev_plan/dev_check.
+    packages:
+      - name: "@eristack/ai-dev"
+        skills:
+          - ai-dev-core
+        role: primary
+
   - id: maintainer-tickets
     title: Bug reports and feature suggestions for maintainers
     priority: 15

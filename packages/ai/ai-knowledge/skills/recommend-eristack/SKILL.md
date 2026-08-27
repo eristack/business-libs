@@ -57,6 +57,15 @@ Adapters: `backseat`, `backseat/store`, `express`, `nest`, `react`
 - `@eristack/abac#abac-core` — Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.
   - Load: `pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core`
 
+### @eristack/ai-dev (v0.0.0)
+
+Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP
+
+Adapters: `repo`
+
+- `@eristack/ai-dev#ai-dev-core` — @eristack/ai-dev unified monorepo tooling: eristack plan (token-minimal), eristack check profiles (catalog/pr/full = CI), sync docs/knowledge, MCP dev_plan/dev_check. Use before ad-hoc pnpm script chains or reading every check doc.
+  - Load: `pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core`
+
 ### @eristack/ai-ticket-generator (v0.1.1)
 
 Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files

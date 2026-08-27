@@ -36,23 +36,5 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Check package exports (post-build)
-        run: pnpm exports:check
-
-      - name: Check pending changesets
-        run: pnpm changesets:check
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test
-
-      - name: Validate skills
-        run: pnpm skills:validate
-
-      - name: Check ai-knowledge catalog sync
-        run: pnpm knowledge:check
-
-      - name: Check package docs catalog sync
-        run: pnpm docs:check
+      - name: Unified check (CI profile)
+        run: pnpm eristack check --profile pr --skip-build
