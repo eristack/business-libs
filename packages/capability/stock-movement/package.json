@@ -77,10 +77,8 @@
     "test": "vitest run",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/hash-chained-ledger": "workspace:*"
-  },
   "peerDependencies": {
+    "@eristack/hash-chained-ledger": "^0.1.0",
     "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
     "@eristack/backseat": "^0.1.0"
   },
@@ -99,7 +97,11 @@
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10",
-    "@eristack/backseat": "workspace:*"
+    "@eristack/backseat": "workspace:*",
+    "@eristack/hash-chained-ledger": "workspace:*",
+    "@internal/test-harness": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0"
   },
   "license": "MIT"
 }

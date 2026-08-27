@@ -45,6 +45,11 @@ function commandForCheck(
         argv: ["pnpm", "exec", "turbo", "run", "test", ...filter],
         display: `turbo run test${filter.length ? " (filtered)" : ""}`,
       };
+    case "examples":
+      return {
+        argv: ["pnpm", "--filter", "./examples/*", "run", "typecheck"],
+        display: "pnpm --filter './examples/*' run typecheck",
+      };
     case "lint":
       return {
         argv: ["pnpm", "exec", "turbo", "run", "lint", ...filter],
@@ -59,6 +64,11 @@ function commandForCheck(
       return {
         argv: ["node", "scripts/check-changesets.mjs"],
         display: "pnpm changesets:check",
+      };
+    case "publish":
+      return {
+        argv: ["node", "scripts/check-publish-deps.mjs"],
+        display: "pnpm publish:check",
       };
     case "skills":
       return {

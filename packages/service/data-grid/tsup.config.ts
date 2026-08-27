@@ -20,6 +20,7 @@ export default defineConfig({
     "@eristack/backseat",
     "@eristack/backseat/store",
     "@eristack/backseat/adapters",
+    "@eristack/timestamp",
     "drizzle-orm",
     "drizzle-orm/pg-core",
     "drizzle-orm/mysql-core",

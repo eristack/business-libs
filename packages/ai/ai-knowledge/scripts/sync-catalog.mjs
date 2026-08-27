@@ -22,6 +22,7 @@ const repoRoot = findRepoRoot(packageRoot);
 const packagesDir = path.join(repoRoot, "packages");
 const catalogOut = path.join(packageRoot, "src/generated/catalog.ts");
 const recipesOut = path.join(packageRoot, "src/generated/recipes.ts");
+const localSkillsOut = path.join(packageRoot, "src/generated/local-skills.ts");
 const recipesYamlPath = path.join(packageRoot, "knowledge/recipes.yaml");
 const recommendSkillPath = path.join(
   packageRoot,
@@ -64,6 +65,7 @@ function listSiblingPackages() {
       if (!fs.existsSync(pkgJsonPath)) continue;
       const pkgJson = readJson(pkgJsonPath);
       const name = String(pkgJson.name ?? "");
+      if (pkgJson.private === true) continue;
       if (name === SELF_NAME) continue;
       if (!name.startsWith("@eristack/")) continue;
       found.push({
@@ -141,13 +143,53 @@ function loadRecipes() {
   }));
 }
 
-function validateRecipes(recipes, catalog) {
+function collectLocalSkills() {
+  const skillsDir = path.join(packageRoot, "skills");
+  const skills = [];
+  if (!fs.existsSync(skillsDir)) return skills;
+
+  const skillDirs = fs
+    .readdirSync(skillsDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort();
+
+  for (const skillName of skillDirs) {
+    const skillFile = path.join(skillsDir, skillName, "SKILL.md");
+    if (!fs.existsSync(skillFile)) continue;
+    const fm = parseFrontmatter(fs.readFileSync(skillFile, "utf8"));
+    const resolvedName = fm.name ?? skillName;
+    skills.push({
+      id: resolvedName,
+      name: resolvedName,
+      packageName: SELF_NAME,
+      description: foldDescription(fm.description ?? ""),
+      type: fm.metadata?.type ?? "core",
+      loadCommand: `pnpm dlx @tanstack/intent@latest load ${SELF_NAME}#${resolvedName}`,
+    });
+  }
+  return skills;
+}
+
+function renderLocalSkillsTs(localSkills) {
+  return `// AUTO-GENERATED — run pnpm knowledge:sync
+// Do not edit by hand.
+
+import type { CatalogSkill } from "../types.js";
+
+export const localSkills = ${JSON.stringify(localSkills, null, 2)} as CatalogSkill[];
+`;
+}
+
+function validateRecipes(recipes, catalog, localSkills) {
   const packageNames = new Set(catalog.map((pkg) => pkg.name));
-  const skillIds = new Set(
-    catalog.flatMap((pkg) =>
+  packageNames.add(SELF_NAME);
+  const skillIds = new Set([
+    ...catalog.flatMap((pkg) =>
       pkg.skills.map((skill) => `${pkg.name}#${skill.id}`),
     ),
-  );
+    ...localSkills.map((skill) => `${skill.packageName}#${skill.id}`),
+  ]);
 
   const errors = [];
   for (const recipe of recipes) {
@@ -164,6 +206,13 @@ function validateRecipes(recipes, catalog) {
             `recipe "${recipe.id}" references unknown skill ${key}`,
           );
         }
+      }
+    }
+    for (const ref of recipe.canonicalSkills ?? []) {
+      if (!skillIds.has(ref)) {
+        errors.push(
+          `recipe "${recipe.id}" references unknown canonicalSkill ${ref}`,
+        );
       }
     }
   }
@@ -200,27 +249,19 @@ export const recipes = ${JSON.stringify(recipes, null, 2)} as Recipe[];
 }
 
 function renderCatalogMarkdown(catalog) {
-  const lines = [];
+  const lines = [
+    `**${catalog.length} sibling packages** — full machine-readable catalog: \`getCatalog()\` from \`@eristack/ai-knowledge\` or run \`pnpm knowledge:sync\`.`,
+    "",
+    "| Package | Skills |",
+    "| --- | ---: |",
+  ];
   for (const pkg of catalog) {
-    lines.push(`### ${pkg.name} (v${pkg.version})`);
-    lines.push("");
-    lines.push(pkg.description || "_No description_");
-    lines.push("");
-    if (pkg.adapters.length > 0) {
-      lines.push(`Adapters: ${pkg.adapters.map((a) => `\`${a}\``).join(", ")}`);
-      lines.push("");
-    }
-    if (pkg.skills.length === 0) {
-      lines.push("_No Intent skills yet._");
-      lines.push("");
-      continue;
-    }
-    for (const skill of pkg.skills) {
-      lines.push(`- \`${pkg.name}#${skill.id}\` — ${skill.description}`);
-      lines.push(`  - Load: \`${skill.loadCommand}\``);
-    }
-    lines.push("");
+    lines.push(`| ${pkg.name} | ${pkg.skills.length} |`);
   }
+  lines.push("");
+  lines.push(
+    "Load `@eristack/ai-knowledge#recommend-eristack` then `loadPlan(goals)` — canonical ERP guides merge via `canonicalSkills` on recipes.",
+  );
   return lines.join("\n").trimEnd() + "\n";
 }
 
@@ -269,11 +310,13 @@ function main() {
     throw new Error("ai-knowledge must not catalog itself as a sibling package");
   }
 
+  const localSkills = collectLocalSkills();
   const recipes = loadRecipes();
-  validateRecipes(recipes, catalog);
+  validateRecipes(recipes, catalog, localSkills);
 
   const catalogTs = renderCatalogTs(catalog);
   const recipesTs = renderRecipesTs(recipes);
+  const localSkillsTs = renderLocalSkillsTs(localSkills);
   const skillUpdate = updateRecommendSkill(catalog);
 
   let ok = true;
@@ -288,10 +331,12 @@ function main() {
       ok = false;
     }
     ok = writeOrCheck(recipesOut, recipesTs) && ok;
+    ok = writeOrCheck(localSkillsOut, localSkillsTs) && ok;
     if (skillUpdate) ok = writeOrCheck(recommendSkillPath, skillUpdate) && ok;
   } else {
     ok = writeOrCheck(catalogOut, catalogTs) && ok;
     ok = writeOrCheck(recipesOut, recipesTs) && ok;
+    ok = writeOrCheck(localSkillsOut, localSkillsTs) && ok;
     if (skillUpdate) ok = writeOrCheck(recommendSkillPath, skillUpdate) && ok;
   }
 

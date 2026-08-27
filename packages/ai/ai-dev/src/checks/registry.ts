@@ -5,9 +5,11 @@ export type CheckId =
   | "build"
   | "typecheck"
   | "test"
+  | "examples"
   | "lint"
   | "exports"
   | "changesets"
+  | "publish"
   | "skills"
   | "knowledge"
   | "docs"
@@ -50,6 +52,12 @@ export const CHECK_DEFS: CheckDef[] = [
     order: 30,
   },
   {
+    id: "examples",
+    label: "example apps typecheck",
+    profiles: ["pr", "full"],
+    order: 32,
+  },
+  {
     id: "lint",
     label: "turbo lint",
     profiles: ["full"],
@@ -69,6 +77,12 @@ export const CHECK_DEFS: CheckDef[] = [
     label: "changeset policy",
     profiles: ["catalog", "pr", "full"],
     order: 45,
+  },
+  {
+    id: "publish",
+    label: "publish dependency hygiene",
+    profiles: ["pr", "full"],
+    order: 46,
   },
   {
     id: "skills",

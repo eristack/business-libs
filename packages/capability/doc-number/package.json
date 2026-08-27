@@ -102,6 +102,16 @@
         "types": "./dist/backseat/store/index.d.ts",
         "default": "./dist/backseat/store/index.cjs"
       }
+    },
+    "./testing": {
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.cjs"
+      }
     }
   },
   "files": [
@@ -127,11 +137,9 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/data-grid": "workspace:*",
-    "@eristack/timestamp": "workspace:*"
-  },
   "peerDependencies": {
+    "@eristack/data-grid": "^0.2.0",
+    "@eristack/timestamp": "^0.1.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
     "@nestjs/core": "^10.0.0 || ^11.0.0",
     "@tanstack/react-form": "catalog:",
@@ -183,7 +191,12 @@
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10",
-    "@eristack/backseat": "workspace:*"
+    "@eristack/backseat": "workspace:*",
+    "@eristack/data-grid": "workspace:*",
+    "@internal/test-harness": "workspace:*",
+    "@eristack/timestamp": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0"
   },
   "license": "MIT"
 }

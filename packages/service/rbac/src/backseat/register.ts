@@ -1,3 +1,7 @@
+import {
+  registerMountedRoutes,
+  validationError,
+} from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
 import { createRbac } from "../core/create-rbac.js";
 import type { PermissionName, Rbac, RbacConfig } from "../core/types.js";
@@ -8,12 +12,6 @@ export type RegisterRbacBackseatOptions = Omit<RbacConfig, "store"> & {
   /** Existing Rbac instance — when omitted, one is created from Backseat store. */
   rbac?: Rbac;
 };
-
-function normalizeBasePath(basePath: string): string {
-  const trimmed = basePath.trim();
-  if (!trimmed) return "";
-  return trimmed.startsWith("/") ? trimmed.replace(/\/$/, "") : `/${trimmed}`;
-}
 
 export function registerRbacBackseat(
   api: Backseat,
@@ -26,52 +24,37 @@ export function registerRbacBackseat(
       store: rbacStore,
       unknownPermissionDenied: options.unknownPermissionDenied,
     });
-  const base = normalizeBasePath(options.basePath ?? "/rbac");
+  const base = options.basePath ?? "/rbac";
 
-  api.registerRoute({
-    method: "GET",
-    path: `${base}/can`,
-    name: "rbac.can",
-    handler: async (ctx) => {
-      const subject = ctx.query("subject");
-      const permission = ctx.query("permission") as PermissionName | undefined;
-      if (!subject || !permission) {
-        return {
-          status: 400,
-          body: {
-            error: {
-              code: "VALIDATION_ERROR",
-              message: "subject and permission query params required",
-            },
-          },
-        };
-      }
-      const allowed = await rbac.can(subject, permission);
-      return { status: 200, body: { allowed } };
+  registerMountedRoutes(api, base, [
+    {
+      method: "GET",
+      segment: "/can",
+      name: "rbac.can",
+      handler: async (ctx) => {
+        const subject = ctx.query("subject");
+        const permission = ctx.query("permission") as PermissionName | undefined;
+        if (!subject || !permission) {
+          return validationError("subject and permission query params required");
+        }
+        const allowed = await rbac.can(subject, permission);
+        return { status: 200, body: { allowed } };
+      },
     },
-  });
-
-  api.registerRoute({
-    method: "POST",
-    path: `${base}/assign-role`,
-    name: "rbac.assign-role",
-    handler: async (ctx) => {
-      const body = ctx.json<{ subject?: string; role?: string }>();
-      if (!body.subject || !body.role) {
-        return {
-          status: 400,
-          body: {
-            error: {
-              code: "VALIDATION_ERROR",
-              message: "subject and role required",
-            },
-          },
-        };
-      }
-      await rbac.assignRole({ subject: body.subject, role: body.role });
-      return { status: 204, body: null };
+    {
+      method: "POST",
+      segment: "/assign-role",
+      name: "rbac.assign-role",
+      handler: async (ctx) => {
+        const body = ctx.json<{ subject?: string; role?: string }>();
+        if (!body.subject || !body.role) {
+          return validationError("subject and role required");
+        }
+        await rbac.assignRole({ subject: body.subject, role: body.role });
+        return { status: 204, body: null };
+      },
     },
-  });
+  ]);
 
   api.registerAction("rbac.can", async ({ input }) => {
     const { subject, permission } = input as {

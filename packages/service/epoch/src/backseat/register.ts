@@ -1,4 +1,8 @@
-import { registerRestLikeRoutes } from "@eristack/backseat/adapters";
+import {
+  joinRoutePath,
+  normalizeBasePath,
+  registerRestLikeRoutes,
+} from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
 import { createEpoch } from "../core/create-epoch.js";
 import type { Epoch, EpochConfig } from "../core/types.js";
@@ -9,12 +13,6 @@ export type RegisterEpochBackseatOptions = Omit<EpochConfig, "store"> & {
   basePath?: string;
   epoch?: Epoch;
 };
-
-function normalizeBasePath(basePath: string): string {
-  const trimmed = basePath.trim();
-  if (!trimmed) return "";
-  return trimmed.startsWith("/") ? trimmed.replace(/\/$/, "") : `/${trimmed}`;
-}
 
 export function registerEpochBackseat(
   api: Backseat,
@@ -33,19 +31,19 @@ export function registerEpochBackseat(
   registerRestLikeRoutes(api, [
     {
       method: "GET",
-      path: `${base}/:scope`,
+      path: joinRoutePath(base, "/:scope"),
       name: "epoch.current",
       handler: (req) => actions.getCurrent(req),
     },
     {
       method: "POST",
-      path: `${base}/:scope/bump`,
+      path: joinRoutePath(base, "/:scope/bump"),
       name: "epoch.bump",
       handler: (req) => actions.bump(req),
     },
     {
       method: "GET",
-      path: `${base}/:scope/cache-policy`,
+      path: joinRoutePath(base, "/:scope/cache-policy"),
       name: "epoch.cache-policy",
       handler: (req) => actions.resolveCachePolicy(req),
     },

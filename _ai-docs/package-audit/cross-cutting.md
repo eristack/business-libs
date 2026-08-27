@@ -30,13 +30,11 @@ Across **8 packages**, no integration test ever calls `createDrizzle*Store` or `
 
 ### Recommended shared harness (Sprint A)
 
-```
-packages/_test-harness/
-  drizzle-sqlite/
-    schema.ts          # minimal tables reused by consumers' tests
-    setup.ts           # migrate + in-memory sqlite or file temp
-    assertLedger.ts    # append N, verify, tamper one row
-    assertList.ts      # seed rows, run executeDrizzleList envelope
+Harness is **repo-internal** (`internal/test-harness/`), not under `packages/`:
+
+```bash
+internal/test-harness/
+  src/sqlite.ts        # createTestSqliteDb, execSql, canUseBetterSqlite
 ```
 
 **Design rules:**
@@ -391,7 +389,7 @@ Audit confirms **changesets:check** now prevents:
 
 | Theme | Likely paths |
 | --- | --- |
-| Harness | `packages/_test-harness/`, per-package `tests/drizzle*.test.ts` |
+| Harness | `internal/test-harness/`, per-package `tests/drizzle*.test.ts` |
 | loadPlan | `packages/ai/ai-knowledge/src/loadPlan.ts`, `recipes.yaml` |
 | Publish | `scripts/check-publish-deps.mjs`, 7× `package.json` |
 | Backseat | `packages/infrastructure/backseat/src/register-helpers.ts`, 9× register.ts |

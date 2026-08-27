@@ -211,6 +211,7 @@ Categories under `packages/` (order matters):
 - `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
 - `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
 - `examples/*` — private runnable demos (not published)
+- `internal/test-harness` — `@internal/test-harness` repo-only sqlite helpers for integration tests (not under `packages/`, not published)
 - `.changeset/` — pending release notes for Changesets
 - `.github/workflows/ci.yml` — PR/main checks
 - `.github/workflows/release.yml` — Version Packages PR + npm publish on `main`

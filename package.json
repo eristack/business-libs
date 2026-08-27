@@ -16,6 +16,8 @@
     "knowledge:sync": "pnpm eristack sync knowledge",
     "knowledge:check": "pnpm eristack sync knowledge --check",
     "exports:check": "node scripts/check-package-exports.mjs",
+    "publish:check": "node scripts/check-publish-deps.mjs",
+    "test:integration": "node scripts/run-integration-tests.mjs",
     "changesets:check": "node scripts/check-changesets.mjs",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
     "eristack": "node scripts/eristack-run.mjs",

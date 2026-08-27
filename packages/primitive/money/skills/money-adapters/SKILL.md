@@ -11,7 +11,7 @@ metadata:
   library: '@eristack/money'
   library_version: '0.3.0'
 sources:
-  - 'eristack/business-libs:packages/primitive/money/docs/adapters.md'
+  - 'eristack/business-libs:packages/primitive/money/docs/wiring-production.md'
 ---
 
 # @eristack/money — Adapters

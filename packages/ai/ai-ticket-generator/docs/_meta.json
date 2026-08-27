@@ -1,6 +1,7 @@
 {
   "pages": [
     "index",
+    "getting-started",
     "concepts",
     "ticket-schema",
     "bug-tickets",
@@ -21,7 +22,8 @@
     {
       "label": "Start",
       "pages": [
-        "index"
+        "index",
+        "getting-started"
       ]
     },
     {

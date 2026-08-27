@@ -67,7 +67,7 @@ Eristack is **strong on primitives and document-line math** (money, timestamp, q
 
 ### Sprint A — “Prove Drizzle” (reliability target)
 
-Single shared test harness: `packages/_test-harness/drizzle-sqlite/` (or one package) that runs:
+Single shared test harness: `internal/test-harness/` that runs:
 
 - HCL `createDrizzleLedgerStore` append/verify/snapshot
 - data-grid `executeDrizzleList` with wall + decimal columns

@@ -12,12 +12,7 @@ metadata:
   library: '@eristack/data-grid'
   library_version: '0.1.0'
 sources:
-  - 'eristack/business-libs:packages/service/data-grid/docs/database.md'
-  - 'eristack/business-libs:packages/service/data-grid/docs/http-and-ui.md'
-  - 'eristack/business-libs:packages/service/data-grid/docs/recipes.md'
-  - 'eristack/business-libs:packages/service/data-grid/src/drizzle/index.ts'
-  - 'eristack/business-libs:packages/service/data-grid/src/rest/index.ts'
-  - 'eristack/business-libs:packages/service/data-grid/src/react/index.ts'
+  - 'eristack/business-libs:packages/service/data-grid/docs/wiring-production.md'
 ---
 
 # @eristack/data-grid — Adapters

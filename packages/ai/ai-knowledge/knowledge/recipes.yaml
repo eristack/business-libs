@@ -166,6 +166,9 @@ recipes:
       - amount only
       - flat amount
       - shared currency line
+      - applyCellPatch
+      - cell patch
+      - spreadsheet cell edit
     rationale: >
       Use @eristack/qups calculateLine/patchLine for quantity/unit-price/subtotal
       (exact ratio when UP+S), modifiers, and tax — same math in TanStack Form and
@@ -301,6 +304,10 @@ recipes:
       - decimal column
       - money column
       - unit price list
+      - compareDecimalStrings
+      - wall date filter
+      - transaction_date filter
+      - compareWallValues
       - decimal string
     rationale: >
       Use @eristack/data-grid for schema-aware list queries. For decimal money
@@ -362,6 +369,7 @@ recipes:
       - epoch
       - optimistic cache
       - tanstack query invalidate
+      - bumpMany
     rationale: >
       Use @eristack/epoch for headless per-scope version counters: bump after mutations,
       resolveCachePolicy returns use-cache vs refetch for TanStack Query. Drizzle default;
@@ -410,6 +418,9 @@ recipes:
       - in-browser api
       - backseat
       - indexeddb api
+      - store atomic
+      - atomic transaction backseat
+      - listRoutes
     rationale: >
       Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md
       §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat
@@ -450,6 +461,8 @@ recipes:
       qups + money + doc-number + data-grid wall lists + rbac/abac/pbac + epoch.
       Horizon B — same paths on Drizzle/Express (upgrading-eristack §3). Do not
       default to stock-movement, valuations, or financial-ledger for job/invoice products.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#backseat-then-backend"
     packages:
       - name: "@eristack/backseat"
         skills:
@@ -489,6 +502,8 @@ recipes:
       and read knowledge/document-lines-erp.md only. qups + money + doc-number +
       data-grid + pbac + backseat — not stock-movement/valuations/financial-ledger.
       Partner/product masters app-owned; feature-partner coming soon — do not invent packages.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#document-lines-erp"
     packages:
       - name: "@eristack/qups"
         skills:
@@ -526,11 +541,41 @@ recipes:
       ERP aggregates: load @eristack/ai-knowledge#optimistic-document-version
       and read knowledge/optimistic-document-version.md. version + expectedVersion
       on PATCH; 409 CONFLICT_VERSION via @eristack/backseat jsonError — distinct from epoch.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#optimistic-document-version"
     packages:
       - name: "@eristack/backseat"
         skills:
           - backseat-core
         role: primary
+
+  - id: http-errors
+    title: HTTP 409 error envelope (version, policy, epoch)
+    priority: 11
+    triggers:
+      - "409"
+      - conflict version
+      - policy denied
+      - stale epoch
+      - json error
+      - error envelope
+      - version conflict
+      - business policy denied
+    rationale: >
+      Unified JSON error canon: CONFLICT_VERSION, POLICY_DENIED, BUSINESS_POLICY_DENIED,
+      STALE_EPOCH. Load @eristack/ai-knowledge#http-errors and knowledge/http-errors.md.
+      Backseat jsonError/versionConflict; Express mapDomainError; distinct from epoch vs document version.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#http-errors"
+    packages:
+      - name: "@eristack/backseat"
+        skills:
+          - backseat-core
+        role: primary
+      - name: "@eristack/epoch"
+        skills:
+          - epoch-core
+        role: supporting
 
   - id: multitab-workspace
     title: Multi-document ERP tab workspace
@@ -573,6 +618,9 @@ recipes:
       - business policy
       - goods receipt limit
       - book value limit
+      - documents.transitions
+      - assignmentPairMatch
+      - document transition
     rationale: >
       Use @eristack/rbac for boolean role permissions, @eristack/abac for
       attribute policies (e.g. max book value), and @eristack/pbac for document

@@ -33,6 +33,8 @@ export type Recipe = {
   priority: number;
   triggers: string[];
   rationale: string;
+  /** Machine-readable canonical skills (e.g. @eristack/ai-knowledge#document-lines-erp). */
+  canonicalSkills?: string[];
   packages: RecipePackageRef[];
 };
 

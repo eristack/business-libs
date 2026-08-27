@@ -12,7 +12,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **A-001** | Shared drizzle-sqlite test harness | M | infra | `packages/_test-harness/drizzle-sqlite` with migrate helper; documented in dev-conventions; consumed by ≥1 package test |
+| **A-001** | Shared drizzle-sqlite test harness | M | infra | `internal/test-harness` with migrate helper; documented in dev-conventions; consumed by ≥1 package test |
 | **A-002** | HCL `createDrizzleLedgerStore` integration test | M | hash-chained-ledger | append ×3, snapshot, verify pass; tamper hash → verify fails |
 | **A-003** | data-grid `executeDrizzleList` integration test | M | data-grid | sqlite orders fixture; eq, between wall, decimal gte, sort, cursor, count |
 | **A-004** | data-grid `buildDrizzleQuery` unit+SQL snapshot | S | data-grid | Generated SQL matches fixture for 3 filter combos |

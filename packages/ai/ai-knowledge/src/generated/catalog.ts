@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-27T16:35:01.010Z",
+  "generatedAt": "2026-08-27T17:19:56.312Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -175,7 +175,8 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing"
       ],
       "skills": [
         {
@@ -209,7 +210,8 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing"
       ],
       "skills": [
         {
@@ -267,7 +269,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {
@@ -301,7 +304,8 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing"
       ],
       "skills": [
         {
@@ -422,7 +426,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {
@@ -462,7 +467,8 @@ export const catalog = {
         "drizzle",
         "express",
         "nest",
-        "react"
+        "react",
+        "testing"
       ],
       "skills": [
         {
@@ -553,7 +559,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {

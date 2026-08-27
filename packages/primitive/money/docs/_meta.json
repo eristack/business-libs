@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "getting-started",
+    "wiring-production",
     "concepts",
     "gotchas",
     "currency",
@@ -36,6 +37,7 @@
     {
       "label": "Guides",
       "pages": [
+        "wiring-production",
         "concepts",
         "gotchas",
         "currency",

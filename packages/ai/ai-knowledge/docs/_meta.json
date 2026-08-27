@@ -7,6 +7,8 @@
     "backseat-then-backend",
     "document-lines-erp",
     "optimistic-document-version",
+    "http-errors",
+    "ai-toolbox-decision-tree",
     "recommend",
     "recipes",
     "authoring",
@@ -29,6 +31,8 @@
         "backseat-then-backend",
         "document-lines-erp",
         "optimistic-document-version",
+        "http-errors",
+        "ai-toolbox-decision-tree",
         "recommend"
       ]
     },
