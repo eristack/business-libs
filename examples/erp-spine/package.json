@@ -1,0 +1,18 @@
+{
+  "name": "@eristack/example-erp-spine",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run --config ../../packages/capability/stock-movement/vitest.config.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@eristack/qups": "workspace:*",
+    "@eristack/stock-movement": "workspace:*",
+    "@eristack/hash-chained-ledger": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
+}

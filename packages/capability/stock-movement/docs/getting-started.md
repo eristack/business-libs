@@ -68,5 +68,23 @@ const snap = await stock.snapshot({
 await stock.verify({ locationId, lotId: "LOT-1", ownerId: "SKU-9" });
 ```
 
+## Retry-safe posting
+
+Pass **`idempotencyKey`** when the same GR line might post twice (HTTP retry, outbox worker):
+
+```ts
+await stock.append({
+  locationId,
+  lotId: "LOT-1",
+  inAmount: "10",
+  entryType: "goods_receipt",
+  entryTypeId: "gr-line-1",
+  idempotencyKey: "gr-100-line-1",
+});
+// Second append with the same key returns the first entry — balance unchanged.
+```
+
+Procurement transition rules: `@eristack/ai-knowledge` → `knowledge/pbac-transitions.md`.
+
 Unit tests may import `createMemoryLedgerStore` from
 `@eristack/hash-chained-ledger` — never as the deployed default.

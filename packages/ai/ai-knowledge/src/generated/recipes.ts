@@ -760,6 +760,100 @@ export const recipes = [
     ]
   },
   {
+    "id": "hash-chain-audit",
+    "title": "Audit trail and tamper-evident ledger",
+    "priority": 25,
+    "triggers": [
+      "audit trail",
+      "tamper",
+      "tamper detection",
+      "tamper-evident",
+      "hash chain",
+      "append-only ledger",
+      "immutable log"
+    ],
+    "rationale": "Use @eristack/hash-chained-ledger for SHA-256 chained append-only entries. Stock, financial, and valuation packages compose this primitive in production.",
+    "packages": [
+      {
+        "name": "@eristack/hash-chained-ledger",
+        "skills": [
+          "hash-chained-ledger-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "ai-workflow-memory",
+    "title": "Sprint backlog and local project memory",
+    "priority": 12,
+    "triggers": [
+      "sprint",
+      "backlog",
+      "adr",
+      "project memory",
+      "mcp workflow",
+      "eristack workflow",
+      ".eristack/workflow"
+    ],
+    "rationale": "Use @eristack/ai-workflow for local MCP, FTS+vector index, and sprint/backlog folders under .eristack/workflow — complements Intent, does not replace git.",
+    "packages": [
+      {
+        "name": "@eristack/ai-workflow",
+        "skills": [
+          "ai-workflow-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "procurement-spine",
+    "title": "PO to goods receipt (compose existing packages)",
+    "priority": 7,
+    "triggers": [
+      "goods receipt",
+      "receive stock",
+      "po to gr",
+      "post receipt",
+      "procurement spine",
+      "receive against po",
+      "gr posting"
+    ],
+    "rationale": "Before @eristack/feature-procurement ships, compose qups lines + pbac transitions + stock-movement append (use idempotencyKey). Canonical guides in @eristack/ai-knowledge knowledge/procurement-spine.md and pbac-transitions.md.",
+    "packages": [
+      {
+        "name": "@eristack/qups",
+        "skills": [
+          "qups-line",
+          "qups-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/stock-movement",
+        "skills": [
+          "stock-movement-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/pbac",
+        "skills": [
+          "pbac-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/doc-number",
+        "skills": [
+          "doc-number-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "maintainer-tickets",
     "title": "Bug reports and feature suggestions for maintainers",
     "priority": 15,
