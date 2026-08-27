@@ -33,6 +33,7 @@ Full table: `knowledge/agent-workflow.md` § Design targets.
 
 - **GitHub Flow** — feature branch → PR → `main` only
 - **Changesets** required for user-facing package changes; not for docs/CI-only
+- **One file per package**, **`patch` on 0.1.x** — `pnpm changesets:check` enforces (no mega changelog, no accidental 1.0.0)
 - **Core vs adapters** — no framework imports in core; adapters are separate exports
 - **Child resources** — credentials / refresh / formats hang off app-owned entities
 - **Docs** — `packages/<category>/<name>/docs` is source of truth; don’t duplicate in the web app

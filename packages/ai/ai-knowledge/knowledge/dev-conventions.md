@@ -54,6 +54,12 @@ Category order (docs + filesystem): primitive → capability → service → inf
 
 Routine features/fixes on packages already past `0.0.0`: use **`patch`**. Use **`minor`** on `0.0.0` for first release, or when you **mean 1.0.0**.
 
+### Changeset file shape (CI enforced)
+
+- **One `@eristack/*` package per `.changeset/*.md` file** — a multi-package frontmatter block repeats the same body in every package changelog on the Version PR.
+- **Body describes only that package** — no `### @eristack/foo` cross-package sections or copy-pasted monolith.
+- Run **`pnpm changesets:check`** in CI and locally before merge.
+
 ### Internal optional peers (Backseat spine)
 
 - Published **`peerDependencies`**: semver (`^0.1.0`), not `workspace:*`

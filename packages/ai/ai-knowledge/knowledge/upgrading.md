@@ -298,6 +298,16 @@ Common stable patterns (unchanged across releases):
 
 Never use **`minor`** on `0.1.x` unless you **want 1.0.0**.
 
+### 5.1.1 One file per package (changelog hygiene)
+
+Changesets copies **each file's body** into **every package** listed in that file's frontmatter. A ten-package changeset with one shared essay produces ten identical changelogs — avoid it.
+
+| Do | Don't |
+| --- | --- |
+| One `.changeset/*.md` per bumped package | One file listing `@eristack/money`, `@eristack/qups`, … |
+| Body = bullets for **that package only** | `### @eristack/foo` sections for other packages |
+| `pnpm changesets:check` before merge | Rely on review to catch mega-changelogs |
+
 ### 5.2 Backseat peer policy (monorepo)
 
 `.changeset/config.json`:

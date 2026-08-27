@@ -39,6 +39,9 @@ jobs:
       - name: Check package exports (post-build)
         run: pnpm exports:check
 
+      - name: Check pending changesets
+        run: pnpm changesets:check
+
       - name: Typecheck
         run: pnpm typecheck
 

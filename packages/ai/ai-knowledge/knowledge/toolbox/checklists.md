@@ -61,6 +61,9 @@ Before shipping or accepting a package change:
 - [ ] Added/updated recipes if users should discover the capability by product language
 - [ ] `pnpm knowledge:check` clean
 - [ ] Changeset added for user-facing package changes
+- [ ] **One changeset file per package**; body lists only that package (no mega shared changelog)
+- [ ] **`patch`** on `0.1.x` packages (not `minor` unless intentional 1.0.0)
+- [ ] `pnpm changesets:check` clean
 
 ## Upgrading @eristack (consumer app)
 

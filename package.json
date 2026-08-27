@@ -16,11 +16,12 @@
     "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
     "exports:check": "node scripts/check-package-exports.mjs",
+    "changesets:check": "node scripts/check-changesets.mjs",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm knowledge:sync && pnpm install --lockfile-only",
     "release": "changeset publish",
-    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm exports:check && pnpm skills:validate && pnpm knowledge:check && pnpm docs:check && pnpm ticket:check && pnpm --filter @eristack/web contrast:check",
+    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm exports:check && pnpm changesets:check && pnpm skills:validate && pnpm knowledge:check && pnpm docs:check && pnpm ticket:check && pnpm --filter @eristack/web contrast:check",
     "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {
