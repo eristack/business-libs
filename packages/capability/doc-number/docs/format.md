@@ -16,10 +16,11 @@ INV-{YYYY}{MM}-{SEQ:5}   →   INV-202608-00042
 
 | Token | Renders | Source |
 | --- | --- | --- |
-| `{YYYY}` | 4-digit year — `2026` | UTC parts of `at` |
-| `{YY}` | 2-digit year — `26` | UTC parts of `at` |
-| `{MM}` | 2-digit month, zero-padded — `08` | UTC parts of `at` |
-| `{DD}` | 2-digit day, zero-padded — `11` | UTC parts of `at` |
+| `{YYYY}` | 4-digit year — `2026` | Calendar parts of `at` (UTC default; format `timezone` when set) |
+| `{YY}` | 2-digit year — `26` | Same |
+| `{MM}` | 2-digit month, zero-padded — `08` | Same |
+| `{DD}` | 2-digit day, zero-padded — `11` | Same |
+| `{SCOPE}` | Branch/location segment — `SUB` | `next({ scope })`; slashes → `-` |
 | `{SEQ}` | Sequence with no padding — `42` | The allocated integer |
 | `{SEQ:n}` | Sequence zero-padded to width `n` — `00042` | The allocated integer |
 
@@ -70,7 +71,7 @@ formatDocumentNumber({
 // → "INV-260811-0003"
 ```
 
-`at` is optional and defaults to *now*. Because tokens read **UTC**, a value rendered at `2026-08-11T23:00:00-05:00` shows `2026-08-12`. Pass `at` explicitly wherever the calendar matters — tests, backfills, period-close jobs.
+`at` is optional and defaults to *now*. Date tokens use **UTC** unless the format (or `next({ timezone })`) sets an IANA zone. Pass `at` explicitly in tests and backfills. See [Sequencing — IANA timezone](./sequencing.md#iana-timezone-optional).
 
 `previewDocumentNumber` is the same function under a name that reads better in settings screens; `docNumber.preview(input)` is the bound version on the API object.
 

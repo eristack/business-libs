@@ -9,7 +9,6 @@
     "timezone",
     "gotchas",
     "serialization",
-    "recipes",
     "adapters",
     "drizzle",
     "rest",
@@ -18,6 +17,47 @@
     "nest",
     "client",
     "react",
+    "recipes",
     "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "instant",
+        "wall",
+        "timezone",
+        "gotchas",
+        "serialization"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "adapters",
+        "drizzle",
+        "rest",
+        "zod",
+        "express",
+        "nest",
+        "client",
+        "react"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes",
+        "api-reference"
+      ]
+    }
   ]
 }

@@ -23,7 +23,7 @@ export {
 
 export { parsePattern, padSequence } from "./core/tokens.js";
 export type { TokenNode } from "./core/tokens.js";
-export { periodKeyFor, datePartsUtc } from "./core/period.js";
+export { periodKeyFor, datePartsFor, datePartsUtc } from "./core/period.js";
 
 export type {
   AllocateNextInput,

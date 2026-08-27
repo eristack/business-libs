@@ -45,6 +45,8 @@ export type Epoch = {
   currentMany(scopes: EpochScope[]): Promise<Record<EpochScope, EpochValue>>;
   /** Atomically increment; optional expected check. */
   bump(scope: EpochScope, input?: BumpEpochInput): Promise<EpochValue>;
+  /** Bump many scopes (order undefined). Empty array is a no-op. */
+  bumpMany(scopes: readonly EpochScope[], input?: BumpEpochInput): Promise<void>;
   /** Pure compare — same helper the client uses locally. */
   compare(clientEpoch: EpochValue, serverEpoch: EpochValue): CachePolicy;
   /** Fetch current and return cache policy for a client-held epoch. */

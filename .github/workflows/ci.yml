@@ -50,3 +50,6 @@ jobs:
 
       - name: Check ai-knowledge catalog sync
         run: pnpm knowledge:check
+
+      - name: Check package docs catalog sync
+        run: pnpm docs:check

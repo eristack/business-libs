@@ -54,4 +54,42 @@ describe("pbac", () => {
       ).allowed,
     ).toBe(false);
   });
+
+  it("enforces status transition table via action", async () => {
+    const pbac = createPbac();
+    pbac.registerPolicy({
+      id: "job.transition",
+      evaluate: documents.transitions("status", {
+        draft: ["submit"],
+        submitted: ["approve", "reject"],
+      }),
+    });
+
+    expect(
+      (
+        await pbac.check("job.transition", {
+          document: { status: "draft" },
+          action: "submit",
+        })
+      ).allowed,
+    ).toBe(true);
+
+    expect(
+      (
+        await pbac.check("job.transition", {
+          document: { status: "draft" },
+          action: "approve",
+        })
+      ).allowed,
+    ).toBe(false);
+
+    expect(
+      (
+        await pbac.check("job.transition", {
+          document: { status: "submitted" },
+          action: "approve",
+        })
+      ).allowed,
+    ).toBe(true);
+  });
 });

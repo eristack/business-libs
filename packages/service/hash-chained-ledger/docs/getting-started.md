@@ -75,3 +75,6 @@ await ledger.verify("acct:1000:USD"); // throws ChainTamperedError if broken
 import { createMemoryLedgerStore } from "@eristack/hash-chained-ledger";
 // Vitest / CI — never wire this into the Vercel app
 ```
+
+> [!AGENT]
+> Product language "audit trail" / "tamper detection" → load `@eristack/hash-chained-ledger#hash-chained-ledger-core`. Composed by stock-movement, financial-ledger, and valuations in production.

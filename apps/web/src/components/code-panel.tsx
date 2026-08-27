@@ -1,5 +1,6 @@
 import { Code } from "bright";
 import { cn } from "@/lib/utils";
+import { CodePanelShell } from "@/components/code-panel-shell";
 import { codeFontFamily, codeTheme } from "@/lib/code-theme";
 
 type CodePanelProps = {
@@ -23,14 +24,16 @@ export function CodePanel({
   className,
   lineNumbers = true,
 }: CodePanelProps) {
+  const source = code.trimEnd();
+
   return (
-    <div className={cn("code-panel group", className)}>
+    <CodePanelShell code={source} className={className}>
       <Code
         lang={language}
         theme={codeTheme}
         title={filename}
         lineNumbers={lineNumbers}
-        code={code.trimEnd()}
+        code={source}
         className="code-panel-bright"
         style={{
           margin: 0,
@@ -49,6 +52,6 @@ export function CodePanel({
           {caption}
         </p>
       ) : null}
-    </div>
+    </CodePanelShell>
   );
 }

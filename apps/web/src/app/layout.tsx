@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import {
+  JetBrains_Mono,
+  Newsreader,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import Script from "next/script";
 import { CommandMenuHost } from "@/components/command-menu-host";
 import { SiteFooter } from "@/components/site-footer";
@@ -9,15 +13,25 @@ import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const sans = Inter({
+const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-brand-sans",
   display: "swap",
+});
+
+const display = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-brand-display",
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains",
+  weight: ["400", "500"],
+  variable: "--font-brand-mono",
   display: "swap",
 });
 
@@ -44,9 +58,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
-        className={`${sans.variable} ${mono.variable} min-h-screen font-sans antialiased`}
+        className={`${sans.variable} ${display.variable} ${mono.variable} min-h-screen font-sans antialiased`}
       >
         <Script id="eristack-theme-init" strategy="beforeInteractive">
           {themeInitScript}

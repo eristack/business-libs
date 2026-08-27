@@ -6,9 +6,10 @@ export type TokenNode =
   | { kind: "YY" }
   | { kind: "MM" }
   | { kind: "DD" }
+  | { kind: "SCOPE" }
   | { kind: "SEQ"; width: number };
 
-const TOKEN_RE = /\{(YYYY|YY|MM|DD|SEQ(?::(\d+))?)\}/g;
+const TOKEN_RE = /\{(YYYY|YY|MM|DD|SCOPE|SEQ(?::(\d+))?)\}/g;
 
 export function parsePattern(pattern: string): TokenNode[] {
   if (typeof pattern !== "string" || pattern.length === 0) {
@@ -30,6 +31,7 @@ export function parsePattern(pattern: string): TokenNode[] {
     else if (token === "YY") nodes.push({ kind: "YY" });
     else if (token === "MM") nodes.push({ kind: "MM" });
     else if (token === "DD") nodes.push({ kind: "DD" });
+    else if (token === "SCOPE") nodes.push({ kind: "SCOPE" });
     else if (token.startsWith("SEQ")) {
       const widthRaw = match[2];
       const width = widthRaw === undefined ? 1 : Number(widthRaw);
@@ -52,7 +54,7 @@ export function parsePattern(pattern: string): TokenNode[] {
   let braceMatch: RegExpExecArray | null;
   while ((braceMatch = braceToken.exec(pattern)) !== null) {
     const raw = braceMatch[0]!;
-    if (!/^\{(YYYY|YY|MM|DD|SEQ(?::\d+)?)\}$/.test(raw)) {
+    if (!/^\{(YYYY|YY|MM|DD|SCOPE|SEQ(?::\d+)?)\}$/.test(raw)) {
       throw new InvalidPatternError(
         `Pattern contains unknown or malformed tokens: "${raw}" in "${pattern}"`,
       );

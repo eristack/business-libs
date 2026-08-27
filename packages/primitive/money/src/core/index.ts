@@ -60,6 +60,7 @@ export {
   Conversion,
   CurrencyConversion,
   exchangeRate,
+  convertAtQuotePerBase,
   type ExchangeRate,
   type ExchangeRateInput,
 } from "./convert/conversion.js";

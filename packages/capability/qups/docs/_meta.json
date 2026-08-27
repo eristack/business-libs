@@ -21,5 +21,38 @@
   "modifiers": "Modifiers",
   "tax": "Tax",
   "stores": "Stores & Drizzle",
-  "recipes": "Recipes"
+  "recipes": "Recipes",
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "gotchas",
+        "form-and-be",
+        "qups",
+        "modifiers",
+        "tax",
+        "stores"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
+  ]
 }

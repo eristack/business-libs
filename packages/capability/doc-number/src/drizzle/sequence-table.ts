@@ -59,10 +59,17 @@ export function createPgsqlDocNumberSequenceTable(tableName = DEFAULT_TABLE_NAME
       id: pgText("id").primaryKey(),
       formatId: pgText("format_id").notNull(),
       periodKey: pgText("period_key").notNull(),
+      scope: pgText("scope").notNull().default(""),
       currentValue: pgInteger("current_value").notNull(),
       updatedAt: pgTimestamp("updated_at", { withTimezone: true, mode: "date" }).notNull(),
     },
-    (t) => [uniqueIndex(`${tableName}_format_period_uidx`).on(t.formatId, t.periodKey)],
+    (t) => [
+      uniqueIndex(`${tableName}_format_period_scope_uidx`).on(
+        t.formatId,
+        t.periodKey,
+        t.scope,
+      ),
+    ],
   );
 }
 
@@ -73,10 +80,17 @@ export function createMysqlDocNumberSequenceTable(tableName = DEFAULT_TABLE_NAME
       id: mysqlVarchar("id", { length: 64 }).primaryKey(),
       formatId: mysqlVarchar("format_id", { length: 64 }).notNull(),
       periodKey: mysqlVarchar("period_key", { length: 32 }).notNull(),
+      scope: mysqlVarchar("scope", { length: 64 }).notNull().default(""),
       currentValue: mysqlInt("current_value").notNull(),
       updatedAt: mysqlDatetime("updated_at", { mode: "date" }).notNull(),
     },
-    (t) => [mysqlUniqueIndex(`${tableName}_format_period_uidx`).on(t.formatId, t.periodKey)],
+    (t) => [
+      mysqlUniqueIndex(`${tableName}_format_period_scope_uidx`).on(
+        t.formatId,
+        t.periodKey,
+        t.scope,
+      ),
+    ],
   );
 }
 
@@ -87,10 +101,17 @@ export function createSqliteDocNumberSequenceTable(tableName = DEFAULT_TABLE_NAM
       id: sqliteText("id").primaryKey(),
       formatId: sqliteText("format_id").notNull(),
       periodKey: sqliteText("period_key").notNull(),
+      scope: sqliteText("scope").notNull().default(""),
       currentValue: sqliteInteger("current_value").notNull(),
       updatedAt: sqliteInteger("updated_at", { mode: "timestamp_ms" }).notNull(),
     },
-    (t) => [sqliteUniqueIndex(`${tableName}_format_period_uidx`).on(t.formatId, t.periodKey)],
+    (t) => [
+      sqliteUniqueIndex(`${tableName}_format_period_scope_uidx`).on(
+        t.formatId,
+        t.periodKey,
+        t.scope,
+      ),
+    ],
   );
 }
 

@@ -94,23 +94,23 @@ export function PageHero({
             >
               <h1
                 className={cn(
-                  "font-semibold tracking-tight text-foreground",
+                  "font-display font-medium text-foreground",
                   tone === "marketing"
-                    ? "text-4xl sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]"
-                    : "text-4xl sm:text-5xl lg:text-[3.15rem] lg:leading-[1.08]",
+                    ? "text-[length:var(--text-display)] leading-[var(--leading-display)]"
+                    : "text-4xl sm:text-[2.65rem] leading-[1.1]",
                 )}
               >
                 {title}
               </h1>
               {tagline ? (
-                <p className="mt-4 max-w-2xl text-lg font-medium tracking-tight text-foreground/80">
+                <p className="type-lead mt-4 max-w-2xl font-sans font-medium tracking-[-0.01em]">
                   {tagline}
                 </p>
               ) : null}
             </div>
 
             {description ? (
-              <p className="animate-rise-delay-2 mt-5 max-w-2xl text-[15px] leading-7 text-muted-foreground sm:text-base">
+              <p className="animate-rise-delay-2 type-lead mt-5 max-w-2xl sm:text-base">
                 {description}
               </p>
             ) : null}

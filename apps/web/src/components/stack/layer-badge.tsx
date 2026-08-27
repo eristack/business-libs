@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { LayerGlyph } from "@/components/stack/layer-glyphs";
 import {
   categoryIndex,
   getCategory,
@@ -37,6 +38,7 @@ export function LayerBadge({
 
   const inner = (
     <>
+      <LayerGlyph layerId={categoryId} size={size === "sm" ? 14 : 16} />
       <span
         className={cn(
           "font-mono font-semibold text-[color:var(--layer-accent)] tabular-nums",

@@ -60,7 +60,9 @@ const next = await docNumber.next({ entityKey: "invoice" });
 
 - Tokens: `{YYYY}`, `{YY}`, `{MM}`, `{DD}`, `{SEQ}` / `{SEQ:n}` (width 1–32)
 - Exactly one SEQ token required
-- Reset: `never` | `yearly` | `monthly` | `daily` → period keys `*`, `2026`, `2026-08`, `2026-08-11` (UTC)
+- Reset: `never` | `yearly` | `monthly` | `daily` → period keys `*`, `2026`, `2026-08`, `2026-08-11` (UTC default)
+- Optional `timezone` on format (IANA, e.g. `Asia/Jakarta`) — `{YYYY}`/`periodKey` use that zone; omit for UTC
+- Optional `scope` on `next()` / `peekNext()` — per-branch counters; `{SCOPE}` token in pattern
 
 ## Custom incrementer
 

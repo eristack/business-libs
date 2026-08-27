@@ -1,5 +1,6 @@
 import type { BackseatStore } from "@eristack/backseat";
 import type { AllocateNextInput, SequenceStore } from "../core/types.js";
+import { normalizeScope } from "../core/scope.js";
 import { DOC_NUMBER_COLLECTIONS, sequenceDocId } from "./collections.js";
 
 export function createBackseatSequenceStore(
@@ -19,7 +20,7 @@ export function createBackseatSequenceStore(
   }
 
   async function readValue(input: AllocateNextInput): Promise<number | null> {
-    const id = sequenceDocId(input.formatId, input.periodKey);
+    const id = sequenceDocId(input.formatId, input.periodKey, input.scope);
     const doc = await store.get(collection, id);
     if (!doc) return null;
     return Number(doc.value);
@@ -28,13 +29,14 @@ export function createBackseatSequenceStore(
   return {
     allocateNext(input) {
       return withLock(async () => {
-        const id = sequenceDocId(input.formatId, input.periodKey);
+        const id = sequenceDocId(input.formatId, input.periodKey, input.scope);
         const current = (await readValue(input)) ?? 0;
         const next = current + 1;
         const doc = {
           id,
           formatId: input.formatId,
           periodKey: input.periodKey,
+          scope: normalizeScope(input.scope),
           value: next,
         };
         const existing = await store.get(collection, id);

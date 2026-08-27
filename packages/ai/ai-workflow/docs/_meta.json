@@ -9,5 +9,40 @@
     "workflow",
     "cli-and-client",
     "recipes"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts"
+      ]
+    },
+    {
+      "label": "Start",
+      "pages": [
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "mcp",
+        "search",
+        "workflow",
+        "cli-and-client"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    }
   ]
 }

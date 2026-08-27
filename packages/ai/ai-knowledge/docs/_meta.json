@@ -4,11 +4,48 @@
     "index",
     "getting-started",
     "upgrading",
+    "backseat-then-backend",
+    "document-lines-erp",
+    "optimistic-document-version",
     "recommend",
     "recipes",
     "authoring",
     "architecture",
     "skills",
     "sync"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "upgrading",
+        "backseat-then-backend",
+        "document-lines-erp",
+        "optimistic-document-version",
+        "recommend"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "authoring",
+        "architecture",
+        "skills",
+        "sync"
+      ]
+    }
   ]
 }

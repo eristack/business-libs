@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start --port 3000",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "contrast:check": "node scripts/check-layer-contrast.mjs"
   },
   "dependencies": {
     "@eristack/abac": "workspace:*",

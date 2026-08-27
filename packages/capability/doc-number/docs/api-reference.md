@@ -26,13 +26,13 @@ Hand-maintained cheat-sheet. Signatures are simplified for reading; types ship w
 
 | Export | Signature | Notes |
 | --- | --- | --- |
-| `formatDocumentNumber` | `({ pattern, sequence, at? }) => string` | `at` defaults to now; UTC date parts |
+| `formatDocumentNumber` | `({ pattern, sequence, at?, timezone?, scope? }) => string` | `at` defaults to now; optional IANA zone + `{SCOPE}` |
 | `previewDocumentNumber` | Same as above | Alias that reads better in settings code |
 | `parseDocumentNumber` | `(pattern, value) => { sequence, parts }` | Anchored match; throws `ParseMismatchError` |
 | `parsePattern` | `(pattern) => TokenNode[]` | Validation + tokenisation |
 | `padSequence` | `(sequence, width) => string` | Rejects negative / non-integer |
-| `periodKeyFor` | `(reset, at) => string` | `*` \| `2026` \| `2026-08` \| `2026-08-11` (UTC) |
-| `datePartsUtc` | `(at) => { YYYY, YY, MM, DD }` | Strings, already padded |
+| `periodKeyFor` | `(reset, at, timezone?) => string` | `*` \| `2026` \| `2026-08` \| `2026-08-11` |
+| `datePartsFor` | `(at, timezone?) => { YYYY, YY, MM, DD }` | Strings, already padded |
 
 ### `createDocNumber(options)`
 
@@ -55,8 +55,8 @@ Every option is optional; a method throws `MissingDependencyError` only when it 
 | `getFormat` | `(entityKey) => Promise<FormatRecord \| null>` | The **active** record |
 | `getFormatById` | `(id) => Promise<FormatRecord \| null>` | Any record |
 | `listFormats` | `(entityKey, query?: DataGridQueryInput) => Promise<DataGridResult<FormatRecord>>` | `createDataGrid(formatDataGridSchema).applyInMemory` over the store rows |
-| `next` | `({ entityKey, at? }) => Promise<DocNumberResult>` | **Allocates.** Needs `formats` + (`sequences` or `incrementer`) |
-| `peekNext` | `({ entityKey, at? }) => Promise<{ sequence, periodKey, value }>` | Read-only. **Requires `sequences`** — an incrementer cannot peek |
+| `next` | `({ entityKey, at?, timezone?, scope? }) => Promise<DocNumberResult>` | **Allocates.** Needs `formats` + (`sequences` or `incrementer`) |
+| `peekNext` | `({ entityKey, at?, timezone?, scope? }) => Promise<{ sequence, periodKey, value }>` | Read-only. **Requires `sequences`** — an incrementer cannot peek |
 | `preview` | `({ pattern, sequence, at? }) => string` | Pure render; no stores touched |
 | `format` | `formatDocumentNumber` | Bound pure helper |
 | `parse` | `parseDocumentNumber` | Bound pure helper |
@@ -77,7 +77,7 @@ Every option is optional; a method throws `MissingDependencyError` only when it 
 
 | Type | Shape |
 | --- | --- |
-| `FormatRecord` | `{ id, entityKey, pattern, reset, prefix?, active, createdAt, updatedAt }` |
+| `FormatRecord` | `{ id, entityKey, pattern, reset, timezone?, prefix?, active, createdAt, updatedAt }` |
 | `RegisterFormatInput` | `{ entityKey, pattern, reset?, prefix?, id?, active? }` |
 | `UpdateFormatInput` | `{ id, entityKey?, pattern?, reset?, prefix?: string \| null, active? }` |
 | `NextDocumentNumberInput` / `PeekNextInput` | `{ entityKey, at? }` |
@@ -110,7 +110,7 @@ All extend `DocNumberError` and carry a stable `code`:
 | Export | Summary |
 | --- | --- |
 | `createDocNumberFormatTable(dialect, tableName?)` | Default `doc_number_formats` |
-| `createDocNumberSequenceTable(dialect, tableName?)` | Default `doc_number_sequences`, with a unique index on `(format_id, period_key)` |
+| `createDocNumberSequenceTable(dialect, tableName?)` | Default `doc_number_sequences`, unique index on `(format_id, period_key, scope)` |
 | `createPgsqlDocNumberFormatTable` / `Mysql…` / `Sqlite…` | Dialect-specific factories |
 | `createPgsqlDocNumberSequenceTable` / `Mysql…` / `Sqlite…` | Dialect-specific factories |
 | `createDrizzleFormatStore({ dialect, db, table })` | `FormatStore` (upsert by id) |

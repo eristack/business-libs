@@ -17,6 +17,8 @@ sources:
 
 ```ts
 import { calculateLine, patchLine, withQupsColumns } from "@eristack/qups";
+// Spreadsheet commit: applyCellPatch(line, "unitPrice", value)
+// Backseat persist: withQupsFields(line) — snake_case SQL keys
 
 const line = calculateLine({
   truth: "quantity+unitPrice",

@@ -1,13 +1,14 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 import { companyNav, primaryNav, siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-card">
+    <footer className="no-print border-t border-border bg-card">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
         <div>
-          <p className="text-sm font-semibold tracking-tight">{siteConfig.name}</p>
-          <p className="mt-2 max-w-xs text-[13px] leading-6 text-muted-foreground">
+          <BrandMark size="sm" showWordmark href="/" />
+          <p className="mt-4 max-w-xs text-[13px] leading-6 text-muted-foreground">
             {siteConfig.tagline}. A subsidiary of{" "}
             <a
               href={siteConfig.erista}

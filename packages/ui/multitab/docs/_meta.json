@@ -1,4 +1,37 @@
 {
   "title": "Multitab",
-  "pages": ["index", "getting-started", "architecture", "api-reference", "vision"]
+  "pages": [
+    "index",
+    "getting-started",
+    "architecture",
+    "api-reference",
+    "vision"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "architecture"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "api-reference"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "vision"
+      ]
+    }
+  ]
 }

@@ -45,7 +45,7 @@ parseDocumentNumber("INV-{YYYY}{MM}-{SEQ:5}", "INV-202608-00042");
 
 Two things to notice:
 
-- **`at` defaults to now**, and every date token is rendered from **UTC** parts. Pass `at` explicitly in tests so results do not drift with the machine's timezone.
+- **`at` defaults to now.** Date tokens use **UTC** unless the format sets `timezone`. Pass `at` (and `timezone` when needed) explicitly in tests.
 - **You supply the sequence.** These functions never touch a counter. That is the next step.
 
 > **Tip:** Validate a user-entered pattern by calling `parsePattern(pattern)` (or just formatting it with a dummy sequence). An invalid pattern throws `InvalidPatternError` — see [Format DSL](./format.md).

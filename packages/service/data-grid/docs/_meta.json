@@ -11,5 +11,37 @@
     "edge-cases",
     "recipes",
     "backseat"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "querying",
+        "url-search",
+        "database",
+        "http-and-ui",
+        "edge-cases"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
   ]
 }

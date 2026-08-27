@@ -35,6 +35,12 @@ export function createEpoch(config: EpochConfig): Epoch {
       return store.bump(scope, normalizeBump(input));
     },
 
+    async bumpMany(scopes, input) {
+      if (scopes.length === 0) return;
+      const normalized = normalizeBump(input);
+      await Promise.all(scopes.map((scope) => store.bump(scope, normalized)));
+    },
+
     async resolveCachePolicy(scope, clientEpoch) {
       const current = await store.get(scope);
       return {

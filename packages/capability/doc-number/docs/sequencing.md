@@ -10,9 +10,9 @@ Rendering a string is the easy half. This page is about the integer: where it co
 
 ## Reset periods and period keys
 
-`reset` lives on the format record. It is turned into a `periodKey` at allocation time using the **UTC** calendar parts of the timestamp:
+`reset` lives on the format record. It is turned into a `periodKey` at allocation time using calendar parts of the timestamp — **UTC by default**, or the format's IANA `timezone`:
 
-| `reset` | `periodKey` for `2026-08-11T10:00:00Z` | New counter when… |
+| `reset` | `periodKey` for `2026-08-11T10:00:00Z` (UTC) | New counter when… |
 | --- | --- | --- |
 | `never` | `*` | Never |
 | `yearly` | `2026` | UTC year rolls over |
@@ -28,7 +28,35 @@ periodKeyFor("monthly", new Date("2026-08-11T10:00:00Z")); // "2026-08"
 periodKeyFor("daily",   new Date("2026-08-11T10:00:00Z")); // "2026-08-11"
 ```
 
-Sequence rows are keyed by the pair `(formatId, periodKey)`. A reset therefore **opens a new row** rather than resetting an old one — last month's final value stays readable, which is exactly what an auditor asks for.
+### IANA timezone (optional)
+
+Register `timezone` on the format (or pass `timezone` on `next()` / `peekNext()`). `{YYYY}`, `{MM}`, `{DD}` tokens and the period key all use the same zone:
+
+```ts
+await doc.registerFormat({
+  entityKey: "job",
+  pattern: "JO/{YYYY}/{SEQ:5}",
+  reset: "yearly",
+  timezone: "Asia/Jakarta",
+});
+
+// 2026-12-31T17:00:00Z is already 2027-01-01 in Jakarta
+await doc.next({ entityKey: "job", at: new Date("2026-12-31T17:00:00Z") });
+// → JO/2027/00001, periodKey "2027"
+```
+
+Omit `timezone` to keep **UTC** behaviour from 0.3.x — existing apps do not shift periods.
+
+Sequence rows are keyed by **`(formatId, periodKey, scope)`**. Default `scope` is `""` (company-wide). Pass `scope` on `next()` / `peekNext()` for per-branch counters without duplicating format rows:
+
+```ts
+await doc.next({ entityKey: "job", scope: "SUB" }); // JO/SUB/2026/00001
+await doc.next({ entityKey: "job", scope: "JKT" }); // independent counter
+```
+
+Optional pattern token `{SCOPE}` renders the scope segment (slashes sanitized to `-`).
+
+A reset therefore **opens a new row** rather than resetting an old one — last month's final value stays readable, which is exactly what an auditor asks for.
 
 > **Pair the reset with the pattern.** `reset: "monthly"` wants `{MM}` (or `{DD}`) in the pattern; otherwise the rendered value repeats across months. `reset: "never"` wants no date tokens at all, or the date becomes decoration on a counter that keeps climbing.
 
@@ -48,7 +76,7 @@ A `SequenceStore` starts a missing bucket at 1 (`peekNext` on an untouched bucke
 | | `next(input)` | `peekNext(input)` |
 | --- | --- | --- |
 | Advances the counter | **Yes** | No |
-| Returns | `{ value, sequence, periodKey, formatId, entityKey, pattern }` | `{ value, sequence, periodKey }` |
+| Returns | `{ value, sequence, periodKey, formatId, entityKey, pattern, scope }` | `{ value, sequence, periodKey }` |
 | Works with a custom `incrementer` | Yes | **No** — requires a `SequenceStore` |
 | Safe to call from a settings screen | No | Yes |
 | Stable | It is *yours* | A hint that another request may take first |
@@ -116,7 +144,7 @@ The date tokens and the period key come from the same instant, so a July `at` pr
 | Store | Mechanism | Safe across processes |
 | --- | --- | --- |
 | `createMemorySequenceStore` | In-process async mutex serialising `allocateNext` | **No** |
-| `createDrizzleSequenceStore` | Read-then-update on `(format_id, period_key)` | Only under a transaction with row locks |
+| `createDrizzleSequenceStore` | Read-then-update on `(format_id, period_key, scope)` | Only under a transaction with row locks |
 | Custom `incrementer` (Redis `INCR`, DB sequence) | Whatever the backend guarantees | Usually yes |
 
 The Drizzle store deliberately does **not** open its own transaction — it uses the `db` you handed it, so your app decides the boundary. Under real concurrency, wrap allocation in a transaction that locks the row:
@@ -134,7 +162,7 @@ await db.transaction(async (tx) => {
 });
 ```
 
-The unique index on `(format_id, period_key)` means the concurrent-insert race for a brand-new bucket ends as a constraint violation rather than two rows — retry once and the second caller reads the row that won. Full SQL, including a `MySQL` variant, is in [Stores & Drizzle](./stores.md#concurrency-recipe).
+The unique index on `(format_id, period_key, scope)` means the concurrent-insert race for a brand-new bucket ends as a constraint violation rather than two rows — retry once and the second caller reads the row that won. Full SQL, including a `MySQL` variant, is in [Stores & Drizzle](./stores.md#concurrency-recipe).
 
 ### Gaps are normal
 

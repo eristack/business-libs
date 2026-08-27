@@ -10,6 +10,7 @@ import {
   parseSnapshotJson,
   type DevtoolsCollectionState,
 } from "./devtools-api.js";
+import { formatRoutesSnapshot } from "../core/routes-meta.js";
 
 export type BackseatDevtoolsProps = {
   /** Override seed for re-seed button — falls back to `createBackseat({ seed })`. */
@@ -60,11 +61,12 @@ export function BackseatDevtools({
 }: BackseatDevtoolsProps) {
   const backseat = useBackseat();
   const [open, setOpen] = useState(defaultOpen);
-  const [tab, setTab] = useState<"data" | "snapshot">("data");
+  const [tab, setTab] = useState<"data" | "snapshot" | "routes">("data");
   const [collections, setCollections] = useState<DevtoolsCollectionState[]>([]);
   const [selected, setSelected] = useState<string>("");
   const [newDocJson, setNewDocJson] = useState('{\n  "id": "new-id"\n}');
   const [snapshotJson, setSnapshotJson] = useState("");
+  const [routesJson, setRoutesJson] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -195,9 +197,16 @@ export function BackseatDevtools({
           type="button"
           style={buttonStyle}
           disabled={busy}
-          onClick={() => setTab(tab === "data" ? "snapshot" : "data")}
+          onClick={() => {
+            const next =
+              tab === "data" ? "snapshot" : tab === "snapshot" ? "routes" : "data";
+            setTab(next);
+            if (next === "routes") {
+              setRoutesJson(formatRoutesSnapshot(backseat.routesSnapshot()));
+            }
+          }}
         >
-          {tab === "data" ? "Snapshot" : "Data"}
+          {tab === "data" ? "Snapshot" : tab === "snapshot" ? "Routes" : "Data"}
         </button>
       </div>
 
@@ -312,7 +321,7 @@ export function BackseatDevtools({
               Insert into {selected || "collection"}
             </button>
           </div>
-        ) : (
+        ) : tab === "snapshot" ? (
           <div style={{ display: "grid", gap: 10 }}>
             <button
               type="button"
@@ -369,6 +378,33 @@ export function BackseatDevtools({
                 Import snapshot
               </button>
             </div>
+          </div>
+        ) : (
+          <div style={{ display: "grid", gap: 10 }}>
+            <button
+              type="button"
+              style={buttonStyle}
+              disabled={busy}
+              onClick={() => setRoutesJson(formatRoutesSnapshot(backseat.routesSnapshot()))}
+            >
+              Refresh routes
+            </button>
+            <textarea
+              readOnly
+              value={routesJson}
+              rows={14}
+              placeholder="Route inventory for Horizon B derivation"
+              style={{
+                width: "100%",
+                resize: "vertical",
+                borderRadius: 8,
+                border: "1px solid rgba(255,255,255,0.14)",
+                background: "rgba(0,0,0,0.25)",
+                color: "inherit",
+                padding: 8,
+                fontFamily: "ui-monospace, monospace",
+              }}
+            />
           </div>
         )}
       </div>

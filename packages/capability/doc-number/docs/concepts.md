@@ -72,19 +72,22 @@ A reset does not zero a counter — it opens a new one. Every sequence row is ke
 | `reset` | `periodKey` | Meaning |
 | --- | --- | --- |
 | `never` | `*` | One counter forever |
-| `yearly` | `2026` | New counter each UTC year |
-| `monthly` | `2026-08` | New counter each UTC month |
-| `daily` | `2026-08-11` | New counter each UTC day |
+| `yearly` | `2026` | New counter each calendar year (UTC or format timezone) |
+| `monthly` | `2026-08` | New counter each calendar month |
+| `daily` | `2026-08-11` | New counter each calendar day |
+
+Sequence identity is **`(formatId, periodKey, scope)`** — default `scope` is `""` (company-wide). See [Sequencing](./sequencing.md#iana-timezone-optional).
 
 ```ts
 import { periodKeyFor } from "@eristack/doc-number";
 
-periodKeyFor("monthly", new Date("2026-08-11T23:30:00Z")); // "2026-08"
+periodKeyFor("monthly", new Date("2026-08-11T23:30:00Z")); // "2026-08" (UTC)
+periodKeyFor("yearly", new Date("2026-12-31T17:00:00Z"), "Asia/Jakarta"); // "2027"
 ```
 
 Because old buckets are kept, allocating with a past `at` resumes that period's counter instead of corrupting the current one — useful for backfills and imports.
 
-> **UTC, always.** Both `periodKeyFor` and the `{YYYY}`/`{MM}`/`{DD}` tokens read UTC calendar parts. An invoice created at `2026-08-31T23:00:00-05:00` (local September 1st in some places) lands in the `2026-09` bucket. If your business must close periods on local midnight, shift the date yourself and pass the adjusted `at`. Never rely on server timezone.
+> **Timezone.** By default, `periodKeyFor` and `{YYYY}`/`{MM}`/`{DD}` use **UTC**. Register `timezone` on the format (IANA, e.g. `Asia/Jakarta`) or pass `timezone` on `next()` so yearly `{YYYY}` and period keys follow local business midnight — see [Sequencing](./sequencing.md#iana-timezone-optional).
 
 ## 4. Pattern vs prefix
 

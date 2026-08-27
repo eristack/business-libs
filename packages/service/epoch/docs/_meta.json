@@ -6,5 +6,27 @@
     "concepts",
     "adapters",
     "backseat"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "adapters",
+        "backseat"
+      ]
+    }
   ]
 }

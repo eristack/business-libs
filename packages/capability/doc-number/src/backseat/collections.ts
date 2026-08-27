@@ -3,6 +3,12 @@ export const DOC_NUMBER_COLLECTIONS = {
   sequences: "docNumber.sequences",
 } as const;
 
-export function sequenceDocId(formatId: string, periodKey: string): string {
-  return `${formatId}\0${periodKey}`;
+import { normalizeScope } from "../core/scope.js";
+
+export function sequenceDocId(
+  formatId: string,
+  periodKey: string,
+  scope?: string,
+): string {
+  return `${formatId}\0${periodKey}\0${normalizeScope(scope)}`;
 }

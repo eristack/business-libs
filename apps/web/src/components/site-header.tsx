@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
 import { LibrariesNav } from "@/components/libraries-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -32,8 +33,61 @@ function navActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function isDocsRoute(pathname: string) {
+  return pathname === "/docs" || pathname.startsWith("/docs/");
+}
+
+function DocsHeader({ search }: { search?: ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <header className="no-print sticky top-0 z-40 border-b border-border/70 bg-docs-rail/90 shadow-[0_1px_0_rgba(19,19,22,0.04)] backdrop-blur-lg dark:shadow-[0_1px_0_rgba(255,255,255,0.03)]">
+      <div className="flex h-[3.25rem] w-full items-center justify-between gap-4 px-4 sm:px-6 xl:px-10">
+        <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+          <BrandMark size="sm" showWordmark />
+          <span className="hidden h-4 w-px bg-border sm:block" aria-hidden />
+          <nav className="flex min-w-0 items-center gap-1 text-[13px]">
+            <Link
+              href="/docs"
+              className={cn(
+                "rounded-md px-2.5 py-1.5 font-medium transition-colors",
+                pathname === "/docs"
+                  ? "bg-card text-foreground shadow-sm ring-1 ring-border/60"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              Documentation
+            </Link>
+            <Link
+              href="/packages"
+              className="hidden rounded-md px-2.5 py-1.5 font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline"
+            >
+              Libraries
+            </Link>
+          </nav>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-2">
+          {search}
+          <ThemeToggle />
+          <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
+            <a href={siteConfig.github} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}
+
 export function SiteHeader({ search }: SiteHeaderProps) {
   const pathname = usePathname();
+
+  if (isDocsRoute(pathname)) {
+    return <DocsHeader search={search} />;
+  }
+
   const mobileLinks = [
     ...primaryNav.filter(
       (l) => l.href !== "/packages" && l.href !== startNav.href,
@@ -43,17 +97,10 @@ export function SiteHeader({ search }: SiteHeaderProps) {
   const grouped = packagesByCategory();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-md dark:shadow-[0_1px_0_rgba(255,255,255,0.04)]">
-      <div className="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 xl:px-10">
+    <header className="no-print sticky top-0 z-40 border-b border-border/70 bg-background/88 shadow-[0_1px_0_rgba(19,19,22,0.04)] backdrop-blur-lg dark:shadow-[0_1px_0_rgba(255,255,255,0.03)]">
+      <div className="flex h-[4.25rem] w-full items-center justify-between gap-4 px-4 sm:px-6 xl:px-10">
         <div className="flex items-center gap-8">
-          <Link href="/" className="group flex items-center gap-2.5">
-            <span className="flex size-8 items-center justify-center rounded-lg bg-foreground text-[11px] font-bold tracking-tight text-background transition-transform group-hover:scale-[1.03]">
-              E
-            </span>
-            <span className="text-[15px] font-semibold tracking-tight text-foreground">
-              {siteConfig.name}
-            </span>
-          </Link>
+          <BrandMark />
 
           <nav className="hidden items-center gap-1 lg:flex">
             <Link

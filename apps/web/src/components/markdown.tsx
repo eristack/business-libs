@@ -8,6 +8,8 @@ import { visit } from "unist-util-visit";
 import type { Root } from "hast";
 import { codeTheme } from "@/lib/code-theme";
 import { rehypeDocsDiagram } from "@/lib/rehype-docs-diagram";
+import { rehypeDocsCallouts } from "@/lib/rehype-docs-callouts";
+import { ProseWithCopy } from "@/components/prose-with-copy";
 
 function rewriteDocHref(href: string, packageSlug?: string) {
   if (!packageSlug) return href;
@@ -49,6 +51,7 @@ export async function Markdown({ content, packageSlug }: MarkdownProps) {
     .use(remarkRehype)
     .use(rehypeSlug)
     .use(rehypeRewriteDocLinks, packageSlug)
+    .use(rehypeDocsCallouts)
     .use(rehypeDocsDiagram)
     .use(rehypePrettyCode, {
       theme: {
@@ -61,10 +64,5 @@ export async function Markdown({ content, packageSlug }: MarkdownProps) {
     .use(rehypeStringify)
     .process(content);
 
-  return (
-    <div
-      className="prose-docs"
-      dangerouslySetInnerHTML={{ __html: String(file) }}
-    />
-  );
+  return <ProseWithCopy html={String(file)} className="prose-docs" />;
 }

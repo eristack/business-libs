@@ -1,5 +1,10 @@
 import { applyCollectionFilter } from "../core/filter.js";
 import {
+  cloneCollectionMap,
+  docsFromCollectionMap,
+  runAtomicTransaction,
+} from "../core/atomic.js";
+import {
   BackseatConflictError,
   BackseatNotFoundError,
 } from "../core/errors.js";
@@ -45,10 +50,28 @@ function idbRequest<T>(request: IDBRequest<T>): Promise<T> {
   });
 }
 
-async function runWrite(db: IDBDatabase, fn: (store: IDBObjectStore) => IDBRequest): Promise<void> {
+async function runWrite(
+  db: IDBDatabase,
+  fn: (store: IDBObjectStore) => IDBRequest,
+): Promise<void> {
   const tx = db.transaction(COLLECTIONS_STORE, "readwrite");
   const store = tx.objectStore(COLLECTIONS_STORE);
   await idbRequest(fn(store));
+  await new Promise<void>((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error ?? new Error("IndexedDB write failed"));
+  });
+}
+
+async function runWriteAll(
+  db: IDBDatabase,
+  rows: CollectionRow[],
+): Promise<void> {
+  const tx = db.transaction(COLLECTIONS_STORE, "readwrite");
+  const store = tx.objectStore(COLLECTIONS_STORE);
+  for (const row of rows) {
+    store.put(row);
+  }
   await new Promise<void>((resolve, reject) => {
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error ?? new Error("IndexedDB write failed"));
@@ -86,6 +109,16 @@ async function listCollectionNames(db: IDBDatabase): Promise<string[]> {
     tx.objectStore(COLLECTIONS_STORE).getAllKeys(),
   );
   return keys.map(String).sort();
+}
+
+function docsToMap(docs: BackseatDocument[]): Map<string, BackseatDocument> {
+  const map = new Map<string, BackseatDocument>();
+  for (const doc of docs) {
+    const id = String(doc.id ?? "");
+    if (!id) continue;
+    map.set(id, { ...doc, id });
+  }
+  return map;
 }
 
 /** Browser persistence default for prototypes — not for unit tests (use memory). */
@@ -194,6 +227,25 @@ export function createIndexedDbBackseatStore(options?: {
       for (const name of names) {
         await deleteCollection(database, name);
       }
+    },
+
+    async atomic(work) {
+      return runAtomicTransaction(
+        async (collection) =>
+          cloneCollectionMap(docsToMap(await loadDocs(collection))),
+        async (staging, dirty) => {
+          const rows: CollectionRow[] = [];
+          for (const name of dirty) {
+            const map = staging.get(name);
+            if (!map) continue;
+            rows.push({ name, docs: docsFromCollectionMap(map) });
+          }
+          if (rows.length > 0) {
+            await runWriteAll(await db(), rows);
+          }
+        },
+        work,
+      );
     },
   };
 }

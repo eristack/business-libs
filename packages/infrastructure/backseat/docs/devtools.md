@@ -175,7 +175,7 @@ Storybook is fine — treat it like React Query Devtools.
 
 ## Limitations (alpha)
 
-- Does not list registered routes/actions yet — use code / `api.routes()` in console
+- Devtools **Routes** tab exports `routesSnapshot()` JSON for Horizon B derivation
 - No inline document editor — delete + re-insert JSON
 - No collection creator UI — collections appear on first insert or seed import
 

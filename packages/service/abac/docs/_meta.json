@@ -17,5 +17,41 @@
   "attributes": "Attributes",
   "edge-cases": "Edge cases",
   "adapters": "Adapters",
-  "recipes": "Recipes"
+  "recipes": "Recipes",
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "choosing-access-control",
+        "concepts",
+        "attributes",
+        "edge-cases"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "adapters"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    }
+  ]
 }

@@ -32,6 +32,11 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
       {motif === "ai-ticket-generator" ? <TicketMotif /> : null}
       {motif === "backseat" ? <BackseatMotif /> : null}
       {motif === "multitab" ? <MultitabMotif /> : null}
+      {motif === "timestamp" ? <TimestampMotif /> : null}
+      {motif === "stock-movement" ? <StockMovementMotif /> : null}
+      {motif === "financial-ledger" ? <FinancialLedgerMotif /> : null}
+      {motif === "valuations" ? <ValuationsMotif /> : null}
+      {motif === "hash-chained-ledger" ? <HashChainedLedgerMotif /> : null}
     </div>
   );
 }
@@ -320,6 +325,72 @@ function MultitabMotif() {
   );
 }
 
+function TimestampMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">instant · UTC fact</p>
+        <p className="pl-3 opacity-85">2026-08-27T14:32:00Z</p>
+        <p className="font-semibold pt-1">wall · local intent</p>
+        <p className="pl-3 opacity-85">2026-08-27 09:32</p>
+        <p className="pl-3 opacity-70">America/New_York · DST-safe</p>
+      </div>
+    </div>
+  );
+}
+
+function StockMovementMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">location · WH-A/bin-12</p>
+        <p className="pl-3 opacity-85">lot · L-8842</p>
+        <p className="pl-3 opacity-85">append +120</p>
+        <p className="pl-3 opacity-70">snapshot → 540 on hand</p>
+      </div>
+    </div>
+  );
+}
+
+function FinancialLedgerMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">accountId · AR:1001</p>
+        <p className="pl-3 opacity-85">USD +1_250.00</p>
+        <p className="pl-3 opacity-85">EUR −980.00</p>
+        <p className="pl-3 opacity-70">@eristack/money · GL post</p>
+      </div>
+    </div>
+  );
+}
+
+function ValuationsMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">FIFO · consume layers</p>
+        <p className="pl-3 opacity-85">L1 · 10 @ 12.50</p>
+        <p className="pl-3 opacity-85">L2 · 5 @ 13.00</p>
+        <p className="pl-3 opacity-70">COGS → 155.00</p>
+      </div>
+    </div>
+  );
+}
+
+function HashChainedLedgerMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">entry #42</p>
+        <p className="pl-3 opacity-85">prev · a3f8…c91e</p>
+        <p className="pl-3 opacity-85">SHA-256 chain</p>
+        <p className="pl-3 opacity-70">verify() · tamper → fail</p>
+      </div>
+    </div>
+  );
+}
+
 /** Softer layer-only watermark when there is no package motif. */
 export function LayerMotif({
   layerId,
@@ -332,6 +403,9 @@ export function LayerMotif({
     primitive: ["type", "value", "pure"],
     capability: ["compose", "format", "store"],
     service: ["session", "inject", "rotate"],
+    infrastructure: ["runtime", "mock", "glue"],
+    ui: ["surface", "tabs", "chrome"],
+    features: ["module", "erp", "vertical"],
     ai: ["agent", "local", "index"],
   };
   const words = marks[layerId] ?? [];

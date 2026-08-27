@@ -14,9 +14,26 @@ export type DocMeta = {
   sourcePath: string;
 };
 
+/** Sidebar grouping — synced into each package docs/_meta.json via `pnpm docs:sync`. */
+export type DocMetaSection = {
+  label: string;
+  pages: string[];
+};
+
+export type DocNavSection = {
+  label: string;
+  pages: DocMeta[];
+};
+
 export type DocPage = DocMeta & {
   content: string;
   packageSlug: DocPackageSlug;
+};
+
+type DocCatalogMeta = {
+  title?: string;
+  pages: string[];
+  sections: DocMetaSection[];
 };
 
 const repoRoot = path.resolve(process.cwd(), "../..");
@@ -29,17 +46,47 @@ export function docSourcePath(packageSlug: string, slug: string) {
   return `${packageDirectory(packageSlug)}/docs/${slug}.md`;
 }
 
-function readMetaOrder(packageSlug: string): string[] {
+function readDocCatalogMeta(packageSlug: string): DocCatalogMeta | null {
   const metaPath = path.join(docsDir(packageSlug), "_meta.json");
-  if (!fs.existsSync(metaPath)) return [];
+  if (!fs.existsSync(metaPath)) return null;
 
-  const raw = JSON.parse(fs.readFileSync(metaPath, "utf8")) as
-    | Record<string, string>
-    | { pages?: string[] };
+  const raw = JSON.parse(fs.readFileSync(metaPath, "utf8")) as Record<
+    string,
+    unknown
+  >;
 
-  if (Array.isArray(raw.pages)) return raw.pages;
+  const pages = Array.isArray(raw.pages)
+    ? raw.pages.filter((slug): slug is string => typeof slug === "string")
+    : Object.keys(raw).filter(
+        (key) =>
+          key !== "title" &&
+          key !== "pages" &&
+          key !== "sections" &&
+          typeof raw[key] === "string",
+      );
 
-  return Object.keys(raw).filter((key) => key !== "title" && key !== "pages");
+  const sections = Array.isArray(raw.sections)
+    ? raw.sections
+        .filter(
+          (section): section is DocMetaSection =>
+            typeof section === "object" &&
+            section !== null &&
+            typeof (section as DocMetaSection).label === "string" &&
+            Array.isArray((section as DocMetaSection).pages),
+        )
+        .map((section) => ({
+          label: section.label,
+          pages: section.pages.filter(
+            (slug): slug is string => typeof slug === "string",
+          ),
+        }))
+    : [];
+
+  return {
+    title: typeof raw.title === "string" ? raw.title : undefined,
+    pages,
+    sections,
+  };
 }
 
 function titleFromMeta(packageSlug: string, slug: string, fallback: string) {
@@ -69,7 +116,8 @@ export function listDocs(packageSlug: DocPackageSlug): DocMeta[] {
     .readdirSync(dir)
     .filter((file) => file.endsWith(".md") && !file.startsWith("_"));
 
-  const order = readMetaOrder(packageSlug);
+  const catalog = readDocCatalogMeta(packageSlug);
+  const order = catalog?.pages ?? [];
   const bySlug = new Map(
     files.map((file) => {
       const slug = file.replace(/\.md$/, "");
@@ -106,6 +154,28 @@ export function listDocs(packageSlug: DocPackageSlug): DocMeta[] {
   }
 
   return ordered;
+}
+
+/** Sidebar sections from synced _meta.json — run `pnpm docs:sync` after adding pages. */
+export function listDocNavSections(packageSlug: DocPackageSlug): DocNavSection[] {
+  const pages = listDocs(packageSlug);
+  const catalog = readDocCatalogMeta(packageSlug);
+  const sections = catalog?.sections ?? [];
+
+  if (sections.length === 0) {
+    return pages.length > 0 ? [{ label: "", pages }] : [];
+  }
+
+  const bySlug = new Map(pages.map((page) => [page.slug, page]));
+
+  return sections
+    .map((section) => ({
+      label: section.label,
+      pages: section.pages
+        .map((slug) => bySlug.get(slug))
+        .filter((page): page is DocMeta => page !== undefined),
+    }))
+    .filter((section) => section.pages.length > 0);
 }
 
 export function getDoc(

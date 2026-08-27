@@ -70,6 +70,7 @@ Uses largest-remainder allocation on currency-rounded amounts.
 import { Conversion, Money, Rounding } from "@eristack/money";
 
 const local = Money.of("1500000", "IDR");
+// Quote-per-base FX: convertAtQuotePerBase(usd, "16250", "IDR") — string rate only
 const reporting = local
   .with(Conversion.of({ base: "IDR", term: "USD", factor: "0.000067" }))
   .with(Rounding.currencyDefault("USD"));

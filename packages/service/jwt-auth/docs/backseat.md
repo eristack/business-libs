@@ -14,3 +14,5 @@ description: Package-unique defaults — full guide is ai-knowledge upgrading §
 | Register | `registerJwtAuthBackseat(api, RestAuthConfig & { basePath?, paths? })` |
 | Default `basePath` | `/auth` |
 | Collections | `jwtAuth.credentials`, `jwtAuth.refreshTokens` |
+
+**Horizon A → B:** same paths as Express — see [Dual-target auth client](./dual-target.md).

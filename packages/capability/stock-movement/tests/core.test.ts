@@ -49,4 +49,67 @@ describe("stock-movement", () => {
     });
     expect(verified.ok).toBe(true);
   });
+
+  it("dedupes append when idempotencyKey repeats", async () => {
+    const stock = createStockMovement({ store: createMemoryLedgerStore() });
+    const base = {
+      locationId: "loc-a",
+      lotId: "LOT-1",
+      openingBalance: "0",
+      inAmount: "50",
+      entryType: "receipt",
+      entryTypeId: "gr-99",
+      idempotencyKey: "post-gr-99",
+    };
+    const first = await stock.append(base);
+    const second = await stock.append({
+      ...base,
+      inAmount: "999",
+    });
+    expect(second.id).toBe(first.id);
+    const snap = await stock.snapshot({
+      locationId: "loc-a",
+      lotId: "LOT-1",
+    });
+    expect(snap?.balance).toBe("50");
+    const entries = await stock.list({
+      locationId: "loc-a",
+      lotId: "LOT-1",
+    });
+    expect(entries).toHaveLength(1);
+  });
+
+  it("isolates chains by lot and owner", async () => {
+    const stock = createStockMovement({ store: createMemoryLedgerStore() });
+    await stock.append({
+      locationId: "loc-b",
+      lotId: "L1",
+      ownerId: "SKU-A",
+      openingBalance: "0",
+      inAmount: "10",
+      entryType: "receipt",
+      entryTypeId: "a1",
+    });
+    await stock.append({
+      locationId: "loc-b",
+      lotId: "L2",
+      ownerId: "SKU-A",
+      openingBalance: "0",
+      inAmount: "20",
+      entryType: "receipt",
+      entryTypeId: "a2",
+    });
+    const snap1 = await stock.snapshot({
+      locationId: "loc-b",
+      lotId: "L1",
+      ownerId: "SKU-A",
+    });
+    const snap2 = await stock.snapshot({
+      locationId: "loc-b",
+      lotId: "L2",
+      ownerId: "SKU-A",
+    });
+    expect(snap1?.balance).toBe("10");
+    expect(snap2?.balance).toBe("20");
+  });
 });

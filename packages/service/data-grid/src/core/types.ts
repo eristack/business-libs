@@ -85,7 +85,8 @@ export type FieldType =
   | "date"
   | "enum"
   | "decimal"
-  | "money";
+  | "money"
+  | "wall";
 
 export type DataGridFieldDef = {
   name: string;
@@ -95,6 +96,8 @@ export type DataGridFieldDef = {
   /** Included in search-mode OR contains. Default false. */
   searchable?: boolean;
   enumValues?: readonly string[];
+  /** IANA zone for `type: "wall"` when filter values are plain date strings. */
+  timezone?: string;
 };
 
 export type DataGridSchema = {

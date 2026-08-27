@@ -1037,6 +1037,26 @@ export const tenets = [
   },
 ] as const;
 
+/** Four package design targets — agent + consumer integration quality bar. */
+export const packageDesignTargets = [
+  {
+    title: "Cheap to implement",
+    body: "Finish integration in ≤3 files: one skill, one getting-started guide, optional adapter page.",
+  },
+  {
+    title: "Predictable result",
+    body: "Same core in forms, APIs, and tests — string-first money, explicit defaults, no silent coercion.",
+  },
+  {
+    title: "High reliability",
+    body: "Drizzle/DB-first production paths, real integration tests, hash-chained ledgers where audit matters.",
+  },
+  {
+    title: "Clear boundaries",
+    body: "Export registries and helpers consumers would copy — apps own UX, domain tables, and product rules.",
+  },
+] as const;
+
 export const maintainers = [
   {
     name: "Michael Lam",

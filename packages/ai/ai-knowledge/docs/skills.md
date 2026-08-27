@@ -25,11 +25,15 @@ These skills ship inside the `@eristack/ai-knowledge` npm package. Editing a ski
 | `dev-conventions` | GitHub Flow, Changesets, docs source of truth, `_ai-docs` |
 | `ai-toolbox` | Feature-brief prompts, checklists, recipe authoring template |
 | `upgrading-eristack` | Bump `@eristack/*`, changelogs, Backseat peer ranges, Changesets 0.x |
+| `backseat-then-backend` | Horizon A Backseat mockup → Horizon B Drizzle; document/cost-sheet ERPs |
+| `document-lines-erp` | Header + QUPS lines spine — not stock/GL |
+| `optimistic-document-version` | `expectedVersion` / 409 CONFLICT_VERSION pattern |
 
 ## Load order
 
 1. **Architecture** — when scaffolding or choosing structure  
-2. **Upgrading** — when bumping dependencies or reading changelogs (`upgrading-eristack`)  
+2. **Backseat-then-backend** — document/cost-sheet/job-order mockups before inventory spine  
+3. **Upgrading** — when bumping dependencies or reading changelogs (`upgrading-eristack`)  
 3. **Recommend** — when the user states a product feature  
 4. **Package skills** — money / jwt-auth / doc-number / data-grid core then adapters  
 5. **Stack defaults** — while generating app code  

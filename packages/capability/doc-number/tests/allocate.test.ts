@@ -43,6 +43,29 @@ describe("createDocNumber allocate", () => {
     });
   });
 
+  it("uses format timezone for tokens and period keys", async () => {
+    const doc = createDocNumber({
+      formats: createMemoryFormatStore(),
+      sequences: createMemorySequenceStore(),
+      clock: () => new Date("2026-12-31T17:00:00.000Z"),
+      idFactory: () => "fmt_jo",
+    });
+
+    await doc.registerFormat({
+      entityKey: "job",
+      pattern: "JO/{YYYY}/{SEQ:5}",
+      reset: "yearly",
+      timezone: "Asia/Jakarta",
+    });
+
+    const first = await doc.next({ entityKey: "job" });
+    expect(first).toMatchObject({
+      value: "JO/2027/00001",
+      periodKey: "2027",
+      sequence: 1,
+    });
+  });
+
   it("rolls sequence when period changes", async () => {
     let now = new Date("2026-08-31T00:00:00.000Z");
     const doc = createDocNumber({
@@ -101,6 +124,33 @@ describe("createDocNumber allocate", () => {
       reset: "yearly",
     });
     expect((await doc.next({ entityKey: "receipt" })).value).toBe("RC-2026-01");
+  });
+
+  it("allocates independent sequences per scope", async () => {
+    const doc = createDocNumber({
+      formats: createMemoryFormatStore(),
+      sequences: createMemorySequenceStore(),
+      clock: () => new Date("2026-01-01T00:00:00.000Z"),
+      idFactory: () => "fmt_job",
+    });
+
+    await doc.registerFormat({
+      entityKey: "job",
+      pattern: "JO/{SCOPE}/{YYYY}/{SEQ:5}",
+      reset: "yearly",
+    });
+
+    const sub = await doc.next({ entityKey: "job", scope: "SUB" });
+    const jkt = await doc.next({ entityKey: "job", scope: "JKT" });
+    const sub2 = await doc.next({ entityKey: "job", scope: "SUB" });
+
+    expect(sub).toMatchObject({ value: "JO/SUB/2026/00001", scope: "SUB", sequence: 1 });
+    expect(jkt).toMatchObject({ value: "JO/JKT/2026/00001", scope: "JKT", sequence: 1 });
+    expect(sub2).toMatchObject({ value: "JO/SUB/2026/00002", scope: "SUB", sequence: 2 });
+
+    const company = await doc.next({ entityKey: "job" });
+    expect(company.scope).toBe("");
+    expect(company.sequence).toBe(1);
   });
 
   it("errors on missing format or dependencies", async () => {

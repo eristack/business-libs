@@ -1,4 +1,8 @@
+import type { RegisteredRouteMeta, RoutesSnapshot } from "./routes-meta.js";
+
 export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+export type { RegisteredRouteMeta, RoutesSnapshot } from "./routes-meta.js";
 
 export type BackseatDocument = Record<string, unknown> & { id?: string };
 
@@ -13,6 +17,19 @@ export type BackseatCollectionFilter = {
 };
 
 /** Persistence port — memory for tests; IndexedDB for browser prototypes. */
+export type TransactionalStore = {
+  get(collection: string, id: string): Promise<BackseatDocument | null>;
+  create(collection: string, doc: BackseatDocument): Promise<BackseatDocument>;
+  update(
+    collection: string,
+    id: string,
+    patch: BackseatDocument,
+  ): Promise<BackseatDocument>;
+  /** Create or replace by document id — common for aggregate writes. */
+  set(collection: string, doc: BackseatDocument): Promise<BackseatDocument>;
+  delete(collection: string, id: string): Promise<void>;
+};
+
 export type BackseatStore = {
   list(collection: string, filter?: BackseatCollectionFilter): Promise<BackseatDocument[]>;
   get(collection: string, id: string): Promise<BackseatDocument | null>;
@@ -23,6 +40,11 @@ export type BackseatStore = {
     patch: BackseatDocument,
   ): Promise<BackseatDocument>;
   delete(collection: string, id: string): Promise<void>;
+  /**
+   * Multi-collection write — rolls back all touched collections when `work` throws.
+   * Run epoch bumps **after** atomic commits (cannot span separate stores in one IDB txn).
+   */
+  atomic<T>(work: (tx: TransactionalStore) => Promise<T>): Promise<T>;
   listCollections(): Promise<string[]>;
   exportSnapshot(): Promise<BackseatSnapshot>;
   importSnapshot(snapshot: BackseatSnapshot): Promise<void>;
@@ -44,7 +66,7 @@ export type BackseatResponse<T = unknown> = {
 };
 
 export type BackseatErrorBody = {
-  error: { code: string; message: string };
+  error: { code: string; message: string; details?: Record<string, unknown> };
 };
 
 export type { BackseatHandlerContext } from "./context.js";
@@ -126,7 +148,12 @@ export type Backseat = {
   handle(req: BackseatRequest): Promise<BackseatResponse>;
   fetch(input: string, init?: RequestInit): Promise<Response>;
   handlers: Record<string, CrudHandlers>;
+  /** All registered routes (includes handler references). */
   routes(): RouteDefinition[];
+  /** Serializable route metadata for Horizon B derivation — no handlers. */
+  listRoutes(): RegisteredRouteMeta[];
+  /** JSON snapshot of routes + action names. */
+  routesSnapshot(): RoutesSnapshot;
   seed(snapshot: BackseatSnapshot): Promise<void>;
   reseed(): Promise<void>;
   snapshot(): Promise<BackseatSnapshot>;

@@ -1,74 +1,88 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ContentSection } from "@/components/stack/content-section";
-import { LayerSection } from "@/components/stack/library-list";
+import { DocsHubRecommend } from "@/components/docs-hub-recommend";
+import { DocsHubPaths } from "@/components/docs-hub-paths";
+import { DocsLayerMatrix } from "@/components/docs-layer-matrix";
+import { LayerStrip } from "@/components/stack/layer-strip";
 import { PageHero } from "@/components/stack/page-hero";
 import { getDocPackages } from "@/lib/docs";
-import { packageCategories, packages } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Documentation",
-  description: "Guides and API notes for Eristack packages.",
+  description:
+    "Guides and API notes for Eristack packages — browse by layer or follow a guided path.",
 };
 
 export default function DocsIndexPage() {
   const docPackages = getDocPackages();
-  const bySlug = new Map(packages.map((pkg) => [pkg.slug, pkg]));
-
-  const grouped = packageCategories.map((category) => ({
-    ...category,
-    packages: docPackages
-      .filter((pkg) => pkg.category === category.id)
-      .map((pkg) => bySlug.get(pkg.slug)!)
-      .filter(Boolean),
-  }));
+  const docSlugs = new Set(docPackages.map((pkg) => pkg.slug));
 
   return (
     <>
       <PageHero
-        tone="product"
+        tone="marketing"
         eyebrow={
           <span className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
             Documentation
           </span>
         }
-        title="Docs"
-        tagline="Guides next to the code. Pick a library and read."
-        description="Library discovery and layer navigation live under Libraries. This page is only the documentation index."
+        title="Library docs"
+        tagline="Guides live next to the code — pick a path or browse by layer."
+        description="Every page renders markdown from `packages/*/docs` in the monorepo. Use Cmd+K to search titles and body text across all libraries."
         actions={
-          <Link
-            href="/packages"
-            className="text-[13px] font-semibold text-accent hover:underline"
-          >
-            ← Browse libraries
-          </Link>
+          <>
+            <Button asChild size="lg">
+              <Link href="#layers">
+                Browse by layer
+                <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/packages">Library overviews</Link>
+            </Button>
+          </>
         }
         meta={
-          <nav
-            aria-label="Breadcrumb"
-            className="flex flex-wrap items-center gap-1.5 text-[12px] text-muted-foreground"
-          >
-            <Link href="/packages" className="hover:text-accent">
-              Libraries
-            </Link>
-            <span>/</span>
-            <span className="text-foreground">Docs</span>
-          </nav>
+          <div className="flex flex-wrap items-center gap-3 text-[13px] text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card/80 px-3 py-2 font-medium text-foreground/80">
+              <Search className="size-3.5 opacity-60" aria-hidden />
+              <kbd className="font-mono text-[11px]">⌘K</kbd>
+              <span>search docs</span>
+            </span>
+            <span>{docPackages.length} libraries documented</span>
+          </div>
         }
+        footer={<LayerStrip className="max-w-5xl" />}
       />
 
-      <ContentSection tone="muted">
-        <div className="space-y-14">
-          {grouped.map((category) => (
-            <LayerSection
-              key={category.id}
-              categoryId={category.id}
-              items={category.packages}
-              variant="docs"
-              description={category.tagline}
-            />
-          ))}
-        </div>
+      <ContentSection
+        eyebrow="Agent routing"
+        title="What recommend() suggests"
+        description="Example product language mapped through @eristack/ai-knowledge recipes at build time."
+        tone="card"
+      >
+        <DocsHubRecommend />
+      </ContentSection>
+
+      <ContentSection
+        eyebrow="Guided paths"
+        title="Start with a journey"
+        description="Common integration arcs — each links to the canonical getting-started or upgrade guide."
+        tone="muted"
+      >
+        <DocsHubPaths />
+      </ContentSection>
+
+      <ContentSection
+        id="layers"
+        eyebrow="Layer matrix"
+        title="All libraries"
+        description="Seven layers from primitive value types to AI workflow — open docs for any published package."
+      >
+        <DocsLayerMatrix docSlugs={docSlugs} />
       </ContentSection>
     </>
   );

@@ -67,4 +67,63 @@ describe("hash-chained-ledger", () => {
 
     await expect(ledger.verify("c1")).rejects.toBeInstanceOf(ChainTamperedError);
   });
+
+  it("requires openingBalance on first append", async () => {
+    const ledger = createHashChainedLedger({
+      store: createMemoryLedgerStore(),
+    });
+    await expect(
+      ledger.append({
+        chainId: "new-chain",
+        inAmount: "1",
+        entryType: "receipt",
+        entryTypeId: "x",
+      }),
+    ).rejects.toThrow(/openingBalance/);
+  });
+
+  it("lists entries in sequence order", async () => {
+    const ledger = createHashChainedLedger({
+      store: createMemoryLedgerStore(),
+    });
+    await ledger.append({
+      chainId: "seq",
+      openingBalance: "0",
+      inAmount: "1",
+      entryType: "a",
+      entryTypeId: "1",
+    });
+    await ledger.append({
+      chainId: "seq",
+      inAmount: "2",
+      entryType: "b",
+      entryTypeId: "2",
+    });
+    const listed = await ledger.list("seq");
+    expect(listed.map((e) => e.sequence)).toEqual([1, 2]);
+    const tip = await ledger.tip("seq");
+    expect(tip?.closingBalance).toBe("3");
+  });
+
+  it("rejects wrong openingBalance when chain exists", async () => {
+    const ledger = createHashChainedLedger({
+      store: createMemoryLedgerStore(),
+    });
+    await ledger.append({
+      chainId: "c",
+      openingBalance: "0",
+      inAmount: "5",
+      entryType: "open",
+      entryTypeId: "1",
+    });
+    await expect(
+      ledger.append({
+        chainId: "c",
+        openingBalance: "99",
+        inAmount: "1",
+        entryType: "bad",
+        entryTypeId: "2",
+      }),
+    ).rejects.toThrow(/openingBalance must equal tip/);
+  });
 });

@@ -60,4 +60,10 @@ export {
   type RegisterProfileInput,
   type UpdateProfileInput,
   type SaveLineInput,
+  applyCellPatch,
+  type ApplyCellPatchOptions,
+  type QupsCellField,
+  withQupsFields,
+  withQupsFieldsRow,
+  type QupsPersistedFields,
 } from "./core/index.js";

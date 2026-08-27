@@ -20,4 +20,6 @@ pbac.registerPolicy({
   id: "purchase-order.can-receive",
   evaluate: documents.positiveAmount("outstandingMinor"),
 });
+
+// Status commands: documents.transitions("status", { draft: ["submit"], submitted: ["approve"] })
 ```

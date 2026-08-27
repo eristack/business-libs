@@ -7,4 +7,4 @@ export const codeTheme = {
 } as const;
 
 export const codeFontFamily =
-  "var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+  "var(--font-brand-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";

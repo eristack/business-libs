@@ -10,7 +10,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CodePanel } from "@/components/code-panel";
-import { siteConfig } from "@/lib/site";
+import { ContentSection } from "@/components/stack/content-section";
+import { PageHero } from "@/components/stack/page-hero";
 
 export const metadata: Metadata = {
   title: "Start here",
@@ -70,28 +71,34 @@ pnpm dlx @tanstack/intent@latest load \\
 
 export default function StartPage() {
   return (
-    <div className="relative overflow-hidden border-b border-border">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.18),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.12),transparent)]"
-      />
-      <div className="relative mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
-        <header className="max-w-2xl">
-          <p className="text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase">
+    <>
+      <PageHero
+        tone="marketing"
+        eyebrow={
+          <span className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
             Start here
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Overwhelmed? That is normal.
-          </h1>
-          <p className="mt-4 text-[15px] leading-7 text-muted-foreground">
-            Eristack is a shelf of libraries, not a single framework you install
-            and forget. This page is the short path — no layer taxonomy, no
-            seventeen-package checklist. Set up a repo, add a few packages, wire
-            agent knowledge, then dig deeper when something specific breaks.
-          </p>
-        </header>
+          </span>
+        }
+        title="Overwhelmed? That is normal."
+        tagline="Eristack is a shelf of libraries, not a single framework you install and forget."
+        description="This page is the short path — no layer taxonomy, no seventeen-package checklist. Set up a repo, add a few packages, wire agent knowledge, then dig deeper when something specific breaks."
+        actions={
+          <>
+            <Button asChild size="lg">
+              <Link href="/docs">
+                Open docs
+                <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/packages">Browse libraries</Link>
+            </Button>
+          </>
+        }
+      />
 
-        <div className="mt-14 space-y-16">
+      <ContentSection tone="muted" eyebrow="Four steps" title="The calm path">
+        <div className="space-y-12">
           {steps.map((step) => {
             const Icon = step.icon;
             return (
@@ -118,13 +125,14 @@ export default function StartPage() {
                       />
                     ) : null}
                     {"links" in step && step.links ? (
-                      <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                      <ul className="flex flex-col gap-2 pt-1">
                         {step.links.map((link) => (
                           <li key={link.href}>
                             <Link
                               href={link.href}
-                              className="font-medium text-foreground underline-offset-4 hover:underline"
+                              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:underline"
                             >
+                              <BookOpen className="size-3.5 opacity-70" />
                               {link.label}
                             </Link>
                           </li>
@@ -137,38 +145,7 @@ export default function StartPage() {
             );
           })}
         </div>
-
-        <aside className="mt-16 rounded-xl border border-border bg-muted/40 p-6 sm:p-8">
-          <div className="flex items-start gap-3">
-            <BookOpen className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
-            <div className="space-y-3">
-              <h2 className="text-base font-semibold text-foreground">
-                Not a package — on purpose
-              </h2>
-              <p className="text-[15px] leading-7 text-muted-foreground">
-                There is no <code>@eristack/starter</code> npm package and no
-                hidden layer for “beginners.” This guide lives on the site so
-                humans and agents can find one front door. When you outgrow it,
-                the seven layers and roadmap are still there — they are just not
-                step zero.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-1">
-                <Button asChild size="sm">
-                  <Link href="/docs">
-                    Open docs
-                    <ArrowRight />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="sm">
-                  <a href={siteConfig.github} target="_blank" rel="noreferrer">
-                    View examples on GitHub
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </div>
+      </ContentSection>
+    </>
   );
 }

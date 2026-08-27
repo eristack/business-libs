@@ -43,6 +43,20 @@ describe("createEpoch", () => {
       StaleEpochError,
     );
   });
+
+  it("bumpMany bumps all scopes", async () => {
+    const epoch = createEpoch({ store: createMemoryEpochStore() });
+    await epoch.bumpMany(["jobs", "cost-sheets", "dashboard"]);
+    expect(await epoch.current("jobs")).toBe(1);
+    expect(await epoch.current("cost-sheets")).toBe(1);
+    expect(await epoch.current("dashboard")).toBe(1);
+  });
+
+  it("bumpMany with empty array is a no-op", async () => {
+    const epoch = createEpoch({ store: createMemoryEpochStore() });
+    await epoch.bumpMany([]);
+    expect(await epoch.current("orders")).toBe(0);
+  });
 });
 
 describe("package exports", () => {

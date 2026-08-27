@@ -17,6 +17,9 @@ import {
   validateTimestampJSON,
   wallOf,
   wallToInstantOnce,
+  compareWall,
+  isWallInRange,
+  addWallDays,
 } from "../src/index.js";
 import { Temporal } from "@js-temporal/polyfill";
 
@@ -71,6 +74,46 @@ describe("wall mode", () => {
     expect(winterUtc).not.toBe(summerUtc);
     expect(toLocalParts(wallToInstantOnce(winter)).hour).toBe(9);
     expect(toLocalParts(wallToInstantOnce(summer)).hour).toBe(9);
+  });
+
+  it("compareWall orders civil time in the same zone", () => {
+    const a = wallOf("2026-09-01", "Asia/Jakarta");
+    const b = wallOf("2026-09-07", "Asia/Jakarta");
+    expect(compareWall(a, b)).toBe(-1);
+    expect(compareWall(b, a)).toBe(1);
+    expect(compareWall(a, a)).toBe(0);
+  });
+
+  it("isWallInRange is inclusive on both ends", () => {
+    const start = wallOf("2026-09-01", "Asia/Jakarta");
+    const end = wallOf("2026-09-07", "Asia/Jakarta");
+    const inside = wallOf("2026-09-04", "Asia/Jakarta");
+    expect(isWallInRange(inside, start, end)).toBe(true);
+    expect(isWallInRange(start, start, end)).toBe(true);
+    expect(isWallInRange(end, start, end)).toBe(true);
+    expect(isWallInRange(wallOf("2026-08-31", "Asia/Jakarta"), start, end)).toBe(
+      false,
+    );
+  });
+
+  it("compareWall rejects mixed timezones", () => {
+    const jakarta = wallOf("2026-09-01", "Asia/Jakarta");
+    const paris = wallOf("2026-09-01", "Europe/Paris");
+    expect(() => compareWall(jakarta, paris)).toThrow(TimestampParseError);
+  });
+
+  it("addWallDays advances civil calendar without Date", () => {
+    const invoiceDate = wallOf("2026-09-24", "Asia/Jakarta");
+    expect(addWallDays(invoiceDate, 14)).toEqual({
+      kind: "wall",
+      local: "2026-10-08",
+      timezone: "Asia/Jakarta",
+    });
+  });
+
+  it("addWallDays crosses DST spring-forward in Europe", () => {
+    const before = wallOf("2026-03-28", "Europe/Paris");
+    expect(addWallDays(before, 1).local).toBe("2026-03-29");
   });
 });
 

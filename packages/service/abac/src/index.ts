@@ -1,6 +1,14 @@
 export { createAbac } from "./core/create-abac.js";
 export { attrs } from "./core/attrs.js";
 export {
+  matchesAssignmentPair,
+  assignmentPairMatch,
+} from "./core/assignment-pairs.js";
+export type {
+  MatchesAssignmentPairOptions,
+  AssignmentPairMatchOptions,
+} from "./core/assignment-pairs.js";
+export {
   AbacError,
   PolicyDeniedError,
   PolicyNotFoundError,

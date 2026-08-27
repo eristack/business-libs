@@ -22,6 +22,8 @@ export type StockMovementInput = {
   entryTypeId: string;
   occurredAt?: string | Date;
   id?: string;
+  /** When set, a second append with the same key returns the existing entry (retry-safe). */
+  idempotencyKey?: string;
   meta?: Record<string, unknown>;
 };
 
@@ -67,6 +69,13 @@ export function createStockMovement(
     ledger,
     async append(input) {
       const chainId = chainOf(input);
+      if (input.idempotencyKey) {
+        const existing = await ledger.list(chainId);
+        const hit = existing.find(
+          (entry) => entry.meta?.idempotencyKey === input.idempotencyKey,
+        );
+        if (hit) return hit;
+      }
       const payload: AppendLedgerEntryInput = {
         chainId,
         openingBalance: input.openingBalance,
@@ -81,6 +90,9 @@ export function createStockMovement(
           locationId: input.locationId,
           lotId: input.lotId,
           ownerId: input.ownerId ?? null,
+          ...(input.idempotencyKey
+            ? { idempotencyKey: input.idempotencyKey }
+            : {}),
           ...(input.meta ?? {}),
         },
       };

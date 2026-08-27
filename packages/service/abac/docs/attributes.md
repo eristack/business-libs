@@ -69,6 +69,38 @@ attrs.resourceInSubjectList({
 
 `warehouseIds` must be an array on the subject; otherwise deny.
 
+### Assignment pair match (Role × Branch × Trade)
+
+Allow when a subject assignment pair matches resource branch + trade. **No admin bypass** — apps add a separate RBAC gate or policy.
+
+```ts
+import { attrs, matchesAssignmentPair } from "@eristack/abac";
+
+// Policy (get/detail routes)
+attrs.assignmentPairMatch({
+  pairsPath: "subject.attrs.assignments",
+  resourceBranchPath: "resource.attrs.branchId",
+  resourceTradePath: "resource.attrs.trade",
+  pairBranchKey: "branchId", // default
+  pairTradeKey: "trade", // default
+});
+
+// List prefilter (Backseat / in-memory)
+prefilter: (doc) =>
+  matchesAssignmentPair(user.assignments, doc.branchId, doc.trade);
+```
+
+Custom pair keys when your schema uses different field names:
+
+```ts
+matchesAssignmentPair(pairs, doc.siteId, doc.lineOfBusiness, {
+  pairBranchKey: "siteId",
+  pairTradeKey: "lob",
+});
+```
+
+Returns `false` when branch or trade is null/undefined on the resource.
+
 ## Where attributes live
 
 | Data | Stored in | Loaded when |

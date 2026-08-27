@@ -22,3 +22,5 @@ export type {
   RegisterDataGridBackseatOptions,
   RegisterDataGridBackseatRouteOptions,
 } from "./register.js";
+export { executeBackseatList } from "./execute.js";
+export type { ExecuteBackseatListOptions } from "./execute.js";

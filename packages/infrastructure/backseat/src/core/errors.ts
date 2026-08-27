@@ -25,9 +25,16 @@ export class BackseatValidationError extends BackseatError {
 }
 
 export class BackseatConflictError extends BackseatError {
-  constructor(message: string) {
-    super("CONFLICT", message, 409);
+  constructor(message: string, code = "CONFLICT") {
+    super(code, message, 409);
     this.name = "BackseatConflictError";
+  }
+}
+
+export class BackseatVersionConflictError extends BackseatError {
+  constructor(message = "Document version conflict") {
+    super("CONFLICT_VERSION", message, 409);
+    this.name = "BackseatVersionConflictError";
   }
 }
 

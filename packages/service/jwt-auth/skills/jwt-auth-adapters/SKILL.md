@@ -12,6 +12,7 @@ metadata:
   library_version: '0.0.0'
 sources:
   - 'eristack/business-libs:packages/service/jwt-auth/docs/http.md'
+  - 'eristack/business-libs:packages/service/jwt-auth/docs/dual-target.md'
   - 'eristack/business-libs:packages/service/jwt-auth/docs/database.md'
   - 'eristack/business-libs:packages/service/jwt-auth/docs/client-and-react.md'
   - 'eristack/business-libs:packages/service/jwt-auth/docs/recipes.md'
@@ -128,6 +129,10 @@ function Profile() {
 ```
 
 App mounts `QueryClientProvider`. Package ships no form UI.
+
+### Dual-target client (Horizon A → B)
+
+One `createJwtAuthClient` — change `baseUrl` only. Backseat: `registerJwtAuthBackseat(api, { basePath: "/auth" })` → `/api/auth/login`. Express: `app.use("/auth", createJwtAuthRouter(...))` → `/auth/login`. Keep `refreshTokenTransport` identical. Full parity table: `docs/dual-target.md`.
 
 ## Common Mistakes
 

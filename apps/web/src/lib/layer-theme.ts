@@ -1,4 +1,4 @@
-import type { PackageCategoryId, PackageSlug } from "@/lib/site";
+import { packages, type PackageCategoryId, type PackageSlug } from "@/lib/site";
 
 /** Per-layer accent system — applied via `data-layer` on heroes/chrome. */
 export const layerThemes = {
@@ -42,38 +42,11 @@ export const layerThemes = {
   { label: string; swatch: string }
 >;
 
-export type LibraryMotifId =
-  | "money"
-  | "doc-number"
-  | "qups"
-  | "data-grid"
-  | "epoch"
-  | "jwt-auth"
-  | "rbac"
-  | "abac"
-  | "pbac"
-  | "ai-knowledge"
-  | "ai-workflow"
-  | "ai-ticket-generator"
-  | "backseat"
-  | "multitab";
+export type LibraryMotifId = PackageSlug;
 
+/** Every publishable package gets a hero motif — no gray fallback tiles. */
 export function motifForPackage(slug: string): LibraryMotifId | null {
-  const known: PackageSlug[] = [
-    "money",
-    "doc-number",
-    "qups",
-    "data-grid",
-    "epoch",
-    "jwt-auth",
-    "rbac",
-    "abac",
-    "pbac",
-    "ai-knowledge",
-    "ai-workflow",
-    "ai-ticket-generator",
-    "backseat",
-    "multitab",
-  ];
-  return known.includes(slug as PackageSlug) ? (slug as LibraryMotifId) : null;
+  return packages.some((pkg) => pkg.slug === slug)
+    ? (slug as LibraryMotifId)
+    : null;
 }

@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CodePanel } from "@/components/code-panel";
+import { DocsInstallSnippet } from "@/components/docs-install-snippet";
 import { hasPackageHeroDemo } from "@/components/package-demos/demo-slugs";
 import { PackageHeroDemo } from "@/components/package-demos/package-hero-demo";
+import {
+  LibraryDocsCta,
+  packageGettingStartedHref,
+} from "@/components/library-docs-cta";
 import { Button } from "@/components/ui/button";
 import { ContentSection } from "@/components/stack/content-section";
 import { FeatureGrid } from "@/components/stack/feature-grid";
@@ -155,10 +160,13 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
         actions={
           <>
             <Button asChild size="lg">
-              <Link href={pkg.docsHref}>
-                Read the docs
+              <Link href={packageGettingStartedHref(pkg)}>
+                Getting started
                 <ArrowRight />
               </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href={pkg.docsHref}>All docs</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link href={release.changelogHref}>Changelog</Link>
@@ -174,11 +182,7 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
             </Button>
           </>
         }
-        meta={
-          <pre className="max-w-lg overflow-x-auto rounded-lg border border-border bg-background/80 px-4 py-3 font-mono text-[13px] text-foreground shadow-sm">
-            <code>{pkg.install}</code>
-          </pre>
-        }
+        meta={<DocsInstallSnippet command={pkg.install} className="mt-0" />}
         aside={
           hasPackageHeroDemo(pkg.slug) ? (
             <PackageHeroDemo slug={pkg.slug} />
@@ -200,29 +204,11 @@ export async function PackageLanding({ pkg }: { pkg: Package }) {
         <FeatureGrid highlights={pkg.highlights} />
       </ContentSection>
 
-      <ContentSection tone="card">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight">
-              Ready to wire it in?
-            </h2>
-            <p className="mt-2 text-[14px] text-muted-foreground">
-              Guides live next to the code under {pkg.directory}/docs.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Button asChild>
-              <Link href={pkg.docsHref}>
-                Open docs
-                <ArrowRight />
-              </Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href={category.href}>More in {category.label}</Link>
-            </Button>
-          </div>
-        </div>
-      </ContentSection>
+      <LibraryDocsCta
+        pkg={pkg}
+        categoryLabel={category.label}
+        categoryHref={category.href}
+      />
 
       {siblings.length > 1 ? (
         <ContentSection

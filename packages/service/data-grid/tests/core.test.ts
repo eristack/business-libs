@@ -278,3 +278,76 @@ describe("decimal field type", () => {
     ]);
   });
 });
+
+describe("wall field type", () => {
+  const wallSchema = {
+    fields: [
+      {
+        name: "etd",
+        type: "wall" as const,
+        timezone: "Asia/Jakarta",
+        filterable: true,
+        sortable: true,
+      },
+    ],
+    defaultPageSize: 10,
+    maxPageSize: 50,
+  };
+
+  const jobs = [
+    {
+      etd: {
+        kind: "wall" as const,
+        local: "2026-09-04",
+        timezone: "Asia/Jakarta",
+      },
+    },
+    {
+      etd: {
+        kind: "wall" as const,
+        local: "2026-09-01",
+        timezone: "Asia/Jakarta",
+      },
+    },
+    {
+      etd: {
+        kind: "wall" as const,
+        local: "2026-09-10",
+        timezone: "Asia/Jakarta",
+      },
+    },
+  ];
+
+  it("sorts wall dates in zone order", () => {
+    const grid = createDataGrid(wallSchema);
+    const result = grid.applyInMemory(jobs, {
+      mode: "advanced",
+      sorts: [{ field: "etd", dir: "asc" }],
+      page: { mode: "offset", page: 1, pageSize: 10 },
+    });
+    expect(result.items.map((row) => row.etd.local)).toEqual([
+      "2026-09-01",
+      "2026-09-04",
+      "2026-09-10",
+    ]);
+  });
+
+  it("filters inclusive wall range without Date.parse", () => {
+    const grid = createDataGrid(wallSchema);
+    const result = grid.applyInMemory(jobs, {
+      mode: "advanced",
+      filters: {
+        type: "clause",
+        field: "etd",
+        op: "between",
+        value: ["2026-09-01", "2026-09-07"],
+      },
+      sorts: [{ field: "etd", dir: "asc" }],
+      page: { mode: "offset", page: 1, pageSize: 10 },
+    });
+    expect(result.items.map((row) => row.etd.local)).toEqual([
+      "2026-09-01",
+      "2026-09-04",
+    ]);
+  });
+});

@@ -2,6 +2,7 @@ import { createCrudRouteHandlers, wrapHandler } from "./handlers/crud.js";
 import { createHandlerContext } from "./context.js";
 import { BackseatRouter, normalizeApiPath } from "./router.js";
 import { toBackseatErrorResponse } from "./errors.js";
+import { buildRoutesSnapshot, listRoutesMeta } from "./routes-meta.js";
 import type {
   Backseat,
   BackseatActionHandler,
@@ -197,6 +198,8 @@ export function createBackseat(options: CreateBackseatOptions): Backseat {
     fetch: fetchShim,
     handlers,
     routes: () => router.list(),
+    listRoutes: () => listRoutesMeta(router.list(), baseUrl),
+    routesSnapshot: () => buildRoutesSnapshot(router.list(), baseUrl, actions),
     seed,
     reseed,
     snapshot,

@@ -83,6 +83,27 @@ export class CurrencyConversion implements MonetaryOperator {
   }
 }
 
+export function convertAtQuotePerBase(
+  amount: Money,
+  quotePerBase: string,
+  quote: string | CurrencyUnit,
+  roundingMode: RoundingMode = "HALF_EVEN",
+): Money {
+  if (typeof quotePerBase === "number") {
+    throw new ArithmeticError("quotePerBase must be a string, not a JS number");
+  }
+  return amount.with(
+    Conversion.of(
+      {
+        base: amount.currency,
+        term: quote,
+        factor: quotePerBase,
+      },
+      roundingMode,
+    ),
+  );
+}
+
 export const Conversion = {
   of(
     rate: ExchangeRate | ExchangeRateInput,

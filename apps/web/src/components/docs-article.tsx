@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { DocsInstallSnippet } from "@/components/docs-install-snippet";
+import { DocsSkillStrip } from "@/components/docs-skill-strip";
 import { DocsPager } from "@/components/docs-pager";
-import { DocsToc, extractToc } from "@/components/docs-toc";
+import { DocsToc, DocsTocMobile } from "@/components/docs-toc";
+import { extractToc } from "@/lib/doc-toc";
 import { Markdown } from "@/components/markdown";
+import { resolveDocSkills } from "@/lib/doc-agent-skills";
 import {
   docSourcePath,
   type DocMeta,
@@ -38,10 +42,14 @@ export async function DocsArticle({
   const pkg = packages.find((item) => item.slug === packageSlug);
   const category = pkg ? getCategory(pkg.category) : null;
   const release = pkg ? getPackageRelease(pkg) : null;
+  const agentSkills = resolveDocSkills(packageSlug, slug);
 
   return (
     <div className="flex gap-8 xl:gap-12">
-      <article className="min-w-0 flex-1 rounded-xl border border-border bg-card px-6 py-7 shadow-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <article
+        data-layer={pkg?.category}
+        className="min-w-0 flex-1 rounded-xl border border-border/80 border-l-[3px] border-l-[color:var(--layer-accent)] bg-card px-6 py-7 shadow-[0_1px_2px_rgba(26,24,20,0.04)] sm:px-8 sm:py-8 lg:px-12 lg:py-10"
+      >
         <div className="mb-8 border-b border-border pb-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">
@@ -95,17 +103,21 @@ export async function DocsArticle({
               </a>
             </div>
           </div>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h1 className="mt-4 text-[length:var(--text-h1)] font-semibold tracking-[var(--tracking-tight)] sm:text-[2rem]">
             {title}
           </h1>
           {description ? (
-            <p className="mt-2 max-w-3xl text-[15px] text-muted-foreground">
-              {description}
-            </p>
+            <p className="type-lead mt-3 max-w-2xl">{description}</p>
           ) : null}
+          {pkg ? <DocsInstallSnippet packageName={pkg.name} /> : null}
+          <DocsSkillStrip skills={agentSkills} />
         </div>
 
-        <Markdown content={body} packageSlug={packageSlug} />
+        <DocsTocMobile items={toc} />
+
+        <div className="prose-measure">
+          <Markdown content={body} packageSlug={packageSlug} />
+        </div>
         <DocsPager pages={pages} currentSlug={slug} />
 
         <p className="mt-10 border-t border-border pt-6 text-[12px] text-muted-foreground">
