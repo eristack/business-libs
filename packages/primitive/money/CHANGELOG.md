@@ -1,5 +1,11 @@
 # @eristack/money
 
+## 0.3.2
+
+### Patch Changes
+
+- 294445c: Add `convertAtQuotePerBase` for quote-per-base FX snapshots (golden USD × IDR rate path).
+
 ## 0.3.1
 
 ### Patch Changes

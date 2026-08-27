@@ -1,5 +1,11 @@
 # @eristack/pbac
 
+## 0.2.2
+
+### Patch Changes
+
+- 294445c: Add `documents.transitions()` declarative status transition helper.
+
 ## 0.2.1
 
 ### Patch Changes
