@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   ArithmeticError,
   Conversion,
+  convertAtQuotePerBase,
   CurrencyMismatchError,
   formatMoney,
   Money,
@@ -127,6 +128,19 @@ describe("Conversion & JSON", () => {
     );
     expect(idr.currency.currencyCode).toBe("IDR");
     expect(idr.amountString()).toBe("1500000");
+  });
+
+  it("convertAtQuotePerBase uses quote-per-base naming", () => {
+    const usd = Money.of("1500", "USD");
+    const idr = convertAtQuotePerBase(usd, "16250", "IDR");
+    expect(idr.amountString()).toBe("24375000");
+  });
+
+  it("convertAtQuotePerBase rejects JS number rates", () => {
+    const usd = Money.of("100", "USD");
+    expect(() =>
+      convertAtQuotePerBase(usd, 16250 as unknown as string, "IDR"),
+    ).toThrow(ArithmeticError);
   });
 
   it("round-trips JSON", () => {

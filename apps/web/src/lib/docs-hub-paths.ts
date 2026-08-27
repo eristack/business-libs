@@ -25,6 +25,17 @@ export const docsHubPaths: DocsHubPath[] = [
     ],
   },
   {
+    id: "backseat-mockup",
+    title: "Backseat-first ERP mockup",
+    description:
+      "Horizon A clickable prototype — Backseat, QUPS lines, wall lists, then derive backend.",
+    href: "/docs/ai-knowledge/backseat-then-backend",
+    links: [
+      { label: "Document lines", href: "/docs/ai-knowledge/document-lines-erp" },
+      { label: "Upgrading", href: "/docs/ai-knowledge/upgrading" },
+    ],
+  },
+  {
     id: "upgrade",
     title: "Upgrade Eristack",
     description:

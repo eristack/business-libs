@@ -1,5 +1,6 @@
 import { ParseMismatchError } from "./errors.js";
-import { datePartsUtc } from "./period.js";
+import { datePartsFor } from "./period.js";
+import { sanitizeScopeForToken } from "./scope.js";
 import { padSequence, parsePattern, type TokenNode } from "./tokens.js";
 import type { FormatDocumentNumberInput, ParsedDocumentNumber } from "./types.js";
 
@@ -10,7 +11,7 @@ function escapeRegExp(value: string): string {
 export function formatDocumentNumber(input: FormatDocumentNumberInput): string {
   const at = input.at ?? new Date();
   const nodes = parsePattern(input.pattern);
-  const parts = datePartsUtc(at);
+  const parts = datePartsFor(at, input.timezone);
   let out = "";
 
   for (const node of nodes) {
@@ -29,6 +30,9 @@ export function formatDocumentNumber(input: FormatDocumentNumberInput): string {
         break;
       case "DD":
         out += parts.DD;
+        break;
+      case "SCOPE":
+        out += sanitizeScopeForToken(input.scope ?? "");
         break;
       case "SEQ":
         out += padSequence(input.sequence, node.width);
@@ -76,6 +80,10 @@ function buildParseRegex(nodes: TokenNode[]): {
       case "DD":
         source += "(\\d{2})";
         groupNames.push("DD");
+        break;
+      case "SCOPE":
+        source += "([^/]+)";
+        groupNames.push("SCOPE");
         break;
       case "SEQ":
         seqWidth = node.width;

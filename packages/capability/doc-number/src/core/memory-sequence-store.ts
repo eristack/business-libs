@@ -1,7 +1,9 @@
 import type { AllocateNextInput, SequenceStore } from "./types.js";
 
+import { normalizeScope } from "./scope.js";
+
 function keyOf(input: AllocateNextInput): string {
-  return `${input.formatId}\0${input.periodKey}`;
+  return `${input.formatId}\0${input.periodKey}\0${normalizeScope(input.scope)}`;
 }
 
 /** In-memory sequence store with a simple async mutex for allocateNext. */

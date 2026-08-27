@@ -39,6 +39,8 @@ const again = fromSearch(search, schema);
 
 - Schema is an **allow-list** (filterable / sortable / searchable flags)
 - **`type: "decimal"` / `"money"`** — sort/filter decimal **strings** in `applyInMemory` without `Number()` (money unit prices). Use `type: "number"` only for true numeric columns.
+- **`type: "wall"`** — ETD/ETA filters via `@eristack/timestamp` compare (set `timezone` on the field def). Never `Date.parse` wall locals.
+- **`executeBackseatList`** (`@eristack/data-grid/backseat`) — IndexedDB collection → `{ items, pageInfo, query }` with optional `prefilter` + `toRow` join.
 - Modes **do not mix**: `advanced` uses `filters`; `search` uses `q`
 - Result envelope: `{ items, pageInfo, query }`
 

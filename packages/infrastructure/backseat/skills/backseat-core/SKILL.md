@@ -58,8 +58,11 @@ const api = createBackseat({
 ## Controller surfaces
 
 1. **CRUD shortcuts** — `api.handlers.{collection}.list/get/create/patch/delete`
-2. **HTTP** — `registerRoute({ method, path, handler })` — use `ctx.json()`, `ctx.query()`, splat `/*`
-3. **Named** — `registerAction(name, fn)` + `api.invoke(name, input)`
+2. **`store.atomic(tx => …)`** — multi-collection writes (job + cost sheet); epoch bump **after** commit
+3. **`listRoutes()` / `routesSnapshot()`** — route inventory for Horizon B; Devtools Routes tab
+4. **`jsonError()` / `versionConflict()`** — standard `{ error: { code, message } }` envelope
+5. **HTTP** — `registerRoute({ method, path, handler })` — use `ctx.json()`, `ctx.query()`, splat `/*`
+6. **Named** — `registerAction(name, fn)` + `api.invoke(name, input)`
 
 CRUD collections are optional convenience — not the ceiling.
 

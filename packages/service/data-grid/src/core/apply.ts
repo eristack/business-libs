@@ -3,7 +3,12 @@ import {
   compareDecimalStrings,
   isDecimalFieldType,
 } from "./decimal-compare.js";
+import {
+  compareWallValues,
+  isWallFieldType,
+} from "./wall-compare.js";
 import { fieldTypeFor, matchClause, normalizeComparable } from "./match.js";
+import { fieldDef } from "./filter-builder.js";
 import { buildDataGridResult } from "./page-info.js";
 import type {
   DataGridQuery,
@@ -23,10 +28,12 @@ function matchNode<T>(
   schema: DataGridSchema,
 ): boolean {
   if (node.type === "clause") {
+    const def = fieldDef(schema, node.field);
     return matchClause(
       getField(item, node.field),
       node,
       fieldTypeFor(schema, node.field),
+      def,
     );
   }
   if (node.logic === "and") {
@@ -71,9 +78,15 @@ function compareValues(
   b: unknown,
   dir: "asc" | "desc",
   fieldType?: FieldType,
+  fieldTimezone?: string,
 ): number {
   if (isDecimalFieldType(fieldType)) {
     const result = compareDecimalStrings(String(a ?? ""), String(b ?? ""));
+    return dir === "desc" ? -result : result;
+  }
+
+  if (isWallFieldType(fieldType)) {
+    const result = compareWallValues(a, b, fieldTimezone ?? "UTC");
     return dir === "desc" ? -result : result;
   }
 
@@ -97,11 +110,13 @@ export function compareBySorts<T>(
   schema: DataGridSchema,
 ): number {
   for (const sort of sorts) {
+    const def = fieldDef(schema, sort.field);
     const result = compareValues(
       getField(a, sort.field),
       getField(b, sort.field),
       sort.dir,
       fieldTypeFor(schema, sort.field),
+      def?.timezone,
     );
     if (result !== 0) return result;
   }
@@ -125,6 +140,7 @@ function afterCursor<T>(
 ): boolean {
   for (let i = 0; i < sorts.length; i++) {
     const sort = sorts[i]!;
+    const def = fieldDef(schema, sort.field);
     const fieldType = fieldTypeFor(schema, sort.field);
     const left = normalizeComparable(getField(item, sort.field), {
       decimal: isDecimalFieldType(fieldType),
@@ -132,7 +148,7 @@ function afterCursor<T>(
     const right = normalizeComparable(cursorKeys[i], {
       decimal: isDecimalFieldType(fieldType),
     });
-    const cmp = compareValues(left, right, "asc", fieldType);
+    const cmp = compareValues(left, right, "asc", fieldType, def?.timezone);
     if (cmp === 0) continue;
     return sort.dir === "asc" ? cmp > 0 : cmp < 0;
   }

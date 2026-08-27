@@ -56,8 +56,7 @@ Table: `{prefix}_counters` — `scope` PK, `value` integer, `updated_at`.
 
 ```ts
 await epoch.bump("orders");
-// or batch-related scopes:
-await Promise.all(["orders", "order-lines"].map((s) => epoch.bump(s)));
+await epoch.bumpMany(["orders", "order-lines", "dashboard"]);
 ```
 
 ## HTTP — Express

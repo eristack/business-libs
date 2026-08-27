@@ -130,7 +130,7 @@ Suggested index for busy installations: `(entity_key, active)`.
 | `current_value` | `integer` NOT NULL | `int` | `integer` | Last allocated value |
 | `updated_at` | `timestamptz` | `datetime` | `integer` (ms) | |
 
-A **unique index** on `(format_id, period_key)` ships with the table, named `<table>_format_period_uidx`. It is the safety net that turns a concurrent "insert the first row of a new month" race into a constraint violation instead of two counters.
+A **unique index** on `(format_id, period_key, scope)` ships with the table (`scope` defaults to `''`). It is the safety net that turns a concurrent "insert the first row of a new month" race into a constraint violation instead of two counters.
 
 The package does not declare a foreign key from sequences to formats — deleting a format row while its counters exist would otherwise cascade away your numbering history. Add one yourself if your policy prefers it.
 

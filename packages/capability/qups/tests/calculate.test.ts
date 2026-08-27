@@ -3,6 +3,8 @@ import {
   calculateLine,
   patchLine,
   withQupsColumns,
+  applyCellPatch,
+  withQupsFields,
 } from "../src/index.js";
 
 describe("calculateLine (form + BE)", () => {
@@ -56,5 +58,39 @@ describe("calculateLine (form + BE)", () => {
     expect(line.unitPrice).toBe("12");
     expect(line.subtotal).toBe("24");
     expect(line.quantity).toBe("2");
+  });
+});
+
+describe("applyCellPatch", () => {
+  it("maps spreadsheet field keys to patchLine", () => {
+    const line = calculateLine({
+      truth: "quantity+unitPrice",
+      currency: "USD",
+      quantity: "2",
+      unitPrice: "10",
+    });
+
+    const next = applyCellPatch(line, "unitPrice", "12");
+    expect(next.unitPrice).toBe("12");
+    expect(next.subtotal).toBe("24");
+  });
+});
+
+describe("withQupsFields", () => {
+  it("returns snake_case SQL column names for Backseat", () => {
+    const line = calculateLine({
+      truth: "quantity+unitPrice",
+      currency: "IDR",
+      quantity: "1",
+      unitPrice: "1500",
+      round: true,
+    });
+    expect(withQupsFields(line)).toMatchObject({
+      truth: "quantity+unitPrice",
+      quantity: "1",
+      currency: "IDR",
+      unit_price_amount: "1500",
+      subtotal_amount: "1500",
+    });
   });
 });

@@ -10,7 +10,7 @@
 | Wave | Theme | Unblocks |
 | --- | --- | --- |
 | W0 | Ledger hardening (tests, docs, idempotency) | feature postings |
-| W1 | `examples/erp-spine` PO→GR | roadmap gates |
+| W1 | Generic consumer gaps (backseat atomic, data-grid wall, doc-number TZ) | document ERPs |
 | W2 | `@eristack/rest` | adapter consolidation |
 | W3 | zod + hono on T1 packages | wire validation, edge |
 | W4 | Backseat M3 + rest route parity | prototype ERP |
@@ -35,11 +35,20 @@ Full detail per wave: former content in git history of `execution-waves.md` — 
 - valuations: COGS helper, method tests, ERP guide
 - optional: postgres in CI
 
-## W1 — Spine demo
+## W1 — Generic layer gaps (deferred ERP spines)
 
-- examples/erp-spine: Express + Drizzle + React
-- qups lines, GR → stock-movement, pbac cookbook
-- data-grid lists, jwt-auth
+- backseat: `store.atomic()` multi-collection writes — **done**
+- data-grid: `type: wall`, Backseat list envelope — **done**
+- doc-number: period keys in IANA timezone — **done**
+- qups: headless `applyCellPatch`, `withQupsFields` — **done**
+- ai-knowledge: Backseat-then-backend guide + recipe — **done**
+- abac: `matchesAssignmentPair`, `attrs.assignmentPairMatch` — **done**
+- jwt-auth: dual-target client docs — **done**
+- backseat: `listRoutes()` / `routesSnapshot()`, `jsonError()` — **done**
+- doc-number: optional `scope` on `next()` + `{SCOPE}` — **done**
+- ai-knowledge: `document-lines-erp`, `optimistic-document-version` recipes — **done**
+
+**Deferred:** `examples/erp-spine`, procurement-spine recipe, `@eristack/feature-procurement` until explicitly re-scoped.
 
 ## W2–W4 — Adapter + infra
 

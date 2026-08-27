@@ -2,6 +2,7 @@ import { FormatNotFoundError, MissingDependencyError } from "./errors.js";
 import { formatDocumentNumber, parseDocumentNumber, previewDocumentNumber } from "./format.js";
 import { formatDataGridSchema } from "./format-grid.js";
 import { periodKeyFor } from "./period.js";
+import { normalizeScope } from "./scope.js";
 import { parsePattern } from "./tokens.js";
 import { createDataGrid } from "@eristack/data-grid";
 import type {
@@ -64,14 +65,19 @@ export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumber
     return record;
   }
 
-  async function allocate(formatId: string, periodKey: string): Promise<number> {
+  async function allocate(
+    formatId: string,
+    periodKey: string,
+    scope?: string,
+  ): Promise<number> {
+    const input = { formatId, periodKey, scope: normalizeScope(scope) };
     if (incrementer) {
-      return incrementer({ formatId, periodKey });
+      return incrementer(input);
     }
     if (!sequences) {
       throw new MissingDependencyError("sequences (SequenceStore) or incrementer");
     }
-    return sequences.allocateNext({ formatId, periodKey });
+    return sequences.allocateNext(input);
   }
 
   function requireFormats(): FormatStore {
@@ -112,6 +118,7 @@ export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumber
         entityKey: input.entityKey,
         pattern: input.pattern,
         reset: input.reset ?? "never",
+        timezone: input.timezone,
         prefix: input.prefix,
         active: input.active ?? true,
         createdAt: now,
@@ -137,6 +144,12 @@ export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumber
         entityKey: input.entityKey ?? existing.entityKey,
         pattern: input.pattern ?? existing.pattern,
         reset: input.reset ?? existing.reset,
+        timezone:
+          input.timezone === undefined
+            ? existing.timezone
+            : input.timezone === null
+              ? undefined
+              : input.timezone,
         prefix:
           input.prefix === undefined
             ? existing.prefix
@@ -170,12 +183,16 @@ export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumber
     async next(input) {
       const format = await resolveFormat(input.entityKey);
       const at = input.at ?? clock();
-      const periodKey = periodKeyFor(format.reset, at);
-      const sequence = await allocate(format.id, periodKey);
+      const timezone = input.timezone ?? format.timezone;
+      const scope = normalizeScope(input.scope);
+      const periodKey = periodKeyFor(format.reset, at, timezone);
+      const sequence = await allocate(format.id, periodKey, scope);
       const formatted = formatDocumentNumber({
         pattern: format.pattern,
         sequence,
         at,
+        timezone,
+        scope,
       });
       const value = format.prefix ? `${format.prefix}${formatted}` : formatted;
 
@@ -186,25 +203,34 @@ export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumber
         formatId: format.id,
         entityKey: format.entityKey,
         pattern: format.pattern,
+        scope,
       };
     },
 
     async peekNext(input) {
       const format = await resolveFormat(input.entityKey);
       const at = input.at ?? clock();
-      const periodKey = periodKeyFor(format.reset, at);
+      const timezone = input.timezone ?? format.timezone;
+      const scope = normalizeScope(input.scope);
+      const periodKey = periodKeyFor(format.reset, at, timezone);
 
       if (!sequences) {
         throw new MissingDependencyError(
           "sequences (SequenceStore) for peekNext (custom incrementer does not support peek)",
         );
       }
-      const sequence = await sequences.peekNext({ formatId: format.id, periodKey });
+      const sequence = await sequences.peekNext({
+        formatId: format.id,
+        periodKey,
+        scope,
+      });
 
       const formatted = formatDocumentNumber({
         pattern: format.pattern,
         sequence,
         at,
+        timezone,
+        scope,
       });
       const value = format.prefix ? `${format.prefix}${formatted}` : formatted;
 

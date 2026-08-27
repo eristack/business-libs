@@ -52,7 +52,7 @@ FormatRecord                       ← one active format per entityKey
         ▼
 next({ entityKey, at? })
         │
-        ├─ periodKeyFor(reset, at)       → "*" | "2026" | "2026-08" | "2026-08-11"  (UTC)
+        ├─ periodKeyFor(reset, at, timezone?) → "*" | "2026" | "2026-08" | "2026-08-11"
         ├─ allocate(formatId, periodKey) → 1-based integer (SequenceStore or Incrementer)
         └─ formatDocumentNumber(pattern, sequence, at) → prefix + rendered value
         │
@@ -64,7 +64,7 @@ DocNumberResult
 ## What you get
 
 - **A token DSL** — `{YYYY}`, `{YY}`, `{MM}`, `{DD}`, `{SEQ}` / `{SEQ:n}`, with literals anywhere outside braces
-- **Period resets** — `never`, `yearly`, `monthly`, `daily`, bucketed on **UTC** calendar parts
+- **Period resets** — `never`, `yearly`, `monthly`, `daily`; optional IANA `timezone` on formats; optional `scope` per branch
 - **Round-tripping** — `parseDocumentNumber` recovers the sequence and date parts from a rendered value
 - **Pluggable storage** — memory stores for tests, Drizzle stores for `pgsql` / `mysql` / `sqlite`, or your own
 - **A pluggable allocator** — swap in Redis `INCR` through `incrementer` without touching the rest

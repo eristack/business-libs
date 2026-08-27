@@ -73,8 +73,11 @@ Field flags:
 | `searchable` | Included when `mode=search` (OR `contains` across these fields) |
 | `enumValues` | Documentation / UI hint for `type: "enum"` |
 | `type: "decimal"` / `"money"` | Decimal **strings** for sort/filter in `applyInMemory` — never `Number()` on money columns |
+| `type: "wall"` + `timezone` | ETD/ETA wall dates — uses `@eristack/timestamp` compare, not `Date.parse` |
 
 > **Money columns:** Use `type: "decimal"` or `"money"` when `applyInMemory` sorts/filters string amounts (e.g. `"4990000.00"`). Keep `type: "number"` for true numeric columns (counts, page sizes). For typed `Money` compare in app code, use `@eristack/money` — the grid compares decimal strings only.
+
+> **Wall columns:** Store `{ kind: "wall", local, timezone }` or plain `YYYY-MM-DD` strings. Set `timezone: "Asia/Jakarta"` on the field def so filter values use the same civil calendar.
 
 > **Important:** The schema describes the **list row** you expose — not necessarily a single database table. Relation fields (`customerName`) and aggregates (`totalMinor`) belong on the schema if the UI can filter them. See [Database](./database.md).
 
@@ -113,6 +116,27 @@ Sessions for one user, formats for one entity — load the rows, then let core p
 const rows = await store.listSessions(subject);
 const result = grid.applyInMemory(rows, query);
 // result.items / result.pageInfo / result.query
+```
+
+### Backseat / IndexedDB lists (Horizon A)
+
+Same envelope as Drizzle — map documents in `toRow`, optional `prefilter` for ABAC scope:
+
+```ts
+import { executeBackseatList } from "@eristack/data-grid/backseat";
+
+const result = await executeBackseatList({
+  store: api.store,
+  collection: "jobs",
+  schema: jobGridSchema,
+  query,
+  prefilter: (doc) => canSeeJob(doc),
+  toRow: async (doc) => ({
+    customerName: (await api.store.get("partners", doc.customerId))?.name ?? "",
+    etd: doc.etd,
+    gpIdr: doc.gpIdr,
+  }),
+});
 ```
 
 ### SQL lists (Drizzle)

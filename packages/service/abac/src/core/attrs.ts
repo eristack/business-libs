@@ -1,4 +1,5 @@
 import type { AbacContext, AbacPolicy, AttrValue } from "./types.js";
+import { assignmentPairMatch as buildAssignmentPairMatch } from "./assignment-pairs.js";
 
 function readPath(root: unknown, path: string): AttrValue {
   const parts = path.split(".").filter(Boolean);
@@ -73,4 +74,10 @@ export const attrs = {
       return list.includes(value as never);
     };
   },
+
+  /**
+   * Allow when subject assignment pairs include resource branch + trade.
+   * Admin bypass is app-owned — not included here.
+   */
+  assignmentPairMatch: buildAssignmentPairMatch,
 };

@@ -37,6 +37,20 @@ documents.flagNotSet("locked");
 documents.flagNotSet("cancelled", "Document is cancelled");
 ```
 
+### Status transition table
+
+When mutations carry an `action` (submit, approve, post), gate with a transition table keyed by current status:
+
+```ts
+documents.transitions("status", {
+  draft: ["submit"],
+  submitted: ["approve", "reject"],
+  approved: ["post"],
+});
+```
+
+Wire `action` on `PbacInput` alongside `document`. Missing action or illegal transition → deny with reason.
+
 ## Status transition pattern
 
 Model transitions as **named policies** checked before mutating status:

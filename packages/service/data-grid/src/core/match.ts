@@ -3,6 +3,12 @@ import {
   compareDecimalStrings,
   isDecimalFieldType,
 } from "./decimal-compare.js";
+import {
+  compareWallValues,
+  isWallFieldType,
+  wallBetweenInclusive,
+} from "./wall-compare.js";
+import type { DataGridFieldDef } from "./types.js";
 
 export function isFilterOp(value: unknown): value is FilterOp {
   return typeof value === "string" && (FILTER_OPS as readonly string[]).includes(value);
@@ -79,13 +85,35 @@ function compareDecimalOp(
   }
 }
 
+function compareWallOp(
+  left: unknown,
+  right: unknown,
+  op: "gt" | "gte" | "lt" | "lte",
+  timezone: string,
+): boolean {
+  const cmp = compareWallValues(left, right, timezone);
+  switch (op) {
+    case "gt":
+      return cmp > 0;
+    case "gte":
+      return cmp >= 0;
+    case "lt":
+      return cmp < 0;
+    case "lte":
+      return cmp <= 0;
+  }
+}
+
 export function matchClause(
   fieldValue: unknown,
   clause: FilterClause,
   fieldType?: FieldType,
+  fieldDef?: DataGridFieldDef,
 ): boolean {
   const { op, value } = clause;
   const decimal = isDecimalFieldType(fieldType);
+  const wall = isWallFieldType(fieldType);
+  const wallTimezone = fieldDef?.timezone ?? "UTC";
 
   switch (op) {
     case "isNull":
@@ -104,11 +132,18 @@ export function matchClause(
     return compareDecimalOp(fieldValue, value, op);
   }
 
+  if (wall && (op === "gt" || op === "gte" || op === "lt" || op === "lte")) {
+    return compareWallOp(fieldValue, value, op, wallTimezone);
+  }
+
   const left = normalizeComparable(fieldValue, { decimal });
   const right = normalizeComparable(value, { decimal });
 
   switch (op) {
     case "eq":
+      if (wall) {
+        return compareWallValues(fieldValue, value, wallTimezone) === 0;
+      }
       if (decimal) {
         return (
           compareDecimalStrings(String(fieldValue ?? ""), String(value ?? "")) ===
@@ -117,6 +152,9 @@ export function matchClause(
       }
       return left === normalizeComparable(right);
     case "neq":
+      if (wall) {
+        return compareWallValues(fieldValue, value, wallTimezone) !== 0;
+      }
       if (decimal) {
         return (
           compareDecimalStrings(String(fieldValue ?? ""), String(value ?? "")) !==
@@ -167,6 +205,10 @@ export function matchClause(
     case "between": {
       const pair = asPair(value);
       if (!pair) return false;
+      if (wall) {
+        const [min, max] = pair;
+        return wallBetweenInclusive(fieldValue, min, max, wallTimezone);
+      }
       if (decimal) {
         const current = String(fieldValue ?? "");
         const [min, max] = pair;
@@ -182,6 +224,10 @@ export function matchClause(
     case "notBetween": {
       const pair = asPair(value);
       if (!pair) return true;
+      if (wall) {
+        const [min, max] = pair;
+        return !wallBetweenInclusive(fieldValue, min, max, wallTimezone);
+      }
       if (decimal) {
         const current = String(fieldValue ?? "");
         const [min, max] = pair;

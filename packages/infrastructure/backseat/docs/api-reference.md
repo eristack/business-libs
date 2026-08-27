@@ -35,7 +35,9 @@ Returns a `Backseat` instance.
 | `reseed()` | Clear + import `options.seed` |
 | `snapshot()` | Export full store |
 | `reset()` | Clear all collections |
-| `routes()` | List registered route definitions |
+| `routes()` | List registered route definitions (includes handlers) |
+| `listRoutes()` | Serializable route metadata for Horizon B (`method`, `path`, `fullPath`, `name`) |
+| `routesSnapshot()` | JSON inventory of routes + action names |
 | `handlers` | Map of collection → `CrudHandlers` |
 | `actions` | Map of action name → handler |
 | `store` | Underlying `BackseatStore` |
@@ -73,10 +75,34 @@ import { createIndexedDbBackseatStore } from "@eristack/backseat/store";
 | `create(collection, doc)` | Insert — requires `doc.id` |
 | `update(collection, id, patch)` | Shallow merge patch |
 | `delete(collection, id)` | Remove document |
+| `atomic(work)` | Multi-collection transaction — rolls back all touched collections when `work` throws |
 | `listCollections()` | Collection names |
 | `exportSnapshot()` | `{ [collection]: documents[] }` |
 | `importSnapshot(snapshot)` | Replace store contents |
 | `clear()` | Delete all data |
+
+### `store.atomic(work)` — multi-collection writes
+
+Use when one business action touches more than one collection (job + cost sheet, invoice + lines). All mutations inside `work` commit together; a thrown error rolls back every collection touched in that call.
+
+```ts
+await api.store.atomic(async (tx) => {
+  await tx.set("jobs", { id: jobId, number: "JO/2026/00001", status: "draft" });
+  await tx.set("costSheets", {
+    id: costSheetId,
+    jobId,
+    status: "draft",
+    lines: [],
+  });
+});
+
+// Epoch bumps run after atomic — separate store / HTTP call
+await epoch.bumpMany(["jobs", "cost-sheets", "dashboard"]);
+```
+
+`TransactionalStore` mirrors create/update/delete/get plus `set` (upsert by `doc.id`).
+
+IndexedDB commits all dirty collections in **one** IDB transaction. Do not `await` non-store I/O inside `work` if you rely on IDB auto-commit semantics — finish store writes first, then bump epochs or call external APIs.
 
 ### `BackseatCollectionFilter`
 
@@ -123,6 +149,16 @@ Errors throw typed exceptions:
 | `BackseatNotFoundError` | 404 | Missing document |
 | `BackseatValidationError` | 400 | Invalid input |
 | `BackseatConflictError` | 409 | Duplicate id |
+| `BackseatVersionConflictError` | 409 | Optimistic `version` mismatch |
+
+Use `jsonError()` / `versionConflict()` for the standard `{ error: { code, message, details? } }` envelope — same shape as Express/PBAC handlers:
+
+```ts
+import { jsonError, versionConflict, BackseatErrorCodes } from "@eristack/backseat";
+
+return jsonError({ status: 403, code: BackseatErrorCodes.FORBIDDEN_SCOPE, message: "Out of scope" });
+return versionConflict("Job was modified");
+```
 
 Custom routes should return `{ status, body }` directly for other codes.
 
@@ -138,6 +174,18 @@ api.registerRoute({
   handler: async (ctx) => ({ status: 200, body: {} }),
 });
 ```
+
+### Route inventory (Horizon B)
+
+```ts
+const meta = api.listRoutes();
+// [{ method: "POST", path: "/jobs", fullPath: "/api/jobs", name: "jobs.create" }, …]
+
+const snapshot = api.routesSnapshot();
+// { generatedAt, baseUrl, routes, actions } — paste into derive-backend sprint
+```
+
+BackseatDevtools **Routes** tab exports the same JSON. Handlers are not serializable — metadata only.
 
 ### Handler context (`ctx`)
 

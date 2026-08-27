@@ -10,6 +10,7 @@
     "http",
     "database",
     "client-and-react",
+    "dual-target",
     "recipes",
     "security",
     "backseat"
@@ -31,7 +32,8 @@
         "sessions",
         "http",
         "database",
-        "client-and-react"
+        "client-and-react",
+        "dual-target"
       ]
     },
     {

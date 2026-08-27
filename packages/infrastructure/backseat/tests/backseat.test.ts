@@ -33,6 +33,37 @@ describe("createMemoryBackseatStore", () => {
     await store.importSnapshot(snapshot);
     expect(await store.list("partners")).toHaveLength(1);
   });
+
+  it("atomic writes multiple collections or rolls back on error", async () => {
+    const store = createMemoryBackseatStore();
+
+    await store.atomic(async (tx) => {
+      await tx.set("jobs", { id: "job_1", number: "JO/2026/00001", status: "draft" });
+      await tx.set("costSheets", {
+        id: "cs_1",
+        jobId: "job_1",
+        status: "draft",
+        lines: [],
+      });
+    });
+
+    expect(await store.get("jobs", "job_1")).toMatchObject({
+      number: "JO/2026/00001",
+    });
+    expect(await store.get("costSheets", "cs_1")).toMatchObject({
+      jobId: "job_1",
+    });
+
+    await expect(
+      store.atomic(async (tx) => {
+        await tx.set("jobs", { id: "job_2", number: "JO/2026/00002" });
+        throw new Error("cost sheet failed");
+      }),
+    ).rejects.toThrow("cost sheet failed");
+
+    expect(await store.get("jobs", "job_2")).toBeNull();
+    expect(await store.list("jobs")).toHaveLength(1);
+  });
 });
 
 describe("createBackseat", () => {
@@ -131,6 +162,46 @@ describe("createBackseat", () => {
     });
 
     await expect(api.invoke("products.activeCount", null)).resolves.toBe(1);
+  });
+
+  it("listRoutes and routesSnapshot exclude handlers", async () => {
+    const { api } = setup();
+    api.registerRoute({
+      method: "POST",
+      path: "/jobs/:id/submit",
+      name: "jobs.submit",
+      handler: async (ctx) => ctx.json(200, { ok: true }),
+    });
+
+    const meta = api.listRoutes();
+    expect(meta.some((r) => r.method === "POST" && r.path === "/jobs/:id/submit")).toBe(
+      true,
+    );
+    expect(meta.every((r) => !("handler" in r))).toBe(true);
+    expect(meta.find((r) => r.name === "jobs.submit")?.fullPath).toBe(
+      "/api/jobs/:id/submit",
+    );
+
+    const snapshot = api.routesSnapshot();
+    expect(snapshot.baseUrl).toBe("/api");
+    expect(snapshot.routes.length).toBeGreaterThan(0);
+    expect(snapshot.actions).toEqual([]);
+  });
+
+  it("jsonError and versionConflict return standard envelope", async () => {
+    const { jsonError, versionConflict } = await import("../src/core/json-error.js");
+    const err = jsonError({
+      status: 403,
+      code: "FORBIDDEN_SCOPE",
+      message: "Out of scope",
+    });
+    expect(err).toEqual({
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+      body: { error: { code: "FORBIDDEN_SCOPE", message: "Out of scope" } },
+    });
+    expect(versionConflict().status).toBe(409);
+    expect(versionConflict().body.error.code).toBe("CONFLICT_VERSION");
   });
 
   it("supports custom HTTP controllers and splat paths", async () => {

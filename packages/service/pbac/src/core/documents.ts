@@ -63,4 +63,42 @@ export const documents = {
       };
     };
   },
+
+  /**
+   * Allow when `input.action` is a legal transition from `document[statusField]`.
+   * Table keys are current status; values are allowed command/action names.
+   */
+  transitions(
+    statusField: string,
+    table: Readonly<Record<string, readonly string[]>>,
+    reason?: string,
+  ): PbacPolicy["evaluate"] {
+    return (input: PbacInput) => {
+      const action = input.action;
+      if (!action) {
+        return {
+          allowed: false,
+          policyId: "",
+          reason: reason ?? "Missing action",
+        };
+      }
+      const status = input.document[statusField];
+      if (typeof status !== "string") {
+        return {
+          allowed: false,
+          policyId: "",
+          reason: reason ?? `Missing string field "${statusField}"`,
+        };
+      }
+      const allowed = table[status];
+      const ok = allowed?.includes(action) ?? false;
+      return {
+        allowed: ok,
+        policyId: "",
+        reason: ok
+          ? undefined
+          : reason ?? `Cannot "${action}" from status "${status}"`,
+      };
+    };
+  },
 };

@@ -32,6 +32,7 @@ export function suggestedOpsForType(type: FieldType): FilterOp[] {
     case "number":
     case "decimal":
     case "money":
+    case "wall":
     case "date":
       return [
         "eq",

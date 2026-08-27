@@ -36,6 +36,11 @@ export {
   compareDecimalStrings,
   isDecimalFieldType,
 } from "./core/decimal-compare.js";
+export {
+  compareWallValues,
+  isWallFieldType,
+  toWallComparable,
+} from "./core/wall-compare.js";
 export { fieldTypeFor, matchClause, isFilterOp, normalizeComparable } from "./core/match.js";
 export { encodeCursor, decodeCursor } from "./core/cursor.js";
 export type { CursorPayload } from "./core/cursor.js";

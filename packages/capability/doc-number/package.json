@@ -128,7 +128,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@eristack/data-grid": "workspace:*"
+    "@eristack/data-grid": "workspace:*",
+    "@eristack/timestamp": "workspace:*"
   },
   "peerDependencies": {
     "@nestjs/common": "^10.0.0 || ^11.0.0",

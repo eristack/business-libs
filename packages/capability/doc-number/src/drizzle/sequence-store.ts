@@ -1,4 +1,5 @@
 import { and, eq } from "drizzle-orm";
+import { normalizeScope } from "../core/scope.js";
 import type { SequenceStore } from "../core/types.js";
 import type { AnyDocNumberSequenceTable } from "./sequence-table.js";
 import type { DrizzleDialect, DrizzleLikeDb } from "./types.js";
@@ -29,19 +30,25 @@ export function createDrizzleSequenceStore(
   const { db, table } = options;
   const idFactory = options.idFactory ?? defaultId;
 
-  async function findRow(formatId: string, periodKey: string) {
+  async function findRow(formatId: string, periodKey: string, scope: string) {
     const rows = (await db
       .select()
       .from(table)
-      .where(and(eq(table.formatId, formatId), eq(table.periodKey, periodKey)))) as Array<
-      Record<string, unknown>
-    >;
+      .where(
+        and(
+          eq(table.formatId, formatId),
+          eq(table.periodKey, periodKey),
+          eq(table.scope, scope),
+        ),
+      )) as Array<Record<string, unknown>>;
     return rows[0] ?? null;
   }
 
   return {
-    async allocateNext({ formatId, periodKey }) {
-      const existing = await findRow(formatId, periodKey);
+    async allocateNext(input) {
+      const scope = normalizeScope(input.scope);
+      const { formatId, periodKey } = input;
+      const existing = await findRow(formatId, periodKey, scope);
       const now = new Date();
 
       if (!existing) {
@@ -50,6 +57,7 @@ export function createDrizzleSequenceStore(
           id: idFactory(),
           formatId,
           periodKey,
+          scope,
           currentValue: next,
           updatedAt: now,
         });
@@ -60,20 +68,27 @@ export function createDrizzleSequenceStore(
       await db
         .update(table)
         .set({ currentValue: next, updatedAt: now })
-        // Dialect union makes eq column typing collapse to never — cast for Any*Table.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .where(eq(table.id as any, String(existing.id)));
       return next;
     },
 
-    async getCurrent({ formatId, periodKey }) {
-      const existing = await findRow(formatId, periodKey);
+    async getCurrent(input) {
+      const existing = await findRow(
+        input.formatId,
+        input.periodKey,
+        normalizeScope(input.scope),
+      );
       if (!existing) return null;
       return Number(existing.currentValue);
     },
 
-    async peekNext({ formatId, periodKey }) {
-      const existing = await findRow(formatId, periodKey);
+    async peekNext(input) {
+      const existing = await findRow(
+        input.formatId,
+        input.periodKey,
+        normalizeScope(input.scope),
+      );
       return existing ? Number(existing.currentValue) + 1 : 1;
     },
   };

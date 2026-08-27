@@ -21,6 +21,16 @@ export {
   type PatchLineInput,
 } from "./calculate.js";
 export {
+  applyCellPatch,
+  type ApplyCellPatchOptions,
+  type QupsCellField,
+} from "./cell-patch.js";
+export {
+  withQupsFields,
+  withQupsFieldsRow,
+  type QupsPersistedFields,
+} from "./qups-fields.js";
+export {
   CurrencyMismatchError,
   InvalidTruthError,
   LineNotFoundError,

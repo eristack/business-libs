@@ -25,4 +25,18 @@ abac.registerPolicy({
     resourcePath: "resource.attrs.bookValueMinor",
   }),
 });
+
+// Role × Branch × Trade scope (list prefilter or policy)
+abac.registerPolicy({
+  id: "job.in-scope",
+  evaluate: attrs.assignmentPairMatch({
+    pairsPath: "subject.attrs.assignments",
+    resourceBranchPath: "resource.attrs.branchId",
+    resourceTradePath: "resource.attrs.trade",
+  }),
+});
+
+// Pure helper for executeBackseatList prefilter
+import { matchesAssignmentPair } from "@eristack/abac";
+matchesAssignmentPair(user.assignments, doc.branchId, doc.trade);
 ```

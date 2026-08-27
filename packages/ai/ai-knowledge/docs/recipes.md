@@ -20,6 +20,9 @@ Recipes live in `knowledge/recipes.yaml`. Sync embeds them into `src/generated/r
 | `doc-number-documents` | 10 | `@eristack/doc-number` | document number, invoice number, SEQ |
 | `doc-number-adapters` | 30 | `@eristack/doc-number` | doc-number drizzle, format config |
 | `data-grid-lists` | 10 | `@eristack/data-grid` | data grid, filter list, pagination |
+| `backseat-then-backend` | 7 | backseat, qups, data-grid | mockup then backend, job order, cost sheet |
+| `document-lines-erp` | 7 | qups, pbac, doc-number | forwarding, freight, document with lines |
+| `optimistic-document-version` | 10 | backseat | expected version, conflict version, 409 |
 
 Exact trigger lists evolve — treat YAML as source of truth; run `pnpm knowledge:sync` after edits. Inspect at runtime with `listRecipes()`.
 

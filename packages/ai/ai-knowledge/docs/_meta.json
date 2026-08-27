@@ -4,6 +4,9 @@
     "index",
     "getting-started",
     "upgrading",
+    "backseat-then-backend",
+    "document-lines-erp",
+    "optimistic-document-version",
     "recommend",
     "recipes",
     "authoring",
@@ -23,6 +26,9 @@
       "label": "Guides",
       "pages": [
         "upgrading",
+        "backseat-then-backend",
+        "document-lines-erp",
+        "optimistic-document-version",
         "recommend"
       ]
     },

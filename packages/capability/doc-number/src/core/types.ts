@@ -7,6 +7,8 @@ export interface FormatRecord {
   entityKey: string;
   pattern: string;
   reset: ResetPeriod;
+  /** IANA zone for `{YYYY}`/`{MM}`/`{DD}` tokens and period keys. Default UTC when omitted. */
+  timezone?: string;
   prefix?: string;
   active: boolean;
   createdAt: Date;
@@ -23,6 +25,8 @@ export interface FormatStore {
 export interface AllocateNextInput {
   formatId: string;
   periodKey: string;
+  /** Branch/location scope — default `""` (company-wide counter). */
+  scope?: string;
 }
 
 export interface SequenceStore {
@@ -43,12 +47,17 @@ export interface DocNumberResult {
   formatId: string;
   entityKey: string;
   pattern: string;
+  scope: string;
 }
 
 export interface FormatDocumentNumberInput {
   pattern: string;
   sequence: number;
   at?: Date;
+  /** IANA zone for date tokens — default UTC. */
+  timezone?: string;
+  /** Scope segment for `{SCOPE}` token — sanitized (no slashes). */
+  scope?: string;
 }
 
 export interface ParsedDocumentNumber {
@@ -60,6 +69,7 @@ export interface RegisterFormatInput {
   entityKey: string;
   pattern: string;
   reset?: ResetPeriod;
+  timezone?: string;
   prefix?: string;
   id?: string;
   active?: boolean;
@@ -70,6 +80,7 @@ export interface UpdateFormatInput {
   entityKey?: string;
   pattern?: string;
   reset?: ResetPeriod;
+  timezone?: string | null;
   /** Pass `null` to clear prefix. */
   prefix?: string | null;
   active?: boolean;
@@ -78,15 +89,23 @@ export interface UpdateFormatInput {
 export interface NextDocumentNumberInput {
   entityKey: string;
   at?: Date;
+  /** Overrides format.timezone for this allocation. */
+  timezone?: string;
+  /** Independent counter per branch/location within format + period. */
+  scope?: string;
 }
 
 export interface PeekNextInput {
   entityKey: string;
   at?: Date;
+  timezone?: string;
+  scope?: string;
 }
 
 export interface PreviewInput {
   pattern: string;
   sequence: number;
   at?: Date;
+  timezone?: string;
+  scope?: string;
 }

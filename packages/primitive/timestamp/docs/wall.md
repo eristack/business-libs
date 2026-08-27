@@ -170,6 +170,32 @@ Do **not** map wall intent into `timestamptz` without an explicit, documented co
 | Use `wallToInstantOnce` then discard wall | Keep wall for display/editing |
 | Default overlap to "compatible" silently | Pass `disambiguation` or show UI |
 
+## Compare and calendar arithmetic
+
+List filters (ETD between two dates, jobs departing this week) must not parse wall `local` strings through `Date` — that shifts days in US browsers.
+
+```ts
+import {
+  addWallDays,
+  compareWall,
+  isWallInRange,
+  wallOf,
+} from "@eristack/timestamp";
+
+const etd = wallOf("2026-09-04", "Asia/Jakarta");
+const weekStart = wallOf("2026-09-01", "Asia/Jakarta");
+const weekEnd = wallOf("2026-09-07", "Asia/Jakarta");
+
+compareWall(etd, weekStart); // 1 when etd is later
+isWallInRange(etd, weekStart, weekEnd); // true — inclusive on both ends
+
+// Invoice due date = invoice wall date + payment terms (calendar days)
+addWallDays(wallOf("2026-09-24", "Asia/Jakarta"), 14);
+// { kind: "wall", local: "2026-10-08", timezone: "Asia/Jakarta" }
+```
+
+`compareWall` and `isWallInRange` require the **same IANA timezone** on all operands — mixed zones throw rather than silently convert.
+
 ## Related
 
 - [Instant mode](./instant.md)

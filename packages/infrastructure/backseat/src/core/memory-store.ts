@@ -1,4 +1,8 @@
 import { applyCollectionFilter } from "./filter.js";
+import {
+  cloneCollectionMap,
+  runAtomicTransaction,
+} from "./atomic.js";
 import type { BackseatDocument, BackseatSnapshot, BackseatStore } from "./types.js";
 import { BackseatConflictError, BackseatNotFoundError } from "./errors.js";
 
@@ -83,6 +87,21 @@ export function createMemoryBackseatStore(): BackseatStore {
 
     async clear() {
       data.clear();
+    },
+
+    async atomic(work) {
+      return runAtomicTransaction(
+        async (collection) => cloneCollectionMap(bucket(collection)),
+        async (staging, dirty) => {
+          for (const name of dirty) {
+            const map = staging.get(name);
+            if (map) {
+              data.set(name, map);
+            }
+          }
+        },
+        work,
+      );
     },
   };
 }

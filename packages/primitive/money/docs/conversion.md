@@ -74,6 +74,20 @@ const convert = Conversion.of(eurUsd);
 invoices.map((amount) => amount.with(convert));
 ```
 
+### Quote per base (named helper)
+
+When your rate table stores **quote currency per one unit of base** (USD → IDR at `16250`), use `convertAtQuotePerBase` instead of re-stating `Conversion.of` every time:
+
+```ts
+import { convertAtQuotePerBase, Money } from "@eristack/money";
+
+const usd = Money.of("1500", "USD");
+const idr = convertAtQuotePerBase(usd, "16250", "IDR");
+// 24375000 IDR — same as Conversion.of({ base: "USD", term: "IDR", factor: "16250" })
+```
+
+`quotePerBase` must be a **string** — JS number literals for rates are rejected.
+
 ### The base must match
 
 ```ts

@@ -16,6 +16,7 @@ function toRecord(row: Record<string, unknown>): FormatRecord {
     pattern: String(row.pattern),
     reset: String(row.reset) as ResetPeriod,
     prefix: row.prefix == null ? undefined : String(row.prefix),
+    timezone: row.timezone == null ? undefined : String(row.timezone),
     active: Boolean(row.active),
     createdAt: row.createdAt instanceof Date ? row.createdAt : new Date(String(row.createdAt)),
     updatedAt: row.updatedAt instanceof Date ? row.updatedAt : new Date(String(row.updatedAt)),
@@ -42,6 +43,7 @@ export function createDrizzleFormatStore(
             pattern: record.pattern,
             reset: record.reset,
             prefix: record.prefix ?? null,
+            timezone: record.timezone ?? null,
             active: record.active,
             updatedAt: record.updatedAt,
           })
@@ -55,6 +57,7 @@ export function createDrizzleFormatStore(
         pattern: record.pattern,
         reset: record.reset,
         prefix: record.prefix ?? null,
+        timezone: record.timezone ?? null,
         active: record.active,
         createdAt: record.createdAt,
         updatedAt: record.updatedAt,

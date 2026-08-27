@@ -12,6 +12,8 @@ The primary API is three functions from `@eristack/qups`:
 | --- | --- |
 | `calculateLine(input)` | Initial line, submit, or BE insert/update from SoT fields |
 | `patchLine(current, patch)` | Form `onChange` / partial BE update |
+| `applyCellPatch(line, field, value)` | Spreadsheet cell commit → `patchLine` (maps field keys) |
+| `withQupsFields(line)` | Backseat/IndexedDB persist — snake_case SQL column names |
 | `withQupsColumns(row, line)` | Merge pricing columns into an insert/update payload |
 
 Same math both sides. UI displays strings; BE persists strings (or injectable column values).
