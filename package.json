@@ -13,6 +13,7 @@
     "skills:validate": "intent validate packages/primitive/money && intent validate packages/primitive/timestamp && intent validate packages/capability/doc-number && intent validate packages/capability/qups && intent validate packages/capability/stock-movement && intent validate packages/capability/financial-ledger && intent validate packages/capability/valuations && intent validate packages/service/data-grid && intent validate packages/service/jwt-auth && intent validate packages/service/epoch && intent validate packages/service/rbac && intent validate packages/service/abac && intent validate packages/service/pbac && intent validate packages/service/hash-chained-ledger && intent validate packages/infrastructure/backseat && intent validate packages/ui/multitab && intent validate packages/ai/ai-knowledge && intent validate packages/ai/ai-workflow && intent validate packages/ai/ai-ticket-generator",
     "docs:sync": "node scripts/docs-sync.mjs",
     "docs:check": "node scripts/docs-check.mjs",
+    "knowledge:sync": "pnpm --filter @eristack/ai-knowledge sync",
     "knowledge:check": "pnpm --filter @eristack/ai-knowledge sync:check",
     "exports:check": "node scripts/check-package-exports.mjs",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
