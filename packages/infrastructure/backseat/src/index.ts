@@ -54,8 +54,6 @@ export type {
   CrudHandlers,
   HttpMethod,
   RouteDefinition,
-  RegisteredRouteMeta,
-  RoutesSnapshot,
   TransactionalStore,
 } from "./core/types.js";
 
