@@ -1,5 +1,15 @@
 # @eristack/doc-number
 
+## 0.3.3
+
+### Patch Changes
+
+- 294445c: Optional IANA `timezone` on formats for period keys and date tokens. Optional `scope` on `next()` / `peekNext()` with `{SCOPE}` pattern token and Drizzle sequence column.
+- Updated dependencies [294445c]
+- Updated dependencies [294445c]
+  - @eristack/data-grid@0.2.3
+  - @eristack/timestamp@0.1.1
+
 ## 0.3.2
 
 ### Patch Changes

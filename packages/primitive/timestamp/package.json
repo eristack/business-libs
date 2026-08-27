@@ -1,6 +1,6 @@
 {
   "name": "@eristack/timestamp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
   "repository": {
     "type": "git",

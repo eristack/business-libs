@@ -1,5 +1,13 @@
 # @eristack/financial-ledger
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [294445c]
+  - @eristack/money@0.3.2
+  - @eristack/hash-chained-ledger@0.1.1
+
 ## 0.2.1
 
 ### Patch Changes

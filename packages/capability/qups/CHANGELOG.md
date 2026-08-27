@@ -1,5 +1,13 @@
 # @eristack/qups
 
+## 0.3.2
+
+### Patch Changes
+
+- 294445c: Add headless `applyCellPatch` and `withQupsFields` for spreadsheet cost-sheet / Backseat line storage.
+- Updated dependencies [294445c]
+  - @eristack/money@0.3.2
+
 ## 0.3.1
 
 ### Patch Changes

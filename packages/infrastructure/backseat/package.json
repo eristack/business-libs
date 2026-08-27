@@ -1,6 +1,6 @@
 {
   "name": "@eristack/backseat",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
   "repository": {
     "type": "git",

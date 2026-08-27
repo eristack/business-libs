@@ -1,6 +1,6 @@
 {
   "name": "@eristack/qups",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
   "repository": {
     "type": "git",
