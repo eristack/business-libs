@@ -9,7 +9,9 @@ export type {
   DocNumberApi,
 } from "./core/create-doc-number.js";
 
+/** @deprecated Import from `@eristack/doc-number/testing` instead. */
 export { createMemoryFormatStore } from "./core/memory-format-store.js";
+/** @deprecated Import from `@eristack/doc-number/testing` instead. */
 export { createMemorySequenceStore } from "./core/memory-sequence-store.js";
 export { formatDataGridSchema } from "./core/format-grid.js";
 

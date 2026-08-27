@@ -13,5 +13,5 @@ export {
   type IssueResult,
   type ValuationMethod,
 } from "./methods.js";
-/** @internal Unit tests only — apps use Drizzle layer store. */
+/** @deprecated Import from `@eristack/valuations/testing` instead. */
 export { createMemoryLayerStore } from "./memory-layer-store.js";

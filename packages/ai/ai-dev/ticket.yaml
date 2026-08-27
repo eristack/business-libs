@@ -1,0 +1,11 @@
+package: "@eristack/ai-dev"
+title: ai-dev
+maintainers:
+  - support@eristack.dev
+scope: >
+  Unified eristack CLI (plan, check profiles, sync), compact JSON + MCP dev tools,
+  canonical @eristack package walker for monorepo scripts.
+outOfScope: >
+  Replacing Turbo, Changesets publish, or consumer-app scaffolding.
+skills:
+  - ai-dev-core

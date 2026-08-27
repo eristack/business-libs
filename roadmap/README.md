@@ -5,9 +5,10 @@ Living priority stack for `@eristack/*` — not a calendar, not a promise date.
 | Doc | Read when |
 | --- | --- |
 | [Priorities](./priorities.md) | What is in flight and what ships next |
+| [Horizon](./horizon.md) | **Planning only** — draft package catalog; does not override Priorities/Layers |
 | [Layers](./layers.md) | Seven-layer taxonomy and package placement |
 | [ERP](./erp.md) | Feature-module strategy, priority stack, module backlog |
-| [Backlog](./backlog.md) | Longer horizon after near-term items land |
+| [Backlog](./backlog.md) | Short horizon index — details in Horizon |
 
 **New here?** Use the site guide at [/start](/start) — onboarding is not a package or roadmap layer.
 

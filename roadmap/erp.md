@@ -130,6 +130,8 @@ ListViews        data-grid column presets
 | BOM structure | feature-manufacturing | capability |
 | Payment allocation glue | AP / AR | money + feature glue |
 
+Draft names and sequencing for gaps above: [Horizon](./horizon.md) (planning only).
+
 ## Dependencies
 
 ```text

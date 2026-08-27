@@ -70,7 +70,11 @@ export function writeSubscription(
   return file;
 }
 
-function readJson(filePath: string): { name?: string; description?: string } {
+function readJson(filePath: string): {
+  name?: string;
+  description?: string;
+  private?: boolean;
+} {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
@@ -105,6 +109,7 @@ export function listEristackPackageDirs(repoRoot: string): {
       const pkgJsonPath = path.join(dir, "package.json");
       if (!fs.existsSync(pkgJsonPath)) continue;
       const pkgJson = readJson(pkgJsonPath);
+      if (pkgJson.private === true) continue;
       const name = String(pkgJson.name ?? "");
       if (!name.startsWith("@eristack/")) continue;
       found.push({

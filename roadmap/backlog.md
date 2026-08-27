@@ -24,6 +24,10 @@ Longer horizon — pull items into [Priorities](./priorities.md) only when near-
 
 All `@eristack/feature-*` backlog lives in [ERP](./erp.md) — edit the priority stack there, not here.
 
+## Draft catalog (planning only)
+
+Named candidates, dependencies, and waves live in **[Horizon](./horizon.md)**. That doc does **not** change shipped layers, priorities, or recipes until a human promotes an item here or into [Priorities](./priorities.md).
+
 ## Deferred / rejected
 
 | Idea | Why not now |

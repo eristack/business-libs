@@ -38,6 +38,12 @@ export const roadmapSections: RoadmapSection[] = [
     description: "Taxonomy and longer horizon.",
     links: [
       {
+        slug: "horizon",
+        title: "Horizon",
+        description: "Planning only — draft packages; does not override Priorities or Layers.",
+        href: "/roadmap/horizon",
+      },
+      {
         slug: "layers",
         title: "Layers",
         description: "Seven-layer stack and where packages belong.",

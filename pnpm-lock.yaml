@@ -29,6 +29,9 @@ importers:
       '@eristack/abac':
         specifier: workspace:*
         version: link:packages/service/abac
+      '@eristack/ai-dev':
+        specifier: workspace:*
+        version: link:packages/ai/ai-dev
       '@eristack/ai-knowledge':
         specifier: workspace:*
         version: link:packages/ai/ai-knowledge
@@ -287,6 +290,37 @@ importers:
         specifier: 'catalog:'
         version: 7.0.2
 
+  examples/horizon-a:
+    dependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/backseat
+      '@eristack/data-grid':
+        specifier: workspace:*
+        version: link:../../packages/service/data-grid
+      '@eristack/epoch':
+        specifier: workspace:*
+        version: link:../../packages/service/epoch
+      '@eristack/jwt-auth':
+        specifier: workspace:*
+        version: link:../../packages/service/jwt-auth
+      '@eristack/pbac':
+        specifier: workspace:*
+        version: link:../../packages/service/pbac
+      '@eristack/qups':
+        specifier: workspace:*
+        version: link:../../packages/capability/qups
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.20.1
+      tsx:
+        specifier: ^4.19.3
+        version: 4.23.12
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+
   examples/nestjs:
     dependencies:
       '@eristack/jwt-auth':
@@ -370,6 +404,49 @@ importers:
         specifier: ^6.2.2
         version: 6.4.3(@types/node@26.2.0)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12)(yaml@2.9.0)
 
+  internal/test-harness:
+    devDependencies:
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
+      drizzle-orm:
+        specifier: ^0.44.0
+        version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+
+  packages/ai/ai-dev:
+    dependencies:
+      '@modelcontextprotocol/server':
+        specifier: ^2.0.0
+        version: 2.0.0
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+
   packages/ai/ai-knowledge:
     devDependencies:
       '@tanstack/intent':
@@ -386,7 +463,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+        version: 4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
       yaml:
         specifier: ^2.8.0
         version: 2.9.0
@@ -451,17 +528,19 @@ importers:
         version: 4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/capability/doc-number:
-    dependencies:
+    devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:../../service/data-grid
       '@eristack/timestamp':
         specifier: workspace:*
         version: link:../../primitive/timestamp
-    devDependencies:
-      '@eristack/backseat':
+      '@internal/test-harness':
         specifier: workspace:*
-        version: link:../../infrastructure/backseat
+        version: link:../../../internal/test-harness
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -477,12 +556,18 @@ importers:
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.101.4(react@19.2.8)
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.6
       '@types/react':
         specifier: ^19.0.12
         version: 19.2.18
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.41.0
         version: 0.41.0(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -509,23 +594,31 @@ importers:
         version: 4.1.10(@types/node@26.2.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/capability/financial-ledger:
-    dependencies:
+    devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../../infrastructure/backseat
       '@eristack/hash-chained-ledger':
         specifier: workspace:*
         version: link:../../service/hash-chained-ledger
       '@eristack/money':
         specifier: workspace:*
         version: link:../../primitive/money
-    devDependencies:
-      '@eristack/backseat':
+      '@internal/test-harness':
         specifier: workspace:*
-        version: link:../../infrastructure/backseat
+        version: link:../../../internal/test-harness
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/node':
         specifier: ^22.15.29
         version: 22.20.1
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -541,9 +634,6 @@ importers:
 
   packages/capability/qups:
     dependencies:
-      '@eristack/money':
-        specifier: workspace:*
-        version: link:../../primitive/money
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0
@@ -551,6 +641,9 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@eristack/money':
+        specifier: workspace:*
+        version: link:../../primitive/money
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
@@ -568,20 +661,28 @@ importers:
         version: 4.1.10(@types/node@26.2.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/capability/stock-movement:
-    dependencies:
-      '@eristack/hash-chained-ledger':
-        specifier: workspace:*
-        version: link:../../service/hash-chained-ledger
     devDependencies:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@eristack/hash-chained-ledger':
+        specifier: workspace:*
+        version: link:../../service/hash-chained-ledger
+      '@internal/test-harness':
+        specifier: workspace:*
+        version: link:../../../internal/test-harness
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/node':
         specifier: ^22.15.29
         version: 22.20.1
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -597,12 +698,6 @@ importers:
 
   packages/capability/valuations:
     dependencies:
-      '@eristack/hash-chained-ledger':
-        specifier: workspace:*
-        version: link:../../service/hash-chained-ledger
-      '@eristack/money':
-        specifier: workspace:*
-        version: link:../../primitive/money
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0
@@ -610,12 +705,27 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@eristack/hash-chained-ledger':
+        specifier: workspace:*
+        version: link:../../service/hash-chained-ledger
+      '@eristack/money':
+        specifier: workspace:*
+        version: link:../../primitive/money
+      '@internal/test-harness':
+        specifier: workspace:*
+        version: link:../../../internal/test-harness
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/node':
         specifier: ^22.15.29
         version: 22.20.1
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -776,14 +886,16 @@ importers:
         version: 4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/service/data-grid:
-    dependencies:
-      '@eristack/timestamp':
-        specifier: workspace:*
-        version: link:../../primitive/timestamp
     devDependencies:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@eristack/timestamp':
+        specifier: workspace:*
+        version: link:../../primitive/timestamp
+      '@internal/test-harness':
+        specifier: workspace:*
+        version: link:../../../internal/test-harness
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -799,12 +911,18 @@ importers:
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.101.4(react@19.2.8)
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.6
       '@types/react':
         specifier: ^19.0.12
         version: 19.2.18
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.41.0
         version: 0.41.0(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -835,6 +953,9 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@internal/test-harness':
+        specifier: workspace:*
+        version: link:../../../internal/test-harness
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -847,6 +968,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.2
         version: 5.101.4(react@19.2.8)
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.6
@@ -856,6 +980,9 @@ importers:
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.18
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -890,12 +1017,21 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@internal/test-harness':
+        specifier: workspace:*
+        version: link:../../../internal/test-harness
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/node':
         specifier: ^22.15.29
         version: 22.20.1
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -911,9 +1047,6 @@ importers:
 
   packages/service/jwt-auth:
     dependencies:
-      '@eristack/data-grid':
-        specifier: workspace:*
-        version: link:../data-grid
       '@noble/hashes':
         specifier: ^1.8.0
         version: 1.8.0
@@ -924,6 +1057,9 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@eristack/data-grid':
+        specifier: workspace:*
+        version: link:../data-grid
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -1020,6 +1156,9 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@internal/test-harness':
+        specifier: workspace:*
+        version: link:../../../internal/test-harness
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -1029,6 +1168,9 @@ importers:
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.6
@@ -1038,6 +1180,9 @@ importers:
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.18
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -8378,14 +8523,6 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))':
-    dependencies:
-      '@vitest/spy': 4.1.10
-      estree-walker: 3.0.3
-      magic-string: 0.30.21
-    optionalDependencies:
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
-
   '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.10
@@ -11825,21 +11962,6 @@ snapshots:
       tsx: 4.23.12
       yaml: 2.9.0
 
-  vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0):
-    dependencies:
-      lightningcss: 1.33.0
-      picomatch: 4.0.5
-      postcss: 8.5.26
-      rolldown: 1.2.3
-      tinyglobby: 0.2.17
-    optionalDependencies:
-      '@types/node': 22.20.1
-      esbuild: 0.27.7
-      fsevents: 2.3.3
-      jiti: 2.7.0
-      tsx: 4.23.12
-      yaml: 2.9.0
-
   vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
@@ -11869,33 +11991,6 @@ snapshots:
       jiti: 2.7.0
       tsx: 4.23.12
       yaml: 2.9.0
-
-  vitest@4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)):
-    dependencies:
-      '@vitest/expect': 4.1.10
-      '@vitest/mocker': 4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
-      '@vitest/pretty-format': 4.1.10
-      '@vitest/runner': 4.1.10
-      '@vitest/snapshot': 4.1.10
-      '@vitest/spy': 4.1.10
-      '@vitest/utils': 4.1.10
-      es-module-lexer: 2.3.1
-      expect-type: 1.4.0
-      magic-string: 0.30.21
-      obug: 2.1.4
-      pathe: 2.0.3
-      picomatch: 4.0.5
-      std-env: 4.2.0
-      tinybench: 2.9.0
-      tinyexec: 1.3.0
-      tinyglobby: 0.2.17
-      tinyrainbow: 3.1.1
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
-      why-is-node-running: 2.3.0
-    optionalDependencies:
-      '@types/node': 22.20.1
-    transitivePeerDependencies:
-      - msw
 
   vitest@4.1.10(@types/node@22.20.1)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)):
     dependencies:

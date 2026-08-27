@@ -1,0 +1,79 @@
+{
+  "name": "@eristack/ai-dev",
+  "version": "0.0.0",
+  "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/ai/ai-dev"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/ai/ai-dev",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "eristack": "./dist/cli.js",
+    "eristack-mcp": "./dist/mcp.js"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./repo": {
+      "import": {
+        "types": "./dist/repo/index.d.ts",
+        "default": "./dist/repo/index.js"
+      },
+      "require": {
+        "types": "./dist/repo/index.d.ts",
+        "default": "./dist/repo/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "mcp",
+    "ai",
+    "devtools",
+    "eristack",
+    "monorepo"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json && node ../../../scripts/chmod-bins.mjs dist/cli.js dist/mcp.js",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}

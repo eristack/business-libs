@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "getting-started",
+    "wiring-production",
     "concepts",
     "querying",
     "url-search",
@@ -23,6 +24,7 @@
     {
       "label": "Guides",
       "pages": [
+        "wiring-production",
         "concepts",
         "querying",
         "url-search",

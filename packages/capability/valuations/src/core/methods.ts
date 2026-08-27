@@ -88,6 +88,10 @@ export function receiveIntoLayers(input: {
   const qty = d(input.qty);
   if (qty.lte(0)) throw new Error("receive qty must be > 0");
 
+  if (input.method === "fefo" && !input.expiresAt?.trim()) {
+    throw new Error("fefo receive requires expiresAt");
+  }
+
   if (input.method === "movingAverage" || input.method === "weightedAverage") {
     const onHand = input.layers.reduce((s, l) => s.plus(d(l.qty)), d(0));
     const onHandValue = input.layers.reduce(

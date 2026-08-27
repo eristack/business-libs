@@ -17,6 +17,7 @@ export {
   hashLedgerEntry,
   sha256Hex,
 } from "./hash.js";
+/** @deprecated Import from `@eristack/hash-chained-ledger/testing` instead. */
 export { createMemoryLedgerStore } from "./memory-store.js";
 export type {
   AppendLedgerEntryInput,

@@ -1,0 +1,35 @@
+{
+  "name": "@internal/test-harness",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Repo-internal Drizzle sqlite helpers for @eristack package integration tests — not published",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.44.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  },
+  "license": "MIT"
+}

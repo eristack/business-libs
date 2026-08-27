@@ -12,6 +12,7 @@ metadata:
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/toolbox/prompts.md'
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/toolbox/checklists.md'
+  - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/ai-toolbox-decision-tree.md'
 ---
 
 # AI toolbox
@@ -20,6 +21,7 @@ Use the installed markdown tools:
 
 - `knowledge/toolbox/prompts.md` — copy/paste agent briefs
 - `knowledge/toolbox/checklists.md` — preflight, **package design targets**, guardrails
+- `knowledge/ai-toolbox-decision-tree.md` — ai-dev vs ai-knowledge vs ai-workflow vs ai-ticket-generator
 
 ## Feature brief (short)
 

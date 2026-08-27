@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "getting-started",
+    "wiring-production",
     "concepts",
     "credentials",
     "tokens-and-refresh",
@@ -26,6 +27,7 @@
     {
       "label": "Guides",
       "pages": [
+        "wiring-production",
         "concepts",
         "credentials",
         "tokens-and-refresh",

@@ -3,6 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   entry: [
     "src/index.ts",
+    "src/testing/index.ts",
     "src/drizzle/index.ts",
     "src/backseat/index.ts",
     "src/backseat/store/index.ts",
@@ -15,6 +16,7 @@ export default defineConfig({
     "@eristack/backseat",
     "@eristack/backseat/store",
     "@eristack/backseat/adapters",
+    "@internal/test-harness",
     "drizzle-orm",
     "drizzle-orm/pg-core",
     "drizzle-orm/mysql-core",

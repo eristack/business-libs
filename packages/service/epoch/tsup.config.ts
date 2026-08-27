@@ -3,6 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   entry: [
     "src/index.ts",
+    "src/testing/index.ts",
     "src/drizzle/index.ts",
     "src/rest/index.ts",
     "src/express/index.ts",

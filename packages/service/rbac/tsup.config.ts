@@ -5,6 +5,7 @@ export default defineConfig({
     "src/backseat/index.ts",
     "src/backseat/store/index.ts",
     "src/index.ts",
+    "src/testing/index.ts",
     "src/drizzle/index.ts",
     "src/express/index.ts",
     "src/nest/index.ts",

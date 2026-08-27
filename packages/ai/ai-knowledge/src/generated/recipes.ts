@@ -190,7 +190,10 @@ export const recipes = [
       "qups truth",
       "amount only",
       "flat amount",
-      "shared currency line"
+      "shared currency line",
+      "applycellpatch",
+      "cell patch",
+      "spreadsheet cell edit"
     ],
     "rationale": "Use @eristack/qups calculateLine/patchLine for quantity/unit-price/subtotal (exact ratio when UP+S), modifiers, and tax — same math in TanStack Form and on the BE. Import QUPS_TRUTH_MODES and isQupsTruthMode — do not copy the three truth strings; qupsRolesFor(truth) for required SoT fields. Flat amount + row currency: createAmountOnlyFieldValidators from @eristack/money/react (not nested MoneyJSON). Inject qupsLineColumns into detail tables; withQupsColumns for inserts. See qups stores.md + money drizzle.md.",
     "packages": [
@@ -344,6 +347,10 @@ export const recipes = [
       "decimal column",
       "money column",
       "unit price list",
+      "comparedecimalstrings",
+      "wall date filter",
+      "transaction_date filter",
+      "comparewallvalues",
       "decimal string"
     ],
     "rationale": "Use @eristack/data-grid for schema-aware list queries. For decimal money columns (unitPrice, amounts as strings) set schema type decimal or money — applyInMemory sort/filter without Number(). Use type number only for true numeric columns (qty counts). Prefer advanced filters and search mode as separate modes.",
@@ -417,7 +424,8 @@ export const recipes = [
       "data version",
       "epoch",
       "optimistic cache",
-      "tanstack query invalidate"
+      "tanstack query invalidate",
+      "bumpmany"
     ],
     "rationale": "Use @eristack/epoch for headless per-scope version counters: bump after mutations, resolveCachePolicy returns use-cache vs refetch for TanStack Query. Drizzle default; client/react/express/backseat adapters. Read docs/getting-started.md only.",
     "packages": [
@@ -471,7 +479,10 @@ export const recipes = [
       "json-server browser",
       "in-browser api",
       "backseat",
-      "indexeddb api"
+      "indexeddb api",
+      "store atomic",
+      "atomic transaction backseat",
+      "listroutes"
     ],
     "rationale": "Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps.",
     "packages": [
@@ -517,6 +528,9 @@ export const recipes = [
       "clickable prototype erp"
     ],
     "rationale": "Document/cost-sheet ERPs: load @eristack/ai-knowledge#backseat-then-backend and read knowledge/backseat-then-backend.md only. Horizon A — Backseat + qups + money + doc-number + data-grid wall lists + rbac/abac/pbac + epoch. Horizon B — same paths on Drizzle/Express (upgrading-eristack §3). Do not default to stock-movement, valuations, or financial-ledger for job/invoice products.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#backseat-then-backend"
+    ],
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -567,6 +581,9 @@ export const recipes = [
       "partner master"
     ],
     "rationale": "Header + QUPS lines products: load @eristack/ai-knowledge#document-lines-erp and read knowledge/document-lines-erp.md only. qups + money + doc-number + data-grid + pbac + backseat — not stock-movement/valuations/financial-ledger. Partner/product masters app-owned; feature-partner coming soon — do not invent packages.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#document-lines-erp"
+    ],
     "packages": [
       {
         "name": "@eristack/qups",
@@ -619,6 +636,9 @@ export const recipes = [
       "409 version"
     ],
     "rationale": "ERP aggregates: load @eristack/ai-knowledge#optimistic-document-version and read knowledge/optimistic-document-version.md. version + expectedVersion on PATCH; 409 CONFLICT_VERSION via @eristack/backseat jsonError — distinct from epoch.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#optimistic-document-version"
+    ],
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -626,6 +646,41 @@ export const recipes = [
           "backseat-core"
         ],
         "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "http-errors",
+    "title": "HTTP 409 error envelope (version, policy, epoch)",
+    "priority": 11,
+    "triggers": [
+      "409",
+      "conflict version",
+      "policy denied",
+      "stale epoch",
+      "json error",
+      "error envelope",
+      "version conflict",
+      "business policy denied"
+    ],
+    "rationale": "Unified JSON error canon: CONFLICT_VERSION, POLICY_DENIED, BUSINESS_POLICY_DENIED, STALE_EPOCH. Load @eristack/ai-knowledge#http-errors and knowledge/http-errors.md. Backseat jsonError/versionConflict; Express mapDomainError; distinct from epoch vs document version.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#http-errors"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/epoch",
+        "skills": [
+          "epoch-core"
+        ],
+        "role": "supporting"
       }
     ]
   },
@@ -672,7 +727,10 @@ export const recipes = [
       "attribute policy",
       "business policy",
       "goods receipt limit",
-      "book value limit"
+      "book value limit",
+      "documents.transitions",
+      "assignmentpairmatch",
+      "document transition"
     ],
     "rationale": "Use @eristack/rbac for boolean role permissions, @eristack/abac for attribute policies (e.g. max book value), and @eristack/pbac for document software policies (e.g. PO outstanding > 0). Pair with jwt-auth for identity.",
     "packages": [
@@ -933,6 +991,31 @@ export const recipes = [
         "name": "@eristack/ai-workflow",
         "skills": [
           "ai-workflow-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "ai-dev-tooling",
+    "title": "Monorepo plan, check profiles, and dev MCP",
+    "priority": 11,
+    "triggers": [
+      "eristack plan",
+      "dev tooling",
+      "monorepo check",
+      "ci profile",
+      "pnpm ci",
+      "dev mcp",
+      "check profile",
+      "token minimal check"
+    ],
+    "rationale": "Use @eristack/ai-dev before chaining scripts: eristack plan --json for minimal next steps, eristack check --profile pr for CI parity, eristack-mcp for dev_plan/dev_check.",
+    "packages": [
+      {
+        "name": "@eristack/ai-dev",
+        "skills": [
+          "ai-dev-core"
         ],
         "role": "primary"
       }

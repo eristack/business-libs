@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-27T15:23:52.231Z",
+  "generatedAt": "2026-08-27T17:57:10.824Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -34,6 +34,25 @@ export const catalog = {
           "description": "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/ai-dev",
+      "version": "0.0.0",
+      "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
+      "slug": "ai-dev",
+      "adapters": [
+        "repo"
+      ],
+      "skills": [
+        {
+          "id": "ai-dev-core",
+          "name": "ai-dev-core",
+          "packageName": "@eristack/ai-dev",
+          "description": "@eristack/ai-dev unified monorepo tooling: eristack plan (token-minimal), eristack check profiles (catalog/pr/full = CI), sync docs/knowledge, MCP dev_plan/dev_check. Use before ad-hoc pnpm script chains or reading every check doc.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core"
         }
       ]
     },
@@ -156,7 +175,8 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing"
       ],
       "skills": [
         {
@@ -190,7 +210,8 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing"
       ],
       "skills": [
         {
@@ -248,7 +269,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {
@@ -282,7 +304,8 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing"
       ],
       "skills": [
         {
@@ -403,7 +426,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {
@@ -443,7 +467,8 @@ export const catalog = {
         "drizzle",
         "express",
         "nest",
-        "react"
+        "react",
+        "testing"
       ],
       "skills": [
         {
@@ -534,7 +559,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {

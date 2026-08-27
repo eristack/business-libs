@@ -46,7 +46,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup && tsc -p tsconfig.build.json && node scripts/chmod-bins.mjs",
+    "build": "tsup && tsc -p tsconfig.build.json && node ../../../scripts/chmod-bins.mjs dist/cli.js",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

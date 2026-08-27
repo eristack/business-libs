@@ -82,6 +82,16 @@
         "types": "./dist/backseat/store/index.d.ts",
         "default": "./dist/backseat/store/index.cjs"
       }
+    },
+    "./testing": {
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.cjs"
+      }
     }
   },
   "files": [
@@ -152,7 +162,10 @@
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10",
-    "@eristack/backseat": "workspace:*"
+    "@eristack/backseat": "workspace:*",
+    "@internal/test-harness": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0"
   },
   "license": "MIT"
 }

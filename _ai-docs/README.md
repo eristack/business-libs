@@ -24,4 +24,6 @@ _ai-docs/
 
 WIP task folders are gitignored; this README is tracked.
 
+**Long-lived brainstorm:** `_ai-docs/package-candidates/` — 200+ name drafts; isolated from `roadmap/` until a human promotes rows. Do not delete the whole folder when promoting one candidate.
+
 Agents must never run git/commit/PR operations — humans own version control.

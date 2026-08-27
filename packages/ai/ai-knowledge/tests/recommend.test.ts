@@ -15,6 +15,7 @@ describe("catalog", () => {
     expect(names).toEqual(
       [
         "@eristack/abac",
+        "@eristack/ai-dev",
         "@eristack/ai-ticket-generator",
         "@eristack/ai-workflow",
         "@eristack/data-grid",
@@ -107,6 +108,15 @@ describe("loadPlan", () => {
         `@tanstack/intent@latest load ${step.packageName}#${step.skillId}`,
       );
     }
+  });
+
+  it("merges canonicalSkills from ERP recipes before package skills", () => {
+    const plan = loadPlan(recommend(["document with lines"]));
+    const keys = plan.steps.map((step) => `${step.packageName}#${step.skillId}`);
+    expect(keys).toContain("@eristack/ai-knowledge#document-lines-erp");
+    expect(keys.indexOf("@eristack/ai-knowledge#document-lines-erp")).toBeLessThan(
+      keys.indexOf("@eristack/qups#qups-line"),
+    );
   });
 });
 

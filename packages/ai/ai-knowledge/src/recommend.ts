@@ -1,4 +1,5 @@
 import { catalog } from "./generated/catalog.js";
+import { localSkills } from "./generated/local-skills.js";
 import { recipes } from "./generated/recipes.js";
 import type {
   KnowledgeCatalog,
@@ -25,7 +26,6 @@ function scoreRecipe(recipe: Recipe, tokens: string[]): RecommendationMatch | nu
     for (const token of tokens) {
       if (token === trigger || token.includes(trigger) || trigger.includes(token)) {
         if (!matchedTriggers.includes(trigger)) matchedTriggers.push(trigger);
-        // Prefer exact / longer trigger hits
         score += token === trigger ? 4 : 2;
         score += Math.min(trigger.length, 24) / 24;
       }
@@ -34,7 +34,6 @@ function scoreRecipe(recipe: Recipe, tokens: string[]): RecommendationMatch | nu
 
   if (matchedTriggers.length === 0) return null;
 
-  // Lower priority number = earlier in product routing (erp-app-core = 5)
   score += Math.max(0, 40 - recipe.priority);
 
   return { recipe, score, matchedTriggers };
@@ -81,11 +80,9 @@ export function recommend(input: string | string[]): RecommendationResult {
     );
   });
 
-  // Deduplicate unmatched while preserving order
   const seen = new Set<string>();
   const unmatchedUnique = unmatched.filter((token) => {
     if (seen.has(token)) return false;
-    // If any trigger covered this token loosely, drop it
     for (const trigger of covered) {
       if (token === trigger || token.includes(trigger) || trigger.includes(token)) {
         return false;
@@ -108,10 +105,58 @@ export function recommend(input: string | string[]): RecommendationResult {
   };
 }
 
+function parseSkillRef(ref: string): { packageName: string; skillId: string } | null {
+  const hash = ref.indexOf("#");
+  if (hash <= 0) return null;
+  return {
+    packageName: ref.slice(0, hash),
+    skillId: ref.slice(hash + 1),
+  };
+}
+
 function skillMeta(packageName: string, skillId: string) {
   const pkg = catalog.packages.find((item) => item.name === packageName);
   const skill = pkg?.skills.find((item) => item.id === skillId);
-  return skill ?? null;
+  if (skill) return skill;
+
+  const local = localSkills.find(
+    (item) => item.packageName === packageName && item.id === skillId,
+  );
+  return local ?? null;
+}
+
+function appendStep(
+  steps: LoadPlanStep[],
+  indexByKey: Map<string, number>,
+  input: {
+    packageName: string;
+    skillId: string;
+    recipeId: string;
+    reason: string;
+  },
+) {
+  const key = `${input.packageName}#${input.skillId}`;
+  const existing = indexByKey.get(key);
+  if (existing !== undefined) {
+    const step = steps[existing]!;
+    if (!step.recipeIds.includes(input.recipeId)) {
+      step.recipeIds.push(input.recipeId);
+    }
+    return;
+  }
+
+  const meta = skillMeta(input.packageName, input.skillId);
+  const step: LoadPlanStep = {
+    packageName: input.packageName,
+    skillId: input.skillId,
+    loadCommand:
+      meta?.loadCommand ??
+      `pnpm dlx @tanstack/intent@latest load ${input.packageName}#${input.skillId}`,
+    recipeIds: [input.recipeId],
+    reason: input.reason,
+  };
+  indexByKey.set(key, steps.length);
+  steps.push(step);
 }
 
 export function loadPlan(
@@ -126,30 +171,27 @@ export function loadPlan(
   const indexByKey = new Map<string, number>();
 
   for (const match of result.matches) {
-    for (const ref of match.recipe.packages) {
-      for (const skillId of ref.skills) {
-        const key = `${ref.name}#${skillId}`;
-        const existing = indexByKey.get(key);
-        if (existing !== undefined) {
-          const step = steps[existing]!;
-          if (!step.recipeIds.includes(match.recipe.id)) {
-            step.recipeIds.push(match.recipe.id);
-          }
-          continue;
-        }
+    const recipe = match.recipe;
 
-        const meta = skillMeta(ref.name, skillId);
-        const step: LoadPlanStep = {
+    for (const ref of recipe.canonicalSkills ?? []) {
+      const parsed = parseSkillRef(ref);
+      if (!parsed) continue;
+      appendStep(steps, indexByKey, {
+        packageName: parsed.packageName,
+        skillId: parsed.skillId,
+        recipeId: recipe.id,
+        reason: recipe.rationale,
+      });
+    }
+
+    for (const ref of recipe.packages) {
+      for (const skillId of ref.skills) {
+        appendStep(steps, indexByKey, {
           packageName: ref.name,
           skillId,
-          loadCommand:
-            meta?.loadCommand ??
-            `pnpm dlx @tanstack/intent@latest load ${ref.name}#${skillId}`,
-          recipeIds: [match.recipe.id],
-          reason: match.recipe.rationale,
-        };
-        indexByKey.set(key, steps.length);
-        steps.push(step);
+          recipeId: recipe.id,
+          reason: recipe.rationale,
+        });
       }
     }
   }
