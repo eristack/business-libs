@@ -1,5 +1,11 @@
 # @eristack/hash-chained-ledger
 
+## 0.1.2
+
+### Patch Changes
+
+- Add `./testing` export with sqlite HCL harness (`setupHclSqlite`, tamper helpers). Deprecate memory store on main entry.
+
 ## 0.1.1
 
 ### Patch Changes

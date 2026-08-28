@@ -1,5 +1,11 @@
 # @eristack/rbac
 
+## 0.2.2
+
+### Patch Changes
+
+- Add `./testing` export for memory RBAC store.
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @eristack/doc-number
 
+## 0.3.4
+
+### Patch Changes
+
+- Add `./testing` export. Move `@eristack/data-grid` and `@eristack/timestamp` to peerDependencies.
+
 ## 0.3.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.11
+
+### Patch Changes
+
+- 294445c: Add `loadPlan()` `canonicalSkills` merge, `http-errors` 409 canon guide/skill, trimmed recommend catalog, and expanded recipe triggers. Sync generated catalog and local-skills.
+
 ## 0.1.10
 
 ### Patch Changes

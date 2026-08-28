@@ -1,5 +1,11 @@
 # @eristack/data-grid
 
+## 0.2.4
+
+### Patch Changes
+
+- Move `@eristack/timestamp` from dependencies to peerDependencies.
+
 ## 0.2.3
 
 ### Patch Changes
