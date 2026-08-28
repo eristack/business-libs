@@ -9,6 +9,7 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@eristack/example-express",
+    "@eristack/example-horizon-a",
     "@eristack/example-nestjs",
     "@eristack/example-react",
     "@eristack/web"
