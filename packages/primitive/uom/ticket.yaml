@@ -1,0 +1,11 @@
+package: "@eristack/uom"
+title: uom
+maintainers:
+  - support@eristack.dev
+scope: >
+  String decimal UOM quantities, fixed-ratio conversion within mass/volume/count/length,
+  extensible unit registry, Zod 4 schemas.
+outOfScope: >
+  Dimensional analysis (density kg/L), QUPS line pricing, Drizzle columns, float qty literals.
+skills:
+  - uom-core
