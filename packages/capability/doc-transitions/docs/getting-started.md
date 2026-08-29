@@ -1,6 +1,6 @@
-# Document transition presets
+# Getting started
 
-Canonical **status vocabularies** for ERP documents — not a BPM engine. Each preset exports a transition table compatible with `@eristack/pbac` `documents.transitions()`.
+Install doc-transitions with PBAC, pick a preset, register one policy, and authorize before mutating status.
 
 ## Install
 
@@ -8,17 +8,7 @@ Canonical **status vocabularies** for ERP documents — not a BPM engine. Each p
 pnpm add @eristack/doc-transitions @eristack/pbac
 ```
 
-## Presets
-
-| Preset | Typical use |
-| --- | --- |
-| `publicationGraph` | Customer-facing docs: draft → submitted → published |
-| `decisionGraph` | Approvals: pending → approved \| rejected |
-| `outstandingGraph` | Tasks/tickets: unopened → open → closed |
-| `journalGraph` | GL/inventory postings: unposted → posted → voided |
-| `lockGraph` | Period lock / document freeze: unlocked ↔ locked |
-
-## Wire with PBAC
+## Minimal example
 
 ```ts
 import { createPbac } from "@eristack/pbac";
@@ -26,25 +16,52 @@ import {
   journalGraph,
   registerTransitionGraph,
   transitionPolicyId,
+  actionsForStatus,
 } from "@eristack/doc-transitions";
 
 const pbac = createPbac();
-registerTransitionGraph(pbac, { entityKey: "journal-entry", graph: journalGraph });
+
+registerTransitionGraph(pbac, {
+  entityKey: "journal-entry",
+  graph: journalGraph,
+});
 
 const policyId = transitionPolicyId("journal-entry", "journal");
+
+// Before PATCH /journal-entries/:id/post
 await pbac.authorize(policyId, {
   action: "post",
   document: { status: "unposted" },
 });
+
+actionsForStatus(journalGraph, "posted"); // ["void"]
 ```
 
-Pair with **`PATCH /:id/:action`** HTTP (see `@eristack/opinion` when wiring routes). Status field defaults to `status` on each graph — override in app schemas if needed.
+## Presets (summary)
 
-## Helpers
+| Preset | Typical use |
+| --- | --- |
+| `publicationGraph` | draft → submitted → published |
+| `decisionGraph` | pending → approved \| rejected |
+| `outstandingGraph` | unopened → open → closed |
+| `journalGraph` | unposted → posted → voided |
+| `lockGraph` | unlocked ↔ locked |
 
-- `describeTransitionGraph(graph)` — list statuses and actions
-- `actionsForStatus(graph, status)` — allowed commands from a status
-- `isTerminalStatus(graph, status)` — no outgoing transitions
-- `createTransitionPolicy(graph)` — build evaluator without registering
+Full tables: [Presets reference](./presets-reference.md).
 
-Production persistence stays in the app; policies are pure functions over document state.
+## HTTP pairing
+
+Expose transitions as **`PATCH /:id/:action`** via `@eristack/opinion`. Action names must match the graph (`post`, `submit`, `lock`, …). See [Wiring HTTP](./wiring-http.md).
+
+## Production path
+
+1. Drizzle table with `status` text column (or custom field — set `statusField` on graph).
+2. `registerTransitionGraph` at app bootstrap.
+3. Authorize in transition handler; update row in transaction.
+4. Optional `@eristack/epoch` bump after successful transition.
+
+## Next
+
+- [Concepts](./concepts.md) — graphs, terminal rows, policy ids
+- [Wiring PBAC](./wiring-pbac.md) — custom graphs, tests
+- [Recipes](./recipes.md) — invoice, journal, period lock

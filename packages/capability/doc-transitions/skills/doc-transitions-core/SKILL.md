@@ -8,7 +8,7 @@ metadata:
   author: eristack
   version: "0.1"
 sources:
-  - packages/capability/doc-transitions/docs/getting-started.md
+  - packages/capability/doc-transitions/docs/index.md
 ---
 
 # @eristack/doc-transitions
