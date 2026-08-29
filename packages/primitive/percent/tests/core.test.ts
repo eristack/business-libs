@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  addPercents,
   fromBasisPoints,
   minusPercent,
   parsePercent,
@@ -7,9 +8,19 @@ import {
   PercentParseError,
   plusPercent,
   toBasisPoints,
+  toPercentSymbol,
 } from "../src/index.js";
 
 describe("@eristack/percent", () => {
+  it("addPercents sums ratios", () => {
+    const combined = addPercents(parsePercent("5%"), parsePercent("2%"));
+    expect(combined.ratio).toBe("0.07");
+  });
+
+  it("toPercentSymbol formats display", () => {
+    expect(toPercentSymbol(parsePercent("11%"))).toBe("11%");
+  });
+
   it("rejects empty and malformed percent strings", () => {
     expect(() => parsePercent("")).toThrow(/empty/i);
     expect(() => parsePercent("%")).toThrow(PercentParseError);
