@@ -8,7 +8,7 @@ metadata:
   author: eristack
   version: "0.1"
 sources:
-  - packages/service/opinion/docs/getting-started.md
+  - packages/service/opinion/docs/index.md
 ---
 
 # @eristack/opinion

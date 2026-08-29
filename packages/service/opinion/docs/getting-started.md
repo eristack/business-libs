@@ -1,11 +1,12 @@
-# Opinionated ERP HTTP
+# Getting started
 
-Strict, boring REST for documents and masters — apps own handlers; **opinion** defines the route map.
+Opinionated ERP HTTP — install, mount Express routes, wire list + transition handlers.
 
 ## Install
 
 ```bash
 pnpm add @eristack/opinion @eristack/rest express
+pnpm add @eristack/doc-transitions @eristack/pbac @eristack/data-grid @eristack/epoch
 ```
 
 ## Document route map
@@ -20,7 +21,7 @@ pnpm add @eristack/opinion @eristack/rest express
 | `PATCH` | `/:id/:action` | Status transition (`post`, `submit`, …) |
 | `DELETE` | `/:id` | Soft-delete / cancel |
 
-Status actions should match `@eristack/doc-transitions` preset graphs + `@eristack/pbac` policies.
+Status actions match `@eristack/doc-transitions` preset graphs + `@eristack/pbac` policies.
 
 ## Express
 
@@ -50,12 +51,11 @@ app.use("/api", mountOpinionRouter({ router: opinion, basePath: "/api" }));
 
 ## Rules
 
-- Money, qty, dates: string-first types from `@eristack/money`, `@eristack/timestamp`.
+- Money, qty, dates: string-first types from `@eristack/money`, `@eristack/uom`, `@eristack/timestamp`.
 - Status changes: **`PATCH /:id/:action` only** — not ambiguous `PUT`.
 - Lists: wire `@eristack/data-grid` on the `list` handler; expose epoch via `@eristack/epoch`.
-- Errors: use unified JSON envelopes (`jsonError`, `versionConflict`) from adapters.
-
-Horizon: tRPC mirror — not shipped.
+- Errors: unified JSON envelopes (`jsonError`, `CONFLICT_VERSION`) from `@eristack/rest` adapters.
+- Typed clients: compose OpenAPI with `@eristack/opinion/openapi` + `mergeOpenApiDocuments`.
 
 ## Nest
 
@@ -77,3 +77,9 @@ const spec = mergeOpenApiDocuments(
   docNumberFormatOpenApiDocument("/doc-number"),
 );
 ```
+
+## Next
+
+- [Route map](./route-map.md) — full path/param rules
+- [OpenAPI compose](./openapi-compose.md) — multi-resource specs
+- [Errors & epoch](./errors-and-epoch.md) — versioning and cache policy
