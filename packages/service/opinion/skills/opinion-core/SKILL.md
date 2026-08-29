@@ -37,3 +37,4 @@ const router = createOpinionRouter({
 2. Mount with `mountOpinionRouter` on Express (Nest/OpenAPI horizon).
 3. List handler returns data-grid envelope; include epoch headers or query param.
 4. Never use raw number literals for money — `@eristack/money` strings in JSON.
+5. Compose OpenAPI with `@eristack/opinion/openapi` + `@eristack/rest` `mergeOpenApiDocuments`.

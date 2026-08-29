@@ -55,4 +55,25 @@ app.use("/api", mountOpinionRouter({ router: opinion, basePath: "/api" }));
 - Lists: wire `@eristack/data-grid` on the `list` handler; expose epoch via `@eristack/epoch`.
 - Errors: use unified JSON envelopes (`jsonError`, `versionConflict`) from adapters.
 
-Horizon: OpenAPI 3.1 emit, Nest module, tRPC mirror — not shipped in 0.1.0.
+Horizon: tRPC mirror — not shipped.
+
+## Nest
+
+```ts
+import { OpinionModule } from "@eristack/opinion/nest";
+
+OpinionModule.mount(app, { router: opinion, basePath: "/api/invoices" });
+```
+
+## OpenAPI
+
+```ts
+import { documentRoutesOpenApiDocument } from "@eristack/opinion/openapi";
+import { docNumberFormatOpenApiDocument } from "@eristack/doc-number/rest";
+import { mergeOpenApiDocuments } from "@eristack/rest";
+
+const spec = mergeOpenApiDocuments(
+  documentRoutesOpenApiDocument({ basePath: "/invoices" }),
+  docNumberFormatOpenApiDocument("/doc-number"),
+);
+```
