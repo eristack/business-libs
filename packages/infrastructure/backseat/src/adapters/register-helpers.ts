@@ -49,6 +49,26 @@ export function policyDenied(
   });
 }
 
+/** PBAC deny — `BUSINESS_POLICY_DENIED` with policyId/reason on error object. */
+export function businessPolicyDenied(
+  policyId: string,
+  reason?: string,
+): BackseatResponse {
+  return {
+    status: 409,
+    body: {
+      error: {
+        code: BackseatErrorCodes.BUSINESS_POLICY_DENIED,
+        message: reason
+          ? `Business policy "${policyId}" denied: ${reason}`
+          : `Business policy "${policyId}" denied`,
+        policyId,
+        ...(reason ? { reason } : {}),
+      },
+    },
+  };
+}
+
 /** Return error response when value missing — does not throw. */
 export function requireParam<T>(
   value: T | undefined | null,

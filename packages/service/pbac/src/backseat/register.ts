@@ -1,10 +1,8 @@
-import {
-  registerMountedRoutes,
-  requireParam,
-} from "@eristack/backseat/adapters";
+import { registerMountedRoutes } from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
 import { createPbac } from "../core/create-pbac.js";
 import type { Pbac, PbacInput } from "../core/types.js";
+import { createPbacRoutes } from "./pbac-routes.js";
 
 export type RegisterPbacBackseatOptions = {
   basePath?: string;
@@ -17,34 +15,7 @@ export function registerPbacBackseat(
   options: RegisterPbacBackseatOptions = {},
 ): Pbac {
   const pbac = options.pbac ?? createPbac();
-  const base = options.basePath ?? "/pbac";
-
-  registerMountedRoutes(api, base, [
-    {
-      method: "POST",
-      segment: "/check/:policyId",
-      name: "pbac.check",
-      handler: async (ctx) => {
-        const policyId = requireParam(ctx.params.policyId, "policyId required");
-        if (typeof policyId !== "string") return policyId;
-        const body = ctx.json<PbacInput>();
-        const decision = await pbac.check(policyId, body);
-        return { status: 200, body: decision };
-      },
-    },
-    {
-      method: "POST",
-      segment: "/authorize/:policyId",
-      name: "pbac.authorize",
-      handler: async (ctx) => {
-        const policyId = requireParam(ctx.params.policyId, "policyId required");
-        if (typeof policyId !== "string") return policyId;
-        const body = ctx.json<PbacInput>();
-        await pbac.authorize(policyId, body);
-        return { status: 204, body: null };
-      },
-    },
-  ]);
+  registerMountedRoutes(api, options.basePath ?? "/pbac", createPbacRoutes(pbac));
 
   api.registerAction("pbac.check", async ({ input }) => {
     const { policyId, document } = input as {
