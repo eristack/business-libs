@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T06:03:26.716Z",
+  "generatedAt": "2026-08-29T06:42:20.799Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -39,7 +39,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -108,7 +108,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -328,7 +328,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/logger",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "JSON-lines structured logger with request context and Express/Nest adapters",
       "slug": "logger",
       "adapters": [
@@ -389,7 +389,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/multitab",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
       "slug": "multitab",
       "adapters": [
@@ -511,7 +511,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rest",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit",
       "slug": "rest",
       "adapters": [

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/rest",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit",
   "repository": {
     "type": "git",
@@ -73,8 +73,12 @@
     "express": "^4.0.0 || ^5.0.0"
   },
   "peerDependenciesMeta": {
-    "@nestjs/common": { "optional": true },
-    "express": { "optional": true }
+    "@nestjs/common": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@nestjs/common": "^11.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/ai-dev",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
   "repository": {
     "type": "git",

@@ -1,5 +1,12 @@
 # @eristack/multitab
 
+## 0.2.2
+
+### Patch Changes
+
+- 2773117: Multitab alpha: `useDirtyTab`, `createConfirmBeforeClose`, and dirty-tab helpers for Router and state-only providers.
+- c2ee619: Add React `MultitabProvider` smoke tests (SSR render + missing-provider guard).
+
 ## 0.2.1
 
 ### Patch Changes

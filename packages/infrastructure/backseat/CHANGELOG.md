@@ -1,5 +1,12 @@
 # @eristack/backseat
 
+## 0.1.5
+
+### Patch Changes
+
+- 61b28d1: Add checked-in Horizon A seed pack (`loadHorizonASeedV1` from horizon-a-v1.json).
+- c2ee619: Backseat M3 demo flows: `createErpDemoBackseat()` wires ERP seed + PO submit/approve controllers; draft PO in seed for list → edit → status-action tests.
+
 ## 0.1.4
 
 ### Patch Changes
