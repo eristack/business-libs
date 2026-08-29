@@ -72,8 +72,8 @@ pnpm knowledge:check
 
 ## 5. Docs while implementing (monorepo)
 
-- WIP notes under `_ai-docs/<topic>/` (include which skills/recipes will change)
-- When work is finished: promote into `packages/<category>/*/docs` (and site copy if needed), sync ai-knowledge, then delete the topic folder
+- WIP notes under `_ai-docs/wip/<topic>/` (include which skills/recipes will change)
+- When work is finished: promote into `packages/<category>/*/docs` (and site copy if needed), sync ai-knowledge, then delete the WIP folder
 - Package docs are the source of truth; the website renders them
 
 ## 6. Upgrading consumer apps

@@ -80,10 +80,9 @@ function glyphForLayer(layerId: PackageCategoryId, size: number) {
     case "features":
       return (
         <svg {...props}>
-          <rect x="2" y="2" width="5" height="5" rx="0.8" />
-          <rect x="9" y="2" width="5" height="5" rx="0.8" />
-          <rect x="2" y="9" width="5" height="5" rx="0.8" />
-          <rect x="9" y="9" width="5" height="5" rx="0.8" />
+          <path d="M3 13V6l5-3 5 3v7" />
+          <path d="M8 3v10M3 9h10" />
+          <path d="M5.5 13h5" strokeDasharray="2 2" />
         </svg>
       );
     case "ai":

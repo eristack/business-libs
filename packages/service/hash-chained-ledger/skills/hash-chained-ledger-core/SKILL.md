@@ -8,6 +8,8 @@ metadata:
   type: core
   library: "@eristack/hash-chained-ledger"
   library_version: "0.0.0"
+sources:
+  - "eristack/business-libs:packages/service/hash-chained-ledger/docs/getting-started.md"
 ---
 
 # Hash-chained ledger core

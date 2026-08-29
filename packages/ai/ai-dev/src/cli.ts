@@ -6,6 +6,7 @@ import {
   planFromPaths,
   resolveProfile,
   runChecks,
+  runCi,
   runSync,
   summarizeResults,
   type CheckId,
@@ -28,18 +29,23 @@ function printHelp(): void {
 Commands:
   plan [--base main] [--json] [paths...]
       Minimal check/sync/skill plan from git diff or explicit paths.
-  check [--profile catalog|pr|full|fast] [--skip-build] [--json] [check-id...]
+  check [--profile catalog|pr|full|fast|integration|examples|publish] [--skip-build] [--json] [check-id...]
       Run a check profile (same as CI when --profile pr).
+  ci [--base origin/main] [--full] [--json]
+      PR-optimized CI: affected turbo + drift checks; full on main or --full.
   sync <docs|knowledge|all> [--check] [--json]
       Sync or verify docs/knowledge catalogs.
   packages list [--json] [--docs] [--skills] [--ticket]
       List @eristack/* packages (canonical walker).
 
 Profiles:
-  catalog  Drift checks only (docs, knowledge, skills, ticket, exports*)
-  pr       CI gate: build + typecheck + test + catalog
-  full     pr + lint
-  fast     build/typecheck/test on changed packages (use with plan)
+  catalog      Drift checks only (docs, knowledge, skills, ticket, exports*)
+  pr           CI gate: build + typecheck + test + integration + catalog
+  full         pr + lint
+  fast         Turbo filter on changed packages (from plan)
+  integration  drizzle.integration.test.ts only (pnpm test:integration)
+  examples     example apps build (pnpm --filter './examples/*' build)
+  publish      publish dependency hygiene only (pnpm publish:check)
 
   * exports needs build — runner auto-builds when required.
 
@@ -48,6 +54,7 @@ MCP:  eristack-mcp  (dev_plan, dev_check, dev_packages)
 Examples:
   pnpm eristack plan --json
   pnpm eristack check --profile pr
+  pnpm eristack ci --base origin/main
   pnpm eristack sync knowledge
   pnpm eristack sync docs --check
 `);
@@ -111,12 +118,58 @@ async function cmdCheck(args: string[], repoRoot: string): Promise<void> {
   for (const r of results) {
     const mark = r.ok ? "✓" : "✗";
     console.log(`${mark} ${r.id} (${r.ms}ms) — ${r.command}`);
-    if (r.error) console.log(`  ${r.error.split("\n")[0]}`);
+    if (r.error) {
+      console.error(r.error);
+    }
   }
   console.log(
     summary.ok
       ? `\nOK — ${summary.passed} checks (${summary.totalMs}ms)`
       : `\nFAILED — ${summary.failed} check(s)`,
+  );
+  process.exitCode = summary.ok ? 0 : 1;
+}
+
+async function cmdCi(args: string[], repoRoot: string): Promise<void> {
+  const json = hasFlag(args, "--json");
+  const base = flagValue(args, "--base") ?? "origin/main";
+  const forceFull =
+    hasFlag(args, "--full") || process.env.CI_FULL === "true";
+
+  const { plan, results, summary } = runCi({
+    repoRoot,
+    base,
+    forceFull,
+  });
+
+  if (json) {
+    console.log(compactJson({ plan, ...summary, results }));
+    process.exitCode = summary.ok ? 0 : 1;
+    return;
+  }
+
+  console.log(`ci mode: ${plan.mode}${forceFull ? " (forced full)" : ""}`);
+  if (plan.packages.length) {
+    console.log(`packages: ${plan.packages.join(", ")}`);
+  }
+  if (plan.driftChecks.length) {
+    console.log(`drift: ${plan.driftChecks.join(", ")}`);
+  }
+  if (!plan.webBuild && plan.mode === "affected") {
+    console.log("web: typecheck only (next build skipped)");
+  }
+
+  for (const r of results) {
+    const mark = r.ok ? "✓" : "✗";
+    console.log(`${mark} ${r.id} (${r.ms}ms) — ${r.command}`);
+    if (r.error) {
+      console.error(r.error);
+    }
+  }
+  console.log(
+    summary.ok
+      ? `\nOK — ${summary.passed} steps (${summary.totalMs}ms)`
+      : `\nFAILED — ${summary.failed} step(s)`,
   );
   process.exitCode = summary.ok ? 0 : 1;
 }
@@ -186,6 +239,9 @@ async function main(): Promise<void> {
       return;
     case "check":
       await cmdCheck(rest, repoRoot);
+      return;
+    case "ci":
+      await cmdCi(rest, repoRoot);
       return;
     case "sync":
       await cmdSync(rest, repoRoot);

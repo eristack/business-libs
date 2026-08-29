@@ -27,6 +27,8 @@ export type OrderDoc = {
   customerId: string;
   status: "draft" | "submitted" | "approved" | "cancelled";
   version: number;
+  /** Wall calendar date for list filters (`type: wall` in orders-grid schema). */
+  postedAt: string;
   lines: OrderLine[];
   total: string;
 };
@@ -166,6 +168,7 @@ export function registerOrderRoutes(
         customerId: body.customerId,
         status: "draft",
         version: 1,
+        postedAt: new Date().toISOString().slice(0, 10),
         lines,
         total: sumLineTotals(lines),
       };
@@ -289,6 +292,7 @@ export async function seedOrders(store: Backseat["store"]): Promise<void> {
     customerId: "cust_acme",
     status: "draft",
     version: 1,
+    postedAt: "2026-01-15",
     lines,
     total: sumLineTotals(lines),
   } satisfies OrderDoc);

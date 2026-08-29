@@ -141,8 +141,8 @@ describe("planCloseTabNavigation", () => {
       kind: "route",
     });
     state = openTab(state, {
-      id: "/procurement/purchase-orders",
-      title: "Purchase orders",
+      id: "/operations/jobs",
+      title: "Jobs",
       kind: "route",
     });
     state = openTab(state, {
@@ -153,8 +153,8 @@ describe("planCloseTabNavigation", () => {
 
     const plan = planCloseTabNavigation(state, "/dashboard");
 
-    expect(plan.nextState.activeTabId).toBe("/procurement/purchase-orders");
-    expect(plan.nextPath).toBe("/procurement/purchase-orders");
+    expect(plan.nextState.activeTabId).toBe("/operations/jobs");
+    expect(plan.nextPath).toBe("/operations/jobs");
   });
 
   it("navigates to the previous tab when closing the active tab (two tabs)", () => {

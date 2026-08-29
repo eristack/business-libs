@@ -7,12 +7,14 @@
     "dev": "tsx watch src/main.ts",
     "start": "tsx src/main.ts",
     "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@eristack/data-grid": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
+    "@eristack/logger": "workspace:*",
     "@eristack/money": "workspace:*",
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",

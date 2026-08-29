@@ -1,13 +1,10 @@
-import {
-  joinRoutePath,
-  normalizeBasePath,
-  registerRestLikeRoutes,
-} from "@eristack/backseat/adapters";
+import { normalizeBasePath, registerRestLikeRoutes } from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
 import { createEpoch } from "../core/create-epoch.js";
 import type { Epoch, EpochConfig } from "../core/types.js";
 import { createRestEpochActions } from "../rest/index.js";
 import { createBackseatEpochStore } from "./epoch-store.js";
+import { createEpochRestRoutes } from "./epoch-routes.js";
 
 export type RegisterEpochBackseatOptions = Omit<EpochConfig, "store"> & {
   basePath?: string;
@@ -18,42 +15,19 @@ export function registerEpochBackseat(
   api: Backseat,
   options: RegisterEpochBackseatOptions = {},
 ): Epoch {
-  const store = createBackseatEpochStore(api.store);
   const epoch =
     options.epoch ??
     createEpoch({
-      store,
+      store: createBackseatEpochStore(api.store),
       defaultIncrement: options.defaultIncrement,
     });
   const actions = createRestEpochActions({ epoch });
   const base = normalizeBasePath(options.basePath ?? "/epoch");
 
-  registerRestLikeRoutes(api, [
-    {
-      method: "GET",
-      path: joinRoutePath(base, "/:scope"),
-      name: "epoch.current",
-      handler: (req) => actions.getCurrent(req),
-    },
-    {
-      method: "POST",
-      path: joinRoutePath(base, "/:scope/bump"),
-      name: "epoch.bump",
-      handler: (req) => actions.bump(req),
-    },
-    {
-      method: "GET",
-      path: joinRoutePath(base, "/:scope/cache-policy"),
-      name: "epoch.cache-policy",
-      handler: (req) => actions.resolveCachePolicy(req),
-    },
-  ]);
+  registerRestLikeRoutes(api, createEpochRestRoutes(base, actions));
 
   api.registerAction("epoch.resolveCachePolicy", async ({ input }) => {
-    const { scope, clientEpoch } = input as {
-      scope: string;
-      clientEpoch: number;
-    };
+    const { scope, clientEpoch } = input as { scope: string; clientEpoch: number };
     return epoch.resolveCachePolicy(scope, clientEpoch);
   });
 

@@ -7,11 +7,14 @@
     "dev": "tsx watch src/main.ts",
     "start": "tsx src/main.ts",
     "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@eristack/data-grid": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
+    "@eristack/logger": "workspace:*",
     "@nestjs/common": "^11.0.12",
     "@nestjs/core": "^11.0.12",
     "@nestjs/platform-express": "^11.0.12",

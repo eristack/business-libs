@@ -40,3 +40,7 @@ abac.registerPolicy({
 import { matchesAssignmentPair } from "@eristack/abac";
 matchesAssignmentPair(user.assignments, doc.branchId, doc.trade);
 ```
+
+## Money in ABAC attrs
+
+Use **integer minor units** (`bookValueMinor`) or **decimal strings** in attrs — never JS `number` literals for currency. Compare with `@eristack/money` at policy boundaries if you need same-currency arithmetic; ABAC itself only sees plain attrs on `subject` / `resource`.

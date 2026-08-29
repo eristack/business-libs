@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-28T08:07:12.911Z",
+  "generatedAt": "2026-08-29T06:03:26.716Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -327,6 +327,26 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/logger",
+      "version": "0.1.0",
+      "description": "JSON-lines structured logger with request context and Express/Nest adapters",
+      "slug": "logger",
+      "adapters": [
+        "express",
+        "nest"
+      ],
+      "skills": [
+        {
+          "id": "logger-core",
+          "name": "logger-core",
+          "packageName": "@eristack/logger",
+          "description": "@eristack/logger: JSON-lines structured logging with requestId/userId/tenantId context, debug/info/warn/error levels, Express middleware and Nest interceptor.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/logger#logger-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/money",
       "version": "0.3.2",
       "description": "Money primitives for Eristack",
@@ -486,6 +506,26 @@ export const catalog = {
           "description": "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/rest",
+      "version": "0.1.0",
+      "description": "Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit",
+      "slug": "rest",
+      "adapters": [
+        "express",
+        "nest"
+      ],
+      "skills": [
+        {
+          "id": "rest-core",
+          "name": "rest-core",
+          "packageName": "@eristack/rest",
+          "description": "@eristack/rest: declarative REST route definitions, Express/Nest mounting, minimal OpenAPI 3.1 emit. Pair with jwt-auth and data-grid in apps.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
         }
       ]
     },

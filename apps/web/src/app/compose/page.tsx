@@ -8,16 +8,16 @@ import { packages } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Compose",
   description:
-    "One purchase-order flow through every @eristack package — annotated backend and frontend code so you know when to reach for each library.",
+    "One document-with-lines flow through every @eristack package — annotated backend and frontend code so you know when to reach for each library.",
 };
 
 const flow = [
   "Agent knowledge",
   "Login",
-  "List POs",
-  "Create PO",
-  "Approve",
-  "Receive",
+  "List jobs",
+  "Create job",
+  "Submit",
+  "Material issue",
   "Post GL",
   "Workspace",
 ] as const;
@@ -33,14 +33,14 @@ export default function ComposePage() {
               Compose Eristack
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              One PO. Every package. Tagged in context.
+              One job document. Every package. Tagged in context.
             </h1>
             <p className="mt-4 text-[15px] leading-7 text-muted-foreground">
-              Real ERP work is never “just auth” or “just money.” This page walks
-              a simple purchase order from login through goods receipt and GL
+              Real operational apps are never “just auth” or “just money.” This page walks
+              a document-with-lines job from login through optional inventory and GL
               posting — in three fixed files:{" "}
-              <span className="font-mono text-foreground">server/procurement.ts</span>,{" "}
-              <span className="font-mono text-foreground">src/routes/purchase-order.tsx</span>, and a{" "}
+              <span className="font-mono text-foreground">server/documents.ts</span>,{" "}
+              <span className="font-mono text-foreground">src/routes/job.tsx</span>, and a{" "}
               <span className="font-mono text-foreground">terminal</span> for agent
               tooling. Switch tabs to see backend vs frontend vs Intent; use the
               scenario rail to jump to the lines that matter.

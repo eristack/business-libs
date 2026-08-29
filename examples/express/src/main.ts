@@ -1,6 +1,8 @@
 import cors from "cors";
 import express from "express";
 import { eq } from "drizzle-orm";
+import { createLogger } from "@eristack/logger";
+import { createLoggerMiddleware } from "@eristack/logger/express";
 import {
   ConfigurationError,
   createJwtAuth,
@@ -81,6 +83,8 @@ await seedDemoUser();
 await seedOrdersDemo(db);
 
 const app = express();
+const log = createLogger({ name: "example-express" });
+app.use(createLoggerMiddleware({ logger: log }));
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN ?? "http://localhost:5173",

@@ -46,6 +46,12 @@ export function createHorizonBackseat(): HorizonSpine {
       { name: "number", type: "string" as const, filterable: true, sortable: true },
       { name: "status", type: "string" as const, filterable: true },
       { name: "total", type: "decimal" as const, filterable: true, sortable: true },
+      {
+        name: "postedAt",
+        type: "wall" as const,
+        filterable: true,
+        sortable: true,
+      },
     ],
     defaultPageSize: 20,
     maxPageSize: 100,
@@ -66,6 +72,7 @@ export function createHorizonBackseat(): HorizonSpine {
           number: String(doc.number ?? ""),
           status: String(doc.status ?? ""),
           total: String(doc.total ?? "0"),
+          postedAt: String(doc.postedAt ?? "2026-01-15"),
         }),
       });
     },

@@ -1,15 +1,12 @@
-import {
-  registerMountedRoutes,
-  validationError,
-} from "@eristack/backseat/adapters";
+import { registerMountedRoutes } from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
 import { createRbac } from "../core/create-rbac.js";
 import type { PermissionName, Rbac, RbacConfig } from "../core/types.js";
 import { createBackseatRbacStore } from "./rbac-store.js";
+import { createRbacRoutes } from "./rbac-routes.js";
 
 export type RegisterRbacBackseatOptions = Omit<RbacConfig, "store"> & {
   basePath?: string;
-  /** Existing Rbac instance — when omitted, one is created from Backseat store. */
   rbac?: Rbac;
 };
 
@@ -17,44 +14,14 @@ export function registerRbacBackseat(
   api: Backseat,
   options: RegisterRbacBackseatOptions = {},
 ): Rbac {
-  const rbacStore = createBackseatRbacStore(api.store);
   const rbac =
     options.rbac ??
     createRbac({
-      store: rbacStore,
+      store: createBackseatRbacStore(api.store),
       unknownPermissionDenied: options.unknownPermissionDenied,
     });
-  const base = options.basePath ?? "/rbac";
 
-  registerMountedRoutes(api, base, [
-    {
-      method: "GET",
-      segment: "/can",
-      name: "rbac.can",
-      handler: async (ctx) => {
-        const subject = ctx.query("subject");
-        const permission = ctx.query("permission") as PermissionName | undefined;
-        if (!subject || !permission) {
-          return validationError("subject and permission query params required");
-        }
-        const allowed = await rbac.can(subject, permission);
-        return { status: 200, body: { allowed } };
-      },
-    },
-    {
-      method: "POST",
-      segment: "/assign-role",
-      name: "rbac.assign-role",
-      handler: async (ctx) => {
-        const body = ctx.json<{ subject?: string; role?: string }>();
-        if (!body.subject || !body.role) {
-          return validationError("subject and role required");
-        }
-        await rbac.assignRole({ subject: body.subject, role: body.role });
-        return { status: 204, body: null };
-      },
-    },
-  ]);
+  registerMountedRoutes(api, options.basePath ?? "/rbac", createRbacRoutes(rbac));
 
   api.registerAction("rbac.can", async ({ input }) => {
     const { subject, permission } = input as {

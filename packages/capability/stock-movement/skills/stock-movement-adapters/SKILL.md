@@ -14,6 +14,7 @@ sources:
 # Stock movement adapters
 
 ```ts
+import { createStockMovement } from "@eristack/stock-movement";
 import {
   createDrizzleLedgerStore,
   createHashChainedLedgerTables,
@@ -21,6 +22,13 @@ import {
 
 const tables = createHashChainedLedgerTables("pgsql");
 const store = createDrizzleLedgerStore({ db, tables });
+const movement = createStockMovement({ store });
+
+await movement.append({
+  locationId: locationIdFromParts({ warehouseId: "wh1", binId: "a1" }),
+  lotId: "lot-1",
+  quantityDelta: "10",
+});
 ```
 
 Dialects: `"pgsql"` (prod), `"mysql"`, `"sqlite"` (real file for local/tests —

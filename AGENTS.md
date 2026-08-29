@@ -37,6 +37,27 @@ tanstackIntent:
   - id: "@eristack/ai-knowledge#upgrading-eristack"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#upgrading-eristack"
     for: "Upgrade @eristack consumer apps: pnpm outdated, site changelogs, optional Backseat peer ^0.1.0, ./backseat adapters, Changesets 0.x rules for contributors."
+  - id: "@eristack/ai-knowledge#document-lines-erp"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#document-lines-erp"
+    for: "Document-with-lines ERP spine: QUPS lines, doc-number, pbac, data-grid, backseat mock API — jobs, cost sheets, invoices. Load before vertical ERP features."
+  - id: "@eristack/ai-knowledge#backseat-then-backend"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#backseat-then-backend"
+    for: "Horizon A Backseat mock → Horizon B Drizzle/Express graduation: registerRoute, executeBackseatList, atomic writes, listRoutes spine tests."
+  - id: "@eristack/ai-knowledge#http-errors"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#http-errors"
+    for: "Unified JSON error envelope: CONFLICT_VERSION, POLICY_DENIED, BUSINESS_POLICY_DENIED, STALE_EPOCH — Backseat, Express, Nest, TanStack Query."
+  - id: "@eristack/backseat#backseat-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core"
+    for: "@eristack/backseat in-browser REST engine: registerRoute, registerAction, IndexedDB store, jsonError, ERP demo seeds. Memory store tests only."
+  - id: "@eristack/multitab#multitab-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core"
+    for: "@eristack/multitab headless multi-tab workspace: dirty-tab guards, confirm beforeClose, TanStack Router sync — ERP screen chrome stays in the app."
+  - id: "@eristack/logger#logger-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/logger#logger-core"
+    for: "@eristack/logger JSON-lines structured logging with requestId context; Express middleware and Nest LoggingInterceptor."
+  - id: "@eristack/rest#rest-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
+    for: "@eristack/rest declarative route definitions, Express/Nest mount helpers, minimal OpenAPI 3.1 emit."
   - id: "@eristack/qups#qups-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core"
     for: "Pure @eristack/qups business calculator: calculateLine/patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax on @eristack/money."
@@ -141,7 +162,8 @@ Useful commands:
 ```bash
 pnpm eristack plan --json          # token-minimal: what to run next (agents start here)
 pnpm eristack check --profile pr --skip-build   # CI gate (after pnpm build)
-pnpm ci                            # build + full profile
+pnpm ci                            # build + full profile (local pre-merge)
+pnpm ci:pr                         # PR-style affected CI (needs origin/main)
 pnpm eristack sync knowledge       # after recipes/skills/catalog edits
 pnpm eristack sync docs            # after package docs nav edits
 pnpm skills:list
@@ -155,13 +177,13 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 - **Money:** never use JS number literals for currency amounts; use `@eristack/money` (`Money.of` / `Money.ofMinor`).
 - **Releases:** user-facing package changes need a Changeset (`pnpm changeset`). Docs-only / CI-only changes do not. Publishing happens only after the Version Packages PR merges to `main`.
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
-- **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
-- **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
+- **Git / commits / PRs:** taboo for agents — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control (including committing `apps/web` `_meta.json` after `pnpm docs:sync`).
+- **AI working docs:** while implementing, write notes under [`_ai-docs/wip/<topic>/`](./_ai-docs/wip/) (see [`_ai-docs/README.md`](./_ai-docs/README.md): WIP · brainstorm · audit). When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that WIP folder. See `.cursor/rules/ai-working-docs.mdc`.
 - **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. When doc **pages** change, also run `pnpm docs:sync` and commit `_meta.json`. CI runs `pnpm docs:check`. Do not finish with fresh docs and stale agent knowledge or nav catalog. See `.cursor/rules/ai-knowledge-sync.mdc`.
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.
-- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Docs UI and site listings follow the same order.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 06 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
 
 ## Examples
 
@@ -201,15 +223,17 @@ Categories under `packages/` (order matters):
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
 - `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
 - `packages/infrastructure/backseat` — `@eristack/backseat` (in-browser mock REST engine — alpha)
-- `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab ERP workspace — coming soon)
-- `packages/features/` — ERP feature modules (product, procurement, …) — layer coming soon; see `roadmap/`
+- `packages/infrastructure/logger` — `@eristack/logger` (JSON-lines logging + Express/Nest — alpha)
+- `packages/infrastructure/rest` — `@eristack/rest` (declarative REST shell + OpenAPI — alpha)
+- `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab operational workspace — alpha)
+- `packages/features/` — **under construction** — future `@eristack/feature-*`; apps compose spine today (`roadmap/features.md`)
 - `packages/ai/ai-dev` — `@eristack/ai-dev` (unified `eristack` CLI + MCP: plan, check profiles, sync)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)
 - `roadmap/` — living priority stack for future packages (also rendered at `/roadmap` on the site); draft-only catalog at `roadmap/horizon.md`
 - `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
-- `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
+- `_ai-docs/` — WIP (`wip/`), brainstorm (`brainstorm/`), audit snapshot (`audit/`); see `_ai-docs/README.md`
 - `examples/*` — private runnable demos (not published)
 - `internal/test-harness` — `@internal/test-harness` repo-only sqlite helpers for integration tests (not under `packages/`, not published)
 - `.changeset/` — pending release notes for Changesets

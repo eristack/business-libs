@@ -19,17 +19,22 @@ sources:
 ## Agent workflow (token budget)
 
 1. **`pnpm eristack plan --json`** — changed files → profile, checks, sync, skills, commands. Run this **first** instead of glob-reading AGENTS.md check lists.
-2. **`pnpm eristack check --profile pr --skip-build`** — same gate as GitHub CI (after `pnpm build`).
-3. **`pnpm eristack sync knowledge`** / **`docs`** — when recipes, skills, or package docs changed.
+2. **`pnpm eristack ci --base origin/main`** — **PR CI** (affected turbo + drift; skips web `next build` on library-only diffs).
+3. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate).
+4. **`pnpm eristack sync knowledge`** / **`docs`** — when recipes, skills, or package docs changed.
 
 ## Profiles
 
 | Profile | Use |
 | --- | --- |
 | `catalog` | Drift only: docs, knowledge, skills, ticket, changesets, exports* |
-| `pr` | **CI** — build + typecheck + test + catalog |
+| `pr` | **Main CI** — build + typecheck + test + integration + catalog |
 | `full` | `pr` + lint |
 | `fast` | Turbo filter on changed packages (from `plan`) |
+| `integration` | Drizzle integration tests only (`pnpm test:integration`) |
+| `examples` | Example apps build (`pnpm --filter './examples/*' build`) |
+| `publish` | `pnpm publish:check` only (no workspace:* in published deps) |
+| `ci` command | PR path: affected + drift + integration; `--full` or `ci:full` label → `pr` |
 
 ## MCP (Cursor / Claude Desktop)
 

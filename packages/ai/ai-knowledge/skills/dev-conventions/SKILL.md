@@ -42,6 +42,8 @@ Full table: `knowledge/agent-workflow.md` § Design targets.
 
 ## AI working docs (monorepo)
 
-1. While working: `_ai-docs/<topic>/` notes good enough to draft public docs (include skill/recipe impact)
+Three buckets: `_ai-docs/wip/` (ephemeral), `_ai-docs/brainstorm/` (names), `_ai-docs/audit/` (snapshot). See `_ai-docs/README.md`.
+
+1. While working: `_ai-docs/wip/<topic>/` from `_template/overview.md` (frontmatter: promotes-to, skills, recipes)
 2. When finished: promote to package docs / site / skills / recipes; sync catalog
-3. Delete the `_ai-docs/<topic>/` folder after promotion
+3. Delete the WIP folder after promotion

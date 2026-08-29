@@ -501,7 +501,7 @@ recipes:
       Header + QUPS lines products: load @eristack/ai-knowledge#document-lines-erp
       and read knowledge/document-lines-erp.md only. qups + money + doc-number +
       data-grid + pbac + backseat — not stock-movement/valuations/financial-ledger.
-      Partner/product masters app-owned; feature-partner coming soon — do not invent packages.
+      Partner/product masters app-owned — do not invent @eristack/feature-* packages.
     canonicalSkills:
       - "@eristack/ai-knowledge#document-lines-erp"
     packages:
@@ -598,6 +598,46 @@ recipes:
       - name: "@eristack/multitab"
         skills:
           - multitab-core
+        role: primary
+
+  - id: structured-logging
+    title: JSON-lines request logging
+    priority: 10
+    triggers:
+      - logger
+      - logging
+      - structured log
+      - json log
+      - request id log
+      - vercel logs
+      - log drain
+    rationale: >
+      Use @eristack/logger for JSON-lines server logging with injectable requestId,
+      userId, and tenantId context. Express: createLoggerMiddleware. Nest:
+      LoggerModule.forRoot + LoggingInterceptor.
+    packages:
+      - name: "@eristack/logger"
+        skills:
+          - logger-core
+        role: primary
+
+  - id: declarative-rest-routes
+    title: Declarative REST route shell
+    priority: 10
+    triggers:
+      - rest routes
+      - declarative rest
+      - openapi emit
+      - express route table
+      - nest route module
+    rationale: >
+      Use @eristack/rest to define HTTP routes as data, mount on Express or Nest,
+      and emit minimal OpenAPI 3.1 paths. Compose with jwt-auth guards and
+      data-grid list handlers in app modules.
+    packages:
+      - name: "@eristack/rest"
+        skills:
+          - rest-core
         role: primary
 
   - id: access-control-stack
@@ -727,20 +767,17 @@ recipes:
           - hash-chained-ledger-core
         role: supporting
 
-  - id: erp-modules
-    title: ERP modules (PO, SO, product, inventory, finance)
+  - id: compose-spine
+    title: Compose business spine (auth, lines, lists, optional ledgers)
     priority: 6
     triggers:
       - erp
       - enterprise resource planning
+      - business app
+      - operational app
+      - document workflow
       - purchase order
       - sales order
-      - goods receipt
-      - product master
-      - item master
-      - procurement
-      - order to cash
-      - procure to pay
       - inventory transfer
       - stocktake
       - accounts payable
@@ -748,22 +785,16 @@ recipes:
       - work order
       - bill of materials
     rationale: >
-      @eristack/feature-* ERP packages are coming soon — full backlog in
-      roadmap/erp.md (reprioritize there). For document/cost-sheet/job-order
-      products, prefer recipes document-lines-erp or backseat-then-backend (qups, pbac, doc-number,
-      data-grid, jwt-auth, rbac) — do not default to stock-movement,
-      financial-ledger, or valuations unless inventory/GL is in scope. Full
-      procure-to-pay / warehouse spine: compose qups + stock + ledger + valuations
-      when explicitly required.
+      No @eristack/feature-* vertical packages — apps own document families.
+      For header + QUPS line products load #document-lines-erp or #backseat-then-backend.
+      Compose qups, doc-number, pbac, data-grid, jwt-auth, rbac by default.
+      Add stock-movement, financial-ledger, valuations only when inventory or GL is
+      explicitly in scope — never assume procure-to-pay or warehouse modules exist.
     packages:
       - name: "@eristack/qups"
         skills:
           - qups-core
           - qups-line
-        role: primary
-      - name: "@eristack/stock-movement"
-        skills:
-          - stock-movement-core
         role: primary
       - name: "@eristack/pbac"
         skills:
@@ -772,10 +803,6 @@ recipes:
       - name: "@eristack/doc-number"
         skills:
           - doc-number-core
-        role: supporting
-      - name: "@eristack/financial-ledger"
-        skills:
-          - financial-ledger-core
         role: supporting
       - name: "@eristack/data-grid"
         skills:

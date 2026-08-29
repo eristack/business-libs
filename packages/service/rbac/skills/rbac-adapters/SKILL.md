@@ -15,7 +15,29 @@ sources:
 
 # RBAC adapters
 
+```ts
+import { createRbac } from "@eristack/rbac";
+import { createRbacTables, createDrizzleRbacStore } from "@eristack/rbac/drizzle";
+import { createRequirePermission } from "@eristack/rbac/express";
+import { RequirePermission, RbacModule, RbacGuard } from "@eristack/rbac/nest";
+
+const rbac = createRbac({
+  store: createDrizzleRbacStore({ db, tables: createRbacTables("pgsql") }),
+});
+
+app.post(
+  "/orders",
+  requireAuth,
+  createRequirePermission({ rbac, permission: "orders.create" }),
+  handler,
+);
+
+@RequirePermission("orders.read")
+@UseGuards(RbacGuard)
+@Get("orders")
+list() {}
+```
+
 - Drizzle dialect **`"pgsql"`**
 - Express expects `req.subject` / `req.auth.subject`
-- Nest: `@RequirePermission("…")` + `RbacGuard`
 - React: `useCan({ rbac, subject, permission })`

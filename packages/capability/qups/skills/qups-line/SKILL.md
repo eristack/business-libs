@@ -16,9 +16,7 @@ sources:
 # Line pricing (business layer)
 
 ```ts
-import { calculateLine, patchLine, withQupsColumns } from "@eristack/qups";
-// Spreadsheet commit: applyCellPatch(line, "unitPrice", value)
-// Backseat persist: withQupsFields(line) — snake_case SQL keys
+import { calculateLine, patchLine, applyCellPatch, withQupsColumns } from "@eristack/qups";
 
 const line = calculateLine({
   truth: "quantity+unitPrice",
@@ -30,6 +28,7 @@ const line = calculateLine({
   round: true,
 });
 
+applyCellPatch(line, "unitPrice", "12"); // spreadsheet cell commit → patchLine
 patchLine(line, { unitPrice: nextValue }); // TanStack Form onChange
 withQupsColumns({ itemId }, line);         // BE insert payload
 ```

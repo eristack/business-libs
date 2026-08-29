@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -33,8 +35,19 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      - name: Fetch main (PR diff base)
+        if: github.event_name == 'pull_request'
+        run: git fetch origin main:refs/remotes/origin/main
 
-      - name: Unified check (CI profile)
-        run: pnpm eristack check --profile pr --skip-build
+      - name: Build ai-dev (eristack CLI)
+        run: pnpm --filter @eristack/ai-dev build
+
+      - name: CI (full on main)
+        if: github.event_name == 'push'
+        run: pnpm eristack check --profile pr
+
+      - name: CI (PR — affected)
+        if: github.event_name == 'pull_request'
+        env:
+          CI_FULL: ${{ contains(github.event.pull_request.labels.*.name, 'ci:full') }}
+        run: pnpm eristack ci --base origin/main

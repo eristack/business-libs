@@ -3,10 +3,9 @@ title: Document-with-lines ERP
 description: Header + QUPS lines — jobs, cost sheets, invoices
 sidebar_position: 5
 ---
-
 # Document-with-lines ERP (header + QUPS lines)
 
-**Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** until `@eristack/feature-partner` ships.
+**Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.
 
 Load: `@eristack/ai-knowledge#document-lines-erp` · Horizon A mockup: `@eristack/ai-knowledge#backseat-then-backend` · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
 
@@ -31,11 +30,11 @@ Load: `@eristack/ai-knowledge#document-lines-erp` · Horizon A mockup: `@eristac
 
 ---
 
-## App-owned (until feature packages)
+## App-owned masters
 
 | Master | App schema |
 | --- | --- |
-| Partner | `isCustomer`, `isVendor`, codes, addresses — not `@eristack/feature-partner` |
+| Partner | `isCustomer`, `isVendor`, codes, addresses — app tables |
 | Product / charge codes | App tables or enums |
 | Job / cost sheet / invoice | App aggregates + Drizzle migrations |
 
@@ -135,7 +134,7 @@ return db.transaction(async (tx) => {
 await epoch.bumpMany(["invoices"]);
 ```
 
-`next()` never over HTTP — see doc-number wiring-production guide.
+`next()` never over HTTP — see [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md).
 
 ---
 
@@ -204,7 +203,7 @@ Minimum demo seed entities for document-lines ERP:
 | `docFormats` | active invoice format per branch | doc-number |
 | `epoch` scopes | `jobs`, `cost-sheets`, `invoices` at `0` | epoch |
 
-No checked-in `seed-v1.json` yet — copy blocks from [backseat-then-backend](./backseat-then-backend.md) when building `examples/horizon-a/`.
+No checked-in `seed-v1.json` yet — use `@eristack/backseat/seeds` → `loadHorizonASeedV1()` in `examples/horizon-a/` (see [backseat-then-backend](./backseat-then-backend.md)).
 
 PBAC presets to register in seed bootstrap:
 
@@ -249,7 +248,12 @@ Product language that should hit this recipe (not FIFO/stock):
 | Backseat PATCH handlers | Express routes + Drizzle transactions |
 | IndexedDB seed | Postgres seed script |
 
-See package `docs/wiring-production.md` guides for jwt-auth, doc-number, money, and data-grid.
+Package-specific production guides:
+
+- [jwt-auth wiring-production](../../service/jwt-auth/docs/wiring-production.md)
+- [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md)
+- [money wiring-production](../../primitive/money/docs/wiring-production.md)
+- [data-grid wiring-production](../../service/data-grid/docs/wiring-production.md)
 
 ---
 

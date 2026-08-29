@@ -48,6 +48,16 @@ await fin.verify("1000", "USD");
 `inAmount` / `outAmount` / `adjustment` accept `Money` or decimal strings.
 Currency must match the chain.
 
+## Moneyish boundaries
+
+| Layer | Shape |
+| --- | --- |
+| **Core post input** | `Money` or same-currency decimal **strings** — never JS number literals |
+| **Ledger store / chain** | Decimal strings in hash-chained payloads (audit-friendly) |
+| **Read / UI** | `hydrateLedgerEntry` / `hydrateLedgerSnapshot` → `Money` for display and totals |
+
+Do not persist `Money` objects in Backseat or Drizzle rows — serialize at the store boundary.
+
 ## Read paths (hydrate)
 
 Hashed ledger payloads stay decimal **strings**. For UI and reports, hydrate on read:

@@ -32,6 +32,22 @@ const layers = createDrizzleLayerStore({ db, table: layerTable });
 Need **both** entry/snapshot tables and the layer table — layers alone are not
 enough for audit verify.
 
+```ts
+import { createValuationEngine } from "@eristack/valuations";
+
+const engine = createValuationEngine({
+  method: "fifo",
+  ledgerStore,
+  layerStore: layers,
+});
+
+await engine.receive({
+  key: { productId: "sku-1", currency: "USD" },
+  qty: "10",
+  unitCost: "12.50",
+});
+```
+
 Layer rows: shared `currency` (ISO code) + `unitCostAmount` numeric column
 (`unit_cost_amount` SQL) via `@eristack/money/drizzle`. Core `CostLayer.unitCost`
 remains a decimal string amount.

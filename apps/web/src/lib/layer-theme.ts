@@ -34,7 +34,7 @@ export const layerThemes = {
   },
   features: {
     label: "Features",
-    /** emerald — product modules (ERP verticals) */
+    /** emerald — reserved vertical modules (under construction) */
     swatch: "emerald",
   },
 } as const satisfies Record<

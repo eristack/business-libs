@@ -305,8 +305,8 @@ describe("multitab state", () => {
       kind: "route",
     });
     state = openTab(state, {
-      id: "/procurement/purchase-orders",
-      title: "Purchase orders",
+      id: "/operations/jobs",
+      title: "Jobs",
       kind: "route",
     });
     state = openTab(state, {
@@ -319,9 +319,9 @@ describe("multitab state", () => {
 
     expect(state.tabs.map((tab) => tab.id)).toEqual([
       "/inventory/products",
-      "/procurement/purchase-orders",
+      "/operations/jobs",
     ]);
-    expect(state.activeTabId).toBe("/procurement/purchase-orders");
+    expect(state.activeTabId).toBe("/operations/jobs");
   });
 
   it("closes active tab using MRU after re-activating an older tab", () => {

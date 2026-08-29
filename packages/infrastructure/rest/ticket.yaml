@@ -1,0 +1,10 @@
+package: "@eristack/rest"
+title: rest
+maintainers:
+  - support@eristack.dev
+scope: >
+  Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit.
+outOfScope: >
+  Replacing package-specific routers (jwt-auth, epoch, doc-number); full schema codegen.
+skills:
+  - rest-core

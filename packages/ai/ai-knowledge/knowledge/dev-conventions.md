@@ -26,13 +26,13 @@ Supporting norms:
 | `packages/service/jwt-auth` | `@eristack/jwt-auth` (service) |
 | `packages/infrastructure/backseat` | `@eristack/backseat` (infrastructure; browser mock REST + IndexedDB) |
 | `packages/ui/multitab` | `@eristack/multitab` (UI; tab workspace — coming soon) |
-| `packages/features/` | ERP feature modules (coming soon) |
+| `packages/features/` | **Under construction** — future `@eristack/feature-*`; see `roadmap/features.md` |
 | `packages/ai/ai-knowledge` | `@eristack/ai-knowledge` (AI; this pack) |
 | `packages/ai/ai-workflow` | `@eristack/ai-workflow` (AI) |
 | `roadmap/` | Living priority stack for future packages |
 | `examples/*` | Private runnable demos (not published) |
 | `apps/web` | Public site; renders `packages/<category>/*/docs` by category |
-| `_ai-docs/` | Temporary AI working notes |
+| `_ai-docs/` | WIP (`wip/`), brainstorm, audit — see `_ai-docs/README.md` |
 | `_artifacts/` | Domain maps / skill specs |
 | `.changeset/` | Pending release notes |
 
@@ -50,9 +50,11 @@ Category order (docs + filesystem): primitive → capability → service → inf
 | Changeset type | On `0.0.0` | On `0.1.0+` (still pre-1.0) |
 | --- | --- | --- |
 | **`patch`** | `0.0.1` | next **`0.(n+1).0`** (stay pre-1.0) |
-| **`minor`** | **`0.1.0`** (first publish) | **`1.0.0`** (intentional exit from 0.x) |
+| **`minor`** | **`0.1.0`** (first publish) | **`0.2.0`** semver on 0.1.x — **breaks `^0.1.0` peers** (`<0.2.0`) and Changesets **major-bumps** all peer dependents (e.g. backseat → 12 spine packages). Use only when coordinating a release train. |
 
-Routine features/fixes on packages already past `0.0.0`: use **`patch`**. Use **`minor`** on `0.0.0` for first release, or when you **mean 1.0.0**.
+Routine features/fixes on packages already past `0.0.0`: use **`patch`** (e.g. `0.1.4` → `0.1.5`, stays inside `^0.1.0`). Use **`minor`** on `0.0.0` for first release, or when you **mean** a 0.y line bump / exit from 0.x with peer range updates.
+
+**Peer cascade (why patch on `@eristack/backseat`):** twelve packages declare optional peer `"@eristack/backseat": "^0.1.0"`. npm treats `^0.1.0` as `>=0.1.0 <0.2.0`. A **minor** changeset on backseat at `0.1.4` becomes **`0.2.0`**, out of range — Changesets (`onlyUpdatePeerDependentsWhenOutOfRange: true`) schedules **major** bumps on jwt-auth, qups, pbac, etc. This is not `workspace:*` in `dependencies` (those are clean); it is **peer semver range** + Changesets policy.
 
 ### Changeset file shape (CI enforced)
 
@@ -126,6 +128,31 @@ Agents are the primary audience. **In-depth** does not mean **many files**.
 | Product routing | `recipes.yaml` + `recommend-eristack` skill |
 
 Per-package docs: full detail for **that package’s production adapters**; for monorepo-wide Backseat wiring, **redirect** to upgrading §3 with a small delta table only. See `.cursor/rules/docs-depth-tokens.mdc`.
+
+## AI working docs (`_ai-docs/`)
+
+Three buckets — see repo `_ai-docs/README.md`:
+
+| Bucket | Path | Rule |
+| --- | --- | --- |
+| WIP | `_ai-docs/wip/<topic>/` | Ephemeral; delete after promote |
+| Brainstorm | `_ai-docs/brainstorm/` | Package names before `roadmap/horizon.md` |
+| Audit | `_ai-docs/audit/` | Point-in-time quality snapshot |
+
+While implementing: WIP notes good enough to draft public docs (include skill/recipe impact). When finished: promote to package docs / site / skills / recipes; sync catalog; **delete** the WIP folder.
+
+## Drizzle integration tests (Sprint A)
+
+Production paths default to Drizzle; prove them with sqlite integration tests — not memory stores in skills.
+
+| Piece | Location |
+| --- | --- |
+| Shared sqlite helper | `@internal/test-harness` — `createTestSqliteDb`, `execSql`, `canUseBetterSqlite` |
+| Hash-chain harness | `@eristack/hash-chained-ledger/testing` — `setupHclSqlite`, tamper helpers |
+| Per-package test | `packages/<layer>/<name>/tests/drizzle.integration.test.ts` |
+| Run all | `pnpm test:integration` (root) or `pnpm eristack check --profile integration` |
+
+**Pattern:** wrap suites in `describe.skipIf(!canUseBetterSqlite())` so CI without native bindings skips cleanly. When adding a new Drizzle store, add or extend an integration test in the same PR.
 
 ## Scope discipline
 

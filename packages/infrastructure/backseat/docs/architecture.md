@@ -118,7 +118,7 @@ Use `backseat` to chain actions, re-read other collections, or call `snapshot()`
 
 ### Named actions
 
-Bypass the router entirely. Registry keyed by string (`"procurement.approveBatch"`). Best for:
+Bypass the router entirely. Registry keyed by string (`"operations.approveBatch"`). Best for:
 
 - Multi-argument Query functions
 - Aggregations returning computed DTOs

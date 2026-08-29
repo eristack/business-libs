@@ -196,7 +196,7 @@ function PbacMotif() {
   return (
     <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
       <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
-        <p className="font-semibold">document · purchase-order</p>
+        <p className="font-semibold">document · job</p>
         <p className="pl-3 opacity-85">outstandingMinor &gt; 0</p>
         <p className="pl-3 opacity-85">status ∈ open | partial</p>
         <p className="pl-3 opacity-70">→ can-receive</p>
@@ -405,7 +405,7 @@ export function LayerMotif({
     service: ["session", "inject", "rotate"],
     infrastructure: ["runtime", "mock", "glue"],
     ui: ["surface", "tabs", "chrome"],
-    features: ["module", "erp", "vertical"],
+    features: ["scaffold", "vertical", "later"],
     ai: ["agent", "local", "index"],
   };
   const words = marks[layerId] ?? [];

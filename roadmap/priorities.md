@@ -8,52 +8,55 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | --- | --- | --- |
 | Ledger family hardening | Capability + Service | Stock, financial, valuations on Drizzle-default hash chain |
 | ai-knowledge catalog | AI | Packages, recipes, docs+sync every iteration |
-| Seven-layer taxonomy | Meta | Site + docs aligned to layer order |
+| Seven-layer taxonomy | Meta | Site + docs; layer 06 Features under construction |
 | `@eristack/backseat` | Infrastructure | Alpha — in-browser REST engine + IndexedDB store |
-| `@eristack/multitab` | UI | Scaffold — tab workspace |
+| `@eristack/logger` | Infrastructure | Alpha — JSON-lines + Express/Nest adapters |
+| `@eristack/rest` | Infrastructure | Alpha — declarative routes + OpenAPI emit |
+| `@eristack/multitab` | UI | Alpha — tab workspace + Router sync |
 
 ## Next (sequenced)
 
 | # | Item | Layer | Why |
 | ---: | --- | --- | --- |
-| 1 | **Backseat engine** | Infrastructure | UX and feature prototyping without API deploy |
-| 2 | **Multitab engine** | UI | Document workspace chrome every ERP screen needs |
+| 1 | **Backseat engine** | Infrastructure | UX and app prototyping without API deploy |
+| 2 | **Multitab engine** | UI | Document workspace chrome for operational apps |
 | 3 | **`@eristack/logger`** | Infrastructure | Production visibility before REST spread |
-| 4 | **`@eristack/rest`** | Infrastructure | One HTTP shell pattern for examples and features |
+| 4 | **`@eristack/rest`** | Infrastructure | One HTTP shell pattern for examples and apps ✓ |
 
 ### 1 · Backseat (scaffold → alpha)
 
 | Milestone | Deliverable |
 | --- | --- |
 | M1 | `createBackseat`, memory/IndexedDB store, CRUD + custom routes/actions ✓ |
-| M2 | Devtools panel, ERP seed packs, snapshot export ✓ (devtools + basic seed) |
-| M3 | Richer demo flows (PO → GR) — no shared REST contract yet |
+| M2 | Devtools panel, seed packs, snapshot export ✓ (devtools + basic seed) |
+| M3 | Richer demo flows (document list → edit → status action) — `createErpDemoBackseat()` ✓ |
 
-**Non-goals:** production auth, replacing Drizzle, server deploy.
+**Non-goals:** production auth, replacing Drizzle, server deploy, vertical ERP modules.
 
-### 2 · Multitab (scaffold → alpha)
+### 2 · Multitab (scaffold → alpha) ✓
 
-- `createTabWorkspace` headless model
-- Dirty close guards + TanStack Router sync hooks
+- `createTabWorkspace` headless model ✓
+- Dirty close guards + TanStack Router sync hooks ✓
+- `useDirtyTab`, `createConfirmBeforeClose` helpers ✓
 
-### 3 · Logger (planned)
+### 3 · Logger (alpha) ✓
 
 | Requirement | Notes |
 | --- | --- |
-| JSON lines | One event per line for Vercel log drains |
-| Context | `requestId`, `userId`, `tenantId` injectable |
-| Levels | debug / info / warn / error |
-| Adapters | Express middleware, Nest interceptor |
+| JSON lines | One event per line for Vercel log drains ✓ |
+| Context | `requestId`, `userId`, `tenantId` injectable ✓ |
+| Levels | debug / info / warn / error ✓ |
+| Adapters | Express middleware, Nest interceptor ✓ |
 
-### 4 · REST (planned)
+### 4 · REST (alpha) ✓
 
-- Route definition as data → mount on Express / Nest
-- Optional OpenAPI 3.1 emit for client codegen
-- Pairs with jwt-auth guards and data-grid list actions
+- Route definition as data → mount on Express / Nest ✓
+- OpenAPI 3.1 path emit (minimal) ✓
+- Pairs with jwt-auth guards and data-grid list actions (app wiring)
 
 ## Not next
 
-- Full `@eristack/feature-*` package until Backseat or `examples/*` proves the spine path
+- `@eristack/feature-*` vertical ERP packages — apps compose the spine
 - GraphQL gateway — REST + typed clients first
 - Replacing TanStack Intent — skills stay the guidance layer
 

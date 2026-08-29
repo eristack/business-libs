@@ -55,8 +55,8 @@ Do not ship fresh docs with a stale catalog.
 
 ## Docs while implementing
 
-- WIP → `_ai-docs/<topic>/` (note skill/recipe impact)
-- Finished → promote to `packages/<category>/*/docs`, sync ai-knowledge, delete the topic folder
+- WIP → `_ai-docs/wip/<topic>/` (note skill/recipe impact; use `_template/overview.md`)
+- Finished → promote to `packages/<category>/*/docs`, sync ai-knowledge, delete the WIP folder
 - Package docs are source of truth; the website renders them
 
 ## Version control

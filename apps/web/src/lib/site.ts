@@ -128,21 +128,21 @@ export const packageCategories = [
     id: "features",
     label: "Features",
     href: "/features",
-    tagline: "ERP modules — PO, SO, product, inventory, finance.",
+    tagline: "Vertical modules — reserved. Long construction ahead.",
     description:
-      "Operational ERP as composable libraries: purchase orders, goods receipts, sales orders, product master, stock transfers, journals, and AP/AR — each a separate package on the shared spine (qups, stock, ledgers, pbac, doc-number). Coming soon while masters and procure-to-pay design land.",
+      "Layer 06 holds future @eristack/feature-* packages: cohesive document families on top of the spine. Logger, REST, Backseat, and multitab are alpha — apps compose qups, pbac, doc-number, and friends today; this floor is scaffolding only.",
     highlights: [
       {
-        title: "Real ERP documents",
-        body: "Headers, lines, statuses, postings — not generic CRUD wrappers.",
+        title: "Spine first",
+        body: "Primitives through UI must be production-trusted before any vertical npm package.",
       },
       {
-        title: "Spine underneath",
-        body: "Money, stock, GL, valuations, and document rules stay in lower layers.",
+        title: "Under construction",
+        body: "No feature alpha on the roadmap calendar — gates, not dates.",
       },
       {
-        title: "Reprioritize freely",
-        body: "Module backlog in roadmap/erp.md — partner, product, and procurement lead by default.",
+        title: "Compose today",
+        body: "document-lines-erp and compose-spine recipes — apps own vertical tables until then.",
       },
     ],
   },
@@ -655,8 +655,8 @@ abac.registerPolicy({
 
 const pbac = createPbac()
 pbac.registerPolicy({
-  id: "purchase-order.can-receive",
-  evaluate: documents.positiveAmount("outstandingMinor"),
+  id: "job.can-submit",
+  evaluate: documents.positiveAmount("totalMinor"),
 })`,
     },
   },
@@ -837,6 +837,84 @@ function Shell() {
     </button>
   ))
 }`,
+    },
+  },
+  {
+    slug: "logger",
+    name: "@eristack/logger",
+    title: "Logger",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/logger",
+    href: "/logger",
+    docsHref: "/docs/logger",
+    tagline: "JSON-lines logging with request context.",
+    description:
+      "Structured server logging: one JSON object per line, injectable requestId/userId/tenantId, Express middleware and Nest interceptor for Vercel-friendly drains.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/logger",
+    highlights: [
+      {
+        title: "Log drains",
+        body: "One event per line — works with Vercel and platform aggregators.",
+      },
+      {
+        title: "Request scope",
+        body: "Child loggers merge requestId, userId, tenantId on every HTTP event.",
+      },
+      {
+        title: "Express + Nest",
+        body: "Middleware or global interceptor — same JSON shape.",
+      },
+    ],
+    sample: {
+      filename: "logger.ts",
+      language: "ts",
+      code: `import { createLogger } from "@eristack/logger"
+import { createLoggerMiddleware } from "@eristack/logger/express"
+
+const log = createLogger({ name: "api" })
+app.use(createLoggerMiddleware({ logger: log }))`,
+    },
+  },
+  {
+    slug: "rest",
+    name: "@eristack/rest",
+    title: "REST",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/rest",
+    href: "/rest",
+    docsHref: "/docs/rest",
+    tagline: "Declarative HTTP routes as data.",
+    description:
+      "Define REST handlers as route tables, mount on Express or Nest, emit minimal OpenAPI 3.1 paths — compose with jwt-auth guards and data-grid list actions in apps.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rest",
+    highlights: [
+      {
+        title: "Routes as data",
+        body: "defineRoutes([...]) — same table for Express and Nest.",
+      },
+      {
+        title: "OpenAPI emit",
+        body: "toOpenApiDocument(routes) for codegen and docs.",
+      },
+      {
+        title: "Thin handlers",
+        body: "Delegate to Drizzle stores and spine packages — no framework in core.",
+      },
+    ],
+    sample: {
+      filename: "routes.ts",
+      language: "ts",
+      code: `import { defineRoutes, toOpenApiDocument } from "@eristack/rest"
+
+export const api = defineRoutes([
+  {
+    method: "GET",
+    path: "/health",
+    handler: () => ({ status: 200, body: { ok: true } }),
+  },
+])`,
     },
   },
   {

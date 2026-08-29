@@ -70,7 +70,7 @@ Backseat does not compete with capability packages — it **defers** them until 
 
 The devtools panel is not a nice-to-have — it is how non-developers and agents participate:
 
-- PM inserts a PO in `draft` to test approval UX
+- PM inserts a job in `draft` to test approval UX
 - QA resets to seed between test runs
 - Maintainer exports snapshot with bug report
 - Agent imports snapshot to reason about entity graph
@@ -81,7 +81,7 @@ Gate devtools from production builds; keep them always available in dev.
 
 Backseat succeeds when:
 
-- A procurement PO → approve → list refresh works entirely client-side
+- A job submit → approve → list refresh works entirely client-side
 - Query keys survive graduation to real API unchanged
 - An agent can read `controllers.ts` + snapshot JSON and draft Drizzle schema + routes
 - Devtools reset + re-seed takes less than 5 seconds

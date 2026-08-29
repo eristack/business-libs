@@ -18,3 +18,11 @@ export const users = sqliteTable("users", {
 export const jwtAuthCredentials = createCredentialsTable("sqlite");
 
 export const jwtAuthRefreshTokens = createRefreshTokenTable("sqlite");
+
+export const orders = sqliteTable("orders", {
+  id: text("id").primaryKey(),
+  number: text("number").notNull(),
+  status: text("status").notNull(),
+  orderedAt: text("ordered_at").notNull(),
+  total: text("total").notNull(),
+});

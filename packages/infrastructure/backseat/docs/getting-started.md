@@ -5,7 +5,7 @@ description: Wire Backseat into a React + TanStack Query app
 
 # Getting started
 
-End-to-end setup for a frontend-first ERP prototype.
+End-to-end setup for a frontend-first document prototype.
 
 ## Install
 
@@ -48,7 +48,7 @@ export const api = createBackseat({
   collections: {
     partners: {},
     products: {},
-    purchaseOrders: {},
+    jobs: {},
   },
 });
 ```
@@ -67,10 +67,10 @@ Collection **name** (store key) and REST **path** can differ:
 
 ```ts
 collections: {
-  purchaseOrders: { path: "procurement/purchase-orders" },
+  jobs: { path: "operations/jobs" },
 },
-// → GET /api/procurement/purchase-orders
-// → api.handlers.purchaseOrders.* (store key unchanged)
+// → GET /api/operations/jobs
+// → api.handlers.jobs.* (store key unchanged)
 ```
 
 ## 2 · Bootstrap seed data
@@ -115,24 +115,24 @@ import { api } from "./api.js";
 export function registerBackseatControllers() {
   api.registerRoute({
     method: "POST",
-    path: "/procurement/po/:id/submit",
-    name: "submit-po",
+    path: "/operations/jobs/:id/submit",
+    name: "submit-job",
     handler: async (ctx) => {
-      const po = await ctx.store.get("purchaseOrders", ctx.params.id);
-      if (!po) {
-        return { status: 404, body: { error: { code: "NOT_FOUND", message: "PO not found" } } };
+      const job = await ctx.store.get("jobs", ctx.params.id);
+      if (!job) {
+        return { status: 404, body: { error: { code: "NOT_FOUND", message: "Job not found" } } };
       }
-      const updated = await ctx.store.update("purchaseOrders", ctx.params.id, {
+      const updated = await ctx.store.update("jobs", ctx.params.id, {
         status: "submitted",
       });
       return { status: 200, body: updated };
     },
   });
 
-  api.registerAction("procurement.openPoByPartner", async ({ input, store }) => {
+  api.registerAction("operations.openJobsByPartner", async ({ input, store }) => {
     const { partnerId } = input as { partnerId: string };
-    return store.list("purchaseOrders", {
-      where: { partnerId, status: "approved" },
+    return store.list("jobs", {
+      where: { partnerId, status: "submitted" },
     });
   });
 }
@@ -150,11 +150,11 @@ Import `./controllers.js` once from `api.ts` or app bootstrap.
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/backseat/api";
 
-export function useApprovedPurchaseOrders() {
+export function useSubmittedJobs() {
   return useQuery({
-    queryKey: ["purchaseOrders", { status: "approved" }],
+    queryKey: ["jobs", { status: "submitted" }],
     queryFn: () =>
-      api.handlers.purchaseOrders.list({ where: { status: "approved" } }),
+      api.handlers.jobs.list({ where: { status: "submitted" } }),
   });
 }
 ```
@@ -184,8 +184,8 @@ export function ProductList() {
 
 ```ts
 useQuery({
-  queryKey: ["open-pos", partnerId],
-  queryFn: () => api.invoke("procurement.openPoByPartner", { partnerId }),
+  queryKey: ["open-jobs", partnerId],
+  queryFn: () => api.invoke("operations.openJobsByPartner", { partnerId }),
 });
 ```
 

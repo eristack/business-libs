@@ -50,23 +50,16 @@ export const roadmapSections: RoadmapSection[] = [
         href: "/roadmap/layers",
       },
       {
+        slug: "features",
+        title: "Features layer",
+        description: "Under construction — prerequisites before any @eristack/feature-* package.",
+        href: "/roadmap/features",
+      },
+      {
         slug: "backlog",
         title: "Backlog",
         description: "Ideas after near-term spine work lands.",
         href: "/roadmap/backlog",
-      },
-    ],
-  },
-  {
-    id: "erp",
-    title: "ERP",
-    description: "Feature modules — strategy and reprioritization.",
-    links: [
-      {
-        slug: "erp",
-        title: "ERP modules",
-        description: "Priority stack, module reference, gates, spine mapping.",
-        href: "/roadmap/erp",
       },
     ],
   },
@@ -78,11 +71,11 @@ export const roadmapLinks: RoadmapLink[] = roadmapSections.flatMap(
 );
 
 export const roadmapPrinciples = [
-  "Spine before verticals — money, auth, ledgers, access control first.",
+  "Spine first — money, auth, ledgers, access control; apps own vertical domains.",
   "Drizzle-default — memory stores are tests and demos only.",
   "One sharp package — focused libraries, not a platform.",
   "Docs + skills + recipes ship together every iteration.",
-  "Thin adapters — apps own domain tables and connections.",
+  "Thin adapters — apps own domain tables and document models.",
 ] as const;
 
 export const roadmapStatusLegend = [
@@ -90,7 +83,6 @@ export const roadmapStatusLegend = [
   { status: "Alpha", meaning: "Usable; API may move" },
   { status: "Scaffold", meaning: "Package + docs; core API pending" },
   { status: "Planned", meaning: "Named; not started" },
-  { status: "Coming soon", meaning: "Layer or package reserved on site" },
 ] as const;
 
 export function readRoadmapMarkdown(slug: string): string | null {
@@ -119,7 +111,6 @@ export function adjacentRoadmapLinks(slug: string): {
   if (index < 0) return {};
   return {
     prev: index > 0 ? roadmapLinks[index - 1] : undefined,
-    next:
-      index < roadmapLinks.length - 1 ? roadmapLinks[index + 1] : undefined,
+    next: index < roadmapLinks.length - 1 ? roadmapLinks[index + 1] : undefined,
   };
 }

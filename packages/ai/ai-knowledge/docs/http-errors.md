@@ -71,7 +71,7 @@ ABAC (`@eristack/abac`):
 {
   "error": {
     "code": "POLICY_DENIED",
-    "message": "Policy purchase-order.can-post denied"
+    "message": "Policy job.can-post denied"
   }
 }
 ```
@@ -83,7 +83,7 @@ PBAC (`@eristack/pbac`):
   "error": {
     "code": "BUSINESS_POLICY_DENIED",
     "message": "Transition not allowed",
-    "policyId": "purchase-order.can-post",
+    "policyId": "job.can-post",
     "reason": "PO must be in draft status"
   }
 }

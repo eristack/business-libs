@@ -123,7 +123,23 @@ workspace.dispatch({
 
 ## Dirty tabs
 
-Call `setTabCloseGuard(id, true)` when a form becomes dirty. `closeTab` respects guards unless `{ force: true }`. With `beforeClose` on the router provider, prompt before navigating away.
+Call `setTabCloseGuard(id, true)` when a form becomes dirty, or use the hook:
+
+```tsx
+import { useDirtyTab, createConfirmBeforeClose } from "@eristack/multitab/react/tanstack";
+
+function OrderEditor() {
+  const [dirty, setDirty] = useState(false);
+  useDirtyTab(dirty);
+
+  return (/* form */);
+}
+
+// In MultitabRouterProvider:
+beforeClose={createConfirmBeforeClose()}
+```
+
+`closeTab` respects guards unless `{ force: true }`.
 
 ## Replace new tab with a route
 
@@ -131,8 +147,8 @@ When the user picks a module from the new-tab picker:
 
 ```tsx
 multitab.replaceTab(newTabId, {
-  id: "/procurement/po/1001",
-  title: "PO 1001",
+  id: "/operations/jobs/:id",
+  title: "Job 1001",
   kind: "route",
 });
 ```

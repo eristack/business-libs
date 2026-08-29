@@ -9,12 +9,7 @@ metadata:
   library: "@eristack/backseat"
   library_version: "0.1.0"
 sources:
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/index.md"
   - "eristack/business-libs:packages/infrastructure/backseat/docs/getting-started.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/controllers.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/api-reference.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/devtools.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/graduation.md"
 ---
 
 # Backseat core
@@ -42,9 +37,19 @@ Frontend-first **fake backend** in the browser — store + router + **your** con
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, REST bridge helpers |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore()` — **browser default** |
 | `@eristack/backseat/react` | Provider, hooks, `BackseatDevtools` |
-| `@eristack/backseat/seeds` | `createErpDemoSnapshot()` |
+| `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `createErpDemoSnapshot()` |
 
 ## Default wiring
+
+```ts
+import { createErpDemoBackseat } from "@eristack/backseat/seeds";
+
+const api = createErpDemoBackseat(); // memory in tests; IndexedDB in browser
+await api.reseed();
+// POST /api/purchase-orders/:id/submit | approve registered
+```
+
+Or wire manually:
 
 ```ts
 const api = createBackseat({
@@ -75,7 +80,7 @@ useQuery({ queryKey: ["products"], queryFn: () => api.handlers.products.list() }
 // Actions
 useQuery({
   queryKey: ["open-pos", supplierId],
-  queryFn: () => api.invoke("procurement.openPoByPartner", { supplierId }),
+  queryFn: () => api.invoke("operations.openJobsByPartner", { supplierId }),
 });
 ```
 

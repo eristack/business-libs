@@ -137,6 +137,8 @@
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10",
+    "supertest": "^7.1.4",
+    "@types/supertest": "^6.0.3",
     "@eristack/backseat": "workspace:*"
   },
   "license": "MIT"

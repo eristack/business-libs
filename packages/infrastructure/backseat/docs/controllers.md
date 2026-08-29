@@ -22,36 +22,36 @@ Backseat does not lock you into CRUD. **Controllers are plain async functions** 
 ```ts
 api.registerRoute({
   method: "POST",
-  path: "/procurement/po/:id/approve",
-  name: "approve-purchase-order",
+  path: "/operations/jobs/:id/approve",
+  name: "approve-job",
   handler: async (ctx) => {
     // 1. Parse input
     const { note } = ctx.json<{ note?: string }>();
     const force = ctx.query("force") === "true";
 
     // 2. Load related documents
-    const po = await ctx.store.get("purchaseOrders", ctx.params.id);
-    if (!po) {
+    const job = await ctx.store.get("jobs", ctx.params.id);
+    if (!job) {
       return {
         status: 404,
-        body: { error: { code: "NOT_FOUND", message: "PO not found" } },
+        body: { error: { code: "NOT_FOUND", message: "Job not found" } },
       };
     }
 
     // 3. Business rules (simplified for prototype)
-    if (po.status !== "submitted" && !force) {
+    if (job.status !== "submitted" && !force) {
       return {
         status: 409,
-        body: { error: { code: "INVALID_STATE", message: "PO must be submitted" } },
+        body: { error: { code: "INVALID_STATE", message: "Job must be submitted" } },
       };
     }
 
-    const partner = po.partnerId
-      ? await ctx.store.get("partners", String(po.partnerId))
+    const partner = job.partnerId
+      ? await ctx.store.get("partners", String(job.partnerId))
       : null;
 
     // 4. Persist + return DTO
-    const updated = await ctx.store.update("purchaseOrders", ctx.params.id, {
+    const updated = await ctx.store.update("jobs", ctx.params.id, {
       status: "approved",
       approvedAt: new Date().toISOString(),
       approvedNote: note,
@@ -71,7 +71,7 @@ useMutation({
     api
       .handle({
         method: "POST",
-        path: `/api/procurement/po/${id}/approve`,
+        path: `/api/operations/jobs/${id}/approve`,
         body: { note },
       })
       .then((res) => {
@@ -113,10 +113,10 @@ api.registerRoute({
 When REST shape is awkward or you want a stable internal API:
 
 ```ts
-api.registerAction("procurement.outstandingBySupplier", async ({ input, store }) => {
+api.registerAction("operations.outstandingBySupplier", async ({ input, store }) => {
   const { supplierId, asOf } = input as { supplierId: string; asOf?: string };
 
-  const orders = await store.list("purchaseOrders", {
+  const orders = await store.list("jobs", {
     where: { partnerId: supplierId, status: "approved" },
   });
 
@@ -137,7 +137,7 @@ Query:
 useQuery({
   queryKey: ["outstanding-pos", supplierId, asOf],
   queryFn: () =>
-    api.invoke("procurement.outstandingBySupplier", { supplierId, asOf }),
+    api.invoke("operations.outstandingBySupplier", { supplierId, asOf }),
 });
 ```
 
@@ -147,9 +147,9 @@ Actions can call other actions or read via `backseat`:
 api.registerAction("dashboard.summary", async ({ backseat, store }) => {
   const [products, orders] = await Promise.all([
     store.list("products"),
-    backseat.invoke("procurement.openPoCount", null),
+    backseat.invoke("operations.openJobCount", null),
   ]);
-  return { productCount: products.length, openPoCount: orders };
+  return { productCount: products.length, openJobCount: orders };
 });
 ```
 
@@ -160,11 +160,11 @@ Simulate GR posting without real `@eristack/stock-movement` yet:
 ```ts
 api.registerRoute({
   method: "POST",
-  path: "/procurement/gr/:poId/post",
+  path: "/operations/jobs/:poId/post",
   name: "post-goods-receipt",
   handler: async (ctx) => {
     const { lines } = ctx.json<{ lines: Array<{ itemId: string; qty: string }> }>();
-    const po = await ctx.store.get("purchaseOrders", ctx.params.poId);
+    const po = await ctx.store.get("jobs", ctx.params.poId);
     if (!po || po.status !== "approved") {
       return { status: 409, body: { error: { code: "INVALID_STATE", message: "PO not approved" } } };
     }
@@ -204,7 +204,7 @@ This is **sketch logic** — when the real backend lands, move rules to capabili
 backseat/
   api.ts              engine + collections
   controllers/
-    procurement.ts    PO submit/approve/GR
+    documents.ts    job submit/approve/material issue
     reports.ts        actions + analytics routes
     index.ts          registerAll(api)
 ```
@@ -212,7 +212,7 @@ backseat/
 ```ts
 // controllers/index.ts
 export function registerAll(api: Backseat) {
-  registerProcurement(api);
+  registerDocuments(api);
   registerReports(api);
 }
 ```

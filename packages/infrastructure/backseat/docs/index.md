@@ -36,7 +36,7 @@ Do **not** use it for production auth, server validation, or deployed persistenc
 | `@eristack/backseat` | `createBackseat`, memory store, types, CRUD helpers, context utilities |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore` — **browser prototype default** |
 | `@eristack/backseat/react` | Provider, Query hooks, `<BackseatDevtools />` |
-| `@eristack/backseat/seeds` | `createErpDemoSnapshot()` — partners, products, open PO |
+| `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `registerErpDemoControllers()`, `createErpDemoSnapshot()` |
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, `asDate`, `asNullableDate`, `toRestLikeRequest` — **required by spine `./backseat` packages** |
 
 ## Mental model
@@ -46,11 +46,35 @@ Do **not** use it for production auth, server validation, or deployed persistenc
 | **Collection** | A table-ish bucket of JSON documents (`products`, `purchaseOrders`) |
 | **Handler** | Direct function Query calls — `api.handlers.products.list()` |
 | **Route** | HTTP controller — same logic exposed at `/api/products` |
-| **Action** | Named controller with no URL — `api.invoke("reports.openPoCount", input)` |
+| **Action** | Named controller with no URL — `api.invoke("reports.openJobCount", input)` |
 | **Snapshot** | Full database export/import — seed packs, bug reports, agent handoff |
 | **Devtools** | UI to insert, delete, reset, re-seed without writing SQL |
 
 CRUD collections are **shortcuts**. Complex ERP logic uses `registerRoute` and `registerAction`.
+
+## Demo factory (M3)
+
+For list → edit → status-action prototypes without wiring controllers yourself:
+
+```ts
+import { createErpDemoBackseat } from "@eristack/backseat/seeds";
+
+export const api = createErpDemoBackseat();
+await api.reseed();
+
+// CRUD
+const drafts = await api.handlers.purchaseOrders.list({ where: { status: "draft" } });
+
+// Workflow
+await api.handle({ method: "POST", path: "/api/purchase-orders/po-1002/submit", body: {} });
+await api.handle({
+  method: "POST",
+  path: "/api/purchase-orders/po-1002/approve",
+  body: { note: "OK" },
+});
+```
+
+Browser apps: pass `store: createIndexedDbBackseatStore({ dbName: "demo-erp" })`.
 
 ## Minimal example
 
@@ -87,7 +111,7 @@ useQuery({
 // HTTP — multi-collection processing, splat paths, query params
 api.registerRoute({
   method: "POST",
-  path: "/procurement/po/:id/approve",
+  path: "/operations/jobs/:id/approve",
   name: "approve-po",
   handler: async (ctx) => {
     const { note } = ctx.json<{ note?: string }>();
@@ -104,7 +128,7 @@ api.registerRoute({
 });
 
 // Named action — aggregations without REST shape
-api.registerAction("dashboard.openPoCount", async ({ store }) => {
+api.registerAction("dashboard.openJobCount", async ({ store }) => {
   const orders = await store.list("purchaseOrders", { where: { status: "approved" } });
   return { count: orders.length };
 });
@@ -150,4 +174,4 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 }
 ```
 
-See [Getting started](./getting-started.md) for the full file layout and [Controllers](./controllers.md) for procurement-style examples.
+See [Getting started](./getting-started.md) for the full file layout and [Controllers](./controllers.md) for document workflow examples.
