@@ -1,6 +1,6 @@
 {
   "name": "@eristack/jwt-auth",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
   "repository": {
     "type": "git",

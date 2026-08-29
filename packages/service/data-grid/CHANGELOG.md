@@ -1,5 +1,11 @@
 # @eristack/data-grid
 
+## 0.2.5
+
+### Patch Changes
+
+- b793eed: Add saved view serialize/parse, executeInMemoryList testing export, zod search schemas, and wall filter docs.
+
 ## 0.2.4
 
 ### Patch Changes

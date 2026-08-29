@@ -1,5 +1,11 @@
 # @eristack/timestamp
 
+## 0.1.2
+
+### Patch Changes
+
+- b793eed: Add wall date range helpers, sortWallClocks, and Express/Nest wall query param parsing.
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/doc-transitions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Preset ERP document status graphs for @eristack/pbac documents.transitions()",
   "repository": {
     "type": "git",

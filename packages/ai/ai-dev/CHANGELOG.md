@@ -1,5 +1,11 @@
 # @eristack/ai-dev
 
+## 0.1.2
+
+### Patch Changes
+
+- b793eed: Add features check profile, dev_knowledge_check MCP tool, backlog hint on plan JSON, and integration profile.
+
 ## 0.1.1
 
 ### Patch Changes

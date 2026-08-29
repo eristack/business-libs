@@ -1,5 +1,11 @@
 # @eristack/jwt-auth
 
+## 0.4.5
+
+### Patch Changes
+
+- b793eed: Add zod login/register schemas and testing subpath for memory credential stores.
+
 ## 0.4.4
 
 ### Patch Changes

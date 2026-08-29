@@ -1,5 +1,11 @@
 # @eristack/hash-chained-ledger
 
+## 0.1.3
+
+### Patch Changes
+
+- b793eed: Add exportChainAuditJson, richer verify warnings, hash parity test, and testing sqlite helpers.
+
 ## 0.1.2
 
 ### Patch Changes

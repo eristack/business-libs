@@ -1,5 +1,11 @@
 # @eristack/financial-ledger
 
+## 0.2.4
+
+### Patch Changes
+
+- b793eed: Add trialBalance, balanced posting pair and reversal helpers, and testing subpath re-export.
+
 ## 0.2.3
 
 ### Patch Changes

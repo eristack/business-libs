@@ -1,6 +1,6 @@
 {
   "name": "@eristack/ai-ticket-generator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files",
   "repository": {
     "type": "git",

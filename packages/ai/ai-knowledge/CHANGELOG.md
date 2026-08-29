@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.12
+
+### Patch Changes
+
+- b793eed: Add doc-transitions and opinion recipes, upgrading testing/zod guide, and recommend disambiguation tests.
+
 ## 0.1.11
 
 ### Patch Changes
