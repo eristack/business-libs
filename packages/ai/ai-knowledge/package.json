@@ -43,7 +43,7 @@
   },
   "scripts": {
     "sync": "node scripts/sync-catalog.mjs",
-    "sync:check": "node scripts/sync-catalog.mjs --check",
+    "sync:check": "node scripts/sync-catalog.mjs --check && node scripts/check-knowledge-docs-mirror.mjs",
     "prebuild": "node scripts/sync-catalog.mjs",
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",

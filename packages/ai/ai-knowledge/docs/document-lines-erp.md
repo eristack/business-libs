@@ -3,7 +3,6 @@ title: Document-with-lines ERP
 description: Header + QUPS lines — jobs, cost sheets, invoices
 sidebar_position: 5
 ---
-
 # Document-with-lines ERP (header + QUPS lines)
 
 **Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.
@@ -135,7 +134,7 @@ return db.transaction(async (tx) => {
 await epoch.bumpMany(["invoices"]);
 ```
 
-`next()` never over HTTP — see doc-number wiring-production guide.
+`next()` never over HTTP — see [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md).
 
 ---
 
@@ -249,7 +248,12 @@ Product language that should hit this recipe (not FIFO/stock):
 | Backseat PATCH handlers | Express routes + Drizzle transactions |
 | IndexedDB seed | Postgres seed script |
 
-See package `docs/wiring-production.md` guides for jwt-auth, doc-number, money, and data-grid.
+Package-specific production guides:
+
+- [jwt-auth wiring-production](../../service/jwt-auth/docs/wiring-production.md)
+- [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md)
+- [money wiring-production](../../primitive/money/docs/wiring-production.md)
+- [data-grid wiring-production](../../service/data-grid/docs/wiring-production.md)
 
 ---
 

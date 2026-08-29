@@ -3,7 +3,6 @@ title: Backseat-first ERP, then backend
 description: Horizon A mock API → Drizzle + Express graduation
 sidebar_position: 4
 ---
-
 # Backseat-first ERP, then derive backend
 
 **Canonical guide — read this file only** for Horizon A → B on document/cost-sheet ERPs (jobs, invoices, forwarding, services). Not an ERP spine recipe; no `@eristack/feature-*`.
@@ -62,6 +61,7 @@ import { createBackseat } from "@eristack/backseat";
 import { registerJwtAuthBackseat } from "@eristack/jwt-auth/backseat";
 import { registerDocNumberBackseat } from "@eristack/doc-number/backseat";
 import { registerEpochBackseat } from "@eristack/epoch/backseat";
+import { registerDataGridBackseatRoutes } from "@eristack/data-grid/backseat";
 
 const api = await createBackseat({ name: "horizon-a-demo" });
 
@@ -198,6 +198,13 @@ Document seed ids in README so agents replay PATCH demos consistently.
 | `executeBackseatList` | `executeDrizzleList` |
 | `withQupsFields` | `withQupsColumns` + migrations |
 | `versionConflict()` in handler | Same + SQL `WHERE version` |
+
+Production wiring guides (copy-paste end-to-end):
+
+- `@eristack/jwt-auth` → `docs/wiring-production.md`
+- `@eristack/doc-number` → `docs/wiring-production.md`
+- `@eristack/money` → `docs/wiring-production.md`
+- `@eristack/data-grid` → `docs/wiring-production.md`
 
 Load `@eristack/ai-knowledge#upgrading-eristack` for adapter matrix and semver.
 

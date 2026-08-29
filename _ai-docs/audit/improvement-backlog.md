@@ -43,14 +43,14 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **B-008** | Recipe triggers: applyCellPatch, atomic, wall | S | ai-knowledge | **done** — recipes + recommend.test |
 | **B-009** | Recipe triggers: compareDecimalStrings, bumpMany | S | ai-knowledge | **done** — recipes + recommend.test |
 | **B-010** | Recipe triggers: documents.transitions, assignmentPairMatch | S | ai-knowledge | **done** — recipes + recommend.test |
-| **B-011** | AGENTS.md intent block sync (6 skills) | S | root | multitab, ai-dev, 3 ERP guides, hcl-adapters |
+| **B-011** | AGENTS.md intent block sync (6 skills) | S | root | **done** — ERP guides, backseat, multitab, logger, rest |
 | **B-012** | skills:validate max sources rule | S | root | **done** — fails CI when >3 sources without ticket.yaml override |
 | **B-013** | Fill stub adapter skills (rbac,pbac,stock,epoch,fin,val) | M | service/capability | **done** — express/nest snippets in adapter skills |
 | **B-014** | hash-chained-ledger-core skill sources block | S | hash-chained-ledger | **done** — sources → getting-started.md |
 | **B-015** | Fix recommend.test expected catalog (ai-dev) | S | ai-knowledge | test green after ai-dev in catalog |
-| **B-016** | CI mirror hash knowledge ↔ docs | M | ai-knowledge | check fails on ERP guide drift |
+| **B-016** | CI mirror hash knowledge ↔ docs | M | ai-knowledge | **done** — check-knowledge-docs-mirror.mjs in sync:check |
 | **B-017** | qups-line skill embed applyCellPatch | S | qups | **done** — body documents API without opening docs |
-| **B-018** | timestamp-core skill decision tree | S | timestamp | wall vs instant ≤40 lines in body |
+| **B-018** | timestamp-core skill decision tree | S | timestamp | **done** — wall vs instant in skill body |
 
 ---
 
@@ -60,7 +60,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | --- | --- | --- | --- | --- |
 | **C-001** | `examples/horizon-a` composite app | L | examples | Backseat + qups lines + wall list + epoch + pbac on one resource |
 | **C-002** | README maps to document-lines-erp sections | S | examples | numbered section parity |
-| **C-003** | Optimistic version 409 demo in horizon-a | M | examples | PATCH stale version → 409 JSON |
+| **C-003** | Optimistic version 409 demo in horizon-a | M | examples | **done** — PATCH stale version → 409 in main.ts demo |
 | **C-004** | Nest data-grid drizzle list sample | M | examples/nestjs | **done** — `GET /orders` + executeDrizzleList |
 | **C-005** | Examples build in CI | S | root | **done** — examples `build` script + `pr` profile runs build |
 | **C-006** | eristack check `--profile examples` | S | ai-dev | **done** — `pnpm eristack check --profile examples` |
@@ -94,7 +94,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | --- | --- | --- | --- | --- |
 | **X-001** | `@eristack/backseat` register-helpers | M | backseat | normalizeBasePath, conflict409 exported |
 | **X-002** | Refactor 9 package register.ts | M | multi | each ≤40 lines; uses helpers |
-| **X-003** | Unified 409 JSON canon doc | M | ai-knowledge | http-errors.md + mirror |
+| **X-003** | Unified 409 JSON canon doc | M | ai-knowledge | **done** — http-errors.md + docs mirror + skill |
 | **X-004** | pbac backseat errors use jsonError | S | pbac | matches backseat envelope |
 | **X-005** | IndexedDB store smoke test | M | backseat | fake-indexeddb or playwright |
 | **X-006** | listRoutes() coverage test | S | backseat | **done** — horizon-a spine.test.ts ≥12 routes |

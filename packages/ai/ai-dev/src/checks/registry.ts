@@ -67,7 +67,7 @@ export const CHECK_DEFS: CheckDef[] = [
   },
   {
     id: "examples",
-    label: "example apps typecheck",
+    label: "example apps build",
     profiles: ["pr", "full", "examples"],
     order: 32,
   },
