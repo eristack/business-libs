@@ -203,7 +203,7 @@ Minimum demo seed entities for document-lines ERP:
 | `docFormats` | active invoice format per branch | doc-number |
 | `epoch` scopes | `jobs`, `cost-sheets`, `invoices` at `0` | epoch |
 
-No checked-in `seed-v1.json` yet — copy blocks from [backseat-then-backend](./backseat-then-backend.md) when building `examples/horizon-a/`.
+No checked-in `seed-v1.json` yet — use `@eristack/backseat/seeds` → `loadHorizonASeedV1()` in `examples/horizon-a/` (see [backseat-then-backend](./backseat-then-backend.md)).
 
 PBAC presets to register in seed bootstrap:
 

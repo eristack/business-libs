@@ -58,8 +58,8 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **C-001** | `examples/horizon-a` composite app | L | examples | Backseat + qups lines + wall list + epoch + pbac on one resource |
-| **C-002** | README maps to document-lines-erp sections | S | examples | numbered section parity |
+| **C-001** | `examples/horizon-a` composite app | L | examples | **done** — qups + grid wall + epoch + pbac + jwt + tests |
+| **C-002** | README maps to document-lines-erp sections | S | examples | **done** — numbered section parity in README |
 | **C-003** | Optimistic version 409 demo in horizon-a | M | examples | **done** — PATCH stale version → 409 in main.ts demo |
 | **C-004** | Nest data-grid drizzle list sample | M | examples/nestjs | **done** — `GET /orders` + executeDrizzleList |
 | **C-005** | Examples build in CI | S | root | **done** — examples `build` script + `pr` profile runs build |
@@ -67,7 +67,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **C-007** | backseat seed pack v1 JSON | M | backseat | **done** — `horizon-a-v1.json` + `loadHorizonASeedV1()` |
 | **C-008** | jwt-auth express supertest E2E | M | jwt-auth | **done** — express.e2e.test.ts login/refresh/revoke |
 | **C-009** | multitab React provider smoke test | S | multitab | **done** — SSR render + missing-provider guard |
-| **C-010** | epoch + TanStack Query demo in horizon-a | M | examples | list refetch on stale epoch |
+| **C-010** | epoch + TanStack Query demo in horizon-a | M | examples | **done** — epoch-cache + epoch-query tests + main demo |
 
 ---
 
@@ -76,7 +76,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
 | **D-001** | Audit workspace:* in dependencies | M | 7 packages | all moved to peer/dev |
-| **D-002** | `check-publish-deps.mjs` | S | root | CI fails on workspace in dependencies |
+| **D-002** | `check-publish-deps.mjs` | S | root | **done** — `pnpm publish:check` in `pr` profile |
 | **D-003** | Peer map jwt-auth → data-grid | S | jwt-auth | peerDependencies + docs |
 | **D-004** | Peer map data-grid → timestamp | S | data-grid | optional peer for wall |
 | **D-005** | Peer map doc-number → data-grid, timestamp | S | doc-number | |
@@ -92,7 +92,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **X-001** | `@eristack/backseat` register-helpers | M | backseat | normalizeBasePath, conflict409 exported |
+| **X-001** | `@eristack/backseat` register-helpers | M | backseat | **done** — normalizeBasePath, versionConflict exported from adapters |
 | **X-002** | Refactor 9 package register.ts | M | multi | each ≤40 lines; uses helpers |
 | **X-003** | Unified 409 JSON canon doc | M | ai-knowledge | **done** — http-errors.md + docs mirror + skill |
 | **X-004** | pbac backseat errors use jsonError | S | pbac | matches backseat envelope |
