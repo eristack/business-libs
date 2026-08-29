@@ -185,3 +185,9 @@ If the transaction rolls back, the allocated integer is gone — that is a burnt
 | Reason about resets, gaps, and races | [Sequencing](./sequencing.md) |
 | Build an admin settings screen | [Formats & listing](./formats-and-listing.md) + [HTTP & UI](./http-and-ui.md) |
 | Copy a working end-to-end setup | [Recipes](./recipes.md) |
+
+## Zod 4 (HTTP/forms)
+
+```ts
+import { registerFormatBodySchema, updateFormatBodySchema } from "@eristack/doc-number/zod";
+```

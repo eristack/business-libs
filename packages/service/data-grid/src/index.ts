@@ -16,6 +16,7 @@ export {
   compareBySorts,
 } from "./core/apply.js";
 export {
+  /** @deprecated Import from `@eristack/data-grid/testing` instead. */
   executeInMemoryList,
   parseSavedView,
   serializeSavedView,

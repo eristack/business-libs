@@ -1,4 +1,5 @@
 import type { BackseatStore } from "@eristack/backseat";
+import type { ResetPeriod } from "../core/types.js";
 import { createMemoryFormatStore } from "../core/memory-format-store.js";
 import { createMemorySequenceStore } from "../core/memory-sequence-store.js";
 import { createDocNumber } from "../core/create-doc-number.js";
@@ -10,7 +11,7 @@ export type SeedDocNumberFormatsOptions = {
   formats?: Array<{
     entityKey: string;
     pattern: string;
-    reset?: "never" | "year" | "month";
+    reset?: ResetPeriod;
     active?: boolean;
   }>;
 };
@@ -19,13 +20,13 @@ const DEFAULT_FORMATS = [
   {
     entityKey: "invoice",
     pattern: "INV-{YYYY}-{SEQ:5}",
-    reset: "year" as const,
+    reset: "yearly" as const,
     active: true,
   },
   {
     entityKey: "purchase-order",
     pattern: "PO-{YYYY}-{SEQ:4}",
-    reset: "year" as const,
+    reset: "yearly" as const,
     active: true,
   },
 ];

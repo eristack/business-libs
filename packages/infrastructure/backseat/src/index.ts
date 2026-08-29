@@ -1,4 +1,5 @@
 export { createBackseat } from "./core/create-backseat.js";
+/** @deprecated Import from `@eristack/backseat/testing` instead. */
 export { createMemoryBackseatStore } from "./core/memory-store.js";
 export {
   createHandlerContext,

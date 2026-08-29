@@ -37,6 +37,26 @@ compareEpochs(clientEpoch, serverEpoch); // "use-cache" | "refetch"
 
 Production: `@eristack/epoch/drizzle` — see `#epoch-adapters`.
 
+## Stale epoch logging
+
+```ts
+import { createEpoch, withEpochStaleLogging } from "@eristack/epoch";
+import { loggerToEpochSink } from "@eristack/epoch/logger";
+import { createLogger } from "@eristack/logger";
+
+const epoch = withEpochStaleLogging(createEpoch({ store }), {
+  sink: loggerToEpochSink(createLogger({ name: "epoch" })),
+});
+```
+
+Logs when `resolveCachePolicy` returns `refetch` (client epoch behind server).
+
+## Zod 4
+
+```ts
+import { bumpEpochBodySchema, resolveCachePolicyQuerySchema } from "@eristack/epoch/zod";
+```
+
 ## Rules
 
 - Bump **after** successful writes, not on reads

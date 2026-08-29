@@ -120,10 +120,11 @@ const result = grid.applyInMemory(rows, query);
 // result.items / result.pageInfo / result.query
 ```
 
-Use `executeInMemoryList` when you want the same helper shape as Drizzle/Backseat executors. Persist UI saved views with `serializeSavedView` / `parseSavedView` (JSON with normalized `query`).
+Use `executeInMemoryList` from **`@eristack/data-grid/testing`** (Vitest) when you want the same helper shape as Drizzle/Backseat executors. Persist UI saved views with `serializeSavedView` / `parseSavedView` (JSON with normalized `query`).
 
 ```ts
-import { executeInMemoryList, serializeSavedView, parseSavedView } from "@eristack/data-grid";
+import { executeInMemoryList } from "@eristack/data-grid/testing";
+import { serializeSavedView, parseSavedView } from "@eristack/data-grid";
 
 const list = executeInMemoryList({ schema, items: rows, query });
 const blob = serializeSavedView({ id: "v1", name: "Open", query: grid.parse(/* … */) });
@@ -223,3 +224,9 @@ A full domain example (customers → orders → lines, with sums) lives in `exam
 - [Querying](./querying.md) — every operator and pagination mode
 - [URL & TanStack Router](./url-search.md) — keep list state in the URL
 - [Database](./database.md) — projections and aggregates
+
+## Zod 4
+
+```ts
+import { dataGridSearchParamsSchema, savedViewJsonSchema } from "@eristack/data-grid/zod";
+```

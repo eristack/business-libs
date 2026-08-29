@@ -40,6 +40,16 @@ const { policy, current } = await epoch.resolveCachePolicy("orders", clientEpoch
 await epoch.bump("orders", { expected: 4 }); // throws StaleEpochError if current !== 4
 ```
 
+### Stale logging + Zod
+
+```ts
+import { withEpochStaleLogging } from "@eristack/epoch";
+import { loggerToEpochSink } from "@eristack/epoch/logger";
+import { bumpEpochBodySchema } from "@eristack/epoch/zod";
+```
+
+Wrap `createEpoch` with `withEpochStaleLogging` when you want structured logs on `refetch` decisions.
+
 ## Drizzle (production default)
 
 ```ts

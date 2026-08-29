@@ -3,6 +3,13 @@ export { compareEpochs } from "./core/compare.js";
 /** @deprecated Import from `@eristack/epoch/testing` instead. */
 export { createMemoryEpochStore } from "./core/memory-store.js";
 export {
+  logEpochCachePolicy,
+  withEpochStaleLogging,
+  type EpochLogLevel,
+  type EpochLogSink,
+  type EpochStaleLogOptions,
+} from "./core/stale-log.js";
+export {
   EpochError,
   InvalidEpochInputError,
   StaleEpochError,

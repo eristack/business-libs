@@ -8,6 +8,7 @@ export default defineConfig({
     "src/express/index.ts",
     "src/nest/index.ts",
     "src/react/index.ts",
+    "src/testing/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,
