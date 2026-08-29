@@ -2,4 +2,4 @@
 "@eristack/opinion": patch
 ---
 
-Add opinionated document REST route table, Express mount, openapi subpath, and Nest OpinionModule mount helper.
+Initial release: opinionated document REST route table, Express/Nest/OpenAPI adapters, multi-page docs, and route dispatch edge tests.
