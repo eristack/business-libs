@@ -12,12 +12,6 @@ metadata:
   library_version: '0.0.0'
 sources:
   - 'eristack/business-libs:packages/primitive/money/docs/getting-started.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/concepts.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/amounts.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/arithmetic.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/advanced-arithmetic.md'
-  - 'eristack/business-libs:packages/primitive/money/src/amount/money.ts'
-  - 'eristack/business-libs:packages/primitive/money/src/ops/percent.ts'
 ---
 
 # @eristack/money — Amounts & Arithmetic

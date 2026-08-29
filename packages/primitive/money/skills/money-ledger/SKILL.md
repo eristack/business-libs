@@ -10,11 +10,7 @@ metadata:
   library: '@eristack/money'
   library_version: '0.0.0'
 sources:
-  - 'eristack/business-libs:packages/primitive/money/docs/rounding.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/allocate.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/conversion.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/serialization.md'
-  - 'eristack/business-libs:packages/primitive/money/docs/recipes.md'
+  - 'eristack/business-libs:packages/primitive/money/docs/getting-started.md'
 ---
 
 # @eristack/money — Ledger Boundaries

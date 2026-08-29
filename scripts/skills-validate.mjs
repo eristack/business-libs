@@ -91,8 +91,9 @@ for (const pkg of PACKAGES) {
 }
 
 if (sourceWarnings.length > 0) {
-  console.warn("\nskills-validate: source count warnings\n");
-  for (const warning of sourceWarnings) console.warn(`  - ${warning}`);
+  console.error("\nskills-validate: source count failures\n");
+  for (const warning of sourceWarnings) console.error(`  - ${warning}`);
+  process.exit(1);
 }
 
 console.log(`skills-validate: OK (${PACKAGES.length} packages)`);

@@ -11,13 +11,7 @@ metadata:
   library: '@eristack/data-grid'
   library_version: '0.2.1'
 sources:
-  - 'eristack/business-libs:packages/service/data-grid/docs/index.md'
   - 'eristack/business-libs:packages/service/data-grid/docs/getting-started.md'
-  - 'eristack/business-libs:packages/service/data-grid/docs/concepts.md'
-  - 'eristack/business-libs:packages/service/data-grid/docs/querying.md'
-  - 'eristack/business-libs:packages/service/data-grid/docs/url-search.md'
-  - 'eristack/business-libs:packages/service/data-grid/src/core/create-data-grid.ts'
-  - 'eristack/business-libs:packages/service/data-grid/src/core/types.ts'
 ---
 
 # @eristack/data-grid — Core

@@ -9,12 +9,7 @@ metadata:
   library: "@eristack/backseat"
   library_version: "0.1.0"
 sources:
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/index.md"
   - "eristack/business-libs:packages/infrastructure/backseat/docs/getting-started.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/controllers.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/api-reference.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/devtools.md"
-  - "eristack/business-libs:packages/infrastructure/backseat/docs/graduation.md"
 ---
 
 # Backseat core
