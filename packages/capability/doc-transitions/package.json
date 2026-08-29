@@ -50,10 +50,11 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/pbac": "workspace:*"
+  "peerDependencies": {
+    "@eristack/pbac": "^0.2.0"
   },
   "devDependencies": {
+    "@eristack/pbac": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "@types/node": "^22.15.29",
     "tsup": "catalog:",

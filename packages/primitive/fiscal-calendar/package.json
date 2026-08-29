@@ -59,10 +59,8 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/timestamp": "workspace:*"
-  },
   "peerDependencies": {
+    "@eristack/timestamp": "^0.1.0",
     "zod": "^4.0.0"
   },
   "peerDependenciesMeta": {
@@ -71,6 +69,7 @@
     }
   },
   "devDependencies": {
+    "@eristack/timestamp": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "@types/node": "^22.15.29",
     "tsup": "catalog:",

@@ -79,11 +79,9 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/rest": "workspace:*",
-    "@eristack/pbac": "workspace:*"
-  },
   "peerDependencies": {
+    "@eristack/pbac": "^0.2.0",
+    "@eristack/rest": "^0.1.0",
     "express": "^4.0.0 || ^5.0.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0"
   },
@@ -96,6 +94,8 @@
     }
   },
   "devDependencies": {
+    "@eristack/pbac": "workspace:*",
+    "@eristack/rest": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "@nestjs/common": "^11.0.0",
     "@types/express": "^5.0.0",
