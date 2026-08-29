@@ -10,6 +10,7 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | ai-knowledge catalog | AI | Packages, recipes, docs+sync every iteration |
 | Seven-layer taxonomy | Meta | Site + docs; layer 06 Features under construction |
 | `@eristack/backseat` | Infrastructure | Alpha — in-browser REST engine + IndexedDB store |
+| `@eristack/logger` | Infrastructure | Alpha — JSON-lines + Express/Nest adapters |
 | `@eristack/multitab` | UI | Alpha — tab workspace + Router sync |
 
 ## Next (sequenced)
@@ -37,14 +38,14 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 - Dirty close guards + TanStack Router sync hooks ✓
 - `useDirtyTab`, `createConfirmBeforeClose` helpers ✓
 
-### 3 · Logger (planned)
+### 3 · Logger (alpha) ✓
 
 | Requirement | Notes |
 | --- | --- |
-| JSON lines | One event per line for Vercel log drains |
-| Context | `requestId`, `userId`, `tenantId` injectable |
-| Levels | debug / info / warn / error |
-| Adapters | Express middleware, Nest interceptor |
+| JSON lines | One event per line for Vercel log drains ✓ |
+| Context | `requestId`, `userId`, `tenantId` injectable ✓ |
+| Levels | debug / info / warn / error ✓ |
+| Adapters | Express middleware, Nest interceptor ✓ |
 
 ### 4 · REST (planned)
 

@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T05:07:09.564Z",
+  "generatedAt": "2026-08-29T05:13:50.439Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -323,6 +323,26 @@ export const catalog = {
           "description": "Pure @eristack/jwt-auth token + credentials lifecycle: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore, RefreshTokenStore, opaque refresh hashes, family reuse detection. Use when implementing JWT access + refresh and optional username/password without HTTP/DB frameworks.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/logger",
+      "version": "0.1.0",
+      "description": "JSON-lines structured logger with request context and Express/Nest adapters",
+      "slug": "logger",
+      "adapters": [
+        "express",
+        "nest"
+      ],
+      "skills": [
+        {
+          "id": "logger-core",
+          "name": "logger-core",
+          "packageName": "@eristack/logger",
+          "description": "@eristack/logger: JSON-lines structured logging with requestId/userId/tenantId context, debug/info/warn/error levels, Express middleware and Nest interceptor.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/logger#logger-core"
         }
       ]
     },

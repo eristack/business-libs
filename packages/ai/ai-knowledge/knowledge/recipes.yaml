@@ -600,6 +600,27 @@ recipes:
           - multitab-core
         role: primary
 
+  - id: structured-logging
+    title: JSON-lines request logging
+    priority: 10
+    triggers:
+      - logger
+      - logging
+      - structured log
+      - json log
+      - request id log
+      - vercel logs
+      - log drain
+    rationale: >
+      Use @eristack/logger for JSON-lines server logging with injectable requestId,
+      userId, and tenantId context. Express: createLoggerMiddleware. Nest:
+      LoggerModule.forRoot + LoggingInterceptor.
+    packages:
+      - name: "@eristack/logger"
+        skills:
+          - logger-core
+        role: primary
+
   - id: access-control-stack
     title: Roles, attribute limits, and document policies
     priority: 12

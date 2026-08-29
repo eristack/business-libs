@@ -1,0 +1,11 @@
+package: "@eristack/logger"
+title: logger
+maintainers:
+  - support@eristack.dev
+scope: >
+  JSON-lines structured logger for Node services: levels, injectable request context,
+  Express middleware, Nest logging interceptor.
+outOfScope: >
+  Log shipping agents, browser logging, OpenTelemetry replacement.
+skills:
+  - logger-core
