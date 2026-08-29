@@ -72,6 +72,25 @@ describe("createDocumentRoutes", () => {
     }
   });
 
+  it("dispatches GET read by id", async () => {
+    const router = createOpinionRouter({
+      routes: createDocumentRoutes({
+        basePath: "/journals",
+        handlers: {
+          read: async (ctx) => ({
+            status: 200,
+            body: { id: ctx.params.id },
+          }),
+        },
+      }),
+    });
+    const result = await router.dispatch({ method: "GET", path: "/journals/je-1" });
+    expect(result.matched).toBe(true);
+    if (result.matched) {
+      expect(result.response.body).toEqual({ id: "je-1" });
+    }
+  });
+
   it("returns 404 for unmatched paths", async () => {
     const router = createOpinionRouter({
       routes: createDocumentRoutes({
