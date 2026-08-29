@@ -6,7 +6,7 @@ PBAC `assertValidTransitionTable` rejects rows with zero actions. Terminal statu
 
 ## Unknown status
 
-If `document.status` is not a key in the table, `documents.transitions()` denies all actions. Validate status on insert/update in the app layer.
+If `document.status` is not a key in the table, `documents.transitions()` denies **all** actions and `actionsForStatus(graph, status)` returns **`[]`** (never `undefined`). Seed valid statuses on create; do not rely on SQL defaults that drift from the graph.
 
 ## Action without status change
 
