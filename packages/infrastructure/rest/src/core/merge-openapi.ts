@@ -12,7 +12,8 @@ export function mergeOpenApiDocuments(
     };
   }
 
-  const [first, ...rest] = documents;
+  const first = documents[0]!;
+  const rest = documents.slice(1);
   const paths: OpenApiDocument["paths"] = { ...first.paths };
 
   for (const doc of rest) {

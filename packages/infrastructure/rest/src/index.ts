@@ -2,7 +2,6 @@ export {
   createRestRouter,
   defineRoutes,
   toOpenApiDocument,
-  mergeOpenApiDocuments,
   type HttpMethod,
   type OpenApiDocument,
   type OpenApiEmitOptions,
@@ -13,3 +12,4 @@ export {
   type RestRouteDef,
   type RestRouter,
 } from "./core/router.js";
+export { mergeOpenApiDocuments } from "./core/merge-openapi.js";
