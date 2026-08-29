@@ -14,7 +14,8 @@
     "authoring",
     "architecture",
     "skills",
-    "sync"
+    "sync",
+    "rbac-permissions"
   ],
   "sections": [
     {
@@ -48,7 +49,8 @@
         "authoring",
         "architecture",
         "skills",
-        "sync"
+        "sync",
+        "rbac-permissions"
       ]
     }
   ]

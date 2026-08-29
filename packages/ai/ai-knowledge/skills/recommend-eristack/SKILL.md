@@ -46,7 +46,7 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
-**23 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
+**25 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
 
 | Package | Skills |
 | --- | ---: |
@@ -67,11 +67,13 @@ const plan = loadPlan(result);
 | @eristack/multitab | 1 |
 | @eristack/opinion | 1 |
 | @eristack/pbac | 2 |
+| @eristack/percent | 1 |
 | @eristack/qups | 3 |
 | @eristack/rbac | 2 |
 | @eristack/rest | 1 |
 | @eristack/stock-movement | 2 |
 | @eristack/timestamp | 2 |
+| @eristack/uom | 1 |
 | @eristack/valuations | 2 |
 
 Load `@eristack/ai-knowledge#recommend-eristack` then `loadPlan(goals)` — canonical ERP guides merge via `canonicalSkills` on recipes.

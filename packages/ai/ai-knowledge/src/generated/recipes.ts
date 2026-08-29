@@ -881,6 +881,61 @@ export const recipes = [
     ]
   },
   {
+    "id": "uom-quantity-conversion",
+    "title": "Unit of measure conversion for inventory qty",
+    "priority": 16,
+    "triggers": [
+      "uom",
+      "unit of measure",
+      "convert kg",
+      "inventory uom",
+      "stock uom",
+      "receive uom",
+      "alternate uom"
+    ],
+    "rationale": "Load @eristack/uom#uom-core for string qty + fixed-ratio conversion (kg/g/L/pcs) before qups or stock-movement — not float math or hand-rolled factors.",
+    "packages": [
+      {
+        "name": "@eristack/uom",
+        "skills": [
+          "uom-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "percent-rates-basis-points",
+    "title": "Tax and discount rates as ratios or basis points",
+    "priority": 17,
+    "triggers": [
+      "basis points",
+      "bps",
+      "tax rate",
+      "vat rate",
+      "discount rate",
+      "markup rate",
+      "ratio string"
+    ],
+    "rationale": "Load @eristack/percent#percent-core for ratio/bps parsing and percentOf on strings; round with @eristack/money at ledger boundaries.",
+    "packages": [
+      {
+        "name": "@eristack/percent",
+        "skills": [
+          "percent-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-amounts"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "stock-inventory-ledger",
     "title": "Inventory stock movements by location and lot",
     "priority": 28,

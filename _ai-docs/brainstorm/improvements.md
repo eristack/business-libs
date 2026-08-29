@@ -53,7 +53,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | **done** — shipped in qups core |
 | Q5 | Drizzle column bundle generator from QupsProfile | Horizon | **done** — `qupsLineColumnsFromProfile` |
 | Q6 | Nest/React: recalc on blur vs on change policy doc | S | **done** — qups-line skill |
-| Q7 | UoM qty field type when `@eristack/uom` exists | Horizon | string qty stays |
+| Q7 | UoM qty field type when `@eristack/uom` exists | **done** | `@eristack/uom` 0.1.0 shipped — string qty + unit, convertUom |
 
 ---
 

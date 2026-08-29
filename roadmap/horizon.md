@@ -45,7 +45,7 @@ Eristack is moving from solo-maintainer assumptions to **several maintainers own
 
 **Layer:** Service · **Status:** Candidate · **Goal:** strict, boring ERP HTTP — less freestyle in adapters.
 
-Apps still own routes and tables; **opinion** exports route builders, guards, and OpenAPI/tRPC emitters that enforce the canon.
+Apps still own routes and tables; **opinion** exports route builders, guards, and OpenAPI emitters that enforce the canon.
 
 ### REST resource pattern (documents & masters)
 
@@ -74,9 +74,8 @@ Apps still own routes and tables; **opinion** exports route builders, guards, an
 | `@eristack/opinion/express` | Router factory + middleware |
 | `@eristack/opinion/nest` | Controller decorators / module |
 | `@eristack/opinion/openapi` | OpenAPI 3.1 from route table |
-| `@eristack/opinion/trpc` | **tRPC bypass** — typed procedures mirroring REST map; optional until OpenAPI codegen hurts |
 
-Pairs with planned `@eristack/rest` (Infrastructure) — **rest** mounts servers; **opinion** defines the shape.
+Pairs with `@eristack/rest` (Infrastructure) — **rest** mounts servers; **opinion** defines the shape. Typed clients: OpenAPI codegen from merged specs — no separate RPC adapter layer.
 
 ---
 
@@ -114,12 +113,12 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/money` | Shipped | Currency-safe amounts | — | all pricing |
 | `@eristack/timestamp` | Shipped | Instant + wall time | — | doc dates, grids |
 | `@eristack/entity-id` | **Observing** | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
-| `@eristack/uom` | Candidate | Unit of measure + **fixed ratios** (g, kg, L, pcs) | — | qups qty, product, stock |
+| `@eristack/uom` | **Shipped 0.1.0** | Unit of measure + **fixed ratios** (g, kg, L, pcs) | — | qups qty, product, stock |
 | `@eristack/address` | Candidate | Normalized address lines, country/region codes | — | partner, contact |
 | `@eristack/contact` | Candidate | Person/channel refs (email, phone roles) | address? | partner |
 | `@eristack/coa` | Candidate | Chart of accounts **tree** — code, name, type, parent | entity-id? | accounting, reporting |
 | `@eristack/fiscal-calendar` | Candidate | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
-| `@eristack/percent` | Candidate | Basis points / ratio strings (tax, discount) | — | tax, qups |
+| `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
 | `@eristack/geo` | Candidate | Lat/lng + timezone default for address | timestamp | logistics (later) |
 
 ### `@eristack/entity-id` (observing)
@@ -144,7 +143,7 @@ Business capabilities composable into documents and ledgers.
 | `@eristack/stock-movement` | Shipped | Qty ledger | hash-chained-ledger | inventory |
 | `@eristack/financial-ledger` | Shipped | GL amounts | money, HCL | finance |
 | `@eristack/valuations` | Shipped | FIFO/LIFO/… | stock, money | COGS |
-| `@eristack/doc-transitions` | **Candidate** | Preset status graphs | pbac | opinion PATCH |
+| `@eristack/doc-transitions` | **Shipped 0.1.0** | Preset status graphs | pbac | opinion PATCH |
 | `@eristack/partner` | Candidate | Business partner (supplier + customer roles) | address, contact | app masters |
 | `@eristack/item` | Candidate | Product + service, category tree | uom, entity-id | app catalogs |
 | `@eristack/accounting` | Candidate | COA assignments, posting rules, period control | coa, financial-ledger, pbac | GL apps |
@@ -172,7 +171,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/data-grid` | Shipped | Dynamic lists | timestamp | all lists |
 | `@eristack/epoch` | Shipped | Cache epochs | — | read models |
 | `@eristack/hash-chained-ledger` | Shipped | Append-only chain | — | stock, GL |
-| `@eristack/opinion` | **Candidate** | REST canon + OpenAPI + tRPC mirror | data-grid, pbac, jwt-auth | app HTTP |
+| `@eristack/opinion` | **Shipped 0.1.0** | REST canon + OpenAPI compose | data-grid, pbac, jwt-auth | app HTTP |
 | `@eristack/audit-event` | Candidate | Domain audit stream (who/when/what) | timestamp, entity-id | compliance |
 | `@eristack/outbox` | Candidate | Reliable webhook/email dispatch | — | integrations |
 | `@eristack/file-ref` | Candidate | Attachment metadata (app-owned blob store) | entity-id | document scans |
@@ -245,15 +244,9 @@ Wave 6  (report)  reporting → reporting-dsl → print-view
 
 ---
 
-## tRPC vs OpenAPI
+## OpenAPI clients
 
-| Path | When |
-| --- | --- |
-| **OpenAPI-first** (default) | Public API, codegen clients, third-party integrations |
-| **tRPC adapter** (`@eristack/opinion/trpc`) | Same-origin BFF, max type safety, skip OpenAPI drift |
-| **Both** | opinion route table is source; emit OpenAPI + tRPC from one registry |
-
-Neither replaces `@eristack/data-grid` list contract — QUERY/GET `/data-grid` stays shared.
+**OpenAPI-first** (default): opinion route table + `mergeOpenApiDocuments` → codegen clients and public API docs. Neither replaces `@eristack/data-grid` list contract — QUERY/GET `/data-grid` stays shared.
 
 ---
 

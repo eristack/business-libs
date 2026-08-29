@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T08:46:59.416Z",
+  "generatedAt": "2026-08-29T08:52:02.377Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -487,6 +487,25 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/percent",
+      "version": "0.1.0",
+      "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
+      "slug": "percent",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "percent-core",
+          "name": "percent-core",
+          "packageName": "@eristack/percent",
+          "description": "@eristack/percent ratio strings, basis points, percentOf/plus/minus for tax and discounts without float literals. Use before @eristack/money rounding at boundaries.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/percent#percent-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/qups",
       "version": "0.3.3",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
@@ -637,6 +656,25 @@ export const catalog = {
           "description": "Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/uom",
+      "version": "0.1.0",
+      "description": "Unit of measure quantities with fixed-ratio conversion — string decimal amounts, no silent float math",
+      "slug": "uom",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "uom-core",
+          "name": "uom-core",
+          "packageName": "@eristack/uom",
+          "description": "@eristack/uom fixed-ratio unit conversion with string decimal amounts — kg/g/L/pcs and custom units. Use for inventory qty before qups or stock-movement, not float math.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/uom#uom-core"
         }
       ]
     },

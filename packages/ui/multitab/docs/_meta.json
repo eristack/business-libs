@@ -13,13 +13,13 @@
       "label": "Start",
       "pages": [
         "index",
-        "getting-started",
-        "router-recipe"
+        "getting-started"
       ]
     },
     {
       "label": "Guides",
       "pages": [
+        "router-recipe",
         "architecture"
       ]
     },
