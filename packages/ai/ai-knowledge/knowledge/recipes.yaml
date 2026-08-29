@@ -424,7 +424,8 @@ recipes:
     rationale: >
       Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md
       §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat
-      adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps.
+      adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps. Alpha infra —
+      see repo roadmap/horizon.md.
     packages:
       - name: "@eristack/backseat"
         skills:
@@ -593,7 +594,7 @@ recipes:
       Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs,
       /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard,
       and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns
-      tab bar UI and keyboard shortcuts.
+      tab bar UI and keyboard shortcuts. Alpha infra — see repo roadmap/horizon.md.
     packages:
       - name: "@eristack/multitab"
         skills:
@@ -614,7 +615,7 @@ recipes:
     rationale: >
       Use @eristack/logger for JSON-lines server logging with injectable requestId,
       userId, and tenantId context. Express: createLoggerMiddleware. Nest:
-      LoggerModule.forRoot + LoggingInterceptor.
+      LoggerModule.forRoot + LoggingInterceptor. Alpha infra — see repo roadmap/horizon.md.
     packages:
       - name: "@eristack/logger"
         skills:

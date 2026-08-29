@@ -183,6 +183,35 @@ describe("loadPlan", () => {
       keys.indexOf("@eristack/qups#qups-line"),
     );
   });
+
+});
+
+describe("recommend disambiguation", () => {
+  it("routes document-with-lines to document-lines-erp without compose-spine", () => {
+    const result = recommend(["document with lines", "cost sheet lines"]);
+    expect(result.matches[0]?.recipe.id).toBe("document-lines-erp");
+    expect(result.matches.some((m) => m.recipe.id === "compose-spine")).toBe(
+      false,
+    );
+  });
+
+  it("routes explicit GL ask to financial-ledger recipe", () => {
+    const result = recommend(["general ledger posting"]);
+    expect(
+      result.matches.some((m) =>
+        m.recipe.packages.some((p) => p.name === "@eristack/financial-ledger"),
+      ),
+    ).toBe(true);
+  });
+
+  it("routes inventory transfer to stock-movement recipe", () => {
+    const result = recommend(["inventory transfer"]);
+    expect(
+      result.matches.some((m) =>
+        m.recipe.packages.some((p) => p.name === "@eristack/stock-movement"),
+      ),
+    ).toBe(true);
+  });
 });
 
 describe("recipes", () => {

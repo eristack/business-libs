@@ -51,6 +51,26 @@ documents.transitions("status", {
 
 Wire `action` on `PbacInput` alongside `document`. Missing action or illegal transition → deny with reason.
 
+### Publication preset (blog / CMS style)
+
+```ts
+pbac.registerPolicy({
+  id: "article.can-publish",
+  evaluate: documents.transitions("status", {
+    draft: ["submit"],
+    in_review: ["publish", "reject"],
+    published: [], // terminal — no further transitions via action
+  }),
+});
+
+await pbac.authorize("article.can-publish", {
+  document: { status: article.status },
+  action: "publish",
+});
+```
+
+Combine with `documents.flagNotSet("locked")` for edit locks while in review.
+
 ## Status transition pattern
 
 Model transitions as **named policies** checked before mutating status:

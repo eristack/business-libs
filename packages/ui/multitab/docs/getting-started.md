@@ -154,3 +154,46 @@ multitab.replaceTab(newTabId, {
 ```
 
 This converts `/new/{uuid}` into a real document tab and navigates to the route.
+
+## Session-only persistence
+
+For kiosks or shared terminals, persist the tab strip to `sessionStorage` instead of `localStorage`:
+
+```ts
+import {
+  loadMultitabFromSessionStorage,
+  saveMultitabToSessionStorage,
+} from "@eristack/multitab";
+
+saveMultitabToSessionStorage(state);
+const restored = loadMultitabFromSessionStorage();
+```
+
+`MultitabRouterProvider` still defaults to `localStorage` via `storageKey` — wire session helpers in a custom `persist` callback if needed.
+
+## Async tab titles
+
+When the title loads after fetch (document number, customer name):
+
+```tsx
+import { useTabTitle } from "@eristack/multitab/react";
+
+function JobScreen({ tabId }: { tabId: string }) {
+  const multitab = useMultitabRouter();
+  const { data } = useQuery(/* job */);
+
+  useTabTitle({
+    tabId,
+    title: data?.number,
+    setState: multitab.setState,
+    resolveTitle: async () => {
+      const job = await fetchJob();
+      return job ? `Job ${job.number}` : null;
+    },
+  });
+
+  return /* ... */;
+}
+```
+
+Full TanStack Router wiring lives in [Router recipe](./router-recipe.md).

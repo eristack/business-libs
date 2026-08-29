@@ -81,6 +81,20 @@ if (snap) {
 
 Do not change SQL ledger column types — only map strings ↔ `Money` at boundaries.
 
+## Trial balance helper
+
+Snapshot many account chains without reimplementing report math:
+
+```ts
+import { createFinancialLedger, trialBalance } from "@eristack/financial-ledger";
+
+const balances = await trialBalance(fin, [
+  { accountId: "1000", currency: "USD" },
+  { accountId: "2000", currency: "USD" },
+]);
+// Map keys: `${accountId}:${currency}` → Money (missing chains omitted)
+```
+
 ## When **not** to use GL
 
 Document-with-lines ERP (invoices, POs, jobs) usually totals on **QUPS lines** + `@eristack/qups` — not a full chart-of-accounts post per line. Use `@eristack/financial-ledger` when you need **account balances**, trial balance, or audit chains keyed by `accountId` + currency. See `@eristack/ai-knowledge#document-lines-erp`.

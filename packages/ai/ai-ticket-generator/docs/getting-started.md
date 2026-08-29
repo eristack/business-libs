@@ -157,6 +157,21 @@ Prefer Intent skills for interactive collection.
 
 Decision tree: `@eristack/ai-knowledge#ai-toolbox` → `knowledge/ai-toolbox-decision-tree.md`.
 
+## Private / monorepo-only packages
+
+`pnpm ticket:check` validates **publishable** `@eristack/*` packages only. Private app code, `examples/*`, and `internal/*` do **not** need `ticket.yaml`. File consumer bugs against the nearest published package via `@eristack/ai-ticket-generator#ai-ticket-bug`.
+
+## Feasibility rubric (suggestions)
+
+| Verdict | When |
+| --- | --- |
+| **possible** | Fits existing package boundary with ≤3 integration files |
+| **partial** | Needs new export or adapter — no new vertical package |
+| **unlikely** | Conflicts with design targets (reinventing money, memory-as-prod) |
+| **needs-decision** | Horizon / breaking API — maintainer must choose |
+
+Examples: `money` string amounts → **possible**; new FIFO method in valuations → **partial**; `@eristack/feature-invoicing` → **needs-decision** (apps compose spine today).
+
 ---
 
 ## Next steps

@@ -162,3 +162,12 @@ Use stable opaque keys your app owns:
 - Tenant-scoped: `"tenant:abc:orders"`
 
 Keep scopes coarse enough to avoid bump storms, fine enough to limit refetch blast radius.
+
+## Stale policy naming (client)
+
+| Server `policy` | Meaning | Client action |
+| --- | --- | --- |
+| `use-cache` | `clientEpoch === current` | Serve TanStack Query cache |
+| `refetch` | Client behind server epoch | `invalidateQueries` for that scope |
+
+Name scopes after **cache partitions**, not routes (`orders`, not `/api/orders/list`). Pair list + detail queries on the same scope; bump once per successful mutation batch.

@@ -28,4 +28,8 @@ export {
   DOC_NUMBER_COLLECTIONS,
   sequenceDocId,
 } from "./register.js";
+export {
+  seedDocNumberBackseatFormats,
+  seedDocNumberMemoryFormats,
+} from "./seed-formats.js";
 export type { RegisterDocNumberBackseatOptions } from "./register.js";

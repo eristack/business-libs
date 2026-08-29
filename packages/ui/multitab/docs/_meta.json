@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "getting-started",
+    "router-recipe",
     "architecture",
     "api-reference",
     "vision"
@@ -12,7 +13,8 @@
       "label": "Start",
       "pages": [
         "index",
-        "getting-started"
+        "getting-started",
+        "router-recipe"
       ]
     },
     {

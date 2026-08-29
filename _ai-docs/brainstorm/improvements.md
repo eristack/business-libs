@@ -24,7 +24,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| T1 | Wall `addDays` / inclusive range helpers | M | audit ticket language |
+| T1 | Wall `addDays` / inclusive range helpers | M | **done** — `addWallDays`, `isWallInRange` |
 | T2 | `compareWallDates`, sort helpers for data-grid wall columns | S | **done** — `sortWallClocks` |
 | T3 | Drizzle column helpers: instant vs wall documented in one table | S | **done** — adapters.md subpath map |
 | T6 | Nest pipe + Express middleware parse wall query params | S | **done** — `parseWallQueryValue`, `readWallQueryParam` |
@@ -40,7 +40,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | D3 | Format preview API for settings UI (no increment) | S | **done** — `previewDocumentNumber` / REST preview |
 | D4 | Scoped sequences: branch/warehouse scope without new package | M | app-owned scope table |
 | D5 | OpenAPI fragment generator for format CRUD routes | S | opinion/rest later |
-| D6 | Backseat register: format list + preview only seed | S | |
+| D6 | Backseat register: format list + preview only seed | S | **done** — `seedDocNumberBackseatFormats` |
 
 ---
 
@@ -52,7 +52,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | Q3 | Modifier dependency graph validation (cycle detect) | S | **done** — `assertAcyclicModifierOrder` |
 | Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | horizon-a gap |
 | Q5 | Drizzle column bundle generator from QupsProfile | Horizon | |
-| Q6 | Nest/React: recalc on blur vs on change policy doc | S | skill |
+| Q6 | Nest/React: recalc on blur vs on change policy doc | S | **done** — qups-line skill |
 | Q7 | UoM qty field type when `@eristack/uom` exists | Horizon | string qty stays |
 
 ---
@@ -74,7 +74,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| F1 | `trialBalance` snapshot helper (account list → Money) | M | apps avoid GL report math |
+| F1 | `trialBalance` snapshot helper (account list → Money) | M | **done** — `trialBalance` |
 | F2 | Multi-currency same accountId integration test | M | **done** — audit A-010 |
 | F3 | Posting templates: debit/credit pair builder | S | **done** — `buildBalancedPostingPair` |
 | F5 | Reversal entry helper (swap DR/CR, link entryTypeId) | S | **done** — `buildReversalPost` |
@@ -109,8 +109,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | R1 | Role hierarchy transitive closure helper | S | **done** — `expandRolePermissions` |
 | R2 | Drizzle integration assignRole + can() | S | **done** — audit A-008 |
-| R3 | Express `requirePermission` composition examples | S | stub skill B-013 |
-| R4 | Resource:action naming convention guide | S | ai-knowledge |
+| R3 | Express `requirePermission` composition examples | S | **done** — rbac-adapters skill |
+| R4 | Resource:action naming convention guide | S | **done** — knowledge/rbac-permissions.md |
 | R5 | Bulk import roles from YAML (admin tooling) | M | |
 
 ---
@@ -119,11 +119,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| A1 | `assignmentPairMatch` cookbook (branch × trade) | S | |
-| A2 | attrs helpers typed for common ERP attrs | S | maxBookValue, branchId |
+| A1 | `assignmentPairMatch` cookbook (branch × trade) | S | **done** — abac core test + concepts |
+| A2 | attrs helpers typed for common ERP attrs | S | **done** — `branchIdEquals`, `maxBookValueAtMost` |
 | A3 | Policy test harness: table-driven evaluate fixtures | M | |
-| A4 | Warn when money attrs use number not string | S | DOC-002 |
-| A5 | Nest guard error envelope matches http-errors | S | |
+| A4 | Warn when money attrs use number not string | S | **done** — `maxBookValueAtMost` rejects JSON numbers |
+| A5 | Nest guard error envelope matches http-errors | S | **done** — 409 `POLICY_DENIED` Nest + Express |
 
 ---
 
@@ -131,11 +131,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| P1 | `documents.transitions()` more examples (Publication preset) | S | doc-transitions precursor |
+| P1 | `documents.transitions()` more examples (Publication preset) | S | **done** — document-policies.md |
 | P2 | Express 409 POLICY_DENIED supertest | S | **done** — audit T-005 |
 | P3 | Policy registry export for OpenAPI enum generation | Horizon | opinion |
 | P4 | Transition table validator (from/to/status) | M | |
-| P5 | React hook: loading + denied reason string | S | |
+| P5 | React hook: loading + denied reason string | S | **done** — `useBusinessPolicy` + adapters.md |
 
 ---
 
@@ -148,8 +148,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | G3 | `executeBackseatList` parity with drizzle envelope | M | backseat lists |
 | G4 | Saved view serialize/deserialize JSON schema | M | UI candidate |
 | G5 | Decimal string compare ops export for apps | S | **done** — `@eristack/money` M1 |
-| G6 | Cursor pagination stability doc (tie-breaker column) | S | |
-| G7 | Nest ParseDataGridPipe edge cases test | S | |
+| G6 | Cursor pagination stability doc (tie-breaker column) | S | **done** — edge-cases.md |
+| G7 | Nest ParseDataGridPipe edge cases test | S | **done** — parse-data-grid-pipe.test.ts |
 
 ---
 
@@ -179,11 +179,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| B1 | `store.atomic()` multi-collection (done — document patterns) | S | |
+| B1 | `store.atomic()` multi-collection (done — document patterns) | S | **done** — api-reference.md |
 | B2 | `listRoutes()` snapshot for contract tests | S | **done** — audit X-006 |
 | B3 | IndexedDB smoke in CI | M | **done** — audit X-005 |
 | B4 | Seed pack v1 JSON checked in | M | **done** — audit C-007 |
-| B5 | `jsonError` / versionConflict exported helpers (done — skill) | S | |
+| B5 | `jsonError` / versionConflict exported helpers (done — skill) | S | **done** — api-reference.md + backseat-core skill |
 | B6 | data-grid list executor in-memory | M | ticket |
 | B7 | Devtools: route diff export | M | |
 
@@ -194,11 +194,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | U1 | Dirty close guard + confirm callback contract | M | alpha gate |
-| U2 | TanStack Router sync recipe (full file) | S | |
+| U2 | TanStack Router sync recipe (full file) | S | **done** — router-recipe.md |
 | U3 | MRU tab activation tests (done — keep coverage) | S | |
-| U4 | Tab title async update hook | S | |
+| U4 | Tab title async update hook | S | **done** — `useTabTitle` |
 | U5 | Keyboard shortcuts headless map | M | |
-| U6 | Persist tab strip to sessionStorage optional | S | |
+| U6 | Persist tab strip to sessionStorage optional | S | **done** — session-storage helpers |
 
 ---
 
@@ -208,10 +208,10 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | K1 | `loadPlan()` + canonicalSkills (shipped — extend to more recipes) | S | |
 | K2 | Recipe for each new capability in wave2 when promoted | S | ongoing |
-| K3 | `compose-spine` vs `document-lines-erp` disambiguation tests | S | |
+| K3 | `compose-spine` vs `document-lines-erp` disambiguation tests | S | **done** — recommend.test.ts |
 | K4 | Catalog compact table in skill (shipped — maintain) | S | |
 | K5 | knowledge ↔ docs mirror CI (audit B-016) | M | **done** |
-| K6 | Horizon link from recommend for infra packages | S | |
+| K6 | Horizon link from recommend for infra packages | S | **done** — recipes.yaml horizon refs |
 
 ---
 
@@ -219,11 +219,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| W1 | MCP tool inventory doc sync with code | S | |
-| W2 | Sprint template `.eristack/workflow` for package work | S | |
-| W3 | Vector index optional disable for CI | S | |
-| W4 | Chunk size tuning guide | S | |
-| W5 | Cross-link ai-dev plan JSON | S | |
+| W1 | MCP tool inventory doc sync with code | S | **done** — mcp.md |
+| W2 | Sprint template `.eristack/workflow` for package work | S | **done** — workflow.md |
+| W3 | Vector index optional disable for CI | S | **done** — search.md `--no-embed` |
+| W4 | Chunk size tuning guide | S | **done** — search.md limits table |
+| W5 | Cross-link ai-dev plan JSON | S | **done** — getting-started.md |
 
 ---
 
@@ -232,9 +232,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | TK1 | getting-started.md (audit D-009) | S | **done** |
-| TK2 | Feasibility rubric examples per layer | S | |
+| TK2 | Feasibility rubric examples per layer | S | **done** — getting-started.md |
 | TK3 | Auto-suggest package from stack trace path | M | |
-| TK4 | Private package skip (shipped) — document | S | |
+| TK4 | Private package skip (shipped) — document | S | **done** — getting-started.md |
 
 ---
 
@@ -243,7 +243,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | AD1 | `--profile integration` (audit A-014) | S | **done** |
-| AD2 | `eristack plan` suggests next audit backlog id | M | |
+| AD2 | `eristack plan` suggests next audit backlog id | M | **done** — `nextBrainstormItem` on DevPlan |
 | AD3 | MCP tools: knowledge:check wrapper | S | **done** — `dev_knowledge_check` |
 | AD4 | runChecks unit tests (audit T-001) | M | **done** |
 | AD5 | Changeset body length warn | S | **done** — audit D-010 |

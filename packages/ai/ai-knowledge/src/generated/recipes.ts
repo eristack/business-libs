@@ -484,7 +484,7 @@ export const recipes = [
       "atomic transaction backseat",
       "listroutes"
     ],
-    "rationale": "Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps.",
+    "rationale": "Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps. Alpha infra — see repo roadmap/horizon.md.",
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -698,7 +698,7 @@ export const recipes = [
       "open in tab",
       "browser tabs erp"
     ],
-    "rationale": "Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs, /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard, and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns tab bar UI and keyboard shortcuts.",
+    "rationale": "Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs, /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard, and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns tab bar UI and keyboard shortcuts. Alpha infra — see repo roadmap/horizon.md.",
     "packages": [
       {
         "name": "@eristack/multitab",
@@ -722,7 +722,7 @@ export const recipes = [
       "vercel logs",
       "log drain"
     ],
-    "rationale": "Use @eristack/logger for JSON-lines server logging with injectable requestId, userId, and tenantId context. Express: createLoggerMiddleware. Nest: LoggerModule.forRoot + LoggingInterceptor.",
+    "rationale": "Use @eristack/logger for JSON-lines server logging with injectable requestId, userId, and tenantId context. Express: createLoggerMiddleware. Nest: LoggerModule.forRoot + LoggingInterceptor. Alpha infra — see repo roadmap/horizon.md.",
     "packages": [
       {
         "name": "@eristack/logger",

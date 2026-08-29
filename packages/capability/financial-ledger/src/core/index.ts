@@ -9,6 +9,7 @@ export {
   buildBalancedPostingPair,
   buildReversalPost,
 } from "./posting-pair.js";
+export { trialBalance, type TrialBalanceAccount } from "./trial-balance.js";
 export {
   hydrateLedgerEntry,
   hydrateLedgerSnapshot,

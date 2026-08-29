@@ -19,7 +19,7 @@ export function createRequirePolicy(options: {
       next();
     } catch (err) {
       if (err instanceof PolicyDeniedError) {
-        res.status(403).json({
+        res.status(409).json({
           error: {
             code: err.code,
             message: err.message,

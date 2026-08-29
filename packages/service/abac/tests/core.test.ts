@@ -91,4 +91,42 @@ describe("abac", () => {
     expect(matchesAssignmentPair(pairs, "A", "domestic")).toBe(false);
     expect(matchesAssignmentPair(pairs, null, "freight")).toBe(false);
   });
+
+  it("branchIdEquals scopes subject to resource branch", async () => {
+    const abac = createAbac();
+    abac.registerPolicy({
+      id: "branch.scope",
+      evaluate: attrs.branchIdEquals({}),
+    });
+    const allowed = await abac.evaluate("branch.scope", {
+      subject: { id: "u1", attrs: { branchId: "SUB" } },
+      resource: { attrs: { branchId: "SUB" } },
+    });
+    expect(allowed.allowed).toBe(true);
+    const denied = await abac.evaluate("branch.scope", {
+      subject: { id: "u1", attrs: { branchId: "SUB" } },
+      resource: { attrs: { branchId: "HQ" } },
+    });
+    expect(denied.allowed).toBe(false);
+  });
+
+  it("maxBookValueAtMost rejects JSON number money attrs", async () => {
+    const abac = createAbac();
+    abac.registerPolicy({
+      id: "book-value.string",
+      evaluate: attrs.maxBookValueAtMost({}),
+    });
+    const denied = await abac.evaluate("book-value.string", {
+      subject: { attrs: { maxBookValue: "5000" } },
+      resource: { attrs: { bookValue: 1000 } },
+    });
+    expect(denied.allowed).toBe(false);
+    expect(denied.reason).toMatch(/decimal strings/i);
+
+    const allowed = await abac.evaluate("book-value.string", {
+      subject: { attrs: { maxBookValue: "5000" } },
+      resource: { attrs: { bookValue: "1000" } },
+    });
+    expect(allowed.allowed).toBe(true);
+  });
 });
