@@ -6,7 +6,11 @@ import {
 } from "@eristack/jwt-auth/backseat";
 import { registerDataGridBackseatRoute } from "@eristack/data-grid/backseat";
 import { registerEpochBackseat } from "@eristack/epoch/backseat";
-import { createPbac, documents } from "@eristack/pbac";
+import { createPbac } from "@eristack/pbac";
+import {
+  publicationGraph,
+  registerTransitionGraph,
+} from "@eristack/doc-transitions";
 import { registerPbacBackseat } from "@eristack/pbac/backseat";
 import { registerQupsBackseat } from "@eristack/qups/backseat";
 
@@ -28,14 +32,17 @@ export function createHorizonBackseat(): HorizonSpine {
   const api = createBackseat({ store, baseUrl: "/api" });
 
   const pbac = createPbac();
-  pbac.registerPolicy({
-    id: "order.transition",
-    evaluate: documents.transitions("status", {
-      draft: ["submit"],
+  const orderGraph = {
+    ...publicationGraph,
+    table: {
+      draft: ["submit", "cancel"],
       submitted: ["approve", "cancel"],
       approved: [],
-    }),
-  });
+      cancelled: [],
+    },
+    terminal: ["approved", "cancelled"],
+  };
+  registerTransitionGraph(pbac, { entityKey: "order", graph: orderGraph });
   registerPbacBackseat(api, { basePath: "/pbac", pbac });
 
   const epoch = registerEpochBackseat(api, { basePath: "/epoch" });

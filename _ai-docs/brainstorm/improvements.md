@@ -39,7 +39,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | D1 | `{SCOPE}` token docs + timezone-aware period reset recipes | S | **done** — format.md + sequencing.md |
 | D3 | Format preview API for settings UI (no increment) | S | **done** — `previewDocumentNumber` / REST preview |
 | D4 | Scoped sequences: branch/warehouse scope without new package | M | **done** — sequencing.md § Scoped sequences |
-| D5 | OpenAPI fragment generator for format CRUD routes | S | Horizon — `@eristack/rest` opinion |
+| D5 | OpenAPI fragment generator for format CRUD routes | S | **done** — `docNumberFormatOpenApiDocument` |
 | D6 | Backseat register: format list + preview only seed | S | **done** — `seedDocNumberBackseatFormats` |
 
 ---
@@ -50,7 +50,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | Q1 | `applyCellPatch` + spreadsheet commit helpers exported with tests | S | **done** — audit B-017 |
 | Q3 | Modifier dependency graph validation (cycle detect) | S | **done** — `assertAcyclicModifierOrder` |
-| Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | Horizon — examples/horizon-a gap |
+| Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | **done** — shipped in qups core |
 | Q5 | Drizzle column bundle generator from QupsProfile | Horizon | |
 | Q6 | Nest/React: recalc on blur vs on change policy doc | S | **done** — qups-line skill |
 | Q7 | UoM qty field type when `@eristack/uom` exists | Horizon | string qty stays |
@@ -133,7 +133,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | P1 | `documents.transitions()` more examples (Publication preset) | S | **done** — document-policies.md |
 | P2 | Express 409 POLICY_DENIED supertest | S | **done** — audit T-005 |
-| P3 | Policy registry export for OpenAPI enum generation | Horizon | opinion |
+| P3 | Policy registry export for OpenAPI enum generation | Horizon | **done** — `exportPolicyRegistryForOpenApi` |
 | P4 | Transition table validator (from/to/status) | M | **done** — `validateTransitionTable` |
 | P5 | React hook: loading + denied reason string | S | **done** — `useBusinessPolicy` + adapters.md |
 
@@ -159,7 +159,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | E1 | `bumpMany` integration test | S | **done** — audit A-009 |
 | E4 | HTTP cache-control header helper optional | S | **done** — `epochCacheControlHeader` |
-| E5 | Epoch mismatch metrics hook for logger | Horizon | |
+| E5 | Epoch mismatch metrics hook for logger | Horizon | **done** — `onStale` + `@eristack/epoch/logger` |
 
 ---
 
@@ -170,7 +170,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | H1 | `@eristack/hash-chained-ledger/testing` sqlite setup exported | S | **done** — `./testing` + skill |
 | H2 | Tamper helper recipes in skill | S | **done** — hash-chained-ledger-core skill |
 | H3 | Batch append transactional semantics doc | S | **done** — hashing.md + skill |
-| H4 | Chain export JSON for audit packages | M | Horizon — audit-event package |
+| H4 | Chain export JSON for audit packages | M | **done** — `exportChainAuditJson` |
 | H5 | Postgres vs sqlite hash parity test | M | **done** — hash-parity.test.ts |
 
 ---
@@ -185,7 +185,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | B4 | Seed pack v1 JSON checked in | M | **done** — audit C-007 |
 | B5 | `jsonError` / versionConflict exported helpers (done — skill) | S | **done** — api-reference.md + backseat-core skill |
 | B6 | data-grid list executor in-memory | M | **done** — `executeInMemoryList` |
-| B7 | Devtools: route diff export | M | Horizon — backseat alpha |
+| B7 | Devtools: route diff export | M | **done** — `diffRoutesSnapshots` |
 
 ---
 
@@ -256,10 +256,10 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | Theme | Packages | Effort |
 | --- | --- | --- |
 | **Opinion HTTP** | `@eristack/opinion` 0.1.0 shipped (express mount) | **done** (OpenAPI/Nest horizon) |
-| **Logger context** | epoch stale logging via `@eristack/epoch/logger` | **partial** — epoch refetch hook |
+| **Logger context** | epoch stale logging + `onStale` metrics hook | **done** |
 | **Testing subpaths** | backseat, abac, pbac, data-grid + prior 9 | **done** — D-006 complete |
 | **Zod 4 parity** | money, timestamp, jwt-auth, doc-number, data-grid, epoch | **done** |
-| **Backseat register collapse** | 9 registers → helpers | M | audit X-002 **done** |
-| **Horizon A → B parity** | backseat, qups, epoch, jwt-auth | M | examples |
+| **Backseat register collapse** | 9 registers → helpers | **done** — audit X-002 |
+| **Horizon A → B parity** | horizon-a + doc-transitions + route diff | **done** |
 
 **Total improvement rows (this file):** ~120 · **Shipped package sections:** 20/20

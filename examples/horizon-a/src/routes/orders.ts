@@ -7,6 +7,7 @@ import {
 } from "@eristack/backseat";
 import { policyDenied } from "@eristack/backseat/adapters";
 import { calculateLine, type CalculateLineInput } from "@eristack/qups";
+import { transitionPolicyId } from "@eristack/doc-transitions";
 import { BusinessPolicyDeniedError, type Pbac } from "@eristack/pbac";
 import type { Epoch } from "@eristack/epoch";
 
@@ -219,7 +220,7 @@ export function registerOrderRoutes(
       let nextStatus = current.status;
       if (body.action) {
         try {
-          await pbac.authorize("order.transition", {
+          await pbac.authorize(transitionPolicyId("order", "publication"), {
             document: { status: current.status },
             action: body.action,
           });
