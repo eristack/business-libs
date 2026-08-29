@@ -1,5 +1,9 @@
 # Gotchas
 
+## Negative amounts
+
+`uomQty` **rejects negative** amounts. Use absolute qty with uom; apply sign in stock-movement or app ledger.
+
 ## Cross-dimension conversion
 
 No kg ↔ L without app density table. uom will throw — implement in app service layer.

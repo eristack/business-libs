@@ -8,6 +8,10 @@ import {
 } from "../src/index.js";
 
 describe("@eristack/uom", () => {
+  it("converts zero quantity", () => {
+    expect(convertUom(uomQty("0", "kg"), "g")).toEqual({ amount: "0", unit: "g" });
+  });
+
   it("converts mass units with string decimals", () => {
     const kg = uomQty("1.5", "kg");
     const g = convertUom(kg, "g");
