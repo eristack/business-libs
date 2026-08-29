@@ -1,0 +1,11 @@
+package: "@eristack/doc-transitions"
+title: doc-transitions
+maintainers:
+  - support@eristack.dev
+scope: >
+  Preset ERP document status graphs (publication, decision, journal, lock, outstanding)
+  wired to @eristack/pbac documents.transitions().
+outOfScope: >
+  BPM engines, owning domain documents, HTTP PATCH routing (use @eristack/opinion when shipped).
+skills:
+  - doc-transitions-core
