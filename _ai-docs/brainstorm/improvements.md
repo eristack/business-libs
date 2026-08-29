@@ -36,9 +36,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| D1 | `{SCOPE}` token docs + timezone-aware period reset recipes | S | |
-| D2 | `peekNext` vs `next` concurrency integration test (sqlite) | M | audit A-007 |
-| D3 | Format preview API for settings UI (no increment) | S | |
+| D1 | `{SCOPE}` token docs + timezone-aware period reset recipes | S | **done** — format.md + sequencing.md |
+| D3 | Format preview API for settings UI (no increment) | S | **done** — `previewDocumentNumber` / REST preview |
 | D4 | Scoped sequences: branch/warehouse scope without new package | M | app-owned scope table |
 | D5 | OpenAPI fragment generator for format CRUD routes | S | opinion/rest later |
 | D6 | Backseat register: format list + preview only seed | S | |
@@ -67,7 +66,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | S3 | Snapshot qty by locationId + optional lotId filters | S | **done** — `snapshotLotBalance`, `snapshotLotsAtLocation` |
 | S4 | Integration: concurrent append same chain | M | audit A-011 |
 | S5 | `verify` failure messages include entry index + hash prefix | S | **done** |
-| S6 | Backseat register stock routes for demos | S | |
+| S6 | Backseat register stock routes for demos | S | **done** — `registerStockMovementBackseat` |
 
 ---
 
@@ -79,7 +78,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | F2 | Multi-currency same accountId integration test | M | **done** — audit A-010 |
 | F3 | Posting templates: debit/credit pair builder | S | **done** — `buildBalancedPostingPair` |
 | F5 | Reversal entry helper (swap DR/CR, link entryTypeId) | S | **done** — `buildReversalPost` |
-| F6 | Document when **not** to use GL (document-lines ERP) | S | recipe cross-link |
+| F6 | Document when **not** to use GL (document-lines ERP) | S | **done** — financial-ledger getting-started |
 
 ---
 
@@ -165,9 +164,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| H1 | `@eristack/hash-chained-ledger/testing` sqlite setup exported | S | shipped — document |
-| H2 | Tamper helper recipes in skill | S | |
-| H3 | Batch append transactional semantics doc | S | |
+| H1 | `@eristack/hash-chained-ledger/testing` sqlite setup exported | S | **done** — `./testing` + skill |
+| H2 | Tamper helper recipes in skill | S | **done** — hash-chained-ledger-core skill |
+| H3 | Batch append transactional semantics doc | S | **done** — hashing.md + skill |
 | H4 | Chain export JSON for audit packages | M | audit-event later |
 | H5 | Postgres vs sqlite hash parity test | M | |
 

@@ -81,5 +81,9 @@ if (snap) {
 
 Do not change SQL ledger column types — only map strings ↔ `Money` at boundaries.
 
+## When **not** to use GL
+
+Document-with-lines ERP (invoices, POs, jobs) usually totals on **QUPS lines** + `@eristack/qups` — not a full chart-of-accounts post per line. Use `@eristack/financial-ledger` when you need **account balances**, trial balance, or audit chains keyed by `accountId` + currency. See `@eristack/ai-knowledge#document-lines-erp`.
+
 Unit tests may import `createMemoryLedgerStore` from
 `@eristack/hash-chained-ledger` — never as the deployed default.

@@ -66,6 +66,8 @@ const grid = createDataGrid(orderGridSchema);
 
 Field flags:
 
+| `type: "wall"` | Use with `@eristack/timestamp` — filter ops `eq`, `between`, `gte`, `lte`; values are wall `local` strings + schema `timezone` (never `Date` math). See [timestamp wall adapter](../../primitive/timestamp/docs/wall.md). |
+
 | Flag | Meaning |
 | --- | --- |
 | `filterable` | Allowed in `advanced` filter clauses (default treated as off when false) |
