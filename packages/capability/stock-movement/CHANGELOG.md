@@ -1,5 +1,11 @@
 # @eristack/stock-movement
 
+## 0.1.3
+
+### Patch Changes
+
+- b793eed: Add appendStockTransfer, lot/location snapshot helpers, idempotency key, and testing subpath.
+
 ## 0.1.2
 
 ### Patch Changes

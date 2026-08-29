@@ -1,6 +1,6 @@
 {
   "name": "@eristack/uom",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unit of measure quantities with fixed-ratio conversion — string decimal amounts, no silent float math",
   "repository": {
     "type": "git",

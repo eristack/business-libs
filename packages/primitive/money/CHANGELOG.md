@@ -1,5 +1,11 @@
 # @eristack/money
 
+## 0.3.3
+
+### Patch Changes
+
+- b793eed: Export decimal compare helpers, Money.format hook, FX asOf metadata, and rejectJsonNumberMoneyBody middleware.
+
 ## 0.3.2
 
 ### Patch Changes

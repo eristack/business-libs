@@ -1,5 +1,11 @@
 # @eristack/doc-number
 
+## 0.3.5
+
+### Patch Changes
+
+- b793eed: Add zod schemas, format CRUD OpenAPI fragment, Backseat format seeds, and scoped sequence docs.
+
 ## 0.3.4
 
 ### Patch Changes

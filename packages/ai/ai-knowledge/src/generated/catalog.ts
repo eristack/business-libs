@@ -4,11 +4,11 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T08:56:03.981Z",
+  "generatedAt": "2026-08-29T09:51:45.173Z",
   "packages": [
     {
       "name": "@eristack/abac",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
       "slug": "abac",
       "adapters": [
@@ -40,7 +40,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/address",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Normalized postal addresses with ISO country codes — string fields, no geocoding",
       "slug": "address",
       "adapters": [
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -78,7 +78,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-ticket-generator",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files",
       "slug": "ai-ticket-generator",
       "adapters": [],
@@ -103,7 +103,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-workflow",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent",
       "slug": "ai-workflow",
       "adapters": [],
@@ -128,7 +128,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -151,7 +151,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/data-grid",
-      "version": "0.2.4",
+      "version": "0.2.5",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
@@ -187,7 +187,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-number",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "description": "Document number format, parse, and sequence primitives for Eristack",
       "slug": "doc-number",
       "adapters": [
@@ -223,7 +223,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-transitions",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Preset ERP document status graphs for @eristack/pbac documents.transitions()",
       "slug": "doc-transitions",
       "adapters": [],
@@ -240,7 +240,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/epoch",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
       "slug": "epoch",
       "adapters": [
@@ -277,7 +277,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/financial-ledger",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -307,7 +307,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/fiscal-calendar",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Fiscal years and periods with open/closed flags — wall-date boundaries on @eristack/timestamp",
       "slug": "fiscal-calendar",
       "adapters": [
@@ -326,7 +326,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/hash-chained-ledger",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
@@ -356,7 +356,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.4.4",
+      "version": "0.4.5",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -412,7 +412,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/money",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "description": "Money primitives for Eristack",
       "slug": "money",
       "adapters": [
@@ -453,7 +453,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/multitab",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
       "slug": "multitab",
       "adapters": [
@@ -473,7 +473,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/opinion",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions",
       "slug": "opinion",
       "adapters": [
@@ -494,7 +494,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/pbac",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
       "slug": "pbac",
       "adapters": [
@@ -526,7 +526,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/percent",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
       "slug": "percent",
       "adapters": [
@@ -545,7 +545,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/qups",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
@@ -583,7 +583,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rbac",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
       "slug": "rbac",
       "adapters": [
@@ -616,7 +616,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rest",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit",
       "slug": "rest",
       "adapters": [
@@ -636,7 +636,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/stock-movement",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
       "slug": "stock-movement",
       "adapters": [
@@ -666,7 +666,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/timestamp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
       "slug": "timestamp",
       "adapters": [
@@ -699,7 +699,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/uom",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Unit of measure quantities with fixed-ratio conversion — string decimal amounts, no silent float math",
       "slug": "uom",
       "adapters": [
@@ -718,7 +718,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/valuations",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/percent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
   "repository": {
     "type": "git",

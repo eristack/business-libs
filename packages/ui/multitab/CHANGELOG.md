@@ -1,5 +1,11 @@
 # @eristack/multitab
 
+## 0.2.3
+
+### Patch Changes
+
+- b793eed: Add sessionStorage persistence, useTabTitle, DEFAULT_MULTITAB_SHORTCUTS, and router sync recipe.
+
 ## 0.2.2
 
 ### Patch Changes

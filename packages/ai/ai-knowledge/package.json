@@ -1,6 +1,6 @@
 {
   "name": "@eristack/ai-knowledge",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Eristack knowledge pack for AI agents: recommend packages first, load the right Intent skills, and keep catalog facts in sync",
   "repository": {
     "type": "git",

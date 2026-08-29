@@ -1,6 +1,6 @@
 {
   "name": "@eristack/pbac",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
   "repository": {
     "type": "git",
