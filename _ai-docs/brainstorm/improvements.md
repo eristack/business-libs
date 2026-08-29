@@ -255,11 +255,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | Theme | Packages | Effort |
 | --- | --- | --- |
-| **Opinion HTTP** | data-grid, pbac, jwt-auth, epoch → `@eristack/opinion` | XL |
-| **Logger context** | all adapters → `@eristack/logger` | L |
-| **Testing subpaths** | all with memory stores | L | audit D-006 |
-| **Zod 4 parity** | money, timestamp, doc-number, data-grid, epoch | M |
-| **Backseat register collapse** | 9 registers → helpers | M | audit X-002 |
+| **Opinion HTTP** | `@eristack/opinion` 0.1.0 shipped (express mount) | **done** (OpenAPI/Nest horizon) |
+| **Logger context** | epoch stale logging via `@eristack/epoch/logger` | **partial** — epoch refetch hook |
+| **Testing subpaths** | backseat, abac, pbac, data-grid + prior 9 | **done** — D-006 complete |
+| **Zod 4 parity** | money, timestamp, jwt-auth, doc-number, data-grid, epoch | **done** |
+| **Backseat register collapse** | 9 registers → helpers | M | audit X-002 **done** |
 | **Horizon A → B parity** | backseat, qups, epoch, jwt-auth | M | examples |
 
 **Total improvement rows (this file):** ~120 · **Shipped package sections:** 20/20

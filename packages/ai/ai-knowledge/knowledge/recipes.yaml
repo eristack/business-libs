@@ -687,6 +687,56 @@ recipes:
           - jwt-auth-core
         role: supporting
 
+  - id: document-status-transitions
+    title: Preset ERP document status graphs
+    priority: 14
+    triggers:
+      - status transition
+      - publication workflow
+      - journal post void
+      - document status preset
+      - doc-transitions
+      - publicationGraph
+      - journalGraph
+    rationale: >
+      Load @eristack/doc-transitions#doc-transitions-core for preset status
+      graphs wired to @eristack/pbac documents.transitions() — not copy-paste tables.
+    packages:
+      - name: "@eristack/doc-transitions"
+        skills:
+          - doc-transitions-core
+        role: primary
+      - name: "@eristack/pbac"
+        skills:
+          - pbac-core
+        role: supporting
+
+  - id: opinion-http
+    title: Opinionated ERP HTTP document routes
+    priority: 15
+    triggers:
+      - opinion http
+      - patch action route
+      - erp rest canon
+      - document api scaffold
+      - PATCH /:id/:action
+    rationale: >
+      Use @eristack/opinion for the canonical document REST map (options,
+      data-grid, CRUD, PATCH /:id/:action) mounted via @eristack/rest.
+    packages:
+      - name: "@eristack/opinion"
+        skills:
+          - opinion-core
+        role: primary
+      - name: "@eristack/rest"
+        skills:
+          - rest-core
+        role: supporting
+      - name: "@eristack/doc-transitions"
+        skills:
+          - doc-transitions-core
+        role: supporting
+
   - id: stock-inventory-ledger
     title: Inventory stock movements by location and lot
     priority: 28

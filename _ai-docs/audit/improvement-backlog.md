@@ -80,7 +80,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **D-003** | Peer map jwt-auth → data-grid | S | jwt-auth | **done** — peerDependencies + docs |
 | **D-004** | Peer map data-grid → timestamp | S | data-grid | **done** — optional peer + peerDependenciesMeta |
 | **D-005** | Peer map doc-number → data-grid, timestamp | S | doc-number | **done** — peerDependencies present |
-| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **partial done** — 9 packages export `./testing`; migration note in upgrading.md §2.1 |
+| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **done** — 13 packages; upgrading.md §2.1 |
 | **D-007** | eristack check `--profile publish` | S | ai-dev | **done** — registry + CLI + skill + runner.test |
 | **D-008** | ai-dev publish 0.1.0 | S | ai-dev | **open** — human Changesets release (not agent-owned) |
 | **D-009** | ai-ticket-generator getting-started.md | S | ai-ticket-generator | **done** — docs + _meta.json |
@@ -130,8 +130,8 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Notes |
 | --- | --- | --- |
-| **H-001** | `@eristack/doc-transitions` presets | See roadmap/horizon.md |
-| **H-002** | `@eristack/opinion` REST canon package | horizon |
+| **H-001** | `@eristack/doc-transitions` presets | **shipped 0.1.0** — see packages/capability/doc-transitions |
+| **H-002** | `@eristack/opinion` REST canon package | **shipped 0.1.0** (core + express); OpenAPI/Nest horizon |
 | **H-003** | `@eristack/test-stores` unified memory | alternative to D-006 per-package testing |
 | **H-004** | tRPC adapter layer | horizon note only |
 
@@ -167,9 +167,9 @@ flowchart TD
 | DOC | 0 | 6 |
 | T | 0 | 5 |
 
-**Total open items:** 2 (D-008 human release, D-006 full `./testing` migration L — excluding horizon H-*)
+**Total open items:** 1 (D-008 human release only — excluding horizon H-003/H-004)
 
-**Brainstorm (`improvements.md`):** all 20 package sections shipped; remaining rows are **Horizon** (D5, Q4/Q5, H4, B7, E5, P3) or **cross-package themes** (Opinion HTTP XL, Logger L, Zod 4 M, D-006 L). K2 is ongoing maintenance.
+**Brainstorm (`improvements.md`):** all 20 package sections shipped; cross-package themes largely done (opinion, zod, testing, epoch logger partial). Remaining **Horizon** rows: D5, Q4/Q5, H4, B7, E5, P3. K2 is ongoing maintenance.
 
 When an item ships, mark `done` here with date — optional one-line in package CHANGELOG.
 

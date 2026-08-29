@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T08:18:48.701Z",
+  "generatedAt": "2026-08-29T08:40:25.978Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -16,7 +16,8 @@ export const catalog = {
         "backseat/store",
         "express",
         "nest",
-        "react"
+        "react",
+        "testing"
       ],
       "skills": [
         {
@@ -115,7 +116,8 @@ export const catalog = {
         "adapters",
         "react",
         "seeds",
-        "store"
+        "store",
+        "testing"
       ],
       "skills": [
         {
@@ -141,7 +143,9 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -176,7 +180,8 @@ export const catalog = {
         "nest",
         "react",
         "rest",
-        "testing"
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -198,6 +203,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/doc-transitions",
+      "version": "0.1.0",
+      "description": "Preset ERP document status graphs for @eristack/pbac documents.transitions()",
+      "slug": "doc-transitions",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "doc-transitions-core",
+          "name": "doc-transitions-core",
+          "packageName": "@eristack/doc-transitions",
+          "description": "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/epoch",
       "version": "0.1.2",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
@@ -208,10 +230,12 @@ export const catalog = {
         "client",
         "drizzle",
         "express",
+        "logger",
         "nest",
         "react",
         "rest",
-        "testing"
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -410,6 +434,25 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/opinion",
+      "version": "0.1.0",
+      "description": "Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions",
+      "slug": "opinion",
+      "adapters": [
+        "express"
+      ],
+      "skills": [
+        {
+          "id": "opinion-core",
+          "name": "opinion-core",
+          "packageName": "@eristack/opinion",
+          "description": "@eristack/opinion ERP HTTP route table on @eristack/rest: options, data-grid, CRUD, PATCH /:id/:action for pbac/doc-transitions. Use when scaffolding document APIs instead of inventing paths per app.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/opinion#opinion-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/pbac",
       "version": "0.2.2",
       "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
@@ -419,7 +462,8 @@ export const catalog = {
         "backseat/store",
         "express",
         "nest",
-        "react"
+        "react",
+        "testing"
       ],
       "skills": [
         {
