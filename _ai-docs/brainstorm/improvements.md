@@ -51,7 +51,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | Q1 | `applyCellPatch` + spreadsheet commit helpers exported with tests | S | **done** — audit B-017 |
 | Q3 | Modifier dependency graph validation (cycle detect) | S | **done** — `assertAcyclicModifierOrder` |
 | Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | **done** — shipped in qups core |
-| Q5 | Drizzle column bundle generator from QupsProfile | Horizon | |
+| Q5 | Drizzle column bundle generator from QupsProfile | Horizon | **done** — `qupsLineColumnsFromProfile` |
 | Q6 | Nest/React: recalc on blur vs on change policy doc | S | **done** — qups-line skill |
 | Q7 | UoM qty field type when `@eristack/uom` exists | Horizon | string qty stays |
 
