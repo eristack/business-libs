@@ -169,7 +169,7 @@ flowchart TD
 
 **Total open items:** 1 (D-008 human release only — excluding horizon H-003/H-004)
 
-**Brainstorm (`improvements.md`):** all 20 package sections shipped; cross-package themes largely done (opinion, zod, testing, epoch logger partial). Remaining **Horizon** rows: D5, Q4/Q5, H4, B7, E5, P3. K2 is ongoing maintenance.
+**Brainstorm (`improvements.md`):** all rows shipped or explicitly Horizon-only (Q5, Q7, Nest/OpenAPI opinion adapters). K2 is ongoing maintenance when new packages ship.
 
 When an item ships, mark `done` here with date — optional one-line in package CHANGELOG.
 

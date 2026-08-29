@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T08:40:25.978Z",
+  "generatedAt": "2026-08-29T08:44:42.093Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -439,7 +439,8 @@ export const catalog = {
       "description": "Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions",
       "slug": "opinion",
       "adapters": [
-        "express"
+        "express",
+        "openapi"
       ],
       "skills": [
         {
