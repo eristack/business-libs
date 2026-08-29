@@ -37,6 +37,8 @@ Use for:
 - Freight zone selection
 - Filtering partners by market
 
+**Edge case:** `isSameCountry` normalizes codes before compare — `"gb"` and `"GB"` match. Invalid codes still throw when either address is fully normalized via `normalizeAddress`.
+
 ## Region (subdivision) field
 
 `region` is optional `RegionCode` — conventionally **ISO 3166-2** (`US-CA`, `GB-ENG`, `ID-JK`).
