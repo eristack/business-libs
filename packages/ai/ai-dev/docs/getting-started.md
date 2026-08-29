@@ -46,9 +46,10 @@ pnpm eristack packages list --json
 | Profile | Includes |
 | --- | --- |
 | `catalog` | changesets, skills, knowledge, docs, ticket, exports (auto-builds if needed) |
-| `pr` | build, typecheck, test + catalog |
+| `pr` | build, typecheck, test, integration + catalog |
 | `full` | pr + lint |
 | `fast` | build, typecheck, test on **changed packages** (from git diff) |
+| `integration` | `pnpm test:integration` only (Drizzle sqlite harness) |
 
 ## MCP
 

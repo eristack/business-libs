@@ -29,7 +29,7 @@ function printHelp(): void {
 Commands:
   plan [--base main] [--json] [paths...]
       Minimal check/sync/skill plan from git diff or explicit paths.
-  check [--profile catalog|pr|full|fast] [--skip-build] [--json] [check-id...]
+  check [--profile catalog|pr|full|fast|integration] [--skip-build] [--json] [check-id...]
       Run a check profile (same as CI when --profile pr).
   ci [--base origin/main] [--full] [--json]
       PR-optimized CI: affected turbo + drift checks; full on main or --full.
@@ -39,10 +39,11 @@ Commands:
       List @eristack/* packages (canonical walker).
 
 Profiles:
-  catalog  Drift checks only (docs, knowledge, skills, ticket, exports*)
-  pr       CI gate: build + typecheck + test + catalog
-  full     pr + lint
-  fast     build/typecheck/test on changed packages (use with plan)
+  catalog      Drift checks only (docs, knowledge, skills, ticket, exports*)
+  pr           CI gate: build + typecheck + test + integration + catalog
+  full         pr + lint
+  fast         Turbo filter on changed packages (from plan)
+  integration  drizzle.integration.test.ts only (pnpm test:integration)
 
   * exports needs build — runner auto-builds when required.
 
@@ -159,7 +160,9 @@ async function cmdCi(args: string[], repoRoot: string): Promise<void> {
   for (const r of results) {
     const mark = r.ok ? "✓" : "✗";
     console.log(`${mark} ${r.id} (${r.ms}ms) — ${r.command}`);
-    if (r.error) console.log(`  ${r.error.split("\n")[0]}`);
+    if (r.error) {
+      console.error(r.error);
+    }
   }
   console.log(
     summary.ok

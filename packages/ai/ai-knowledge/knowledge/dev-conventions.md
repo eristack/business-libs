@@ -139,6 +139,19 @@ Three buckets — see repo `_ai-docs/README.md`:
 
 While implementing: WIP notes good enough to draft public docs (include skill/recipe impact). When finished: promote to package docs / site / skills / recipes; sync catalog; **delete** the WIP folder.
 
+## Drizzle integration tests (Sprint A)
+
+Production paths default to Drizzle; prove them with sqlite integration tests — not memory stores in skills.
+
+| Piece | Location |
+| --- | --- |
+| Shared sqlite helper | `@internal/test-harness` — `createTestSqliteDb`, `execSql`, `canUseBetterSqlite` |
+| Hash-chain harness | `@eristack/hash-chained-ledger/testing` — `setupHclSqlite`, tamper helpers |
+| Per-package test | `packages/<layer>/<name>/tests/drizzle.integration.test.ts` |
+| Run all | `pnpm test:integration` (root) or `pnpm eristack check --profile integration` |
+
+**Pattern:** wrap suites in `describe.skipIf(!canUseBetterSqlite())` so CI without native bindings skips cleanly. When adding a new Drizzle store, add or extend an integration test in the same PR.
+
 ## Scope discipline
 
 - Change only what the task requires

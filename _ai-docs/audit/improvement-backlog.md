@@ -24,8 +24,8 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **A-010** | financial-ledger multi-currency post + verify | M | financial-ledger | two currencies same accountId; drizzle path |
 | **A-011** | stock-movement multi-lot append + verify | M | stock-movement | uses A-002 harness; locationIdFromParts + lotId |
 | **A-012** | qups drizzle profile store round-trip | S | qups | save profile, load, calculateLine uses stored modifiers |
-| **A-013** | `pnpm test:integration` root script | S | root | Runs `**/drizzle.integration.test.ts`; wired in CI optional job |
-| **A-014** | ai-dev `--profile integration` | S | ai-dev | Runs test:integration; documented in ai-dev docs |
+| **A-013** | `pnpm test:integration` root script | S | root | **done** — runs `**/drizzle.integration.test.ts`; wired in `pr` profile + PR `eristack ci` drift |
+| **A-014** | ai-dev `--profile integration` | S | ai-dev | **done** — `pnpm eristack check --profile integration`; documented in ai-dev docs + dev-conventions |
 
 ---
 

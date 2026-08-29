@@ -1,10 +1,11 @@
 /** Check profiles — one vocabulary for local dev, CI, and MCP. */
-export type CheckProfile = "catalog" | "pr" | "full" | "fast";
+export type CheckProfile = "catalog" | "pr" | "full" | "fast" | "integration";
 
 export type CheckId =
   | "build"
   | "typecheck"
   | "test"
+  | "integration"
   | "examples"
   | "lint"
   | "exports"
@@ -50,6 +51,13 @@ export const CHECK_DEFS: CheckDef[] = [
     turboFilter: true,
     needsBuild: true,
     order: 30,
+  },
+  {
+    id: "integration",
+    label: "drizzle integration tests",
+    profiles: ["pr", "full", "integration"],
+    needsBuild: true,
+    order: 31,
   },
   {
     id: "examples",
@@ -120,12 +128,15 @@ export function checksForProfile(
   profile: CheckProfile,
   opts?: { only?: CheckId[] },
 ): CheckDef[] {
-  let defs = CHECK_DEFS.filter((d) => d.profiles.includes(profile));
   if (opts?.only?.length) {
     const set = new Set(opts.only);
-    defs = defs.filter((d) => set.has(d.id));
+    return CHECK_DEFS.filter((d) => set.has(d.id)).sort(
+      (a, b) => a.order - b.order,
+    );
   }
-  return defs.sort((a, b) => a.order - b.order);
+  return CHECK_DEFS.filter((d) => d.profiles.includes(profile)).sort(
+    (a, b) => a.order - b.order,
+  );
 }
 
 export function resolveProfile(input?: string): CheckProfile {
@@ -133,11 +144,12 @@ export function resolveProfile(input?: string): CheckProfile {
     input === "catalog" ||
     input === "pr" ||
     input === "full" ||
-    input === "fast"
+    input === "fast" ||
+    input === "integration"
   ) {
     return input;
   }
   throw new Error(
-    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast.`,
+    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration.`,
   );
 }

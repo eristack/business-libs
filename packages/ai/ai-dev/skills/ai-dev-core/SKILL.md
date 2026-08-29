@@ -28,10 +28,11 @@ sources:
 | Profile | Use |
 | --- | --- |
 | `catalog` | Drift only: docs, knowledge, skills, ticket, changesets, exports* |
-| `pr` | **Main CI** — build + typecheck + test + catalog |
+| `pr` | **Main CI** — build + typecheck + test + integration + catalog |
 | `full` | `pr` + lint |
 | `fast` | Turbo filter on changed packages (from `plan`) |
-| `ci` command | PR path: affected + drift; `--full` or `ci:full` label → `pr` |
+| `integration` | Drizzle integration tests only (`pnpm test:integration`) |
+| `ci` command | PR path: affected + drift + integration; `--full` or `ci:full` label → `pr` |
 
 ## MCP (Cursor / Claude Desktop)
 

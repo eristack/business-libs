@@ -1,6 +1,11 @@
 import { execSync } from "node:child_process";
 import type { CheckId } from "../checks/registry.js";
-import { runChecks, summarizeResults, type CheckRunResult } from "../checks/runner.js";
+import {
+  formatExecError,
+  runChecks,
+  summarizeResults,
+  type CheckRunResult,
+} from "../checks/runner.js";
 import {
   gitChangedFiles,
   planFromPaths,
@@ -143,6 +148,7 @@ function driftChecksForAffected(changed: string[]): CheckId[] {
   if (examplesChanged(changed) || hasSourceChanges(changed)) {
     checks.push("examples");
   }
+  checks.push("integration");
 
   return checks;
 }
@@ -212,13 +218,12 @@ function runCommand(
     });
     return { id, ok: true, ms: Date.now() - started, command: display };
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
     return {
       id,
       ok: false,
       ms: Date.now() - started,
       command: display,
-      error: message.slice(0, 400),
+      error: formatExecError(error),
     };
   }
 }

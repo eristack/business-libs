@@ -47,6 +47,7 @@ describe("resolveCiPlanFromChanged", () => {
     expect(plan.webBuild).toBe(false);
     expect(plan.driftChecks).toContain("examples");
     expect(plan.driftChecks).toContain("changesets");
+    expect(plan.driftChecks).toContain("integration");
   });
 
   it("affected mode builds web when apps/web changes", () => {

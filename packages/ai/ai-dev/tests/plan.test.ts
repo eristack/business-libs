@@ -39,9 +39,17 @@ describe("planFromPaths", () => {
 });
 
 describe("checksForProfile", () => {
-  it("pr includes ticket and contrast (CI parity)", () => {
+  it("pr includes ticket, contrast, and integration (CI parity)", () => {
     const ids = checksForProfile("pr").map((d) => d.id);
     expect(ids).toContain("ticket");
     expect(ids).toContain("contrast");
+    expect(ids).toContain("integration");
+  });
+
+  it("only bypasses profile filter for drift extras", () => {
+    const ids = checksForProfile("catalog", { only: ["integration"] }).map(
+      (d) => d.id,
+    );
+    expect(ids).toEqual(["integration"]);
   });
 });

@@ -5,7 +5,7 @@ import { CHECK_DEFS, checksForProfile } from "./registry.js";
 /** Max captured stdout/stderr shown when a check fails (CI log budget). */
 const EXEC_ERROR_MAX = 12_000;
 
-function formatExecError(error: unknown): string {
+export function formatExecError(error: unknown): string {
   if (!error || typeof error !== "object") {
     return String(error);
   }
@@ -93,6 +93,11 @@ function commandForCheck(
           ...filter,
         ],
         display: `turbo run test${filter.length ? " (filtered)" : ""}`,
+      };
+    case "integration":
+      return {
+        argv: ["pnpm", "test:integration"],
+        display: "pnpm test:integration",
       };
     case "examples":
       return {
