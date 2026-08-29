@@ -1,4 +1,4 @@
-import { isWallInRange, wallOf, type WallClock } from "@eristack/timestamp";
+import type { WallClock } from "@eristack/timestamp";
 import type {
   FiscalCalendarDefinition,
   FiscalDate,
@@ -13,15 +13,15 @@ export class FiscalCalendarError extends Error {
   }
 }
 
-function wallFromFiscalDate(date: FiscalDate, timezone: string): WallClock {
-  return wallOf(`${date}T00:00:00`, timezone);
+function fiscalDateOf(clock: WallClock): FiscalDate {
+  return clock.local.slice(0, 10);
 }
 
 function flattenPeriods(calendar: FiscalCalendarDefinition): FiscalPeriod[] {
   return calendar.years.flatMap((y) => y.periods);
 }
 
-/** Find the period containing a wall clock's local date. */
+/** Find the period containing a wall clock's **local calendar date**. */
 export function findPeriodForDate(
   calendar: FiscalCalendarDefinition,
   date: WallClock,
@@ -31,13 +31,8 @@ export function findPeriodForDate(
       `Date timezone ${date.timezone} does not match calendar ${calendar.timezone}`,
     );
   }
-  const localDate = date.local.slice(0, 10);
+  const localDate = fiscalDateOf(date);
   for (const period of flattenPeriods(calendar)) {
-    const start = wallFromFiscalDate(period.start, calendar.timezone);
-    const end = wallFromFiscalDate(period.end, calendar.timezone);
-    if (isWallInRange(date, start, end)) {
-      return period;
-    }
     if (localDate >= period.start && localDate <= period.end) {
       return period;
     }
@@ -67,11 +62,18 @@ export function listPeriods(
   return periods;
 }
 
-/** Build a calendar from year definitions — validates non-overlapping periods per year. */
+/** Build a calendar from year definitions — validates period bounds and non-overlap. */
 export function createFiscalCalendar(
   definition: FiscalCalendarDefinition,
 ): FiscalCalendarDefinition {
   for (const year of definition.years) {
+    for (const period of year.periods) {
+      if (period.start > period.end) {
+        throw new FiscalCalendarError(
+          `Period ${period.id}: start ${period.start} is after end ${period.end}`,
+        );
+      }
+    }
     const sorted = [...year.periods].sort((a, b) =>
       a.start.localeCompare(b.start),
     );

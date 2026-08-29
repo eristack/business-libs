@@ -36,6 +36,40 @@ const calendar = createFiscalCalendar({
 });
 
 describe("@eristack/fiscal-calendar", () => {
+  it("rejects inverted period bounds at create", () => {
+    expect(() =>
+      createFiscalCalendar({
+        id: "bad",
+        timezone: "UTC",
+        years: [
+          {
+            year: 2026,
+            periods: [
+              {
+                id: "p1",
+                fiscalYear: 2026,
+                periodNumber: 1,
+                start: "2026-02-01",
+                end: "2026-01-01",
+                status: "open",
+              },
+            ],
+          },
+        ],
+      }),
+    ).toThrow(/after end/i);
+  });
+
+  it("finds period on inclusive end boundary", () => {
+    const endDay = wallOf("2026-01-31T23:59:59", "Asia/Jakarta");
+    expect(findPeriodForDate(calendar, endDay)?.id).toBe("2026-p01");
+  });
+
+  it("returns undefined outside defined periods", () => {
+    const outside = wallOf("2026-03-01T00:00:00", "Asia/Jakarta");
+    expect(findPeriodForDate(calendar, outside)).toBeUndefined();
+  });
+
   it("finds period for wall date", () => {
     const date = wallOf("2026-01-15T10:00:00", "Asia/Jakarta");
     expect(findPeriodForDate(calendar, date)?.id).toBe("2026-p01");

@@ -1,6 +1,10 @@
 # Gotchas
 
-## Timezone mismatch
+## Date vs time-of-day
+
+`findPeriodForDate` matches the wall clock's **local calendar date** (`YYYY-MM-DD`), not time-of-day. A posting at `2026-01-31T23:59:59` belongs to January even though it is late in the day — fiscal periods are whole-day boundaries.
+
+`createFiscalCalendar` rejects **start > end** and **overlapping** periods in the same fiscal year at bootstrap — fail fast before posting guards run in production.
 
 `findPeriodForDate` throws if `date.timezone !== calendar.timezone`. Always build wall clocks with the calendar's IANA zone:
 
