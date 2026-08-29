@@ -27,6 +27,20 @@ assertPeriodOpen(period);
 
 Message includes period id and `fiscalYear-P{periodNumber}` for support logs.
 
+## Posting date out of range
+
+When `findPeriodForDate` returns **`undefined`**, the wall date falls in a **gap** between defined periods or outside the calendar entirely. Treat as a business error — do not default to the nearest period:
+
+```ts
+const period = findPeriodForDate(calendar, postingWall);
+if (!period) {
+  return { status: 400, body: jsonError("BUSINESS_POLICY_DENIED", "No fiscal period for posting date") };
+}
+assertPeriodOpen(period);
+```
+
+Gap detection is why `createFiscalCalendar` rejects overlapping periods but **allows gaps** — apps may run 4-4-5 calendars with deliberate spacing during year-end setup.
+
 ## listPeriods filters
 
 ```ts
