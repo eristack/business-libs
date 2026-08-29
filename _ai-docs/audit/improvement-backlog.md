@@ -12,17 +12,17 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **A-001** | Shared drizzle-sqlite test harness | M | infra | `internal/test-harness` with migrate helper; documented in dev-conventions; consumed by ≥1 package test |
-| **A-002** | HCL `createDrizzleLedgerStore` integration test | M | hash-chained-ledger | append ×3, snapshot, verify pass; tamper hash → verify fails |
-| **A-003** | data-grid `executeDrizzleList` integration test | M | data-grid | sqlite orders fixture; eq, between wall, decimal gte, sort, cursor, count |
-| **A-004** | data-grid `buildDrizzleQuery` unit+SQL snapshot | S | data-grid | Generated SQL matches fixture for 3 filter combos |
+| **A-001** | Shared drizzle-sqlite test harness | M | infra | **done** — `@internal/test-harness`; dev-conventions § Drizzle integration tests |
+| **A-002** | HCL `createDrizzleLedgerStore` integration test | M | hash-chained-ledger | **done** — `drizzle.integration.test.ts` |
+| **A-003** | data-grid `executeDrizzleList` integration test | M | data-grid | **done** — eq, wall between, decimal gte, sort |
+| **A-004** | data-grid `buildDrizzleQuery` unit+SQL snapshot | S | data-grid | **done** — `build-drizzle-query.test.ts` (3 combos) |
 | **A-005** | valuations all 9 methods parametric tests | L | valuations | fifo,lifo,fefo,hifo,lofo,movingAverage,weightedAverage,standardCost,specificIdentification each have ≥1 consume case |
-| **A-006** | valuations drizzle layer store test | M | valuations | createDrizzleLayerStore append + FIFO consume against sqlite |
-| **A-007** | doc-number scoped sequence concurrency test | M | doc-number | two parallel `next()` same scope → unique SEQ; timezone boundary if scope uses {YYYY} |
-| **A-008** | rbac drizzle store assignRole + can() | S | rbac | integration test green |
-| **A-009** | epoch drizzle bump + bumpMany | S | epoch | sqlite store; bumpMany updates all listed scopes |
-| **A-010** | financial-ledger multi-currency post + verify | M | financial-ledger | two currencies same accountId; drizzle path |
-| **A-011** | stock-movement multi-lot append + verify | M | stock-movement | uses A-002 harness; locationIdFromParts + lotId |
+| **A-006** | valuations drizzle layer store test | M | valuations | **done** — `drizzle.integration.test.ts` (FIFO path) |
+| **A-007** | doc-number scoped sequence concurrency test | M | doc-number | **done** — parallel `next()` ×10 unique SEQ |
+| **A-008** | rbac drizzle store assignRole + can() | S | rbac | **done** — `drizzle.integration.test.ts` |
+| **A-009** | epoch drizzle bump + bumpMany | S | epoch | **done** — `drizzle.integration.test.ts` |
+| **A-010** | financial-ledger multi-currency post + verify | M | financial-ledger | **done** — `drizzle.integration.test.ts` |
+| **A-011** | stock-movement multi-lot append + verify | M | stock-movement | **done** — `drizzle.integration.test.ts` (skipIf no native sqlite) |
 | **A-012** | qups drizzle profile store round-trip | S | qups | save profile, load, calculateLine uses stored modifiers |
 | **A-013** | `pnpm test:integration` root script | S | root | **done** — runs `**/drizzle.integration.test.ts`; wired in `pr` profile + PR `eristack ci` drift |
 | **A-014** | ai-dev `--profile integration` | S | ai-dev | **done** — `pnpm eristack check --profile integration`; documented in ai-dev docs + dev-conventions |
@@ -33,9 +33,9 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **B-001** | Recipe schema `canonicalSkills: string[]` | M | ai-knowledge | recipes.yaml validated; ≥3 ERP recipes use field |
-| **B-002** | `loadPlan()` merges canonicalSkills | M | ai-knowledge | document-lines-erp plan includes ai-knowledge skill id; test added |
-| **B-003** | Trim recommend-eristack catalog embed | S | ai-knowledge | SKILL.md ≤100 lines; points to generated catalog / sync |
+| **B-001** | Recipe schema `canonicalSkills: string[]` | M | ai-knowledge | **done** — recipes.yaml + sync validates |
+| **B-002** | `loadPlan()` merges canonicalSkills | M | ai-knowledge | **done** — recommend.test + ERP recipes |
+| **B-003** | Trim recommend-eristack catalog embed | S | ai-knowledge | **done** — SKILL.md 94 lines |
 | **B-004** | jwt-auth-adapters → 1 source | M | jwt-auth | **done** — wiring-production.md |
 | **B-005** | doc-number-adapters → 1 source | M | doc-number | **done** — wiring-production.md |
 | **B-006** | money-adapters → 1–2 sources | M | money | **done** — wiring-production.md; core skills trimmed to getting-started |
@@ -47,7 +47,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **B-012** | skills:validate max sources rule | S | root | **done** — fails CI when >3 sources without ticket.yaml override |
 | **B-013** | Fill stub adapter skills (rbac,pbac,stock,epoch,fin,val) | M | service/capability | **done** — express/nest snippets in adapter skills |
 | **B-014** | hash-chained-ledger-core skill sources block | S | hash-chained-ledger | **done** — sources → getting-started.md |
-| **B-015** | Fix recommend.test expected catalog (ai-dev) | S | ai-knowledge | test green after ai-dev in catalog |
+| **B-015** | Fix recommend.test expected catalog (ai-dev) | S | ai-knowledge | **done** — ai-dev in generated catalog |
 | **B-016** | CI mirror hash knowledge ↔ docs | M | ai-knowledge | **done** — check-knowledge-docs-mirror.mjs in sync:check |
 | **B-017** | qups-line skill embed applyCellPatch | S | qups | **done** — body documents API without opening docs |
 | **B-018** | timestamp-core skill decision tree | S | timestamp | **done** — wall vs instant in skill body |
