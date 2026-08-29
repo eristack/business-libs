@@ -6,6 +6,33 @@ import {
 } from "../src/index.js";
 
 describe("createDocumentRoutes", () => {
+  it("emits all seven roles when every handler supplied", () => {
+    const noop = async () => ({ status: 204 });
+    const routes = createDocumentRoutes({
+      basePath: "/products/",
+      handlers: {
+        options: noop,
+        list: noop,
+        read: noop,
+        create: noop,
+        replace: noop,
+        transition: noop,
+        delete: noop,
+      },
+    });
+    expect(routes).toHaveLength(7);
+    expect(routes.find((r) => r.path === "/products/options")).toBeTruthy();
+    expect(routes.find((r) => r.path === "/products/data-grid")).toBeTruthy();
+  });
+
+  it("normalizes trailing slash on basePath", () => {
+    const routes = createDocumentRoutes({
+      basePath: "/warehouses/",
+      handlers: { read: async () => ({ status: 200, body: {} }) },
+    });
+    expect(routes[0]?.path).toBe("/warehouses/:id");
+  });
+
   it("emits canonical paths for supplied handlers", async () => {
     const routes = createDocumentRoutes({
       basePath: "/invoices",

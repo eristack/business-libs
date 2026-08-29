@@ -12,7 +12,7 @@ Routes without handlers are **not registered**. Clients calling unimplemented ro
 
 ## Duplicate base paths
 
-Two `createDocumentRoutes` with same `basePath` merge in one router — last handler wins per role. Use one routes array per resource.
+`basePath` may include a trailing slash — paths normalize to `/invoices/data-grid`, not `/invoices//data-grid`. — last handler wins per role. Use one routes array per resource.
 
 ## Money and qty in JSON
 
