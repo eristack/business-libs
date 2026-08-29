@@ -12,6 +12,10 @@ import {
 } from "../src/index.js";
 
 describe("@eristack/percent", () => {
+  it("minusPercent at 100 percent zeroes amount", () => {
+    expect(minusPercent("250", parsePercent("100%"))).toBe("0");
+  });
+
   it("addPercents sums ratios", () => {
     const combined = addPercents(parsePercent("5%"), parsePercent("2%"));
     expect(combined.ratio).toBe("0.07");

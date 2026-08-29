@@ -17,7 +17,10 @@ Gross-up and discount base:
 ```ts
 plusPercent("100", parsePercent("10%"));  // "110" — add 10%
 minusPercent("100", parsePercent("10%")); // "90"  — subtract 10%
+minusPercent("250", parsePercent("100%")); // "0"   — full write-off of base
 ```
+
+`minusPercent` at **100%** zeroes the base string — use before wrapping in `@eristack/money` for credit memos.
 
 ## addPercents
 
