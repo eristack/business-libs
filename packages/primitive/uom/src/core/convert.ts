@@ -1,13 +1,7 @@
 import Decimal from "decimal.js";
+import { UomConversionError } from "./errors.js";
 import { assertKnownUom } from "./registry.js";
 import type { UomCode, UomQuantity } from "./types.js";
-
-export class UomConversionError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "UomConversionError";
-  }
-}
 
 function parseAmount(amount: string): Decimal {
   const trimmed = amount.trim();

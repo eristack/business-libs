@@ -1,4 +1,5 @@
 import { BUILTIN_UOM } from "./catalog.js";
+import { UomConversionError } from "./errors.js";
 import type { UomDefinition, UomCode } from "./types.js";
 
 let registry = new Map<string, UomDefinition>(

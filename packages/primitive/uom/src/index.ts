@@ -1,4 +1,5 @@
 export { BUILTIN_UOM } from "./core/catalog.js";
+export { UomConversionError } from "./core/errors.js";
 export {
   convertUom,
   sameDimension,
