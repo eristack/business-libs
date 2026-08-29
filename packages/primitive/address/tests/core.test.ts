@@ -7,6 +7,15 @@ import {
 } from "../src/index.js";
 
 describe("@eristack/address", () => {
+  it("rejects empty line1 and locality", () => {
+    expect(() =>
+      normalizeAddress({ line1: "  ", locality: "Jakarta", countryCode: "ID" }),
+    ).toThrow(/line1/i);
+    expect(() =>
+      normalizeAddress({ line1: "Jl. 1", locality: "", countryCode: "ID" }),
+    ).toThrow(/locality/i);
+  });
+
   it("normalizes country code to uppercase", () => {
     expect(normalizeCountryCode("id")).toBe("ID");
   });

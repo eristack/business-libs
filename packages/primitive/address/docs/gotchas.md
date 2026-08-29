@@ -28,7 +28,9 @@ Order is fixed: line1, line2, locality, region, postalCode, country. Japanese or
 
 Two normalize-identical addresses are still two rows — dedupe keys (hash of normalized JSON) are app-owned.
 
-## Geocoding and deliverability
+## Required fields after trim
+
+`normalizeAddress` throws **`AddressParseError`** when `line1` or `locality` is empty or whitespace-only after trim — validate before Drizzle insert. and deliverability
 
 Invalid street names pass through. Shipping integration validates elsewhere — do not assume normalize implies mailable.
 

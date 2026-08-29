@@ -18,12 +18,20 @@ export function normalizeCountryCode(code: string): CountryCode {
   return upper;
 }
 
-/** Trim strings and normalize country code. */
+/** Trim strings, normalize country code, reject empty required fields. */
 export function normalizeAddress(input: PostalAddress): PostalAddress {
+  const line1 = input.line1.trim();
+  const locality = input.locality.trim();
+  if (!line1) {
+    throw new AddressParseError("Address line1 is required");
+  }
+  if (!locality) {
+    throw new AddressParseError("Address locality is required");
+  }
   return {
-    line1: input.line1.trim(),
+    line1,
     line2: input.line2?.trim() || undefined,
-    locality: input.locality.trim(),
+    locality,
     region: input.region?.trim() || undefined,
     postalCode: input.postalCode?.trim() || undefined,
     countryCode: normalizeCountryCode(input.countryCode),
