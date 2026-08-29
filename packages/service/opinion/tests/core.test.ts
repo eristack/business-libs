@@ -72,6 +72,17 @@ describe("createDocumentRoutes", () => {
     }
   });
 
+  it("returns 404 for unmatched paths", async () => {
+    const router = createOpinionRouter({
+      routes: createDocumentRoutes({
+        basePath: "/items",
+        handlers: { read: async () => ({ status: 200, body: {} }) },
+      }),
+    });
+    const result = await router.dispatch({ method: "GET", path: "/items" });
+    expect(result.matched).toBe(false);
+  });
+
   it("documents seven canonical roles", () => {
     expect(DOCUMENT_ROUTE_SPECS).toHaveLength(7);
   });
