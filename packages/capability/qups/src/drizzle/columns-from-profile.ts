@@ -34,5 +34,17 @@ export function qupsLineColumnsFromProfile(
   dialect: DrizzleDialect,
   hints?: QupsProfileColumnHints,
 ) {
-  return qupsLineColumns(dialect, qupsLineColumnOptionsFromProfile(hints));
+  const options = qupsLineColumnOptionsFromProfile(hints);
+  switch (dialect) {
+    case "pgsql":
+      return qupsLineColumns("pgsql", options);
+    case "mysql":
+      return qupsLineColumns("mysql", options);
+    case "sqlite":
+      return qupsLineColumns("sqlite", options);
+    default: {
+      const _exhaustive: never = dialect;
+      throw new Error(`Unsupported dialect: ${String(_exhaustive)}`);
+    }
+  }
 }
