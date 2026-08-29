@@ -1,0 +1,10 @@
+package: "@eristack/address"
+title: address
+maintainers:
+  - support@eristack.dev
+scope: >
+  PostalAddress normalize/format, ISO alpha-2 country codes, Zod schemas.
+outOfScope: >
+  Geocoding, validation against postal authority APIs, partner master tables.
+skills:
+  - address-core
