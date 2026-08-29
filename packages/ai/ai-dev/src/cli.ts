@@ -44,7 +44,7 @@ Profiles:
   full         pr + lint
   fast         Turbo filter on changed packages (from plan)
   integration  drizzle.integration.test.ts only (pnpm test:integration)
-  examples     example apps typecheck only (pnpm --filter './examples/*')
+  examples     example apps build (pnpm --filter './examples/*' build)
 
   * exports needs build — runner auto-builds when required.
 

@@ -101,8 +101,8 @@ function commandForCheck(
       };
     case "examples":
       return {
-        argv: ["pnpm", "--filter", "./examples/*", "run", "typecheck"],
-        display: "pnpm --filter './examples/*' run typecheck",
+        argv: ["pnpm", "--filter", "./examples/*", "run", "build"],
+        display: "pnpm --filter './examples/*' run build",
       };
     case "lint":
       return {

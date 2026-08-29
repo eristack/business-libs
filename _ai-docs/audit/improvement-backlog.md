@@ -62,10 +62,10 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **C-002** | README maps to document-lines-erp sections | S | examples | numbered section parity |
 | **C-003** | Optimistic version 409 demo in horizon-a | M | examples | PATCH stale version → 409 JSON |
 | **C-004** | Nest data-grid drizzle list sample | M | examples/nestjs | **done** — `GET /orders` + executeDrizzleList |
-| **C-005** | Examples build in CI | S | root | `pnpm --filter './examples/*' build` in workflow |
+| **C-005** | Examples build in CI | S | root | **done** — examples `build` script + `pr` profile runs build |
 | **C-006** | eristack check `--profile examples` | S | ai-dev | **done** — `pnpm eristack check --profile examples` |
 | **C-007** | backseat seed pack v1 JSON | M | backseat | **done** — `horizon-a-v1.json` + `loadHorizonASeedV1()` |
-| **C-008** | jwt-auth express supertest E2E | M | jwt-auth | login + refresh + revoke one file |
+| **C-008** | jwt-auth express supertest E2E | M | jwt-auth | **done** — express.e2e.test.ts login/refresh/revoke |
 | **C-009** | multitab React provider smoke test | S | multitab | **done** — SSR render + missing-provider guard |
 | **C-010** | epoch + TanStack Query demo in horizon-a | M | examples | list refetch on stale epoch |
 

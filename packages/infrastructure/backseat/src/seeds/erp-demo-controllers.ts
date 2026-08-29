@@ -8,7 +8,15 @@ export function registerErpDemoControllers(api: Backseat): void {
     path: "/purchase-orders/:id/submit",
     name: "purchaseOrders.submit",
     handler: async (ctx) => {
-      const po = await ctx.store.get("purchaseOrders", ctx.params.id);
+      const id = ctx.params.id;
+      if (!id) {
+        return jsonError({
+          status: 400,
+          code: BackseatErrorCodes.VALIDATION_ERROR,
+          message: "id is required",
+        });
+      }
+      const po = await ctx.store.get("purchaseOrders", id);
       if (!po) {
         return jsonError({
           status: 404,
@@ -23,7 +31,7 @@ export function registerErpDemoControllers(api: Backseat): void {
           message: "Purchase order must be draft to submit",
         });
       }
-      const updated = await ctx.store.update("purchaseOrders", ctx.params.id, {
+      const updated = await ctx.store.update("purchaseOrders", id, {
         status: "submitted",
         submittedAt: new Date().toISOString(),
       });
@@ -36,7 +44,15 @@ export function registerErpDemoControllers(api: Backseat): void {
     path: "/purchase-orders/:id/approve",
     name: "purchaseOrders.approve",
     handler: async (ctx) => {
-      const po = await ctx.store.get("purchaseOrders", ctx.params.id);
+      const id = ctx.params.id;
+      if (!id) {
+        return jsonError({
+          status: 400,
+          code: BackseatErrorCodes.VALIDATION_ERROR,
+          message: "id is required",
+        });
+      }
+      const po = await ctx.store.get("purchaseOrders", id);
       if (!po) {
         return jsonError({
           status: 404,
@@ -52,7 +68,7 @@ export function registerErpDemoControllers(api: Backseat): void {
         });
       }
       const { note } = ctx.json<{ note?: string }>();
-      const updated = await ctx.store.update("purchaseOrders", ctx.params.id, {
+      const updated = await ctx.store.update("purchaseOrders", id, {
         status: "approved",
         approvedAt: new Date().toISOString(),
         ...(note ? { approvedNote: note } : {}),
