@@ -28,6 +28,8 @@ const PACKAGES = [
   "packages/service/pbac",
   "packages/service/hash-chained-ledger",
   "packages/infrastructure/backseat",
+  "packages/infrastructure/logger",
+  "packages/infrastructure/rest",
   "packages/ui/multitab",
   "packages/ai/ai-knowledge",
   "packages/ai/ai-workflow",

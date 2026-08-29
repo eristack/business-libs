@@ -32,6 +32,7 @@ sources:
 | `full` | `pr` + lint |
 | `fast` | Turbo filter on changed packages (from `plan`) |
 | `integration` | Drizzle integration tests only (`pnpm test:integration`) |
+| `examples` | Example apps typecheck only (`pnpm --filter './examples/*'`) |
 | `ci` command | PR path: affected + drift + integration; `--full` or `ci:full` label → `pr` |
 
 ## MCP (Cursor / Claude Desktop)

@@ -52,4 +52,9 @@ describe("checksForProfile", () => {
     );
     expect(ids).toEqual(["integration"]);
   });
+
+  it("examples profile runs example apps only", () => {
+    const ids = checksForProfile("examples").map((d) => d.id);
+    expect(ids).toEqual(["examples"]);
+  });
 });

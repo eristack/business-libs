@@ -13,6 +13,7 @@
   "dependencies": {
     "@eristack/data-grid": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
+    "@eristack/logger": "workspace:*",
     "@eristack/money": "workspace:*",
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",

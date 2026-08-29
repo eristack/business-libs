@@ -1,5 +1,11 @@
 /** Check profiles — one vocabulary for local dev, CI, and MCP. */
-export type CheckProfile = "catalog" | "pr" | "full" | "fast" | "integration";
+export type CheckProfile =
+  | "catalog"
+  | "pr"
+  | "full"
+  | "fast"
+  | "integration"
+  | "examples";
 
 export type CheckId =
   | "build"
@@ -62,7 +68,7 @@ export const CHECK_DEFS: CheckDef[] = [
   {
     id: "examples",
     label: "example apps typecheck",
-    profiles: ["pr", "full"],
+    profiles: ["pr", "full", "examples"],
     order: 32,
   },
   {
@@ -145,11 +151,12 @@ export function resolveProfile(input?: string): CheckProfile {
     input === "pr" ||
     input === "full" ||
     input === "fast" ||
-    input === "integration"
+    input === "integration" ||
+    input === "examples"
   ) {
     return input;
   }
   throw new Error(
-    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration.`,
+    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration | examples.`,
   );
 }
