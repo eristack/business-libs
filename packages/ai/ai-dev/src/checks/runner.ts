@@ -2,6 +2,31 @@ import { execSync } from "node:child_process";
 import type { CheckDef, CheckId, CheckProfile } from "./registry.js";
 import { CHECK_DEFS, checksForProfile } from "./registry.js";
 
+/** Max captured stdout/stderr shown when a check fails (CI log budget). */
+const EXEC_ERROR_MAX = 12_000;
+
+function formatExecError(error: unknown): string {
+  if (!error || typeof error !== "object") {
+    return String(error);
+  }
+  const e = error as {
+    message?: string;
+    stdout?: string | Buffer;
+    stderr?: string | Buffer;
+    status?: number | null;
+  };
+  const chunks: string[] = [];
+  const stderr = e.stderr?.toString().trim();
+  const stdout = e.stdout?.toString().trim();
+  if (stderr) chunks.push(stderr);
+  if (stdout) chunks.push(stdout);
+  if (chunks.length === 0 && e.message) chunks.push(e.message);
+  if (e.status != null && e.status !== 0) {
+    chunks.push(`exit ${e.status}`);
+  }
+  return chunks.join("\n").slice(0, EXEC_ERROR_MAX);
+}
+
 export type CheckRunResult = {
   id: CheckId;
   ok: boolean;
@@ -32,17 +57,41 @@ function commandForCheck(
   switch (def.id) {
     case "build":
       return {
-        argv: ["pnpm", "exec", "turbo", "run", "build", ...filter],
+        argv: [
+          "pnpm",
+          "exec",
+          "turbo",
+          "run",
+          "build",
+          "--output-logs=errors-only",
+          ...filter,
+        ],
         display: `turbo run build${filter.length ? " (filtered)" : ""}`,
       };
     case "typecheck":
       return {
-        argv: ["pnpm", "exec", "turbo", "run", "typecheck", ...filter],
+        argv: [
+          "pnpm",
+          "exec",
+          "turbo",
+          "run",
+          "typecheck",
+          "--output-logs=errors-only",
+          ...filter,
+        ],
         display: `turbo run typecheck${filter.length ? " (filtered)" : ""}`,
       };
     case "test":
       return {
-        argv: ["pnpm", "exec", "turbo", "run", "test", ...filter],
+        argv: [
+          "pnpm",
+          "exec",
+          "turbo",
+          "run",
+          "test",
+          "--output-logs=errors-only",
+          ...filter,
+        ],
         display: `turbo run test${filter.length ? " (filtered)" : ""}`,
       };
     case "examples":
@@ -121,13 +170,12 @@ function runOne(
       command: display,
     };
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
     return {
       id: def.id,
       ok: false,
       ms: Date.now() - started,
       command: display,
-      error: message.slice(0, 400),
+      error: formatExecError(error),
     };
   }
 }

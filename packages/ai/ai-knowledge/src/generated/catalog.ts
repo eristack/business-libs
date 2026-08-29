@@ -4,7 +4,11 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
+<<<<<<< Updated upstream
   "generatedAt": "2026-08-29T04:06:40.168Z",
+=======
+  "generatedAt": "2026-08-29T04:54:26.476Z",
+>>>>>>> Stashed changes
   "packages": [
     {
       "name": "@eristack/abac",

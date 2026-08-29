@@ -115,7 +115,9 @@ async function cmdCheck(args: string[], repoRoot: string): Promise<void> {
   for (const r of results) {
     const mark = r.ok ? "✓" : "✗";
     console.log(`${mark} ${r.id} (${r.ms}ms) — ${r.command}`);
-    if (r.error) console.log(`  ${r.error.split("\n")[0]}`);
+    if (r.error) {
+      console.error(r.error);
+    }
   }
   console.log(
     summary.ok
