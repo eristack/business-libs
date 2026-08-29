@@ -1,5 +1,11 @@
 # @eristack/valuations
 
+## 0.2.3
+
+### Patch Changes
+
+- FEFO receive requires `expiresAt`. Add `./testing` export for memory layer store.
+
 ## 0.2.2
 
 ### Patch Changes

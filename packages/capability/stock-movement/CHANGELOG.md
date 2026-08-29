@@ -1,5 +1,11 @@
 # @eristack/stock-movement
 
+## 0.1.2
+
+### Patch Changes
+
+- Move `@eristack/hash-chained-ledger` to peerDependencies.
+
 ## 0.1.1
 
 ### Patch Changes

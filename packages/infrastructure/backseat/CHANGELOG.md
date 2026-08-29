@@ -1,5 +1,11 @@
 # @eristack/backseat
 
+## 0.1.4
+
+### Patch Changes
+
+- Export `register-helpers` from `./adapters` (`normalizeBasePath`, `validationError`, `registerMountedRoutes`, `jsonError` re-exports).
+
 ## 0.1.3
 
 ### Patch Changes
