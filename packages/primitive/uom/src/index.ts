@@ -3,7 +3,6 @@ export {
   convertUom,
   sameDimension,
   uomQty,
-  UomConversionError,
 } from "./core/convert.js";
 export {
   assertKnownUom,

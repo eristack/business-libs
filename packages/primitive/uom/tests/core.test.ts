@@ -3,11 +3,16 @@ import {
   convertUom,
   registerUomDefinitions,
   resetUomRegistry,
+  sameDimension,
   uomQty,
   UomConversionError,
 } from "../src/index.js";
 
 describe("@eristack/uom", () => {
+  it("sameDimension throws for unknown unit codes", () => {
+    expect(() => sameDimension("kg", "unknown")).toThrow(UomConversionError);
+  });
+
   it("converts zero quantity", () => {
     expect(convertUom(uomQty("0", "kg"), "g")).toEqual({ amount: "0", unit: "g" });
   });

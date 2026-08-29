@@ -27,6 +27,6 @@ export function listUomDefinitions(): readonly UomDefinition[] {
 
 export function assertKnownUom(code: UomCode): UomDefinition {
   const def = getUomDefinition(code);
-  if (!def) throw new Error(`Unknown UOM code "${code}"`);
+  if (!def) throw new UomConversionError(`Unknown UOM code "${code}"`);
   return def;
 }
