@@ -20,6 +20,7 @@ export default defineConfig({
   clean: true,
   external: [
     "@eristack/backseat",
+    "@eristack/rest",
     "@eristack/backseat/store",
     "@eristack/backseat/adapters",
     "@eristack/data-grid",

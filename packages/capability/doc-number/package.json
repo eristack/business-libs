@@ -207,6 +207,7 @@
     "vitest": "^4.1.10",
     "@eristack/backseat": "workspace:*",
     "@eristack/data-grid": "workspace:*",
+    "@eristack/rest": "workspace:*",
     "@internal/test-harness": "workspace:*",
     "@eristack/timestamp": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",
