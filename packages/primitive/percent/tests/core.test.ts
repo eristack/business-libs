@@ -4,11 +4,24 @@ import {
   minusPercent,
   parsePercent,
   percentOf,
+  PercentParseError,
   plusPercent,
   toBasisPoints,
 } from "../src/index.js";
 
 describe("@eristack/percent", () => {
+  it("rejects empty and malformed percent strings", () => {
+    expect(() => parsePercent("")).toThrow(/empty/i);
+    expect(() => parsePercent("%")).toThrow(PercentParseError);
+    expect(() => parsePercent("abc%")).toThrow(PercentParseError);
+    expect(() => parsePercent("-5%")).toThrow(/negative/i);
+  });
+
+  it("parses zero percent", () => {
+    expect(parsePercent("0%").ratio).toBe("0");
+    expect(percentOf("100", parsePercent("0%"))).toBe("0");
+  });
+
   it("parses percent symbol and basis points", () => {
     expect(parsePercent("11%").ratio).toBe("0.11");
     expect(fromBasisPoints("1100").ratio).toBe("0.11");

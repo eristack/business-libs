@@ -15,15 +15,24 @@ function normalizeRatio(ratio: Decimal): Percent {
   return { ratio: ratio.toFixed() };
 }
 
-/** Parse "11%", "0.11", or basis points "1100" (11.00%). */
+/** Parse "11%", "0.11", or basis points via PercentInput. */
 export function parsePercent(input: PercentInput | string): Percent {
   if (typeof input === "string") {
     const trimmed = input.trim();
-    if (trimmed.endsWith("%")) {
-      const n = trimmed.slice(0, -1).trim();
-      return normalizeRatio(new Decimal(n).div(100));
+    if (!trimmed) {
+      throw new PercentParseError("Percent input cannot be empty");
     }
-    return normalizeRatio(new Decimal(trimmed));
+    try {
+      if (trimmed.endsWith("%")) {
+        const n = trimmed.slice(0, -1).trim();
+        if (!n) throw new PercentParseError('Percent symbol missing value before "%"');
+        return normalizeRatio(new Decimal(n).div(100));
+      }
+      return normalizeRatio(new Decimal(trimmed));
+    } catch (err) {
+      if (err instanceof PercentParseError) throw err;
+      throw new PercentParseError(`Invalid percent "${input}"`);
+    }
   }
   switch (input.kind) {
     case "ratio":

@@ -15,7 +15,9 @@ percentOf("100", parsePercent("11%"));  // correct
 
 `addPercents` is not compound tax (11% + 5% on top of taxed amount). Implement compound rules in app.
 
-## Float literals
+## Empty and malformed input
+
+`parsePercent("")`, `parsePercent("%")`, and `parsePercent("abc%")` throw **`PercentParseError`** with a clear message — not raw Decimal errors.
 
 ```ts
 parsePercent(0.11); // wrong type — use string
