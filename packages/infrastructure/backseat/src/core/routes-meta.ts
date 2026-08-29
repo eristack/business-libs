@@ -62,3 +62,66 @@ export function buildRoutesSnapshot(
 export function formatRoutesSnapshot(snapshot: RoutesSnapshot): string {
   return JSON.stringify(snapshot, null, 2);
 }
+
+export type RouteDiffKind = "added" | "removed" | "changed";
+
+export type RouteDiffEntry = {
+  kind: RouteDiffKind;
+  method: HttpMethod;
+  path: string;
+  before?: RegisteredRouteMeta;
+  after?: RegisteredRouteMeta;
+};
+
+function routeKey(route: RegisteredRouteMeta): string {
+  return `${route.method} ${route.fullPath}`;
+}
+
+/** Diff two route snapshots (Horizon A → B or devtools export). */
+export function diffRoutesSnapshots(
+  before: RoutesSnapshot,
+  after: RoutesSnapshot,
+): RouteDiffEntry[] {
+  const beforeMap = new Map(before.routes.map((r) => [routeKey(r), r]));
+  const afterMap = new Map(after.routes.map((r) => [routeKey(r), r]));
+  const keys = new Set([...beforeMap.keys(), ...afterMap.keys()]);
+  const diffs: RouteDiffEntry[] = [];
+
+  for (const key of [...keys].sort()) {
+    const prev = beforeMap.get(key);
+    const next = afterMap.get(key);
+    if (prev && !next) {
+      diffs.push({
+        kind: "removed",
+        method: prev.method,
+        path: prev.fullPath,
+        before: prev,
+      });
+      continue;
+    }
+    if (!prev && next) {
+      diffs.push({
+        kind: "added",
+        method: next.method,
+        path: next.fullPath,
+        after: next,
+      });
+      continue;
+    }
+    if (prev && next) {
+      const changed =
+        prev.name !== next.name || prev.collection !== next.collection;
+      if (changed) {
+        diffs.push({
+          kind: "changed",
+          method: prev.method,
+          path: prev.fullPath,
+          before: prev,
+          after: next,
+        });
+      }
+    }
+  }
+
+  return diffs;
+}
