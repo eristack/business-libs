@@ -144,6 +144,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | G1 | `executeDrizzleList` sqlite harness test | M | **done** — audit A-003 |
+| G2 | `type: wall` filter ops documented with timestamp | S | **done** — getting-started |
+| G3 | `executeBackseatList` parity with drizzle envelope | M | backseat lists |
+| G4 | Saved view serialize/deserialize JSON schema | M | UI candidate |
 | G5 | Decimal string compare ops export for apps | S | **done** — `@eristack/money` M1 |
 | G6 | Cursor pagination stability doc (tie-breaker column) | S | |
 | G7 | Nest ParseDataGridPipe edge cases test | S | |
