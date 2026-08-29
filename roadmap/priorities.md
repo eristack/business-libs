@@ -27,7 +27,7 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | --- | --- |
 | M1 | `createBackseat`, memory/IndexedDB store, CRUD + custom routes/actions ✓ |
 | M2 | Devtools panel, seed packs, snapshot export ✓ (devtools + basic seed) |
-| M3 | Richer demo flows (document list → edit → status action) — no shared REST contract yet |
+| M3 | Richer demo flows (document list → edit → status action) — `createErpDemoBackseat()` ✓ |
 
 **Non-goals:** production auth, replacing Drizzle, server deploy, vertical ERP modules.
 

@@ -66,7 +66,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **C-006** | eristack check `--profile examples` | S | ai-dev | includes example builds |
 | **C-007** | backseat seed pack v1 JSON | M | backseat | checked in; horizon-a loads it |
 | **C-008** | jwt-auth express supertest E2E | M | jwt-auth | login + refresh + revoke one file |
-| **C-009** | multitab React provider smoke test | S | multitab | @testing-library/react render |
+| **C-009** | multitab React provider smoke test | S | multitab | **done** — SSR render + missing-provider guard |
 | **C-010** | epoch + TanStack Query demo in horizon-a | M | examples | list refetch on stale epoch |
 
 ---

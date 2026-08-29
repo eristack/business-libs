@@ -87,6 +87,7 @@
     "@types/node": "^22.15.29",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "^4.1.10"

@@ -42,9 +42,19 @@ Frontend-first **fake backend** in the browser — store + router + **your** con
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, REST bridge helpers |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore()` — **browser default** |
 | `@eristack/backseat/react` | Provider, hooks, `BackseatDevtools` |
-| `@eristack/backseat/seeds` | `createErpDemoSnapshot()` |
+| `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `createErpDemoSnapshot()` |
 
 ## Default wiring
+
+```ts
+import { createErpDemoBackseat } from "@eristack/backseat/seeds";
+
+const api = createErpDemoBackseat(); // memory in tests; IndexedDB in browser
+await api.reseed();
+// POST /api/purchase-orders/:id/submit | approve registered
+```
+
+Or wire manually:
 
 ```ts
 const api = createBackseat({

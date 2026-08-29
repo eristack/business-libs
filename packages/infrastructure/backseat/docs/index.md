@@ -36,7 +36,7 @@ Do **not** use it for production auth, server validation, or deployed persistenc
 | `@eristack/backseat` | `createBackseat`, memory store, types, CRUD helpers, context utilities |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore` — **browser prototype default** |
 | `@eristack/backseat/react` | Provider, Query hooks, `<BackseatDevtools />` |
-| `@eristack/backseat/seeds` | `createErpDemoSnapshot()` — partners, products, sample jobs |
+| `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `registerErpDemoControllers()`, `createErpDemoSnapshot()` |
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, `asDate`, `asNullableDate`, `toRestLikeRequest` — **required by spine `./backseat` packages** |
 
 ## Mental model
@@ -51,6 +51,30 @@ Do **not** use it for production auth, server validation, or deployed persistenc
 | **Devtools** | UI to insert, delete, reset, re-seed without writing SQL |
 
 CRUD collections are **shortcuts**. Complex ERP logic uses `registerRoute` and `registerAction`.
+
+## Demo factory (M3)
+
+For list → edit → status-action prototypes without wiring controllers yourself:
+
+```ts
+import { createErpDemoBackseat } from "@eristack/backseat/seeds";
+
+export const api = createErpDemoBackseat();
+await api.reseed();
+
+// CRUD
+const drafts = await api.handlers.purchaseOrders.list({ where: { status: "draft" } });
+
+// Workflow
+await api.handle({ method: "POST", path: "/api/purchase-orders/po-1002/submit", body: {} });
+await api.handle({
+  method: "POST",
+  path: "/api/purchase-orders/po-1002/approve",
+  body: { note: "OK" },
+});
+```
+
+Browser apps: pass `store: createIndexedDbBackseatStore({ dbName: "demo-erp" })`.
 
 ## Minimal example
 

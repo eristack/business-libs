@@ -64,6 +64,20 @@ export const erpDemoSnapshot: BackseatSnapshot = {
         },
       ],
     },
+    {
+      id: "po-1002",
+      docNumber: "PO-1002",
+      status: "draft",
+      partnerId: "partner-acme",
+      currency: "USD",
+      lines: [
+        {
+          itemId: "prod-setup",
+          quantity: "1",
+          unitPrice: "150.00",
+        },
+      ],
+    },
   ],
 };
 
