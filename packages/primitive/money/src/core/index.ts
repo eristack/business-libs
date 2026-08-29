@@ -60,6 +60,8 @@ export {
   Conversion,
   CurrencyConversion,
   exchangeRate,
+  isExchangeRateStale,
+  rateAsOfInstant,
   convertAtQuotePerBase,
   type ExchangeRate,
   type ExchangeRateInput,

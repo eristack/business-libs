@@ -103,6 +103,14 @@ const [a, b, c] = Money.of("10.00", "USD").allocate(3);
 
 Plain division drops remainder cents; `allocate` / `allocateByRatios` always sum back to the original.
 
+```ts
+const [a, b, c] = Money.of("10.00", "USD").allocate(3);
+// remainder cent goes to earliest parts — a + b + c === original
+
+const [x, y] = Money.of("100.00", "USD").allocateByRatios([1, 2]);
+// 33.33 + 66.67 style splits without drift
+```
+
 Source: packages/primitive/money/docs/allocate.md
 
 ### HIGH Expect library to fetch FX rates

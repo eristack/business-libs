@@ -47,4 +47,14 @@ app.post("/invoices", (req, res) => {
 - `readTimestampField(body, field)` — one key from a body object
 - `sendTimestamp(ts)` — `serializeTimestamp`
 
+## Wall query params (list filters)
+
+```ts
+import { readWallQueryParam } from "@eristack/timestamp/express";
+
+const etdFrom = readWallQueryParam(req.query, "etdFrom", "Asia/Jakarta");
+```
+
+Never parse wall `local` strings with `new Date()` — use `compareWall` / `sortWallClocks` from core.
+
 Never duplicate validation in route handlers — import from `/express` or `/rest` only.
