@@ -130,7 +130,7 @@ export const packageCategories = [
     href: "/features",
     tagline: "Vertical modules — reserved. Long construction ahead.",
     description:
-      "Layer 06 holds future @eristack/feature-* packages: cohesive document families on top of the spine. Nothing is scheduled here until ledgers, Backseat document demos, logger/rest, and multitab are boring. Apps compose qups, pbac, doc-number, and friends today — this floor is scaffolding only.",
+      "Layer 06 holds future @eristack/feature-* packages: cohesive document families on top of the spine. Logger, REST, Backseat, and multitab are alpha — apps compose qups, pbac, doc-number, and friends today; this floor is scaffolding only.",
     highlights: [
       {
         title: "Spine first",
@@ -837,6 +837,84 @@ function Shell() {
     </button>
   ))
 }`,
+    },
+  },
+  {
+    slug: "logger",
+    name: "@eristack/logger",
+    title: "Logger",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/logger",
+    href: "/logger",
+    docsHref: "/docs/logger",
+    tagline: "JSON-lines logging with request context.",
+    description:
+      "Structured server logging: one JSON object per line, injectable requestId/userId/tenantId, Express middleware and Nest interceptor for Vercel-friendly drains.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/logger",
+    highlights: [
+      {
+        title: "Log drains",
+        body: "One event per line — works with Vercel and platform aggregators.",
+      },
+      {
+        title: "Request scope",
+        body: "Child loggers merge requestId, userId, tenantId on every HTTP event.",
+      },
+      {
+        title: "Express + Nest",
+        body: "Middleware or global interceptor — same JSON shape.",
+      },
+    ],
+    sample: {
+      filename: "logger.ts",
+      language: "ts",
+      code: `import { createLogger } from "@eristack/logger"
+import { createLoggerMiddleware } from "@eristack/logger/express"
+
+const log = createLogger({ name: "api" })
+app.use(createLoggerMiddleware({ logger: log }))`,
+    },
+  },
+  {
+    slug: "rest",
+    name: "@eristack/rest",
+    title: "REST",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/rest",
+    href: "/rest",
+    docsHref: "/docs/rest",
+    tagline: "Declarative HTTP routes as data.",
+    description:
+      "Define REST handlers as route tables, mount on Express or Nest, emit minimal OpenAPI 3.1 paths — compose with jwt-auth guards and data-grid list actions in apps.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rest",
+    highlights: [
+      {
+        title: "Routes as data",
+        body: "defineRoutes([...]) — same table for Express and Nest.",
+      },
+      {
+        title: "OpenAPI emit",
+        body: "toOpenApiDocument(routes) for codegen and docs.",
+      },
+      {
+        title: "Thin handlers",
+        body: "Delegate to Drizzle stores and spine packages — no framework in core.",
+      },
+    ],
+    sample: {
+      filename: "routes.ts",
+      language: "ts",
+      code: `import { defineRoutes, toOpenApiDocument } from "@eristack/rest"
+
+export const api = defineRoutes([
+  {
+    method: "GET",
+    path: "/health",
+    handler: () => ({ status: 200, body: { ok: true } }),
+  },
+])`,
     },
   },
   {

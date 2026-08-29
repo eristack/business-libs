@@ -18,21 +18,23 @@ describe("catalog", () => {
         "@eristack/ai-dev",
         "@eristack/ai-ticket-generator",
         "@eristack/ai-workflow",
+        "@eristack/backseat",
         "@eristack/data-grid",
         "@eristack/doc-number",
         "@eristack/epoch",
         "@eristack/financial-ledger",
         "@eristack/hash-chained-ledger",
         "@eristack/jwt-auth",
+        "@eristack/logger",
         "@eristack/money",
+        "@eristack/multitab",
         "@eristack/pbac",
         "@eristack/qups",
         "@eristack/rbac",
+        "@eristack/rest",
         "@eristack/stock-movement",
         "@eristack/timestamp",
         "@eristack/valuations",
-        "@eristack/backseat",
-        "@eristack/multitab",
       ].sort(),
     );
     expect(listSkills().length).toBeGreaterThanOrEqual(6);
@@ -93,6 +95,69 @@ describe("recommend", () => {
     const result = recommend(["sort unit price list", "decimal column filter"]);
     expect(
       result.matches.some((m) => m.recipe.id === "data-grid-lists"),
+    ).toBe(true);
+  });
+
+  it("routes applyCellPatch language to line-pricing-qups", () => {
+    const result = recommend(["applyCellPatch spreadsheet line"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "line-pricing-qups"),
+    ).toBe(true);
+  });
+
+  it("routes store atomic writes to backseat mock backend", () => {
+    const result = recommend(["store atomic multi collection"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "backseat-mock-backend"),
+    ).toBe(true);
+  });
+
+  it("routes wall date filters to data-grid-lists", () => {
+    const result = recommend(["wall date filter list"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "data-grid-lists"),
+    ).toBe(true);
+  });
+
+  it("routes compareDecimalStrings to data-grid-lists", () => {
+    const result = recommend(["compareDecimalStrings money column"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "data-grid-lists"),
+    ).toBe(true);
+  });
+
+  it("routes bumpMany to epoch-cache-invalidation", () => {
+    const result = recommend(["bumpMany epoch scopes"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "epoch-cache-invalidation"),
+    ).toBe(true);
+  });
+
+  it("routes documents.transitions to access-control-stack", () => {
+    const result = recommend(["documents.transitions status action"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "access-control-stack"),
+    ).toBe(true);
+  });
+
+  it("routes assignmentPairMatch to access-control-stack", () => {
+    const result = recommend(["assignmentPairMatch role policy"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "access-control-stack"),
+    ).toBe(true);
+  });
+
+  it("routes structured logging to structured-logging recipe", () => {
+    const result = recommend(["json log drain request id"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "structured-logging"),
+    ).toBe(true);
+  });
+
+  it("routes declarative REST to declarative-rest-routes recipe", () => {
+    const result = recommend(["declarative rest express routes"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "declarative-rest-routes"),
     ).toBe(true);
   });
 });
