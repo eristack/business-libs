@@ -2,6 +2,7 @@ export {
   createRestRouter,
   defineRoutes,
   toOpenApiDocument,
+  mergeOpenApiDocuments,
   type HttpMethod,
   type OpenApiDocument,
   type OpenApiEmitOptions,
