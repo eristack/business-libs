@@ -14,6 +14,7 @@
     "@eristack/data-grid": "workspace:*",
     "@eristack/epoch": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
+    "@eristack/doc-transitions": "workspace:*",
     "@eristack/pbac": "workspace:*",
     "@eristack/qups": "workspace:*",
     "@tanstack/react-query": "catalog:",

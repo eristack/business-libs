@@ -1,0 +1,65 @@
+{
+  "name": "@eristack/doc-transitions",
+  "version": "0.1.0",
+  "description": "Preset ERP document status graphs for @eristack/pbac documents.transitions()",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/capability/doc-transitions"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/capability/doc-transitions",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "pbac",
+    "document",
+    "status",
+    "workflow",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@eristack/pbac": "^0.2.0"
+  },
+  "devDependencies": {
+    "@eristack/pbac": "workspace:*",
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}

@@ -60,6 +60,8 @@ export {
   Conversion,
   CurrencyConversion,
   exchangeRate,
+  isExchangeRateStale,
+  rateAsOfInstant,
   convertAtQuotePerBase,
   type ExchangeRate,
   type ExchangeRateInput,
@@ -72,3 +74,8 @@ export {
 } from "./serialize/json.js";
 
 export { Monetary } from "./monetary.js";
+
+export {
+  compareDecimalStrings,
+  parseDecimalFilter,
+} from "./decimal/index.js";

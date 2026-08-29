@@ -12,6 +12,7 @@ export default defineConfig({
     "src/nest/index.ts",
     "src/client/index.ts",
     "src/react/index.ts",
+    "src/zod/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,
@@ -39,5 +40,6 @@ export default defineConfig({
     "@tanstack/react-form",
     "reflect-metadata",
     "rxjs",
+    "zod",
   ],
 });

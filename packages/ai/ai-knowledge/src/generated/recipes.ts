@@ -484,7 +484,7 @@ export const recipes = [
       "atomic transaction backseat",
       "listroutes"
     ],
-    "rationale": "Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps.",
+    "rationale": "Browser prototypes: load @eristack/ai-knowledge#upgrading-eristack and read knowledge/upgrading.md §3 only (full spine matrix, bootstrap, peers). @eristack/backseat engine + eleven ./backseat adapters. Optional peer ^0.1.0. Not production — Drizzle + HTTP for real apps. Alpha infra — see repo roadmap/horizon.md.",
     "packages": [
       {
         "name": "@eristack/backseat",
@@ -698,7 +698,7 @@ export const recipes = [
       "open in tab",
       "browser tabs erp"
     ],
-    "rationale": "Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs, /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard, and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns tab bar UI and keyboard shortcuts.",
+    "rationale": "Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs, /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard, and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns tab bar UI and keyboard shortcuts. Alpha infra — see repo roadmap/horizon.md.",
     "packages": [
       {
         "name": "@eristack/multitab",
@@ -722,7 +722,7 @@ export const recipes = [
       "vercel logs",
       "log drain"
     ],
-    "rationale": "Use @eristack/logger for JSON-lines server logging with injectable requestId, userId, and tenantId context. Express: createLoggerMiddleware. Nest: LoggerModule.forRoot + LoggingInterceptor.",
+    "rationale": "Use @eristack/logger for JSON-lines server logging with injectable requestId, userId, and tenantId context. Express: createLoggerMiddleware. Nest: LoggerModule.forRoot + LoggingInterceptor. Alpha infra — see repo roadmap/horizon.md.",
     "packages": [
       {
         "name": "@eristack/logger",
@@ -810,6 +810,186 @@ export const recipes = [
           "jwt-auth-core"
         ],
         "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "document-status-transitions",
+    "title": "Preset ERP document status graphs",
+    "priority": 14,
+    "triggers": [
+      "status transition",
+      "publication workflow",
+      "journal post void",
+      "document status preset",
+      "doc-transitions",
+      "publicationgraph",
+      "journalgraph"
+    ],
+    "rationale": "Load @eristack/doc-transitions#doc-transitions-core for preset status graphs wired to @eristack/pbac documents.transitions() — not copy-paste tables.",
+    "packages": [
+      {
+        "name": "@eristack/doc-transitions",
+        "skills": [
+          "doc-transitions-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/pbac",
+        "skills": [
+          "pbac-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "opinion-http",
+    "title": "Opinionated ERP HTTP document routes",
+    "priority": 15,
+    "triggers": [
+      "opinion http",
+      "patch action route",
+      "erp rest canon",
+      "document api scaffold",
+      "patch /:id/:action"
+    ],
+    "rationale": "Use @eristack/opinion for the canonical document REST map (options, data-grid, CRUD, PATCH /:id/:action) mounted via @eristack/rest.",
+    "packages": [
+      {
+        "name": "@eristack/opinion",
+        "skills": [
+          "opinion-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/rest",
+        "skills": [
+          "rest-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/doc-transitions",
+        "skills": [
+          "doc-transitions-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "uom-quantity-conversion",
+    "title": "Unit of measure conversion for inventory qty",
+    "priority": 16,
+    "triggers": [
+      "uom",
+      "unit of measure",
+      "convert kg",
+      "inventory uom",
+      "stock uom",
+      "receive uom",
+      "alternate uom"
+    ],
+    "rationale": "Load @eristack/uom#uom-core for string qty + fixed-ratio conversion (kg/g/L/pcs) before qups or stock-movement — not float math or hand-rolled factors.",
+    "packages": [
+      {
+        "name": "@eristack/uom",
+        "skills": [
+          "uom-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "percent-rates-basis-points",
+    "title": "Tax and discount rates as ratios or basis points",
+    "priority": 17,
+    "triggers": [
+      "basis points",
+      "bps",
+      "tax rate",
+      "vat rate",
+      "discount rate",
+      "markup rate",
+      "ratio string"
+    ],
+    "rationale": "Load @eristack/percent#percent-core for ratio/bps parsing and percentOf on strings; round with @eristack/money at ledger boundaries.",
+    "packages": [
+      {
+        "name": "@eristack/percent",
+        "skills": [
+          "percent-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-amounts"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "fiscal-period-posting",
+    "title": "Fiscal period open/closed for journal dates",
+    "priority": 18,
+    "triggers": [
+      "fiscal period",
+      "fiscal year",
+      "period close",
+      "posting period",
+      "closed period"
+    ],
+    "rationale": "Load @eristack/fiscal-calendar#fiscal-calendar-core for findPeriodForDate and assertPeriodOpen on @eristack/timestamp wall dates — pair with doc-transitions lockGraph.",
+    "packages": [
+      {
+        "name": "@eristack/fiscal-calendar",
+        "skills": [
+          "fiscal-calendar-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/timestamp",
+        "skills": [
+          "timestamp-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/doc-transitions",
+        "skills": [
+          "doc-transitions-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "postal-address-normalize",
+    "title": "Normalize and format postal addresses",
+    "priority": 19,
+    "triggers": [
+      "address",
+      "postal address",
+      "shipping address",
+      "country code",
+      "partner address"
+    ],
+    "rationale": "Load @eristack/address#address-core for PostalAddress normalize/format and ISO country codes — app owns partner tables and geocoding.",
+    "packages": [
+      {
+        "name": "@eristack/address",
+        "skills": [
+          "address-core"
+        ],
+        "role": "primary"
       }
     ]
   },

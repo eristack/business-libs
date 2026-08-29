@@ -20,6 +20,18 @@ export function compareWall(a: WallClock, b: WallClock): -1 | 0 | 1 {
   ) as -1 | 0 | 1;
 }
 
+/** Alias for list/filter docs — same as {@link compareWall}. */
+export const compareWallDates = compareWall;
+
+/** Stable sort of wall clocks in one IANA zone (throws if zones differ). */
+export function sortWallClocks(
+  values: readonly WallClock[],
+  dir: "asc" | "desc" = "asc",
+): WallClock[] {
+  const sorted = [...values].sort((a, b) => compareWall(a, b));
+  return dir === "desc" ? sorted.reverse() : sorted;
+}
+
 /** Inclusive range check — start and end must share `w.timezone`. */
 export function isWallInRange(
   w: WallClock,

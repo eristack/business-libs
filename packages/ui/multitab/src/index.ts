@@ -59,10 +59,19 @@ export {
   isWorkspaceEmpty,
 } from "./core/workspace.js";
 export {
-  createTabWorkspace,
-  type TabWorkspace,
-} from "./core/create-workspace.js";
+  loadMultitabFromSessionStorage,
+  saveMultitabToSessionStorage,
+} from "./core/session-storage.js";
 export {
   createConfirmBeforeClose,
   type ConfirmBeforeCloseOptions,
 } from "./core/before-close.js";
+export {
+  DEFAULT_MULTITAB_SHORTCUTS,
+  type MultitabShortcutAction,
+  type MultitabShortcutBinding,
+} from "./core/shortcuts.js";
+export {
+  createTabWorkspace,
+  type TabWorkspace,
+} from "./core/create-workspace.js";

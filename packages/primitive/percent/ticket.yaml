@@ -1,0 +1,11 @@
+package: "@eristack/percent"
+title: percent
+maintainers:
+  - support@eristack.dev
+scope: >
+  Percent ratios as strings, basis points parse/format, percentOf/plus/minus on decimal
+  strings, Zod 4 schemas.
+outOfScope: >
+  Currency rounding (use @eristack/money), compound statutory tax rules, float rate literals.
+skills:
+  - percent-core

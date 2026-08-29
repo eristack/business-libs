@@ -12,6 +12,8 @@ export default defineConfig({
     "src/react/index.ts",
     "src/backseat/index.ts",
     "src/backseat/store/index.ts",
+    "src/zod/index.ts",
+    "src/logger/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,
@@ -32,5 +34,6 @@ export default defineConfig({
     "react",
     "reflect-metadata",
     "rxjs",
+    "zod",
   ],
 });

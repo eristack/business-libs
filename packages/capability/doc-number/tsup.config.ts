@@ -12,6 +12,7 @@ export default defineConfig({
     "src/nest/index.ts",
     "src/client/index.ts",
     "src/react/index.ts",
+    "src/zod/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,
@@ -19,6 +20,7 @@ export default defineConfig({
   clean: true,
   external: [
     "@eristack/backseat",
+    "@eristack/rest",
     "@eristack/backseat/store",
     "@eristack/backseat/adapters",
     "@eristack/data-grid",
@@ -35,5 +37,6 @@ export default defineConfig({
     "@tanstack/react-form",
     "reflect-metadata",
     "rxjs",
+    "zod",
   ],
 });

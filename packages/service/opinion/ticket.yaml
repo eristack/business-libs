@@ -1,0 +1,11 @@
+package: "@eristack/opinion"
+title: opinion
+maintainers:
+  - support@eristack.dev
+scope: >
+  Opinionated ERP HTTP route table (options, data-grid, CRUD, PATCH /:id/:action)
+  built on @eristack/rest.
+outOfScope: >
+  Owning domain tables, OpenAPI emitters, Nest mount helper.
+skills:
+  - opinion-core

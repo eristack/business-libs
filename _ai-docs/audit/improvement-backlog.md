@@ -80,7 +80,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **D-003** | Peer map jwt-auth → data-grid | S | jwt-auth | **done** — peerDependencies + docs |
 | **D-004** | Peer map data-grid → timestamp | S | data-grid | **done** — optional peer + peerDependenciesMeta |
 | **D-005** | Peer map doc-number → data-grid, timestamp | S | doc-number | **done** — peerDependencies present |
-| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **partial done** — 7 packages export `./testing`; migration note in upgrading.md §2.1 |
+| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **done** — 13 packages; upgrading.md §2.1 |
 | **D-007** | eristack check `--profile publish` | S | ai-dev | **done** — registry + CLI + skill + runner.test |
 | **D-008** | ai-dev publish 0.1.0 | S | ai-dev | **open** — human Changesets release (not agent-owned) |
 | **D-009** | ai-ticket-generator getting-started.md | S | ai-ticket-generator | **done** — docs + _meta.json |
@@ -120,7 +120,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | --- | --- | --- | --- |
 | **T-001** | runChecks unit tests | M | **done** — runner.test.ts profile order |
 | **T-002** | MCP dev_plan snapshot test | S | **done** — mcp.test.ts server construct |
-| **T-003** | sync command integration test | S | **open** — deferred (plan.test covers sync hints) |
+| **T-003** | sync command integration test | S | **done** — `packages/ai/ai-dev/tests/sync.test.ts` |
 | **T-004** | money express/nest smoke tests | S | **done** — express.smoke.test.ts |
 | **T-005** | pbac express 409 test | S | **done** — express.e2e.test.ts + backseat.errors.test.ts |
 
@@ -130,8 +130,8 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Notes |
 | --- | --- | --- |
-| **H-001** | `@eristack/doc-transitions` presets | See roadmap/horizon.md |
-| **H-002** | `@eristack/opinion` REST canon package | horizon |
+| **H-001** | `@eristack/doc-transitions` presets | **shipped 0.1.0** — see packages/capability/doc-transitions |
+| **H-002** | `@eristack/opinion` REST canon package | **shipped 0.1.0** (core + express); OpenAPI/Nest horizon |
 | **H-003** | `@eristack/test-stores` unified memory | alternative to D-006 per-package testing |
 | **H-004** | tRPC adapter layer | horizon note only |
 
@@ -165,9 +165,11 @@ flowchart TD
 | D | 2 | 8 |
 | X | 0 | 6 |
 | DOC | 0 | 6 |
-| T | 1 | 4 |
+| T | 0 | 5 |
 
-**Total open items:** 3 (D-008 human release, D-006 full migration L, T-003 sync integration test — excluding horizon H-*)
+**Total open items:** 1 (D-008 human release only — excluding horizon H-003/H-004)
+
+**Brainstorm (`improvements.md`):** all rows shipped or explicitly Horizon-only (Q5, Q7, Nest/OpenAPI opinion adapters). K2 is ongoing maintenance when new packages ship.
 
 When an item ships, mark `done` here with date — optional one-line in package CHANGELOG.
 

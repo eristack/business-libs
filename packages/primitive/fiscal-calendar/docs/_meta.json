@@ -1,0 +1,48 @@
+{
+  "title": "@eristack/fiscal-calendar",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "periods-and-status",
+    "zod",
+    "gotchas",
+    "recipes",
+    "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "periods-and-status"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "zod"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "gotchas"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes",
+        "api-reference"
+      ]
+    }
+  ]
+}

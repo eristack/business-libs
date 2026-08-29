@@ -71,8 +71,27 @@ Several packages export memory stores and sqlite helpers on **`./testing`** — 
 | `@eristack/rbac/testing` | memory RBAC store |
 | `@eristack/epoch/testing` | memory epoch store |
 | `@eristack/valuations/testing` | memory layer helpers |
+| `@eristack/financial-ledger/testing` | memory ledger re-exports |
+| `@eristack/stock-movement/testing` | memory store helpers |
+| `@eristack/backseat/testing` | `createMemoryBackseatStore` |
+| `@eristack/abac/testing` | `createAbac`, policy fixture harness |
+| `@eristack/pbac/testing` | `createPbac`, transition table validators |
+| `@eristack/data-grid/testing` | `executeInMemoryList` (Vitest list helper) |
 
 Prefer **`./drizzle`** in apps; use **`./testing`** only in Vitest. Main package exports stay production-facing — migration from deep test imports is incremental (D-006).
+
+### 2.2 Zod 4 subpaths
+
+| Package | `./zod` exports (examples) |
+| --- | --- |
+| `@eristack/money/zod` | money JSON + form schemas |
+| `@eristack/timestamp/zod` | instant/wall JSON schemas |
+| `@eristack/jwt-auth/zod` | login/register/refresh bodies |
+| `@eristack/doc-number/zod` | register/update format bodies |
+| `@eristack/data-grid/zod` | search params + saved view JSON |
+| `@eristack/epoch/zod` | scope, bump body, cache-policy query |
+
+Optional peer **`zod@^4`** — import `./zod` only when validating HTTP/forms.
 
 ## 3. Backseat release train (what changed)
 

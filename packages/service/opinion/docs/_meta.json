@@ -1,0 +1,36 @@
+{
+  "title": "@eristack/opinion",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "route-map",
+    "adapters-express-nest",
+    "openapi-compose",
+    "errors-and-epoch",
+    "gotchas",
+    "recipes",
+    "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": ["index", "getting-started"]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "route-map",
+        "adapters-express-nest",
+        "openapi-compose",
+        "errors-and-epoch",
+        "gotchas"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": ["recipes", "api-reference"]
+    }
+  ]
+}

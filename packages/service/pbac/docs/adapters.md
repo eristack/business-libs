@@ -72,13 +72,13 @@ Pair with auth + RBAC (+ ABAC) guards in a defined order.
 ```ts
 import { useBusinessPolicy } from "@eristack/pbac/react";
 
-const { allowed, loading, decision } = useBusinessPolicy({
+const { allowed, loading, reason } = useBusinessPolicy({
   pbac,
   policyId: "purchase-order.can-receive",
   input: { document: po },
 });
 
-// Disable "Receive" when !allowed; show decision.reason
+// Disable "Receive" when !allowed; show `reason` in tooltip or inline alert
 ```
 
 UI hints only — server enforces with 409.

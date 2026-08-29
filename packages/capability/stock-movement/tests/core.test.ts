@@ -112,4 +112,60 @@ describe("stock-movement", () => {
     expect(snap1?.balance).toBe("10");
     expect(snap2?.balance).toBe("20");
   });
+
+  it("appendStockTransfer moves qty between locations", async () => {
+    const { appendStockTransfer, snapshotLotBalance } = await import(
+      "../src/core/transfer.js"
+    );
+    const stock = createStockMovement({ store: createMemoryLedgerStore() });
+    await stock.append({
+      locationId: "loc-x",
+      lotId: "L1",
+      openingBalance: "0",
+      inAmount: "100",
+      entryType: "receipt",
+      entryTypeId: "seed",
+    });
+    await appendStockTransfer(stock, {
+      qty: "30",
+      from: { locationId: "loc-x", lotId: "L1" },
+      to: { locationId: "loc-y", lotId: "L1" },
+      entryType: "transfer",
+      entryTypeId: "t1",
+      transferId: "xfer-1",
+    });
+    expect(
+      await snapshotLotBalance(stock, { locationId: "loc-x", lotId: "L1" }),
+    ).toBe("70");
+    expect(
+      await snapshotLotBalance(stock, { locationId: "loc-y", lotId: "L1" }),
+    ).toBe("30");
+  });
+
+  it("ten sequential appends on the same chain remain verifiable", async () => {
+    const stock = createStockMovement({ store: createMemoryLedgerStore() });
+    const locationId = "loc-concurrent";
+    await stock.append({
+      locationId,
+      lotId: "L1",
+      openingBalance: "0",
+      inAmount: "1000",
+      entryType: "receipt",
+      entryTypeId: "open",
+    });
+
+    for (let i = 0; i < 10; i++) {
+      await stock.append({
+        locationId,
+        lotId: "L1",
+        outAmount: "1",
+        entryType: "issue",
+        entryTypeId: `gi-${i}`,
+      });
+    }
+
+    const snap = await stock.snapshot({ locationId, lotId: "L1" });
+    expect(snap?.balance).toBe("990");
+    expect((await stock.verify({ locationId, lotId: "L1" })).ok).toBe(true);
+  });
 });

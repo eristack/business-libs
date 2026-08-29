@@ -66,6 +66,8 @@ const grid = createDataGrid(orderGridSchema);
 
 Field flags:
 
+| `type: "wall"` | Use with `@eristack/timestamp` — filter ops `eq`, `between`, `gte`, `lte`; values are wall `local` strings + schema `timezone` (never `Date` math). See [timestamp wall adapter](../../primitive/timestamp/docs/wall.md). |
+
 | Flag | Meaning |
 | --- | --- |
 | `filterable` | Allowed in `advanced` filter clauses (default treated as off when false) |
@@ -116,6 +118,17 @@ Sessions for one user, formats for one entity — load the rows, then let core p
 const rows = await store.listSessions(subject);
 const result = grid.applyInMemory(rows, query);
 // result.items / result.pageInfo / result.query
+```
+
+Use `executeInMemoryList` from **`@eristack/data-grid/testing`** (Vitest) when you want the same helper shape as Drizzle/Backseat executors. Persist UI saved views with `serializeSavedView` / `parseSavedView` (JSON with normalized `query`).
+
+```ts
+import { executeInMemoryList } from "@eristack/data-grid/testing";
+import { serializeSavedView, parseSavedView } from "@eristack/data-grid";
+
+const list = executeInMemoryList({ schema, items: rows, query });
+const blob = serializeSavedView({ id: "v1", name: "Open", query: grid.parse(/* … */) });
+const view = parseSavedView(blob, schema);
 ```
 
 ### Backseat / IndexedDB lists (Horizon A)
@@ -211,3 +224,9 @@ A full domain example (customers → orders → lines, with sums) lives in `exam
 - [Querying](./querying.md) — every operator and pagination mode
 - [URL & TanStack Router](./url-search.md) — keep list state in the URL
 - [Database](./database.md) — projections and aggregates
+
+## Zod 4
+
+```ts
+import { dataGridSearchParamsSchema, savedViewJsonSchema } from "@eristack/data-grid/zod";
+```

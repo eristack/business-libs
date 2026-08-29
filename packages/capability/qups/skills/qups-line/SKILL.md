@@ -32,3 +32,15 @@ applyCellPatch(line, "unitPrice", "12"); // spreadsheet cell commit → patchLin
 patchLine(line, { unitPrice: nextValue }); // TanStack Form onChange
 withQupsColumns({ itemId }, line);         // BE insert payload
 ```
+
+## Recalc: blur vs onChange
+
+| Trigger | Use when | API |
+| --- | --- | --- |
+| **onChange** | Spreadsheet / live grid — every cell edit recalculates immediately | `patchLine(line, { field: value })` on TanStack Form `onChange` |
+| **onBlur** | Heavy lines (many modifiers) — recalc when user leaves the field | Store draft string locally; call `patchLine` in `onBlur` only |
+| **Commit row** | Batch paste / import | `applyCellPatch` then single `patchLine` before save |
+
+Keep **one** truth mode per screen (`quantity+unitPrice` vs `quantity+lineTotal`). Do not mix blur-only and onChange on the same field — users will see stale totals until blur.
+
+Server insert always uses the last committed line object (`withQupsColumns`), not in-flight draft strings.

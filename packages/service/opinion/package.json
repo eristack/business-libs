@@ -1,0 +1,109 @@
+{
+  "name": "@eristack/opinion",
+  "version": "0.1.0",
+  "description": "Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/service/opinion"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/service/opinion",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./express": {
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
+    },
+    "./openapi": {
+      "import": {
+        "types": "./dist/openapi/index.d.ts",
+        "default": "./dist/openapi/index.js"
+      },
+      "require": {
+        "types": "./dist/openapi/index.d.ts",
+        "default": "./dist/openapi/index.cjs"
+      }
+    },
+    "./nest": {
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "rest",
+    "erp",
+    "express",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@eristack/pbac": "^0.2.0",
+    "@eristack/rest": "^0.1.0",
+    "express": "^4.0.0 || ^5.0.0",
+    "@nestjs/common": "^10.0.0 || ^11.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    },
+    "@nestjs/common": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eristack/pbac": "workspace:*",
+    "@eristack/rest": "workspace:*",
+    "@tanstack/intent": "^0.3.6",
+    "@nestjs/common": "^11.0.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.15.29",
+    "express": "^5.1.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}

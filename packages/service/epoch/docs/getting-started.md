@@ -40,6 +40,16 @@ const { policy, current } = await epoch.resolveCachePolicy("orders", clientEpoch
 await epoch.bump("orders", { expected: 4 }); // throws StaleEpochError if current !== 4
 ```
 
+### Stale logging + Zod
+
+```ts
+import { withEpochStaleLogging } from "@eristack/epoch";
+import { loggerToEpochSink } from "@eristack/epoch/logger";
+import { bumpEpochBodySchema } from "@eristack/epoch/zod";
+```
+
+Wrap `createEpoch` with `withEpochStaleLogging` when you want structured logs on `refetch` decisions.
+
 ## Drizzle (production default)
 
 ```ts
@@ -162,3 +172,12 @@ Use stable opaque keys your app owns:
 - Tenant-scoped: `"tenant:abc:orders"`
 
 Keep scopes coarse enough to avoid bump storms, fine enough to limit refetch blast radius.
+
+## Stale policy naming (client)
+
+| Server `policy` | Meaning | Client action |
+| --- | --- | --- |
+| `use-cache` | `clientEpoch === current` | Serve TanStack Query cache |
+| `refetch` | Client behind server epoch | `invalidateQueries` for that scope |
+
+Name scopes after **cache partitions**, not routes (`orders`, not `/api/orders/list`). Pair list + detail queries on the same scope; bump once per successful mutation batch.

@@ -28,6 +28,8 @@ pnpm eristack-workflow search "refresh token rotation"
 
 Expect ≤8 compact hits. Follow up by opening paths or using MCP `read_chunk`.
 
+Pair with **`pnpm eristack plan --json`** (`@eristack/ai-dev`) when you know which files changed — workflow search finds prose; `plan` returns checks, skills, and `nextBrainstormItem`.
+
 ## First sprint
 
 ```bash

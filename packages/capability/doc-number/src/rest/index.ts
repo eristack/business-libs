@@ -20,3 +20,8 @@ export type {
   RestResponse,
   UpdateFormatBody,
 } from "./types.js";
+export {
+  docNumberFormatOpenApiDocument,
+  docNumberFormatOpenApiRoutes,
+  type DocNumberFormatOpenApiPaths,
+} from "./openapi.js";

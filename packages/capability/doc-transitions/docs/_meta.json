@@ -1,0 +1,34 @@
+{
+  "title": "@eristack/doc-transitions",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "presets-reference",
+    "wiring-pbac",
+    "wiring-http",
+    "gotchas",
+    "recipes",
+    "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": ["index", "getting-started"]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "presets-reference",
+        "wiring-pbac",
+        "wiring-http",
+        "gotchas"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": ["recipes", "api-reference"]
+    }
+  ]
+}

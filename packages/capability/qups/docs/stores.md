@@ -80,6 +80,8 @@ Canonical SQL name list: `QUPS_LINE_SQL_COLUMNS` export from `@eristack/qups/dri
 Breaking change for apps that spread an older `qupsLineColumns` with per-field
 `currency_*` TEXT columns.
 
+**Profile-driven columns:** `qupsLineColumnsFromProfile("pgsql", { trackPosition: true })` maps storage hints to `qupsLineColumns` options.
+
 | Old SQL | New SQL |
 | --- | --- |
 | `currency_unit_price`, `currency_subtotal`, `currency_tax`, … | `currency` (one column; verify old values matched) |

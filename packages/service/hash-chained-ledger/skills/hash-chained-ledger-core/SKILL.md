@@ -24,3 +24,18 @@ await ledger.verify(chainId);
 ```
 
 Do **not** default to `createMemoryLedgerStore` in apps (Vercel-unsafe).
+
+## Testing / tamper recipes
+
+```ts
+import {
+  createMemoryLedgerStore,
+  tamperHclClosingBalance,
+} from "@eristack/hash-chained-ledger/testing";
+
+const store = createMemoryLedgerStore();
+// … append entries …
+await tamperHclClosingBalance(store, chainId, 0, "999"); // verify must fail
+```
+
+Batch appends should share one DB transaction in production — see [hashing.md](../docs/hashing.md) § batch semantics.

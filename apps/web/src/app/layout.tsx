@@ -60,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
+        suppressHydrationWarning
         className={`${sans.variable} ${display.variable} ${mono.variable} min-h-screen font-sans antialiased`}
       >
         <Script id="eristack-theme-init" strategy="beforeInteractive">

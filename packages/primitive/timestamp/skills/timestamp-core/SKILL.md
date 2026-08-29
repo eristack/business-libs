@@ -52,7 +52,7 @@ compareInstant(a, b);
 import { wallOf, wallToInstantOnce } from "@eristack/timestamp";
 
 const due = wallOf("2026-09-15T00:00:00", "Europe/Paris");
-// List filters / due dates: compareWall, isWallInRange, addWallDays — never `new Date(wall.local)`.
+// List filters / due dates: compareWall, compareWallDates, sortWallClocks, isWallInRange, addWallDays — never `new Date(wall.local)`.
 wallToInstantOnce(due); // single occurrence — do not replace wall storage
 ```
 

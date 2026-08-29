@@ -1,4 +1,5 @@
 export { createBackseat } from "./core/create-backseat.js";
+/** @deprecated Import from `@eristack/backseat/testing` instead. */
 export { createMemoryBackseatStore } from "./core/memory-store.js";
 export {
   createHandlerContext,
@@ -22,6 +23,7 @@ export {
 export type { JsonErrorBody, JsonErrorInput } from "./core/json-error.js";
 export {
   buildRoutesSnapshot,
+  diffRoutesSnapshots,
   formatRoutesSnapshot,
   joinApiPath,
   listRoutesMeta,
@@ -29,6 +31,8 @@ export {
 export type {
   RegisteredActionMeta,
   RegisteredRouteMeta,
+  RouteDiffEntry,
+  RouteDiffKind,
   RoutesSnapshot,
 } from "./core/routes-meta.js";
 export { applyCollectionFilter, parseListFilter } from "./core/filter.js";

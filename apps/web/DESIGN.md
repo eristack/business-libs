@@ -60,7 +60,7 @@ Package docs are the source of truth (`packages/*/docs/*.md`). The site reads or
 | `pnpm docs:check` | CI gate — every `.md` is listed in `_meta.json` and `sections` matches `pages` |
 | `pnpm --filter @eristack/web contrast:check` | After changing layer accent colors — WCAG AA + `brand-tokens.ts` ↔ `globals.css` sync |
 
-Scripts auto-discover packages with a `docs/` folder (`scripts/doc-packages.mjs`). Section labels follow slug rules in `scripts/doc-meta-lib.mjs`. Override a page’s section by reordering in `_meta.json` or editing `sections` after sync.
+Scripts auto-discover packages with a `docs/` folder (`scripts/doc-packages.mjs`). `pnpm docs:sync` also verifies `apps/web/src/lib/site.ts` lists every publishable package (`scripts/web-site-check.mjs`) — versions/changelogs read live from `package.json` + `CHANGELOG.md` at build. Section labels follow slug rules in `scripts/doc-meta-lib.mjs`.
 
 **Agent workflow:** add/edit markdown → run `pnpm docs:sync` → commit `_meta.json` with the doc change. CI fails if catalog is stale.
 

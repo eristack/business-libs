@@ -1,5 +1,6 @@
 import {
   CanActivate,
+  ConflictException,
   ExecutionContext,
   ForbiddenException,
   Inject,
@@ -9,6 +10,7 @@ import {
   type Provider,
 } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
+import { PolicyDeniedError } from "../core/errors.js";
 import type { Abac, AbacContext } from "../core/types.js";
 
 export const ABAC = Symbol("ERISTACK_ABAC");
@@ -48,11 +50,20 @@ export class AbacGuard implements CanActivate {
       );
     }
     const ctx = await factory(req);
-    const decision = await this.abac.evaluate(policyId, ctx);
-    if (!decision.allowed) {
-      throw new ForbiddenException(
-        decision.reason ?? `Policy "${policyId}" denied`,
-      );
+    try {
+      await this.abac.authorize(policyId, ctx);
+    } catch (error) {
+      if (error instanceof PolicyDeniedError) {
+        throw new ConflictException({
+          error: {
+            code: error.code,
+            message: error.message,
+            policyId: error.policyId,
+            reason: error.reason,
+          },
+        });
+      }
+      throw error;
     }
     return true;
   }

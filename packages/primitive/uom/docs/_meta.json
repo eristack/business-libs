@@ -1,0 +1,50 @@
+{
+  "title": "@eristack/uom",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "catalog-and-dimensions",
+    "conversion",
+    "zod",
+    "gotchas",
+    "recipes",
+    "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "catalog-and-dimensions",
+        "conversion"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "zod"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "gotchas"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes",
+        "api-reference"
+      ]
+    }
+  ]
+}

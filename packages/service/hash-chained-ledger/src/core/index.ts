@@ -31,3 +31,4 @@ export type {
   LedgerSnapshot,
 } from "./types.js";
 export { assertChainIntact, verifyEntries } from "./verify.js";
+export { exportChainAuditJson, type ChainAuditExport, type ChainAuditEntry } from "./export-audit.js";

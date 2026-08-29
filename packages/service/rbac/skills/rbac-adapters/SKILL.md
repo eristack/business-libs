@@ -38,6 +38,30 @@ app.post(
 list() {}
 ```
 
+**Compose middleware** — auth first, then fine-grained permissions:
+
+```ts
+const requireOrdersRead = createRequirePermission({
+  rbac,
+  permission: "orders.read",
+});
+const requireOrdersCreate = createRequirePermission({
+  rbac,
+  permission: "orders.create",
+});
+
+app.get("/orders", requireAuth, requireOrdersRead, listOrders);
+app.post("/orders", requireAuth, requireOrdersCreate, createOrder);
+
+// Nest: stack guards — JwtAuthGuard then RbacGuard on @RequirePermission handlers
+@UseGuards(JwtAuthGuard, RbacGuard)
+@RequirePermission("orders.update")
+@Patch("orders/:id")
+update() {}
+```
+
+Permission naming: `@eristack/ai-knowledge` → `knowledge/rbac-permissions.md`.
+
 - Drizzle dialect **`"pgsql"`**
 - Express expects `req.subject` / `req.auth.subject`
 - React: `useCan({ rbac, subject, permission })`

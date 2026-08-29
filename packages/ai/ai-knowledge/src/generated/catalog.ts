@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T06:42:20.799Z",
+  "generatedAt": "2026-08-29T08:56:03.981Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -16,7 +16,8 @@ export const catalog = {
         "backseat/store",
         "express",
         "nest",
-        "react"
+        "react",
+        "testing"
       ],
       "skills": [
         {
@@ -34,6 +35,25 @@ export const catalog = {
           "description": "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/address",
+      "version": "0.1.0",
+      "description": "Normalized postal addresses with ISO country codes — string fields, no geocoding",
+      "slug": "address",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "address-core",
+          "name": "address-core",
+          "packageName": "@eristack/address",
+          "description": "@eristack/address normalized PostalAddress with ISO alpha-2 country codes — trim, formatAddressOneLine/Lines, isSameCountry. App owns partner tables; no geocoding.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/address#address-core"
         }
       ]
     },
@@ -115,7 +135,8 @@ export const catalog = {
         "adapters",
         "react",
         "seeds",
-        "store"
+        "store",
+        "testing"
       ],
       "skills": [
         {
@@ -141,7 +162,9 @@ export const catalog = {
         "express",
         "nest",
         "react",
-        "rest"
+        "rest",
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -176,7 +199,8 @@ export const catalog = {
         "nest",
         "react",
         "rest",
-        "testing"
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -198,6 +222,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/doc-transitions",
+      "version": "0.1.0",
+      "description": "Preset ERP document status graphs for @eristack/pbac documents.transitions()",
+      "slug": "doc-transitions",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "doc-transitions-core",
+          "name": "doc-transitions-core",
+          "packageName": "@eristack/doc-transitions",
+          "description": "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/epoch",
       "version": "0.1.2",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
@@ -208,10 +249,12 @@ export const catalog = {
         "client",
         "drizzle",
         "express",
+        "logger",
         "nest",
         "react",
         "rest",
-        "testing"
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -240,7 +283,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {
@@ -258,6 +302,25 @@ export const catalog = {
           "description": "@eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default store is Drizzle — memory is tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/fiscal-calendar",
+      "version": "0.1.0",
+      "description": "Fiscal years and periods with open/closed flags — wall-date boundaries on @eristack/timestamp",
+      "slug": "fiscal-calendar",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "fiscal-calendar-core",
+          "name": "fiscal-calendar-core",
+          "packageName": "@eristack/fiscal-calendar",
+          "description": "@eristack/fiscal-calendar fiscal years and open/closed periods on @eristack/timestamp wall dates — findPeriodForDate, assertPeriodOpen, listPeriods. Pair with doc-transitions lockGraph for period close.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fiscal-calendar#fiscal-calendar-core"
         }
       ]
     },
@@ -305,7 +368,8 @@ export const catalog = {
         "nest",
         "react",
         "rest",
-        "testing"
+        "testing",
+        "zod"
       ],
       "skills": [
         {
@@ -408,6 +472,27 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/opinion",
+      "version": "0.1.0",
+      "description": "Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions",
+      "slug": "opinion",
+      "adapters": [
+        "express",
+        "nest",
+        "openapi"
+      ],
+      "skills": [
+        {
+          "id": "opinion-core",
+          "name": "opinion-core",
+          "packageName": "@eristack/opinion",
+          "description": "@eristack/opinion ERP HTTP route table on @eristack/rest: options, data-grid, CRUD, PATCH /:id/:action for pbac/doc-transitions. Use when scaffolding document APIs instead of inventing paths per app.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/opinion#opinion-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/pbac",
       "version": "0.2.2",
       "description": "Policy-based (software) access control for Eristack: business document rules that return true or false",
@@ -417,7 +502,8 @@ export const catalog = {
         "backseat/store",
         "express",
         "nest",
-        "react"
+        "react",
+        "testing"
       ],
       "skills": [
         {
@@ -435,6 +521,25 @@ export const catalog = {
           "description": "Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/percent",
+      "version": "0.1.0",
+      "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
+      "slug": "percent",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "percent-core",
+          "name": "percent-core",
+          "packageName": "@eristack/percent",
+          "description": "@eristack/percent ratio strings, basis points, percentOf/plus/minus for tax and discounts without float literals. Use before @eristack/money rounding at boundaries.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/percent#percent-core"
         }
       ]
     },
@@ -537,7 +642,8 @@ export const catalog = {
       "adapters": [
         "backseat",
         "backseat/store",
-        "drizzle"
+        "drizzle",
+        "testing"
       ],
       "skills": [
         {
@@ -588,6 +694,25 @@ export const catalog = {
           "description": "Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/uom",
+      "version": "0.1.0",
+      "description": "Unit of measure quantities with fixed-ratio conversion — string decimal amounts, no silent float math",
+      "slug": "uom",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "uom-core",
+          "name": "uom-core",
+          "packageName": "@eristack/uom",
+          "description": "@eristack/uom fixed-ratio unit conversion with string decimal amounts — kg/g/L/pcs and custom units. Use for inventory qty before qups or stock-movement, not float math.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/uom#uom-core"
         }
       ]
     },

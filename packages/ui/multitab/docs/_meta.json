@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "getting-started",
+    "router-recipe",
     "architecture",
     "api-reference",
     "vision"
@@ -18,6 +19,7 @@
     {
       "label": "Guides",
       "pages": [
+        "router-recipe",
         "architecture"
       ]
     },

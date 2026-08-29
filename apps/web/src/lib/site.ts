@@ -20,7 +20,7 @@ export const packageCategories = [
     href: "/primitive",
     tagline: "Domain value types you can trust in a ledger.",
     description:
-      "Core domain value types — money, timestamps, and other pure calculation building blocks. Core is framework-free; optional adapters for SQL, HTTP, and forms.",
+      "Core domain value types — money, timestamps, units, percents, fiscal periods, addresses, and other pure calculation building blocks. Core is framework-free; optional adapters for SQL, HTTP, and forms.",
     highlights: [
       {
         title: "Correct by construction",
@@ -42,7 +42,7 @@ export const packageCategories = [
     href: "/capability",
     tagline: "Reusable business capabilities apps compose into products.",
     description:
-      "Capabilities are opinionated domain features — document numbers and more — with optional persistence and thin adapters when you need them.",
+      "Capabilities are opinionated domain features — document numbers, line pricing, status graphs, and more — with optional persistence and thin adapters when you need them.",
     highlights: [
       {
         title: "Compose into products",
@@ -248,6 +248,154 @@ const posted = instantOf("2026-08-22T02:30:00Z", "Asia/Jakarta")
 toLocalDateString(posted)
 
 const due = wallOf("2026-09-15T00:00:00", "Europe/Paris")`,
+    },
+  },
+  {
+    slug: "uom",
+    name: "@eristack/uom",
+    title: "UOM",
+    category: "primitive" as const,
+    directory: "packages/primitive/uom",
+    href: "/uom",
+    docsHref: "/docs/uom",
+    tagline: "Unit-of-measure quantities with fixed-ratio conversion.",
+    description:
+      "Inventory and line quantities as decimal strings plus unit codes — fixed-ratio conversion within a dimension (mass, volume, count, length) without silent float math. Optional ./zod schemas.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/uom",
+    highlights: [
+      {
+        title: "String amounts",
+        body: "1.5 kg → 1500 g without Number() — same discipline as @eristack/money.",
+      },
+      {
+        title: "Extensible catalog",
+        body: "Register app units (box = 12 pcs) alongside built-in SI and count codes.",
+      },
+      {
+        title: "Dimension guards",
+        body: "Reject cross-dimension conversion at convertUom — density rules stay in the app.",
+      },
+    ],
+    sample: {
+      filename: "uom.ts",
+      language: "ts",
+      code: `import { uomQty, convertUom } from "@eristack/uom"
+
+const line = uomQty("1.5", "kg")
+convertUom(line, "g") // { amount: "1500", unit: "g" }`,
+    },
+  },
+  {
+    slug: "percent",
+    name: "@eristack/percent",
+    title: "Percent",
+    category: "primitive" as const,
+    directory: "packages/primitive/percent",
+    href: "/percent",
+    docsHref: "/docs/percent",
+    tagline: "Percent and basis-point ratios as strings — tax, discount, markup.",
+    description:
+      "Rates stored as decimal strings — 0.11 for 11%, basis points for finance tables — with percentOf/plusPercent/minusPercent on string amounts. Complements @eristack/money and @eristack/qups. Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/percent",
+    highlights: [
+      {
+        title: "No float literals",
+        body: 'Parse "11%", "0.11", or basis points — never 0.11 as a JS number for tax.',
+      },
+      {
+        title: "Basis points",
+        body: "Finance-friendly bps input maps to ratio strings for VAT and tier tables.",
+      },
+      {
+        title: "QUPS-ready",
+        body: "Tax and modifier rates as domain values before Money rounding at invoice boundaries.",
+      },
+    ],
+    sample: {
+      filename: "percent.ts",
+      language: "ts",
+      code: `import { parsePercent, percentOf } from "@eristack/percent"
+
+const vat = parsePercent("11%")
+percentOf("100", vat) // "11"`,
+    },
+  },
+  {
+    slug: "fiscal-calendar",
+    name: "@eristack/fiscal-calendar",
+    title: "Fiscal Calendar",
+    category: "primitive" as const,
+    directory: "packages/primitive/fiscal-calendar",
+    href: "/fiscal-calendar",
+    docsHref: "/docs/fiscal-calendar",
+    tagline: "Fiscal years and posting periods with open/closed flags.",
+    description:
+      "Fiscal years and periods on wall local dates (YYYY-MM-DD) in an IANA timezone via @eristack/timestamp — findPeriodForDate, assertPeriodOpen, list open periods. Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/fiscal-calendar",
+    highlights: [
+      {
+        title: "Wall-date boundaries",
+        body: "Posting dates match calendar local dates — not broken by time-of-day UTC offsets.",
+      },
+      {
+        title: "Open vs closed",
+        body: "Gate GL and document posting when a fiscal period is closed.",
+      },
+      {
+        title: "lockGraph pairing",
+        body: "Pair period close with @eristack/doc-transitions for HTTP transition policies.",
+      },
+    ],
+    sample: {
+      filename: "fiscal.ts",
+      language: "ts",
+      code: `import { createFiscalCalendar, findPeriodForDate } from "@eristack/fiscal-calendar"
+
+const cal = createFiscalCalendar({ timezone: "Asia/Jakarta", years: [...] })
+findPeriodForDate(cal, "2026-03-15")`,
+    },
+  },
+  {
+    slug: "address",
+    name: "@eristack/address",
+    title: "Address",
+    category: "primitive" as const,
+    directory: "packages/primitive/address",
+    href: "/address",
+    docsHref: "/docs/address",
+    tagline: "Normalized postal addresses with ISO country codes.",
+    description:
+      "Partner ship-to, bill-to, and print layouts — trim on normalize, ISO 3166-1 alpha-2 country codes, one-line and multi-line formatters. No geocoding. Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/address",
+    highlights: [
+      {
+        title: "Normalize once",
+        body: "Trim fields, uppercase country — same shape for Drizzle insert and API JSON.",
+      },
+      {
+        title: "Print helpers",
+        body: "formatAddressOneLine for labels; formatAddressLines for invoices.",
+      },
+      {
+        title: "Country compare",
+        body: "isSameCountry for tax and freight rules without a countries database.",
+      },
+    ],
+    sample: {
+      filename: "address.ts",
+      language: "ts",
+      code: `import { normalizeAddress, formatAddressOneLine } from "@eristack/address"
+
+const addr = normalizeAddress({
+  line1: " 123 Main St ",
+  locality: "Jakarta",
+  countryCode: "id",
+})
+formatAddressOneLine(addr)`,
     },
   },
   {
@@ -464,6 +612,44 @@ const engine = createValuationEngine({
   layers: createDrizzleLayerStore({ db, table: layerTable }),
 })
 await engine.receive({ key: { productId: "SKU", currency: "USD" }, qty: "10", unitCost: "5", entryTypeId: "po-1" })`,
+    },
+  },
+  {
+    slug: "doc-transitions",
+    name: "@eristack/doc-transitions",
+    title: "Doc Transitions",
+    category: "capability" as const,
+    directory: "packages/capability/doc-transitions",
+    href: "/doc-transitions",
+    docsHref: "/docs/doc-transitions",
+    tagline: "Preset ERP document status graphs for PBAC.",
+    description:
+      "Canonical status vocabularies — publication, decision, journal, lock, outstanding — as transition tables for @eristack/pbac documents.transitions(). Action names align with PATCH /:id/:action HTTP via @eristack/opinion.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/doc-transitions",
+    highlights: [
+      {
+        title: "Preset graphs",
+        body: "publicationGraph, journalGraph, lockGraph — shared ERP vocabulary across document types.",
+      },
+      {
+        title: "PBAC-native",
+        body: "registerTransitionGraph registers policies in one call — authorize in handlers.",
+      },
+      {
+        title: "Not a BPM engine",
+        body: "Status tables only — no timers, swimlanes, or arbitrary workflow DSL.",
+      },
+    ],
+    sample: {
+      filename: "transitions.ts",
+      language: "ts",
+      code: `import { registerTransitionGraph, publicationGraph } from "@eristack/doc-transitions"
+
+registerTransitionGraph(pbac, {
+  graph: publicationGraph,
+  statusField: "status",
+})`,
     },
   },
   {
@@ -741,6 +927,46 @@ const { policy } = await epoch.resolveCachePolicy("orders", clientEpoch)`,
     },
   },
   {
+    slug: "opinion",
+    name: "@eristack/opinion",
+    title: "Opinion",
+    category: "service" as const,
+    directory: "packages/service/opinion",
+    href: "/opinion",
+    docsHref: "/docs/opinion",
+    tagline: "Opinionated ERP HTTP route map on @eristack/rest.",
+    description:
+      "Canonical document REST shape: options metadata, data-grid lists, CRUD, and PATCH /:id/:action transitions. Express/Nest mount helpers and OpenAPI fragments — apps own handlers and Drizzle persistence.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/opinion",
+    highlights: [
+      {
+        title: "Predictable routes",
+        body: "Same list/CRUD/transition map for invoices, orders, journals, and masters.",
+      },
+      {
+        title: "Partial routers",
+        body: "Omit roles you have not built — createDocumentRoutes skips missing handlers.",
+      },
+      {
+        title: "OpenAPI compose",
+        body: "Merge documentRoutesOpenApiDocument with doc-number, pbac, and app routes.",
+      },
+    ],
+    sample: {
+      filename: "opinion.ts",
+      language: "ts",
+      code: `import { createOpinionRouter } from "@eristack/opinion/express"
+
+app.use(
+  "/api",
+  createOpinionRouter({
+    documents: [{ resource: "invoices", basePath: "/invoices", handlers }],
+  }),
+)`,
+    },
+  },
+  {
     slug: "backseat",
     name: "@eristack/backseat",
     title: "Backseat",
@@ -915,6 +1141,41 @@ export const api = defineRoutes([
     handler: () => ({ status: 200, body: { ok: true } }),
   },
 ])`,
+    },
+  },
+  {
+    slug: "ai-dev",
+    name: "@eristack/ai-dev",
+    title: "AI Dev",
+    category: "ai" as const,
+    directory: "packages/ai/ai-dev",
+    href: "/ai-dev",
+    docsHref: "/docs/ai-dev",
+    tagline: "Unified eristack CLI — plan, check profiles, sync, MCP.",
+    description:
+      "Agent-first monorepo tooling: plan --json (token-minimal next steps), check profiles (catalog/pr/full = CI), sync docs/knowledge, compact JSON output, and eristack-mcp dev tools.",
+    status: "alpha" as const,
+    install: "pnpm add -D @eristack/ai-dev",
+    highlights: [
+      {
+        title: "plan --json",
+        body: "Agents run one command to learn profile, checks, and sync steps from changed paths.",
+      },
+      {
+        title: "Check profiles",
+        body: "catalog for docs drift; pr for CI; full for local pre-merge — skip-build when already compiled.",
+      },
+      {
+        title: "Sync hub",
+        body: "pnpm eristack sync docs | knowledge | all — same entry as root pnpm docs:sync.",
+      },
+    ],
+    sample: {
+      filename: "plan.sh",
+      language: "bash",
+      code: `pnpm eristack plan --json
+pnpm eristack check --profile pr --skip-build
+pnpm eristack sync all --check`,
     },
   },
   {

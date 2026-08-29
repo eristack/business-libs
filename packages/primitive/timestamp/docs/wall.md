@@ -178,7 +178,9 @@ List filters (ETD between two dates, jobs departing this week) must not parse wa
 import {
   addWallDays,
   compareWall,
+  compareWallDates,
   isWallInRange,
+  sortWallClocks,
   wallOf,
 } from "@eristack/timestamp";
 
@@ -187,7 +189,9 @@ const weekStart = wallOf("2026-09-01", "Asia/Jakarta");
 const weekEnd = wallOf("2026-09-07", "Asia/Jakarta");
 
 compareWall(etd, weekStart); // 1 when etd is later
+compareWallDates(etd, weekStart); // alias — same result
 isWallInRange(etd, weekStart, weekEnd); // true — inclusive on both ends
+sortWallClocks([weekEnd, etd, weekStart]); // ascending by civil time in zone
 
 // Invoice due date = invoice wall date + payment terms (calendar days)
 addWallDays(wallOf("2026-09-24", "Asia/Jakarta"), 14);

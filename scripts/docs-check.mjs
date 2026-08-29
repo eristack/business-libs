@@ -7,6 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { discoverDocSlugs, validateMeta } from "./doc-meta-lib.mjs";
 import { listDocPackages } from "./doc-packages.mjs";
+import { checkWebSitePackages } from "./web-site-check.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DOC_PACKAGES = listDocPackages(repoRoot);
@@ -47,12 +48,35 @@ function main() {
     }
   }
 
+  const webSite = checkWebSitePackages();
+  if (!webSite.ok) {
+    failed = true;
+    if (webSite.missing.length > 0) {
+      console.error("✗ site.ts missing packages:");
+      for (const slug of webSite.missing) {
+        console.error(`    - ${slug}`);
+      }
+    }
+    if (webSite.extra.length > 0) {
+      console.error("✗ site.ts extra packages:");
+      for (const slug of webSite.extra) {
+        console.error(`    - ${slug}`);
+      }
+    }
+  } else {
+    console.log(`✓ web site.ts (${webSite.total} packages)`);
+  }
+
   if (failed) {
-    console.error("\nRun `pnpm docs:sync` to fix pages/sections, then commit _meta.json.");
+    console.error(
+      "\nRun `pnpm docs:sync` to fix pages/sections, update site.ts for new packages, then commit.",
+    );
     process.exit(1);
   }
 
-  console.log(`\nOK — ${DOC_PACKAGES.length} package doc catalogs validated`);
+  console.log(
+    `\nOK — ${DOC_PACKAGES.length} doc catalogs + ${webSite.total} web packages validated`,
+  );
 }
 
 main();

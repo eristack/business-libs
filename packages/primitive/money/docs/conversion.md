@@ -20,7 +20,7 @@ const idr = usd.with(
     base: "USD",
     term: "IDR",
     factor: "15000",
-    timestamp: new Date("2026-01-15"),
+    asOf: "2026-01-15T00:00:00.000Z",
   }),
 );
 // 1500000 IDR

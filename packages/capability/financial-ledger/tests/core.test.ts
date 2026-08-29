@@ -30,6 +30,35 @@ describe("financial-ledger", () => {
     expect((await fin.verify("1000", "USD")).ok).toBe(true);
   });
 
+  it("trialBalance maps account snapshots to Money", async () => {
+    const { trialBalance } = await import("../src/core/trial-balance.js");
+    const fin = createFinancialLedger({ store: createMemoryLedgerStore() });
+    await fin.post({
+      accountId: "1000",
+      currency: "USD",
+      openingBalance: "0",
+      inAmount: "100",
+      entryType: "journal",
+      entryTypeId: "jv-1",
+    });
+    await fin.post({
+      accountId: "2000",
+      currency: "USD",
+      openingBalance: "0",
+      inAmount: "50",
+      entryType: "journal",
+      entryTypeId: "jv-2",
+    });
+    const balances = await trialBalance(fin, [
+      { accountId: "1000", currency: "USD" },
+      { accountId: "2000", currency: "USD" },
+      { accountId: "9999", currency: "USD" },
+    ]);
+    expect(balances.get("1000:USD")?.toJSON().amount).toBe("100");
+    expect(balances.get("2000:USD")?.toJSON().amount).toBe("50");
+    expect(balances.has("9999:USD")).toBe(false);
+  });
+
   it("hydrates ledger strings to Money on read", async () => {
     const fin = createFinancialLedger({ store: createMemoryLedgerStore() });
     await fin.post({
@@ -51,5 +80,21 @@ describe("financial-ledger", () => {
     expect(snap).toBeTruthy();
     const { balance } = hydrateLedgerSnapshot(snap!, "USD");
     expect(balance.toJSON().amount).toBe("100");
+  });
+
+  it("buildBalancedPostingPair creates debit and credit legs", async () => {
+    const { buildBalancedPostingPair } = await import("../src/core/posting-pair.js");
+    const pair = buildBalancedPostingPair({
+      debitAccountId: "1000",
+      creditAccountId: "2000",
+      amount: "50.00",
+      currency: "USD",
+      entryType: "journal",
+      entryTypeId: "jv-pair",
+      linkId: "pair-1",
+    });
+    expect(pair.debit.inAmount).toBe("50.00");
+    expect(pair.credit.outAmount).toBe("50.00");
+    expect(pair.debit.meta?.linkId).toBe("pair-1");
   });
 });

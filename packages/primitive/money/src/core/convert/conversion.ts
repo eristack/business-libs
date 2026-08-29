@@ -12,6 +12,9 @@ export interface ExchangeRate {
   readonly term: CurrencyUnit;
   /** Multiply base amount by factor to get term amount. */
   readonly factor: string;
+  /** ISO-8601 UTC instant when this rate was quoted (wire-safe). */
+  readonly asOf?: string;
+  /** @deprecated Prefer `asOf` (ISO string). */
   readonly timestamp?: Date;
 }
 
@@ -19,7 +22,30 @@ export interface ExchangeRateInput {
   base: string | CurrencyUnit;
   term: string | CurrencyUnit;
   factor: string | number;
+  /** ISO-8601 UTC instant when this rate was quoted. */
+  asOf?: string;
+  /** @deprecated Prefer `asOf`. */
   timestamp?: Date;
+}
+
+export function rateAsOfInstant(rate: ExchangeRate): string | undefined {
+  return rate.asOf ?? rate.timestamp?.toISOString();
+}
+
+/** True when `asOf` is missing or older than `maxAgeMs` relative to `now`. */
+export function isExchangeRateStale(
+  rate: ExchangeRate,
+  options: { maxAgeMs: number; now?: string | Date },
+): boolean {
+  const asOf = rateAsOfInstant(rate);
+  if (!asOf) return true;
+  const nowMs =
+    options.now instanceof Date
+      ? options.now.getTime()
+      : Date.parse(String(options.now ?? new Date().toISOString()));
+  const asOfMs = Date.parse(asOf);
+  if (!Number.isFinite(asOfMs) || !Number.isFinite(nowMs)) return true;
+  return nowMs - asOfMs > options.maxAgeMs;
 }
 
 export function exchangeRate(input: ExchangeRateInput): ExchangeRate {
@@ -29,10 +55,12 @@ export function exchangeRate(input: ExchangeRateInput): ExchangeRate {
   if (!factor.trim() || !Number.isFinite(asDecimal) || asDecimal <= 0) {
     throw new ArithmeticError("Exchange rate factor must be a positive finite value");
   }
+  const asOf = input.asOf ?? input.timestamp?.toISOString();
   return {
     base: resolveCurrency(input.base),
     term: resolveCurrency(input.term),
     factor: factor.trim(),
+    asOf,
     timestamp: input.timestamp,
   };
 }

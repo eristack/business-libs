@@ -8,6 +8,12 @@ export {
   type ModifierSpec,
   type ModifierStep,
 } from "./modifier.js";
+export {
+  assertAcyclicModifierOrder,
+  ModifierOrderError,
+  validateModifierStackOrder,
+  type ModifierKindOrderRule,
+} from "./modifier-order.js";
 export { LineTax, type TaxInput, type TaxMode } from "./tax.js";
 export { PricingLine, type PricingLineInput } from "./line.js";
 export {

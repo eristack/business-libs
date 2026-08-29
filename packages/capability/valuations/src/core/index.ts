@@ -15,3 +15,7 @@ export {
 } from "./methods.js";
 /** @deprecated Import from `@eristack/valuations/testing` instead. */
 export { createMemoryLayerStore } from "./memory-layer-store.js";
+export {
+  crossCheckValuationChains,
+  type ValuationCrossCheckResult,
+} from "./cross-check.js";

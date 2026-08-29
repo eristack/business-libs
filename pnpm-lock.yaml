@@ -101,6 +101,12 @@ importers:
       '@eristack/abac':
         specifier: workspace:*
         version: link:../../packages/service/abac
+      '@eristack/address':
+        specifier: workspace:*
+        version: link:../../packages/primitive/address
+      '@eristack/ai-dev':
+        specifier: workspace:*
+        version: link:../../packages/ai/ai-dev
       '@eristack/ai-knowledge':
         specifier: workspace:*
         version: link:../../packages/ai/ai-knowledge
@@ -113,33 +119,60 @@ importers:
       '@eristack/doc-number':
         specifier: workspace:*
         version: link:../../packages/capability/doc-number
+      '@eristack/doc-transitions':
+        specifier: workspace:*
+        version: link:../../packages/capability/doc-transitions
       '@eristack/epoch':
         specifier: workspace:*
         version: link:../../packages/service/epoch
       '@eristack/financial-ledger':
         specifier: workspace:*
         version: link:../../packages/capability/financial-ledger
+      '@eristack/fiscal-calendar':
+        specifier: workspace:*
+        version: link:../../packages/primitive/fiscal-calendar
       '@eristack/hash-chained-ledger':
         specifier: workspace:*
         version: link:../../packages/service/hash-chained-ledger
+      '@eristack/jwt-auth':
+        specifier: workspace:*
+        version: link:../../packages/service/jwt-auth
+      '@eristack/logger':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/logger
       '@eristack/money':
         specifier: workspace:*
         version: link:../../packages/primitive/money
       '@eristack/multitab':
         specifier: workspace:*
         version: link:../../packages/ui/multitab
+      '@eristack/opinion':
+        specifier: workspace:*
+        version: link:../../packages/service/opinion
       '@eristack/pbac':
         specifier: workspace:*
         version: link:../../packages/service/pbac
+      '@eristack/percent':
+        specifier: workspace:*
+        version: link:../../packages/primitive/percent
       '@eristack/qups':
         specifier: workspace:*
         version: link:../../packages/capability/qups
       '@eristack/rbac':
         specifier: workspace:*
         version: link:../../packages/service/rbac
+      '@eristack/rest':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/rest
       '@eristack/stock-movement':
         specifier: workspace:*
         version: link:../../packages/capability/stock-movement
+      '@eristack/timestamp':
+        specifier: workspace:*
+        version: link:../../packages/primitive/timestamp
+      '@eristack/uom':
+        specifier: workspace:*
+        version: link:../../packages/primitive/uom
       '@eristack/valuations':
         specifier: workspace:*
         version: link:../../packages/capability/valuations
@@ -301,6 +334,9 @@ importers:
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:../../packages/service/data-grid
+      '@eristack/doc-transitions':
+        specifier: workspace:*
+        version: link:../../packages/capability/doc-transitions
       '@eristack/epoch':
         specifier: workspace:*
         version: link:../../packages/service/epoch
@@ -568,6 +604,9 @@ importers:
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:../../service/data-grid
+      '@eristack/rest':
+        specifier: workspace:*
+        version: link:../../infrastructure/rest
       '@eristack/timestamp':
         specifier: workspace:*
         version: link:../../primitive/timestamp
@@ -625,6 +664,30 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(jsdom@26.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
+        version: 4.4.3
+
+  packages/capability/doc-transitions:
+    devDependencies:
+      '@eristack/pbac':
+        specifier: workspace:*
+        version: link:../../service/pbac
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/capability/financial-ledger:
     devDependencies:
@@ -862,6 +925,51 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
+  packages/primitive/address:
+    devDependencies:
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
+        version: 4.4.3
+
+  packages/primitive/fiscal-calendar:
+    devDependencies:
+      '@eristack/timestamp':
+        specifier: workspace:*
+        version: link:../timestamp
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
+        version: 4.4.3
+
   packages/primitive/money:
     dependencies:
       '@tanstack/react-form':
@@ -880,6 +988,9 @@ importers:
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
+      '@types/express':
+        specifier: ^5.0.1
+        version: 5.0.6
       drizzle-orm:
         specifier: ^0.44.0
         version: 0.44.7(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(gel@2.2.0)
@@ -897,6 +1008,31 @@ importers:
         version: 4.1.10(@types/node@26.2.0)(jsdom@26.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
       zod:
         specifier: ^4.4.3
+        version: 4.4.3
+
+  packages/primitive/percent:
+    dependencies:
+      decimal.js:
+        specifier: ^10.6.0
+        version: 10.6.0
+    devDependencies:
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
         version: 4.4.3
 
   packages/primitive/timestamp:
@@ -934,6 +1070,31 @@ importers:
         version: 4.1.10(@types/node@26.2.0)(jsdom@26.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
       zod:
         specifier: ^4.4.3
+        version: 4.4.3
+
+  packages/primitive/uom:
+    dependencies:
+      decimal.js:
+        specifier: ^10.6.0
+        version: 10.6.0
+    devDependencies:
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
         version: 4.4.3
 
   packages/service/abac:
@@ -986,6 +1147,9 @@ importers:
       '@eristack/backseat':
         specifier: workspace:*
         version: link:../../infrastructure/backseat
+      '@eristack/money':
+        specifier: workspace:*
+        version: link:../../primitive/money
       '@eristack/timestamp':
         specifier: workspace:*
         version: link:../../primitive/timestamp
@@ -1043,6 +1207,9 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(jsdom@26.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
+        version: 4.4.3
 
   packages/service/epoch:
     devDependencies:
@@ -1103,6 +1270,9 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.0.0
+        version: 4.4.3
 
   packages/service/hash-chained-ledger:
     dependencies:
@@ -1207,6 +1377,42 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(jsdom@26.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+
+  packages/service/opinion:
+    devDependencies:
+      '@eristack/pbac':
+        specifier: workspace:*
+        version: link:../pbac
+      '@eristack/rest':
+        specifier: workspace:*
+        version: link:../../infrastructure/rest
+      '@nestjs/common':
+        specifier: ^11.0.0
+        version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      express:
+        specifier: ^5.1.0
+        version: 5.2.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/service/pbac:
     devDependencies:

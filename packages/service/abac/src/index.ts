@@ -24,3 +24,9 @@ export type {
   AttrValue,
   PolicyDecision,
 } from "./core/types.js";
+export {
+  assertAbacPolicyFixtures,
+  runAbacPolicyFixtures,
+  type AbacPolicyFixture,
+  type AbacPolicyHarnessResult,
+} from "./core/policy-harness.js";

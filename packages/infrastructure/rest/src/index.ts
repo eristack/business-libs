@@ -12,3 +12,4 @@ export {
   type RestRouteDef,
   type RestRouter,
 } from "./core/router.js";
+export { mergeOpenApiDocuments } from "./core/merge-openapi.js";

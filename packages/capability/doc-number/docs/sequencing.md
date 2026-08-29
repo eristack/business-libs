@@ -135,6 +135,30 @@ This is the mechanism for:
 
 The date tokens and the period key come from the same instant, so a July `at` produces both `2026-07` and `INV-202607-…`. There is no way for them to disagree.
 
+## Scoped sequences (branch / warehouse)
+
+Sequence rows are keyed by **`(format_id, period_key, scope)`** — the library does not ship branch or warehouse tables. Apps pass an opaque **`scope`** string on `next()` / `peekNext()`:
+
+| App concept | Example `scope` | Pattern |
+| --- | --- | --- |
+| Global (default) | omit / `""` | One counter per format + period |
+| Branch | `"branch:SUB"` | `INV-SUB-{YYYY}-{SEQ:4}` |
+| Warehouse | `"wh:JKT-01"` | Separate PO series per site |
+
+```ts
+await docNumber.registerFormat({
+  entityKey: "invoice",
+  pattern: "INV-{SCOPE}-{YYYY}-{SEQ:5}",
+  reset: "yearly",
+});
+
+await docNumber.next({ entityKey: "invoice", scope: "branch:SUB" });
+await docNumber.next({ entityKey: "invoice", scope: "branch:HQ" });
+// independent counters — same format, different scope column
+```
+
+Register one format; vary **`scope`** at allocation time. Do not register duplicate formats per branch unless patterns genuinely differ.
+
 > **Backfills do not reorder.** Allocating into July after August already started appends to July's bucket at whatever value it reached. If a legacy series must keep its exact numbers, write the values directly and then seed the counter — do not try to replay them through `next()`.
 
 ## Concurrency and gaps

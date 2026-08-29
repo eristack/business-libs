@@ -43,6 +43,20 @@ await fin.post({
 await fin.verify("1000", "USD");
 ```
 
+Report helpers:
+
+```ts
+import {
+  trialBalance,
+  buildBalancedPostingPair,
+  buildReversalPost,
+} from "@eristack/financial-ledger";
+
+const balances = await trialBalance(fin, [
+  { accountId: "1000", currency: "USD" },
+]);
+```
+
 **Read path:** ledger stores decimal strings in the hash. Hydrate for UI:
 
 ```ts

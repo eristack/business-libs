@@ -1,0 +1,11 @@
+package: "@eristack/fiscal-calendar"
+title: fiscal-calendar
+maintainers:
+  - support@eristack.dev
+scope: >
+  Fiscal year/period definitions, open/closed status, findPeriodForDate on wall
+  clocks, assertPeriodOpen for journal posting gates.
+outOfScope: >
+  Drizzle persistence, period close workflows, GL posting — app + doc-transitions lockGraph.
+skills:
+  - fiscal-calendar-core

@@ -29,7 +29,7 @@ function printHelp(): void {
 Commands:
   plan [--base main] [--json] [paths...]
       Minimal check/sync/skill plan from git diff or explicit paths.
-  check [--profile catalog|pr|full|fast|integration|examples|publish] [--skip-build] [--json] [check-id...]
+  check [--profile catalog|pr|full|fast|integration|examples|publish|features] [--skip-build] [--json] [check-id...]
       Run a check profile (same as CI when --profile pr).
   ci [--base origin/main] [--full] [--json]
       PR-optimized CI: affected turbo + drift checks; full on main or --full.

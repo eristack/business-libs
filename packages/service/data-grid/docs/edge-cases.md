@@ -96,6 +96,18 @@ If the client sends no sorts, `defaultSorts` from the schema apply. An explicit 
 
 Mixing pagination modes mid-session without resetting cursors/page produces confusing URLs. Commit paths that change filters should clear cursor / reset page.
 
+### Cursor stability (tie-breaker column)
+
+Keyset / cursor walks stay stable only when the sort is **total** — duplicate sort keys need a deterministic tie-breaker (usually the primary key):
+
+| Sort | Stable? | Fix |
+| --- | --- | --- |
+| `createdAt desc` only | No — ties reorder between pages | Add `id asc` as secondary sort |
+| `createdAt desc`, `id asc` | Yes | Encode both fields in cursor payload |
+| Offset page 2 after insert | Drift | Prefer cursor for live feeds |
+
+When building cursors in SQL, include every sort column in the keyset predicate (`WHERE (created_at, id) < ($1, $2)`). The library serializes cursor tokens from committed sorts; apps must mirror the same order in Drizzle/keyset SQL.
+
 ## Draft vs committed (React)
 
 Typing in draft search or filter rows **does not** fetch. Only commit actions update the query key. Edge cases:

@@ -112,6 +112,16 @@
         "types": "./dist/testing/index.d.ts",
         "default": "./dist/testing/index.cjs"
       }
+    },
+    "./zod": {
+      "import": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.js"
+      },
+      "require": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.cjs"
+      }
     }
   },
   "files": [
@@ -147,7 +157,8 @@
     "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
     "express": "^4.0.0 || ^5.0.0",
     "react": "^18.0.0 || ^19.0.0",
-    "@eristack/backseat": "^0.1.0"
+    "@eristack/backseat": "^0.1.0",
+    "zod": "^4.0.0"
   },
   "peerDependenciesMeta": {
     "@nestjs/common": {
@@ -173,6 +184,9 @@
     },
     "@eristack/backseat": {
       "optional": true
+    },
+    "zod": {
+      "optional": true
     }
   },
   "devDependencies": {
@@ -193,10 +207,12 @@
     "vitest": "^4.1.10",
     "@eristack/backseat": "workspace:*",
     "@eristack/data-grid": "workspace:*",
+    "@eristack/rest": "workspace:*",
     "@internal/test-harness": "workspace:*",
     "@eristack/timestamp": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",
-    "better-sqlite3": "^11.10.0"
+    "better-sqlite3": "^11.10.0",
+    "zod": "^4.0.0"
   },
   "license": "MIT"
 }

@@ -33,6 +33,29 @@ Created under `.eristack/workflow/sprints/<date>-<slug>/`:
 
 `config.activeSprintId` selects the default sprint for tools that omit `id` / `sprintId`.
 
+## Package work sprint template
+
+Copy into `plan.md` when iterating on one `@eristack/*` package:
+
+```markdown
+# Sprint: @eristack/{package}
+
+## Goal
+One shippable capability (code + docs + skill + recipe if discoverable).
+
+## Checklist
+- [ ] Load matching Intent skill before editing
+- [ ] Package docs delta in `packages/<category>/<name>/docs/`
+- [ ] `pnpm knowledge:sync` + `pnpm knowledge:check`
+- [ ] `pnpm eristack plan --json` — note `nextBrainstormItem`
+- [ ] Tests prove Drizzle/production path (memory tests only labeled)
+
+## Out of scope
+App UX, domain tables, migrations — consumer owns those.
+```
+
+Cross-link: `@eristack/ai-dev#ai-dev-core` for `plan --json` and check profiles.
+
 ## Tasks
 
 | Status | Meaning |

@@ -25,7 +25,9 @@ Linked fields:
 | `verify(chainId)` | throws `ChainTamperedError` (includes `warnings`) |
 
 Warnings call out `prevHash` mismatch, `entryHash` mismatch, sequence gaps, or
-`chainId` drift.
+`chainId` drift. Each warning includes **entry id, index, sequence, and an
+`entryHash` prefix** (e.g. `entry abc @ index 0 seq 1 hash 3fa9c1b2…`) so audits
+pinpoint the broken row.
 
 ## What counts as tamper
 

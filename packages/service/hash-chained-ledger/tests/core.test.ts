@@ -62,6 +62,8 @@ describe("hash-chained-ledger", () => {
     const check = await ledger.check("c1");
     expect(check.ok).toBe(false);
     if (!check.ok) {
+      expect(check.warnings.some((w) => w.includes("@ index"))).toBe(true);
+      expect(check.warnings.some((w) => w.includes("hash"))).toBe(true);
       expect(check.warnings.some((w) => w.includes("entryHash"))).toBe(true);
     }
 

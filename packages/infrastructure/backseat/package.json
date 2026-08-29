@@ -62,6 +62,16 @@
         "types": "./dist/adapters/index.d.ts",
         "default": "./dist/adapters/index.cjs"
       }
+    },
+    "./testing": {
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.cjs"
+      }
     }
   },
   "files": [

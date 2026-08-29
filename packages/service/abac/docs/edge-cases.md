@@ -76,7 +76,9 @@ await abac.evaluate("typo-policy", ctx);
 | `evaluate` | returns `{ allowed: false, … }` |
 | `authorize` | throws `PolicyDeniedError` (`POLICY_DENIED`) |
 
-Express `createRequirePolicy` uses `authorize` and maps only `PolicyDeniedError` → 403. Other errors (including `PolicyNotFoundError`) go to `next(err)`.
+Express `createRequirePolicy` uses `authorize` and maps only `PolicyDeniedError` → **409** with unified `{ error: { code: "POLICY_DENIED", … } }`. Other errors (including `PolicyNotFoundError`) go to `next(err)`.
+
+Nest `AbacGuard` throws `ConflictException` with the same envelope — not `ForbiddenException`.
 
 ## Custom `PolicyDecision.policyId`
 

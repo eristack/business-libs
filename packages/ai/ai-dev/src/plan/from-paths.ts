@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import type { CheckId, CheckProfile } from "../checks/registry.js";
 import { checksForProfile } from "../checks/registry.js";
 import { packagesFromPaths } from "../repo/packages.js";
+import { nextBrainstormItem } from "./backlog-hint.js";
 
 /** Primary Intent skill to load when a package changes (token saver). */
 const PACKAGE_SKILL: Record<string, string> = {
@@ -80,6 +81,8 @@ export type DevPlan = {
   skills: string[];
   commands: string[];
   note?: string;
+  /** Next open item from `_ai-docs/brainstorm/improvements.md` (e.g. `M2`). */
+  nextBrainstormItem?: string;
 };
 
 export function gitChangedFiles(
@@ -173,6 +176,7 @@ export function planFromPaths(
     sync: [...syncSet],
     skills,
     commands,
+    nextBrainstormItem: nextBrainstormItem(repoRoot),
     note:
       normalized.length === 0
         ? "No git diff — defaulting to catalog profile; pass paths as args to narrow."

@@ -15,25 +15,31 @@ describe("catalog", () => {
     expect(names).toEqual(
       [
         "@eristack/abac",
+        "@eristack/address",
         "@eristack/ai-dev",
         "@eristack/ai-ticket-generator",
         "@eristack/ai-workflow",
         "@eristack/backseat",
         "@eristack/data-grid",
         "@eristack/doc-number",
+        "@eristack/doc-transitions",
         "@eristack/epoch",
         "@eristack/financial-ledger",
+        "@eristack/fiscal-calendar",
         "@eristack/hash-chained-ledger",
         "@eristack/jwt-auth",
         "@eristack/logger",
         "@eristack/money",
         "@eristack/multitab",
+        "@eristack/opinion",
         "@eristack/pbac",
+        "@eristack/percent",
         "@eristack/qups",
         "@eristack/rbac",
         "@eristack/rest",
         "@eristack/stock-movement",
         "@eristack/timestamp",
+        "@eristack/uom",
         "@eristack/valuations",
       ].sort(),
     );
@@ -182,6 +188,35 @@ describe("loadPlan", () => {
     expect(keys.indexOf("@eristack/ai-knowledge#document-lines-erp")).toBeLessThan(
       keys.indexOf("@eristack/qups#qups-line"),
     );
+  });
+
+});
+
+describe("recommend disambiguation", () => {
+  it("routes document-with-lines to document-lines-erp without compose-spine", () => {
+    const result = recommend(["document with lines", "cost sheet lines"]);
+    expect(result.matches[0]?.recipe.id).toBe("document-lines-erp");
+    expect(result.matches.some((m) => m.recipe.id === "compose-spine")).toBe(
+      false,
+    );
+  });
+
+  it("routes explicit GL ask to financial-ledger recipe", () => {
+    const result = recommend(["general ledger posting"]);
+    expect(
+      result.matches.some((m) =>
+        m.recipe.packages.some((p) => p.name === "@eristack/financial-ledger"),
+      ),
+    ).toBe(true);
+  });
+
+  it("routes inventory transfer to stock-movement recipe", () => {
+    const result = recommend(["inventory transfer"]);
+    expect(
+      result.matches.some((m) =>
+        m.recipe.packages.some((p) => p.name === "@eristack/stock-movement"),
+      ),
+    ).toBe(true);
   });
 });
 
