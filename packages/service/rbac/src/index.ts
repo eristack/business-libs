@@ -17,3 +17,8 @@ export type {
   RoleName,
   SubjectId,
 } from "./core/types.js";
+export {
+  expandRolePermissions,
+  RoleCycleError,
+  type RoleInheritanceGraph,
+} from "./core/role-closure.js";

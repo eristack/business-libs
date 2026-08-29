@@ -151,3 +151,5 @@ export function toEpochErrorResponse(error: unknown): RestResponse<RestErrorBody
     },
   };
 }
+
+export { epochCacheControlHeader } from "./cache-control.js";

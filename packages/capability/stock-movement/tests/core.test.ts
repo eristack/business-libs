@@ -112,4 +112,33 @@ describe("stock-movement", () => {
     expect(snap1?.balance).toBe("10");
     expect(snap2?.balance).toBe("20");
   });
+
+  it("appendStockTransfer moves qty between locations", async () => {
+    const { appendStockTransfer, snapshotLotBalance } = await import(
+      "../src/core/transfer.js"
+    );
+    const stock = createStockMovement({ store: createMemoryLedgerStore() });
+    await stock.append({
+      locationId: "loc-x",
+      lotId: "L1",
+      openingBalance: "0",
+      inAmount: "100",
+      entryType: "receipt",
+      entryTypeId: "seed",
+    });
+    await appendStockTransfer(stock, {
+      qty: "30",
+      from: { locationId: "loc-x", lotId: "L1" },
+      to: { locationId: "loc-y", lotId: "L1" },
+      entryType: "transfer",
+      entryTypeId: "t1",
+      transferId: "xfer-1",
+    });
+    expect(
+      await snapshotLotBalance(stock, { locationId: "loc-x", lotId: "L1" }),
+    ).toBe("70");
+    expect(
+      await snapshotLotBalance(stock, { locationId: "loc-y", lotId: "L1" }),
+    ).toBe("30");
+  });
 });

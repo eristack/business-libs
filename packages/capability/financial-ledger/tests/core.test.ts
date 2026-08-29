@@ -52,4 +52,20 @@ describe("financial-ledger", () => {
     const { balance } = hydrateLedgerSnapshot(snap!, "USD");
     expect(balance.toJSON().amount).toBe("100");
   });
+
+  it("buildBalancedPostingPair creates debit and credit legs", async () => {
+    const { buildBalancedPostingPair } = await import("../src/core/posting-pair.js");
+    const pair = buildBalancedPostingPair({
+      debitAccountId: "1000",
+      creditAccountId: "2000",
+      amount: "50.00",
+      currency: "USD",
+      entryType: "journal",
+      entryTypeId: "jv-pair",
+      linkId: "pair-1",
+    });
+    expect(pair.debit.inAmount).toBe("50.00");
+    expect(pair.credit.outAmount).toBe("50.00");
+    expect(pair.debit.meta?.linkId).toBe("pair-1");
+  });
 });

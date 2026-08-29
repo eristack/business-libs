@@ -6,6 +6,10 @@ export {
   type Moneyish,
 } from "./create-financial-ledger.js";
 export {
+  buildBalancedPostingPair,
+  buildReversalPost,
+} from "./posting-pair.js";
+export {
   hydrateLedgerEntry,
   hydrateLedgerSnapshot,
   moneyFromLedgerAmount,
