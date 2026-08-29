@@ -15,6 +15,13 @@ export {
   matchesQuery,
   compareBySorts,
 } from "./core/apply.js";
+export {
+  executeInMemoryList,
+  parseSavedView,
+  serializeSavedView,
+  type DataGridSavedView,
+  type DataGridSavedViewJson,
+} from "./core/saved-view.js";
 export type { FieldGetter } from "./core/apply.js";
 export { buildDataGridResult } from "./core/page-info.js";
 export type { BuildDataGridResultOptions } from "./core/page-info.js";

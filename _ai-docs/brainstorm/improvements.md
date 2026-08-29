@@ -39,7 +39,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | D1 | `{SCOPE}` token docs + timezone-aware period reset recipes | S | **done** — format.md + sequencing.md |
 | D3 | Format preview API for settings UI (no increment) | S | **done** — `previewDocumentNumber` / REST preview |
 | D4 | Scoped sequences: branch/warehouse scope without new package | M | **done** — sequencing.md § Scoped sequences |
-| D5 | OpenAPI fragment generator for format CRUD routes | S | opinion/rest later |
+| D5 | OpenAPI fragment generator for format CRUD routes | S | Horizon — `@eristack/rest` opinion |
 | D6 | Backseat register: format list + preview only seed | S | **done** — `seedDocNumberBackseatFormats` |
 
 ---
@@ -50,7 +50,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | Q1 | `applyCellPatch` + spreadsheet commit helpers exported with tests | S | **done** — audit B-017 |
 | Q3 | Modifier dependency graph validation (cycle detect) | S | **done** — `assertAcyclicModifierOrder` |
-| Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | horizon-a gap |
+| Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | Horizon — examples/horizon-a gap |
 | Q5 | Drizzle column bundle generator from QupsProfile | Horizon | |
 | Q6 | Nest/React: recalc on blur vs on change policy doc | S | **done** — qups-line skill |
 | Q7 | UoM qty field type when `@eristack/uom` exists | Horizon | string qty stays |
@@ -146,7 +146,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | G1 | `executeDrizzleList` sqlite harness test | M | **done** — audit A-003 |
 | G2 | `type: wall` filter ops documented with timestamp | S | **done** — getting-started |
 | G3 | `executeBackseatList` parity with drizzle envelope | M | **done** — backseat-execute.test.ts |
-| G4 | Saved view serialize/deserialize JSON schema | M | UI candidate |
+| G4 | Saved view serialize/deserialize JSON schema | M | **done** — `serializeSavedView` / `parseSavedView` |
 | G5 | Decimal string compare ops export for apps | S | **done** — `@eristack/money` M1 |
 | G6 | Cursor pagination stability doc (tie-breaker column) | S | **done** — edge-cases.md |
 | G7 | Nest ParseDataGridPipe edge cases test | S | **done** — parse-data-grid-pipe.test.ts |
@@ -170,7 +170,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | H1 | `@eristack/hash-chained-ledger/testing` sqlite setup exported | S | **done** — `./testing` + skill |
 | H2 | Tamper helper recipes in skill | S | **done** — hash-chained-ledger-core skill |
 | H3 | Batch append transactional semantics doc | S | **done** — hashing.md + skill |
-| H4 | Chain export JSON for audit packages | M | audit-event later |
+| H4 | Chain export JSON for audit packages | M | Horizon — audit-event package |
 | H5 | Postgres vs sqlite hash parity test | M | **done** — hash-parity.test.ts |
 
 ---
@@ -184,8 +184,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | B3 | IndexedDB smoke in CI | M | **done** — audit X-005 |
 | B4 | Seed pack v1 JSON checked in | M | **done** — audit C-007 |
 | B5 | `jsonError` / versionConflict exported helpers (done — skill) | S | **done** — api-reference.md + backseat-core skill |
-| B6 | data-grid list executor in-memory | M | ticket |
-| B7 | Devtools: route diff export | M | |
+| B6 | data-grid list executor in-memory | M | **done** — `executeInMemoryList` |
+| B7 | Devtools: route diff export | M | Horizon — backseat alpha |
 
 ---
 

@@ -120,6 +120,16 @@ const result = grid.applyInMemory(rows, query);
 // result.items / result.pageInfo / result.query
 ```
 
+Use `executeInMemoryList` when you want the same helper shape as Drizzle/Backseat executors. Persist UI saved views with `serializeSavedView` / `parseSavedView` (JSON with normalized `query`).
+
+```ts
+import { executeInMemoryList, serializeSavedView, parseSavedView } from "@eristack/data-grid";
+
+const list = executeInMemoryList({ schema, items: rows, query });
+const blob = serializeSavedView({ id: "v1", name: "Open", query: grid.parse(/* … */) });
+const view = parseSavedView(blob, schema);
+```
+
 ### Backseat / IndexedDB lists (Horizon A)
 
 Same envelope as Drizzle — map documents in `toRow`, optional `prefilter` for ABAC scope:
