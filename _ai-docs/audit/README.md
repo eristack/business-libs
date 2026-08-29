@@ -1,7 +1,7 @@
 # Full package audit — index
 
 **Date:** 2026-08-27 · **Scope:** all 20 publishable `@eristack/*` packages + examples + agent tooling  
-**Status:** working doc only — does **not** change `roadmap/`, `packages/`, or promotion queue in `package-candidates/`.
+**Status:** point-in-time snapshot — does **not** change `roadmap/`, `packages/`, or [`../brainstorm/`](../brainstorm/) naming queue.
 
 | Doc | Read for |
 | --- | --- |

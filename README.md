@@ -54,7 +54,7 @@ pnpm web
 # or: pnpm --filter @eristack/web dev
 ```
 
-Eristack is a subsidiary of [erista.id](https://erista.id). Agent working notes go in [`_ai-docs/`](./_ai-docs/) while a feature is in progress; promote into package/web docs when finished, then delete the topic folder.
+Eristack is a subsidiary of [erista.id](https://erista.id). Agent WIP notes go in [`_ai-docs/wip/<topic>/`](./_ai-docs/wip/) while implementing; promote into package/web docs when finished, then delete the folder. See [`_ai-docs/README.md`](./_ai-docs/README.md).
 
 ## Examples
 

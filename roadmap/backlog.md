@@ -28,7 +28,7 @@ Named candidates, dependencies, and waves live in **[Horizon](./horizon.md)**. T
 
 | Idea | Why not now |
 | --- | --- |
-| `@eristack/feature-*` vertical modules | Reserved layer 06 — [features.md](./features.md) gates; apps compose spine until then |
+| `@eristack/feature-*` vertical modules | Layer 06 — [features.md](./features.md); brainstorm horizontal packages instead ([catalog-wave2.md](../_ai-docs/brainstorm/catalog-wave2.md)) |
 | Full BPM engine | PBAC + app workflows enough for v1 |
 | Multi-tenant SaaS kit | Apps own tenancy |
 | Mobile RN kit | Web-first |

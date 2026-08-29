@@ -118,7 +118,7 @@ Single shared test harness: `internal/test-harness/` that runs:
 | Doc | Relationship |
 | --- | --- |
 | `roadmap/horizon.md` | Curated **future** packages — audit is **current** packages |
-| `_ai-docs/package-candidates/` | Name brainstorm — audit does not add packages |
+| `_ai-docs/brainstorm/` | Name brainstorm — audit does not add packages |
 | `roadmap/priorities.md` | Unchanged by this audit until human promotes backlog items |
 
 ---

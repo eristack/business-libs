@@ -1,29 +1,68 @@
 # AI working docs
 
-Temporary notes written **while** a feature is in progress. Not public documentation.
+Scratch space for agents **while** work is in flight. Nothing here is public documentation.
 
-## Workflow
+## Three buckets only
 
-1. **Start work** → create `_ai-docs/<topic>/` and write notes that could later become package/web docs.
-2. **Ship the feature** → when the user says the work is finished, promote notes into:
-   - `packages/<category>/<name>/docs/` (source of truth for library guides)
-   - `apps/web/` (marketing / company pages; package docs are rendered from `packages/<category>/*/docs`)
-   - skills under `packages/<category>/<name>/skills/` when agent guidance changes
-3. **Clean up** → delete `_ai-docs/<topic>/`.
+| Bucket | Path | Lifetime | When to use |
+| --- | --- | --- | --- |
+| **WIP** | [`wip/<topic>/`](./wip/) | **Ephemeral** — delete after promote | Active implementation: APIs, decisions, migration notes for one change |
+| **Brainstorm** | [`brainstorm/`](./brainstorm/) | Long-lived sandbox | Package **names** and improvement ideas **before** `roadmap/horizon.md` |
+| **Audit** | [`audit/`](./audit/) | Snapshot until refreshed | Point-in-time monorepo health review (2026-08-27 baseline) |
 
-## Suggested layout
+**Not here:** execution priority → [`roadmap/`](../roadmap/) · shipped truth → `packages/<category>/*/docs/` · agent canon → `@eristack/ai-knowledge/knowledge/`
 
-```text
-_ai-docs/
-  <topic>/
-    overview.md      # why, scope, status
-    decisions.md     # ADRs / trade-offs
-    api.md           # public surface, examples
-    migration.md     # breaking changes / upgrade notes (if any)
+## Decision tree (agents)
+
+```
+Implementing a feature or package change?
+  → wip/<topic>/  (copy _template/overview.md)
+  → Same iteration: update package docs + skills + recipes + pnpm knowledge:sync
+  → User says finished? Promote → delete wip/<topic>/
+
+Naming a future @eristack/* package?
+  → brainstorm/catalog.md or catalog-wave2.md
+  → Human promotes row → roadmap/horizon.md → priorities → packages/
+
+Reviewing monorepo quality / backlog?
+  → audit/executive-summary.md → improvement-backlog.md
+  → Do not treat audit as npm/API truth
+
+Planning what we build next?
+  → roadmap/priorities.md and roadmap/backlog.md (not _ai-docs)
 ```
 
-WIP task folders are gitignored; this README is tracked.
+## WIP folder contract
 
-**Long-lived brainstorm:** `_ai-docs/package-candidates/` — 200+ name drafts; isolated from `roadmap/` until a human promotes rows. Do not delete the whole folder when promoting one candidate.
+One topic = one folder under `wip/`. Max **four** files:
 
-Agents must never run git/commit/PR operations — humans own version control.
+| File | Purpose |
+| --- | --- |
+| `overview.md` | Problem, scope, status frontmatter, **promotes-to** paths |
+| `decisions.md` | ADRs / trade-offs (optional) |
+| `api.md` | Public surface draft (optional) |
+| `migration.md` | Breaking changes (optional) |
+
+Every `overview.md` must list:
+
+- **Promotes to** — exact `packages/.../docs/` paths (and `apps/web/` if site-only)
+- **Skills/recipes** — which Intent skills and `recipes.yaml` rows change
+- **Status** — `draft` \| `in-progress` \| `ready-to-promote`
+
+When the user marks work **finished**: promote content → run `pnpm knowledge:sync` → **delete** `wip/<topic>/`.
+
+## Canonical locations (do not duplicate)
+
+| Topic | Read instead of writing new _ai-docs |
+| --- | --- |
+| Layer 06 Features gates | `roadmap/features.md` |
+| Build order / spine | `roadmap/priorities.md`, `roadmap/backlog.md` |
+| Curated future packages | `roadmap/horizon.md` |
+| Stack defaults (Vercel, Drizzle) | `knowledge/stack-defaults.md`, `knowledge/architecture.md` |
+| Package APIs | `packages/<category>/<name>/docs/` |
+
+## Brainstorm entry
+
+~300 horizontal `@eristack/*` name drafts + per-package improvement matrix — start at [brainstorm/README.md](./brainstorm/README.md).
+
+Agents must never run git/commit/PR — humans own version control.

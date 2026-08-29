@@ -156,7 +156,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 - **Releases:** user-facing package changes need a Changeset (`pnpm changeset`). Docs-only / CI-only changes do not. Publishing happens only after the Version Packages PR merges to `main`.
 - **Scope:** change only what the task requires; do not rewrite README for agent guidance (put that here).
 - **Git / commits / PRs:** taboo — never run git or `gh` VCS commands, never create commits or PRs. The human owns all version control.
-- **AI working docs:** while implementing, write notes under [`_ai-docs/<topic>/`](./_ai-docs/) good enough to infer public docs. When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that `_ai-docs/<topic>/` folder. See `.cursor/rules/ai-working-docs.mdc`.
+- **AI working docs:** while implementing, write notes under [`_ai-docs/wip/<topic>/`](./_ai-docs/wip/) (see [`_ai-docs/README.md`](./_ai-docs/README.md): WIP · brainstorm · audit). When the user says work is **finished**, promote into `packages/<category>/*/docs` and/or `apps/web`, then **delete** that WIP folder. See `.cursor/rules/ai-working-docs.mdc`.
 - **HARD RULE — docs + ai-knowledge every iteration:** same change set must update package `docs/`, Intent `skills/`, and (when product-discoverable) `packages/ai/ai-knowledge/knowledge/recipes.yaml`, then `pnpm knowledge:sync` + `pnpm knowledge:check`. When doc **pages** change, also run `pnpm docs:sync` and commit `_meta.json`. CI runs `pnpm docs:check`. Do not finish with fresh docs and stale agent knowledge or nav catalog. See `.cursor/rules/ai-knowledge-sync.mdc`.
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
@@ -209,7 +209,7 @@ Categories under `packages/` (order matters):
 - `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)
 - `roadmap/` — living priority stack for future packages (also rendered at `/roadmap` on the site); draft-only catalog at `roadmap/horizon.md`
 - `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
-- `_ai-docs/` — temporary AI working notes (promote then delete; see README there)
+- `_ai-docs/` — WIP (`wip/`), brainstorm (`brainstorm/`), audit snapshot (`audit/`); see `_ai-docs/README.md`
 - `examples/*` — private runnable demos (not published)
 - `internal/test-harness` — `@internal/test-harness` repo-only sqlite helpers for integration tests (not under `packages/`, not published)
 - `.changeset/` — pending release notes for Changesets

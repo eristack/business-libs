@@ -24,7 +24,7 @@ Trivial typo-only edits with **no** behavioral/API/guidance change may skip reci
 2. **Intent skills** — update `packages/<category>/<name>/skills/**/SKILL.md` when guidance/defaults/APIs change.
 3. **Recipes** — add/update `packages/ai/ai-knowledge/knowledge/recipes.yaml` when the capability should be found by product language (`recommend()`). New packages need a primary recipe unless they are pure internals with no user-facing ask (still catalogued via sync).
 4. **Sync** — run `pnpm knowledge:sync`, then confirm `pnpm knowledge:check` passes.
-5. **WIP notes** — if using `_ai-docs/<topic>/`, note what catalog/recipe/skill changed so promotion stays complete.
+5. **WIP notes** — if using `_ai-docs/wip/<topic>/`, note what catalog/recipe/skill changed so promotion stays complete.
 
 ## Do not
 

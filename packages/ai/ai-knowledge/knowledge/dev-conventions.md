@@ -32,7 +32,7 @@ Supporting norms:
 | `roadmap/` | Living priority stack for future packages |
 | `examples/*` | Private runnable demos (not published) |
 | `apps/web` | Public site; renders `packages/<category>/*/docs` by category |
-| `_ai-docs/` | Temporary AI working notes |
+| `_ai-docs/` | WIP (`wip/`), brainstorm, audit — see `_ai-docs/README.md` |
 | `_artifacts/` | Domain maps / skill specs |
 | `.changeset/` | Pending release notes |
 
@@ -126,6 +126,18 @@ Agents are the primary audience. **In-depth** does not mean **many files**.
 | Product routing | `recipes.yaml` + `recommend-eristack` skill |
 
 Per-package docs: full detail for **that package’s production adapters**; for monorepo-wide Backseat wiring, **redirect** to upgrading §3 with a small delta table only. See `.cursor/rules/docs-depth-tokens.mdc`.
+
+## AI working docs (`_ai-docs/`)
+
+Three buckets — see repo `_ai-docs/README.md`:
+
+| Bucket | Path | Rule |
+| --- | --- | --- |
+| WIP | `_ai-docs/wip/<topic>/` | Ephemeral; delete after promote |
+| Brainstorm | `_ai-docs/brainstorm/` | Package names before `roadmap/horizon.md` |
+| Audit | `_ai-docs/audit/` | Point-in-time quality snapshot |
+
+While implementing: WIP notes good enough to draft public docs (include skill/recipe impact). When finished: promote to package docs / site / skills / recipes; sync catalog; **delete** the WIP folder.
 
 ## Scope discipline
 
