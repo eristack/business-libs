@@ -33,6 +33,7 @@ sources:
 | `fast` | Turbo filter on changed packages (from `plan`) |
 | `integration` | Drizzle integration tests only (`pnpm test:integration`) |
 | `examples` | Example apps build (`pnpm --filter './examples/*' build`) |
+| `publish` | `pnpm publish:check` only (no workspace:* in published deps) |
 | `ci` command | PR path: affected + drift + integration; `--full` or `ci:full` label → `pr` |
 
 ## MCP (Cursor / Claude Desktop)

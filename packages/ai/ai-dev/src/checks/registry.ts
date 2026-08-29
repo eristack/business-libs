@@ -5,7 +5,8 @@ export type CheckProfile =
   | "full"
   | "fast"
   | "integration"
-  | "examples";
+  | "examples"
+  | "publish";
 
 export type CheckId =
   | "build"
@@ -95,7 +96,7 @@ export const CHECK_DEFS: CheckDef[] = [
   {
     id: "publish",
     label: "publish dependency hygiene",
-    profiles: ["pr", "full"],
+    profiles: ["pr", "full", "publish"],
     order: 46,
   },
   {
@@ -152,11 +153,12 @@ export function resolveProfile(input?: string): CheckProfile {
     input === "full" ||
     input === "fast" ||
     input === "integration" ||
-    input === "examples"
+    input === "examples" ||
+    input === "publish"
   ) {
     return input;
   }
   throw new Error(
-    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration | examples.`,
+    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration | examples | publish.`,
   );
 }

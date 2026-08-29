@@ -50,6 +50,8 @@ pnpm eristack packages list --json
 | `full` | pr + lint |
 | `fast` | build, typecheck, test on **changed packages** (from git diff) |
 | `integration` | `pnpm test:integration` only (Drizzle sqlite harness) |
+| `examples` | Example apps build only |
+| `publish` | `pnpm publish:check` only (dependency hygiene) |
 
 ## MCP
 

@@ -164,6 +164,9 @@
     },
     "@eristack/backseat": {
       "optional": true
+    },
+    "@eristack/timestamp": {
+      "optional": true
     }
   },
   "devDependencies": {

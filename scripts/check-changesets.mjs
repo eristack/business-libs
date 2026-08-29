@@ -116,6 +116,13 @@ function main() {
       );
     }
 
+    const bodyLines = body.split("\n").filter((line) => line.trim().length > 0);
+    if (bodyLines.length > 80) {
+      console.warn(
+        `check-changesets: warn — ${file} body has ${bodyLines.length} non-empty lines (recommended ≤80)`,
+      );
+    }
+
     for (const [pkgName, bump] of packages) {
       if (bump === "patch") continue;
 
