@@ -13,16 +13,16 @@ import { DemoShell } from "@/components/package-demos/demo-shell";
 import { cn } from "@/lib/utils";
 
 const ROUTE_META: Record<string, { title: string; description?: string }> = {
-  "/procurement/po": { title: "Purchase orders", description: "Open POs" },
-  "/sales/orders": { title: "Sales orders", description: "Pipeline" },
-  "/inventory/stock": { title: "Stock levels", description: "On hand" },
+  "/operations/jobs": { title: "Jobs", description: "Open jobs" },
+  "/partners/list": { title: "Partners", description: "Masters" },
+  "/reports/summary": { title: "Summary", description: "Dashboard" },
 };
 
 const SCRIPT = [
-  { kind: "route" as const, path: "/procurement/po" },
-  { kind: "route" as const, path: "/sales/orders" },
-  { kind: "route" as const, path: "/inventory/stock" },
-  { kind: "route" as const, path: "/procurement/po" },
+  { kind: "route" as const, path: "/operations/jobs" },
+  { kind: "route" as const, path: "/partners/list" },
+  { kind: "route" as const, path: "/reports/summary" },
+  { kind: "route" as const, path: "/operations/jobs" },
   { kind: "empty" as const, path: "/" },
 ];
 
@@ -42,7 +42,7 @@ export function MultitabHeroDemo({ className }: { className?: string }) {
   const stateRef = useRef(state);
   stateRef.current = state;
   const [scriptIndex, setScriptIndex] = useState(0);
-  const [pathname, setPathname] = useState("/procurement/po");
+  const [pathname, setPathname] = useState("/operations/jobs");
 
   const tabs = useMemo(() => orderedTabs(state), [state]);
   const activeTabId = useMemo(() => {

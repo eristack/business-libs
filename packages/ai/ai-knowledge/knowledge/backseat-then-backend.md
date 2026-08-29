@@ -13,7 +13,7 @@ Cross-cutting companions: [document-lines-erp](./document-lines-erp.md), [optimi
 | Fit | Examples |
 | --- | --- |
 | **Yes** | Job → cost sheet → invoice; document lines + QUPS; forwarding/freight; service ERP mockups before API exists |
-| **No (unless asked)** | Warehouse GL, stock ledger, FIFO valuation, procurement PO→GR spine |
+| **No (unless asked)** | Warehouse GL, stock ledger, FIFO valuation, vertical procure-to-pay modules |
 | **No** | Production persistence — graduate to Drizzle + Express (Horizon B) |
 
 **Do not** skip app domain math in the mockup. Libraries supply money, qups, timestamps, lists — your `domain/model` owns business rules.
@@ -223,8 +223,7 @@ Load `@eristack/ai-knowledge#upgrading-eristack` for adapter matrix and semver.
 For job/cost-sheet/invoice products, **do not** default to:
 
 - `@eristack/stock-movement`, `@eristack/valuations`, `@eristack/financial-ledger`
-- ERP spine / procurement compose recipes
-- `@eristack/feature-*` (not shipped)
+- Vertical `@eristack/feature-*` packages — apps compose the spine
 
 Add inventory/GL only when product goals explicitly include warehouse or accounting.
 

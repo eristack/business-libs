@@ -26,7 +26,7 @@ Supporting norms:
 | `packages/service/jwt-auth` | `@eristack/jwt-auth` (service) |
 | `packages/infrastructure/backseat` | `@eristack/backseat` (infrastructure; browser mock REST + IndexedDB) |
 | `packages/ui/multitab` | `@eristack/multitab` (UI; tab workspace — coming soon) |
-| `packages/features/` | ERP feature modules (coming soon) |
+| `packages/features/` | **Under construction** — future `@eristack/feature-*`; see `roadmap/features.md` |
 | `packages/ai/ai-knowledge` | `@eristack/ai-knowledge` (AI; this pack) |
 | `packages/ai/ai-workflow` | `@eristack/ai-workflow` (AI) |
 | `roadmap/` | Living priority stack for future packages |

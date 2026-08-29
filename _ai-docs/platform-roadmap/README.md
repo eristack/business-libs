@@ -14,4 +14,6 @@ Incremental **0.x backlog** for `@eristack/*`. Vision is long-lived; **execution
 
 **Versioning:** Changesets 0.x only. No 1.0 / “2.0” milestone.
 
-**Related:** `roadmap/priorities.md`, `roadmap/erp.md`, `apps/web/DESIGN.md`
+**2026-08-29:** Vertical `@eristack/feature-*` ERP module planning removed — see `roadmap/backlog.md` deferred row and `compose-spine` recipe. Horizon capability drafts remain.
+
+**Related:** `roadmap/priorities.md`, `roadmap/horizon.md`, `apps/web/DESIGN.md`

@@ -48,7 +48,7 @@ export const localSkills = [
     "id": "document-lines-erp",
     "name": "document-lines-erp",
     "packageName": "@eristack/ai-knowledge",
-    "description": "Document-with-lines ERP spine: header + QUPS lines + doc-number + pbac + data-grid + backseat — not stock/GL. Partner masters app-owned until feature-partner ships.",
+    "description": "Document-with-lines ERP spine: header + QUPS lines + doc-number + pbac + data-grid + backseat — not stock/GL. Partner masters app-owned; no @eristack/feature-* vertical packages.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#document-lines-erp"
   },

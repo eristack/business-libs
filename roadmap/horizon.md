@@ -13,9 +13,9 @@ This doc collects **named `@eristack/*` drafts** — yours, Tiga Sekawan signals
 | **Status** | `Observing` (wait for consumer proof) · `Candidate` (named, API sketch) · `Planned` (sequenced in priorities) · `Shipped` |
 | **Layer** | Target layer after [proposed UI → UI/UX rename](#layer-rename-ui--uiux-proposed) |
 | **Depends** | Must exist or ship first |
-| **Blocks** | Feature modules or apps waiting on this |
+| **Blocks** | Apps or packages waiting on this |
 
-**Reprioritize:** edit tables here and bump ranks in [ERP](./erp.md) when a feature module moves.
+**Reprioritize:** edit tables here and bump ranks in [Priorities](./priorities.md) when sequencing changes.
 
 ---
 
@@ -101,7 +101,7 @@ import { publicationGraph, journalGraph } from "@eristack/doc-transitions";
 // registers with pbac documents.transitions() + app policies
 ```
 
-**Blocks:** strict opinion PATCH actions; feature modules use presets instead of stringly statuses.
+**Blocks:** strict opinion PATCH actions; apps use presets instead of stringly statuses.
 
 ---
 
@@ -145,16 +145,16 @@ Business capabilities composable into documents and ledgers.
 | `@eristack/financial-ledger` | Shipped | GL amounts | money, HCL | finance |
 | `@eristack/valuations` | Shipped | FIFO/LIFO/… | stock, money | COGS |
 | `@eristack/doc-transitions` | **Candidate** | Preset status graphs | pbac | opinion PATCH |
-| `@eristack/partner` | Candidate | Business partner (supplier + customer roles) | address, contact | P2P, O2C |
-| `@eristack/item` | Candidate | Product + service, category tree | uom, entity-id | sales, procurement |
-| `@eristack/accounting` | Candidate | COA assignments, posting rules, period control | coa, financial-ledger, pbac | feature-finance |
+| `@eristack/partner` | Candidate | Business partner (supplier + customer roles) | address, contact | app masters |
+| `@eristack/item` | Candidate | Product + service, category tree | uom, entity-id | app catalogs |
+| `@eristack/accounting` | Candidate | COA assignments, posting rules, period control | coa, financial-ledger, pbac | GL apps |
 | `@eristack/tax` | Candidate | Tax codes, inclusive/exclusive on lines | money, qups | invoicing |
-| `@eristack/payment-terms` | Candidate | Net 30, cash discount dates | timestamp, money | AP/AR |
+| `@eristack/payment-terms` | Candidate | Net 30, cash discount dates | timestamp, money | invoicing apps |
 | `@eristack/reporting` | **Candidate** | Query + run report jobs, snapshot rows | data-grid, epoch | DSL |
 | `@eristack/reporting-dsl` | **Candidate** | Dynamic report layout (bands, groups, aggregates) | reporting, money | print/PDF |
 | `@eristack/serial-batch` | Candidate | Lot/serial beyond stock-movement defaults | stock-movement | regulated industries |
 | `@eristack/bom` | Candidate | Bill of materials structure | item | manufacturing |
-| `@eristack/landed-cost` | Candidate | Allocate freight/duty to GR lines | money, valuations | import PO |
+| `@eristack/landed-cost` | Candidate | Allocate freight/duty to receipt lines | money, valuations | import costing |
 | `@eristack/allocation` | Candidate | Distribute header charges to lines | money | invoices, landed cost |
 
 ---
@@ -172,7 +172,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/data-grid` | Shipped | Dynamic lists | timestamp | all lists |
 | `@eristack/epoch` | Shipped | Cache epochs | — | read models |
 | `@eristack/hash-chained-ledger` | Shipped | Append-only chain | — | stock, GL |
-| `@eristack/opinion` | **Candidate** | REST canon + OpenAPI + tRPC mirror | data-grid, pbac, jwt-auth | feature HTTP |
+| `@eristack/opinion` | **Candidate** | REST canon + OpenAPI + tRPC mirror | data-grid, pbac, jwt-auth | app HTTP |
 | `@eristack/audit-event` | Candidate | Domain audit stream (who/when/what) | timestamp, entity-id | compliance |
 | `@eristack/outbox` | Candidate | Reliable webhook/email dispatch | — | integrations |
 | `@eristack/file-ref` | Candidate | Attachment metadata (app-owned blob store) | entity-id | document scans |
@@ -213,20 +213,6 @@ Design system + headless ERP workspace.
 
 ---
 
-## Package catalog — Features
-
-Vertical ERP modules (`@eristack/feature-*`) — strategy stays in [ERP](./erp.md). Horizon only notes **new master-data-first ordering**:
-
-| Rank | Package | Horizon note |
-| ---: | --- | --- |
-| 1 | `feature-partner` | Use `@eristack/partner` capability when split from feature |
-| 2 | `feature-product` | Use `@eristack/item` + `@eristack/uom` |
-| 3+ | procurement, sales, … | Unchanged — see ERP priority stack |
-
-**Gate unchanged:** no feature alpha until [ERP gates](./erp.md#gates-before-first-feature-alpha) pass.
-
----
-
 ## Package catalog — AI
 
 | Package | Status | Purpose |
@@ -235,7 +221,7 @@ Vertical ERP modules (`@eristack/feature-*`) — strategy stays in [ERP](./erp.m
 | `@eristack/ai-workflow` | Shipped | Local MCP, sprint memory |
 | `@eristack/ai-ticket-generator` | Shipped | Maintainer tickets |
 | `@eristack/ai-dev` | Shipped (0.x) | Unified check/plan/sync |
-| `@eristack/ai-domain-*` | Candidate | Per-feature Intent packs when Features ship |
+| `@eristack/ai-domain-*` | Candidate | Optional per-app Intent packs |
 
 ---
 
@@ -251,10 +237,11 @@ Wave 3  (masters) uom, address, contact, partner, item
 Wave 4  (finance) coa, accounting, fiscal-calendar, tax, payment-terms
 Wave 5  (UX)      design-system, doc-shell, form-kit
 Wave 6  (report)  reporting → reporting-dsl → print-view
-Wave 7  (features) feature-partner, feature-product, … per ERP stack
 ```
 
-**Parallel allowed:** design-system (Wave 5) can start during Wave 3 if tokens only; **opinion** should land before feature HTTP scaffolding.
+**Parallel allowed:** design-system (Wave 5) can start during Wave 3 if tokens only; **opinion** should land before app HTTP scaffolding.
+
+**Out of scope for near-term work:** shipping `@eristack/feature-*` npm packages — layer 06 is [under construction](./features.md). Apps compose the spine; horizontal capability drafts below remain in this catalog.
 
 ---
 
@@ -283,9 +270,10 @@ Neither replaces `@eristack/data-grid` list contract — QUERY/GET `/data-grid` 
 ## Agents
 
 1. **Future package asks:** read **this file** + [Layers](./layers.md) — do not invent package names in apps.
-2. **Implement today:** `recommend()` → shipped spine; see [ERP compose table](./erp.md#compose-today-until-features-ship).
+2. **Implement today:** `recommend()` → shipped spine; for document-with-lines products load `#document-lines-erp` or `#backseat-then-backend`.
 3. **Strict HTTP:** when `@eristack/opinion` does not exist, follow the REST table above as convention until the package ships.
 4. **Status presets:** prefer `@eristack/pbac` + `documents.transitions()`; when doc-transitions ships, import presets instead of copy-paste graphs.
+5. **No vertical modules:** Eristack does not ship `@eristack/feature-*` — apps own procurement, logistics, job costing, and other document families.
 
 When a candidate promotes to Planned, add a row to [Priorities](./priorities.md) and a Changeset-scoped scaffold PR — not a mega-package.
 
@@ -295,4 +283,5 @@ When a candidate promotes to Planned, add a row to [Priorities](./priorities.md)
 
 | Date | Change |
 | --- | --- |
+| 2026-08-29 | Dropped Features layer and `@eristack/feature-*` planning — apps compose spine |
 | 2026-08-27 | Initial horizon catalog: opinion, entity-id, doc-transitions, masters, reporting, design-system, UI/UX rename, multi-maintainer, tRPC note |

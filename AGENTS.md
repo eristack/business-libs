@@ -161,7 +161,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.
-- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Docs UI and site listings follow the same order.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 06 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
 
 ## Examples
 
@@ -201,8 +201,8 @@ Categories under `packages/` (order matters):
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
 - `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
 - `packages/infrastructure/backseat` — `@eristack/backseat` (in-browser mock REST engine — alpha)
-- `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab ERP workspace — coming soon)
-- `packages/features/` — ERP feature modules (product, procurement, …) — layer coming soon; see `roadmap/`
+- `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab operational workspace — coming soon)
+- `packages/features/` — **under construction** — future `@eristack/feature-*`; apps compose spine today (`roadmap/features.md`)
 - `packages/ai/ai-dev` — `@eristack/ai-dev` (unified `eristack` CLI + MCP: plan, check profiles, sync)
 - `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
 - `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)

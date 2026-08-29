@@ -1,7 +1,9 @@
 # Eristack platform roadmap (plan only)
 
+> **Superseded (2026-08-29):** Vertical `@eristack/feature-*` ERP modules and `roadmap/erp.md` are removed. Apps compose the spine; see `compose-spine` recipe and `roadmap/horizon.md` for capability drafts only.
+
 > **Status:** Planning · **Execute:** not started  
-> **Scope:** All 19 publishable `@eristack/*` packages at **0.x** + planned infrastructure + features layer  
+> **Scope:** All publishable `@eristack/*` packages at **0.x** + planned infrastructure + UI + AI  
 > **Versioning:** Incremental Changesets — minors and patches on 0.x for a long time. **No “2.0” release.** This doc is a backlog, not a semver milestone.  
 > **Companion docs:** [tonight.md](./tonight.md) · [backlog.md](./backlog.md) · [audit](./audit.md) · [upgrades](./upgrades.md) · [new-packages](./new-packages.md) · [adapters-norm](./adapters-norm.md)
 
@@ -9,15 +11,15 @@
 
 ## Executive thesis
 
-Eristack today is a **strong primitive + service spine** with uneven depth on the ledger stack, thin examples beyond auth/lists, and **zero feature-layer packages**. Agents can wire money, auth, and data-grid in ≤3 files — but cannot complete a PO→GR→invoice path without inventing half an ERP.
+Eristack today is a **strong primitive + service spine** with uneven depth on the ledger stack and thin examples beyond auth/lists. Agents can wire money, auth, and data-grid in ≤3 files — apps own vertical document families.
 
 This roadmap is **not a rewrite or a major version**. It is a sequenced **0.x backlog**:
 
 1. **Harden** what exists (tests, docs, zod, adapter parity) — patch/minor bumps
-2. **Extend** core APIs so consumers stop duplicating ERP glue — minor bumps
+2. **Extend** core APIs so consumers stop duplicating glue — minor bumps
 3. **Normalize** adapters around `/rest` + `/client` spines (+ Hono, optional Prisma) — new packages at 0.1.0
-4. **Branch** new primitives/capabilities that unblock feature modules — 0.1.0 alphas
-5. **Ship** the features layer in spine-proven slices (procurement first) — `@eristack/feature-*` at 0.1.x
+4. **Branch** new primitives/capabilities when apps need shared helpers — 0.1.0 alphas
+5. **No vertical modules** — document-with-lines guides + compose-spine recipe instead of `@eristack/feature-*`
 
 Priority order: [backlog.md](./backlog.md). **Tonight:** [tonight.md](./tonight.md).
 

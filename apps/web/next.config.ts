@@ -19,12 +19,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/roadmap/features-erp",
-        destination: "/roadmap/erp",
+        destination: "/roadmap/horizon",
         permanent: true,
       },
       {
         source: "/roadmap/features-catalog",
-        destination: "/roadmap/erp",
+        destination: "/roadmap/horizon",
+        permanent: true,
+      },
+      {
+        source: "/roadmap/erp",
+        destination: "/roadmap/features",
         permanent: true,
       },
       {

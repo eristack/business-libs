@@ -75,7 +75,7 @@ useQuery({ queryKey: ["products"], queryFn: () => api.handlers.products.list() }
 // Actions
 useQuery({
   queryKey: ["open-pos", supplierId],
-  queryFn: () => api.invoke("procurement.openPoByPartner", { supplierId }),
+  queryFn: () => api.invoke("operations.openJobsByPartner", { supplierId }),
 });
 ```
 

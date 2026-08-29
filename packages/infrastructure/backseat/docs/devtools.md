@@ -106,7 +106,7 @@ Use this to:
 Example flow for approval controller:
 
 1. Re-seed demo data
-2. Insert PO with `status: "draft"`
+2. Insert job with `status: "draft"`
 3. Use app UI to submit — or PATCH via handlers
 4. Confirm devtools shows `status: "submitted"`
 5. Trigger approve route from UI

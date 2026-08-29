@@ -64,10 +64,10 @@ Same for actions → POST endpoints:
 
 ```ts
 // Before
-api.invoke("procurement.outstandingBySupplier", { supplierId });
+api.invoke("operations.outstandingBySupplier", { supplierId });
 
 // After
-fetch(`/api/procurement/outstanding?supplierId=${supplierId}`);
+fetch(`/api/operations/outstanding?supplierId=${supplierId}`);
 ```
 
 ## What agents should peek at

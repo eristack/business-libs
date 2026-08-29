@@ -1,12 +1,15 @@
 # Features layer
 
-ERP product modules ship here as **separate `@eristack/feature-*` packages** — purchase orders, sales orders, product master, inventory ops, finance documents, and more.
+**Status: under construction — no packages, no schedule.**
 
-**Status: coming soon**
+This folder is reserved for future `@eristack/feature-*` libraries: vertical document families built on the shared spine (qups, pbac, doc-number, ledgers, data-grid, auth).
+
+**We are not building here yet.** Near-term work stays in layers 01–05 and AI — see [Priorities](../../roadmap/priorities.md).
 
 | Doc | Purpose |
 | --- | --- |
-| [erp.md](../../roadmap/erp.md) | Strategy, priority stack, module reference — **edit priorities here** |
-| [priorities.md](../../roadmap/priorities.md) | Near-term spine and infrastructure work |
+| [features.md](../../roadmap/features.md) | Why the layer exists, prerequisites, honest timeline |
+| [layers.md](../../roadmap/layers.md) | Seven-layer taxonomy |
+| [priorities.md](../../roadmap/priorities.md) | What ships before any feature alpha |
 
-No packages in this folder yet. Lower layers (money → service → infrastructure → ui) stay the build focus until the first feature alpha.
+**Today:** apps own vertical domains. Use `@eristack/ai-knowledge#document-lines-erp` and `#compose-spine` — not invented feature packages.

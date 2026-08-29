@@ -222,34 +222,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 
 ---
 
-## 06 · Features (20)
-
-| # | Package | Status | One-liner | Notes |
-| ---: | --- | --- | --- | --- |
-| F01 | `@eristack/feature-partner` | idea | Customer/supplier master docs | erp.md P0 |
-| F02 | `@eristack/feature-product` | idea | Item master docs | erp.md P0 |
-| F03 | `@eristack/feature-warehouse` | idea | WH master | erp.md |
-| F04 | `@eristack/feature-procurement` | idea | PO, GR, PI | erp.md P0 |
-| F05 | `@eristack/feature-sales` | idea | Quote, SO, delivery, invoice | erp.md P1 |
-| F06 | `@eristack/feature-inventory` | idea | Transfer, adjust, stocktake | erp.md P1 |
-| F07 | `@eristack/feature-finance` | idea | Journal, period close | erp.md P1 |
-| F08 | `@eristack/feature-ap` | idea | AP open items | erp.md P2 |
-| F09 | `@eristack/feature-ar` | idea | AR open items | erp.md P2 |
-| F10 | `@eristack/feature-manufacturing` | idea | BOM, work order | erp.md P2 |
-| F11 | `@eristack/feature-pricing` | idea | Price lists module | erp.md P2 |
-| F12 | `@eristack/feature-tax` | idea | Tax on documents | erp.md P2 |
-| F13 | `@eristack/feature-quality` | idea | QC hold | erp.md P3 |
-| F14 | `@eristack/feature-projects` | idea | Project costing | erp.md P3 |
-| F15 | `@eristack/feature-assets` | idea | Fixed assets module | erp.md P3 |
-| F16 | `@eristack/feature-maintenance` | idea | PM work orders | new |
-| F17 | `@eristack/feature-expense` | idea | Employee expense reports | new |
-| F18 | `@eristack/feature-subscription` | idea | Recurring revenue docs | new |
-| F19 | `@eristack/feature-pos-lite` | idea | Retail POS shift (minimal) | deferred-ish |
-| F20 | `@eristack/feature-cost-sheet` | idea | Job cost sheet / BOQ docs | TS document ERP |
-
----
-
-## 07 · AI (16)
+## 06 · AI (16)
 
 | # | Package | Status | One-liner | Notes |
 | ---: | --- | --- | --- | --- |
@@ -281,11 +254,10 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | Service | 38 |
 | Infrastructure | 14 |
 | UI | 30 |
-| Features | 20 |
 | AI | 16 |
-| **Total rows** | **213** |
+| **Total rows** | **193** |
 
-(shipped/scaffold rows included for map completeness; **~170** are net-new `idea`/`sketch` names)
+(shipped/scaffold rows included for map completeness; **~150** are net-new `idea`/`sketch` names)
 
 ---
 

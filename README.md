@@ -29,10 +29,11 @@ Packages live under `packages/<category>/<name>/` in this order: **primitive →
 | Service | [`@eristack/pbac`](./packages/service/pbac) | Software policies over business documents |
 | Service | [`@eristack/hash-chained-ledger`](./packages/service/hash-chained-ledger) | Append-only hash-chained ledger primitive |
 | Infrastructure | [`@eristack/backseat`](./packages/infrastructure/backseat) | In-browser mock REST engine + IndexedDB store for frontend-first prototypes (alpha) |
-| UI | [`@eristack/multitab`](./packages/ui/multitab) | Headless multi-tab ERP workspace (coming soon) |
-| Features | *(coming soon)* | ERP modules — product, procurement, … — see [`roadmap/`](./roadmap/README.md) |
+| UI | [`@eristack/multitab`](./packages/ui/multitab) | Headless multi-tab workspace (coming soon) |
+| Features | *(under construction)* | Future `@eristack/feature-*` — [roadmap/features.md](./roadmap/features.md); compose spine today |
 | AI | [`@eristack/ai-knowledge`](./packages/ai/ai-knowledge) | Agent knowledge pack: recommend `@eristack/*`, Intent skills, synced catalog |
 | AI | [`@eristack/ai-workflow`](./packages/ai/ai-workflow) | Local-first MCP, FTS+vector index, sprint/backlog workflow |
+| AI | [`@eristack/ai-dev`](./packages/ai/ai-dev) | Unified `eristack` CLI: plan, check, sync |
 | AI | [`@eristack/ai-ticket-generator`](./packages/ai/ai-ticket-generator) | Portable bug/suggestion tickets for maintainers; mandatory `ticket.yaml` |
 
 Each package has its own README and docs under `packages/<category>/<name>/`. Planned work lives in [`roadmap/`](./roadmap/README.md).

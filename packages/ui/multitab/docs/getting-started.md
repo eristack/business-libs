@@ -131,8 +131,8 @@ When the user picks a module from the new-tab picker:
 
 ```tsx
 multitab.replaceTab(newTabId, {
-  id: "/procurement/po/1001",
-  title: "PO 1001",
+  id: "/operations/jobs/:id",
+  title: "Job 1001",
   kind: "route",
 });
 ```

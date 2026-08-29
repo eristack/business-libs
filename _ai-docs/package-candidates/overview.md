@@ -8,7 +8,7 @@ Brainstorm sandbox for `@eristack/*` names before they touch `roadmap/` or the m
 2. **One sharp job** — same design target as shipped packages (cheap tokens, predictable, Drizzle-default).
 3. **No app logic** — libraries export types/helpers/adapters; apps own UX and tenant tables.
 4. **String-first** — money, qty, rates, dates follow existing primitive rules.
-5. **Features stay vertical** — `@eristack/feature-*` only for cohesive document families; capabilities stay horizontal.
+5. **Apps own verticals** — no `@eristack/feature-*` packages; capabilities stay horizontal.
 
 ## Layers (placement guide)
 
@@ -19,8 +19,7 @@ Brainstorm sandbox for `@eristack/*` names before they touch `roadmap/` or the m
 | 03 | Service | Auth, HTTP policy, lists, jobs, integration glue |
 | 04 | Infrastructure | Loggers, mocks, mounts, runners |
 | 05 | UI | Headless React + proposed design-system |
-| 06 | Features | ERP document modules (`feature-*`) |
-| 07 | AI | Agent skills, MCP, codegen helpers |
+| 06 | AI | Agent skills, MCP, codegen helpers |
 
 **UI/UX rename** is a brainstorm label only until promoted from `roadmap/horizon.md`.
 
@@ -46,6 +45,6 @@ Brainstorm sandbox for `@eristack/*` names before they touch `roadmap/` or the m
 - PDF template designer SaaS
 - Full CRM pipeline
 - Payroll localization packs
-- Hosted MCP / cloud agents
+- `@eristack/feature-*` vertical ERP modules (removed from roadmap 2026-08-29)
 
 See [catalog.md](./catalog.md) for the full numbered list.

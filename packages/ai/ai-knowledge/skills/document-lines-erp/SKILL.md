@@ -2,8 +2,8 @@
 name: document-lines-erp
 description: >
   Document-with-lines ERP spine: header + QUPS lines + doc-number + pbac +
-  data-grid + backseat — not stock/GL. Partner masters app-owned until
-  feature-partner ships.
+  data-grid + backseat — not stock/GL. Partner masters app-owned; no
+  @eristack/feature-* vertical packages.
 metadata:
   type: core
   library: '@eristack/ai-knowledge'
@@ -24,4 +24,4 @@ qups, money, doc-number, data-grid, pbac, rbac, abac, backseat, timestamp, epoch
 
 ## App-owned
 
-Partner, product/charge masters, job/cost sheet/invoice tables.
+Partner, product/charge masters, job/cost sheet/invoice tables — apps own vertical document families.

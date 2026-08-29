@@ -128,21 +128,21 @@ export const packageCategories = [
     id: "features",
     label: "Features",
     href: "/features",
-    tagline: "ERP modules — PO, SO, product, inventory, finance.",
+    tagline: "Vertical modules — reserved. Long construction ahead.",
     description:
-      "Operational ERP as composable libraries: purchase orders, goods receipts, sales orders, product master, stock transfers, journals, and AP/AR — each a separate package on the shared spine (qups, stock, ledgers, pbac, doc-number). Coming soon while masters and procure-to-pay design land.",
+      "Layer 06 holds future @eristack/feature-* packages: cohesive document families on top of the spine. Nothing is scheduled here until ledgers, Backseat document demos, logger/rest, and multitab are boring. Apps compose qups, pbac, doc-number, and friends today — this floor is scaffolding only.",
     highlights: [
       {
-        title: "Real ERP documents",
-        body: "Headers, lines, statuses, postings — not generic CRUD wrappers.",
+        title: "Spine first",
+        body: "Primitives through UI must be production-trusted before any vertical npm package.",
       },
       {
-        title: "Spine underneath",
-        body: "Money, stock, GL, valuations, and document rules stay in lower layers.",
+        title: "Under construction",
+        body: "No feature alpha on the roadmap calendar — gates, not dates.",
       },
       {
-        title: "Reprioritize freely",
-        body: "Module backlog in roadmap/erp.md — partner, product, and procurement lead by default.",
+        title: "Compose today",
+        body: "document-lines-erp and compose-spine recipes — apps own vertical tables until then.",
       },
     ],
   },
@@ -655,8 +655,8 @@ abac.registerPolicy({
 
 const pbac = createPbac()
 pbac.registerPolicy({
-  id: "purchase-order.can-receive",
-  evaluate: documents.positiveAmount("outstandingMinor"),
+  id: "job.can-submit",
+  evaluate: documents.positiveAmount("totalMinor"),
 })`,
     },
   },

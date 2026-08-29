@@ -1,20 +1,19 @@
-# Seven layers + ERP features plan
+# Six layers → Features floor restored
 
-## Done
+## Current (2026-08-29)
 
-- 7 layers on site; backseat + multitab scaffolds
-- Unified `roadmap/` — priorities, layers, erp, backlog (4 docs + README)
-- Site `/roadmap` with section nav + prev/next on detail pages
-- ai-knowledge recipe `erp-modules` (routes to spine until feature packages ship)
+- **Seven layers** on site: primitive → capability → service → infrastructure → ui → **features** → ai
+- Layer **06 Features** is visible but **empty** — under-construction UX on `/features` and in Libraries megamenu
+- Canonical plan: [`roadmap/features.md`](../../roadmap/features.md) — gates, no procure-to-pay priority stack
+- Apps compose today: `#compose-spine`, `#document-lines-erp`
 
-## ERP default priority (editable in erp.md)
+## Removed (still true)
 
-1. feature-partner · feature-product · feature-procurement (P0)
-2. feature-sales · feature-inventory · feature-finance (P1)
-3. AP/AR · manufacturing · pricing · tax (P2)
-4. quality · projects · assets (P3)
+- `roadmap/erp.md` procure-to-pay module priority stack
+- `@eristack/feature-*` as near-term npm work
+- Procurement PO narrative in compose/backseat examples
 
-## Pending
+## Pending (unchanged)
 
-- Human reprioritizes `roadmap/erp.md`
-- First feature package when spine gates clear
+- Horizon capability drafts when promoted
+- Logger + rest per `roadmap/priorities.md`

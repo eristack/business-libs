@@ -17,12 +17,8 @@ Longer horizon — pull items into [Priorities](./priorities.md) only when near-
 | Service | Scheduler | Cron as data — app runs workers |
 | UI | doc-shell | Document header: status, actions, audit strip |
 | UI | data-dense table | data-grid + shadcn recipes |
-| UI | command palette | ERP navigation helper |
-| AI | Domain skill packs | Per-feature Intent skills when Features ship |
-
-## ERP modules
-
-All `@eristack/feature-*` backlog lives in [ERP](./erp.md) — edit the priority stack there, not here.
+| UI | command palette | Workspace navigation helper |
+| AI | Domain skill packs | Optional Intent packs when apps need them |
 
 ## Draft catalog (planning only)
 
@@ -32,7 +28,8 @@ Named candidates, dependencies, and waves live in **[Horizon](./horizon.md)**. T
 
 | Idea | Why not now |
 | --- | --- |
+| `@eristack/feature-*` vertical modules | Reserved layer 06 — [features.md](./features.md) gates; apps compose spine until then |
 | Full BPM engine | PBAC + app workflows enough for v1 |
 | Multi-tenant SaaS kit | Apps own tenancy |
-| Mobile RN kit | Web ERP first |
-| HR, CRM, WMS, POS | See [ERP → Deferred](./erp.md#deferred) |
+| Mobile RN kit | Web-first |
+| HR, CRM, WMS, POS | Out of scope for the library layer |

@@ -6,7 +6,7 @@ sidebar_position: 5
 
 # Document-with-lines ERP (header + QUPS lines)
 
-**Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** until `@eristack/feature-partner` ships.
+**Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.
 
 Load: `@eristack/ai-knowledge#document-lines-erp` · Horizon A mockup: `@eristack/ai-knowledge#backseat-then-backend` · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
 
@@ -31,11 +31,11 @@ Load: `@eristack/ai-knowledge#document-lines-erp` · Horizon A mockup: `@eristac
 
 ---
 
-## App-owned (until feature packages)
+## App-owned masters
 
 | Master | App schema |
 | --- | --- |
-| Partner | `isCustomer`, `isVendor`, codes, addresses — not `@eristack/feature-partner` |
+| Partner | `isCustomer`, `isVendor`, codes, addresses — app tables |
 | Product / charge codes | App tables or enums |
 | Job / cost sheet / invoice | App aggregates + Drizzle migrations |
 

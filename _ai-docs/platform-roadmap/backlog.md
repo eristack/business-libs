@@ -1,5 +1,7 @@
 # Platform backlog — vision reference (not scheduled)
 
+> **Superseded (2026-08-29):** W7–W8 / W11 feature-module waves removed. See `roadmap/backlog.md` deferred row.
+
 > **Do not execute from this file in one session.** Use [tonight.md](./tonight.md) for active work.  
 > Waves are **priority order**, not calendar estimates. All ships on **0.x** Changesets.
 
@@ -16,12 +18,9 @@
 | W4 | Backseat M3 + rest route parity | prototype ERP |
 | W5 | uom, tax, fiscal-calendar, outbox, partner-core | feature masters |
 | W6 | multitab beta + doc-shell | workspace UX |
-| W7 | feature-partner, feature-product | masters |
-| W8 | feature-procurement | first ERP vertical |
-| W9 | logger, audit-log | ops |
-| W10 | prisma peer stores | consumer choice |
-| W11 | feature sales/inventory/finance… | O2C, P2P |
-| W12 | scaffold CLI, recipe expansion | agent onboarding |
+| W7 | logger, audit-log | ops |
+| W8 | prisma peer stores | consumer choice |
+| W9 | scaffold CLI, recipe expansion | agent onboarding |
 
 Full detail per wave: former content in git history of `execution-waves.md` — condensed below.
 
@@ -48,7 +47,7 @@ Full detail per wave: former content in git history of `execution-waves.md` — 
 - doc-number: optional `scope` on `next()` + `{SCOPE}` — **done**
 - ai-knowledge: `document-lines-erp`, `optimistic-document-version` recipes — **done**
 
-**Deferred:** `examples/erp-spine`, procurement-spine recipe, `@eristack/feature-procurement` until explicitly re-scoped.
+**Removed:** `@eristack/feature-*` vertical modules — apps compose spine packages.
 
 ## W2–W4 — Adapter + infra
 
@@ -56,12 +55,12 @@ Full detail per wave: former content in git history of `execution-waves.md` — 
 - zod on jwt-auth, doc-number, data-grid, epoch
 - hono mounts; Backseat uses same route table
 
-## W5–W8 — New packages + features
+## W5–W7 — New packages + infra
 
 - See [new-packages.md](./new-packages.md)
-- Gates: `roadmap/erp.md` checklist before feature-*
+- No vertical feature-module gates — apps own document families
 
-## W9–W12 — Ops + long tail
+## W8–W9 — Ops + long tail
 
 - logger, audit-log, prisma peers, scaffold, recipes
 
@@ -70,9 +69,8 @@ Full detail per wave: former content in git history of `execution-waves.md` — 
 ## Dependency sketch
 
 ```text
-W0 + W1 ──► W8 feature-procurement
+W0 + W1 ──► W5 capability drafts
 W2 ──► W3, W4
-W5 + W6 + W7 ──► W8
 ```
 
 ---

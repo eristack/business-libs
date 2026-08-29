@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { StatusBadge } from "@/components/stack/status-badge";
+import { FeaturesConstruction } from "@/components/stack/features-construction";
 import { cn } from "@/lib/utils";
 import {
   categoryIndex,
@@ -261,23 +262,9 @@ export function LibrariesNav({ className }: { className?: string }) {
                     );
                   })}
                 </ul>
-              ) : (
-                <div className="mt-6 rounded-lg border border-dashed border-[color:var(--layer-accent)]/35 bg-[color:var(--layer-soft)] px-4 py-8 text-center">
-                  <p className="text-sm font-semibold">Coming soon</p>
-                  <p className="mx-auto mt-2 max-w-xs text-[12px] leading-5 text-muted-foreground">
-                    ERP modules — PO, SO, product, GR, inventory, finance — as
-                    separate packages. Prioritized catalog:{" "}
-                    <Link
-                      href="/roadmap/erp"
-                      onClick={() => setOpen(false)}
-                      className="font-semibold text-[color:var(--layer-accent)] hover:underline"
-                    >
-                      ERP catalog
-                    </Link>
-                    .
-                  </p>
-                </div>
-              )}
+              ) : activeLayer.id === "features" ? (
+                <FeaturesConstruction variant="nav" />
+              ) : null}
             </div>
           </div>
         </div>
