@@ -1,4 +1,6 @@
 import { Inject, Module, type OnModuleInit } from "@nestjs/common";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { LoggerModule, LoggingInterceptor } from "@eristack/logger/nest";
 import { eq } from "drizzle-orm";
 import {
   ConfigurationError,
@@ -22,6 +24,7 @@ const accessSecret =
 
 @Module({
   imports: [
+    LoggerModule.forRoot({ createOptions: { name: "example-nestjs" } }),
     DatabaseModule,
     // DB is created by DatabaseModule and injected here — not by jwt-auth.
     JwtAuthModule.registerAsync({
@@ -47,6 +50,7 @@ const accessSecret =
     }),
   ],
   controllers: [MeController],
+  providers: [{ provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }],
 })
 export class AppModule implements OnModuleInit {
   constructor(

@@ -332,6 +332,9 @@ importers:
       '@eristack/jwt-auth':
         specifier: workspace:*
         version: link:../../packages/service/jwt-auth
+      '@eristack/logger':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/logger
       '@nestjs/common':
         specifier: ^11.0.12
         version: 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
