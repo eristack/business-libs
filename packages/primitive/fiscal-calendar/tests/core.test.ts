@@ -37,6 +37,38 @@ const calendar = createFiscalCalendar({
 });
 
 describe("@eristack/fiscal-calendar", () => {
+  it("rejects overlapping periods", () => {
+    expect(() =>
+      createFiscalCalendar({
+        id: "overlap",
+        timezone: "UTC",
+        years: [
+          {
+            year: 2026,
+            periods: [
+              {
+                id: "a",
+                fiscalYear: 2026,
+                periodNumber: 1,
+                start: "2026-01-01",
+                end: "2026-01-31",
+                status: "open",
+              },
+              {
+                id: "b",
+                fiscalYear: 2026,
+                periodNumber: 2,
+                start: "2026-01-15",
+                end: "2026-02-15",
+                status: "open",
+              },
+            ],
+          },
+        ],
+      }),
+    ).toThrow(/Overlapping/i);
+  });
+
   it("throws on timezone mismatch", () => {
     const utc = wallOf("2026-01-15T00:00:00", "UTC");
     expect(() => findPeriodForDate(calendar, utc)).toThrow(FiscalCalendarError);
