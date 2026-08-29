@@ -14,6 +14,8 @@ export type EpochStaleLogOptions = {
   level?: EpochLogLevel;
   /** Message prefix. Default `epoch stale — refetch`. */
   message?: string;
+  /** Metrics hook — invoked when policy is `refetch`. */
+  onStale?: (result: CachePolicyResult) => void;
 };
 
 /** Emit a structured log when cache policy is `refetch`. */
@@ -29,6 +31,7 @@ export function logEpochCachePolicy(
     clientEpoch: result.clientEpoch,
     current: result.current,
   });
+  options.onStale?.(result);
 }
 
 /** Wrap epoch.resolveCachePolicy* to log stale client epochs. */

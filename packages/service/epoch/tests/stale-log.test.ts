@@ -43,4 +43,20 @@ describe("epoch stale logging", () => {
 
     expect(logs).toEqual(["epoch stale — refetch"]);
   });
+
+  it("calls onStale metrics hook", async () => {
+    const stale: number[] = [];
+    const epoch = withEpochStaleLogging(
+      createEpoch({ store: createMemoryEpochStore() }),
+      {
+        sink: { info: () => {} },
+        onStale: () => stale.push(1),
+      },
+    );
+
+    await epoch.bump("orders");
+    await epoch.resolveCachePolicy("orders", 0);
+
+    expect(stale).toHaveLength(1);
+  });
 });
