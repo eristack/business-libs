@@ -149,6 +149,11 @@ function commandForCheck(
         argv: ["pnpm", "--filter", "@eristack/web", "contrast:check"],
         display: "pnpm --filter @eristack/web contrast:check",
       };
+    case "features":
+      return {
+        argv: ["node", "scripts/check-features-layer.mjs"],
+        display: "node scripts/check-features-layer.mjs",
+      };
     default:
       throw new Error(`No command mapping for check ${def.id}`);
   }

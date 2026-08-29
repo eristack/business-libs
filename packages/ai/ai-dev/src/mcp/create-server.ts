@@ -8,6 +8,7 @@ import {
   planFromPaths,
   resolveProfile,
   runChecks,
+  runSync,
   summarizeResults,
 } from "../index.js";
 
@@ -51,7 +52,16 @@ export function createDevMcpServer(cwd = cwdFromEnv()) {
         "Run check profile (catalog|pr|full|fast). Returns compact JSON results.",
       inputSchema: {
         profile: z
-          .enum(["catalog", "pr", "full", "fast"])
+          .enum([
+            "catalog",
+            "pr",
+            "full",
+            "fast",
+            "integration",
+            "examples",
+            "publish",
+            "features",
+          ])
           .optional()
           .describe("Default pr (CI gate)"),
       },
@@ -93,6 +103,19 @@ export function createDevMcpServer(cwd = cwdFromEnv()) {
           ticket: p.hasTicket,
         })),
       );
+    },
+  );
+
+  server.registerTool(
+    "dev_knowledge_check",
+    {
+      description:
+        "Run ai-knowledge catalog sync check (pnpm knowledge:check).",
+      inputSchema: {},
+    },
+    async () => {
+      const result = runSync(repoRoot, "knowledge", true);
+      return formatToolText(result);
     },
   );
 

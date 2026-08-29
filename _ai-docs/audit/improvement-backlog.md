@@ -80,7 +80,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **D-003** | Peer map jwt-auth → data-grid | S | jwt-auth | **done** — peerDependencies + docs |
 | **D-004** | Peer map data-grid → timestamp | S | data-grid | **done** — optional peer + peerDependenciesMeta |
 | **D-005** | Peer map doc-number → data-grid, timestamp | S | doc-number | **done** — peerDependencies present |
-| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **partial done** — 7 packages export `./testing`; migration note in upgrading.md §2.1 |
+| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **partial done** — 9 packages export `./testing`; migration note in upgrading.md §2.1 |
 | **D-007** | eristack check `--profile publish` | S | ai-dev | **done** — registry + CLI + skill + runner.test |
 | **D-008** | ai-dev publish 0.1.0 | S | ai-dev | **open** — human Changesets release (not agent-owned) |
 | **D-009** | ai-ticket-generator getting-started.md | S | ai-ticket-generator | **done** — docs + _meta.json |
@@ -165,7 +165,7 @@ flowchart TD
 | D | 2 | 8 |
 | X | 0 | 6 |
 | DOC | 0 | 6 |
-| T | 1 | 4 |
+| T | 0 | 5 |
 
 **Total open items:** 2 (D-008 human release, D-006 full migration L — excluding horizon H-*)
 

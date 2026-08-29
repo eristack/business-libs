@@ -6,7 +6,8 @@ export type CheckProfile =
   | "fast"
   | "integration"
   | "examples"
-  | "publish";
+  | "publish"
+  | "features";
 
 export type CheckId =
   | "build"
@@ -22,7 +23,8 @@ export type CheckId =
   | "knowledge"
   | "docs"
   | "ticket"
-  | "contrast";
+  | "contrast"
+  | "features";
 
 export type CheckDef = {
   id: CheckId;
@@ -129,6 +131,12 @@ export const CHECK_DEFS: CheckDef[] = [
     profiles: ["catalog", "pr", "full"],
     order: 70,
   },
+  {
+    id: "features",
+    label: "layer-06 features placeholder",
+    profiles: ["catalog", "pr", "full", "features"],
+    order: 75,
+  },
 ];
 
 export function checksForProfile(
@@ -154,11 +162,12 @@ export function resolveProfile(input?: string): CheckProfile {
     input === "fast" ||
     input === "integration" ||
     input === "examples" ||
-    input === "publish"
+    input === "publish" ||
+    input === "features"
   ) {
     return input;
   }
   throw new Error(
-    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration | examples | publish.`,
+    `Unknown profile "${input ?? ""}". Use catalog | pr | full | fast | integration | examples | publish | features.`,
   );
 }

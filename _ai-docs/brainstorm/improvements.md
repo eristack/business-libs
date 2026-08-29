@@ -13,10 +13,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | M1 | Export `compareDecimalStrings`, `parseDecimalFilter` as stable public API | S | **done** — `@eristack/money` core |
 | M2 | `Money.format()` locale intent hook (app supplies formatter) | M | not i18n engine — callback only |
-| M3 | FX `Conversion` rate staleness metadata (asOf instant) | S | pairs with timestamp instant |
-| M4 | Round-trip property tests minor↔major all ISO4217 test currencies | M | |
-| M5 | `money/adapters` zod 4 refinements for form fields | S | mirror timestamp |
-| M6 | Ledger skill: allocate + split examples with remainder handling | S | docs |
+| M3 | FX `Conversion` rate staleness metadata (asOf instant) | S | **done** — `asOf`, `rateAsOfInstant`, `isExchangeRateStale` |
+| M5 | `money/adapters` zod 4 refinements for form fields | S | **done** — `createMoneySchema`, `moneyFormValueSchema` |
+| M6 | Ledger skill: allocate + split examples with remainder handling | S | **done** — money-ledger skill |
 | M7 | Express middleware: reject JSON number money bodies | S | **done** — `rejectJsonNumberMoneyBody` |
 
 ---
@@ -27,10 +26,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | T1 | Wall `addDays` / inclusive range helpers | M | audit ticket language |
 | T2 | `compareWallDates`, sort helpers for data-grid wall columns | S | **done** — `sortWallClocks` |
-| T3 | Drizzle column helpers: instant vs wall documented in one table | S | docs |
-| T4 | Business-calendar **peer** hook interface (not full calendar pkg) | Horizon | fiscal-calendar consumes |
-| T5 | React `WallDatePicker` headless state machine in UI layer candidate | Horizon | see catalog-wave2 U31 |
-| T6 | Nest pipe + Express middleware parse wall query params | S | adapters |
+| T3 | Drizzle column helpers: instant vs wall documented in one table | S | **done** — adapters.md subpath map |
+| T6 | Nest pipe + Express middleware parse wall query params | S | **done** — `parseWallQueryValue`, `readWallQueryParam` |
 | T7 | Property tests DST spring/fall for Asia/Jakarta, America/New_York | M | |
 
 ---
@@ -52,9 +49,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| Q1 | `applyCellPatch` + spreadsheet commit helpers exported with tests | S | |
-| Q2 | Line-level tax inclusive/exclusive matrix tests (all truth modes) | M | |
-| Q3 | Modifier dependency graph validation (cycle detect) | S | |
+| Q1 | `applyCellPatch` + spreadsheet commit helpers exported with tests | S | **done** — audit B-017 |
+| Q3 | Modifier dependency graph validation (cycle detect) | S | **done** — `assertAcyclicModifierOrder` |
 | Q4 | `withQupsFields` IndexedDB/plain-object twin for Backseat | M | horizon-a gap |
 | Q5 | Drizzle column bundle generator from QupsProfile | Horizon | |
 | Q6 | Nest/React: recalc on blur vs on change policy doc | S | skill |
@@ -66,9 +62,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| S1 | Idempotent append by clientRequestId | M | ERP reliability |
-| S2 | Multi-location transfer as two append ops helper | S | not feature-inventory |
-| S3 | Snapshot qty by locationId + optional lotId filters | S | |
+| S1 | Idempotent append by clientRequestId | M | **done** — `idempotencyKey` on append |
+| S2 | Multi-location transfer as two append ops helper | S | **done** — `appendStockTransfer` |
+| S3 | Snapshot qty by locationId + optional lotId filters | S | **done** — `snapshotLotBalance`, `snapshotLotsAtLocation` |
 | S4 | Integration: concurrent append same chain | M | audit A-011 |
 | S5 | `verify` failure messages include entry index + hash prefix | S | **done** |
 | S6 | Backseat register stock routes for demos | S | |
@@ -80,10 +76,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | F1 | `trialBalance` snapshot helper (account list → Money) | M | apps avoid GL report math |
-| F2 | Multi-currency same accountId integration test | M | audit A-010 |
-| F3 | Posting templates: debit/credit pair builder | S | export helper |
-| F4 | Idempotent post by business key | M | |
-| F5 | Reversal entry helper (swap DR/CR, link entryTypeId) | S | |
+| F2 | Multi-currency same accountId integration test | M | **done** — audit A-010 |
+| F3 | Posting templates: debit/credit pair builder | S | **done** — `buildBalancedPostingPair` |
+| F5 | Reversal entry helper (swap DR/CR, link entryTypeId) | S | **done** — `buildReversalPost` |
 | F6 | Document when **not** to use GL (document-lines ERP) | S | recipe cross-link |
 
 ---
@@ -92,11 +87,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| V1 | Method picker decision tree in getting-started (DOC-001) | S | |
-| V2 | COGS snapshot API for sales issue (qty → Money) | M | apps skip layer walk |
-| V3 | All 9 methods parametric tests | L | audit A-005 |
-| V4 | Standard cost revaluation adjustment entry helper | M | |
-| V5 | FEFO requires expiresAt — document + test edge null | S | shipped rule |
+| V1 | Method picker decision tree in getting-started (DOC-001) | S | **done** — audit DOC-001 |
+| V3 | All 9 methods parametric tests | L | **done** — audit A-005 |
+| V5 | FEFO requires expiresAt — document + test edge null | S | **done** — methods.adversarial.test.ts |
 | V6 | Layer + ledger verify cross-check helper | M | |
 
 ---
@@ -105,12 +98,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| J1 | Supertest E2E: login → refresh → rotate → revoke | M | audit C-008 |
-| J2 | Dual-target client doc (Backseat baseUrl vs prod) | S | |
-| J3 | Credential lockout / attempt counter interface (app policy) | M | not full IAM |
-| J4 | Optional OIDC bridge adapter sketch | Horizon | not replacement |
-| J5 | Zod 4 login/register schemas exported | S | |
-| J6 | `testing` subpath: in-memory credential store re-export | S | audit D-006 |
+| J1 | Supertest E2E: login → refresh → rotate → revoke | M | **done** — audit C-008 |
+| J5 | Zod 4 login/register schemas exported | S | **done** — `@eristack/jwt-auth/zod` |
+| J6 | `testing` subpath: in-memory credential store re-export | S | **done** — audit D-006 partial |
 
 ---
 
@@ -118,8 +108,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| R1 | Role hierarchy transitive closure helper | S | optional |
-| R2 | Drizzle integration assignRole + can() | S | audit A-008 |
+| R1 | Role hierarchy transitive closure helper | S | **done** — `expandRolePermissions` |
+| R2 | Drizzle integration assignRole + can() | S | **done** — audit A-008 |
 | R3 | Express `requirePermission` composition examples | S | stub skill B-013 |
 | R4 | Resource:action naming convention guide | S | ai-knowledge |
 | R5 | Bulk import roles from YAML (admin tooling) | M | |
@@ -143,7 +133,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | P1 | `documents.transitions()` more examples (Publication preset) | S | doc-transitions precursor |
-| P2 | Express 409 POLICY_DENIED supertest | S | audit T-005 |
+| P2 | Express 409 POLICY_DENIED supertest | S | **done** — audit T-005 |
 | P3 | Policy registry export for OpenAPI enum generation | Horizon | opinion |
 | P4 | Transition table validator (from/to/status) | M | |
 | P5 | React hook: loading + denied reason string | S | |
@@ -154,11 +144,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| G1 | `executeDrizzleList` sqlite harness test | M | audit A-003 |
-| G2 | `type: wall` filter ops documented with timestamp | S | |
-| G3 | `executeBackseatList` parity with drizzle envelope | M | backseat lists |
-| G4 | Saved view serialize/deserialize JSON schema | M | UI candidate |
-| G5 | Decimal string compare ops export for apps | S | |
+| G1 | `executeDrizzleList` sqlite harness test | M | **done** — audit A-003 |
+| G5 | Decimal string compare ops export for apps | S | **done** — `@eristack/money` M1 |
 | G6 | Cursor pagination stability doc (tie-breaker column) | S | |
 | G7 | Nest ParseDataGridPipe edge cases test | S | |
 
@@ -168,10 +155,8 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| E1 | `bumpMany` integration test | S | audit A-009 |
-| E2 | Client stale policy: document vs list scope naming guide | S | |
-| E3 | Backseat register + react hook demo in horizon-a | M | audit C-010 |
-| E4 | HTTP cache-control header helper optional | S | |
+| E1 | `bumpMany` integration test | S | **done** — audit A-009 |
+| E4 | HTTP cache-control header helper optional | S | **done** — `epochCacheControlHeader` |
 | E5 | Epoch mismatch metrics hook for logger | Horizon | |
 
 ---
@@ -193,9 +178,9 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | B1 | `store.atomic()` multi-collection (done — document patterns) | S | |
-| B2 | `listRoutes()` snapshot for contract tests | S | audit X-006 |
-| B3 | IndexedDB smoke in CI | M | audit X-005 |
-| B4 | Seed pack v1 JSON checked in | M | audit C-007 |
+| B2 | `listRoutes()` snapshot for contract tests | S | **done** — audit X-006 |
+| B3 | IndexedDB smoke in CI | M | **done** — audit X-005 |
+| B4 | Seed pack v1 JSON checked in | M | **done** — audit C-007 |
 | B5 | `jsonError` / versionConflict exported helpers (done — skill) | S | |
 | B6 | data-grid list executor in-memory | M | ticket |
 | B7 | Devtools: route diff export | M | |
@@ -223,7 +208,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | K2 | Recipe for each new capability in wave2 when promoted | S | ongoing |
 | K3 | `compose-spine` vs `document-lines-erp` disambiguation tests | S | |
 | K4 | Catalog compact table in skill (shipped — maintain) | S | |
-| K5 | knowledge ↔ docs mirror CI (audit B-016) | M | |
+| K5 | knowledge ↔ docs mirror CI (audit B-016) | M | **done** |
 | K6 | Horizon link from recommend for infra packages | S | |
 
 ---
@@ -244,7 +229,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| TK1 | getting-started.md (audit D-009) | S | |
+| TK1 | getting-started.md (audit D-009) | S | **done** |
 | TK2 | Feasibility rubric examples per layer | S | |
 | TK3 | Auto-suggest package from stack trace path | M | |
 | TK4 | Private package skip (shipped) — document | S | |
@@ -255,12 +240,12 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| AD1 | `--profile integration` (audit A-014) | S | |
+| AD1 | `--profile integration` (audit A-014) | S | **done** |
 | AD2 | `eristack plan` suggests next audit backlog id | M | |
-| AD3 | MCP tools: knowledge:check wrapper | S | |
-| AD4 | runChecks unit tests (audit T-001) | M | |
-| AD5 | Changeset body length warn | S | audit D-010 |
-| AD6 | `check --profile features` = verify layer-06 empty | S | meta |
+| AD3 | MCP tools: knowledge:check wrapper | S | **done** — `dev_knowledge_check` |
+| AD4 | runChecks unit tests (audit T-001) | M | **done** |
+| AD5 | Changeset body length warn | S | **done** — audit D-010 |
+| AD6 | `check --profile features` = verify layer-06 empty | S | **done** |
 
 ---
 

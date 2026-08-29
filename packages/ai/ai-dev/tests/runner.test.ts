@@ -6,6 +6,10 @@ describe("checksForProfile", () => {
     expect(checksForProfile("publish").map((c) => c.id)).toEqual(["publish"]);
   });
 
+  it("features profile runs features check only", () => {
+    expect(checksForProfile("features").map((c) => c.id)).toEqual(["features"]);
+  });
+
   it("integration profile runs integration check only", () => {
     expect(checksForProfile("integration").map((c) => c.id)).toEqual([
       "integration",
