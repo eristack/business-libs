@@ -3,8 +3,11 @@ import { createPbac } from "@eristack/pbac";
 import {
   PRESET_GRAPHS,
   actionsForStatus,
+  describeTransitionGraph,
   isTerminalStatus,
   journalGraph,
+  lockGraph,
+  pbacTransitionTable,
   publicationGraph,
   registerTransitionGraph,
   transitionPolicyId,
@@ -21,6 +24,36 @@ describe("preset graphs", () => {
   it("publication allows submit from draft", () => {
     expect(actionsForStatus(publicationGraph, "draft")).toContain("submit");
     expect(isTerminalStatus(publicationGraph, "published")).toBe(true);
+  });
+  it("returns empty actions for unknown status", () => {
+    expect(actionsForStatus(journalGraph, "nonexistent")).toEqual([]);
+  });
+
+  it("lockGraph is never terminal by empty actions alone", () => {
+    expect(isTerminalStatus(lockGraph, "locked")).toBe(false);
+    expect(isTerminalStatus(lockGraph, "unlocked")).toBe(false);
+  });
+});
+
+describe("pbacTransitionTable", () => {
+  it("omits terminal rows with no outgoing actions", () => {
+    const table = pbacTransitionTable(publicationGraph);
+    expect(table.published).toBeUndefined();
+    expect(table.draft).toContain("submit");
+  });
+
+  it("describeTransitionGraph lists sorted actions", () => {
+    const meta = describeTransitionGraph(journalGraph);
+    expect(meta.actions).toContain("post");
+    expect(meta.statuses).toContain("unposted");
+  });
+});
+
+describe("transitionPolicyId", () => {
+  it("follows entity.graph-transition convention", () => {
+    expect(transitionPolicyId("invoice", "journal")).toBe(
+      "invoice.journal-transition",
+    );
   });
 });
 
