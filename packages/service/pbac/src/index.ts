@@ -11,6 +11,11 @@ export {
   BusinessPolicyNotFoundError,
   PbacError,
 } from "./core/errors.js";
+export {
+  exportPolicyRegistryForOpenApi,
+  openApiPolicyRegistryExtensions,
+  type PolicyRegistryOpenApi,
+} from "./core/policy-registry.js";
 export type {
   Pbac,
   PbacDecision,
