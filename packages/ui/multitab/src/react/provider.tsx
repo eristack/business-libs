@@ -20,6 +20,7 @@ import {
   type OpenTabInput,
   type Tab,
 } from "../index.js";
+import { useDirtyTabFromApi } from "./use-dirty-tab.js";
 
 export type { MultitabState, OpenTabInput, Tab, TabKind } from "../index.js";
 export { isNewTab, isNewTabId, isWorkspaceEmpty } from "../index.js";
@@ -159,4 +160,10 @@ export function useMultitab(): MultitabApi {
     throw new Error("useMultitab must be used within MultitabProvider");
   }
   return context;
+}
+
+/** Mark the active tab (or tabId) dirty while a form has unsaved edits. */
+export function useDirtyTab(isDirty: boolean, tabId?: string): void {
+  const api = useMultitab();
+  useDirtyTabFromApi(api, isDirty, tabId);
 }

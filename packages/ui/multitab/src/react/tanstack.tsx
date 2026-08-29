@@ -33,6 +33,7 @@ import {
   type Tab,
 } from "../index.js";
 import type { CloseTabOptions } from "./provider.js";
+import { useDirtyTabFromApi } from "./use-dirty-tab.js";
 
 export type {
   MultitabState,
@@ -267,3 +268,12 @@ export function useMultitabRouter(): MultitabRouterApi {
 export function navigateToTab(api: MultitabRouterApi, tab: Tab): void {
   api.navigateToRoute(pathForTab(tab));
 }
+
+/** Mark the active route tab dirty while a form has unsaved edits. */
+export function useDirtyTab(isDirty: boolean, tabId?: string): void {
+  const api = useMultitabRouter();
+  useDirtyTabFromApi(api, isDirty, tabId);
+}
+
+export { createConfirmBeforeClose, type ConfirmBeforeCloseOptions } from "../core/before-close.js";
+export { applyDirtyTab, useDirtyTabFromApi, type DirtyTabApi } from "./use-dirty-tab.js";

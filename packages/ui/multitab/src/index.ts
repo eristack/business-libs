@@ -62,3 +62,7 @@ export {
   createTabWorkspace,
   type TabWorkspace,
 } from "./core/create-workspace.js";
+export {
+  createConfirmBeforeClose,
+  type ConfirmBeforeCloseOptions,
+} from "./core/before-close.js";

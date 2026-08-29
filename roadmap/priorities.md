@@ -10,7 +10,7 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | ai-knowledge catalog | AI | Packages, recipes, docs+sync every iteration |
 | Seven-layer taxonomy | Meta | Site + docs; layer 06 Features under construction |
 | `@eristack/backseat` | Infrastructure | Alpha — in-browser REST engine + IndexedDB store |
-| `@eristack/multitab` | UI | Scaffold — tab workspace |
+| `@eristack/multitab` | UI | Alpha — tab workspace + Router sync |
 
 ## Next (sequenced)
 
@@ -31,10 +31,11 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 
 **Non-goals:** production auth, replacing Drizzle, server deploy, vertical ERP modules.
 
-### 2 · Multitab (scaffold → alpha)
+### 2 · Multitab (scaffold → alpha) ✓
 
-- `createTabWorkspace` headless model
-- Dirty close guards + TanStack Router sync hooks
+- `createTabWorkspace` headless model ✓
+- Dirty close guards + TanStack Router sync hooks ✓
+- `useDirtyTab`, `createConfirmBeforeClose` helpers ✓
 
 ### 3 · Logger (planned)
 

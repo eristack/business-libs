@@ -38,7 +38,7 @@ Headless tab engine for document-heavy ERP UIs. **Behavior + navigation plans**;
 3. **Adjacent open** — visiting a detail route inserts after the active tab (not at end).
 4. **MRU close** — closing the active tab activates the previously active tab (browser/IDE behavior), not `tabs[0]`.
 5. **Persistence** — optional `storageKey`; sanitizes legacy ids on load; persists `recentTabIds`.
-6. **Dirty close** — `setTabCloseGuard(id, true)`; `closeTab(id, { force: true })` to bypass; router `beforeClose` for prompts.
+6. **Dirty close** — `useDirtyTab(isDirty)` or `setTabCloseGuard`; `createConfirmBeforeClose()` for router `beforeClose`; `closeTab(id, { force: true })` to bypass.
 
 ## Do not
 
