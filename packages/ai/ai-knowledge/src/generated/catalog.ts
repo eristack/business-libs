@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T08:52:02.377Z",
+  "generatedAt": "2026-08-29T08:56:03.981Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -35,6 +35,25 @@ export const catalog = {
           "description": "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/address",
+      "version": "0.1.0",
+      "description": "Normalized postal addresses with ISO country codes — string fields, no geocoding",
+      "slug": "address",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "address-core",
+          "name": "address-core",
+          "packageName": "@eristack/address",
+          "description": "@eristack/address normalized PostalAddress with ISO alpha-2 country codes — trim, formatAddressOneLine/Lines, isSameCountry. App owns partner tables; no geocoding.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/address#address-core"
         }
       ]
     },
@@ -283,6 +302,25 @@ export const catalog = {
           "description": "@eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default store is Drizzle — memory is tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/fiscal-calendar",
+      "version": "0.1.0",
+      "description": "Fiscal years and periods with open/closed flags — wall-date boundaries on @eristack/timestamp",
+      "slug": "fiscal-calendar",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "fiscal-calendar-core",
+          "name": "fiscal-calendar-core",
+          "packageName": "@eristack/fiscal-calendar",
+          "description": "@eristack/fiscal-calendar fiscal years and open/closed periods on @eristack/timestamp wall dates — findPeriodForDate, assertPeriodOpen, listPeriods. Pair with doc-transitions lockGraph for period close.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fiscal-calendar#fiscal-calendar-core"
         }
       ]
     },

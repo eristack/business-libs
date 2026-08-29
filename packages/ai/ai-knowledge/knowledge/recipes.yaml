@@ -781,6 +781,50 @@ recipes:
           - money-amounts
         role: supporting
 
+  - id: fiscal-period-posting
+    title: Fiscal period open/closed for journal dates
+    priority: 18
+    triggers:
+      - fiscal period
+      - fiscal year
+      - period close
+      - posting period
+      - closed period
+    rationale: >
+      Load @eristack/fiscal-calendar#fiscal-calendar-core for findPeriodForDate and
+      assertPeriodOpen on @eristack/timestamp wall dates — pair with doc-transitions lockGraph.
+    packages:
+      - name: "@eristack/fiscal-calendar"
+        skills:
+          - fiscal-calendar-core
+        role: primary
+      - name: "@eristack/timestamp"
+        skills:
+          - timestamp-core
+        role: supporting
+      - name: "@eristack/doc-transitions"
+        skills:
+          - doc-transitions-core
+        role: supporting
+
+  - id: postal-address-normalize
+    title: Normalize and format postal addresses
+    priority: 19
+    triggers:
+      - address
+      - postal address
+      - shipping address
+      - country code
+      - partner address
+    rationale: >
+      Load @eristack/address#address-core for PostalAddress normalize/format and ISO
+      country codes — app owns partner tables and geocoding.
+    packages:
+      - name: "@eristack/address"
+        skills:
+          - address-core
+        role: primary
+
   - id: stock-inventory-ledger
     title: Inventory stock movements by location and lot
     priority: 28

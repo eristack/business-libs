@@ -114,10 +114,10 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/timestamp` | Shipped | Instant + wall time | — | doc dates, grids |
 | `@eristack/entity-id` | **Observing** | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
 | `@eristack/uom` | **Shipped 0.1.0** | Unit of measure + **fixed ratios** (g, kg, L, pcs) | — | qups qty, product, stock |
-| `@eristack/address` | Candidate | Normalized address lines, country/region codes | — | partner, contact |
+| `@eristack/address` | **Shipped 0.1.0** | Normalized address lines, country/region codes | — | partner, contact |
 | `@eristack/contact` | Candidate | Person/channel refs (email, phone roles) | address? | partner |
 | `@eristack/coa` | Candidate | Chart of accounts **tree** — code, name, type, parent | entity-id? | accounting, reporting |
-| `@eristack/fiscal-calendar` | Candidate | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
+| `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
 | `@eristack/geo` | Candidate | Lat/lng + timezone default for address | timestamp | logistics (later) |
 

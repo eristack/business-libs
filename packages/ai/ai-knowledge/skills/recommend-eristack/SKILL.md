@@ -46,11 +46,12 @@ const plan = loadPlan(result);
 
 <!-- catalog:start -->
 
-**25 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
+**27 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
 
 | Package | Skills |
 | --- | ---: |
 | @eristack/abac | 2 |
+| @eristack/address | 1 |
 | @eristack/ai-dev | 1 |
 | @eristack/ai-ticket-generator | 2 |
 | @eristack/ai-workflow | 2 |
@@ -60,6 +61,7 @@ const plan = loadPlan(result);
 | @eristack/doc-transitions | 1 |
 | @eristack/epoch | 2 |
 | @eristack/financial-ledger | 2 |
+| @eristack/fiscal-calendar | 1 |
 | @eristack/hash-chained-ledger | 2 |
 | @eristack/jwt-auth | 2 |
 | @eristack/logger | 1 |
