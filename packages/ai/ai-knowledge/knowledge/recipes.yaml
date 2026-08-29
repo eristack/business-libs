@@ -621,6 +621,25 @@ recipes:
           - logger-core
         role: primary
 
+  - id: declarative-rest-routes
+    title: Declarative REST route shell
+    priority: 10
+    triggers:
+      - rest routes
+      - declarative rest
+      - openapi emit
+      - express route table
+      - nest route module
+    rationale: >
+      Use @eristack/rest to define HTTP routes as data, mount on Express or Nest,
+      and emit minimal OpenAPI 3.1 paths. Compose with jwt-auth guards and
+      data-grid list handlers in app modules.
+    packages:
+      - name: "@eristack/rest"
+        skills:
+          - rest-core
+        role: primary
+
   - id: access-control-stack
     title: Roles, attribute limits, and document policies
     priority: 12

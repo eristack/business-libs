@@ -203,6 +203,7 @@ Categories under `packages/` (order matters):
 - `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
 - `packages/infrastructure/backseat` — `@eristack/backseat` (in-browser mock REST engine — alpha)
 - `packages/infrastructure/logger` — `@eristack/logger` (JSON-lines logging + Express/Nest — alpha)
+- `packages/infrastructure/rest` — `@eristack/rest` (declarative REST shell + OpenAPI — alpha)
 - `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab operational workspace — alpha)
 - `packages/features/` — **under construction** — future `@eristack/feature-*`; apps compose spine today (`roadmap/features.md`)
 - `packages/ai/ai-dev` — `@eristack/ai-dev` (unified `eristack` CLI + MCP: plan, check profiles, sync)

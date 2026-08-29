@@ -11,6 +11,7 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | Seven-layer taxonomy | Meta | Site + docs; layer 06 Features under construction |
 | `@eristack/backseat` | Infrastructure | Alpha — in-browser REST engine + IndexedDB store |
 | `@eristack/logger` | Infrastructure | Alpha — JSON-lines + Express/Nest adapters |
+| `@eristack/rest` | Infrastructure | Alpha — declarative routes + OpenAPI emit |
 | `@eristack/multitab` | UI | Alpha — tab workspace + Router sync |
 
 ## Next (sequenced)
@@ -20,7 +21,7 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | 1 | **Backseat engine** | Infrastructure | UX and app prototyping without API deploy |
 | 2 | **Multitab engine** | UI | Document workspace chrome for operational apps |
 | 3 | **`@eristack/logger`** | Infrastructure | Production visibility before REST spread |
-| 4 | **`@eristack/rest`** | Infrastructure | One HTTP shell pattern for examples and apps |
+| 4 | **`@eristack/rest`** | Infrastructure | One HTTP shell pattern for examples and apps ✓ |
 
 ### 1 · Backseat (scaffold → alpha)
 
@@ -47,11 +48,11 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 | Levels | debug / info / warn / error ✓ |
 | Adapters | Express middleware, Nest interceptor ✓ |
 
-### 4 · REST (planned)
+### 4 · REST (alpha) ✓
 
-- Route definition as data → mount on Express / Nest
-- Optional OpenAPI 3.1 emit for client codegen
-- Pairs with jwt-auth guards and data-grid list actions
+- Route definition as data → mount on Express / Nest ✓
+- OpenAPI 3.1 path emit (minimal) ✓
+- Pairs with jwt-auth guards and data-grid list actions (app wiring)
 
 ## Not next
 

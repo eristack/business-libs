@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-08-29T05:13:50.439Z",
+  "generatedAt": "2026-08-29T05:15:35.769Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -506,6 +506,26 @@ export const catalog = {
           "description": "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/rest",
+      "version": "0.1.0",
+      "description": "Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit",
+      "slug": "rest",
+      "adapters": [
+        "express",
+        "nest"
+      ],
+      "skills": [
+        {
+          "id": "rest-core",
+          "name": "rest-core",
+          "packageName": "@eristack/rest",
+          "description": "@eristack/rest: declarative REST route definitions, Express/Nest mounting, minimal OpenAPI 3.1 emit. Pair with jwt-auth and data-grid in apps.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
         }
       ]
     },
