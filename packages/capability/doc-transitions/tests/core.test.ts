@@ -5,6 +5,7 @@ import {
   actionsForStatus,
   describeTransitionGraph,
   isTerminalStatus,
+  decisionGraph,
   journalGraph,
   lockGraph,
   pbacTransitionTable,
@@ -54,6 +55,20 @@ describe("transitionPolicyId", () => {
     expect(transitionPolicyId("invoice", "journal")).toBe(
       "invoice.journal-transition",
     );
+  });
+});
+
+describe("decisionGraph edges", () => {
+  it("denies approve from rejected terminal status", async () => {
+    const pbac = createPbac();
+    registerTransitionGraph(pbac, { entityKey: "expense", graph: decisionGraph });
+    const id = transitionPolicyId("expense", "decision");
+    const denied = await pbac.check(id, {
+      action: "approve",
+      document: { status: "rejected" },
+    });
+    expect(denied.allowed).toBe(false);
+    expect(actionsForStatus(decisionGraph, "rejected")).toEqual([]);
   });
 });
 
