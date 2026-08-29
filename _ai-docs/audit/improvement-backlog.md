@@ -167,7 +167,9 @@ flowchart TD
 | DOC | 0 | 6 |
 | T | 0 | 5 |
 
-**Total open items:** 2 (D-008 human release, D-006 full migration L — excluding horizon H-*)
+**Total open items:** 2 (D-008 human release, D-006 full `./testing` migration L — excluding horizon H-*)
+
+**Brainstorm (`improvements.md`):** all 20 package sections shipped; remaining rows are **Horizon** (D5, Q4/Q5, H4, B7, E5, P3) or **cross-package themes** (Opinion HTTP XL, Logger L, Zod 4 M, D-006 L). K2 is ongoing maintenance.
 
 When an item ships, mark `done` here with date — optional one-line in package CHANGELOG.
 
