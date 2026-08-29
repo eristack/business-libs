@@ -141,7 +141,8 @@ Useful commands:
 ```bash
 pnpm eristack plan --json          # token-minimal: what to run next (agents start here)
 pnpm eristack check --profile pr --skip-build   # CI gate (after pnpm build)
-pnpm ci                            # build + full profile
+pnpm ci                            # build + full profile (local pre-merge)
+pnpm ci:pr                         # PR-style affected CI (needs origin/main)
 pnpm eristack sync knowledge       # after recipes/skills/catalog edits
 pnpm eristack sync docs            # after package docs nav edits
 pnpm skills:list

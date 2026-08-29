@@ -58,6 +58,12 @@ const PATH_RULES: PathRule[] = [
   },
   { pattern: /^scripts\//, checks: ["exports", "changesets", "docs"] },
   { pattern: /^apps\/web\//, checks: ["contrast", "lint"] },
+  { pattern: /^examples\//, checks: ["examples"] },
+  {
+    pattern: /^packages\/[^/]+\/[^/]+\/(tests?|src)\//,
+    checks: ["build", "typecheck", "test"],
+    profileHint: "fast",
+  },
   {
     pattern: /^packages\/[^/]+\/[^/]+\/src\//,
     checks: ["build", "typecheck", "test"],

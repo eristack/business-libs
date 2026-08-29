@@ -6,6 +6,7 @@ import {
   planFromPaths,
   resolveProfile,
   runChecks,
+  runCi,
   runSync,
   summarizeResults,
   type CheckId,
@@ -30,6 +31,8 @@ Commands:
       Minimal check/sync/skill plan from git diff or explicit paths.
   check [--profile catalog|pr|full|fast] [--skip-build] [--json] [check-id...]
       Run a check profile (same as CI when --profile pr).
+  ci [--base origin/main] [--full] [--json]
+      PR-optimized CI: affected turbo + drift checks; full on main or --full.
   sync <docs|knowledge|all> [--check] [--json]
       Sync or verify docs/knowledge catalogs.
   packages list [--json] [--docs] [--skills] [--ticket]
@@ -48,6 +51,7 @@ MCP:  eristack-mcp  (dev_plan, dev_check, dev_packages)
 Examples:
   pnpm eristack plan --json
   pnpm eristack check --profile pr
+  pnpm eristack ci --base origin/main
   pnpm eristack sync knowledge
   pnpm eristack sync docs --check
 `);
@@ -121,6 +125,48 @@ async function cmdCheck(args: string[], repoRoot: string): Promise<void> {
   process.exitCode = summary.ok ? 0 : 1;
 }
 
+async function cmdCi(args: string[], repoRoot: string): Promise<void> {
+  const json = hasFlag(args, "--json");
+  const base = flagValue(args, "--base") ?? "origin/main";
+  const forceFull =
+    hasFlag(args, "--full") || process.env.CI_FULL === "true";
+
+  const { plan, results, summary } = runCi({
+    repoRoot,
+    base,
+    forceFull,
+  });
+
+  if (json) {
+    console.log(compactJson({ plan, ...summary, results }));
+    process.exitCode = summary.ok ? 0 : 1;
+    return;
+  }
+
+  console.log(`ci mode: ${plan.mode}${forceFull ? " (forced full)" : ""}`);
+  if (plan.packages.length) {
+    console.log(`packages: ${plan.packages.join(", ")}`);
+  }
+  if (plan.driftChecks.length) {
+    console.log(`drift: ${plan.driftChecks.join(", ")}`);
+  }
+  if (!plan.webBuild && plan.mode === "affected") {
+    console.log("web: typecheck only (next build skipped)");
+  }
+
+  for (const r of results) {
+    const mark = r.ok ? "✓" : "✗";
+    console.log(`${mark} ${r.id} (${r.ms}ms) — ${r.command}`);
+    if (r.error) console.log(`  ${r.error.split("\n")[0]}`);
+  }
+  console.log(
+    summary.ok
+      ? `\nOK — ${summary.passed} steps (${summary.totalMs}ms)`
+      : `\nFAILED — ${summary.failed} step(s)`,
+  );
+  process.exitCode = summary.ok ? 0 : 1;
+}
+
 async function cmdSync(args: string[], repoRoot: string): Promise<void> {
   const json = hasFlag(args, "--json");
   const check = hasFlag(args, "--check");
@@ -186,6 +232,9 @@ async function main(): Promise<void> {
       return;
     case "check":
       await cmdCheck(rest, repoRoot);
+      return;
+    case "ci":
+      await cmdCi(rest, repoRoot);
       return;
     case "sync":
       await cmdSync(rest, repoRoot);

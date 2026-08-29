@@ -25,6 +25,7 @@
     "version-packages": "changeset version && pnpm knowledge:sync && pnpm install --lockfile-only",
     "release": "changeset publish",
     "ci": "pnpm build && pnpm eristack check --profile full --skip-build",
+    "ci:pr": "pnpm --filter @eristack/ai-dev build && pnpm eristack ci --base origin/main",
     "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {
