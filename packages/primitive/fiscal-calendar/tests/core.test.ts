@@ -5,6 +5,7 @@ import {
   createFiscalCalendar,
   findPeriodForDate,
   FiscalCalendarError,
+  listPeriods,
 } from "../src/index.js";
 
 const calendar = createFiscalCalendar({
@@ -36,6 +37,17 @@ const calendar = createFiscalCalendar({
 });
 
 describe("@eristack/fiscal-calendar", () => {
+  it("throws on timezone mismatch", () => {
+    const utc = wallOf("2026-01-15T00:00:00", "UTC");
+    expect(() => findPeriodForDate(calendar, utc)).toThrow(FiscalCalendarError);
+  });
+
+  it("listPeriods filters by status", () => {
+    const open = listPeriods(calendar, { status: "open" });
+    expect(open.every((p) => p.status === "open")).toBe(true);
+    expect(open.some((p) => p.id === "2026-p02")).toBe(false);
+  });
+
   it("rejects inverted period bounds at create", () => {
     expect(() =>
       createFiscalCalendar({
