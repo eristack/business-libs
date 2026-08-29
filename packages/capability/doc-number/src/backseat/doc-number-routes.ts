@@ -1,6 +1,5 @@
 import {
   joinRoutePath,
-  normalizeBasePath,
   registerRestLikeRoutes,
 } from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
