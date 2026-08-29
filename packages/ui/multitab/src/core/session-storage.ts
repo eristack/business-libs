@@ -1,8 +1,8 @@
 import {
   loadMultitabState,
   saveMultitabState,
-  type MultitabState,
 } from "./persistence.js";
+import type { MultitabState } from "./types.js";
 
 const DEFAULT_KEY = "eristack.multitab.v1";
 
