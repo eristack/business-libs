@@ -15,9 +15,12 @@ import {
 import { JWT_AUTH, JwtAuthModule } from "@eristack/jwt-auth/nest";
 import type { AppDatabase } from "./database/create-db.js";
 import { DatabaseModule } from "./database/database.module.js";
-import { users } from "./database/schema.js";
+import { users, orders } from "./database/schema.js";
 import { APP_DATABASE } from "./database/tokens.js";
 import { MeController } from "./me.controller.js";
+import { OrdersController } from "./orders.controller.js";
+import { orderGridSchema } from "./orders/grid.js";
+import { DataGridModule } from "@eristack/data-grid/nest";
 
 const accessSecret =
   process.env.JWT_ACCESS_SECRET ?? "dev-only-access-secret-change-me";
@@ -25,6 +28,7 @@ const accessSecret =
 @Module({
   imports: [
     LoggerModule.forRoot({ createOptions: { name: "example-nestjs" } }),
+    DataGridModule.register({ schema: orderGridSchema }),
     DatabaseModule,
     // DB is created by DatabaseModule and injected here — not by jwt-auth.
     JwtAuthModule.registerAsync({
@@ -49,7 +53,7 @@ const accessSecret =
       }),
     }),
   ],
-  controllers: [MeController],
+  controllers: [MeController, OrdersController],
   providers: [{ provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }],
 })
 export class AppModule implements OnModuleInit {
@@ -89,6 +93,26 @@ export class AppModule implements OnModuleInit {
         return;
       }
       throw error;
+    }
+
+    const existingOrders = await this.appDb.db.select().from(orders).limit(1);
+    if (existingOrders.length === 0) {
+      await this.appDb.db.insert(orders).values([
+        {
+          id: "ord-1",
+          number: "SO-1001",
+          status: "open",
+          orderedAt: "2026-01-15",
+          total: "1250.00",
+        },
+        {
+          id: "ord-2",
+          number: "SO-1002",
+          status: "fulfilled",
+          orderedAt: "2026-02-01",
+          total: "480.50",
+        },
+      ]);
     }
   }
 }

@@ -329,6 +329,9 @@ importers:
 
   examples/nestjs:
     dependencies:
+      '@eristack/data-grid':
+        specifier: workspace:*
+        version: link:../../packages/service/data-grid
       '@eristack/jwt-auth':
         specifier: workspace:*
         version: link:../../packages/service/jwt-auth

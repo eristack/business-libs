@@ -21,6 +21,7 @@ async function bootstrap() {
   console.log(`  GET    /auth/sessions           Authorization: Bearer <accessToken>`);
   console.log(`  DELETE /auth/sessions/:id       Authorization: Bearer <accessToken>`);
   console.log(`  GET    /me                      Authorization: Bearer <accessToken>`);
+  console.log(`  GET    /orders                  ?sort=-orderedAt&pageSize=10`);
 }
 
 void bootstrap();

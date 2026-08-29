@@ -36,16 +36,16 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **B-001** | Recipe schema `canonicalSkills: string[]` | M | ai-knowledge | recipes.yaml validated; ≥3 ERP recipes use field |
 | **B-002** | `loadPlan()` merges canonicalSkills | M | ai-knowledge | document-lines-erp plan includes ai-knowledge skill id; test added |
 | **B-003** | Trim recommend-eristack catalog embed | S | ai-knowledge | SKILL.md ≤100 lines; points to generated catalog / sync |
-| **B-004** | jwt-auth-adapters → 1 source | M | jwt-auth | sources.length === 1; new docs/wiring-production.md |
-| **B-005** | doc-number-adapters → 1 source | M | doc-number | same |
-| **B-006** | money-adapters → 1–2 sources | M | money | wiring-production.md canonical |
-| **B-007** | data-grid-adapters → ≤3 sources | S | data-grid | |
+| **B-004** | jwt-auth-adapters → 1 source | M | jwt-auth | **done** — wiring-production.md |
+| **B-005** | doc-number-adapters → 1 source | M | doc-number | **done** — wiring-production.md |
+| **B-006** | money-adapters → 1–2 sources | M | money | **done** — wiring-production.md; core skills trimmed to getting-started |
+| **B-007** | data-grid-adapters → ≤3 sources | S | data-grid | **done** — wiring-production.md; core skill trimmed |
 | **B-008** | Recipe triggers: applyCellPatch, atomic, wall | S | ai-knowledge | **done** — recipes + recommend.test |
 | **B-009** | Recipe triggers: compareDecimalStrings, bumpMany | S | ai-knowledge | **done** — recipes + recommend.test |
 | **B-010** | Recipe triggers: documents.transitions, assignmentPairMatch | S | ai-knowledge | **done** — recipes + recommend.test |
 | **B-011** | AGENTS.md intent block sync (6 skills) | S | root | multitab, ai-dev, 3 ERP guides, hcl-adapters |
-| **B-012** | skills:validate max sources rule | S | root | default max 3; ticket.yaml override flag |
-| **B-013** | Fill stub adapter skills (rbac,pbac,stock,epoch,fin,val) | M | service/capability | each has express snippet ≥15 lines |
+| **B-012** | skills:validate max sources rule | S | root | **done** — fails CI when >3 sources without ticket.yaml override |
+| **B-013** | Fill stub adapter skills (rbac,pbac,stock,epoch,fin,val) | M | service/capability | **done** — express/nest snippets in adapter skills |
 | **B-014** | hash-chained-ledger-core skill sources block | S | hash-chained-ledger | **done** — sources → getting-started.md |
 | **B-015** | Fix recommend.test expected catalog (ai-dev) | S | ai-knowledge | test green after ai-dev in catalog |
 | **B-016** | CI mirror hash knowledge ↔ docs | M | ai-knowledge | check fails on ERP guide drift |
@@ -61,7 +61,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **C-001** | `examples/horizon-a` composite app | L | examples | Backseat + qups lines + wall list + epoch + pbac on one resource |
 | **C-002** | README maps to document-lines-erp sections | S | examples | numbered section parity |
 | **C-003** | Optimistic version 409 demo in horizon-a | M | examples | PATCH stale version → 409 JSON |
-| **C-004** | Nest data-grid drizzle list sample | M | examples/nestjs | one GET list route with executeDrizzleList |
+| **C-004** | Nest data-grid drizzle list sample | M | examples/nestjs | **done** — `GET /orders` + executeDrizzleList |
 | **C-005** | Examples build in CI | S | root | `pnpm --filter './examples/*' build` in workflow |
 | **C-006** | eristack check `--profile examples` | S | ai-dev | **done** — `pnpm eristack check --profile examples` |
 | **C-007** | backseat seed pack v1 JSON | M | backseat | **done** — `horizon-a-v1.json` + `loadHorizonASeedV1()` |
