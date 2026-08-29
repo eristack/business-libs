@@ -42,6 +42,16 @@
         "types": "./dist/openapi/index.d.ts",
         "default": "./dist/openapi/index.cjs"
       }
+    },
+    "./nest": {
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
     }
   },
   "files": [
@@ -74,15 +84,20 @@
     "@eristack/pbac": "workspace:*"
   },
   "peerDependencies": {
-    "express": "^4.0.0 || ^5.0.0"
+    "express": "^4.0.0 || ^5.0.0",
+    "@nestjs/common": "^10.0.0 || ^11.0.0"
   },
   "peerDependenciesMeta": {
     "express": {
+      "optional": true
+    },
+    "@nestjs/common": {
       "optional": true
     }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",
+    "@nestjs/common": "^11.0.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.15.29",
     "express": "^5.1.0",

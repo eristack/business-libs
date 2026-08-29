@@ -78,6 +78,8 @@ Canonical SQL name list: `QUPS_LINE_SQL_COLUMNS` export from `@eristack/qups/dri
 ## Migration from legacy columns
 
 Breaking change for apps that spread an older `qupsLineColumns` with per-field
+
+**Profile-driven columns:** `qupsLineColumnsFromProfile("pgsql", { trackPosition: true })` maps storage hints to `qupsLineColumns` options (Q5).
 `currency_*` TEXT columns.
 
 | Old SQL | New SQL |

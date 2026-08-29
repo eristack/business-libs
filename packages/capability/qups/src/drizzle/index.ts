@@ -5,6 +5,11 @@ export {
   QUPS_LINE_SQL_COLUMNS,
   type QupsLineColumnOptions,
 } from "./line-columns.js";
+export {
+  qupsLineColumnOptionsFromProfile,
+  qupsLineColumnsFromProfile,
+  type QupsProfileColumnHints,
+} from "./columns-from-profile.js";
 
 export {
   createQupsProfileTables,
