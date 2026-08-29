@@ -22,9 +22,39 @@ const heroDemos: Record<PackageHeroDemoSlug, ReturnType<typeof lazyHero>> = {
       default: m.MoneyHeroDemo,
     })),
   ),
+  timestamp: lazyHero(() =>
+    import("@/components/package-demos/timestamp-hero-demo").then((m) => ({
+      default: m.TimestampHeroDemo,
+    })),
+  ),
+  uom: lazyHero(() =>
+    import("@/components/package-demos/uom-hero-demo").then((m) => ({
+      default: m.UomHeroDemo,
+    })),
+  ),
+  percent: lazyHero(() =>
+    import("@/components/package-demos/percent-hero-demo").then((m) => ({
+      default: m.PercentHeroDemo,
+    })),
+  ),
+  "fiscal-calendar": lazyHero(() =>
+    import("@/components/package-demos/fiscal-calendar-hero-demo").then((m) => ({
+      default: m.FiscalCalendarHeroDemo,
+    })),
+  ),
+  address: lazyHero(() =>
+    import("@/components/package-demos/address-hero-demo").then((m) => ({
+      default: m.AddressHeroDemo,
+    })),
+  ),
   "doc-number": lazyHero(() =>
     import("@/components/package-demos/doc-number-hero-demo").then((m) => ({
       default: m.DocNumberHeroDemo,
+    })),
+  ),
+  "doc-transitions": lazyHero(() =>
+    import("@/components/package-demos/doc-transitions-hero-demo").then((m) => ({
+      default: m.DocTransitionsHeroDemo,
     })),
   ),
   "jwt-auth": lazyHero(() =>
@@ -35,6 +65,16 @@ const heroDemos: Record<PackageHeroDemoSlug, ReturnType<typeof lazyHero>> = {
   backseat: lazyHero(() =>
     import("@/components/package-demos/backseat-hero-demo").then((m) => ({
       default: m.BackseatHeroDemo,
+    })),
+  ),
+  logger: lazyHero(() =>
+    import("@/components/package-demos/logger-hero-demo").then((m) => ({
+      default: m.LoggerHeroDemo,
+    })),
+  ),
+  rest: lazyHero(() =>
+    import("@/components/package-demos/rest-hero-demo").then((m) => ({
+      default: m.RestHeroDemo,
     })),
   ),
   multitab: lazyHero(() =>
@@ -60,6 +100,11 @@ const heroDemos: Record<PackageHeroDemoSlug, ReturnType<typeof lazyHero>> = {
   pbac: lazyHero(() =>
     import("@/components/package-demos/pbac-hero-demo").then((m) => ({
       default: m.PbacHeroDemo,
+    })),
+  ),
+  opinion: lazyHero(() =>
+    import("@/components/package-demos/opinion-hero-demo").then((m) => ({
+      default: m.OpinionHeroDemo,
     })),
   ),
   "data-grid": lazyHero(() =>
@@ -95,6 +140,11 @@ const heroDemos: Record<PackageHeroDemoSlug, ReturnType<typeof lazyHero>> = {
   "ai-knowledge": lazyHero(() =>
     import("@/components/package-demos/ai-knowledge-hero-demo").then((m) => ({
       default: m.AiKnowledgeHeroDemo,
+    })),
+  ),
+  "ai-dev": lazyHero(() =>
+    import("@/components/package-demos/ai-dev-hero-demo").then((m) => ({
+      default: m.AiDevHeroDemo,
     })),
   ),
   "ai-workflow": lazyHero(() =>

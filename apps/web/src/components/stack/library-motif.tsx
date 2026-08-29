@@ -19,20 +19,29 @@ export function LibraryMotif({ motif, className }: LibraryMotifProps) {
     >
       <div className="absolute top-[-10%] right-[18%] size-[22rem] rounded-full bg-[color:var(--layer-glow)] blur-3xl" />
       {motif === "money" ? <MoneyMotif /> : null}
+      {motif === "timestamp" ? <TimestampMotif /> : null}
+      {motif === "uom" ? <UomMotif /> : null}
+      {motif === "percent" ? <PercentMotif /> : null}
+      {motif === "fiscal-calendar" ? <FiscalCalendarMotif /> : null}
+      {motif === "address" ? <AddressMotif /> : null}
       {motif === "doc-number" ? <DocNumberMotif /> : null}
+      {motif === "doc-transitions" ? <DocTransitionsMotif /> : null}
       {motif === "qups" ? <QupsMotif /> : null}
       {motif === "data-grid" ? <DataGridMotif /> : null}
       {motif === "epoch" ? <EpochMotif /> : null}
+      {motif === "opinion" ? <OpinionMotif /> : null}
       {motif === "jwt-auth" ? <JwtMotif /> : null}
       {motif === "rbac" ? <RbacMotif /> : null}
       {motif === "abac" ? <AbacMotif /> : null}
       {motif === "pbac" ? <PbacMotif /> : null}
       {motif === "ai-knowledge" ? <KnowledgeMotif /> : null}
+      {motif === "ai-dev" ? <AiDevMotif /> : null}
       {motif === "ai-workflow" ? <WorkflowMotif /> : null}
       {motif === "ai-ticket-generator" ? <TicketMotif /> : null}
       {motif === "backseat" ? <BackseatMotif /> : null}
+      {motif === "logger" ? <LoggerMotif /> : null}
+      {motif === "rest" ? <RestMotif /> : null}
       {motif === "multitab" ? <MultitabMotif /> : null}
-      {motif === "timestamp" ? <TimestampMotif /> : null}
       {motif === "stock-movement" ? <StockMovementMotif /> : null}
       {motif === "financial-ledger" ? <FinancialLedgerMotif /> : null}
       {motif === "valuations" ? <ValuationsMotif /> : null}
@@ -87,6 +96,139 @@ function DocNumberMotif() {
       <span className="absolute top-[62%] left-[10%] font-mono text-[12px] tracking-wide opacity-60">
         DN-26-0318-0007
       </span>
+    </div>
+  );
+}
+
+function UomMotif() {
+  const units = [
+    { u: "kg", x: "10%", y: "18%" },
+    { u: "g", x: "24%", y: "38%" },
+    { u: "L", x: "8%", y: "56%" },
+    { u: "pcs", x: "28%", y: "68%" },
+  ];
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      {units.map((item) => (
+        <span
+          key={item.u}
+          className="absolute rounded-md border border-current/30 px-2 py-1 font-mono text-[13px]"
+          style={{ left: item.x, top: item.y }}
+        >
+          {item.u}
+        </span>
+      ))}
+      <span className="absolute top-[44%] left-[10%] font-mono text-[12px] opacity-80">
+        1.5 kg → 1500 g
+      </span>
+      <span className="absolute bottom-[18%] left-[8%] font-mono text-[11px] opacity-70">
+        convertUom · fixed ratio · string qty
+      </span>
+    </div>
+  );
+}
+
+function PercentMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">ratio · 0.11</p>
+        <p className="pl-3 opacity-85">11% · VAT</p>
+        <p className="pl-3 opacity-85">1100 bps</p>
+        <p className="pl-3 opacity-70">percentOf("100") → 11</p>
+      </div>
+    </div>
+  );
+}
+
+function FiscalCalendarMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">FY2026 · P02</p>
+        <p className="pl-3 opacity-85">2026-02-01 → 2026-02-28</p>
+        <p className="pl-3 opacity-85">status · open</p>
+        <p className="pl-3 opacity-70">wall date · Asia/Jakarta</p>
+      </div>
+    </div>
+  );
+}
+
+function AddressMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-1.5 font-mono text-[11px] leading-5">
+        <p>Jl. Sudirman No. 45</p>
+        <p className="opacity-85">Jakarta 10220</p>
+        <p className="opacity-75">ID · normalizeAddress</p>
+      </div>
+      <span className="absolute bottom-[20%] left-[8%] font-mono text-[11px] opacity-70">
+        ship-to · bill-to · ISO country
+      </span>
+    </div>
+  );
+}
+
+function DocTransitionsMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">publicationGraph</p>
+        <p className="pl-3 opacity-85">draft → submit → publish</p>
+        <p className="pl-3 opacity-85">journalGraph · post</p>
+        <p className="pl-3 opacity-70">lockGraph · lock/unlock</p>
+      </div>
+    </div>
+  );
+}
+
+function OpinionMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[14%] left-[8%] space-y-1.5 font-mono text-[11px] leading-5">
+        <p className="font-semibold">GET /invoices/data-grid</p>
+        <p className="opacity-80">POST /invoices</p>
+        <p className="opacity-90">PATCH /invoices/:id/submit</p>
+        <p className="opacity-70">DELETE /invoices/:id</p>
+      </div>
+    </div>
+  );
+}
+
+function AiDevMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-2 font-mono text-[12px] leading-5">
+        <p className="font-semibold">pnpm eristack plan --json</p>
+        <p className="pl-3 opacity-85">check --profile pr</p>
+        <p className="pl-3 opacity-85">sync docs · knowledge</p>
+        <p className="pl-3 opacity-70">MCP · eristack-mcp</p>
+      </div>
+    </div>
+  );
+}
+
+function LoggerMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <pre className="absolute top-[14%] left-[6%] font-mono text-[10px] leading-5 opacity-90">
+        {`{"level":"info","msg":"request","requestId":"req_8f2"}`}
+      </pre>
+      <span className="absolute bottom-[18%] left-[8%] font-mono text-[11px] opacity-75">
+        JSON-lines · requestId scope
+      </span>
+    </div>
+  );
+}
+
+function RestMotif() {
+  return (
+    <div className="absolute inset-0 text-[color:var(--layer-accent)] opacity-[0.15] dark:opacity-[0.22]">
+      <div className="absolute top-[16%] left-[8%] space-y-1.5 font-mono text-[11px] leading-5">
+        <p className="font-semibold">defineRoutes([…])</p>
+        <p className="opacity-85">toOpenApiDocument</p>
+        <p className="opacity-75">Express · Nest mount</p>
+      </div>
     </div>
   );
 }

@@ -101,6 +101,12 @@ importers:
       '@eristack/abac':
         specifier: workspace:*
         version: link:../../packages/service/abac
+      '@eristack/address':
+        specifier: workspace:*
+        version: link:../../packages/primitive/address
+      '@eristack/ai-dev':
+        specifier: workspace:*
+        version: link:../../packages/ai/ai-dev
       '@eristack/ai-knowledge':
         specifier: workspace:*
         version: link:../../packages/ai/ai-knowledge
@@ -113,33 +119,60 @@ importers:
       '@eristack/doc-number':
         specifier: workspace:*
         version: link:../../packages/capability/doc-number
+      '@eristack/doc-transitions':
+        specifier: workspace:*
+        version: link:../../packages/capability/doc-transitions
       '@eristack/epoch':
         specifier: workspace:*
         version: link:../../packages/service/epoch
       '@eristack/financial-ledger':
         specifier: workspace:*
         version: link:../../packages/capability/financial-ledger
+      '@eristack/fiscal-calendar':
+        specifier: workspace:*
+        version: link:../../packages/primitive/fiscal-calendar
       '@eristack/hash-chained-ledger':
         specifier: workspace:*
         version: link:../../packages/service/hash-chained-ledger
+      '@eristack/jwt-auth':
+        specifier: workspace:*
+        version: link:../../packages/service/jwt-auth
+      '@eristack/logger':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/logger
       '@eristack/money':
         specifier: workspace:*
         version: link:../../packages/primitive/money
       '@eristack/multitab':
         specifier: workspace:*
         version: link:../../packages/ui/multitab
+      '@eristack/opinion':
+        specifier: workspace:*
+        version: link:../../packages/service/opinion
       '@eristack/pbac':
         specifier: workspace:*
         version: link:../../packages/service/pbac
+      '@eristack/percent':
+        specifier: workspace:*
+        version: link:../../packages/primitive/percent
       '@eristack/qups':
         specifier: workspace:*
         version: link:../../packages/capability/qups
       '@eristack/rbac':
         specifier: workspace:*
         version: link:../../packages/service/rbac
+      '@eristack/rest':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/rest
       '@eristack/stock-movement':
         specifier: workspace:*
         version: link:../../packages/capability/stock-movement
+      '@eristack/timestamp':
+        specifier: workspace:*
+        version: link:../../packages/primitive/timestamp
+      '@eristack/uom':
+        specifier: workspace:*
+        version: link:../../packages/primitive/uom
       '@eristack/valuations':
         specifier: workspace:*
         version: link:../../packages/capability/valuations
@@ -934,7 +967,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
       zod:
         specifier: ^4.0.0
         version: 4.4.3
@@ -9134,14 +9167,6 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))':
-    dependencies:
-      '@vitest/spy': 4.1.10
-      estree-walker: 3.0.3
-      magic-string: 0.30.21
-    optionalDependencies:
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
-
   '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.10
@@ -12749,21 +12774,6 @@ snapshots:
       tsx: 4.23.12
       yaml: 2.9.0
 
-  vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0):
-    dependencies:
-      lightningcss: 1.33.0
-      picomatch: 4.0.5
-      postcss: 8.5.26
-      rolldown: 1.2.3
-      tinyglobby: 0.2.17
-    optionalDependencies:
-      '@types/node': 22.20.1
-      esbuild: 0.27.7
-      fsevents: 2.3.3
-      jiti: 2.7.0
-      tsx: 4.23.12
-      yaml: 2.9.0
-
   vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
@@ -12793,34 +12803,6 @@ snapshots:
       jiti: 2.7.0
       tsx: 4.23.12
       yaml: 2.9.0
-
-  vitest@4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)):
-    dependencies:
-      '@vitest/expect': 4.1.10
-      '@vitest/mocker': 4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
-      '@vitest/pretty-format': 4.1.10
-      '@vitest/runner': 4.1.10
-      '@vitest/snapshot': 4.1.10
-      '@vitest/spy': 4.1.10
-      '@vitest/utils': 4.1.10
-      es-module-lexer: 2.3.1
-      expect-type: 1.4.0
-      magic-string: 0.30.21
-      obug: 2.1.4
-      pathe: 2.0.3
-      picomatch: 4.0.5
-      std-env: 4.2.0
-      tinybench: 2.9.0
-      tinyexec: 1.3.0
-      tinyglobby: 0.2.17
-      tinyrainbow: 3.1.1
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
-      why-is-node-running: 2.3.0
-    optionalDependencies:
-      '@types/node': 22.20.1
-      jsdom: 26.1.0
-    transitivePeerDependencies:
-      - msw
 
   vitest@4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)):
     dependencies:
