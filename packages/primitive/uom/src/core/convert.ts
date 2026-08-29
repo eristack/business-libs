@@ -9,13 +9,31 @@ export class UomConversionError extends Error {
   }
 }
 
-/** Construct a quantity — amount must be a decimal string (not JS number literal). */
-export function uomQty(amount: string, unit: UomCode): UomQuantity {
-  if (!amount.trim() || Number.isNaN(Number(amount))) {
+function parseAmount(amount: string): Decimal {
+  const trimmed = amount.trim();
+  if (!trimmed) {
     throw new UomConversionError(`Invalid quantity amount "${amount}"`);
   }
+  let decimal: Decimal;
+  try {
+    decimal = new Decimal(trimmed);
+  } catch {
+    throw new UomConversionError(`Invalid quantity amount "${amount}"`);
+  }
+  if (!decimal.isFinite()) {
+    throw new UomConversionError(`Invalid quantity amount "${amount}"`);
+  }
+  if (decimal.isNegative()) {
+    throw new UomConversionError(`Quantity amount cannot be negative: "${amount}"`);
+  }
+  return decimal;
+}
+
+/** Construct a quantity — amount must be a decimal string (not JS number literal). */
+export function uomQty(amount: string, unit: UomCode): UomQuantity {
+  const decimal = parseAmount(amount);
   assertKnownUom(unit);
-  return { amount: new Decimal(amount).toFixed(), unit };
+  return { amount: decimal.toFixed(), unit };
 }
 
 /** Convert between units in the same dimension using fixed ratios. */

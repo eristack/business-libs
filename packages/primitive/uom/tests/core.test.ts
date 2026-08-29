@@ -19,6 +19,16 @@ describe("@eristack/uom", () => {
     expect(() => convertUom(liters, "kg")).toThrow(UomConversionError);
   });
 
+  it("rejects negative and non-numeric amounts", () => {
+    expect(() => uomQty("-1", "kg")).toThrow(/negative/i);
+    expect(() => uomQty("abc", "kg")).toThrow(UomConversionError);
+    expect(() => uomQty("", "kg")).toThrow(UomConversionError);
+  });
+
+  it("normalizes whitespace and preserves precision", () => {
+    expect(uomQty("  2.500  ", "kg").amount).toBe("2.5");
+  });
+
   it("allows custom units via registerUomDefinitions", () => {
     resetUomRegistry();
     registerUomDefinitions([
