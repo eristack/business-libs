@@ -44,6 +44,7 @@ import {
 } from "./monetary-context.js";
 import type { MonetaryAmount } from "./monetary-amount.js";
 import { NumberValue } from "./number-value.js";
+import { formatMoney, type FormatOptions } from "../format/format.js";
 
 export type MoneyInput = string | number | bigint;
 
@@ -403,5 +404,13 @@ export class Money implements MonetaryAmount {
    */
   amountString(): string {
     return storageToPlainString(this._storage);
+  }
+
+  /**
+   * Display formatting — default uses `Intl`, or supply `formatter` in options
+   * for app-owned locale rules (not a full i18n engine).
+   */
+  format(localeOrOptions: string | FormatOptions = "en-US"): string {
+    return formatMoney(this, localeOrOptions);
   }
 }

@@ -71,6 +71,8 @@ Several packages export memory stores and sqlite helpers on **`./testing`** — 
 | `@eristack/rbac/testing` | memory RBAC store |
 | `@eristack/epoch/testing` | memory epoch store |
 | `@eristack/valuations/testing` | memory layer helpers |
+| `@eristack/financial-ledger/testing` | memory ledger re-exports |
+| `@eristack/stock-movement/testing` | memory store helpers |
 
 Prefer **`./drizzle`** in apps; use **`./testing`** only in Vitest. Main package exports stay production-facing — migration from deep test imports is incremental (D-006).
 

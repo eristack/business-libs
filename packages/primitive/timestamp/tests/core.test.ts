@@ -141,6 +141,60 @@ describe("wall mode", () => {
   });
 });
 
+describe("DST property table — spring/fall boundaries", () => {
+  const springForwardNy = [
+    { local: "2025-03-09T01:30:00", ok: true },
+    { local: "2025-03-09T02:30:00", gap: true },
+    { local: "2025-03-09T03:30:00", ok: true },
+  ] as const;
+
+  for (const row of springForwardNy) {
+    it(`America/New_York ${row.local}`, () => {
+      const wall = wallOf(row.local, "America/New_York");
+      if ("gap" in row && row.gap) {
+        expect(() => wallToInstantOnce(wall)).toThrow(TimestampGapError);
+        return;
+      }
+      expect(wallToInstantOnce(wall).instant).toMatch(/Z$/);
+    });
+  }
+
+  const fallBackNy = [
+    { local: "2026-11-01T00:30:00", ok: true },
+    { local: "2026-11-01T01:30:00", overlap: true },
+    { local: "2026-11-01T02:30:00", ok: true },
+  ] as const;
+
+  for (const row of fallBackNy) {
+    it(`America/New_York fall ${row.local}`, () => {
+      const wall = wallOf(row.local, "America/New_York");
+      if ("overlap" in row && row.overlap) {
+        expect(() => wallToInstantOnce(wall)).toThrow(TimestampOverlapError);
+        const a = wallToInstantOnce(wall, { disambiguation: "earlier" });
+        const b = wallToInstantOnce(wall, { disambiguation: "later" });
+        expect(a.instant).not.toBe(b.instant);
+        return;
+      }
+      expect(wallToInstantOnce(wall).instant).toMatch(/Z$/);
+    });
+  }
+
+  const jakartaStable = [
+    "2026-01-15T09:00:00",
+    "2026-06-15T09:00:00",
+    "2026-12-31T23:59:00",
+  ] as const;
+
+  for (const local of jakartaStable) {
+    it(`Asia/Jakarta stable ${local}`, () => {
+      const wall = wallOf(local, "Asia/Jakarta");
+      const a = wallToInstantOnce(wall);
+      const b = wallToInstantOnce(wall);
+      expect(a.instant).toBe(b.instant);
+    });
+  }
+});
+
 describe("DST — America/New_York", () => {
   it("throws on spring-forward gap", () => {
     const gap = wallOf("2025-03-09T02:30:00", "America/New_York");

@@ -67,6 +67,11 @@ export {
   type ConfirmBeforeCloseOptions,
 } from "./core/before-close.js";
 export {
+  DEFAULT_MULTITAB_SHORTCUTS,
+  type MultitabShortcutAction,
+  type MultitabShortcutBinding,
+} from "./core/shortcuts.js";
+export {
   createTabWorkspace,
   type TabWorkspace,
 } from "./core/create-workspace.js";

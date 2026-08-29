@@ -83,4 +83,32 @@ describe("valuation engine + ledger", () => {
     const ok = await engine.verify(key);
     expect(ok).toEqual({ qty: true, value: true });
   });
+
+  it("crossCheckValuationChains verifies many keys", async () => {
+    const { crossCheckValuationChains } = await import("../src/core/cross-check.js");
+    const engine = createValuationEngine({
+      method: "fifo",
+      ledger: { store: createMemoryLedgerStore() },
+      layers: createMemoryLayerStore(),
+    });
+    const keyA = { productId: "SKU-A", currency: "USD" };
+    const keyB = { productId: "SKU-B", currency: "USD" };
+    await engine.receive({
+      key: keyA,
+      qty: "5",
+      unitCost: "2",
+      entryTypeId: "po-a",
+      layerId: "la",
+    });
+    await engine.receive({
+      key: keyB,
+      qty: "3",
+      unitCost: "4",
+      entryTypeId: "po-b",
+      layerId: "lb",
+    });
+    const report = await crossCheckValuationChains(engine, [keyA, keyB]);
+    expect(report.size).toBe(2);
+    expect([...report.values()].every((r) => r.ok)).toBe(true);
+  });
 });

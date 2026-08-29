@@ -12,7 +12,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | M1 | Export `compareDecimalStrings`, `parseDecimalFilter` as stable public API | S | **done** — `@eristack/money` core |
-| M2 | `Money.format()` locale intent hook (app supplies formatter) | M | not i18n engine — callback only |
+| M2 | `Money.format()` locale intent hook (app supplies formatter) | M | **done** — `Money.format`, `FormatOptions.formatter` |
 | M3 | FX `Conversion` rate staleness metadata (asOf instant) | S | **done** — `asOf`, `rateAsOfInstant`, `isExchangeRateStale` |
 | M5 | `money/adapters` zod 4 refinements for form fields | S | **done** — `createMoneySchema`, `moneyFormValueSchema` |
 | M6 | Ledger skill: allocate + split examples with remainder handling | S | **done** — money-ledger skill |
@@ -28,7 +28,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | T2 | `compareWallDates`, sort helpers for data-grid wall columns | S | **done** — `sortWallClocks` |
 | T3 | Drizzle column helpers: instant vs wall documented in one table | S | **done** — adapters.md subpath map |
 | T6 | Nest pipe + Express middleware parse wall query params | S | **done** — `parseWallQueryValue`, `readWallQueryParam` |
-| T7 | Property tests DST spring/fall for Asia/Jakarta, America/New_York | M | |
+| T7 | Property tests DST spring/fall for Asia/Jakarta, America/New_York | M | **done** — core.test.ts property table |
 
 ---
 
@@ -38,7 +38,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | D1 | `{SCOPE}` token docs + timezone-aware period reset recipes | S | **done** — format.md + sequencing.md |
 | D3 | Format preview API for settings UI (no increment) | S | **done** — `previewDocumentNumber` / REST preview |
-| D4 | Scoped sequences: branch/warehouse scope without new package | M | app-owned scope table |
+| D4 | Scoped sequences: branch/warehouse scope without new package | M | **done** — sequencing.md § Scoped sequences |
 | D5 | OpenAPI fragment generator for format CRUD routes | S | opinion/rest later |
 | D6 | Backseat register: format list + preview only seed | S | **done** — `seedDocNumberBackseatFormats` |
 
@@ -64,7 +64,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | S1 | Idempotent append by clientRequestId | M | **done** — `idempotencyKey` on append |
 | S2 | Multi-location transfer as two append ops helper | S | **done** — `appendStockTransfer` |
 | S3 | Snapshot qty by locationId + optional lotId filters | S | **done** — `snapshotLotBalance`, `snapshotLotsAtLocation` |
-| S4 | Integration: concurrent append same chain | M | audit A-011 |
+| S4 | Integration: concurrent append same chain | M | **done** — core.test.ts parallel append |
 | S5 | `verify` failure messages include entry index + hash prefix | S | **done** |
 | S6 | Backseat register stock routes for demos | S | **done** — `registerStockMovementBackseat` |
 
@@ -89,7 +89,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | V1 | Method picker decision tree in getting-started (DOC-001) | S | **done** — audit DOC-001 |
 | V3 | All 9 methods parametric tests | L | **done** — audit A-005 |
 | V5 | FEFO requires expiresAt — document + test edge null | S | **done** — methods.adversarial.test.ts |
-| V6 | Layer + ledger verify cross-check helper | M | |
+| V6 | Layer + ledger verify cross-check helper | M | **done** — `crossCheckValuationChains` |
 
 ---
 
@@ -111,7 +111,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | R2 | Drizzle integration assignRole + can() | S | **done** — audit A-008 |
 | R3 | Express `requirePermission` composition examples | S | **done** — rbac-adapters skill |
 | R4 | Resource:action naming convention guide | S | **done** — knowledge/rbac-permissions.md |
-| R5 | Bulk import roles from YAML (admin tooling) | M | |
+| R5 | Bulk import roles from YAML (admin tooling) | M | **done** — `importRolesFromYaml` |
 
 ---
 
@@ -121,7 +121,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | A1 | `assignmentPairMatch` cookbook (branch × trade) | S | **done** — abac core test + concepts |
 | A2 | attrs helpers typed for common ERP attrs | S | **done** — `branchIdEquals`, `maxBookValueAtMost` |
-| A3 | Policy test harness: table-driven evaluate fixtures | M | |
+| A3 | Policy test harness: table-driven evaluate fixtures | M | **done** — `runAbacPolicyFixtures` |
 | A4 | Warn when money attrs use number not string | S | **done** — `maxBookValueAtMost` rejects JSON numbers |
 | A5 | Nest guard error envelope matches http-errors | S | **done** — 409 `POLICY_DENIED` Nest + Express |
 
@@ -134,7 +134,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | P1 | `documents.transitions()` more examples (Publication preset) | S | **done** — document-policies.md |
 | P2 | Express 409 POLICY_DENIED supertest | S | **done** — audit T-005 |
 | P3 | Policy registry export for OpenAPI enum generation | Horizon | opinion |
-| P4 | Transition table validator (from/to/status) | M | |
+| P4 | Transition table validator (from/to/status) | M | **done** — `validateTransitionTable` |
 | P5 | React hook: loading + denied reason string | S | **done** — `useBusinessPolicy` + adapters.md |
 
 ---
@@ -145,7 +145,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | G1 | `executeDrizzleList` sqlite harness test | M | **done** — audit A-003 |
 | G2 | `type: wall` filter ops documented with timestamp | S | **done** — getting-started |
-| G3 | `executeBackseatList` parity with drizzle envelope | M | backseat lists |
+| G3 | `executeBackseatList` parity with drizzle envelope | M | **done** — backseat-execute.test.ts |
 | G4 | Saved view serialize/deserialize JSON schema | M | UI candidate |
 | G5 | Decimal string compare ops export for apps | S | **done** — `@eristack/money` M1 |
 | G6 | Cursor pagination stability doc (tie-breaker column) | S | **done** — edge-cases.md |
@@ -171,7 +171,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | H2 | Tamper helper recipes in skill | S | **done** — hash-chained-ledger-core skill |
 | H3 | Batch append transactional semantics doc | S | **done** — hashing.md + skill |
 | H4 | Chain export JSON for audit packages | M | audit-event later |
-| H5 | Postgres vs sqlite hash parity test | M | |
+| H5 | Postgres vs sqlite hash parity test | M | **done** — hash-parity.test.ts |
 
 ---
 
@@ -193,11 +193,11 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| U1 | Dirty close guard + confirm callback contract | M | alpha gate |
+| U1 | Dirty close guard + confirm callback contract | M | **done** — `createConfirmBeforeClose` + getting-started |
 | U2 | TanStack Router sync recipe (full file) | S | **done** — router-recipe.md |
-| U3 | MRU tab activation tests (done — keep coverage) | S | |
+| U3 | MRU tab activation tests (done — keep coverage) | S | **done** — state.test.ts + routes.test.ts |
 | U4 | Tab title async update hook | S | **done** — `useTabTitle` |
-| U5 | Keyboard shortcuts headless map | M | |
+| U5 | Keyboard shortcuts headless map | M | **done** — `DEFAULT_MULTITAB_SHORTCUTS` |
 | U6 | Persist tab strip to sessionStorage optional | S | **done** — session-storage helpers |
 
 ---
@@ -206,10 +206,10 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| K1 | `loadPlan()` + canonicalSkills (shipped — extend to more recipes) | S | |
+| K1 | `loadPlan()` + canonicalSkills (shipped — extend to more recipes) | S | **done** — compose-spine + document-lines-erp |
 | K2 | Recipe for each new capability in wave2 when promoted | S | ongoing |
 | K3 | `compose-spine` vs `document-lines-erp` disambiguation tests | S | **done** — recommend.test.ts |
-| K4 | Catalog compact table in skill (shipped — maintain) | S | |
+| K4 | Catalog compact table in skill (shipped — maintain) | S | **done** — recommend-eristack SKILL sync |
 | K5 | knowledge ↔ docs mirror CI (audit B-016) | M | **done** |
 | K6 | Horizon link from recommend for infra packages | S | **done** — recipes.yaml horizon refs |
 
@@ -233,7 +233,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | ---: | --- | --- | --- |
 | TK1 | getting-started.md (audit D-009) | S | **done** |
 | TK2 | Feasibility rubric examples per layer | S | **done** — getting-started.md |
-| TK3 | Auto-suggest package from stack trace path | M | |
+| TK3 | Auto-suggest package from stack trace path | M | **done** — `suggestPackageFromStackTrace` |
 | TK4 | Private package skip (shipped) — document | S | **done** — getting-started.md |
 
 ---

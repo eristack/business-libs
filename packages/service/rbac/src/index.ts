@@ -22,3 +22,4 @@ export {
   RoleCycleError,
   type RoleInheritanceGraph,
 } from "./core/role-closure.js";
+export { importRolesFromYaml, type RbacYamlDocument, type RbacYamlRole } from "./core/import-yaml.js";

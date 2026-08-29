@@ -3,13 +3,18 @@ import { resolveCurrency } from "../currency/registry.js";
 import { Money } from "../amount/money.js";
 import { ParseError } from "../errors/index.js";
 
-export interface FormatOptions {
+export type FormatOptions = {
   locale?: string;
   currencyDisplay?: "symbol" | "narrowSymbol" | "code" | "name";
   /** Override fraction digits; defaults to currency default when >= 0. */
   minimumFractionDigits?: number;
   maximumFractionDigits?: number;
-}
+  /**
+   * App-owned formatter hook — not a full i18n engine.
+   * When set, skips built-in `Intl.NumberFormat`.
+   */
+  formatter?: (amount: Money, locale: string) => string;
+};
 
 export function formatMoney(
   amount: Money,
@@ -21,6 +26,9 @@ export function formatMoney(
       : localeOrOptions;
 
   const locale = options.locale ?? "en-US";
+  if (options.formatter) {
+    return options.formatter(amount, locale);
+  }
   const digits = amount.currency.defaultFractionDigits;
   const min =
     options.minimumFractionDigits ?? (digits >= 0 ? digits : undefined);

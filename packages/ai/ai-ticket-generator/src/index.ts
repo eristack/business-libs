@@ -15,3 +15,4 @@ export {
 export { writeTicketFile, resolveTicketsDir, DEFAULT_TICKETS_DIR } from "./write.js";
 export { validateTicket } from "./validate.js";
 export { findRepoRoot, findPackageDir } from "./paths.js";
+export { suggestPackageFromStackTrace } from "./suggest-package.js";

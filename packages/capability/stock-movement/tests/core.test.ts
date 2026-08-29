@@ -141,4 +141,31 @@ describe("stock-movement", () => {
       await snapshotLotBalance(stock, { locationId: "loc-y", lotId: "L1" }),
     ).toBe("30");
   });
+
+  it("ten sequential appends on the same chain remain verifiable", async () => {
+    const stock = createStockMovement({ store: createMemoryLedgerStore() });
+    const locationId = "loc-concurrent";
+    await stock.append({
+      locationId,
+      lotId: "L1",
+      openingBalance: "0",
+      inAmount: "1000",
+      entryType: "receipt",
+      entryTypeId: "open",
+    });
+
+    for (let i = 0; i < 10; i++) {
+      await stock.append({
+        locationId,
+        lotId: "L1",
+        outAmount: "1",
+        entryType: "issue",
+        entryTypeId: `gi-${i}`,
+      });
+    }
+
+    const snap = await stock.snapshot({ locationId, lotId: "L1" });
+    expect(snap?.balance).toBe("990");
+    expect((await stock.verify({ locationId, lotId: "L1" })).ok).toBe(true);
+  });
 });
