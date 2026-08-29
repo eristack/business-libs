@@ -18,7 +18,9 @@ import {
   wallOf,
   wallToInstantOnce,
   compareWall,
+  compareWallDates,
   isWallInRange,
+  sortWallClocks,
   addWallDays,
 } from "../src/index.js";
 import { Temporal } from "@js-temporal/polyfill";
@@ -100,6 +102,28 @@ describe("wall mode", () => {
     const jakarta = wallOf("2026-09-01", "Asia/Jakarta");
     const paris = wallOf("2026-09-01", "Europe/Paris");
     expect(() => compareWall(jakarta, paris)).toThrow(TimestampParseError);
+  });
+
+  it("compareWallDates is an alias for compareWall", () => {
+    const a = wallOf("2026-09-01", "Asia/Jakarta");
+    const b = wallOf("2026-09-07", "Asia/Jakarta");
+    expect(compareWallDates(a, b)).toBe(-1);
+  });
+
+  it("sortWallClocks orders wall clocks in zone", () => {
+    const mid = wallOf("2026-09-04", "Asia/Jakarta");
+    const early = wallOf("2026-09-01", "Asia/Jakarta");
+    const late = wallOf("2026-09-07", "Asia/Jakarta");
+    expect(sortWallClocks([late, early, mid]).map((w) => w.local)).toEqual([
+      early.local,
+      mid.local,
+      late.local,
+    ]);
+    expect(sortWallClocks([late, early, mid], "desc").map((w) => w.local)).toEqual([
+      late.local,
+      mid.local,
+      early.local,
+    ]);
   });
 
   it("addWallDays advances civil calendar without Date", () => {

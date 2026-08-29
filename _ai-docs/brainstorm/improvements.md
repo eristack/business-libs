@@ -11,13 +11,13 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
-| M1 | Export `compareDecimalStrings`, `parseDecimalFilter` as stable public API | S | data-grid + qups consumers stop copying |
+| M1 | Export `compareDecimalStrings`, `parseDecimalFilter` as stable public API | S | **done** — `@eristack/money` core |
 | M2 | `Money.format()` locale intent hook (app supplies formatter) | M | not i18n engine — callback only |
 | M3 | FX `Conversion` rate staleness metadata (asOf instant) | S | pairs with timestamp instant |
 | M4 | Round-trip property tests minor↔major all ISO4217 test currencies | M | |
 | M5 | `money/adapters` zod 4 refinements for form fields | S | mirror timestamp |
 | M6 | Ledger skill: allocate + split examples with remainder handling | S | docs |
-| M7 | Express middleware: reject JSON number money bodies | S | optional peer |
+| M7 | Express middleware: reject JSON number money bodies | S | **done** — `rejectJsonNumberMoneyBody` |
 
 ---
 
@@ -26,7 +26,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | # | Improvement | Effort | Notes |
 | ---: | --- | --- | --- |
 | T1 | Wall `addDays` / inclusive range helpers | M | audit ticket language |
-| T2 | `compareWallDates`, sort helpers for data-grid wall columns | S | export from core |
+| T2 | `compareWallDates`, sort helpers for data-grid wall columns | S | **done** — `sortWallClocks` |
 | T3 | Drizzle column helpers: instant vs wall documented in one table | S | docs |
 | T4 | Business-calendar **peer** hook interface (not full calendar pkg) | Horizon | fiscal-calendar consumes |
 | T5 | React `WallDatePicker` headless state machine in UI layer candidate | Horizon | see catalog-wave2 U31 |
@@ -70,7 +70,7 @@ Cross-package items from [audit/improvement-backlog.md](../audit/improvement-bac
 | S2 | Multi-location transfer as two append ops helper | S | not feature-inventory |
 | S3 | Snapshot qty by locationId + optional lotId filters | S | |
 | S4 | Integration: concurrent append same chain | M | audit A-011 |
-| S5 | `verify` failure messages include entry index + hash prefix | S | DX |
+| S5 | `verify` failure messages include entry index + hash prefix | S | **done** |
 | S6 | Backseat register stock routes for demos | S | |
 
 ---

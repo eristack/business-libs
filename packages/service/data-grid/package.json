@@ -129,6 +129,9 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
+  "dependencies": {
+    "@eristack/money": "workspace:*"
+  },
   "peerDependencies": {
     "@eristack/timestamp": "^0.1.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
@@ -186,6 +189,7 @@
     "typescript": "catalog:",
     "vitest": "^4.1.10",
     "@eristack/backseat": "workspace:*",
+    "@eristack/money": "workspace:*",
     "@internal/test-harness": "workspace:*",
     "@eristack/timestamp": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",

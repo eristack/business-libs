@@ -47,6 +47,17 @@ const [a, b, c] = total.allocate(3);
 
 See [advanced arithmetic](./advanced-arithmetic.md) for totals, percentages, and tax helpers.
 
+## Decimal strings (lists and filters)
+
+For `@eristack/data-grid` decimal/money columns and custom filters, compare and parse operands without `Number()`:
+
+```ts
+import { compareDecimalStrings, parseDecimalFilter } from "@eristack/money";
+
+compareDecimalStrings("4990000.00", "1200.50"); // > 0
+parseDecimalFilter("1000.00"); // rejects JSON numbers
+```
+
 ## Rules of thumb
 
 1. Construct with **strings** (or minor-unit integers), not fractional `number`s

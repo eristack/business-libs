@@ -72,3 +72,8 @@ export {
 } from "./serialize/json.js";
 
 export { Monetary } from "./monetary.js";
+
+export {
+  compareDecimalStrings,
+  parseDecimalFilter,
+} from "./decimal/index.js";

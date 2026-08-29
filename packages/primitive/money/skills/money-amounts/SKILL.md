@@ -112,6 +112,15 @@ Money.ofMinor(1999n, "USD");
 
 Fractional JS numbers are rejected because binary floats cannot represent many decimals exactly.
 
+### List/filter decimal operands
+
+```ts
+import { compareDecimalStrings, parseDecimalFilter } from "@eristack/money";
+
+compareDecimalStrings("4990000.00", "1200.50");
+parseDecimalFilter(filterValue); // throws if JSON number
+```
+
 Source: packages/primitive/money/docs/concepts.md
 
 ### HIGH Add mixed currencies directly

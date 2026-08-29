@@ -23,7 +23,12 @@ export {
 
 export type { WallClock } from "./wall/wall-clock.js";
 export { wallOf, isWallClock } from "./wall/wall-clock.js";
-export { compareWall, isWallInRange } from "./wall/wall-compare.js";
+export {
+  compareWall,
+  compareWallDates,
+  isWallInRange,
+  sortWallClocks,
+} from "./wall/wall-compare.js";
 export { addWallDays } from "./wall/wall-arithmetic.js";
 export type { Disambiguation } from "./wall/to-instant-once.js";
 export { wallToInstantOnce } from "./wall/to-instant-once.js";

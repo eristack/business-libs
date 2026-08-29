@@ -143,6 +143,7 @@
   "devDependencies": {
     "@nestjs/common": "^11.0.12",
     "@tanstack/intent": "^0.3.6",
+    "@types/express": "^5.0.1",
     "drizzle-orm": "^0.44.0",
     "express": "^5.1.0",
     "tsup": "catalog:",

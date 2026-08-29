@@ -2,6 +2,11 @@ import { ChainTamperedError } from "./errors.js";
 import { hashLedgerEntry } from "./hash.js";
 import type { ChainVerifyResult, LedgerEntry } from "./types.js";
 
+function entryContext(entry: LedgerEntry, index: number): string {
+  const hashPrefix = entry.entryHash.slice(0, 8);
+  return `entry ${entry.id} @ index ${index} seq ${entry.sequence} hash ${hashPrefix}…`;
+}
+
 export async function verifyEntries(
   chainId: string,
   entries: LedgerEntry[],
@@ -9,18 +14,19 @@ export async function verifyEntries(
   let prevHash: string | null = null;
   for (let index = 0; index < entries.length; index++) {
     const entry = entries[index]!;
+    const ctx = entryContext(entry, index);
     const warnings: string[] = [];
     if (entry.chainId !== chainId) {
-      warnings.push(`chainId mismatch (${entry.chainId})`);
+      warnings.push(`${ctx}: chainId mismatch (${entry.chainId})`);
     }
     if (entry.prevHash !== prevHash) {
       warnings.push(
-        `prevHash mismatch (expected ${prevHash ?? "null"}, got ${entry.prevHash})`,
+        `${ctx}: prevHash mismatch (expected ${prevHash ?? "null"}, got ${entry.prevHash})`,
       );
     }
     if (entry.sequence !== index + 1) {
       warnings.push(
-        `sequence gap (expected ${index + 1}, got ${entry.sequence})`,
+        `${ctx}: sequence gap (expected ${index + 1}, got ${entry.sequence})`,
       );
     }
     const recomputed = await hashLedgerEntry({
@@ -39,7 +45,7 @@ export async function verifyEntries(
       meta: entry.meta,
     });
     if (recomputed !== entry.entryHash) {
-      warnings.push("entryHash does not match payload");
+      warnings.push(`${ctx}: entryHash does not match payload`);
     }
     if (warnings.length > 0) {
       return {

@@ -6,7 +6,7 @@ sidebar_position: 17
 
 # Express adapter
 
-`@eristack/money/express` wraps [@eristack/money/rest](./rest.md) for Express handlers. No router, no middleware factory, no `MoneyModule`.
+`@eristack/money/express` wraps [@eristack/money/rest](./rest.md) for Express handlers. No router, no `MoneyModule`.
 
 ```bash
 pnpm add @eristack/money express
@@ -16,12 +16,28 @@ pnpm add @eristack/money express
 import {
   readMoney,
   readMoneyField,
+  rejectJsonNumberMoneyBody,
   sendMoney,
   RestMoneyFieldError,
 } from "@eristack/money/express";
 ```
 
 Overview: [Adapters](./adapters.md).
+
+## Reject JSON number amounts (middleware)
+
+Wire `MoneyJSON.amount` must be a **decimal string**. Catch bad clients before handlers run:
+
+```ts
+import express from "express";
+import { rejectJsonNumberMoneyBody } from "@eristack/money/express";
+
+const app = express();
+app.use(express.json());
+app.use(rejectJsonNumberMoneyBody());
+```
+
+`findJsonNumberMoneyFields(body)` walks nested objects and returns paths like `body.lines[0].price`.
 
 ## Read request bodies
 

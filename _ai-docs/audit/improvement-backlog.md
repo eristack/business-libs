@@ -120,7 +120,7 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | --- | --- | --- | --- |
 | **T-001** | runChecks unit tests | M | **done** — runner.test.ts profile order |
 | **T-002** | MCP dev_plan snapshot test | S | **done** — mcp.test.ts server construct |
-| **T-003** | sync command integration test | S | **open** — deferred (plan.test covers sync hints) |
+| **T-003** | sync command integration test | S | **done** — `packages/ai/ai-dev/tests/sync.test.ts` |
 | **T-004** | money express/nest smoke tests | S | **done** — express.smoke.test.ts |
 | **T-005** | pbac express 409 test | S | **done** — express.e2e.test.ts + backseat.errors.test.ts |
 
@@ -167,7 +167,7 @@ flowchart TD
 | DOC | 0 | 6 |
 | T | 1 | 4 |
 
-**Total open items:** 3 (D-008 human release, D-006 full migration L, T-003 sync integration test — excluding horizon H-*)
+**Total open items:** 2 (D-008 human release, D-006 full migration L — excluding horizon H-*)
 
 When an item ships, mark `done` here with date — optional one-line in package CHANGELOG.
 
