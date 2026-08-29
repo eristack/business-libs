@@ -1,10 +1,8 @@
-import {
-  registerMountedRoutes,
-  requireParam,
-} from "@eristack/backseat/adapters";
+import { registerMountedRoutes } from "@eristack/backseat/adapters";
 import type { Backseat } from "@eristack/backseat";
-import { calculateLine, patchLine } from "../core/calculate.js";
+import { calculateLine } from "../core/calculate.js";
 import { createQups, type CreateQupsOptions, type QupsApi } from "../core/create-qups.js";
+import { createQupsRoutes } from "./qups-routes.js";
 import { createBackseatPricingLineStore, createBackseatPricingProfileStore } from "./stores.js";
 
 export type RegisterQupsBackseatOptions = CreateQupsOptions & {
@@ -27,44 +25,8 @@ export function registerQupsBackseat(
       clock: options.clock,
       idFactory: options.idFactory,
     });
-  const base = options.basePath ?? "/qups";
 
-  registerMountedRoutes(api, base, [
-    {
-      method: "POST",
-      segment: "/calculate-line",
-      name: "qups.calculate-line",
-      handler: async (ctx) => {
-        const body = ctx.json<Record<string, unknown>>();
-        const result = calculateLine(body as Parameters<typeof calculateLine>[0]);
-        return { status: 200, body: result };
-      },
-    },
-    {
-      method: "POST",
-      segment: "/patch-line",
-      name: "qups.patch-line",
-      handler: async (ctx) => {
-        const body = ctx.json<{
-          current: Parameters<typeof patchLine>[0];
-          patch: Parameters<typeof patchLine>[1];
-        }>();
-        const result = patchLine(body.current, body.patch);
-        return { status: 200, body: result };
-      },
-    },
-    {
-      method: "GET",
-      segment: "/lines/:ownerKey",
-      name: "qups.list-lines",
-      handler: async (ctx) => {
-        const ownerKey = requireParam(ctx.params.ownerKey, "ownerKey required");
-        if (typeof ownerKey !== "string") return ownerKey;
-        const items = await qups.listLines(ownerKey);
-        return { status: 200, body: items };
-      },
-    },
-  ]);
+  registerMountedRoutes(api, options.basePath ?? "/qups", createQupsRoutes(qups));
 
   api.registerAction("qups.calculateLine", async ({ input }) =>
     calculateLine(input as Parameters<typeof calculateLine>[0]),
