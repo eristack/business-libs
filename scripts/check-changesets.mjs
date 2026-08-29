@@ -2,7 +2,9 @@
 /**
  * Guard pending Changesets before merge:
  * 1. One package per .changeset file (avoids duplicated mega-changelog in Version PR).
- * 2. No minor/major on packages already past 0.0.0 (minor → 1.0.0 on 0.1.x).
+ * 2. No minor/major on packages already past 0.0.0 — on 0.1.x, minor semver
+ *    becomes 0.2.0 and breaks peer ranges like ^0.1.0 (npm: <0.2.0), cascading
+ *    major bumps to all peer dependents via Changesets.
  * 3. No cross-package ### headings in the body (mega-changelog smell).
  */
 import fs from "node:fs";
@@ -34,6 +36,38 @@ function packageVersions() {
     }
   }
   return map;
+}
+
+/** @returns {Map<string, Array<{ consumer: string, range: string }>>} */
+function peerConsumersByPackage() {
+  /** @type {Map<string, Array<{ consumer: string, range: string }>>} */
+  const map = new Map();
+  if (!fs.existsSync(packagesDir)) return map;
+
+  for (const category of fs.readdirSync(packagesDir)) {
+    const categoryDir = path.join(packagesDir, category);
+    if (!fs.statSync(categoryDir).isDirectory()) continue;
+    for (const slug of fs.readdirSync(categoryDir)) {
+      const pkgJsonPath = path.join(categoryDir, slug, "package.json");
+      if (!fs.existsSync(pkgJsonPath)) continue;
+      const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, "utf8"));
+      if (!pkg.name?.startsWith("@eristack/") || pkg.private) continue;
+      for (const [peer, range] of Object.entries(pkg.peerDependencies ?? {})) {
+        if (!peer.startsWith("@eristack/")) continue;
+        const list = map.get(peer) ?? [];
+        list.push({ consumer: pkg.name, range: String(range) });
+        map.set(peer, list);
+      }
+    }
+  }
+  return map;
+}
+
+/** @param {string} version */
+function minorSemverOnZeroLine(version) {
+  const m = /^0\.(\d+)\./.exec(version);
+  if (!m) return null;
+  return `0.${Number(m[1]) + 1}.0`;
 }
 
 /** @param {string} version */
@@ -83,6 +117,7 @@ function main() {
   }
 
   const versions = packageVersions();
+  const peerConsumers = peerConsumersByPackage();
   /** @type {string[]} */
   const errors = [];
 
@@ -133,8 +168,21 @@ function main() {
       }
 
       if (isPastInitialPublish(current)) {
+        const peers = peerConsumers.get(pkgName) ?? [];
+        const nextMinor = bump === "minor" ? minorSemverOnZeroLine(current) : null;
+        let detail =
+          bump === "minor"
+            ? `minor on ${current} → semver ${nextMinor ?? "?"} (repo policy: exit 0.x or intentional 1.0.0)`
+            : "a major bump";
+
+        if (bump === "minor" && nextMinor && peers.length > 0) {
+          const capped = peers.slice(0, 4).map((p) => `${p.consumer} (${p.range})`);
+          const extra = peers.length > 4 ? ` +${peers.length - 4} more` : "";
+          detail += ` — breaks ${peers.length} peer range(s) (${capped.join(", ")}${extra}); Changesets will major-bump those dependents`;
+        }
+
         errors.push(
-          `${file}: "${pkgName}": ${bump} on ${current} would ship ${bump === "minor" ? "1.0.0" : "a major bump"} — use patch for routine features on 0.1.x (see knowledge/dev-conventions.md § Changesets on 0.x)`,
+          `${file}: "${pkgName}": ${bump} on ${current} would ship ${detail} — use patch for routine 0.1.x features (see dev-conventions § Changesets on 0.x)`,
         );
       }
     }
@@ -144,7 +192,7 @@ function main() {
     console.error("check-changesets: failed\n");
     for (const err of errors) console.error(`  • ${err}`);
     console.error(
-      "\nAuthoring: one file per package, patch-only on 0.1.x, no shared mega-changelog body.",
+      "\nAuthoring: patch on 0.1.x stays inside ^0.1.0 peers (<0.2.0). To ship 0.2.0+, coordinate peer range bumps in the same release train.",
     );
     process.exit(1);
   }
