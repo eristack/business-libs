@@ -39,6 +39,15 @@ const AI_KNOWLEDGE_SKILLS: Record<string, CatalogSkill> = {
     type: "core",
     loadCommand: `${INTENT} @eristack/ai-knowledge#agent-workflow`,
   },
+  "document-lines-erp": {
+    id: "document-lines-erp",
+    name: "document-lines-erp",
+    packageName: "@eristack/ai-knowledge",
+    description:
+      "Header + QUPS lines ERP spine — qups, doc-number, pbac, data-grid, backseat mock.",
+    type: "core",
+    loadCommand: `${INTENT} @eristack/ai-knowledge#document-lines-erp`,
+  },
 };
 
 function aiKnowledgeSkillForPage(pageSlug: string): CatalogSkill[] {
@@ -55,6 +64,14 @@ function aiKnowledgeSkillForPage(pageSlug: string): CatalogSkill[] {
     return [AI_KNOWLEDGE_SKILLS["agent-workflow"]];
   }
   return [AI_KNOWLEDGE_SKILLS["recommend-eristack"]];
+}
+
+const ERP_DOC_PACKAGES = new Set(["qups", "backseat", "pbac"]);
+
+function erpCompanionSkill(packageSlug: DocPackageSlug, pageSlug: string): CatalogSkill | null {
+  if (!ERP_DOC_PACKAGES.has(packageSlug)) return null;
+  if (pageSlug !== "getting-started" && pageSlug !== "index") return null;
+  return AI_KNOWLEDGE_SKILLS["document-lines-erp"];
 }
 
 const ADAPTER_PAGE_SLUGS = new Set([
@@ -101,7 +118,9 @@ export function resolveDocSkills(
   }
 
   const coreSkill = pkg.skills.find((skill) => skill.type === "core");
-  return [coreSkill ?? pkg.skills[0]];
+  const primary = coreSkill ?? pkg.skills[0];
+  const erp = erpCompanionSkill(packageSlug, pageSlug);
+  return erp ? [primary, erp] : [primary];
 }
 
 export function formatSkillLabel(skill: CatalogSkill) {

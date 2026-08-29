@@ -64,6 +64,22 @@ Published apps:
 
 **Do not** ship IndexedDB Backseat as production persistence. Production = **`./drizzle`**, **`./express`**, **`./react`**, **`./client`**.
 
+### 2.1 `@eristack/*/testing` subpaths (Vitest only)
+
+Several packages export memory stores and sqlite helpers on **`./testing`** — not for production imports:
+
+| Package | `./testing` exports (examples) |
+| --- | --- |
+| `@eristack/hash-chained-ledger/testing` | `setupHclSqlite`, tamper helpers |
+| `@eristack/jwt-auth/testing` | memory credential + refresh stores |
+| `@eristack/qups/testing` | memory profile + line stores |
+| `@eristack/doc-number/testing` | memory format + sequence stores |
+| `@eristack/rbac/testing` | memory RBAC store |
+| `@eristack/epoch/testing` | memory epoch store |
+| `@eristack/valuations/testing` | memory layer helpers |
+
+Prefer **`./drizzle`** in apps; use **`./testing`** only in Vitest. Main package exports stay production-facing — migration from deep test imports is incremental (D-006).
+
 ---
 
 ## 3. Backseat release train (what changed)

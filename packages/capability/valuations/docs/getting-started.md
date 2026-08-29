@@ -74,14 +74,14 @@ Pass `method` into `createValuationEngine({ method, … })`. Choose once per val
 | Method | When to use | Issue order / cost basis | Required receive fields | Required issue fields | Test coverage |
 | --- | --- | --- | --- | --- | --- |
 | `fifo` | Default physical pick; oldest stock first; most audit-friendly | Oldest `receivedAt` first | `qty`, `unitCost`, `currency`, `receivedAt`, `layerId` | `qty` | **Unit tested** (`receiveIntoLayers` / engine) |
-| `lifo` | Tax/policy choice where newest cost hits COGS first (not auto-compliance) | Newest `receivedAt` first | Same as FIFO | `qty` | **Not unit tested** — core logic mirrors FIFO sort |
-| `fefo` | Expiry-driven (F&B, pharma, chemicals) | Earliest `expiresAt`, then `receivedAt` | + **`expiresAt`** on receive | `qty` | **Not unit tested** |
-| `hifo` | Intentionally maximize COGS (rare; policy-driven) | Highest `unitCost` first | Same as FIFO | `qty` | **Not unit tested** |
-| `lofo` | Minimize COGS on issue (promotional / policy) | Lowest `unitCost` first | Same as FIFO | `qty` | **Not unit tested** |
+| `lifo` | Tax/policy choice where newest cost hits COGS first (not auto-compliance) | Newest `receivedAt` first | Same as FIFO | `qty` | **Unit tested** (`methods.adversarial.test.ts`) |
+| `fefo` | Expiry-driven (F&B, pharma, chemicals) | Earliest `expiresAt`, then `receivedAt` | + **`expiresAt`** on receive | `qty` | **Unit tested** (`methods.adversarial.test.ts`) |
+| `hifo` | Intentionally maximize COGS (rare; policy-driven) | Highest `unitCost` first | Same as FIFO | `qty` | **Unit tested** (`methods.adversarial.test.ts`) |
+| `lofo` | Minimize COGS on issue (promotional / policy) | Lowest `unitCost` first | Same as FIFO | `qty` | **Unit tested** (`methods.adversarial.test.ts`) |
 | `movingAverage` | Single blended layer; smooth COGS; high transaction volume | One layer at rolling average | `qty`, `unitCost`, `currency`, `receivedAt`, `layerId` | `qty` | **Unit tested** (average update) |
-| `weightedAverage` | Same engine path as moving average (perpetual weighted blend) | Same as moving average | Same as moving average | `qty` | **Not unit tested** (same code path as movingAverage) |
-| `standardCost` | Fixed standard/BOM cost; variances elsewhere in GL | Issues at layer `unitCost` (standard stored on receive) | + optional **`standardUnitCost`** override | `qty` | **Not unit tested** |
-| `specificIdentification` | Serial numbers, consignment, named batch pick | Exact layer by id | Same as FIFO | **`layerId`** + `qty` | **Not unit tested** |
+| `weightedAverage` | Same engine path as moving average (perpetual weighted blend) | Same as moving average | Same as moving average | `qty` | **Unit tested** (same path as `movingAverage`) |
+| `standardCost` | Fixed standard/BOM cost; variances elsewhere in GL | Issues at layer `unitCost` (standard stored on receive) | + optional **`standardUnitCost`** override | `qty` | **Unit tested** (`methods.adversarial.test.ts`) |
+| `specificIdentification` | Serial numbers, consignment, named batch pick | Exact layer by id | Same as FIFO | **`layerId`** + `qty` | **Unit tested** (`methods.adversarial.test.ts`) |
 
 ### Quick decision
 

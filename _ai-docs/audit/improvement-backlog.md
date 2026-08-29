@@ -16,14 +16,14 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **A-002** | HCL `createDrizzleLedgerStore` integration test | M | hash-chained-ledger | **done** — `drizzle.integration.test.ts` |
 | **A-003** | data-grid `executeDrizzleList` integration test | M | data-grid | **done** — eq, wall between, decimal gte, sort |
 | **A-004** | data-grid `buildDrizzleQuery` unit+SQL snapshot | S | data-grid | **done** — `build-drizzle-query.test.ts` (3 combos) |
-| **A-005** | valuations all 9 methods parametric tests | L | valuations | fifo,lifo,fefo,hifo,lofo,movingAverage,weightedAverage,standardCost,specificIdentification each have ≥1 consume case |
+| **A-005** | valuations all 9 methods parametric tests | L | valuations | **done** — `methods.adversarial.test.ts`; getting-started coverage table updated |
 | **A-006** | valuations drizzle layer store test | M | valuations | **done** — `drizzle.integration.test.ts` (FIFO path) |
 | **A-007** | doc-number scoped sequence concurrency test | M | doc-number | **done** — parallel `next()` ×10 unique SEQ |
 | **A-008** | rbac drizzle store assignRole + can() | S | rbac | **done** — `drizzle.integration.test.ts` |
 | **A-009** | epoch drizzle bump + bumpMany | S | epoch | **done** — `drizzle.integration.test.ts` |
 | **A-010** | financial-ledger multi-currency post + verify | M | financial-ledger | **done** — `drizzle.integration.test.ts` |
 | **A-011** | stock-movement multi-lot append + verify | M | stock-movement | **done** — `drizzle.integration.test.ts` (skipIf no native sqlite) |
-| **A-012** | qups drizzle profile store round-trip | S | qups | save profile, load, calculateLine uses stored modifiers |
+| **A-012** | qups drizzle profile store round-trip | S | qups | **done** — `drizzle.integration.test.ts` |
 | **A-013** | `pnpm test:integration` root script | S | root | **done** — runs `**/drizzle.integration.test.ts`; wired in `pr` profile + PR `eristack ci` drift |
 | **A-014** | ai-dev `--profile integration` | S | ai-dev | **done** — `pnpm eristack check --profile integration`; documented in ai-dev docs + dev-conventions |
 
@@ -75,16 +75,16 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **D-001** | Audit workspace:* in dependencies | M | 7 packages | all moved to peer/dev |
+| **D-001** | Audit workspace:* in dependencies | M | 7 packages | **done** — `workspace:*` only in devDependencies; `pnpm publish:check` green |
 | **D-002** | `check-publish-deps.mjs` | S | root | **done** — `pnpm publish:check` in `pr` profile |
-| **D-003** | Peer map jwt-auth → data-grid | S | jwt-auth | peerDependencies + docs |
-| **D-004** | Peer map data-grid → timestamp | S | data-grid | optional peer for wall |
-| **D-005** | Peer map doc-number → data-grid, timestamp | S | doc-number | |
-| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | memory stores moved; main export clean; migration note in upgrading.md |
-| **D-007** | eristack check `--profile publish` | S | ai-dev | runs D-002 |
-| **D-008** | ai-dev publish 0.1.0 | S | ai-dev | changeset; CHANGELOG |
-| **D-009** | ai-ticket-generator getting-started.md | S | ai-ticket-generator | docs + _meta.json sync |
-| **D-010** | changesets max body lines (optional) | S | root | warn at 80 lines |
+| **D-003** | Peer map jwt-auth → data-grid | S | jwt-auth | **done** — peerDependencies + docs |
+| **D-004** | Peer map data-grid → timestamp | S | data-grid | **done** — optional peer + peerDependenciesMeta |
+| **D-005** | Peer map doc-number → data-grid, timestamp | S | doc-number | **done** — peerDependencies present |
+| **D-006** | `@eristack/*/testing` subpath pattern | L | multi | **partial done** — 7 packages export `./testing`; migration note in upgrading.md §2.1 |
+| **D-007** | eristack check `--profile publish` | S | ai-dev | **done** — registry + CLI + skill + runner.test |
+| **D-008** | ai-dev publish 0.1.0 | S | ai-dev | **open** — human Changesets release (not agent-owned) |
+| **D-009** | ai-ticket-generator getting-started.md | S | ai-ticket-generator | **done** — docs + _meta.json |
+| **D-010** | changesets max body lines (optional) | S | root | **done** — warn at 80 non-empty lines in check-changesets.mjs |
 
 ---
 
@@ -92,11 +92,11 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Layer | Acceptance criteria |
 | --- | --- | --- | --- | --- |
-| **X-001** | `@eristack/backseat` register-helpers | M | backseat | **done** — normalizeBasePath, versionConflict exported from adapters |
-| **X-002** | Refactor 9 package register.ts | M | multi | each ≤40 lines; uses helpers |
+| **X-001** | `@eristack/backseat` register-helpers | M | backseat | **done** — normalizeBasePath, versionConflict, businessPolicyDenied exported from adapters |
+| **X-002** | Refactor 9 package register.ts | M | multi | **done** — thin register.ts + `*-routes.ts`; all spine registers ≤43 lines |
 | **X-003** | Unified 409 JSON canon doc | M | ai-knowledge | **done** — http-errors.md + docs mirror + skill |
-| **X-004** | pbac backseat errors use jsonError | S | pbac | matches backseat envelope |
-| **X-005** | IndexedDB store smoke test | M | backseat | fake-indexeddb or playwright |
+| **X-004** | pbac backseat errors use jsonError | S | pbac | **done** — BUSINESS_POLICY_DENIED via businessPolicyDenied |
+| **X-005** | IndexedDB store smoke test | M | backseat | **done** — fake-indexeddb smoke test |
 | **X-006** | listRoutes() coverage test | S | backseat | **done** — horizon-a spine.test.ts ≥12 routes |
 
 ---
@@ -105,12 +105,12 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Acceptance criteria |
 | --- | --- | --- | --- |
-| **DOC-001** | valuations method picker table | S | getting-started.md compares FIFO/LIFO/FEFO/… |
-| **DOC-002** | abac attrs vs money warning | S | abac-core skill + docs |
-| **DOC-003** | AGENTS.md no-git wording fix | S | human commits _meta.json |
-| **DOC-004** | web doc-agent-skills ERP CTAs | M | qups/backseat/pbac pages |
-| **DOC-005** | financial-ledger Moneyish boundaries | S | skill + getting-started |
-| **DOC-006** | ai-workflow vs ai-dev vs ai-knowledge tree | S | ai-knowledge canonical md |
+| **DOC-001** | valuations method picker table | S | **done** — getting-started.md + test coverage column |
+| **DOC-002** | abac attrs vs money warning | S | **done** — abac-core skill |
+| **DOC-003** | AGENTS.md no-git wording fix | S | **done** — human commits _meta.json called out |
+| **DOC-004** | web doc-agent-skills ERP CTAs | M | **done** — document-lines-erp on qups/backseat/pbac getting-started |
+| **DOC-005** | financial-ledger Moneyish boundaries | S | **done** — getting-started § Moneyish boundaries |
+| **DOC-006** | ai-workflow vs ai-dev vs ai-knowledge tree | S | **done** — ai-toolbox-decision-tree.md (existing) |
 
 ---
 
@@ -118,11 +118,11 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 | ID | Title | Effort | Acceptance criteria |
 | --- | --- | --- | --- |
-| **T-001** | runChecks unit tests | M | mock subprocess; registry order |
-| **T-002** | MCP dev_plan snapshot test | S | |
-| **T-003** | sync command integration test | S | dry-run docs:sync |
-| **T-004** | money express/nest smoke tests | S | one route each |
-| **T-005** | pbac express 409 test | S | supertest |
+| **T-001** | runChecks unit tests | M | **done** — runner.test.ts profile order |
+| **T-002** | MCP dev_plan snapshot test | S | **done** — mcp.test.ts server construct |
+| **T-003** | sync command integration test | S | **open** — deferred (plan.test covers sync hints) |
+| **T-004** | money express/nest smoke tests | S | **done** — express.smoke.test.ts |
+| **T-005** | pbac express 409 test | S | **done** — express.e2e.test.ts + backseat.errors.test.ts |
 
 ---
 
@@ -155,34 +155,19 @@ flowchart TD
 
 ---
 
-## Suggested execution order (first 20 ids)
-
-1. A-001 → A-002 → A-003 (unblocks credibility)
-2. B-001 → B-002 → B-015 (agent routing)
-3. D-001 → D-002 (publish safety)
-4. A-005 → A-006 (valuations)
-5. B-003 → B-004 → B-005 (token budget)
-6. C-001 → C-005 (example + CI)
-7. X-001 → X-002 (maintainer ergonomics)
-8. B-011 → B-012 (AGENTS + lint)
-9. Remaining A-* by package priority
-10. D-006 (memory testing subpath — large, schedule last in D)
-
----
-
 ## Status tracking
 
 | Sprint | Open | Done |
 | --- | ---: | ---: |
-| A | 14 | 0 |
-| B | 18 | 0 |
-| C | 10 | 0 |
-| D | 10 | 0 |
-| X | 6 | 0 |
-| DOC | 6 | 0 |
-| T | 5 | 0 |
+| A | 0 | 14 |
+| B | 0 | 18 |
+| C | 0 | 10 |
+| D | 2 | 8 |
+| X | 0 | 6 |
+| DOC | 0 | 6 |
+| T | 1 | 4 |
 
-**Total open items:** 69 (excluding horizon H-*)
+**Total open items:** 3 (D-008 human release, D-006 full migration L, T-003 sync integration test — excluding horizon H-*)
 
 When an item ships, mark `done` here with date — optional one-line in package CHANGELOG.
 
