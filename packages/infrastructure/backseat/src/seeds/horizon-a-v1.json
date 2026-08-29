@@ -1,0 +1,30 @@
+{
+  "partners": [
+    {
+      "id": "cust_acme",
+      "name": "Acme Logistics"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord_demo",
+      "number": "ORD/2026/00001",
+      "customerId": "cust_acme",
+      "status": "draft",
+      "version": 1,
+      "lines": [
+        {
+          "id": "line_1",
+          "description": "Line",
+          "truth": "quantity+unitPrice",
+          "currency": "USD",
+          "quantity": "2",
+          "unitPrice": "150.00",
+          "subtotal": "300.00",
+          "total": "300.00"
+        }
+      ],
+      "total": "300.00"
+    }
+  ]
+}

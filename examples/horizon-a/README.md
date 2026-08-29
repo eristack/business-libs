@@ -29,4 +29,6 @@ pnpm --filter @eristack/example-horizon-a start
 - `src/routes/orders.ts` — CRUD with QUPS lines, version field, PBAC transition on PATCH
 - `src/main.ts` — create engine, seed, exercise handlers via `tsx`
 
-Not in scope (app-owned or Horizon B): partner/product masters beyond seed stub, doc-number issuance, RBAC/ABAC list prefilters, multitab UI.
+| Not in scope (app-owned or Horizon B): partner/product masters beyond seed stub, doc-number issuance, RBAC/ABAC list prefilters, multitab UI.
+
+Seed data: `@eristack/backseat/seeds` → `loadHorizonASeedV1()` (checked-in `horizon-a-v1.json`).

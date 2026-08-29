@@ -1,10 +1,11 @@
 import { createHorizonBackseat } from "./backseat/register.js";
-import { registerOrderRoutes, seedOrders } from "./routes/orders.js";
+import { registerOrderRoutes } from "./routes/orders.js";
+import { loadHorizonASeedV1 } from "@eristack/backseat/seeds";
 
 async function main(): Promise<void> {
   const { api, pbac, epoch } = createHorizonBackseat();
   registerOrderRoutes(api, { pbac, epoch });
-  await seedOrders(api.store);
+  await api.store.importSnapshot(loadHorizonASeedV1());
 
   console.log("Horizon A example — routes registered:");
   for (const route of api.listRoutes()) {
