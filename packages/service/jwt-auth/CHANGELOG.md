@@ -1,5 +1,11 @@
 # @eristack/jwt-auth
 
+## 0.4.4
+
+### Patch Changes
+
+- Add `./testing` export. Move `@eristack/data-grid` from dependencies to peerDependencies.
+
 ## 0.4.3
 
 ### Patch Changes

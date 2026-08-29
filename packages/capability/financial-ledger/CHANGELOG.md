@@ -1,5 +1,11 @@
 # @eristack/financial-ledger
 
+## 0.2.3
+
+### Patch Changes
+
+- Move `@eristack/money` and `@eristack/hash-chained-ledger` to peerDependencies.
+
 ## 0.2.2
 
 ### Patch Changes

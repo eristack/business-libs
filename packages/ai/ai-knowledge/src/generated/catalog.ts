@@ -4,11 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-<<<<<<< Updated upstream
-  "generatedAt": "2026-08-29T04:06:40.168Z",
-=======
-  "generatedAt": "2026-08-29T04:54:26.476Z",
->>>>>>> Stashed changes
+  "generatedAt": "2026-08-29T05:00:18.723Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -43,7 +39,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -112,7 +108,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -134,7 +130,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/data-grid",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
@@ -168,7 +164,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-number",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "description": "Document number format, parse, and sequence primitives for Eristack",
       "slug": "doc-number",
       "adapters": [
@@ -203,7 +199,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/epoch",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
       "slug": "epoch",
       "adapters": [
@@ -238,7 +234,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/financial-ledger",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -267,7 +263,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/hash-chained-ledger",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
@@ -297,7 +293,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.4.3",
+      "version": "0.4.4",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -424,7 +420,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/qups",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
@@ -462,7 +458,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rbac",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
       "slug": "rbac",
       "adapters": [
@@ -495,7 +491,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/stock-movement",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
       "slug": "stock-movement",
       "adapters": [
@@ -557,7 +553,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/valuations",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/financial-ledger",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
   "repository": {
     "type": "git",

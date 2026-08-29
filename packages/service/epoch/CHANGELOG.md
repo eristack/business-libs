@@ -1,5 +1,11 @@
 # @eristack/epoch
 
+## 0.1.2
+
+### Patch Changes
+
+- Add `./testing` export for memory epoch store.
+
 ## 0.1.1
 
 ### Patch Changes

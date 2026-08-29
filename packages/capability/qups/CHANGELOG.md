@@ -1,5 +1,11 @@
 # @eristack/qups
 
+## 0.3.3
+
+### Patch Changes
+
+- Add `./testing` export. Move `@eristack/money` to peerDependencies.
+
 ## 0.3.2
 
 ### Patch Changes
