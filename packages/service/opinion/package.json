@@ -32,6 +32,16 @@
         "types": "./dist/express/index.d.ts",
         "default": "./dist/express/index.cjs"
       }
+    },
+    "./openapi": {
+      "import": {
+        "types": "./dist/openapi/index.d.ts",
+        "default": "./dist/openapi/index.js"
+      },
+      "require": {
+        "types": "./dist/openapi/index.d.ts",
+        "default": "./dist/openapi/index.cjs"
+      }
     }
   },
   "files": [
@@ -60,7 +70,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@eristack/rest": "workspace:*"
+    "@eristack/rest": "workspace:*",
+    "@eristack/pbac": "workspace:*"
   },
   "peerDependencies": {
     "express": "^4.0.0 || ^5.0.0"
