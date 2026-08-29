@@ -1,6 +1,6 @@
 {
   "name": "@eristack/logger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JSON-lines structured logger with request context and Express/Nest adapters",
   "repository": {
     "type": "git",
@@ -74,9 +74,15 @@
     "rxjs": "^7.0.0"
   },
   "peerDependenciesMeta": {
-    "@nestjs/common": { "optional": true },
-    "express": { "optional": true },
-    "rxjs": { "optional": true }
+    "@nestjs/common": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "rxjs": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@nestjs/common": "^11.0.0",
