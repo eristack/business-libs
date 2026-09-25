@@ -20,7 +20,6 @@ export const recipes = [
       "percent",
       "percentage",
       "totals",
-      "subtotal",
       "amount",
       "amounts"
     ],
@@ -74,9 +73,7 @@ export const recipes = [
       "store money",
       "persist money",
       "drizzle money",
-      "money column",
       "filter by amount",
-      "sort price",
       "money schema",
       "zod money"
     ],
@@ -682,7 +679,6 @@ export const recipes = [
     "priority": 11,
     "triggers": [
       "409",
-      "conflict version",
       "policy denied",
       "stale epoch",
       "json error",

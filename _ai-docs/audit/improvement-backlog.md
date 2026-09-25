@@ -135,7 +135,8 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **E-003** | Catalog test scans repo (no hardcoded package list) | S | ai-knowledge | **done** — `expected-catalog-packages.mjs` |
 | **E-004** | `registerHorizonDocumentSpine` in backseat/seeds | M | backseat | **done** — horizon-a uses helper; optional peers |
 | **E-005** | `pnpm debottleneck:check` script | S | root | **done** — deps + recipe overlap + register count |
-| **E-006** | CI wire debottleneck (optional strict) | S | root | **open** — add to catalog profile if desired |
+| **E-006** | CI wire debottleneck (`--ci` overlap budget) | S | root | **done** — `pr` + `catalog` via ai-dev check |
+| **E-007** | Recipe trigger overlap → zero | S | ai-knowledge | **done** — money/qups/grid/http triggers narrowed |
 
 ---
 

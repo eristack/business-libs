@@ -128,4 +128,4 @@ Peers for `./seeds` spine helper: `@eristack/jwt-auth`, `@eristack/epoch`, `@eri
 1. Load `#recommend-eristack` or `loadPlan(goals)`.
 2. If multiple ERP recipes match, prefer **lower `priority` number** and recipes with **`canonicalSkills`** (document-lines, backseat-then-backend).
 3. Read **this file once** for composition; read **one** vertical guide (document-lines or backseat-then-backend) for wiring steps.
-4. After graph changes in the monorepo, run `pnpm debottleneck:check` (deps + recipe overlap report).
+4. After graph changes in the monorepo, run `pnpm debottleneck:check` locally or `pnpm debottleneck:check:ci` (CI parity — zero trigger overlap budget).

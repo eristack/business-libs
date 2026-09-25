@@ -13,7 +13,10 @@ const recipesPath = path.join(
   "packages/ai/ai-knowledge/knowledge/recipes.yaml",
 );
 const STRICT = process.argv.includes("--strict");
+const CI = process.argv.includes("--ci");
 const JSON_OUT = process.argv.includes("--json");
+/** Fail CI when overlap count exceeds this (raise only when adding triggers intentionally). */
+const MAX_RECIPE_TRIGGER_OVERLAPS = 0;
 
 function listEristackPackages() {
   const found = [];
@@ -157,8 +160,31 @@ function main() {
     }
   }
 
-  if (STRICT && violations.length > 0) {
+  const failWorkspace =
+    (STRICT || CI) && violations.length > 0;
+  const failOverlaps =
+    CI && overlaps.length > MAX_RECIPE_TRIGGER_OVERLAPS;
+
+  if (failWorkspace) {
+    if (!JSON_OUT) {
+      console.error(
+        "\ndebottleneck: workspace:* must not appear in dependencies (use peer + devDependencies).",
+      );
+    }
     process.exit(1);
+  }
+
+  if (failOverlaps) {
+    if (!JSON_OUT) {
+      console.error(
+        `\ndebottleneck: recipe trigger overlaps ${overlaps.length} > ${MAX_RECIPE_TRIGGER_OVERLAPS}. Narrow triggers in knowledge/recipes.yaml.`,
+      );
+    }
+    process.exit(1);
+  }
+
+  if (!JSON_OUT && !CI) {
+    console.log("\nTip: CI uses --ci (workspace deps + overlap budget).");
   }
 }
 
