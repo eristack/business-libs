@@ -330,6 +330,10 @@ Changesets copies **each file's body** into **every package** listed in that fil
 | Body = bullets for **that package only** | `### @eristack/foo` sections for other packages |
 | `pnpm changesets:check` before merge | Rely on review to catch mega-changelogs |
 
+### 5.1.2 Branch sync after Version Packages on `main`
+
+If your branch still has many `.changeset/*.md` files but **`main` already merged “Version packages”**, those files were **consumed** — delete them on merge and add **new** changesets only for commits **after** the release. Full steps: repo root `scripts/changeset-sync-after-main.md`.
+
 ### 5.2 Backseat peer policy (monorepo)
 
 `.changeset/config.json`:

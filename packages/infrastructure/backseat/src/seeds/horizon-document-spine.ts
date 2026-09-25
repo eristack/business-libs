@@ -1,17 +1,15 @@
 import type { Backseat } from "../core/types.js";
-import type { createJwtAuth } from "@eristack/jwt-auth";
-import type { createPbac } from "@eristack/pbac";
-import type { registerEpochBackseat } from "@eristack/epoch/backseat";
 
+/** Pass `createJwtAuth()` result from `@eristack/jwt-auth` (optional peer). */
 export type HorizonDocumentSpineJwt = {
-  jwtAuth: ReturnType<typeof createJwtAuth>;
+  jwtAuth: unknown;
   basePath?: string;
   refreshTokenTransport?: "body" | "cookie";
 };
 
 export type RegisterHorizonDocumentSpineOptions = {
-  /** App-owned PBAC instance (register transition graphs before calling). */
-  pbac: ReturnType<typeof createPbac>;
+  /** App-owned `createPbac()` instance — register doc-transitions graphs before calling. */
+  pbac: unknown;
   basePath?: {
     pbac?: string;
     epoch?: string;
@@ -23,7 +21,8 @@ export type RegisterHorizonDocumentSpineOptions = {
 };
 
 export type HorizonDocumentSpineResult = {
-  epoch: ReturnType<typeof registerEpochBackseat>;
+  /** `registerEpochBackseat()` return from `@eristack/epoch/backseat`. */
+  epoch: unknown;
 };
 
 /**
@@ -44,7 +43,10 @@ export async function registerHorizonDocumentSpine(
     qups: options.basePath?.qups ?? "/qups",
   };
 
-  registerPbacBackseat(api, { basePath: paths.pbac, pbac: options.pbac });
+  registerPbacBackseat(api, {
+    basePath: paths.pbac,
+    pbac: options.pbac as any,
+  });
   const epoch = registerEpochBackseat(api, { basePath: paths.epoch });
   registerQupsBackseat(api, { basePath: paths.qups });
 
@@ -52,7 +54,7 @@ export async function registerHorizonDocumentSpine(
     const { registerJwtAuthBackseat } = await import("@eristack/jwt-auth/backseat");
     registerJwtAuthBackseat(api, {
       basePath: options.jwt.basePath ?? "/auth",
-      jwtAuth: options.jwt.jwtAuth,
+      jwtAuth: options.jwt.jwtAuth as any,
       refreshTokenTransport: options.jwt.refreshTokenTransport ?? "body",
     });
   }

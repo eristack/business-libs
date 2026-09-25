@@ -5,6 +5,7 @@ import {
   createBackseatJwtAuthStores,
 } from "@eristack/jwt-auth/backseat";
 import { registerDataGridBackseatRoute } from "@eristack/data-grid/backseat";
+import { registerEpochBackseat } from "@eristack/epoch/backseat";
 import { createPbac } from "@eristack/pbac";
 import {
   publicationGraph,
@@ -19,7 +20,7 @@ const DEMO_SECRETS = {
 export type HorizonSpine = {
   api: Backseat;
   pbac: ReturnType<typeof createPbac>;
-  epoch: Awaited<ReturnType<typeof registerHorizonDocumentSpine>>["epoch"];
+  epoch: ReturnType<typeof registerEpochBackseat>;
   jwtAuth: ReturnType<typeof createJwtAuth>;
 };
 
@@ -91,5 +92,10 @@ export async function createHorizonBackseat(): Promise<HorizonSpine> {
     },
   });
 
-  return { api, pbac, epoch, jwtAuth };
+  return {
+    api,
+    pbac,
+    epoch: epoch as ReturnType<typeof registerEpochBackseat>,
+    jwtAuth,
+  };
 }

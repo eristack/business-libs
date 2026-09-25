@@ -137,10 +137,6 @@
     }
   },
   "devDependencies": {
-    "@eristack/epoch": "workspace:*",
-    "@eristack/jwt-auth": "workspace:*",
-    "@eristack/pbac": "workspace:*",
-    "@eristack/qups": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "@tanstack/react-query": "^5.90.2",
     "@types/node": "^22.15.29",
