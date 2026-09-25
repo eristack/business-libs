@@ -24,7 +24,8 @@ export type CheckId =
   | "docs"
   | "ticket"
   | "contrast"
-  | "features";
+  | "features"
+  | "debottleneck";
 
 export type CheckDef = {
   id: CheckId;
@@ -136,6 +137,12 @@ export const CHECK_DEFS: CheckDef[] = [
     label: "layer-06 features placeholder",
     profiles: ["catalog", "pr", "full", "features"],
     order: 75,
+  },
+  {
+    id: "debottleneck",
+    label: "package graph + recipe overlap budget",
+    profiles: ["catalog", "pr", "full"],
+    order: 47,
   },
 ];
 

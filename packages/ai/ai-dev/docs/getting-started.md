@@ -45,7 +45,7 @@ pnpm eristack packages list --json
 
 | Profile | Includes |
 | --- | --- |
-| `catalog` | changesets, skills, knowledge, docs, ticket, exports (auto-builds if needed) |
+| `catalog` | changesets, skills, knowledge, docs, ticket, exports, debottleneck (auto-builds if needed) |
 | `pr` | build, typecheck, test, integration + catalog |
 | `full` | pr + lint |
 | `fast` | build, typecheck, test on **changed packages** (from git diff) |

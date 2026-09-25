@@ -22,6 +22,7 @@ describe("checksForProfile", () => {
     expect(ids).toContain("test");
     expect(ids).toContain("publish");
     expect(ids).toContain("knowledge");
+    expect(ids).toContain("debottleneck");
     expect(ids).toContain("integration");
     expect(ids).toContain("examples");
   });

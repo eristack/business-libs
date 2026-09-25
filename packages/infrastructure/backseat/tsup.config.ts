@@ -13,5 +13,14 @@ export default defineConfig({
   dts: false,
   sourcemap: true,
   clean: true,
-  external: ["react", "@tanstack/react-query"],
+  external: [
+    "react",
+    "@tanstack/react-query",
+    "@eristack/jwt-auth",
+    "@eristack/jwt-auth/backseat",
+    "@eristack/epoch/backseat",
+    "@eristack/pbac",
+    "@eristack/pbac/backseat",
+    "@eristack/qups/backseat",
+  ],
 });

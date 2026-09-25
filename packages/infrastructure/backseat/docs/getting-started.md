@@ -105,6 +105,24 @@ Or always re-seed in dev (destructive):
 if (import.meta.env.DEV) await api.reseed();
 ```
 
+### Horizon A document spine (optional)
+
+Document ERP prototypes can mount pbac, epoch, qups, and jwt in one call:
+
+```ts
+import { registerHorizonDocumentSpine } from "@eristack/backseat/seeds";
+
+await registerHorizonDocumentSpine(api, {
+  pbac,
+  jwt: { jwtAuth, basePath: "/auth" },
+  afterCore: (backseat) => {
+    /* data-grid list routes, doc-specific controllers */
+  },
+});
+```
+
+Install the optional peers you use (`@eristack/pbac`, `@eristack/epoch`, `@eristack/qups`, `@eristack/jwt-auth`). Full map: `@eristack/ai-knowledge#package-relationships`. Reference: `examples/horizon-a`.
+
 ## 3 · Register custom controllers
 
 Move non-CRUD logic to `src/backseat/controllers.ts`:

@@ -13,6 +13,7 @@ Four **design targets** govern every package (details: [`agent-workflow.md`](./a
 
 Supporting norms:
 
+- **Package graph:** load `@eristack/ai-knowledge#package-relationships` before multi-package wiring; run `pnpm debottleneck:check:ci` in CI (`eristack check --profile pr`).
 - **Correct money and identity** beat clever abstractions.
 - **Headless shells** — Express/Nest/React adapters stay thin.
 - **Agent-readable docs and skills** ship with every package (`docs/`, `skills/`).

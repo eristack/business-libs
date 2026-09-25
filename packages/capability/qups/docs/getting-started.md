@@ -19,6 +19,8 @@ pnpm add @eristack/qups @eristack/money
 | `@eristack/qups` | `@eristack/money` |
 | `@eristack/qups/drizzle` | `drizzle-orm` + your driver |
 
+Line percent modifiers and tax use `@eristack/money` operators inside qups. For standalone VAT/bps config fields (not line recalc), use `@eristack/percent` and round at ledger boundaries — see `@eristack/ai-knowledge#package-relationships`.
+
 ## First line
 
 ```ts

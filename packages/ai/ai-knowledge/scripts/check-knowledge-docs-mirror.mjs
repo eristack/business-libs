@@ -13,6 +13,7 @@ const docsDir = path.join(pkgRoot, "docs");
 
 /** ERP spine guides — must stay mirrored for agent + site parity. */
 const REQUIRED_MIRRORS = [
+  "package-relationships.md",
   "document-lines-erp.md",
   "backseat-then-backend.md",
   "optimistic-document-version.md",

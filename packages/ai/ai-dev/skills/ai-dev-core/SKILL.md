@@ -20,7 +20,7 @@ sources:
 
 1. **`pnpm eristack plan --json`** — changed files → profile, checks, sync, skills, commands, **`nextBrainstormItem`** (first open row in `_ai-docs/brainstorm/improvements.md`). Run this **first** instead of glob-reading AGENTS.md check lists.
 2. **`pnpm eristack ci --base origin/main`** — **PR CI** (affected turbo + drift; skips web `next build` on library-only diffs).
-3. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate).
+3. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate; includes `debottleneck:check:ci` overlap budget).
 4. **`pnpm eristack sync knowledge`** / **`docs`** — when recipes, skills, or package docs changed.
 
 ## Profiles

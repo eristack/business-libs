@@ -5,3 +5,9 @@ export {
   type CreateErpDemoBackseatOptions,
 } from "./erp-demo-backseat.js";
 export { loadHorizonASeedV1 } from "./horizon-a-seed.js";
+export {
+  registerHorizonDocumentSpine,
+  type HorizonDocumentSpineJwt,
+  type HorizonDocumentSpineResult,
+  type RegisterHorizonDocumentSpineOptions,
+} from "./horizon-document-spine.js";

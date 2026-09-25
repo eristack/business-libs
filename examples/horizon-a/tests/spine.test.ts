@@ -3,8 +3,8 @@ import { createHorizonBackseat } from "../src/backseat/register.js";
 import { registerOrderRoutes } from "../src/routes/orders.js";
 
 describe("Horizon A spine routes", () => {
-  it("registers orders, grid, epoch, auth, and qups routes", () => {
-    const { api, pbac, epoch } = createHorizonBackseat();
+  it("registers orders, grid, epoch, auth, and qups routes", async () => {
+    const { api, pbac, epoch } = await createHorizonBackseat();
     registerOrderRoutes(api, { pbac, epoch });
 
     const paths = api.listRoutes().map((r) => `${r.method} ${r.fullPath ?? r.path}`);

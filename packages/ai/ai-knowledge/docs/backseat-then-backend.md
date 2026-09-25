@@ -9,7 +9,7 @@ sidebar_position: 4
 
 For agents: load `@eristack/ai-knowledge#backseat-then-backend` via `recommend()`. Pair with `@eristack/backseat#backseat-core` and `@eristack/ai-knowledge#upgrading-eristack` §3 when wiring adapters.
 
-Cross-cutting companions: [document-lines-erp](./document-lines-erp.md), [optimistic-document-version](./optimistic-document-version.md), [http-errors](./http-errors.md).
+Cross-cutting companions: [package-relationships](./package-relationships.md), [document-lines-erp](./document-lines-erp.md), [optimistic-document-version](./optimistic-document-version.md), [http-errors](./http-errors.md).
 
 ---
 
@@ -56,21 +56,33 @@ Cross-cutting companions: [document-lines-erp](./document-lines-erp.md), [optimi
 
 ### Bootstrap sketch
 
+**Dependency map first:** `@eristack/ai-knowledge#package-relationships`. **Reference app:** `examples/horizon-a` (`createHorizonBackseat`, `loadHorizonASeedV1`).
+
+Mount pbac + epoch + qups (+ optional jwt) in one call; app routes, doc-number, data-grid lists, and seeds stay in `afterCore`:
+
 ```ts
 import { createBackseat } from "@eristack/backseat";
-import { registerJwtAuthBackseat } from "@eristack/jwt-auth/backseat";
-import { registerDocNumberBackseat } from "@eristack/doc-number/backseat";
-import { registerEpochBackseat } from "@eristack/epoch/backseat";
-import { registerDataGridBackseatRoutes } from "@eristack/data-grid/backseat";
+import { registerHorizonDocumentSpine, loadHorizonASeedV1 } from "@eristack/backseat/seeds";
+import { createPbac } from "@eristack/pbac";
 
-const api = await createBackseat({ name: "horizon-a-demo" });
+const api = createBackseat({ store, baseUrl: "/api" });
+const pbac = createPbac();
+// registerTransitionGraph(pbac, …) before spine
 
-registerJwtAuthBackseat(api, { jwtAuth, basePath: "/auth" });
-registerDocNumberBackseat(api, { docNumber, basePath: "/doc-number" });
-registerEpochBackseat(api, { epoch, basePath: "/epoch" });
-registerJobRoutes(api); // your PATCH handlers with versionConflict
-await seedHorizonA(api);
+await registerHorizonDocumentSpine(api, {
+  pbac,
+  jwt: { jwtAuth, basePath: "/auth" },
+  afterCore: (backseat) => {
+    registerDocNumberBackseat(backseat, { docNumber, basePath: "/doc-number" });
+    registerYourDataGridRoutes(backseat);
+    registerJobRoutes(backseat); // PATCH + versionConflict
+  },
+});
+
+await api.store.importSnapshot(loadHorizonASeedV1());
 ```
+
+Install optional peers you register (`@eristack/pbac`, `@eristack/epoch`, `@eristack/qups`, `@eristack/jwt-auth`, `@eristack/doc-number`, `@eristack/data-grid`). Do **not** add workspace devDeps on `@eristack/backseat` for spine packages — turbo build cycle.
 
 ---
 
@@ -149,7 +161,9 @@ executeBackseatList({
 
 ## Seed pack (Horizon A)
 
-No versioned seed file in repo yet — use this checklist when building `examples/horizon-a/`:
+**Shipped:** `@eristack/backseat/seeds` → `loadHorizonASeedV1()` (`horizon-a-v1.json`). Use in tests and demos; extend with app collections in `afterCore`.
+
+Checklist when adding new demo entities:
 
 | Step | Action |
 | --- | --- |
@@ -250,6 +264,7 @@ Add inventory/GL only when product goals explicitly include warehouse or account
 
 ## Related
 
+- `@eristack/ai-knowledge#package-relationships` — layer map + peer edges
 - `@eristack/ai-knowledge#upgrading-eristack` — Backseat train, peers, production path
 - `@eristack/ai-knowledge#document-lines-erp` — PATCH sequences on lines ERP
 - `@eristack/ai-knowledge#architecture-recommend` — stack defaults

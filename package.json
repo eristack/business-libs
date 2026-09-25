@@ -17,6 +17,8 @@
     "knowledge:check": "pnpm eristack sync knowledge --check",
     "exports:check": "node scripts/check-package-exports.mjs",
     "publish:check": "node scripts/check-publish-deps.mjs",
+    "debottleneck:check": "node scripts/package-debottleneck-check.mjs",
+    "debottleneck:check:ci": "node scripts/package-debottleneck-check.mjs --ci",
     "test:integration": "node scripts/run-integration-tests.mjs",
     "changesets:check": "node scripts/check-changesets.mjs",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",

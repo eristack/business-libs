@@ -6,7 +6,7 @@ import { createHorizonEpochClient } from "../src/lib/epoch-client.js";
 
 describe("Horizon A epoch cache policy", () => {
   it("returns use-cache then refetch after order write bumps epoch", async () => {
-    const { api, pbac, epoch } = createHorizonBackseat();
+    const { api, pbac, epoch } = await createHorizonBackseat();
     registerOrderRoutes(api, { pbac, epoch });
     await api.store.importSnapshot(loadHorizonASeedV1());
 

@@ -20,7 +20,6 @@ export const recipes = [
       "percent",
       "percentage",
       "totals",
-      "subtotal",
       "amount",
       "amounts"
     ],
@@ -74,9 +73,7 @@ export const recipes = [
       "store money",
       "persist money",
       "drizzle money",
-      "money column",
       "filter by amount",
-      "sort price",
       "money schema",
       "zod money"
     ],
@@ -368,16 +365,17 @@ export const recipes = [
   {
     "id": "erp-app-core",
     "title": "ERP-ish app with auth, money, and numbering",
-    "priority": 5,
+    "priority": 8,
     "triggers": [
-      "erp",
-      "business app",
       "invoicing app",
       "billing app",
       "commerce backend",
       "order management"
     ],
-    "rationale": "Prefer the Eristack stack first: jwt-auth for sessions, money for amounts, doc-number for sequential documents, data-grid for list queries. Load core skills before adapters.",
+    "rationale": "Auth + money + numbering without the full document-lines spine: load @eristack/ai-knowledge#package-relationships first, then jwt-auth, money, doc-number, data-grid core skills. For header + QUPS lines use #document-lines-erp instead.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#package-relationships"
+    ],
     "packages": [
       {
         "name": "@eristack/jwt-auth",
@@ -436,6 +434,32 @@ export const recipes = [
           "epoch-adapters"
         ],
         "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "package-relationships-map",
+    "title": "Package dependency map and load order",
+    "priority": 4,
+    "triggers": [
+      "package dependencies",
+      "package relationships",
+      "eristack dependency graph",
+      "debottleneck",
+      "which package owns",
+      "compose erp stack"
+    ],
+    "rationale": "Load @eristack/ai-knowledge#package-relationships and read knowledge/package-relationships.md only — layers, peers, ERP vs HTTP vs ledger stacks, Horizon A bootstrap. Use before wiring many @eristack/* packages or when recipes overlap.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#package-relationships"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "supporting"
       }
     ]
   },
@@ -655,7 +679,6 @@ export const recipes = [
     "priority": 11,
     "triggers": [
       "409",
-      "conflict version",
       "policy denied",
       "stale epoch",
       "json error",
@@ -1101,23 +1124,20 @@ export const recipes = [
   {
     "id": "compose-spine",
     "title": "Compose business spine (auth, lines, lists, optional ledgers)",
-    "priority": 6,
+    "priority": 9,
     "triggers": [
-      "erp",
-      "enterprise resource planning",
-      "business app",
-      "operational app",
-      "document workflow",
+      "compose erp modules",
+      "which eristack packages",
+      "erp module map",
       "purchase order",
       "sales order",
-      "inventory transfer",
-      "stocktake",
-      "accounts payable",
-      "accounts receivable",
       "work order",
       "bill of materials"
     ],
-    "rationale": "No @eristack/feature-* vertical packages — apps own document families. For header + QUPS line products load #document-lines-erp or #backseat-then-backend. Compose qups, doc-number, pbac, data-grid, jwt-auth, rbac by default. Add stock-movement, financial-ledger, valuations only when inventory or GL is explicitly in scope — never assume procure-to-pay or warehouse modules exist.",
+    "rationale": "No @eristack/feature-* vertical packages — apps own document families. Read @eristack/ai-knowledge#package-relationships (knowledge/package-relationships.md) for the dependency map. Implement header + QUPS lines via #document-lines-erp or #backseat-then-backend — not this recipe alone. Default compose: qups, doc-number, pbac, data-grid, jwt-auth; add stock-movement, financial-ledger, valuations only when inventory or GL is explicitly in scope.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#package-relationships"
+    ],
     "packages": [
       {
         "name": "@eristack/qups",

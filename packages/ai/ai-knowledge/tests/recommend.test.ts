@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { expectedCatalogPackageNames } from "./expected-catalog-packages.mjs";
 import {
   getCatalog,
   listPackages,
@@ -12,37 +13,7 @@ describe("catalog", () => {
   it("lists sibling eristack packages with skills", () => {
     const packages = listPackages();
     const names = packages.map((pkg) => pkg.name).sort();
-    expect(names).toEqual(
-      [
-        "@eristack/abac",
-        "@eristack/address",
-        "@eristack/ai-dev",
-        "@eristack/ai-ticket-generator",
-        "@eristack/ai-workflow",
-        "@eristack/backseat",
-        "@eristack/data-grid",
-        "@eristack/doc-number",
-        "@eristack/doc-transitions",
-        "@eristack/epoch",
-        "@eristack/financial-ledger",
-        "@eristack/fiscal-calendar",
-        "@eristack/hash-chained-ledger",
-        "@eristack/jwt-auth",
-        "@eristack/logger",
-        "@eristack/money",
-        "@eristack/multitab",
-        "@eristack/opinion",
-        "@eristack/pbac",
-        "@eristack/percent",
-        "@eristack/qups",
-        "@eristack/rbac",
-        "@eristack/rest",
-        "@eristack/stock-movement",
-        "@eristack/timestamp",
-        "@eristack/uom",
-        "@eristack/valuations",
-      ].sort(),
-    );
+    expect(names).toEqual(expectedCatalogPackageNames());
     expect(listSkills().length).toBeGreaterThanOrEqual(6);
     expect(getCatalog().packages.every((pkg) => pkg.skills.length > 0)).toBe(
       true,
@@ -210,6 +181,28 @@ describe("recommend disambiguation", () => {
     ).toBe(true);
   });
 
+  it("routes compose erp modules to package-relationships via canonicalSkills", () => {
+    const result = recommend(["compose erp modules"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "compose-spine"),
+    ).toBe(true);
+    const plan = loadPlan(result);
+    expect(
+      plan.steps.some(
+        (s) =>
+          s.packageName === "@eristack/ai-knowledge" &&
+          s.skillId === "package-relationships",
+      ),
+    ).toBe(true);
+  });
+
+  it("routes package dependency language to package-relationships-map", () => {
+    const result = recommend(["package dependencies eristack"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "package-relationships-map"),
+    ).toBe(true);
+  });
+
   it("routes inventory transfer to stock-movement recipe", () => {
     const result = recommend(["inventory transfer"]);
     expect(
@@ -221,11 +214,14 @@ describe("recommend disambiguation", () => {
 });
 
 describe("recipes", () => {
-  it("only references packages and skills in the catalog", () => {
-    const skillKeys = new Set(
-      listSkills().map((skill) => `${skill.packageName}#${skill.id}`),
-    );
+  it("only references packages and skills in the catalog", async () => {
+    const { localSkills } = await import("../src/generated/local-skills.js");
+    const skillKeys = new Set([
+      ...listSkills().map((skill) => `${skill.packageName}#${skill.id}`),
+      ...localSkills.map((skill) => `${skill.packageName}#${skill.id}`),
+    ]);
     const packageNames = new Set(listPackages().map((pkg) => pkg.name));
+    packageNames.add("@eristack/ai-knowledge");
 
     for (const recipe of listRecipes()) {
       for (const ref of recipe.packages) {

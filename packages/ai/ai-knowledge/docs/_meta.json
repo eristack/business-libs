@@ -4,6 +4,7 @@
     "index",
     "getting-started",
     "upgrading",
+    "package-relationships",
     "backseat-then-backend",
     "document-lines-erp",
     "optimistic-document-version",
@@ -29,6 +30,7 @@
       "label": "Guides",
       "pages": [
         "upgrading",
+        "package-relationships",
         "backseat-then-backend",
         "document-lines-erp",
         "optimistic-document-version",
