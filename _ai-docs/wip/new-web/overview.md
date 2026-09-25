@@ -10,7 +10,7 @@ recipes: []
 ## Decisions
 
 - Relocated prior Next app to `apps/old-web` (`@eristack/old-web`, changeset-ignored).
-- New `apps/web`: marketing-first IA — **Products · Story · Services · Blog · Docs**; `/support` = enterprise + consultation (`supportTiers` in `site.ts`).
+- New `apps/web`: **Products · Story · Relationship · Services · Blog · Docs**; `/relationship` (feedback, orgs, tech stack); `/support-us` (community); `/support` = enterprise (`supportTiers` in `site.ts`). Editable copy: `src/lib/relationship-content.ts`.
 - Design: Inter + JetBrains Mono; dark-first canvas `#11151d`, surfaces `#171b26` / `#1e2433`; accents `#10b981` / `#6366f1` / `#f59e0b`.
 - `site.ts` retained for `pnpm docs:check`; package doc renderer deferred.
 

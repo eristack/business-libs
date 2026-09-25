@@ -20,6 +20,12 @@ export function SiteFooter() {
           <Link href="/story" className="text-muted hover:text-foreground">
             Story
           </Link>
+          <Link href="/relationship" className="text-muted hover:text-foreground">
+            Relationship
+          </Link>
+          <Link href="/support-us" className="text-muted hover:text-foreground">
+            Support us
+          </Link>
           <Link href="/support" className="text-muted hover:text-foreground">
             Enterprise & consultation
           </Link>
