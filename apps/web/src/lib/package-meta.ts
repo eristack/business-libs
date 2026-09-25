@@ -4,6 +4,9 @@ import { packages, type PackageSlug } from "@/lib/site";
 
 const repoRoot = path.resolve(process.cwd(), "../..");
 
+const versionCache = new Map<string, string>();
+const changelogExistsCache = new Map<string, boolean>();
+
 export type PackageRelease = {
   version: string;
   hasChangelog: boolean;
@@ -14,14 +17,23 @@ export type PackageRelease = {
 };
 
 function readJsonVersion(directory: string): string {
+  const cached = versionCache.get(directory);
+  if (cached !== undefined) return cached;
+
   const pkgJsonPath = path.join(repoRoot, directory, "package.json");
-  if (!fs.existsSync(pkgJsonPath)) return "0.0.0";
+  if (!fs.existsSync(pkgJsonPath)) {
+    versionCache.set(directory, "0.0.0");
+    return "0.0.0";
+  }
   try {
     const raw = JSON.parse(fs.readFileSync(pkgJsonPath, "utf8")) as {
       version?: string;
     };
-    return raw.version ?? "0.0.0";
+    const version = raw.version ?? "0.0.0";
+    versionCache.set(directory, version);
+    return version;
   } catch {
+    versionCache.set(directory, "0.0.0");
     return "0.0.0";
   }
 }
@@ -32,7 +44,11 @@ export function getPackageRelease(pkg: {
   directory: string;
 }): PackageRelease {
   const changelogFile = path.join(repoRoot, pkg.directory, "CHANGELOG.md");
-  const hasChangelog = fs.existsSync(changelogFile);
+  let hasChangelog = changelogExistsCache.get(changelogFile);
+  if (hasChangelog === undefined) {
+    hasChangelog = fs.existsSync(changelogFile);
+    changelogExistsCache.set(changelogFile, hasChangelog);
+  }
 
   return {
     version: readJsonVersion(pkg.directory),

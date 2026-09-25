@@ -18,6 +18,7 @@ import {
   siVitest,
   siZod,
 } from "simple-icons";
+import type { ResolvedTheme } from "@/lib/theme";
 
 /** Keys used in ecosystem content + platform links */
 export type BrandLogoKey =
@@ -65,16 +66,35 @@ export const brandLogos: Record<BrandLogoKey, SimpleIcon> = {
   tailwind: siTailwindcss,
 };
 
-/** Marketing site canvas — keep in sync with globals.css */
-const DARK_SURFACE = "#171b26";
+/** Keep in sync with globals.css */
+export const themeSurfaces: Record<
+  ResolvedTheme,
+  { canvas: string; surface: string }
+> = {
+  dark: { canvas: "#171b26", surface: "#171b26" },
+  light: { canvas: "#f3f5f8", surface: "#f3f5f8" },
+};
+
 const MIN_LOGO_CONTRAST = 3;
 
-/** Marks that are black/dark in Simple Icons — use light glyphs on dark UI */
+/** Light glyphs on dark UI for black Simple Icon marks */
 const DARK_UI_GLYPH: Partial<Record<BrandLogoKey, string>> = {
   github: "#f0f6fc",
   changesets: "#f0f6fc",
   express: "#ffffff",
   nextjs: "#ffffff",
+};
+
+/** Marks that wash out on soft light surfaces */
+const LIGHT_UI_GLYPH: Partial<Record<BrandLogoKey, string>> = {
+  github: "#24292f",
+  changesets: "#24292f",
+  express: "#1a1a1a",
+  nextjs: "#1a1a1a",
+  "tanstack-router": "#8b7355",
+  "tanstack-form": "#8b7355",
+  "tanstack-intent": "#8b7355",
+  vitest: "#6e9f48",
 };
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -100,54 +120,73 @@ function mixWithWhite(hex: string, whiteWeight: number): string {
   const [r, g, b] = hexToRgb(hex);
   const w = Math.min(1, Math.max(0, whiteWeight));
   const mix = (c: number) => Math.round(c * (1 - w) + 255 * w);
-  const nr = mix(r);
-  const ng = mix(g);
-  const nb = mix(b);
-  return `#${((nr << 16) | (ng << 8) | nb).toString(16).padStart(6, "0")}`;
+  return `#${((mix(r) << 16) | (mix(g) << 8) | mix(b)).toString(16).padStart(6, "0")}`;
 }
 
-/** SVG fill for dark-first marketing surfaces */
-export function brandFillOnDark(
+export function brandFill(
   key: BrandLogoKey,
   variant: "brand" | "mono",
+  resolved: ResolvedTheme,
 ): string {
   if (variant === "mono") return "currentColor";
 
-  const override = DARK_UI_GLYPH[key];
-  if (override) return override;
+  const surface = themeSurfaces[resolved].surface;
+
+  if (resolved === "dark") {
+    const override = DARK_UI_GLYPH[key];
+    if (override) return override;
+  } else {
+    const lightOverride = LIGHT_UI_GLYPH[key];
+    if (lightOverride) return lightOverride;
+  }
 
   const brand = `#${brandLogos[key].hex}`;
-  if (contrastRatio(brand, DARK_SURFACE) >= MIN_LOGO_CONTRAST) {
+  if (contrastRatio(brand, surface) >= MIN_LOGO_CONTRAST) {
     return brand;
   }
 
-  let w = 0.2;
-  for (let i = 0; i < 6; i++) {
-    const candidate = mixWithWhite(brandLogos[key].hex, w);
-    if (contrastRatio(candidate, DARK_SURFACE) >= MIN_LOGO_CONTRAST) {
-      return candidate;
+  if (resolved === "dark") {
+    let w = 0.2;
+    for (let i = 0; i < 6; i++) {
+      const candidate = mixWithWhite(brandLogos[key].hex, w);
+      if (contrastRatio(candidate, surface) >= MIN_LOGO_CONTRAST) {
+        return candidate;
+      }
+      w += 0.12;
     }
-    w += 0.12;
+    return "#f1f5f9";
   }
-  return "#f1f5f9";
+
+  return brand;
 }
 
-/** Tile well background — stronger tint when the brand hex is very dark */
-export function brandTileBackground(key: BrandLogoKey): string {
+export function brandTileBackground(
+  key: BrandLogoKey,
+  resolved: ResolvedTheme,
+): string {
   const brand = `#${brandLogos[key].hex}`;
+  const base = themeSurfaces[resolved].surface;
   const darkBrand = relativeLuminance(brand) < 0.12;
-  const mixPct = darkBrand ? 28 : 18;
-  return `color-mix(in srgb, ${brand} ${mixPct}%, ${DARK_SURFACE})`;
+  const mixPct =
+    resolved === "dark" ? (darkBrand ? 28 : 18) : darkBrand ? 14 : 18;
+  return `color-mix(in srgb, ${brand} ${mixPct}%, ${base})`;
 }
 
-export function brandGlowHex(key: BrandLogoKey): string {
-  const override = DARK_UI_GLYPH[key];
-  if (override) return override;
-  const brand = `#${brandLogos[key].hex}`;
-  if (contrastRatio(brand, DARK_SURFACE) >= MIN_LOGO_CONTRAST) return brand;
-  return mixWithWhite(brandLogos[key].hex, 0.35);
+export function brandGlowHex(
+  key: BrandLogoKey,
+  resolved: ResolvedTheme,
+): string {
+  return brandFill(key, "brand", resolved);
 }
 
 export function brandHex(key: BrandLogoKey): string {
   return `#${brandLogos[key].hex}`;
+}
+
+/** @deprecated use brandFill */
+export function brandFillOnDark(
+  key: BrandLogoKey,
+  variant: "brand" | "mono",
+): string {
+  return brandFill(key, variant, "dark");
 }

@@ -1,5 +1,5 @@
 import { PlatformLink } from "@/components/brand-logo";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export function PlatformStrip() {
   return (

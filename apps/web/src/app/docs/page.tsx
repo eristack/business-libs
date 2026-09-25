@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata = pageMetadata({
   title: "Documentation",

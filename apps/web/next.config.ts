@@ -1,10 +1,6 @@
-import path from "node:path";
 import type { NextConfig } from "next";
 
-const repoRoot = path.join(__dirname, "../..");
-
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: repoRoot,
   async redirects() {
     return [
       {
@@ -16,6 +12,16 @@ const nextConfig: NextConfig = {
         source: "/support-us",
         destination: "/sponsor",
         permanent: true,
+      },
+      {
+        source: "/docs/:package/:path*",
+        destination: "/docs",
+        permanent: false,
+      },
+      {
+        source: "/docs/:package",
+        destination: "/docs",
+        permanent: false,
       },
     ];
   },

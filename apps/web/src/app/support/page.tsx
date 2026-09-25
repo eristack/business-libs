@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { SupportTiers } from "@/components/marketing/support-tiers";
 import { pageMetadata } from "@/lib/seo";
-import { maintainers, siteConfig } from "@/lib/site";
+import { maintainers } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata = pageMetadata({
   title: "Enterprise support & consultation",

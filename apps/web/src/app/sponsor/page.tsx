@@ -3,7 +3,7 @@ import { BrandLogo } from "@/components/brand-logo";
 import { PlatformStrip } from "@/components/marketing/platform-strip";
 import { sponsorActions, sponsors } from "@/lib/sponsor-content";
 import { pageMetadata } from "@/lib/seo";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata = pageMetadata({
   title: "Sponsors",

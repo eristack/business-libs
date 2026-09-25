@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export function ServicesBand() {
   return (

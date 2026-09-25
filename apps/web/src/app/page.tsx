@@ -7,7 +7,7 @@ import { ServicesBand } from "@/components/marketing/services-band";
 import { PlatformStrip } from "@/components/marketing/platform-strip";
 import { StatsBand } from "@/components/marketing/stats-band";
 import { BrandLogo } from "@/components/brand-logo";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export default function HomePage() {
   return (

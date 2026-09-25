@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { listBlogPosts } from "@/lib/blog";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");

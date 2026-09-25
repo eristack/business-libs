@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { BrandLogo } from "@/components/brand-logo";
-import { siteConfig } from "@/lib/site";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { siteConfig } from "@/lib/site-config";
 
 const nav = [
   { href: "/products", label: "Products" },
@@ -19,14 +20,14 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-neutral/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-neutral/90 backdrop-blur-md supports-[backdrop-filter]:bg-neutral/80">
       <div className="container-page flex h-14 items-center justify-between gap-4">
         <Link
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight text-foreground"
         >
           <span
-            className="inline-flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-neutral"
+            className="inline-flex size-8 items-center justify-center rounded-lg bg-primary-action text-sm font-bold text-on-primary shadow-sm"
             aria-hidden
           >
             E
@@ -55,23 +56,34 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-1.5">
+          <ThemeToggle />
           <a
             href={siteConfig.github}
-            className="inline-flex size-9 items-center justify-center rounded-lg text-foreground/80 transition-colors hover:bg-foreground/10 hover:text-foreground"
+            className="inline-flex size-9 items-center justify-center rounded-lg border border-transparent text-foreground transition-colors hover:border-border hover:bg-surface-raised"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
           >
-            <BrandLogo icon="github" size={20} variant="brand" />
+            <BrandLogo
+              icon="github"
+              size={20}
+              variant="brand"
+              className="text-[#24292f] dark:text-[#f0f6fc]"
+            />
           </a>
           <a
             href={siteConfig.npmOrg}
-            className="inline-flex size-9 items-center justify-center rounded-lg text-foreground/80 transition-colors hover:bg-foreground/10 hover:text-foreground"
+            className="inline-flex size-9 items-center justify-center rounded-lg border border-transparent text-foreground transition-colors hover:border-border hover:bg-surface-raised"
             target="_blank"
             rel="noreferrer"
             aria-label="npm"
           >
-            <BrandLogo icon="npm" size={20} variant="brand" />
+            <BrandLogo
+              icon="npm"
+              size={20}
+              variant="brand"
+              className="text-[#c4302b] dark:text-[#cb3837]"
+            />
           </a>
           <Link href="/products" className="btn btn-primary ml-1 text-sm">
             Browse libraries

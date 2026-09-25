@@ -23,7 +23,7 @@ export function ProductGrid() {
                 const release = getPackageRelease(pkg);
                 return (
                   <li key={pkg.slug}>
-                    <article className="card flex h-full flex-col transition-shadow hover:shadow-md hover:shadow-black/30">
+                    <article className="card flex h-full flex-col transition-shadow hover:shadow-md hover:shadow-black/10 dark:hover:shadow-black/30">
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="font-semibold text-foreground">
                           {pkg.name.replace("@eristack/", "")}

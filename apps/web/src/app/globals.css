@@ -1,15 +1,46 @@
 @import "tailwindcss";
 
+/* Semantic surfaces — soft light, default dark */
+:root {
+  --canvas: #e9edf3;
+  --surface: #f3f5f8;
+  --surface-raised: #f8fafc;
+  --foreground: #1e293b;
+  --muted: #64748b;
+  --border: #d8dee8;
+  --color-scheme: light;
+  /* Links / eyebrow text */
+  --brand-primary: #0a7c59;
+  /* Filled buttons — brighter emerald, light text */
+  --brand-primary-action: #047857;
+  --on-primary: #ffffff;
+}
+
+.dark {
+  --canvas: #11151d;
+  --surface: #171b26;
+  --surface-raised: #1e2433;
+  --foreground: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #2d3548;
+  --color-scheme: dark;
+  --brand-primary: #10b981;
+  --brand-primary-action: #10b981;
+  --on-primary: #11151d;
+}
+
 @theme {
-  --color-primary: #10b981;
+  --color-primary: var(--brand-primary);
+  --color-primary-action: var(--brand-primary-action);
+  --color-on-primary: var(--on-primary);
   --color-secondary: #6366f1;
   --color-tertiary: #f59e0b;
-  --color-neutral: #11151d;
-  --color-surface: #171b26;
-  --color-surface-raised: #1e2433;
-  --color-foreground: #f1f5f9;
-  --color-muted: #94a3b8;
-  --color-border: #2d3548;
+  --color-neutral: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
@@ -17,11 +48,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: var(--color-scheme);
   }
 
   body {
-    @apply bg-neutral text-foreground antialiased;
+    @apply bg-neutral text-foreground antialiased transition-colors duration-200;
     font-family: var(--font-sans);
   }
 
@@ -72,7 +103,12 @@
   }
 
   .btn-primary {
-    @apply bg-primary font-semibold text-neutral hover:bg-primary/90;
+    @apply bg-primary-action font-semibold text-on-primary shadow-sm hover:bg-primary-action/90;
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--brand-primary-action) 28%, transparent);
+  }
+
+  .dark .btn-primary {
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--brand-primary-action) 22%, transparent);
   }
 
   .btn-ghost {
@@ -84,6 +120,6 @@
   }
 
   .card {
-    @apply rounded-2xl border border-border bg-surface p-6 shadow-sm shadow-black/20;
+    @apply rounded-2xl border border-border bg-surface p-6 shadow-sm shadow-black/5 dark:shadow-black/20;
   }
 }

@@ -1,5 +1,5 @@
 import { listBlogPosts } from "@/lib/blog";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export async function GET() {
   const posts = listBlogPosts();

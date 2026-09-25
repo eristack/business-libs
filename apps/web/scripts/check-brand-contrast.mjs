@@ -1,5 +1,5 @@
 /**
- * WCAG AA contrast for dark-first marketing surfaces.
+ * WCAG AA contrast for light + dark marketing surfaces.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -38,29 +38,48 @@ function parseHex(src, key) {
 
 const src = fs.readFileSync(tokensPath, "utf8");
 const primary = parseHex(src, "primary");
+const primaryOnLight = parseHex(src, "primaryOnLight");
 const secondary = parseHex(src, "secondary");
 const tertiary = parseHex(src, "tertiary");
-const neutral = parseHex(src, "neutral");
-const surface = parseHex(src, "surface");
-const foreground = parseHex(src, "foreground");
-const muted = parseHex(src, "muted");
 const onPrimary = parseHex(src, "onPrimary");
+const onPrimaryLight = parseHex(src, "onPrimaryLight");
+const primaryActionLight = parseHex(src, "primaryActionLight");
+const onDark = parseHex(src, "onDark");
 
-const bodyChecks = [
-  ["foreground on page", foreground, neutral, MIN_BODY],
-  ["foreground on surface card", foreground, surface, MIN_BODY],
-  ["muted on page", muted, neutral, MIN_BODY],
-  ["onPrimary on primary button", onPrimary, primary, MIN_BODY],
-];
+const darkCanvas = parseHex(src, "neutral");
+const darkSurface = parseHex(src, "surface");
+const darkForeground = parseHex(src, "foreground");
+const darkMuted = parseHex(src, "muted");
 
-const accentChecks = [
-  ["primary on page (accent)", primary, neutral, MIN_ACCENT],
-  ["secondary on page (links)", secondary, neutral, MIN_ACCENT],
-  ["tertiary on page (accent)", tertiary, neutral, MIN_ACCENT],
+const lightBlock = src.match(/light:\s*\{([^}]+)\}/s);
+if (!lightBlock) throw new Error("Missing light { } in brand-tokens.ts");
+const lightInner = lightBlock[1];
+const lightCanvas = lightInner.match(/canvas:\s*"(#[0-9a-fA-F]{6})"/)?.[1];
+const lightForeground = lightInner.match(/foreground:\s*"(#[0-9a-fA-F]{6})"/)?.[1];
+if (!lightCanvas || !lightForeground) {
+  throw new Error("Missing light.canvas or light.foreground in brand-tokens.ts");
+}
+
+const checks = [
+  ["dark foreground on canvas", darkForeground, darkCanvas, MIN_BODY],
+  ["dark foreground on surface", darkForeground, darkSurface, MIN_BODY],
+  ["dark muted on canvas", darkMuted, darkCanvas, MIN_BODY],
+  ["light foreground on canvas", lightForeground, lightCanvas, MIN_BODY],
+  ["onPrimary on primary", onPrimary, primary, MIN_BODY],
+  ["onDark on dark canvas", onDark, darkCanvas, MIN_BODY],
+  ["primary on dark canvas (accent)", primary, darkCanvas, MIN_ACCENT],
+  ["secondary on dark canvas (accent)", secondary, darkCanvas, MIN_ACCENT],
+  ["primaryOnLight on light canvas (accent)", primaryOnLight, lightCanvas, MIN_ACCENT],
+  [
+    "onPrimaryLight on primaryActionLight (light buttons)",
+    onPrimaryLight,
+    primaryActionLight,
+    MIN_BODY,
+  ],
 ];
 
 let failed = false;
-for (const [label, fg, bg, min] of [...bodyChecks, ...accentChecks]) {
+for (const [label, fg, bg, min] of checks) {
   const ratio = contrast(fg, bg);
   if (ratio < min) {
     console.error(`✗ ${label}: ${ratio.toFixed(2)}:1 (need ${min})`);
@@ -69,4 +88,4 @@ for (const [label, fg, bg, min] of [...bodyChecks, ...accentChecks]) {
 }
 
 if (failed) process.exit(1);
-console.log("✓ brand contrast — WCAG AA on dark marketing surfaces");
+console.log("✓ brand contrast — light + dark marketing surfaces");

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
 export function Hero() {
   return (
@@ -8,7 +8,9 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_color-mix(in_srgb,var(--color-secondary)_22%,transparent),transparent_55%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_color-mix(in_srgb,var(--color-primary)_12%,transparent),transparent_50%)]" />
       <div className="container-page relative py-16 sm:py-24">
-        <p className="text-sm font-medium text-primary">Open @eristack libraries</p>
+        <p className="text-sm font-medium text-primary">
+          Open-source · npm @eristack
+        </p>
         <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
           Enterprise building blocks TypeScript teams should not rebuild
         </h1>
@@ -33,7 +35,11 @@ export function Hero() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground/25"
           >
-            <BrandLogo icon="github" size={22} />
+            <BrandLogo
+              icon="github"
+              size={22}
+              className="text-[#24292f] dark:text-[#f0f6fc]"
+            />
             Star on GitHub
           </a>
           <a
@@ -42,7 +48,11 @@ export function Hero() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground/25"
           >
-            <BrandLogo icon="npm" size={22} />
+            <BrandLogo
+              icon="npm"
+              size={22}
+              className="text-[#c4302b] dark:text-[#cb3837]"
+            />
             @eristack on npm
           </a>
         </div>
