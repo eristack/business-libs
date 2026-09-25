@@ -1,5 +1,11 @@
 # @eristack/epoch
 
+## 0.1.3
+
+### Patch Changes
+
+- b793eed: Add zod subpath, stale-cache logging with onStale hook, logger adapter, and Cache-Control header helper.
+
 ## 0.1.2
 
 ### Patch Changes

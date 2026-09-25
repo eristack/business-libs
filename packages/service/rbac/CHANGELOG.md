@@ -1,5 +1,11 @@
 # @eristack/rbac
 
+## 0.2.3
+
+### Patch Changes
+
+- b793eed: Add expandRolePermissions, importRolesFromYaml, and testing subpath.
+
 ## 0.2.2
 
 ### Patch Changes

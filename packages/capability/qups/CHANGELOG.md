@@ -1,5 +1,11 @@
 # @eristack/qups
 
+## 0.3.4
+
+### Patch Changes
+
+- b793eed: Add applyCellPatch, withQupsFields, modifier cycle validation, qupsLineColumnsFromProfile, and drizzle integration tests.
+
 ## 0.3.3
 
 ### Patch Changes

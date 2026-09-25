@@ -1,5 +1,11 @@
 # @eristack/ai-ticket-generator
 
+## 0.1.2
+
+### Patch Changes
+
+- b793eed: Add suggestPackageFromStackTrace and expand getting-started feasibility examples.
+
 ## 0.1.1
 
 ### Patch Changes

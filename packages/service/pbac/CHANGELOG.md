@@ -1,5 +1,11 @@
 # @eristack/pbac
 
+## 0.2.3
+
+### Patch Changes
+
+- b793eed: Add transition table validator, policy registry OpenAPI export, and testing subpath.
+
 ## 0.2.2
 
 ### Patch Changes

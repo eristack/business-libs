@@ -1,6 +1,6 @@
 {
   "name": "@eristack/valuations",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
   "repository": {
     "type": "git",

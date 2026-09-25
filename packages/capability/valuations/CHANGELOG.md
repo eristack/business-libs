@@ -1,5 +1,11 @@
 # @eristack/valuations
 
+## 0.2.4
+
+### Patch Changes
+
+- b793eed: Add crossCheckValuationChains helper and FEFO edge-case adversarial tests.
+
 ## 0.2.3
 
 ### Patch Changes

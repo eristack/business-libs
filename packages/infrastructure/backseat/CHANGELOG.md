@@ -1,5 +1,11 @@
 # @eristack/backseat
 
+## 0.1.6
+
+### Patch Changes
+
+- b793eed: Add testing subpath for memory store and diffRoutesSnapshots for Horizon route migration.
+
 ## 0.1.5
 
 ### Patch Changes

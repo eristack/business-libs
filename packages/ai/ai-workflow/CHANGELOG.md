@@ -1,5 +1,11 @@
 # @eristack/ai-workflow
 
+## 0.1.2
+
+### Patch Changes
+
+- b793eed: Document MCP tool inventory, sprint templates, and CI vector index disable flag.
+
 ## 0.1.1
 
 ### Patch Changes

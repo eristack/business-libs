@@ -1,6 +1,6 @@
 {
   "name": "@eristack/address",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Normalized postal addresses with ISO country codes — string fields, no geocoding",
   "repository": {
     "type": "git",
