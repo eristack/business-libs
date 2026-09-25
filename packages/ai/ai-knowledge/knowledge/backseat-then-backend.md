@@ -202,7 +202,7 @@ Document seed ids in README so agents replay PATCH demos consistently.
 
 | Horizon A | Horizon B |
 | --- | --- |
-| `createIndexedDbBackseatStore` | Drizzle tables + stores |
+| `createIndexedDbBackseatStore` | `createDrizzleBackseatStore` (`@eristack/backseat/drizzle`) + `bootWorkshopServer` (`@eristack/backseat/workshop`) |
 | `register*Backseat(api)` | `create*Router` / Nest modules |
 | `executeBackseatList` | `executeDrizzleList` |
 | `withQupsFields` | `withQupsColumns` + migrations |

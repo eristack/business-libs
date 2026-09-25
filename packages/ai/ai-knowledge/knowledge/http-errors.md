@@ -152,6 +152,23 @@ return validationError("expectedVersion is required");
 
 ---
 
+## Domain error → envelope (copy-paste table)
+
+Map **library** throws before they become generic 500s or wrong codes (e.g. Temporal text as `BUSINESS_POLICY_DENIED`).
+
+| Error / signal | HTTP | `error.code` | Notes |
+| --- | ---: | --- | --- |
+| `TimestampParseError` (`@eristack/timestamp`) | 400 | `INVALID_TIMESTAMP` | Wall local passed to `instantOf` — use `asInstant` |
+| `ZodError` (Zod 4 `zod`) | 400 | `VALIDATION_ERROR` | Optional `details: err.flatten()` |
+| Postgres `23505` unique violation | 409 | `CONFLICT_UNIQUE` | Drizzle/node-pg `err.code === "23505"` |
+| `StaleEpochError` | 409 | `STALE_EPOCH` | + `X-Epoch-Current` header |
+| `PolicyDeniedError` | 409 | `POLICY_DENIED` | ABAC |
+| `BusinessPolicyDeniedError` | 409 | `BUSINESS_POLICY_DENIED` | PBAC (+ `policyId`, `reason`) |
+| Document version mismatch | 409 | `CONFLICT_VERSION` | App / `versionConflict()` |
+| Backseat validation | 400 | `VALIDATION_ERROR` | `BackseatValidationError` |
+
+---
+
 ## Express unified error mapper (Horizon B)
 
 One middleware-style mapper keeps Backseat graduation trivial — same JSON, swap IndexedDB for Drizzle:
@@ -161,6 +178,8 @@ import type { Request, Response, NextFunction } from "express";
 import { StaleEpochError } from "@eristack/epoch";
 import { PolicyDeniedError } from "@eristack/abac";
 import { BusinessPolicyDeniedError } from "@eristack/pbac";
+import { TimestampParseError } from "@eristack/timestamp";
+import { ZodError } from "zod";
 import {
   versionConflict,
   jsonError,
@@ -176,8 +195,36 @@ function sendEnvelope(res: Response, status: number, body: ErrorBody, headers?: 
   return res.status(status).json(body);
 }
 
+function isPgUniqueViolation(err: unknown): err is { code: string } {
+  return (
+    typeof err === "object" &&
+    err !== null &&
+    "code" in err &&
+    (err as { code: string }).code === "23505"
+  );
+}
+
 /** Map domain errors thrown from handlers to the standard envelope. */
 export function mapDomainError(res: Response, err: unknown): Response {
+  if (err instanceof TimestampParseError) {
+    return sendEnvelope(res, 400, {
+      error: { code: "INVALID_TIMESTAMP", message: err.message },
+    });
+  }
+  if (err instanceof ZodError) {
+    return sendEnvelope(res, 400, {
+      error: {
+        code: BackseatErrorCodes.VALIDATION_ERROR,
+        message: err.message,
+        details: err.flatten(),
+      },
+    });
+  }
+  if (isPgUniqueViolation(err)) {
+    return sendEnvelope(res, 409, {
+      error: { code: "CONFLICT_UNIQUE", message: "Unique constraint violated" },
+    });
+  }
   if (err instanceof StaleEpochError) {
     return sendEnvelope(
       res,

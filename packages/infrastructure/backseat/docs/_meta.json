@@ -8,6 +8,7 @@
     "api-reference",
     "devtools",
     "graduation",
+    "drizzle-workshop",
     "package-adapters",
     "vision"
   ],
@@ -37,6 +38,7 @@
       "pages": [
         "devtools",
         "graduation",
+        "drizzle-workshop",
         "package-adapters",
         "vision"
       ]

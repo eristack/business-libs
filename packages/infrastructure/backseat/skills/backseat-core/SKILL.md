@@ -36,6 +36,8 @@ Frontend-first **fake backend** in the browser — store + router + **your** con
 | `@eristack/backseat` | `createBackseat`, memory store, types |
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, REST bridge helpers |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore()` — **browser default** |
+| `@eristack/backseat/drizzle` | `createDrizzleBackseatStore` — Horizon B; sqlite needs `runSyncTransaction` + `sqlite` for `atomic()` |
+| `@eristack/backseat/workshop` | `bootWorkshopServer` — headless API boot (no Vite import) |
 | `@eristack/backseat/react` | Provider, hooks, `BackseatDevtools` |
 | `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `createErpDemoSnapshot()` |
 

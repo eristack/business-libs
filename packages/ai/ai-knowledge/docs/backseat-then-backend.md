@@ -1,8 +1,3 @@
----
-title: Backseat-first ERP, then backend
-description: Horizon A mock API → Drizzle + Express graduation
-sidebar_position: 4
----
 # Backseat-first ERP, then derive backend
 
 **Canonical guide — read this file only** for Horizon A → B on document/cost-sheet ERPs (jobs, invoices, forwarding, services). Not an ERP spine recipe; no `@eristack/feature-*`.
@@ -207,7 +202,7 @@ Document seed ids in README so agents replay PATCH demos consistently.
 
 | Horizon A | Horizon B |
 | --- | --- |
-| `createIndexedDbBackseatStore` | Drizzle tables + stores |
+| `createIndexedDbBackseatStore` | `createDrizzleBackseatStore` (`@eristack/backseat/drizzle`) + `bootWorkshopServer` (`@eristack/backseat/workshop`) |
 | `register*Backseat(api)` | `create*Router` / Nest modules |
 | `executeBackseatList` | `executeDrizzleList` |
 | `withQupsFields` | `withQupsColumns` + migrations |

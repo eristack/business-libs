@@ -16,28 +16,25 @@ batches:
     index: 20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md
     reporter: Tiga Sekawan ERP (Horizon A mockup)
 
+done:
+  - rank: 1
+    file: 20260925-163554-bug-instantof-throws-raw-temporal-error-on-wall-loca-341a0a.md
+    notes: "@eristack/timestamp — TimestampParseError hint; changeset timestamp-asinstant-wall-parse"
+  - rank: 2
+    file: 20260925-163554-suggestion-asinstant-helper-for-journal-and-invoice-planner-e252b3.md
+    notes: asInstant() shipped with rank 1
+  - rank: 3
+    file: 20260925-201500-suggestion-drizzle-backseat-store-atomic-sqlite-staging-a1b2c3.md
+    notes: "@eristack/backseat/drizzle createDrizzleBackseatStore"
+  - rank: 4
+    file: 20260925-201501-suggestion-backseat-workshop-server-bootstrap-without-vite-d4e5f6.md
+    notes: "@eristack/backseat/workshop bootWorkshopServer"
+  - rank: 5
+    file: 20260925-163607-suggestion-mapdomainerror-table-for-timestamp-zod-and-uniqu-62cbd9.md
+    notes: http-errors.md domain table + mapDomainError example
+
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack:
-  - rank: 1
-    priority: P0
-    file: 20260925-163554-bug-instantof-throws-raw-temporal-error-on-wall-loca-341a0a.md
-    notes: Bug — raw Temporal leak into journal API; ship with rank 2 in one changeset if practical
-  - rank: 2
-    priority: P0
-    file: 20260925-163554-suggestion-asinstant-helper-for-journal-and-invoice-planner-e252b3.md
-    notes: Pairs with rank 1 (@eristack/timestamp)
-  - rank: 3
-    priority: P0
-    file: 20260925-201500-suggestion-drizzle-backseat-store-atomic-sqlite-staging-a1b2c3.md
-    notes: Horizon B — staged Drizzle atomic for workshop mirror
-  - rank: 4
-    priority: P0
-    file: 20260925-201501-suggestion-backseat-workshop-server-bootstrap-without-vite-d4e5f6.md
-    notes: Horizon B — headless workshop boot (no Vite import)
-  - rank: 5
-    priority: P1
-    file: 20260925-163607-suggestion-mapdomainerror-table-for-timestamp-zod-and-uniqu-62cbd9.md
-    notes: household — documents fix for rank 1 class of HTTP mapping errors
   - rank: 6
     priority: P1
     file: 20260925-163606-suggestion-displaybalance-for-credit-normal-accounts-286c48.md

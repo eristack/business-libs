@@ -76,6 +76,9 @@ function collectReferencedFiles(triage) {
   for (const row of triage.stack ?? []) {
     if (row.file) refs.add(row.file);
   }
+  for (const row of triage.done ?? []) {
+    if (row.file) refs.add(row.file);
+  }
   for (const row of triage.backlog ?? []) {
     for (const f of row.files ?? []) refs.add(f);
   }
@@ -158,13 +161,14 @@ function cmdCheck() {
   const asOf = triage.as_of?.replace(/-/g, "");
   if (asOf) {
     const todayBatch = files.filter((f) => ingestDate(f) === asOf && !isBatchIndex(f));
-    const inStackToday = new Set(
-      (triage.stack ?? []).filter((r) => ingestDate(r.file) === asOf).map((r) => r.file),
-    );
+    const listedToday = new Set([
+      ...(triage.stack ?? []).filter((r) => ingestDate(r.file) === asOf).map((r) => r.file),
+      ...(triage.done ?? []).filter((r) => ingestDate(r.file) === asOf).map((r) => r.file),
+    ]);
     for (const f of todayBatch) {
       const inBacklog = (triage.backlog ?? []).some((b) => (b.files ?? []).includes(f));
-      if (!inStackToday.has(f) && !inBacklog) {
-        errors.push(`as_of ${triage.as_of}: ticket not in stack or backlog: ${f}`);
+      if (!listedToday.has(f) && !inBacklog) {
+        errors.push(`as_of ${triage.as_of}: ticket not in stack, done, or backlog: ${f}`);
       }
     }
   }
