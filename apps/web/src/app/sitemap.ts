@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
-  const staticRoutes = ["", "/products", "/story", "/docs", "/blog"].map(
+  const staticRoutes = ["", "/products", "/story", "/support", "/docs", "/blog"].map(
     (path) => ({
       url: `${base}${path || "/"}`,
       lastModified: new Date(),

@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/site";
 const nav = [
   { href: "/products", label: "Products" },
   { href: "/story", label: "Story" },
+  { href: "/support", label: "Services" },
   { href: "/blog", label: "Blog" },
   { href: "/docs", label: "Docs" },
 ] as const;

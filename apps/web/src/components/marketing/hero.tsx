@@ -21,6 +21,9 @@ export function Hero() {
           <Link href="/story" className="btn btn-outline">
             Read our story
           </Link>
+          <Link href="/support" className="btn btn-ghost">
+            Enterprise support
+          </Link>
           <Link
             href={siteConfig.github}
             className="btn btn-ghost"
