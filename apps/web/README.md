@@ -22,4 +22,4 @@ pnpm --filter @eristack/web dev
 - Fonts: Inter, JetBrains Mono
 - Dark-first: canvas `#11151d`, surfaces `#171b26` / `#1e2433`, text `#f1f5f9`
 - Accents: primary `#10b981`, secondary `#6366f1`, tertiary `#f59e0b`
-- Nav: Products · Story · Relationship · Services · Blog · Docs; `/support-us` for community support
+- Nav: Products · Story · Sponsor · Services · Blog · Docs; home has feedback, adopters, tech stack

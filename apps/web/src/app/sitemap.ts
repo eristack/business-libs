@@ -8,19 +8,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/products",
     "/story",
-    "/relationship",
-    "/support-us",
+    "/sponsor",
     "/support",
     "/docs",
     "/blog",
-  ].map(
-    (path) => ({
-      url: `${base}${path || "/"}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: path === "" ? 1 : 0.8,
-    }),
-  );
+  ].map((path) => ({
+    url: `${base}${path || "/"}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: path === "" ? 1 : 0.8,
+  }));
 
   const posts = listBlogPosts().map((post) => ({
     url: `${base}${post.href}`,

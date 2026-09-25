@@ -1,4 +1,4 @@
-/** Community & ecosystem content — update as real names and quotes are cleared for public use. */
+/** Home-page community content — feedback, adopters, technology stack. */
 
 export type UserFeedback = {
   quote: string;
@@ -11,7 +11,6 @@ export type OrganizationEntry = {
   name: string;
   description: string;
   href?: string;
-  kind: "using" | "supporting";
 };
 
 export type TechStackGroup = {
@@ -50,30 +49,11 @@ export const organizationsUsing: OrganizationEntry[] = [
     description:
       "Product company where Eristack was extracted — operational apps on money, timestamps, document lines, and auth adapters.",
     href: "https://erista.id",
-    kind: "using",
   },
   {
     name: "Open-source adopters",
     description:
       "Teams wiring @eristack/* from npm for finance, inventory, and session flows — we list logos when partners opt in.",
-    kind: "using",
-  },
-];
-
-export const organizationsSupporting: OrganizationEntry[] = [
-  {
-    name: "Erista",
-    description:
-      "Stewards the monorepo, docs, agent knowledge sync, and release cadence for @eristack packages.",
-    href: "https://erista.id",
-    kind: "supporting",
-  },
-  {
-    name: "Contributors & maintainers",
-    description:
-      "Issues, docs fixes, and adapter work on GitHub — every merged PR keeps the spine honest for everyone.",
-    href: "https://github.com/eristack/business-libs",
-    kind: "supporting",
   },
 ];
 
@@ -121,31 +101,3 @@ export const technologyStack: TechStackGroup[] = [
     ],
   },
 ];
-
-export const supportUsActions = [
-  {
-    title: "Star & share",
-    body: "GitHub stars and npm installs signal which packages teams rely on — it helps prioritise docs and adapters.",
-    cta: { label: "Star on GitHub", href: "https://github.com/eristack/business-libs" },
-  },
-  {
-    title: "Contribute",
-    body: "Docs, skills, recipes, tests, and adapter fixes — especially when you hit an edge case in production.",
-    cta: { label: "Contribution guide", href: "https://github.com/eristack/business-libs/blob/main/README.md" },
-  },
-  {
-    title: "File clear tickets",
-    body: "Use @eristack/ai-ticket-generator skills for reproducible bug reports maintainers and agents can run.",
-    cta: { label: "Open an issue", href: "https://github.com/eristack/business-libs/issues" },
-  },
-  {
-    title: "Partner or sponsor",
-    body: "Fund roadmap items, co-marketing, or dedicated enablement — we align with integrators shipping on the spine.",
-    cta: { label: "Partners email", href: "mailto:partners@eristack.dev" },
-  },
-  {
-    title: "Enterprise support",
-    body: "When libraries sit on a revenue or compliance path, paid support buys response windows and migration help.",
-    cta: { label: "Services", href: "/support" },
-  },
-] as const;

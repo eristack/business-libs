@@ -10,7 +10,7 @@ recipes: []
 ## Decisions
 
 - Relocated prior Next app to `apps/old-web` (`@eristack/old-web`, changeset-ignored).
-- New `apps/web`: **Products · Story · Relationship · Services · Blog · Docs**; `/relationship` (feedback, orgs, tech stack); `/support-us` (community); `/support` = enterprise (`supportTiers` in `site.ts`). Editable copy: `src/lib/relationship-content.ts`.
+- IA: **Products · Story · Sponsor · Services · Blog · Docs**. Home: feedback, adopters, tech (`ecosystem-content.ts`). `/sponsor` (`sponsor-content.ts`). `/relationship` + `/support-us` → redirects. `/support` = enterprise.
 - Design: Inter + JetBrains Mono; dark-first canvas `#11151d`, surfaces `#171b26` / `#1e2433`; accents `#10b981` / `#6366f1` / `#f59e0b`.
 - `site.ts` retained for `pnpm docs:check`; package doc renderer deferred.
 
