@@ -18,10 +18,13 @@ export function Hero() {
           {siteConfig.description}
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/products" className="btn btn-primary">
+          <Link href="/get-started" className="btn btn-primary">
+            Get started
+          </Link>
+          <Link href="/products" className="btn btn-outline">
             See all products
           </Link>
-          <Link href="/story" className="btn btn-outline">
+          <Link href="/story" className="btn btn-ghost">
             Read our story
           </Link>
           <Link href="/support" className="btn btn-ghost">

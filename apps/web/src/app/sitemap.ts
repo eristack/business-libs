@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
   const staticRoutes = [
     "",
+    "/get-started",
     "/products",
     "/story",
     "/sponsor",

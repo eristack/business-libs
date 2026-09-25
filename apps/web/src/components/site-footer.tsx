@@ -15,6 +15,9 @@ export function SiteFooter() {
         </div>
         <div className="flex flex-col gap-2 text-sm">
           <p className="font-medium text-foreground">Explore</p>
+          <Link href="/get-started" className="text-muted hover:text-foreground">
+            Get started
+          </Link>
           <Link href="/products" className="text-muted hover:text-foreground">
             Products
           </Link>

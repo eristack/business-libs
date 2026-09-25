@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/start",
+        destination: "/get-started",
+        permanent: true,
+      },
+      {
         source: "/docs/:package/:path*",
         destination: "/docs",
         permanent: false,

@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/site-config";
 
 const nav = [
+  { href: "/get-started", label: "Get started" },
   { href: "/products", label: "Products" },
   { href: "/story", label: "Story" },
   { href: "/sponsor", label: "Sponsor" },

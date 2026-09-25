@@ -28,8 +28,8 @@ export default function HomePage() {
           AI tooling — with live versions from the monorepo.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link href="/products" className="btn btn-primary">
-            Products
+          <Link href="/get-started" className="btn btn-primary">
+            Get started
           </Link>
           <Link href="/blog" className="btn btn-outline">
             Read the blog
