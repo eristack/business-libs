@@ -48,13 +48,15 @@ Report helpers:
 ```ts
 import {
   trialBalance,
+  displayBalance,
+  signedBalances,
   buildBalancedPostingPair,
   buildReversalPost,
 } from "@eristack/financial-ledger";
 
-const balances = await trialBalance(fin, [
-  { accountId: "1000", currency: "USD" },
-]);
+const raw = await trialBalance(fin, [{ accountId: "1000", currency: "USD" }]);
+const ui = signedBalances(raw, { "1000": "asset", "2000": "liability" });
+// Or per row: displayBalance(raw.get("2000:USD")!, "liability")
 ```
 
 **Read path:** ledger stores decimal strings in the hash. Hydrate for UI:

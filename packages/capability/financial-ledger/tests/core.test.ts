@@ -82,6 +82,30 @@ describe("financial-ledger", () => {
     expect(balance.toJSON().amount).toBe("100");
   });
 
+  it("displayBalance flips credit-normal account types", async () => {
+    const { displayBalance, signedBalances } = await import(
+      "../src/core/display-balance.js"
+    );
+    const { Money } = await import("@eristack/money");
+    const raw = Money.of("40", "USD");
+    expect(displayBalance(raw, "asset").toJSON().amount).toBe("40");
+    expect(displayBalance(raw, "expense").toJSON().amount).toBe("40");
+    expect(displayBalance(raw, "liability").toJSON().amount).toBe("-40");
+    expect(displayBalance(raw, "equity").toJSON().amount).toBe("-40");
+    expect(displayBalance(raw, "income").toJSON().amount).toBe("-40");
+
+    const trial = new Map([
+      ["1000:USD", Money.of("100", "USD")],
+      ["2000:USD", Money.of("50", "USD")],
+    ]);
+    const signed = signedBalances(trial, {
+      "1000": "asset",
+      "2000": "liability",
+    });
+    expect(signed.get("1000:USD")?.toJSON().amount).toBe("100");
+    expect(signed.get("2000:USD")?.toJSON().amount).toBe("-50");
+  });
+
   it("buildBalancedPostingPair creates debit and credit legs", async () => {
     const { buildBalancedPostingPair } = await import("../src/core/posting-pair.js");
     const pair = buildBalancedPostingPair({

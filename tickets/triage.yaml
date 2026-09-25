@@ -32,21 +32,18 @@ done:
   - rank: 5
     file: 20260925-163607-suggestion-mapdomainerror-table-for-timestamp-zod-and-uniqu-62cbd9.md
     notes: http-errors.md domain table + mapDomainError example
+  - rank: 6
+    file: 20260925-163606-suggestion-displaybalance-for-credit-normal-accounts-286c48.md
+    notes: displayBalance + signedBalances
+  - rank: 7
+    file: 20260925-163555-suggestion-currency-scale-display-string-without-number-f516d5.md
+    notes: formatFixed / toDisplayString
+  - rank: 8
+    file: 20260925-163555-suggestion-dated-conversion-asof-and-rate-pick-invert-pivot-9ac934.md
+    notes: pickRate, invertFactor, convertAt, convertAtViaPivot
 
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack:
-  - rank: 6
-    priority: P1
-    file: 20260925-163606-suggestion-displaybalance-for-credit-normal-accounts-286c48.md
-    notes: household — ledger UI sign convention
-  - rank: 7
-    priority: P1
-    file: 20260925-163555-suggestion-currency-scale-display-string-without-number-f516d5.md
-    notes: household — money display without JS number
-  - rank: 8
-    priority: P1
-    file: 20260925-163555-suggestion-dated-conversion-asof-and-rate-pick-invert-pivot-9ac934.md
-    notes: household — FX as-of without Date literals
   - rank: 9
     priority: P1
     file: 20260925-201502-suggestion-dual-target-api-mirror-contract-testing-cli-g7h8i9.md
