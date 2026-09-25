@@ -1,5 +1,11 @@
 # @eristack/backseat
 
+## 0.1.7
+
+### Patch Changes
+
+- Add registerHorizonDocumentSpine on ./seeds (dynamic imports, no workspace devDeps — avoids turbo build cycle), optional spine peerDependencies, and Horizon A bootstrap docs.
+
 ## 0.1.6
 
 ### Patch Changes
