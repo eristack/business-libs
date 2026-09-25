@@ -321,6 +321,9 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
+      unist-util-visit:
+        specifier: ^5.1.0
+        version: 5.1.0
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -328,6 +331,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.3
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.5
       '@types/node':
         specifier: ^20
         version: 20.19.43

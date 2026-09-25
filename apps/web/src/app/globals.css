@@ -122,4 +122,76 @@
   .card {
     @apply rounded-2xl border border-border bg-surface p-6 shadow-sm shadow-black/5 dark:shadow-black/20;
   }
+
+  .prose-docs {
+    @apply max-w-none text-[16px] leading-relaxed text-foreground/90;
+  }
+
+  .prose-docs h2,
+  .prose-docs h3,
+  .prose-docs h4 {
+    @apply scroll-mt-24 font-semibold tracking-tight text-foreground;
+  }
+
+  .prose-docs h2 {
+    @apply mt-10 mb-4 text-2xl;
+  }
+
+  .prose-docs h3 {
+    @apply mt-8 mb-3 text-xl;
+  }
+
+  .prose-docs p {
+    @apply my-4;
+  }
+
+  .prose-docs a {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  .prose-docs ul,
+  .prose-docs ol {
+    @apply my-4 ml-6 list-outside;
+  }
+
+  .prose-docs ul {
+    @apply list-disc;
+  }
+
+  .prose-docs ol {
+    @apply list-decimal;
+  }
+
+  .prose-docs li {
+    @apply my-1;
+  }
+
+  .prose-docs pre {
+    @apply my-4 overflow-x-auto rounded-xl border border-border text-sm;
+  }
+
+  .prose-docs :not(pre) > code {
+    @apply rounded bg-surface-raised px-1.5 py-0.5 font-mono text-[0.88em] text-secondary;
+  }
+
+  .prose-docs table {
+    @apply my-6 w-full border-collapse text-sm;
+  }
+
+  .prose-docs th,
+  .prose-docs td {
+    @apply border border-border px-3 py-2 text-left;
+  }
+
+  .prose-docs th {
+    @apply bg-surface-raised font-medium;
+  }
+
+  .docs-callout {
+    @apply my-6 rounded-xl border border-border bg-surface px-4 py-3;
+  }
+
+  .docs-callout__label {
+    @apply mb-2 text-xs font-semibold uppercase tracking-wide text-primary;
+  }
 }

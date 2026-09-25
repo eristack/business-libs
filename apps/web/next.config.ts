@@ -1,6 +1,10 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
+const repoRoot = path.join(__dirname, "../..");
+
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: repoRoot,
   async redirects() {
     return [
       {
@@ -18,21 +22,13 @@ const nextConfig: NextConfig = {
         destination: "/get-started",
         permanent: true,
       },
-      {
-        source: "/docs/:package/:path*",
-        destination: "/docs",
-        permanent: false,
-      },
-      {
-        source: "/docs/:package",
-        destination: "/docs",
-        permanent: false,
-      },
     ];
   },
   outputFileTracingIncludes: {
     "/blog": ["./content/blog/**/*"],
     "/blog/[slug]": ["./content/blog/**/*"],
+    "/docs/[package]": ["../../packages/**/docs/**/*"],
+    "/docs/[package]/[slug]": ["../../packages/**/docs/**/*"],
   },
 };
 
