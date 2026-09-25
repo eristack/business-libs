@@ -26,6 +26,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#backseat-then-backe
 
 ## Horizon A skill order
 
+0. `@eristack/ai-knowledge#package-relationships` when composing many packages
 1. `backseat-then-backend` (this)
 2. `@eristack/backseat#backseat-core`
 3. `@eristack/qups#qups-line`

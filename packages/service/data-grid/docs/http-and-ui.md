@@ -139,7 +139,7 @@ const list = useDataGridList({
 });
 ```
 
-You may pass `queryFn` instead of `client` when the loader is not HTTP (e.g. tRPC).
+You may pass `queryFn` instead of `client` when the loader is not HTTP (in-process or custom RPC).
 
 ### Draft / commit lifecycle
 

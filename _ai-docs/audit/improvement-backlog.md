@@ -137,6 +137,9 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 | **E-005** | `pnpm debottleneck:check` script | S | root | **done** — deps + recipe overlap + register count |
 | **E-006** | CI wire debottleneck (`--ci` overlap budget) | S | root | **done** — `pr` + `catalog` via ai-dev check |
 | **E-007** | Recipe trigger overlap → zero | S | ai-knowledge | **done** — money/qups/grid/http triggers narrowed |
+| **E-008** | backseat-then-backend bootstrap → spine helper | S | ai-knowledge | **done** — canonical guides + horizon-a seed note |
+| **E-009** | Turbo cycle: backseat spine without workspace devDeps | S | backseat | **done** — dynamic imports; types at app boundary |
+| **E-010** | Sprint E complete — debottlenecking | — | — | **done** — see package-relationships + debottleneck:check:ci |
 
 ---
 

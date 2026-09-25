@@ -2,4 +2,4 @@
 "@eristack/ai-knowledge": patch
 ---
 
-Add package-relationships canonical guide and skill, recipe trigger dedupe, and filesystem-backed catalog package test.
+Add package-relationships guide, recipe dedupe, catalog test, backseat-then-backend bootstrap alignment (registerHorizonDocumentSpine), and upgrading §5.1.2 changeset sync playbook.

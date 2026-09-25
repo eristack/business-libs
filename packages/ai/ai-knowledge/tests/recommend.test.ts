@@ -181,6 +181,21 @@ describe("recommend disambiguation", () => {
     ).toBe(true);
   });
 
+  it("routes compose erp modules to package-relationships via canonicalSkills", () => {
+    const result = recommend(["compose erp modules"]);
+    expect(
+      result.matches.some((m) => m.recipe.id === "compose-spine"),
+    ).toBe(true);
+    const plan = loadPlan(result);
+    expect(
+      plan.steps.some(
+        (s) =>
+          s.packageName === "@eristack/ai-knowledge" &&
+          s.skillId === "package-relationships",
+      ),
+    ).toBe(true);
+  });
+
   it("routes package dependency language to package-relationships-map", () => {
     const result = recommend(["package dependencies eristack"]);
     expect(

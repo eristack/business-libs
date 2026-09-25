@@ -7,7 +7,7 @@ sidebar_position: 5
 
 **Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.
 
-Load: `@eristack/ai-knowledge#document-lines-erp` · Horizon A mockup: `@eristack/ai-knowledge#backseat-then-backend` · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
+Load: `@eristack/ai-knowledge#document-lines-erp` · Package map: [package-relationships](./package-relationships.md) · Horizon A: `@eristack/ai-knowledge#backseat-then-backend` (`registerHorizonDocumentSpine` + `examples/horizon-a`) · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
 
 ---
 

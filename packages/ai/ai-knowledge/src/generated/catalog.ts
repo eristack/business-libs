@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-25T16:14:43.704Z",
+  "generatedAt": "2026-09-25T16:17:40.445Z",
   "packages": [
     {
       "name": "@eristack/abac",
