@@ -37,6 +37,25 @@ await db.insert(invoices).values({
 
 Single source of truth: posting instant. Transaction date is **derived** unless legal requires independent date entry.
 
+## Recipe: API `postedAt` — wall or instant JSON
+
+When the client sends `TimestampJSON` (journal modal, invoice planner) and you need one UTC fact for persistence:
+
+```ts
+import { asInstant, timestampToJSON } from "@eristack/timestamp";
+
+const entityTimezone = "Asia/Jakarta";
+
+// body.postedAt may be { kind: "wall", local, timezone } or { kind: "instant", instant, timezone }
+const posted = asInstant(body.postedAt, entityTimezone);
+
+await db.insert(transactions).values({
+  postedAt: timestampToJSON(posted),
+});
+```
+
+Do **not** call `instantOf(body.postedAt.local, …)` on wall JSON — you get `TimestampParseError` (not raw Temporal).
+
 ## Recipe: User-picked transaction date (date-only)
 
 When legal requires the user to choose the date independent of server post time:

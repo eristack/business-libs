@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  asInstant,
   compareInstant,
   equalTimestamp,
   instantOf,
@@ -31,6 +32,22 @@ describe("instant mode", () => {
     expect(ts.kind).toBe("instant");
     expect(ts.instant).toBe("2026-08-22T02:30:00Z");
     expect(ts.timezone).toBe("Asia/Jakarta");
+  });
+
+  it("rejects wall-local ISO passed to instantOf with TimestampParseError hint", () => {
+    expect(() => instantOf("2026-09-24T12:00:00", "Asia/Jakarta")).toThrow(
+      TimestampParseError,
+    );
+    try {
+      instantOf("2026-09-24T12:00:00", "Asia/Jakarta");
+    } catch (error) {
+      expect(error).toBeInstanceOf(TimestampParseError);
+      expect((error as TimestampParseError).message).toContain("wall local");
+      expect((error as TimestampParseError).message).toContain("asInstant");
+      expect((error as TimestampParseError).message).not.toContain(
+        "Temporal.Instant requires",
+      );
+    }
   });
 
   it("normalizes offset input to Z", () => {
@@ -264,6 +281,41 @@ describe("wire JSON", () => {
     const wall = wallOf("2026-08-22T09:30:00", "Asia/Jakarta");
     expect(equalTimestamp(instant, instant)).toBe(true);
     expect(equalTimestamp(instant, wall)).toBe(false);
+  });
+});
+
+describe("asInstant", () => {
+  it("converts wall JSON to UTC fact", () => {
+    const ts = asInstant(
+      {
+        kind: "wall",
+        local: "2026-09-24T12:00:00",
+        timezone: "Asia/Jakarta",
+      },
+      "Asia/Jakarta",
+    );
+    expect(ts.kind).toBe("instant");
+    expect(ts.instant).toBe("2026-09-24T05:00:00Z");
+    expect(ts.timezone).toBe("Asia/Jakarta");
+  });
+
+  it("passes instant JSON through instantOf", () => {
+    const ts = asInstant(
+      {
+        kind: "instant",
+        instant: "2026-08-22T02:30:00Z",
+        timezone: "Asia/Jakarta",
+      },
+      "UTC",
+    );
+    expect(ts.instant).toBe("2026-08-22T02:30:00Z");
+    expect(ts.timezone).toBe("Asia/Jakarta");
+  });
+
+  it("uses now(timezone) when input is undefined", () => {
+    setClock(() => Temporal.Instant.from("2026-01-15T12:00:00Z"));
+    expect(asInstant(undefined, "UTC").instant).toBe("2026-01-15T12:00:00Z");
+    resetClock();
   });
 });
 
