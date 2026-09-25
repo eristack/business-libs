@@ -12,6 +12,8 @@ export default defineConfig({
     "src/workshop/index.ts",
     "src/express/index.ts",
     "src/nest/index.ts",
+    "src/ports/index.ts",
+    "src/client/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,

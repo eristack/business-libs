@@ -350,7 +350,7 @@ export const recipes = [
       "comparewallvalues",
       "decimal string"
     ],
-    "rationale": "Use @eristack/data-grid for schema-aware list queries. For decimal money columns (unitPrice, amounts as strings) set schema type decimal or money — applyInMemory sort/filter without Number(). Use type number only for true numeric columns (qty counts). Prefer advanced filters and search mode as separate modes.",
+    "rationale": "Use @eristack/data-grid for schema-aware list queries. For decimal money columns (unitPrice, amounts as strings) set schema type decimal or money — applyInMemory sort/filter without Number(). Use type number only for true numeric columns (qty counts). Prefer advanced filters and search mode as separate modes. Skip data-grid on tiny household registers (~20 rows) — Query + table only.",
     "packages": [
       {
         "name": "@eristack/data-grid",
@@ -953,6 +953,60 @@ export const recipes = [
         "name": "@eristack/money",
         "skills": [
           "money-amounts"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "household-ledger",
+    "title": "Household cashbook / ledger-first spine",
+    "priority": 11,
+    "triggers": [
+      "household ledger",
+      "cashbook",
+      "personal finance",
+      "household accounts",
+      "journal posting",
+      "general ledger cashbook"
+    ],
+    "rationale": "Load @eristack/ai-knowledge#ledger-first and read knowledge/ledger-first.md only. financial-ledger + money + timestamp + fiscal-calendar + epoch — not qups or document-lines-erp.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#ledger-first"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/financial-ledger",
+        "skills": [
+          "financial-ledger-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-ledger"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/timestamp",
+        "skills": [
+          "timestamp-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/fiscal-calendar",
+        "skills": [
+          "fiscal-calendar-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/epoch",
+        "skills": [
+          "epoch-core"
         ],
         "role": "supporting"
       }

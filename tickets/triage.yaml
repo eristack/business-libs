@@ -53,57 +53,45 @@ done:
   - rank: 12
     file: 20260925-201506-suggestion-express-map-domain-error-unified-adapter-s9t0u1.md
     notes: "@eristack/backseat/express + /nest createMapDomainError"
+  - rank: 13
+    file: 20260925-201505-suggestion-document-store-port-aligned-with-backseat-p6q7r8.md
+    notes: CollectionDocumentStore + @eristack/backseat/ports
+  - rank: 14
+    file: 20260925-201507-suggestion-workshop-transport-client-dual-target-v2w3x4.md
+    notes: createWorkshopClient @eristack/backseat/client
+  - rank: 15
+    file: 20260925-201509-suggestion-recommend-suppress-stock-gl-document-lines-b8c9d0.md
+    notes: "recommend product document-lines-erp suppresses stock/GL"
+  - rank: 16
+    file: 20260925-163614-suggestion-catalog-note-skip-data-grid-on-tiny-household-re-3812f9.md
+    notes: data-grid skill + recipe guardrail
+  - rank: 17
+    file: 20260925-163606-suggestion-calendar-year-open-periods-bootstrap-factory-e5b684.md
+    notes: createCalendarYearCalendar + PeriodMissingError
+  - rank: 18
+    file: 20260925-163607-suggestion-ledger-first-architecture-recipe-and-recommend-r-63d850.md
+    notes: knowledge/ledger-first.md + household-ledger recipe
+  - rank: 19
+    file: 20260925-163607-suggestion-one-epoch-per-aggregate-recipe-for-tanstack-quer-5aa09b.md
+    notes: epoch-core skill one-epoch-per-aggregate section
+  - rank: 20
+    file: 20260925-163606-suggestion-vite-express-login-path-wiring-example-5b83a9.md
+    notes: jwt-auth dual-target Vite proxy table
+  - rank: 21
+    file: 20260925-163555-suggestion-express-5-mount-via-dispatch-instead-of-splat-ca-90fba8.md
+    notes: mountExpressRest + createExpressRestMiddleware
+  - rank: 22
+    file: 20260925-163613-suggestion-recipe-masters-are-not-pbac-documents-191567.md
+    notes: opinion-core + ledger-first masters guidance
+  - rank: 23
+    file: 20260925-201504-suggestion-drizzle-app-spine-bootstrap-bundle-m3n4o5.md
+    notes: ADR deferred — backseat-then-backend section only
+  - rank: 24
+    file: 20260925-163607-suggestion-propose-eristack-chart-posting-tree-capability-01a5dd.md
+    notes: ledger-first roadmap note (app-owned COA until capability)
 
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
-stack:
-  - rank: 13
-    priority: P2
-    file: 20260925-201505-suggestion-document-store-port-aligned-with-backseat-p6q7r8.md
-    notes: Horizon B — document store port types
-  - rank: 14
-    priority: P2
-    file: 20260925-201507-suggestion-workshop-transport-client-dual-target-v2w3x4.md
-    notes: Horizon B — workshop fetch client pattern
-  - rank: 15
-    priority: P2
-    file: 20260925-201509-suggestion-recommend-suppress-stock-gl-document-lines-b8c9d0.md
-    notes: Horizon B — recommend() product profile (document-with-lines)
-  - rank: 16
-    priority: P2
-    file: 20260925-163614-suggestion-catalog-note-skip-data-grid-on-tiny-household-re-3812f9.md
-    notes: household — tiny app recipe guardrails
-  - rank: 17
-    priority: P2
-    file: 20260925-163606-suggestion-calendar-year-open-periods-bootstrap-factory-e5b684.md
-    notes: household — fiscal-calendar bootstrap (package may be roadmap)
-  - rank: 18
-    priority: P2
-    file: 20260925-163607-suggestion-ledger-first-architecture-recipe-and-recommend-r-63d850.md
-    notes: household — ledger-first recipe (partial)
-  - rank: 19
-    priority: P2
-    file: 20260925-163607-suggestion-one-epoch-per-aggregate-recipe-for-tanstack-quer-5aa09b.md
-    notes: household — epoch cache recipe (partial)
-  - rank: 20
-    priority: P2
-    file: 20260925-163606-suggestion-vite-express-login-path-wiring-example-5b83a9.md
-    notes: household — jwt-auth + Vite proxy example (partial)
-  - rank: 21
-    priority: P2
-    file: 20260925-163555-suggestion-express-5-mount-via-dispatch-instead-of-splat-ca-90fba8.md
-    notes: household — @eristack/rest Express 5 mount pattern (partial)
-  - rank: 22
-    priority: P2
-    file: 20260925-163613-suggestion-recipe-masters-are-not-pbac-documents-191567.md
-    notes: household — opinion/recipe clarity for master data
-  - rank: 23
-    priority: P3
-    file: 20260925-201504-suggestion-drizzle-app-spine-bootstrap-bundle-m3n4o5.md
-    notes: needs-decision — spine drizzle bundle; maintainer ADR before implement
-  - rank: 24
-    priority: P3
-    file: 20260925-163607-suggestion-propose-eristack-chart-posting-tree-capability-01a5dd.md
-    notes: household — new capability horizon (partial); not blocking consumers
+stack: []
 
 backlog:
   - tier: horizon-a-residual

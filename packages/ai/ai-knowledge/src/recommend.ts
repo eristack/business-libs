@@ -1,10 +1,16 @@
 import { catalog } from "./generated/catalog.js";
 import { localSkills } from "./generated/local-skills.js";
 import { recipes } from "./generated/recipes.js";
+import {
+  applyDocumentLinesProductProfile,
+  documentLinesProductNote,
+  DOCUMENT_LINES_SUPPRESSED_PACKAGES,
+} from "./product-profiles.js";
 import type {
   KnowledgeCatalog,
   LoadPlan,
   LoadPlanStep,
+  RecommendOptions,
   RecommendationMatch,
   RecommendationResult,
   Recipe,
@@ -55,9 +61,12 @@ export function listRecipes(): Recipe[] {
   return recipes;
 }
 
-export function recommend(input: string | string[]): RecommendationResult {
+export function recommend(
+  input: string | string[],
+  options?: RecommendOptions,
+): RecommendationResult {
   const tokens = normalizeInput(input);
-  const matches = recipes
+  let matches = recipes
     .map((recipe) => scoreRecipe(recipe, tokens))
     .filter((match): match is RecommendationMatch => match !== null)
     .sort((a, b) => {
@@ -67,6 +76,15 @@ export function recommend(input: string | string[]): RecommendationResult {
       }
       return a.recipe.id.localeCompare(b.recipe.id);
     });
+
+  let productNote: string | null = null;
+  if (options?.product === "document-lines-erp") {
+    const before = matches.length;
+    matches = applyDocumentLinesProductProfile(matches, tokens);
+    if (matches.length < before) {
+      productNote = documentLinesProductNote();
+    }
+  }
 
   const covered = new Set(
     matches.flatMap((match) => match.matchedTriggers),
@@ -102,6 +120,7 @@ export function recommend(input: string | string[]): RecommendationResult {
         : unmatchedUnique.length > 0
           ? "Some goals had no Eristack recipe. Keep matched @eristack packages first; implement unmatched goals in app code."
           : null,
+    productNote,
   };
 }
 
@@ -161,11 +180,12 @@ function appendStep(
 
 export function loadPlan(
   input: string | string[] | RecommendationResult,
+  options?: RecommendOptions,
 ): LoadPlan {
   const result =
     typeof input === "object" && input !== null && "matches" in input
       ? input
-      : recommend(input);
+      : recommend(input, options);
 
   const steps: LoadPlanStep[] = [];
   const indexByKey = new Map<string, number>();
@@ -200,5 +220,10 @@ export function loadPlan(
     input: result.input,
     steps,
     unmatched: result.unmatched,
+    productNote: result.productNote ?? null,
+    suppressedPackages:
+      result.productNote != null
+        ? [...DOCUMENT_LINES_SUPPRESSED_PACKAGES]
+        : undefined,
   };
 }

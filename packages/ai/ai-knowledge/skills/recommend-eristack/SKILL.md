@@ -33,6 +33,12 @@ import { recommend, loadPlan } from "@eristack/ai-knowledge";
 
 const result = recommend(["invoices", "login", "document numbers"]);
 const plan = loadPlan(result);
+
+// Document-with-lines ERP — suppress default stock/GL recipes:
+const docLines = recommend(["forwarding", "freight"], {
+  product: "document-lines-erp",
+});
+const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 ```
 
 ## Hard rules

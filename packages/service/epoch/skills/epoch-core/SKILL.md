@@ -37,6 +37,12 @@ compareEpochs(clientEpoch, serverEpoch); // "use-cache" | "refetch"
 
 Production: `@eristack/epoch/drizzle` — see `#epoch-adapters`.
 
+## One epoch per aggregate (Query apps)
+
+- Name scopes after aggregate roots (`household.accounts`, `household.transactions`) — not one global counter for the whole app.
+- After each successful write: `await epoch.bump(scope)` then invalidate TanStack Query keys that read that aggregate.
+- Reads: pass client epoch into `resolveCachePolicy`; on `STALE_EPOCH` refetch — do not ship a React Query hook package.
+
 ## Stale epoch logging
 
 ```ts

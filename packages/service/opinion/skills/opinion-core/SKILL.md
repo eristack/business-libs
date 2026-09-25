@@ -31,6 +31,8 @@ const router = createOpinionRouter({
 
 `:action` names must match `@eristack/doc-transitions` graphs (`post`, `submit`, `approve`, …). Guard with `@eristack/pbac` `authorize` before mutating.
 
+**Masters are not documents:** chart accounts, categories, money instruments, and partner stubs in cashbook apps use normal CRUD + epoch — not opinion `PATCH /:id/:action` or pbac on every master PATCH. See `@eristack/ai-knowledge#ledger-first`.
+
 ## Checklist
 
 1. `createDocumentRoutes({ basePath, handlers })` — omit roles you do not implement yet.

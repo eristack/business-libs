@@ -112,6 +112,26 @@
         "types": "./dist/nest/index.d.ts",
         "default": "./dist/nest/index.cjs"
       }
+    },
+    "./ports": {
+      "import": {
+        "types": "./dist/ports/index.d.ts",
+        "default": "./dist/ports/index.js"
+      },
+      "require": {
+        "types": "./dist/ports/index.d.ts",
+        "default": "./dist/ports/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.cjs"
+      }
     }
   },
   "files": [

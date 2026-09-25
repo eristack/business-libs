@@ -61,5 +61,12 @@ export type {
   TransactionalStore,
 } from "./core/types.js";
 
+export {
+  asCollectionDocumentStore,
+  type CollectionDocumentStore,
+  type DocumentStore,
+  type DocumentTransactionalStore,
+} from "./ports/document-store.js";
+
 /** @deprecated Use createBackseat — kept for transitional imports. */
 export const BACKSEAT_PACKAGE = "@eristack/backseat" as const;

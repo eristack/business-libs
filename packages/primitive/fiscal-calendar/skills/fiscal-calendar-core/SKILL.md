@@ -24,9 +24,23 @@ const period = findPeriodForDate(cal, wallOf("2026-01-15T00:00:00", "Asia/Jakart
 assertPeriodOpen(period!);
 ```
 
+## Bootstrap (calendar-year)
+
+```ts
+import { createCalendarYearCalendar, PeriodMissingError, PERIOD_MISSING_CODE } from "@eristack/fiscal-calendar";
+
+const cal = createCalendarYearCalendar({
+  id: "household",
+  timezone: "Asia/Jakarta",
+  years: [2025, 2026, 2027],
+});
+```
+
+Map `PeriodMissingError` / `PERIOD_MISSING_CODE` in Express via `@eristack/backseat/express` or app mapper.
+
 ## Checklist
 
-1. Store calendar definition in Drizzle — app seeds periods (monthly, 4-4-5, etc.).
+1. Store calendar definition in Drizzle — app seeds periods (monthly, 4-4-5, etc.) or use `createCalendarYearCalendar` for cashbook bootstrap.
 2. `createFiscalCalendar` on load — catches overlapping periods per fiscal year.
 3. Posting guard: `wallOf(localDate + "T00:00:00", calendar.timezone)` → `findPeriodForDate` → `assertPeriodOpen` before GL post.
 4. Period close HTTP: `@eristack/doc-transitions` `lockGraph` + handler sets `status: "closed"` — map `locked`/`unlocked` to `closed`/`open`.

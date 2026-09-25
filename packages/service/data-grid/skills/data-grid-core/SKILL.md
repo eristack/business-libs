@@ -29,6 +29,11 @@ const search = toSearch(query);
 const again = fromSearch(search, schema);
 ```
 
+## Do not use data-grid when
+
+- Tiny household registers (~20 rows) — TanStack Query + a table is enough; skip HTTP list adapters and `createDataGrid` unless filters/sorts grow.
+- Single static list with no URL-synced filters — plain `useQuery` + sort in memory.
+
 ## Contract
 
 - Schema is an **allow-list** (filterable / sortable / searchable flags)

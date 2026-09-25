@@ -261,6 +261,16 @@ pnpm backseat:routes:check baseline.json candidate.json
 
 Load `@eristack/backseat/drizzle` + `@eristack/backseat/workshop` for server boot; `@eristack/backseat/testing` for snapshot diff and grid envelope asserts.
 
+### Domain document store port
+
+Hexagonal use cases should depend on **`CollectionDocumentStore`** (alias `DocumentStore`) — same methods as `BackseatStore` list/get/create/update/delete/`atomic`. Import types from `@eristack/backseat` or `@eristack/backseat/ports`; wire `createDrizzleBackseatStore` / IndexedDB as adapters. Do not fork `TransactionalStore` shapes in app domain.
+
+Dual-target React transport: `createWorkshopClient` from `@eristack/backseat/client` (`mode: 'backseat' | 'express'`).
+
+### Drizzle app spine bundle (maintainer ADR)
+
+A single “bootstrap all ERP tables” export is **not** shipped yet — compose per-package Drizzle adapters (`jwt-auth`, `doc-number`, `epoch`, …) until an ADR lands. See ticket tier `needs-decision` in maintainer triage.
+
 ---
 
 ## Graduation checklist
