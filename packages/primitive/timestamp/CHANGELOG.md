@@ -1,5 +1,11 @@
 # @eristack/timestamp
 
+## 0.1.3
+
+### Patch Changes
+
+- b2edcbc: Add `asInstant()` for TimestampJSON at API boundaries. `instantOf()` now throws `TimestampParseError` with a wall-local hint instead of leaking raw Temporal offset errors.
+
 ## 0.1.2
 
 ### Patch Changes

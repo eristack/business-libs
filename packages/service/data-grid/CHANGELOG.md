@@ -1,5 +1,11 @@
 # @eristack/data-grid
 
+## 0.2.6
+
+### Patch Changes
+
+- a3cdd7b: Add `assignmentScopeWhere` (drizzle) for matching ABAC assignment scope in SQL list queries.
+
 ## 0.2.5
 
 ### Patch Changes
