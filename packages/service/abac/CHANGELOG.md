@@ -1,5 +1,11 @@
 # @eristack/abac
 
+## 0.2.4
+
+### Patch Changes
+
+- a3cdd7b: Add `assignmentScopePrefilter` for Role × Branch × Trade list scope on Backseat prefilter paths.
+
 ## 0.2.3
 
 ### Patch Changes

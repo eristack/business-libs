@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.14
+
+### Patch Changes
+
+- a3cdd7b: Add ledger-first canonical guide, household-ledger recipe, and `recommend({ product: 'document-lines-erp' })` profile filtering.
+
 ## 0.1.13
 
 ### Patch Changes

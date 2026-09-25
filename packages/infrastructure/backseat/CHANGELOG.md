@@ -1,5 +1,12 @@
 # @eristack/backseat
 
+## 0.1.8
+
+### Patch Changes
+
+- 4ef9e8c: Add `@eristack/backseat/drizzle` (`createDrizzleBackseatStore` with staged sqlite `atomic()`) and `@eristack/backseat/workshop` (`bootWorkshopServer`).
+- 35b630f: Add `@eristack/backseat/testing` mirror helpers, `pnpm backseat:routes:check`, `@eristack/backseat/express` + `/nest` `createMapDomainError`, `/ports` document store types, and `/client` `createWorkshopClient`.
+
 ## 0.1.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @eristack/rest
 
+## 0.1.3
+
+### Patch Changes
+
+- a3cdd7b: Add `createExpressRestMiddleware` and `mountExpressRest` for Express 5 dispatch mounting without splat routes.
+
 ## 0.1.2
 
 ### Patch Changes
