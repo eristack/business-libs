@@ -1,5 +1,11 @@
 # @eristack/financial-ledger
 
+## 0.2.5
+
+### Patch Changes
+
+- 66b0029: Add `displayBalance` and `signedBalances` for credit-normal chart UI signs after `trialBalance`.
+
 ## 0.2.4
 
 ### Patch Changes

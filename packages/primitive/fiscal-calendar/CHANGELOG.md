@@ -1,5 +1,11 @@
 # @eristack/fiscal-calendar
 
+## 0.1.2
+
+### Patch Changes
+
+- a3cdd7b: Add `createCalendarYearCalendar`, `PeriodMissingError`, and `PERIOD_MISSING_CODE` for cashbook bootstrap.
+
 ## 0.1.1
 
 ### Patch Changes

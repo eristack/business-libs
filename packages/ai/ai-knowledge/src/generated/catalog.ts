@@ -4,11 +4,11 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-25T17:20:49.425Z",
+  "generatedAt": "2026-09-25T17:22:50.660Z",
   "packages": [
     {
       "name": "@eristack/abac",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes",
       "slug": "abac",
       "adapters": [
@@ -128,7 +128,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.7",
+      "version": "0.1.8",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -157,7 +157,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/data-grid",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
       "slug": "data-grid",
       "adapters": [
@@ -283,7 +283,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/financial-ledger",
-      "version": "0.2.4",
+      "version": "0.2.5",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -313,7 +313,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/fiscal-calendar",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Fiscal years and periods with open/closed flags — wall-date boundaries on @eristack/timestamp",
       "slug": "fiscal-calendar",
       "adapters": [
@@ -418,7 +418,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/money",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "description": "Money primitives for Eristack",
       "slug": "money",
       "adapters": [
@@ -622,7 +622,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rest",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit",
       "slug": "rest",
       "adapters": [
@@ -672,7 +672,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/timestamp",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
       "slug": "timestamp",
       "adapters": [
