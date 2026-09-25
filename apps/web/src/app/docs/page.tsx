@@ -1,89 +1,65 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ContentSection } from "@/components/stack/content-section";
-import { DocsHubRecommend } from "@/components/docs-hub-recommend";
-import { DocsHubPaths } from "@/components/docs-hub-paths";
-import { DocsLayerMatrix } from "@/components/docs-layer-matrix";
-import { LayerStrip } from "@/components/stack/layer-strip";
-import { PageHero } from "@/components/stack/page-hero";
-import { getDocPackages } from "@/lib/docs";
+import { pageMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Documentation",
   description:
-    "Guides and API notes for Eristack packages — browse by layer or follow a guided path.",
-};
+    "Eristack library documentation hub — package guides live in the monorepo; full doc browsing is being rebuilt.",
+  path: "/docs",
+});
 
-export default function DocsIndexPage() {
-  const docPackages = getDocPackages();
-  const docSlugs = new Set(docPackages.map((pkg) => pkg.slug));
-
+export default function DocsHubPage() {
   return (
-    <>
-      <PageHero
-        tone="marketing"
-        eyebrow={
-          <span className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-            Documentation
-          </span>
-        }
-        title="Library docs"
-        tagline="Guides live next to the code — pick a path or browse by layer."
-        description="Every page renders markdown from `packages/*/docs` in the monorepo. Use Cmd+K to search titles and body text across all libraries."
-        actions={
-          <>
-            <Button asChild size="lg">
-              <Link href="#layers">
-                Browse by layer
-                <ArrowRight />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/packages">Library overviews</Link>
-            </Button>
-          </>
-        }
-        meta={
-          <div className="flex flex-wrap items-center gap-3 text-[13px] text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card/80 px-3 py-2 font-medium text-foreground/80">
-              <Search className="size-3.5 opacity-60" aria-hidden />
-              <kbd className="font-mono text-[11px]">⌘K</kbd>
-              <span>search docs</span>
-            </span>
-            <span>{docPackages.length} libraries documented</span>
-          </div>
-        }
-        footer={<LayerStrip className="max-w-5xl" />}
-      />
-
-      <ContentSection
-        eyebrow="Agent routing"
-        title="What recommend() suggests"
-        description="Example product language mapped through @eristack/ai-knowledge recipes at build time."
-        tone="card"
-      >
-        <DocsHubRecommend />
-      </ContentSection>
-
-      <ContentSection
-        eyebrow="Guided paths"
-        title="Start with a journey"
-        description="Common integration arcs — each links to the canonical getting-started or upgrade guide."
-        tone="muted"
-      >
-        <DocsHubPaths />
-      </ContentSection>
-
-      <ContentSection
-        id="layers"
-        eyebrow="Layer matrix"
-        title="All libraries"
-        description="Seven layers from primitive value types to AI workflow — open docs for any published package."
-      >
-        <DocsLayerMatrix docSlugs={docSlugs} />
-      </ContentSection>
-    </>
+    <div className="container-page py-16 sm:py-24">
+      <p className="text-sm font-medium text-tertiary">Docs</p>
+      <h1 className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight text-neutral">
+        Documentation hub
+      </h1>
+      <p className="mt-4 max-w-xl text-lg text-muted">
+        Package guides remain the source of truth under{" "}
+        <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+          packages/*/docs
+        </code>
+        . The previous site renderer lives in{" "}
+        <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
+          apps/old-web
+        </code>{" "}
+        while we ship this marketing-first experience.
+      </p>
+      <ul className="mt-10 space-y-4 text-neutral">
+        <li className="card">
+          <p className="font-medium">Read on GitHub</p>
+          <p className="mt-1 text-sm text-muted">
+            Browse markdown guides per package in the business-libs repo.
+          </p>
+          <Link
+            href={siteConfig.github}
+            className="mt-3 inline-block text-sm text-primary hover:underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open repository →
+          </Link>
+        </li>
+        <li className="card">
+          <p className="font-medium">Install from npm</p>
+          <p className="mt-1 text-sm text-muted">
+            Each product page lists the current version and npm link.
+          </p>
+          <Link href="/products" className="mt-3 inline-block text-sm text-primary hover:underline">
+            Browse products →
+          </Link>
+        </li>
+        <li className="card">
+          <p className="font-medium">Agents</p>
+          <p className="mt-1 text-sm text-muted">
+            Load{" "}
+            <code className="font-mono text-xs">@eristack/ai-knowledge#recommend-eristack</code>{" "}
+            before wiring features from scratch.
+          </p>
+        </li>
+      </ul>
+    </div>
   );
 }

@@ -1,13 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { EditorialProseShell } from "@/components/editorial-prose-shell";
 import { Markdown } from "@/components/markdown";
-import { ContentSection } from "@/components/stack/content-section";
-import { PageHero } from "@/components/stack/page-hero";
 import { getBlogPost, listBlogPosts } from "@/lib/blog";
+import { pageMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -17,16 +12,18 @@ export async function generateStaticParams() {
   return listBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return {};
-  return {
+  return pageMetadata({
     title: post.title,
     description: post.description,
-  };
+    path: post.href,
+    type: "article",
+    publishedTime: post.date,
+    authors: [post.author],
+  });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -35,40 +32,26 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   return (
-    <>
-      <PageHero
-        tone="marketing"
-        eyebrow={
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:text-accent"
-          >
-            <ArrowLeft className="size-3.5" />
-            Blog
-          </Link>
-        }
-        title={post.title}
-        tagline={post.description}
-        meta={
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground">
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
-            <span>·</span>
-            <span>{post.author}</span>
-          </div>
-        }
-        actions={
-          <Button asChild variant="outline" size="sm">
-            <Link href="/blog">All posts</Link>
-          </Button>
-        }
-      />
-
-      <ContentSection>
-        <EditorialProseShell>
-          <Markdown content={post.content} />
-        </EditorialProseShell>
-      </ContentSection>
-    </>
+    <article className="container-page py-16 sm:py-20">
+      <Link
+        href="/blog"
+        className="text-sm font-medium text-muted hover:text-neutral"
+      >
+        ← Blog
+      </Link>
+      <header className="mt-6 max-w-3xl">
+        <time dateTime={post.date} className="text-sm text-muted">
+          {formatDate(post.date)} · {post.author}
+        </time>
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral">
+          {post.title}
+        </h1>
+        <p className="mt-4 text-lg text-muted">{post.description}</p>
+      </header>
+      <div className="mt-12 max-w-3xl">
+        <Markdown content={post.content} />
+      </div>
+    </article>
   );
 }
 
@@ -76,7 +59,7 @@ function formatDate(value: string) {
   if (!value) return "";
   return new Intl.DateTimeFormat("en", {
     year: "numeric",
-    month: "short",
+    month: "long",
     day: "numeric",
   }).format(new Date(value));
 }

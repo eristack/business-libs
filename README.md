@@ -40,7 +40,7 @@ Each package has its own README and docs under `packages/<category>/<name>/`. Pl
 
 ## Website
 
-The public site lives in [`apps/web`](./apps/web) (Next.js 16 + Tailwind + shadcn).
+The public site lives in [`apps/web`](./apps/web) (Next.js 16 + Tailwind). The previous doc-heavy site is archived in [`apps/old-web`](./apps/old-web).
 
 **Information architecture:** Libraries (`/packages`) → Layer (`/primitive`, …, `/features`, `/ai`) → Library overview (`/money`, …) → Docs (`/docs/money`, …). Changelogs at `/{slug}/changelog`. Roadmap at [`/roadmap`](./roadmap/README.md).
 

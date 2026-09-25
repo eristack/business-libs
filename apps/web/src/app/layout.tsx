@@ -1,34 +1,19 @@
 import type { Metadata } from "next";
-import {
-  JetBrains_Mono,
-  Newsreader,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
-import Script from "next/script";
-import { CommandMenuHost } from "@/components/command-menu-host";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { ThemeProvider } from "@/components/theme-provider";
-import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const sans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-brand-sans",
+  variable: "--font-inter",
   display: "swap",
-});
-
-const display = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-brand-display",
-  display: "swap",
-  adjustFontFallback: true,
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-brand-mono",
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
@@ -44,10 +29,18 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     siteName: siteConfig.name,
     type: "website",
+    url: siteConfig.url,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": `${siteConfig.url.replace(/\/$/, "")}/feed.xml`,
+    },
   },
 };
-
-const themeInitScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);document.documentElement.style.colorScheme=d?"dark":"light";}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -55,21 +48,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
-      <body
-        suppressHydrationWarning
-        className={`${sans.variable} ${display.variable} ${mono.variable} min-h-screen font-sans antialiased`}
-      >
-        <Script id="eristack-theme-init" strategy="beforeInteractive">
-          {themeInitScript}
-        </Script>
-        <ThemeProvider>
-          <div className="flex min-h-screen flex-col">
-            <SiteHeader search={<CommandMenuHost />} />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-          </div>
-        </ThemeProvider>
+    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
+      <body className="min-h-dvh flex flex-col">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
