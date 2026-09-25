@@ -1,59 +1,43 @@
 # @eristack/web
 
-Public website for Eristack: landing, marketing, docs, blog, and company pages.
+Marketing-first public site for Eristack (Next.js 16 + Tailwind 4).
 
-## Stack
+## Previous site
 
-- Next.js 16 (App Router, Turbopack) + React 19.2 + TypeScript
-- Tailwind CSS v4 + Inter / JetBrains Mono
-- shadcn/ui primitives
-- Docs from `packages/<category>/*/docs/*.md` (primitive → capability → service → infrastructure → ui → features → AI)
-- Blog from `apps/web/content/blog/*.md`
-- Package versions / changelogs from each package’s `package.json` + `CHANGELOG.md` (`src/lib/package-meta.ts`)
+The prior doc-heavy experience lives in [`../old-web`](../old-web) for reference and gradual porting.
 
-## Develop
+## Dev
+
+From repo root (preferred):
 
 ```bash
-pnpm --filter @eristack/web dev
-# or from root: pnpm web
+pnpm web
+# or: pnpm --filter @eristack/web dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Docs source of truth
-
-Library guides are **not duplicated** here. `apps/web` reads `packages/<category>/*/docs` at build/runtime (`src/lib/docs.ts`). Edit package markdown; the site and Cmd/Ctrl+K search pick it up.
-
-ASCII / layering diagrams stay as plain markdown fences (` ```text `, ` ```ascii `, ` ```diagram `). The docs renderer lifts those into a dedicated **Diagram** panel (system monospace, no Shiki) so box-drawing stays aligned on the web.
-
-## Information architecture
-
-**Libraries** (`/packages`) → **Layer** → **Library overview** → **Docs**. Version badges link to `/{slug}/changelog`.
-
-Shared UI lives under `src/components/stack/` (`PageHero`, `StackChrome`, `LayerStrip`, `PackageStrip`, `LibraryList`, `VersionBadge`, `ReleaseMeta`, …). Layer themes use `data-layer` + CSS variables.
-
-## Routes
-
-| Path | Purpose |
-| --- | --- |
-| `/` | Landing |
-| `/packages` | Libraries index (all layers) |
-| `/primitive`, `/capability`, `/service`, `/infrastructure`, `/ui`, `/features`, `/ai` | Layer landings |
-| `/backseat`, `/multitab`, `/money`, … | Library overviews |
-| `/roadmap`, `/roadmap/[slug]` | Product roadmap (from repo `roadmap/`) |
-| `/{slug}/changelog` | Package changelog (`CHANGELOG.md` when present) |
-| `/docs/...` | Package documentation (from `packages/<category>/*/docs`) |
-| `/blog` | Blog index + posts |
-| `/support` | Support, enterprise, partners |
-| `/story` | Origin story |
-| `/philosophy` | Product tenets |
-| `/maintainers` | Maintainers |
-
-**Search:** Cmd/Ctrl+K (or the Search control in the navbar) — includes layers, libraries, docs, and changelogs.
-
-## Build
+From this directory use **pnpm**, not npm (workspace deps live at the monorepo root):
 
 ```bash
-pnpm --filter @eristack/web build
-pnpm --filter @eristack/web start
+cd apps/web && pnpm dev
 ```
+
+Dev binds to **http://127.0.0.1:3000**. Default **`pnpm dev` uses webpack** (`--webpack`) because Next 16 Turbopack can panic while compiling `/` (`inner_of_upper_lost_follower` — upstream bug). Opt into Turbopack with `pnpm dev:turbo` when you want to test it.
+
+**Won’t start / stuck on “Compiling /”?**
+
+1. **Turbopack crash** — use `pnpm dev` (webpack), not `next dev` alone. Then `pnpm dev:clean` and retry.
+2. **Port in use** — `lsof -i :3000`, kill the PID, or `pnpm dev:3001`.
+3. **Stale dev lock** — `pnpm dev:clean`, kill leftover node on 3000, `pnpm dev`.
+4. **Root `pnpm dev`** — monorepo Turbo watches all packages; use `pnpm web` for this app only.
+
+## Content
+
+- Blog: `content/blog/*.md` (frontmatter: title, description, date, author)
+- Package registry for `docs:check`: `src/lib/site.ts` (sync via `pnpm docs:sync`)
+
+## Design
+
+- Fonts: Inter, JetBrains Mono
+- **Themes:** system default (respects OS), toggle in header (system → light → dark). Soft light canvas `#e9edf3` / surfaces `#f3f5f8`; dark canvas `#11151d` / surfaces `#171b26` / `#1e2433`.
+- Accents: primary `#10b981`, secondary `#6366f1`, tertiary `#f59e0b`
+- Nav: Products · Story · Sponsor · Services · Blog · Docs; home has feedback, adopters, tech stack

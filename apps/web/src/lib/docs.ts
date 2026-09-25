@@ -10,11 +10,9 @@ export type DocMeta = {
   description?: string;
   slug: string;
   href: string;
-  /** Repo-relative path — package docs are the source of truth. */
   sourcePath: string;
 };
 
-/** Sidebar grouping — synced into each package docs/_meta.json via `pnpm docs:sync`. */
 export type DocMetaSection = {
   label: string;
   pages: string[];
@@ -102,10 +100,12 @@ function titleFromMeta(packageSlug: string, slug: string, fallback: string) {
 }
 
 export function getDocPackages() {
-  return packages.map((pkg) => ({
-    ...pkg,
-    pages: listDocs(pkg.slug),
-  }));
+  return packages
+    .map((pkg) => ({
+      ...pkg,
+      pages: listDocs(pkg.slug),
+    }))
+    .filter((pkg) => pkg.pages.length > 0);
 }
 
 export function listDocs(packageSlug: DocPackageSlug): DocMeta[] {
@@ -156,8 +156,9 @@ export function listDocs(packageSlug: DocPackageSlug): DocMeta[] {
   return ordered;
 }
 
-/** Sidebar sections from synced _meta.json — run `pnpm docs:sync` after adding pages. */
-export function listDocNavSections(packageSlug: DocPackageSlug): DocNavSection[] {
+export function listDocNavSections(
+  packageSlug: DocPackageSlug,
+): DocNavSection[] {
   const pages = listDocs(packageSlug);
   const catalog = readDocCatalogMeta(packageSlug);
   const sections = catalog?.sections ?? [];

@@ -1,89 +1,95 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ContentSection } from "@/components/stack/content-section";
-import { DocsHubRecommend } from "@/components/docs-hub-recommend";
-import { DocsHubPaths } from "@/components/docs-hub-paths";
-import { DocsLayerMatrix } from "@/components/docs-layer-matrix";
-import { LayerStrip } from "@/components/stack/layer-strip";
-import { PageHero } from "@/components/stack/page-hero";
 import { getDocPackages } from "@/lib/docs";
+import { pageMetadata } from "@/lib/seo";
+import { packageCategories } from "@/lib/site";
+import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Documentation",
   description:
-    "Guides and API notes for Eristack packages — browse by layer or follow a guided path.",
-};
+    "Package guides from the monorepo — pick a library in the sidebar, or start with Get started for agent-driven setup.",
+  path: "/docs",
+});
 
-export default function DocsIndexPage() {
+export default function DocsHubPage() {
   const docPackages = getDocPackages();
   const docSlugs = new Set(docPackages.map((pkg) => pkg.slug));
 
   return (
-    <>
-      <PageHero
-        tone="marketing"
-        eyebrow={
-          <span className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-            Documentation
-          </span>
-        }
-        title="Library docs"
-        tagline="Guides live next to the code — pick a path or browse by layer."
-        description="Every page renders markdown from `packages/*/docs` in the monorepo. Use Cmd+K to search titles and body text across all libraries."
-        actions={
-          <>
-            <Button asChild size="lg">
-              <Link href="#layers">
-                Browse by layer
-                <ArrowRight />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/packages">Library overviews</Link>
-            </Button>
-          </>
-        }
-        meta={
-          <div className="flex flex-wrap items-center gap-3 text-[13px] text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card/80 px-3 py-2 font-medium text-foreground/80">
-              <Search className="size-3.5 opacity-60" aria-hidden />
-              <kbd className="font-mono text-[11px]">⌘K</kbd>
-              <span>search docs</span>
-            </span>
-            <span>{docPackages.length} libraries documented</span>
+    <div className="border-b border-border">
+      <div className="container-page py-14 sm:py-16">
+        <p className="text-sm font-medium text-primary">Documentation</p>
+        <h1 className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight text-foreground">
+          Library guides
+        </h1>
+        <p className="mt-4 max-w-xl text-lg text-muted">
+          Markdown lives next to each package under{" "}
+          <code className="rounded bg-surface-raised px-1.5 py-0.5 font-mono text-sm text-secondary">
+            packages/*/docs
+          </code>
+          . Open a library to browse pages in the sidebar — same source the site
+          renders in production.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/get-started" className="btn btn-primary">
+            Get started with agents
+          </Link>
+          <a
+            href={siteConfig.github}
+            className="btn btn-outline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Browse on GitHub
+          </a>
+        </div>
+      </div>
+
+      <div className="border-t border-border bg-surface-raised">
+        <div className="container-page py-12 sm:py-16">
+          <h2 className="text-lg font-semibold text-foreground">By layer</h2>
+          <div className="mt-8 space-y-10">
+            {packageCategories.map((category) => {
+              const items = docPackages.filter(
+                (pkg) => pkg.category === category.id,
+              );
+              if (items.length === 0) return null;
+
+              return (
+                <section key={category.id}>
+                  <h3 className="text-sm font-semibold text-primary">
+                    {category.label}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted">{category.tagline}</p>
+                  <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    {items.map((pkg) => (
+                      <li key={pkg.slug}>
+                        <Link
+                          href={`/docs/${pkg.slug}`}
+                          className="block rounded-xl border border-border bg-surface px-4 py-3 transition-colors hover:border-primary/30 hover:bg-surface-raised"
+                        >
+                          <span className="font-medium text-foreground">
+                            {pkg.title}
+                          </span>
+                          <span className="mt-0.5 block font-mono text-[11px] text-muted">
+                            {pkg.name}
+                          </span>
+                          <span className="mt-1 block text-xs text-muted">
+                            {pkg.pages.length} pages
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })}
           </div>
-        }
-        footer={<LayerStrip className="max-w-5xl" />}
-      />
-
-      <ContentSection
-        eyebrow="Agent routing"
-        title="What recommend() suggests"
-        description="Example product language mapped through @eristack/ai-knowledge recipes at build time."
-        tone="card"
-      >
-        <DocsHubRecommend />
-      </ContentSection>
-
-      <ContentSection
-        eyebrow="Guided paths"
-        title="Start with a journey"
-        description="Common integration arcs — each links to the canonical getting-started or upgrade guide."
-        tone="muted"
-      >
-        <DocsHubPaths />
-      </ContentSection>
-
-      <ContentSection
-        id="layers"
-        eyebrow="Layer matrix"
-        title="All libraries"
-        description="Seven layers from primitive value types to AI workflow — open docs for any published package."
-      >
-        <DocsLayerMatrix docSlugs={docSlugs} />
-      </ContentSection>
-    </>
+          {docSlugs.size === 0 ? (
+            <p className="text-muted">No published docs found in the monorepo.</p>
+          ) : null}
+        </div>
+      </div>
+    </div>
   );
 }

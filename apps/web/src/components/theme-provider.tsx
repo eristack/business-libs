@@ -7,66 +7,75 @@ import {
   useEffect,
   useMemo,
   useState,
-  type ReactNode,
 } from "react";
 import {
-  THEME_STORAGE_KEY,
   applyTheme,
+  cycleTheme as nextTheme,
+  getSystemTheme,
+  resolveTheme,
+  THEME_STORAGE_KEY,
+  type ResolvedTheme,
   type Theme,
 } from "@/lib/theme";
 
 type ThemeContextValue = {
   theme: Theme;
+  resolved: ResolvedTheme;
   setTheme: (theme: Theme) => void;
   cycleTheme: () => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const CYCLE: Theme[] = ["system", "light", "dark"];
+function readStoredTheme(): Theme {
+  try {
+    const raw = localStorage.getItem(THEME_STORAGE_KEY);
+    if (raw === "light" || raw === "dark" || raw === "system") return raw;
+  } catch {
+    /* ignore */
+  }
+  return "system";
+}
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("system");
+  const [resolved, setResolved] = useState<ResolvedTheme>("dark");
 
-  useEffect(() => {
-    const stored = window.localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-    if (stored === "light" || stored === "dark" || stored === "system") {
-      setThemeState(stored);
-      applyTheme(stored);
-    } else {
-      applyTheme("system");
+  const setTheme = useCallback((next: Theme) => {
+    setThemeState(next);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch {
+      /* ignore */
     }
+    applyTheme(next);
+    setResolved(resolveTheme(next));
   }, []);
 
+  const cycleTheme = useCallback(() => {
+    setTheme(nextTheme(theme));
+  }, [setTheme, theme]);
+
   useEffect(() => {
+    const stored = readStoredTheme();
+    setThemeState(stored);
+    applyTheme(stored);
+    setResolved(resolveTheme(stored));
+
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = () => {
-      const stored = window.localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-      if (!stored || stored === "system") applyTheme("system");
+      if (readStoredTheme() === "system") {
+        applyTheme("system");
+        setResolved(getSystemTheme());
+      }
     };
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
   }, []);
 
-  const setTheme = useCallback((next: Theme) => {
-    setThemeState(next);
-    window.localStorage.setItem(THEME_STORAGE_KEY, next);
-    applyTheme(next);
-  }, []);
-
-  const cycleTheme = useCallback(() => {
-    setThemeState((current) => {
-      const index = CYCLE.indexOf(current);
-      const next = CYCLE[(index + 1) % CYCLE.length] ?? "system";
-      window.localStorage.setItem(THEME_STORAGE_KEY, next);
-      applyTheme(next);
-      return next;
-    });
-  }, []);
-
   const value = useMemo(
-    () => ({ theme, setTheme, cycleTheme }),
-    [theme, setTheme, cycleTheme],
+    () => ({ theme, resolved, setTheme, cycleTheme }),
+    [theme, resolved, setTheme, cycleTheme],
   );
 
   return (
@@ -80,4 +89,13 @@ export function useTheme() {
     throw new Error("useTheme must be used within ThemeProvider");
   }
   return ctx;
+}
+
+/** False until after mount — keeps theme-dependent SVG/styles off the SSR snapshot. */
+export function useMounted() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
 }

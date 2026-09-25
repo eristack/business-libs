@@ -1,8 +1,7 @@
 "use client";
 
 import { Monitor, Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/theme-provider";
+import { useMounted, useTheme } from "@/components/theme-provider";
 import type { Theme } from "@/lib/theme";
 
 const LABELS: Record<Theme, string> = {
@@ -12,24 +11,26 @@ const LABELS: Record<Theme, string> = {
 };
 
 export function ThemeToggle() {
+  const mounted = useMounted();
   const { theme, cycleTheme } = useTheme();
+  const label = mounted ? LABELS[theme] : LABELS.system;
 
   return (
-    <Button
+    <button
       type="button"
-      variant="ghost"
-      size="icon"
-      aria-label={`${LABELS[theme]}. Click to cycle theme.`}
-      title={LABELS[theme]}
+      className="inline-flex size-9 items-center justify-center rounded-lg text-muted transition-colors hover:bg-foreground/10 hover:text-foreground"
+      aria-label={`${label}. Click to cycle.`}
+      title={label}
       onClick={cycleTheme}
+      suppressHydrationWarning
     >
-      {theme === "light" ? (
-        <Sun />
-      ) : theme === "dark" ? (
-        <Moon />
+      {!mounted || theme === "system" ? (
+        <Monitor className="size-[18px]" aria-hidden />
+      ) : theme === "light" ? (
+        <Sun className="size-[18px]" aria-hidden />
       ) : (
-        <Monitor />
+        <Moon className="size-[18px]" aria-hidden />
       )}
-    </Button>
+    </button>
   );
 }

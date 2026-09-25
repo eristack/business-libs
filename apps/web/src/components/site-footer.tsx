@@ -1,108 +1,73 @@
 import Link from "next/link";
-import { BrandMark } from "@/components/brand-mark";
-import { companyNav, primaryNav, siteConfig } from "@/lib/site";
+import { BrandLogo } from "@/components/brand-logo";
+import { siteConfig } from "@/lib/site-config";
 
 export function SiteFooter() {
   return (
-    <footer className="no-print border-t border-border bg-card">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
+    <footer className="mt-24 border-t border-border bg-surface">
+      <div className="container-page grid gap-10 py-14 md:grid-cols-3">
         <div>
-          <BrandMark size="sm" showWordmark href="/" />
-          <p className="mt-4 max-w-xs text-[13px] leading-6 text-muted-foreground">
-            {siteConfig.tagline}. A subsidiary of{" "}
-            <a
-              href={siteConfig.erista}
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium text-foreground hover:text-accent"
-            >
-              erista.id
-            </a>
-            .
+          <p className="text-lg font-semibold text-foreground">{siteConfig.name}</p>
+          <p className="mt-2 max-w-sm text-sm text-muted">
+            {siteConfig.tagline}. Open source on GitHub, published on npm as
+            @eristack/*.
           </p>
         </div>
-
-        <FooterColumn title="Product" links={[...primaryNav]} />
-        <FooterColumn title="Company" links={[...companyNav]} />
-        <div>
-          <p className="text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">
-            Connect
-          </p>
-          <ul className="mt-3 space-y-2 text-[13px] text-muted-foreground">
-            <li>
-              <a
-                href={siteConfig.github}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-foreground"
-              >
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a
-                href={siteConfig.npmOrg}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-foreground"
-              >
-                npm
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${siteConfig.supportEmail}`}
-                className="hover:text-foreground"
-              >
-                {siteConfig.supportEmail}
-              </a>
-            </li>
-          </ul>
+        <div className="flex flex-col gap-2 text-sm">
+          <p className="font-medium text-foreground">Explore</p>
+          <Link href="/get-started" className="text-muted hover:text-foreground">
+            Get started
+          </Link>
+          <Link href="/products" className="text-muted hover:text-foreground">
+            Products
+          </Link>
+          <Link href="/story" className="text-muted hover:text-foreground">
+            Story
+          </Link>
+          <Link href="/sponsor" className="text-muted hover:text-foreground">
+            Sponsors
+          </Link>
+          <Link href="/support" className="text-muted hover:text-foreground">
+            Enterprise & consultation
+          </Link>
+          <Link href="/blog" className="text-muted hover:text-foreground">
+            Blog
+          </Link>
+          <Link href="/docs" className="text-muted hover:text-foreground">
+            Docs
+          </Link>
+        </div>
+        <div className="flex flex-col gap-2 text-sm">
+          <p className="font-medium text-foreground">Connect</p>
+          <a
+            href={siteConfig.github}
+            className="inline-flex items-center gap-2 text-muted hover:text-foreground"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <BrandLogo icon="github" size={16} variant="brand" />
+            GitHub
+          </a>
+          <a
+            href={siteConfig.npmOrg}
+            className="inline-flex items-center gap-2 text-muted hover:text-foreground"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <BrandLogo icon="npm" size={16} variant="brand" />
+            npm
+          </a>
+          <a
+            href={`mailto:${siteConfig.supportEmail}`}
+            className="text-muted hover:text-foreground"
+          >
+            {siteConfig.supportEmail}
+          </a>
         </div>
       </div>
-      <div className="border-t border-border">
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-4 sm:px-6">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} {siteConfig.name}
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Part of{" "}
-            <a
-              href={siteConfig.erista}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground"
-            >
-              Erista
-            </a>
-          </p>
-        </div>
+      <div className="border-t border-border py-6 text-center text-xs text-muted">
+        © {new Date().getFullYear()} {siteConfig.name}
       </div>
     </footer>
-  );
-}
-
-function FooterColumn({
-  title,
-  links,
-}: {
-  title: string;
-  links: ReadonlyArray<{ href: string; label: string }>;
-}) {
-  return (
-    <div>
-      <p className="text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">
-        {title}
-      </p>
-      <ul className="mt-3 space-y-2 text-[13px] text-muted-foreground">
-        {links.map((link) => (
-          <li key={`${title}-${link.href}`}>
-            <Link href={link.href} className="hover:text-foreground">
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

@@ -1,0 +1,1449 @@
+export const siteConfig = {
+  name: "Eristack",
+  tagline: "Enterprise business libraries for TypeScript",
+  description:
+    "Open enterprise libraries for money, timestamps, auth, document numbers, AI workflow, and the other domain building blocks business stacks take for granted.",
+  url: "https://eristack.dev",
+  github: "https://github.com/eristack/business-libs",
+  org: "https://github.com/eristack",
+  npmOrg: "https://www.npmjs.com/org/eristack",
+  erista: "https://erista.id",
+  supportEmail: "support@eristack.dev",
+  partnersEmail: "partners@eristack.dev",
+} as const;
+
+/** Display / filesystem order: primitive → capability → service → infrastructure → ui → features → ai */
+export const packageCategories = [
+  {
+    id: "primitive",
+    label: "Primitive",
+    href: "/primitive",
+    tagline: "Domain value types you can trust in a ledger.",
+    description:
+      "Core domain value types — money, timestamps, units, percents, fiscal periods, addresses, and other pure calculation building blocks. Core is framework-free; optional adapters for SQL, HTTP, and forms.",
+    highlights: [
+      {
+        title: "Correct by construction",
+        body: "Currency, scale, and arithmetic rules live in the type — not in scattered helpers.",
+      },
+      {
+        title: "Framework free",
+        body: "Use the same primitive from a Nest service, a React form, or a batch job.",
+      },
+      {
+        title: "Business time",
+        body: "Instant (UTC facts) and wall (local schedules) with IANA zones — DST gaps handled explicitly.",
+      },
+    ],
+  },
+  {
+    id: "capability",
+    label: "Capability",
+    href: "/capability",
+    tagline: "Reusable business capabilities apps compose into products.",
+    description:
+      "Capabilities are opinionated domain features — document numbers, line pricing, status graphs, and more — with optional persistence and thin adapters when you need them.",
+    highlights: [
+      {
+        title: "Compose into products",
+        body: "Drop a capability into an ERP path without adopting a platform.",
+      },
+      {
+        title: "Core stays pure",
+        body: "Token DSLs, sequences, and format rules work without Express or Drizzle.",
+      },
+      {
+        title: "Adapters on demand",
+        body: "Wire REST/Nest/React only where a settings UI or store is required.",
+      },
+    ],
+  },
+  {
+    id: "service",
+    label: "Service",
+    href: "/service",
+    tagline: "Lifecycle services with stores and framework shells.",
+    description:
+      "Services own long-lived flows — sessions, credentials, refresh rotation — while your app still owns users, UX, and infrastructure.",
+    highlights: [
+      {
+        title: "Inject, don’t absorb",
+        body: "Pass your DB, secrets, and host. The library never opens connections for you.",
+      },
+      {
+        title: "Child resources",
+        body: "Credentials and refresh tokens hang off your subjects — not a stolen users table.",
+      },
+      {
+        title: "Thin shells",
+        body: "Express, Nest, and React adapters stay boring so the core stays portable.",
+      },
+    ],
+  },
+  {
+    id: "infrastructure",
+    label: "Infrastructure",
+    href: "/infrastructure",
+    tagline: "Headless runtime glue for apps that deploy anywhere.",
+    description:
+      "Infrastructure packages wire observability, mock backends, and REST shells — without absorbing your domain or database.",
+    highlights: [
+      {
+        title: "Deploy-aware",
+        body: "Structured logging and tracing that read well on Vercel, Fly, or bare metal.",
+      },
+      {
+        title: "Mock without lying",
+        body: "Frontends get a real engine-backed fake backend — not ad-hoc fetch stubs.",
+      },
+      {
+        title: "Thin HTTP shells",
+        body: "Headless route tables mount on Express or Nest — apps own handlers and schemas.",
+      },
+    ],
+  },
+  {
+    id: "ui",
+    label: "UI",
+    href: "/ui",
+    tagline: "Composable React surfaces for dense ERP workspaces.",
+    description:
+      "UI libraries for patterns every operations app repeats — multi-tab workspaces, data-dense chrome, and headless shells over your TanStack stack.",
+    highlights: [
+      {
+        title: "Headless first",
+        body: "Behavior and state live in the package; your design system owns pixels.",
+      },
+      {
+        title: "TanStack-native",
+        body: "Query, Router, and Form assumptions baked in — not fighting your stack.",
+      },
+      {
+        title: "ERP-shaped",
+        body: "Built for document-heavy, multi-entity screens — not marketing sites.",
+      },
+    ],
+  },
+  {
+    id: "features",
+    label: "Features",
+    href: "/features",
+    tagline: "Vertical modules — reserved. Long construction ahead.",
+    description:
+      "Layer 06 holds future @eristack/feature-* packages: cohesive document families on top of the spine. Logger, REST, Backseat, and multitab are alpha — apps compose qups, pbac, doc-number, and friends today; this floor is scaffolding only.",
+    highlights: [
+      {
+        title: "Spine first",
+        body: "Primitives through UI must be production-trusted before any vertical npm package.",
+      },
+      {
+        title: "Under construction",
+        body: "No feature alpha on the roadmap calendar — gates, not dates.",
+      },
+      {
+        title: "Compose today",
+        body: "document-lines-erp and compose-spine recipes — apps own vertical tables until then.",
+      },
+    ],
+  },
+  {
+    id: "ai",
+    label: "AI",
+    href: "/ai",
+    tagline: "Agent knowledge, local workflow, and maintainer tickets.",
+    description:
+      "AI packages help agents recommend the right Eristack libraries, keep project memory local, and generate portable tickets for maintainers — without replacing Intent, git, or your editor.",
+    highlights: [
+      {
+        title: "Recommend first",
+        body: "Route product asks to @eristack packages before inventing another money lib.",
+      },
+      {
+        title: "Local-first memory",
+        body: "FTS + on-device vectors and sprint folders stay on disk.",
+      },
+      {
+        title: "Tickets that travel",
+        body: "Bug and suggestion files consumers can send for an agent fixer-upper.",
+      },
+    ],
+  },
+] as const;
+
+export type PackageCategoryId = (typeof packageCategories)[number]["id"];
+
+export const packageStatuses = ["alpha", "beta", "stable", "coming-soon"] as const;
+export type PackageStatus = (typeof packageStatuses)[number];
+
+export const packages = [
+  {
+    slug: "money",
+    name: "@eristack/money",
+    title: "Money",
+    category: "primitive" as const,
+    directory: "packages/primitive/money",
+    href: "/money",
+    docsHref: "/docs/money",
+    tagline: "String-first amounts for ERP math that must add up.",
+    description:
+      "JSR 354–inspired amounts, totals, tax/discount helpers, rounding, allocation, FX — plus optional adapters: Drizzle (SQL), REST, Zod 4, Express, Nest, client, React.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/money",
+    highlights: [
+      {
+        title: "Never JS number money",
+        body: "Construct with strings or minor units. Binary floats stay out of the ledger.",
+      },
+      {
+        title: "Same-currency arithmetic",
+        body: "Add, subtract, totals, percentages, tax, discount, and markup with explicit rules.",
+      },
+      {
+        title: "Adapter subpaths",
+        body: "Drizzle for SQL columns; REST/Zod for wire JSON; Express/Nest/client/React for HTTP and forms.",
+      },
+    ],
+    sample: {
+      filename: "money.ts",
+      language: "ts",
+      code: `import { Money } from "@eristack/money"
+
+const total = Money.of("19.99", "USD")
+  .add(Money.of("0.10", "USD"))`,
+    },
+  },
+  {
+    slug: "timestamp",
+    name: "@eristack/timestamp",
+    title: "Timestamp",
+    category: "primitive" as const,
+    directory: "packages/primitive/timestamp",
+    href: "/timestamp",
+    docsHref: "/docs/timestamp",
+    tagline: "UTC instants for facts, wall-clock for schedules.",
+    description:
+      "Business time with instant mode (when it happened) and wall mode (when it will happen, DST-safe). Temporal core plus adapters: Drizzle, REST, Zod 4, Express, Nest, client, React — same spine as @eristack/money.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/timestamp",
+    highlights: [
+      {
+        title: "Two explicit modes",
+        body: "instant = UTC fact + IANA zone for local dates. wall = local intent without silent UTC conversion.",
+      },
+      {
+        title: "DST-safe schedules",
+        body: "Store 9:00 Paris as wall local + timezone; resolve to UTC only via wallToInstantOnce.",
+      },
+      {
+        title: "Full adapter spine",
+        body: "Drizzle for SQL columns; REST/Zod for wire JSON; Express/Nest/client/React for HTTP and forms.",
+      },
+    ],
+    sample: {
+      filename: "timestamp.ts",
+      language: "ts",
+      code: `import { instantOf, toLocalDateString, wallOf } from "@eristack/timestamp"
+
+const posted = instantOf("2026-08-22T02:30:00Z", "Asia/Jakarta")
+toLocalDateString(posted)
+
+const due = wallOf("2026-09-15T00:00:00", "Europe/Paris")`,
+    },
+  },
+  {
+    slug: "uom",
+    name: "@eristack/uom",
+    title: "UOM",
+    category: "primitive" as const,
+    directory: "packages/primitive/uom",
+    href: "/uom",
+    docsHref: "/docs/uom",
+    tagline: "Unit-of-measure quantities with fixed-ratio conversion.",
+    description:
+      "Inventory and line quantities as decimal strings plus unit codes — fixed-ratio conversion within a dimension (mass, volume, count, length) without silent float math. Optional ./zod schemas.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/uom",
+    highlights: [
+      {
+        title: "String amounts",
+        body: "1.5 kg → 1500 g without Number() — same discipline as @eristack/money.",
+      },
+      {
+        title: "Extensible catalog",
+        body: "Register app units (box = 12 pcs) alongside built-in SI and count codes.",
+      },
+      {
+        title: "Dimension guards",
+        body: "Reject cross-dimension conversion at convertUom — density rules stay in the app.",
+      },
+    ],
+    sample: {
+      filename: "uom.ts",
+      language: "ts",
+      code: `import { uomQty, convertUom } from "@eristack/uom"
+
+const line = uomQty("1.5", "kg")
+convertUom(line, "g") // { amount: "1500", unit: "g" }`,
+    },
+  },
+  {
+    slug: "percent",
+    name: "@eristack/percent",
+    title: "Percent",
+    category: "primitive" as const,
+    directory: "packages/primitive/percent",
+    href: "/percent",
+    docsHref: "/docs/percent",
+    tagline: "Percent and basis-point ratios as strings — tax, discount, markup.",
+    description:
+      "Rates stored as decimal strings — 0.11 for 11%, basis points for finance tables — with percentOf/plusPercent/minusPercent on string amounts. Complements @eristack/money and @eristack/qups. Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/percent",
+    highlights: [
+      {
+        title: "No float literals",
+        body: 'Parse "11%", "0.11", or basis points — never 0.11 as a JS number for tax.',
+      },
+      {
+        title: "Basis points",
+        body: "Finance-friendly bps input maps to ratio strings for VAT and tier tables.",
+      },
+      {
+        title: "QUPS-ready",
+        body: "Tax and modifier rates as domain values before Money rounding at invoice boundaries.",
+      },
+    ],
+    sample: {
+      filename: "percent.ts",
+      language: "ts",
+      code: `import { parsePercent, percentOf } from "@eristack/percent"
+
+const vat = parsePercent("11%")
+percentOf("100", vat) // "11"`,
+    },
+  },
+  {
+    slug: "fiscal-calendar",
+    name: "@eristack/fiscal-calendar",
+    title: "Fiscal Calendar",
+    category: "primitive" as const,
+    directory: "packages/primitive/fiscal-calendar",
+    href: "/fiscal-calendar",
+    docsHref: "/docs/fiscal-calendar",
+    tagline: "Fiscal years and posting periods with open/closed flags.",
+    description:
+      "Fiscal years and periods on wall local dates (YYYY-MM-DD) in an IANA timezone via @eristack/timestamp — findPeriodForDate, assertPeriodOpen, list open periods. Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/fiscal-calendar",
+    highlights: [
+      {
+        title: "Wall-date boundaries",
+        body: "Posting dates match calendar local dates — not broken by time-of-day UTC offsets.",
+      },
+      {
+        title: "Open vs closed",
+        body: "Gate GL and document posting when a fiscal period is closed.",
+      },
+      {
+        title: "lockGraph pairing",
+        body: "Pair period close with @eristack/doc-transitions for HTTP transition policies.",
+      },
+    ],
+    sample: {
+      filename: "fiscal.ts",
+      language: "ts",
+      code: `import { createFiscalCalendar, findPeriodForDate } from "@eristack/fiscal-calendar"
+
+const cal = createFiscalCalendar({ timezone: "Asia/Jakarta", years: [...] })
+findPeriodForDate(cal, "2026-03-15")`,
+    },
+  },
+  {
+    slug: "address",
+    name: "@eristack/address",
+    title: "Address",
+    category: "primitive" as const,
+    directory: "packages/primitive/address",
+    href: "/address",
+    docsHref: "/docs/address",
+    tagline: "Normalized postal addresses with ISO country codes.",
+    description:
+      "Partner ship-to, bill-to, and print layouts — trim on normalize, ISO 3166-1 alpha-2 country codes, one-line and multi-line formatters. No geocoding. Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/address",
+    highlights: [
+      {
+        title: "Normalize once",
+        body: "Trim fields, uppercase country — same shape for Drizzle insert and API JSON.",
+      },
+      {
+        title: "Print helpers",
+        body: "formatAddressOneLine for labels; formatAddressLines for invoices.",
+      },
+      {
+        title: "Country compare",
+        body: "isSameCountry for tax and freight rules without a countries database.",
+      },
+    ],
+    sample: {
+      filename: "address.ts",
+      language: "ts",
+      code: `import { normalizeAddress, formatAddressOneLine } from "@eristack/address"
+
+const addr = normalizeAddress({
+  line1: " 123 Main St ",
+  locality: "Jakarta",
+  countryCode: "id",
+})
+formatAddressOneLine(addr)`,
+    },
+  },
+  {
+    slug: "doc-number",
+    name: "@eristack/doc-number",
+    title: "Doc Number",
+    category: "capability" as const,
+    directory: "packages/capability/doc-number",
+    href: "/doc-number",
+    docsHref: "/docs/doc-number",
+    tagline: "Token-pattern document numbers with period resets.",
+    description:
+      "Token-pattern document numbers with period resets, FormatStore / SequenceStore, and headless Drizzle / REST / Express / Nest / React format-config adapters.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/doc-number",
+    highlights: [
+      {
+        title: "Token DSL",
+        body: "{YYYY}/{MM}/{SEQ:5} and friends — ERP-friendly formats without a config maze.",
+      },
+      {
+        title: "Sequence stores",
+        body: "Peek and allocate sequences with period resets your domain controls.",
+      },
+      {
+        title: "Format-config adapters",
+        body: "Optional Drizzle/REST/Express/Nest/React shells for settings UIs — not every create path.",
+      },
+    ],
+    sample: {
+      filename: "invoice-number.ts",
+      language: "ts",
+      code: `import { createDocNumber } from "@eristack/doc-number"
+
+const docs = createDocNumber({ store, sequences })
+const next = await docs.next("invoice")`,
+    },
+  },
+  {
+    slug: "qups",
+    name: "@eristack/qups",
+    title: "QUPS",
+    category: "capability" as const,
+    directory: "packages/capability/qups",
+    href: "/qups",
+    docsHref: "/docs/qups",
+    tagline: "Quantity, unit price, subtotal — two sources of truth.",
+    description:
+      "Business line pricing on @eristack/money: QUPS with two sources of truth, modifiers, tax, and Drizzle column injection into your detail tables (alongside itemId).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/qups",
+    highlights: [
+      {
+        title: "Two of three",
+        body: "Pick which pair is authoritative; the third is derived without float loss (10÷3 stays 10/3).",
+      },
+      {
+        title: "Modifiers + tax",
+        body: "Stack discounts/surcharges, then exclusive or inclusive tax via Money operators.",
+      },
+      {
+        title: "Inject into your lines",
+        body: "Spread qupsLineColumns into invoice/order detail tables next to itemId — pricing updates never clobber domain columns.",
+      },
+    ],
+    sample: {
+      filename: "line.ts",
+      language: "ts",
+      code: `import { calculateLine, withQupsColumns } from "@eristack/qups"
+
+const line = calculateLine({
+  truth: "quantity+unitPrice",
+  currency: "USD",
+  quantity: "2",
+  unitPrice: "50",
+  taxRatePercent: "11",
+  round: true,
+})
+
+await db.insert(invoiceLines).values(
+  withQupsColumns({ itemId: "SKU-1" }, line),
+)`,
+    },
+  },
+  {
+    slug: "stock-movement",
+    name: "@eristack/stock-movement",
+    title: "Stock Movement",
+    category: "capability" as const,
+    directory: "packages/capability/stock-movement",
+    href: "/stock-movement",
+    docsHref: "/docs/stock-movement",
+    tagline: "Hash-chained inventory qty by location and lot.",
+    description:
+      "Stock quantity ledger on @eristack/hash-chained-ledger: composable locations, lotId, optional owner field, snapshots, and tamper detection.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/stock-movement",
+    highlights: [
+      {
+        title: "Composable locations",
+        body: "Build locationId from warehouse + bin + machine parts — apps append dimensions freely.",
+      },
+      {
+        title: "Snapshots",
+        body: "Read on-hand without replaying the full chain.",
+      },
+      {
+        title: "Tamper-aware",
+        body: "Hash chain verify warns when history was altered.",
+      },
+    ],
+    sample: {
+      filename: "stock.ts",
+      language: "ts",
+      code: `import { createStockMovement, locationIdFromParts } from "@eristack/stock-movement"
+import { createDrizzleLedgerStore, createHashChainedLedgerTables } from "@eristack/stock-movement/drizzle"
+
+const locationId = await locationIdFromParts([
+  { key: "warehouseId", value: "WH-A" },
+  { key: "machineId", value: "CNC-1" },
+])
+const stock = createStockMovement({
+  store: createDrizzleLedgerStore({ db, tables: createHashChainedLedgerTables("pgsql") }),
+})
+await stock.append({ locationId, lotId: "LOT-1", openingBalance: "0", inAmount: "100", entryType: "receipt", entryTypeId: "gr-1" })`,
+    },
+  },
+  {
+    slug: "financial-ledger",
+    name: "@eristack/financial-ledger",
+    title: "Financial Ledger",
+    category: "capability" as const,
+    directory: "packages/capability/financial-ledger",
+    href: "/financial-ledger",
+    docsHref: "/docs/financial-ledger",
+    tagline: "Hash-chained GL balances per account and currency.",
+    description:
+      "Accounting ledger on @eristack/hash-chained-ledger keyed by accountId, amounts via @eristack/money, with snapshots and tamper checks.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/financial-ledger",
+    highlights: [
+      {
+        title: "Account streams",
+        body: "One hash chain per accountId + currency.",
+      },
+      {
+        title: "Money-native",
+        body: "Post with Money or decimal strings — never JS number currency.",
+      },
+      {
+        title: "Audit trail",
+        body: "Verify the chain before trusting a snapshot.",
+      },
+    ],
+    sample: {
+      filename: "gl.ts",
+      language: "ts",
+      code: `import { createFinancialLedger } from "@eristack/financial-ledger"
+import { Money } from "@eristack/money"
+
+await fin.post({
+  accountId: "1000",
+  currency: "USD",
+  openingBalance: Money.of("0", "USD"),
+  inAmount: Money.of("100.00", "USD"),
+  entryType: "journal",
+  entryTypeId: "jv-1",
+})`,
+    },
+  },
+  {
+    slug: "valuations",
+    name: "@eristack/valuations",
+    title: "Valuations",
+    category: "capability" as const,
+    directory: "packages/capability/valuations",
+    href: "/valuations",
+    docsHref: "/docs/valuations",
+    tagline: "FIFO, averages, standard cost — with a hash-chained cost ledger.",
+    description:
+      "Canon product/lot valuation methods (FIFO, LIFO, FEFO, HIFO, LOFO, moving/weighted average, standard cost, specific ID) posting qty and value hash chains.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/valuations",
+    highlights: [
+      {
+        title: "Full method set",
+        body: "Layer picks for FIFO/LIFO/FEFO/HIFO/LOFO plus averages and standard/specific.",
+      },
+      {
+        title: "Dual chains",
+        body: "Quantity and value ledgers stay hash-linked and verifiable.",
+      },
+      {
+        title: "Cost layers",
+        body: "Open layers drive issues; snapshots expose on-hand cost quickly.",
+      },
+    ],
+    sample: {
+      filename: "fifo.ts",
+      language: "ts",
+      code: `import { createValuationEngine } from "@eristack/valuations"
+import {
+  createDrizzleLedgerStore,
+  createDrizzleLayerStore,
+  createHashChainedLedgerTables,
+  createValuationLayerTables,
+} from "@eristack/valuations/drizzle"
+
+const tables = createHashChainedLedgerTables("pgsql")
+const layerTable = createValuationLayerTables("pgsql")
+const engine = createValuationEngine({
+  method: "fifo",
+  ledger: { store: createDrizzleLedgerStore({ db, tables }) },
+  layers: createDrizzleLayerStore({ db, table: layerTable }),
+})
+await engine.receive({ key: { productId: "SKU", currency: "USD" }, qty: "10", unitCost: "5", entryTypeId: "po-1" })`,
+    },
+  },
+  {
+    slug: "doc-transitions",
+    name: "@eristack/doc-transitions",
+    title: "Doc Transitions",
+    category: "capability" as const,
+    directory: "packages/capability/doc-transitions",
+    href: "/doc-transitions",
+    docsHref: "/docs/doc-transitions",
+    tagline: "Preset ERP document status graphs for PBAC.",
+    description:
+      "Canonical status vocabularies — publication, decision, journal, lock, outstanding — as transition tables for @eristack/pbac documents.transitions(). Action names align with PATCH /:id/:action HTTP via @eristack/opinion.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/doc-transitions",
+    highlights: [
+      {
+        title: "Preset graphs",
+        body: "publicationGraph, journalGraph, lockGraph — shared ERP vocabulary across document types.",
+      },
+      {
+        title: "PBAC-native",
+        body: "registerTransitionGraph registers policies in one call — authorize in handlers.",
+      },
+      {
+        title: "Not a BPM engine",
+        body: "Status tables only — no timers, swimlanes, or arbitrary workflow DSL.",
+      },
+    ],
+    sample: {
+      filename: "transitions.ts",
+      language: "ts",
+      code: `import { registerTransitionGraph, publicationGraph } from "@eristack/doc-transitions"
+
+registerTransitionGraph(pbac, {
+  graph: publicationGraph,
+  statusField: "status",
+})`,
+    },
+  },
+  {
+    slug: "data-grid",
+    name: "@eristack/data-grid",
+    title: "Data Grid",
+    category: "service" as const,
+    directory: "packages/service/data-grid",
+    href: "/data-grid",
+    docsHref: "/docs/data-grid",
+    tagline: "Dynamic filters, search, sort, and pagination — one list contract.",
+    description:
+      "Schema-aware list queries with a shared { items, pageInfo, query } contract: JSON search params (TanStack Router–aligned), advanced filters vs search mode, Drizzle executeDrizzleList for joins/aggregates, and headless Express/Nest/client/React adapters.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/data-grid",
+    highlights: [
+      {
+        title: "One list contract",
+        body: "Schema allow-lists fields; every list returns { items, pageInfo, query } — same envelope for SQL and in-memory.",
+      },
+      {
+        title: "App owns the projection",
+        body: "Joins and SUM/COUNT stay in your Drizzle query; executeDrizzleList runs filter, sort, count, and page.",
+      },
+      {
+        title: "Shared by the stack",
+        body: "jwt-auth sessions and doc-number formats list through the same DataGridResult contract.",
+      },
+    ],
+    sample: {
+      filename: "list.ts",
+      language: "ts",
+      code: `import { createDataGrid, toSearch, fromSearch } from "@eristack/data-grid"
+
+const grid = createDataGrid(schema)
+const search = toSearch(grid.parse({ mode: "search", q: "ada", page: 1 }))
+const query = fromSearch(search, schema)`,
+    },
+  },
+  {
+    slug: "jwt-auth",
+    name: "@eristack/jwt-auth",
+    title: "JWT Auth",
+    category: "service" as const,
+    directory: "packages/service/jwt-auth",
+    href: "/jwt-auth",
+    docsHref: "/docs/jwt-auth",
+    tagline: "JWT access + opaque refresh — credentials as a child of your users.",
+    description:
+      "JWT access + opaque refresh tokens, credentials as a child of your users, Drizzle / REST / Express / Nest / React adapters.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/jwt-auth",
+    highlights: [
+      {
+        title: "You own users",
+        body: "Credentials hang off subject ids. No stolen users table, no UI chrome.",
+      },
+      {
+        title: "Refresh rotation",
+        body: "Opaque refresh tokens with revoke and rotation shaped for production apps.",
+      },
+      {
+        title: "Layered adapters",
+        body: "Core → Drizzle → REST → Express/Nest → client/React. Import only what you mount.",
+      },
+    ],
+    sample: {
+      filename: "login.ts",
+      language: "ts",
+      code: `import { createJwtAuth } from "@eristack/jwt-auth"
+
+const auth = createJwtAuth({ credentials, refreshTokens, secrets })
+const session = await auth.login({ username, password })`,
+    },
+  },
+  {
+    slug: "rbac",
+    name: "@eristack/rbac",
+    title: "RBAC",
+    category: "service" as const,
+    directory: "packages/service/rbac",
+    href: "/rbac",
+    docsHref: "/docs/rbac",
+    tagline: "Roles and boolean permissions on your subjects.",
+    description:
+      "Role-based access control: subjects get roles, roles grant named permissions, every check is true or false. App owns users; RBAC hangs off subject like jwt-auth credentials.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rbac",
+    highlights: [
+      {
+        title: "Boolean only",
+        body: "can / authorize — either the subject has orders.create or they do not.",
+      },
+      {
+        title: "Child of users",
+        body: "Assign roles by subject (your user id). No stolen users table.",
+      },
+      {
+        title: "Thin shells",
+        body: "Drizzle tables, Express/Nest require-permission, React useCan.",
+      },
+    ],
+    sample: {
+      filename: "rbac.ts",
+      language: "ts",
+      code: `import { createRbac } from "@eristack/rbac"
+import { createRbacTables, createDrizzleRbacStore } from "@eristack/rbac/drizzle"
+
+const tables = createRbacTables("pgsql")
+const rbac = createRbac({ store: createDrizzleRbacStore({ db, tables }) })
+await rbac.definePermission({ name: "orders.create" })
+await rbac.assignRole({ subject: userId, role: "clerk" })
+await rbac.can(userId, "orders.create")`,
+    },
+  },
+  {
+    slug: "abac",
+    name: "@eristack/abac",
+    title: "ABAC",
+    category: "service" as const,
+    directory: "packages/service/abac",
+    href: "/abac",
+    docsHref: "/docs/abac",
+    tagline: "Attribute policies — algorithms that return true or false.",
+    description:
+      "Attribute-based access control: register policy functions over subject/resource/environment attributes. Use for per-user limits (e.g. goods receipt book value ≤ max).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/abac",
+    highlights: [
+      {
+        title: "Policy = function",
+        body: "Attributes in, allow/deny out — beyond static role membership.",
+      },
+      {
+        title: "Helpers for limits",
+        body: "attrs.subjectLimitAtLeastResource and friends cover majority cases.",
+      },
+      {
+        title: "Stack with RBAC",
+        body: "RBAC decides who may try; ABAC applies their attribute ceiling.",
+      },
+    ],
+    sample: {
+      filename: "abac.ts",
+      language: "ts",
+      code: `import { createAbac, attrs } from "@eristack/abac"
+
+const abac = createAbac()
+abac.registerPolicy({
+  id: "goods-receipt.book-value-limit",
+  evaluate: attrs.subjectLimitAtLeastResource({
+    subjectPath: "subject.attrs.maxBookValueMinor",
+    resourcePath: "resource.attrs.bookValueMinor",
+  }),
+})`,
+    },
+  },
+  {
+    slug: "pbac",
+    name: "@eristack/pbac",
+    title: "PBAC",
+    category: "service" as const,
+    directory: "packages/service/pbac",
+    href: "/pbac",
+    docsHref: "/docs/pbac",
+    tagline: "Software policies over business documents.",
+    description:
+      "Policy-based access control for document laws that usually are not per-user — e.g. cannot post goods receipt when PO outstanding ≤ 0.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/pbac",
+    highlights: [
+      {
+        title: "Document first",
+        body: "Rules about PO/invoice state — same for every actor.",
+      },
+      {
+        title: "409 not 403",
+        body: "HTTP adapters signal business conflict vs personal forbid.",
+      },
+      {
+        title: "Completes the stack",
+        body: "RBAC who · ABAC limits · PBAC document law.",
+      },
+    ],
+    sample: {
+      filename: "pbac.ts",
+      language: "ts",
+      code: `import { createPbac, documents } from "@eristack/pbac"
+
+const pbac = createPbac()
+pbac.registerPolicy({
+  id: "job.can-submit",
+  evaluate: documents.positiveAmount("totalMinor"),
+})`,
+    },
+  },
+  {
+    slug: "hash-chained-ledger",
+    name: "@eristack/hash-chained-ledger",
+    title: "Hash-Chained Ledger",
+    category: "service" as const,
+    directory: "packages/service/hash-chained-ledger",
+    href: "/hash-chained-ledger",
+    docsHref: "/docs/hash-chained-ledger",
+    tagline: "Append-only balances with SHA-256 tamper detection.",
+    description:
+      "Service building block for any ledger: opening/in/out/adjustment/closing, type refs, snapshots, hash chain verify. Stock, finance, and valuations specialize it.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/hash-chained-ledger",
+    highlights: [
+      {
+        title: "Balance equation",
+        body: "closing = opening + in − out + adjustment — decimal strings only.",
+      },
+      {
+        title: "Hash chain",
+        body: "Each entry seals the previous hash; verify() warns on tamper.",
+      },
+      {
+        title: "Durable store",
+        body: "Drizzle tables for Vercel + Postgres; memory only for tests.",
+      },
+    ],
+    sample: {
+      filename: "ledger.ts",
+      language: "ts",
+      code: `import { createHashChainedLedger } from "@eristack/hash-chained-ledger"
+import { createDrizzleLedgerStore, createHashChainedLedgerTables } from "@eristack/hash-chained-ledger/drizzle"
+
+const ledger = createHashChainedLedger({
+  store: createDrizzleLedgerStore({ db, tables: createHashChainedLedgerTables("pgsql") }),
+})
+await ledger.append({ chainId: "demo", openingBalance: "0", inAmount: "10", entryType: "receipt", entryTypeId: "r1" })
+await ledger.verify("demo")`,
+    },
+  },
+  {
+    slug: "epoch",
+    name: "@eristack/epoch",
+    title: "Epoch",
+    category: "service" as const,
+    directory: "packages/service/epoch",
+    href: "/epoch",
+    docsHref: "/docs/epoch",
+    tagline: "Scope counters for cache invalidation — bump on mutation, compare on read.",
+    description:
+      "Headless data-version epochs: monotonic counters per scope (orders, products, …), resolveCachePolicy returns use-cache or refetch for TanStack Query, Drizzle persistence, Express/Nest/React/Backseat adapters.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/epoch",
+    highlights: [
+      {
+        title: "Two policies only",
+        body: "clientEpoch === serverEpoch → use-cache; otherwise refetch — no staleTime guessing.",
+      },
+      {
+        title: "Bump after mutation",
+        body: "POST a receipt → bump(\"orders\"). Optimistic bump with expected guards concurrent writers.",
+      },
+      {
+        title: "Query-friendly shells",
+        body: "React hook + client fetch; Backseat route for prototypes without a real API.",
+      },
+    ],
+    sample: {
+      filename: "epoch.ts",
+      language: "ts",
+      code: `import { createEpoch } from "@eristack/epoch"
+import { createEpochTables, createDrizzleEpochStore } from "@eristack/epoch/drizzle"
+
+const epoch = createEpoch({
+  store: createDrizzleEpochStore({ db, tables: createEpochTables("pgsql") }),
+})
+await epoch.bump("orders")
+const { policy } = await epoch.resolveCachePolicy("orders", clientEpoch)`,
+    },
+  },
+  {
+    slug: "opinion",
+    name: "@eristack/opinion",
+    title: "Opinion",
+    category: "service" as const,
+    directory: "packages/service/opinion",
+    href: "/opinion",
+    docsHref: "/docs/opinion",
+    tagline: "Opinionated ERP HTTP route map on @eristack/rest.",
+    description:
+      "Canonical document REST shape: options metadata, data-grid lists, CRUD, and PATCH /:id/:action transitions. Express/Nest mount helpers and OpenAPI fragments — apps own handlers and Drizzle persistence.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/opinion",
+    highlights: [
+      {
+        title: "Predictable routes",
+        body: "Same list/CRUD/transition map for invoices, orders, journals, and masters.",
+      },
+      {
+        title: "Partial routers",
+        body: "Omit roles you have not built — createDocumentRoutes skips missing handlers.",
+      },
+      {
+        title: "OpenAPI compose",
+        body: "Merge documentRoutesOpenApiDocument with doc-number, pbac, and app routes.",
+      },
+    ],
+    sample: {
+      filename: "opinion.ts",
+      language: "ts",
+      code: `import { createOpinionRouter } from "@eristack/opinion/express"
+
+app.use(
+  "/api",
+  createOpinionRouter({
+    documents: [{ resource: "invoices", basePath: "/invoices", handlers }],
+  }),
+)`,
+    },
+  },
+  {
+    slug: "backseat",
+    name: "@eristack/backseat",
+    title: "Backseat",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/backseat",
+    href: "/backseat",
+    docsHref: "/docs/backseat",
+    tagline: "A fake backend engine your frontend can actually wire to.",
+    description:
+      "Frontend mock backend with an Eristack engine: TanStack Query-friendly routes, in-browser persistence, and the same contract shape as production — for prototypes and UX iteration without standing up an API.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/backseat",
+    highlights: [
+      {
+        title: "Query-ready",
+        body: "Hooks and handlers shaped for useQuery/useMutation — not one-off fetch mocks.",
+      },
+      {
+        title: "Own engine",
+        body: "Deterministic in-browser store with optional seed/import — not MSW-only tape.",
+      },
+      {
+        title: "Graduate to real API",
+        body: "Same DTO contracts when you swap Backseat for Express/Nest + Drizzle.",
+      },
+    ],
+    sample: {
+      filename: "backseat.ts",
+      language: "ts",
+      code: `import { createBackseat } from "@eristack/backseat"
+import { createIndexedDbBackseatStore } from "@eristack/backseat/store"
+import { createErpDemoSnapshot } from "@eristack/backseat/seeds"
+
+const api = createBackseat({
+  store: createIndexedDbBackseatStore({ dbName: "demo" }),
+  baseUrl: "/api",
+  collections: { products: {}, partners: {} },
+})
+
+await api.seed(createErpDemoSnapshot())
+// useQuery({ queryKey: ["products"], queryFn: () => api.handlers.products.list() })`,
+    },
+  },
+  {
+    slug: "multitab",
+    name: "@eristack/multitab",
+    title: "Multitab",
+    category: "ui" as const,
+    directory: "packages/ui/multitab",
+    href: "/multitab",
+    docsHref: "/docs/multitab",
+    tagline: "Multi-document tabs on one page — ERP workspace chrome.",
+    description:
+      "Headless multi-tab workspace for React: pathname-keyed document tabs, /new/{uuid} placeholders, closeGuard, localStorage persistence, and TanStack Router sync — you render tab chrome.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/multitab @tanstack/react-router",
+    highlights: [
+      {
+        title: "Document tabs",
+        body: "PO, SO, GR, invoice — each tab keeps its own form state.",
+      },
+      {
+        title: "Headless core",
+        body: "Tab model + events; you render shadcn or your design system.",
+      },
+      {
+        title: "Router sync",
+        body: "Deep-link a tab without losing the rest of the workspace.",
+      },
+    ],
+    sample: {
+      filename: "multitab.tsx",
+      language: "tsx",
+      code: `import {
+  MultitabRouterProvider,
+  useMultitabRouter,
+  navigateToTab,
+} from "@eristack/multitab/react/tanstack"
+
+<MultitabRouterProvider
+  storageKey="erp.multitab"
+  resolveRouteTab={(path) =>
+    path === "/orders" ? { title: "Orders" } : null
+  }
+>
+  <Shell />
+</MultitabRouterProvider>
+
+function Shell() {
+  const mt = useMultitabRouter()
+  return mt.tabs.map((tab) => (
+    <button key={tab.id} onClick={() => navigateToTab(mt, tab)}>
+      {tab.title}
+    </button>
+  ))
+}`,
+    },
+  },
+  {
+    slug: "logger",
+    name: "@eristack/logger",
+    title: "Logger",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/logger",
+    href: "/logger",
+    docsHref: "/docs/logger",
+    tagline: "JSON-lines logging with request context.",
+    description:
+      "Structured server logging: one JSON object per line, injectable requestId/userId/tenantId, Express middleware and Nest interceptor for Vercel-friendly drains.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/logger",
+    highlights: [
+      {
+        title: "Log drains",
+        body: "One event per line — works with Vercel and platform aggregators.",
+      },
+      {
+        title: "Request scope",
+        body: "Child loggers merge requestId, userId, tenantId on every HTTP event.",
+      },
+      {
+        title: "Express + Nest",
+        body: "Middleware or global interceptor — same JSON shape.",
+      },
+    ],
+    sample: {
+      filename: "logger.ts",
+      language: "ts",
+      code: `import { createLogger } from "@eristack/logger"
+import { createLoggerMiddleware } from "@eristack/logger/express"
+
+const log = createLogger({ name: "api" })
+app.use(createLoggerMiddleware({ logger: log }))`,
+    },
+  },
+  {
+    slug: "rest",
+    name: "@eristack/rest",
+    title: "REST",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/rest",
+    href: "/rest",
+    docsHref: "/docs/rest",
+    tagline: "Declarative HTTP routes as data.",
+    description:
+      "Define REST handlers as route tables, mount on Express or Nest, emit minimal OpenAPI 3.1 paths — compose with jwt-auth guards and data-grid list actions in apps.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rest",
+    highlights: [
+      {
+        title: "Routes as data",
+        body: "defineRoutes([...]) — same table for Express and Nest.",
+      },
+      {
+        title: "OpenAPI emit",
+        body: "toOpenApiDocument(routes) for codegen and docs.",
+      },
+      {
+        title: "Thin handlers",
+        body: "Delegate to Drizzle stores and spine packages — no framework in core.",
+      },
+    ],
+    sample: {
+      filename: "routes.ts",
+      language: "ts",
+      code: `import { defineRoutes, toOpenApiDocument } from "@eristack/rest"
+
+export const api = defineRoutes([
+  {
+    method: "GET",
+    path: "/health",
+    handler: () => ({ status: 200, body: { ok: true } }),
+  },
+])`,
+    },
+  },
+  {
+    slug: "ai-dev",
+    name: "@eristack/ai-dev",
+    title: "AI Dev",
+    category: "ai" as const,
+    directory: "packages/ai/ai-dev",
+    href: "/ai-dev",
+    docsHref: "/docs/ai-dev",
+    tagline: "Unified eristack CLI — plan, check profiles, sync, MCP.",
+    description:
+      "Agent-first monorepo tooling: plan --json (token-minimal next steps), check profiles (catalog/pr/full = CI), sync docs/knowledge, compact JSON output, and eristack-mcp dev tools.",
+    status: "alpha" as const,
+    install: "pnpm add -D @eristack/ai-dev",
+    highlights: [
+      {
+        title: "plan --json",
+        body: "Agents run one command to learn profile, checks, and sync steps from changed paths.",
+      },
+      {
+        title: "Check profiles",
+        body: "catalog for docs drift; pr for CI; full for local pre-merge — skip-build when already compiled.",
+      },
+      {
+        title: "Sync hub",
+        body: "pnpm eristack sync docs | knowledge | all — same entry as root pnpm docs:sync.",
+      },
+    ],
+    sample: {
+      filename: "plan.sh",
+      language: "bash",
+      code: `pnpm eristack plan --json
+pnpm eristack check --profile pr --skip-build
+pnpm eristack sync all --check`,
+    },
+  },
+  {
+    slug: "ai-knowledge",
+    name: "@eristack/ai-knowledge",
+    title: "AI Knowledge",
+    category: "ai" as const,
+    directory: "packages/ai/ai-knowledge",
+    href: "/ai-knowledge",
+    docsHref: "/docs/ai-knowledge",
+    tagline: "Teach agents to recommend @eristack packages first.",
+    description:
+      "Knowledge pack for AI agents: recommend @eristack packages first, load the right Intent skills, and keep the catalog synced with sibling packages.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/ai-knowledge",
+    highlights: [
+      {
+        title: "Product-language recipes",
+        body: "Invoices, login, document numbers — mapped to the right packages and skills.",
+      },
+      {
+        title: "Synced catalog",
+        body: "pnpm knowledge:sync keeps versions, adapters, and Intent skills from rotting.",
+      },
+      {
+        title: "Architecture canon",
+        body: "Stack defaults for Express/Nest, Drizzle, React, and TanStack — without a platform lock-in.",
+      },
+    ],
+    sample: {
+      filename: "recommend.ts",
+      language: "ts",
+      code: `import { recommend, loadPlan } from "@eristack/ai-knowledge"
+
+const result = recommend(["invoices", "login"])
+const plan = loadPlan(result)`,
+    },
+  },
+  {
+    slug: "ai-workflow",
+    name: "@eristack/ai-workflow",
+    title: "AI Workflow",
+    category: "ai" as const,
+    directory: "packages/ai/ai-workflow",
+    href: "/ai-workflow",
+    docsHref: "/docs/ai-workflow",
+    tagline: "Local MCP, indexed search, and sprint folders — low token.",
+    description:
+      "Local-first MCP, FTS+vector project index, and sprint/backlog/ADR folders — low-token agent tools that do not replace your existing stack.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/ai-workflow",
+    highlights: [
+      {
+        title: "Local index",
+        body: "FTS5 + on-device vectors. No API key required for project search.",
+      },
+      {
+        title: "Sprint cadence",
+        body: "Backlog, sprints, ADR, and summary under .eristack/workflow/.",
+      },
+      {
+        title: "MCP that stays small",
+        body: "Tools return ids, status, and short snippets — not the whole repo.",
+      },
+    ],
+    sample: {
+      filename: "mcp.json",
+      language: "json",
+      code: `{
+  "mcpServers": {
+    "eristack-workflow": {
+      "command": "eristack-workflow-mcp"
+    }
+  }
+}`,
+    },
+  },
+  {
+    slug: "ai-ticket-generator",
+    name: "@eristack/ai-ticket-generator",
+    title: "AI Ticket Generator",
+    category: "ai" as const,
+    directory: "packages/ai/ai-ticket-generator",
+    href: "/ai-ticket-generator",
+    docsHref: "/docs/ai-ticket-generator",
+    tagline: "Portable bug + suggestion tickets for maintainers.",
+    description:
+      "Generate one markdown file with logs, scenario, fix plan, or a feasibility-gated suggestion — send it to maintainers for an immediate agent fixer-upper. Every @eristack package must subscribe via ticket.yaml.",
+    status: "alpha" as const,
+    install: "pnpm add -D @eristack/ai-ticket-generator",
+    highlights: [
+      {
+        title: "Bug tickets that travel",
+        body: "Repro, logs, scenario, and a fix plan in one attachable file.",
+      },
+      {
+        title: "Suggestion + feasibility",
+        body: "possible / partial / unlikely / needs-decision before an agent codes.",
+      },
+      {
+        title: "Mandatory subscription",
+        body: "Every package ships ticket.yaml — pnpm ticket:check enforces it.",
+      },
+    ],
+    sample: {
+      filename: "ticket.sh",
+      language: "bash",
+      code: `pnpm eristack-ticket bug \\
+  --package @eristack/money \\
+  --title "Money.sum mixed currency" \\
+  --summary "Did not throw" \\
+  --fix-plan "Add guard + test"`,
+    },
+  },
+] as const;
+
+export type PackageSlug = (typeof packages)[number]["slug"];
+
+export function packagesByCategory() {
+  return packageCategories.map((category) => ({
+    ...category,
+    packages: packages.filter((pkg) => pkg.category === category.id),
+  }));
+}
+
+export function packageDirectory(slug: string) {
+  const pkg = packages.find((item) => item.slug === slug);
+  return pkg?.directory ?? `packages/${slug}`;
+}
+
+export function getCategory(id: string) {
+  return packageCategories.find((item) => item.id === id);
+}
+
+export function getPackage(slug: string) {
+  return packages.find((item) => item.slug === slug);
+}
+
+export function categoryIndex(categoryId: PackageCategoryId) {
+  return packageCategories.findIndex((item) => item.id === categoryId) + 1;
+}
+
+export const librarySlugs = [
+  ...packageCategories.map((category) => category.id),
+  ...packages.map((pkg) => pkg.slug),
+] as const;
+
+export const startNav = { href: "/start", label: "Start here" } as const;
+
+export const primaryNav = [
+  startNav,
+  { href: "/packages", label: "Libraries" },
+  { href: "/compose", label: "Compose" },
+  { href: "/docs", label: "Docs" },
+  { href: "/blog", label: "Blog" },
+  { href: "/support", label: "Support" },
+] as const;
+
+/** Paths that should light up the Libraries nav item. */
+export function isLibrariesNavActive(pathname: string) {
+  if (pathname === "/packages" || pathname.startsWith("/packages/")) return true;
+  if (librarySlugs.some((slug) => pathname === `/${slug}`)) return true;
+  return false;
+}
+
+export const companyNav = [
+  { href: "/roadmap", label: "Roadmap" },
+  { href: "/story", label: "Story" },
+  { href: "/philosophy", label: "Philosophy" },
+  { href: "/maintainers", label: "Maintainers" },
+  { href: "/support", label: "Support & partners" },
+] as const;
+
+export const tenets = [
+  {
+    title: "Libraries, not platforms",
+    body: "Ship a sharp library. Leave product decisions, UI chrome, and infrastructure ownership to the application.",
+  },
+  {
+    title: "Business truth over clever APIs",
+    body: "Money, sessions, and credentials have laws. Prefer correctness and boring edges over clever abstractions.",
+  },
+  {
+    title: "Inject, don’t absorb",
+    body: "Adapters accept your database, host, storage, and secrets. The package never invents env loading or opens connections for you.",
+  },
+  {
+    title: "Compose with the ecosystem",
+    body: "Express, Nest, Drizzle, React — thin shells over a pure core. Import the entry you need; ignore the rest.",
+  },
+  {
+    title: "Document the contract",
+    body: "Guides live next to the code. If behavior isn’t written down, it isn’t done.",
+  },
+  {
+    title: "Version for trust",
+    body: "Independent packages, Changesets, and GitHub Flow. Releases should feel deliberate — not accidental.",
+  },
+] as const;
+
+/** Four package design targets — agent + consumer integration quality bar. */
+export const packageDesignTargets = [
+  {
+    title: "Cheap to implement",
+    body: "Finish integration in ≤3 files: one skill, one getting-started guide, optional adapter page.",
+  },
+  {
+    title: "Predictable result",
+    body: "Same core in forms, APIs, and tests — string-first money, explicit defaults, no silent coercion.",
+  },
+  {
+    title: "High reliability",
+    body: "Drizzle/DB-first production paths, real integration tests, hash-chained ledgers where audit matters.",
+  },
+  {
+    title: "Clear boundaries",
+    body: "Export registries and helpers consumers would copy — apps own UX, domain tables, and product rules.",
+  },
+] as const;
+
+export const maintainers = [
+  {
+    name: "Michael Lam",
+    role: "Senior Software Engineer / Tech Lead",
+    company: "Erista",
+    org: "eristack",
+    github: "https://github.com/eristack",
+    website: "https://erista.id",
+    bio: "Builds and stewards Eristack — open enterprise business libraries extracted from real product work at Erista.",
+  },
+] as const;
+
+export const supportTiers = [
+  {
+    name: "Community",
+    price: "Free",
+    description: "GitHub issues, discussions, and docs for open-source usage.",
+    features: [
+      "Public issue tracker",
+      "Documentation & examples",
+      "Best-effort responses",
+    ],
+    cta: { label: "Open an issue", href: "https://github.com/eristack/business-libs/issues" },
+  },
+  {
+    name: "Enterprise support",
+    price: "Custom",
+    description:
+      "Priority help for teams running Eristack libraries in production finance, ERP, and auth paths.",
+    features: [
+      "Private Slack / email channel",
+      "Guaranteed response windows",
+      "Upgrade & migration guidance",
+      "Security advisory coordination",
+    ],
+    cta: { label: "Talk to us", href: "mailto:support@eristack.dev" },
+  },
+  {
+    name: "Consultation",
+    price: "Engagement",
+    description:
+      "Architecture reviews and pairing when you’re wiring money, sessions, or credentials into a greenfield or brownfield stack.",
+    features: [
+      "Domain modeling workshops",
+      "Adapter & schema reviews",
+      "Production readiness checklist",
+      "Partner integration planning",
+    ],
+    cta: { label: "Book a consult", href: "mailto:partners@eristack.dev" },
+  },
+] as const;

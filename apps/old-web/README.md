@@ -1,0 +1,59 @@
+# @eristack/old-web (archived)
+
+Previous public site — full docs renderer, layer nav, Backseat demos. Superseded by [`../web`](../web). Kept for porting reference.
+
+## Stack
+
+- Next.js 16 (App Router, Turbopack) + React 19.2 + TypeScript
+- Tailwind CSS v4 + Inter / JetBrains Mono
+- shadcn/ui primitives
+- Docs from `packages/<category>/*/docs/*.md` (primitive → capability → service → infrastructure → ui → features → AI)
+- Blog from `apps/web/content/blog/*.md`
+- Package versions / changelogs from each package’s `package.json` + `CHANGELOG.md` (`src/lib/package-meta.ts`)
+
+## Develop
+
+```bash
+pnpm --filter @eristack/web dev
+# or from root: pnpm web
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## Docs source of truth
+
+Library guides are **not duplicated** here. `apps/web` reads `packages/<category>/*/docs` at build/runtime (`src/lib/docs.ts`). Edit package markdown; the site and Cmd/Ctrl+K search pick it up.
+
+ASCII / layering diagrams stay as plain markdown fences (` ```text `, ` ```ascii `, ` ```diagram `). The docs renderer lifts those into a dedicated **Diagram** panel (system monospace, no Shiki) so box-drawing stays aligned on the web.
+
+## Information architecture
+
+**Libraries** (`/packages`) → **Layer** → **Library overview** → **Docs**. Version badges link to `/{slug}/changelog`.
+
+Shared UI lives under `src/components/stack/` (`PageHero`, `StackChrome`, `LayerStrip`, `PackageStrip`, `LibraryList`, `VersionBadge`, `ReleaseMeta`, …). Layer themes use `data-layer` + CSS variables.
+
+## Routes
+
+| Path | Purpose |
+| --- | --- |
+| `/` | Landing |
+| `/packages` | Libraries index (all layers) |
+| `/primitive`, `/capability`, `/service`, `/infrastructure`, `/ui`, `/features`, `/ai` | Layer landings |
+| `/backseat`, `/multitab`, `/money`, … | Library overviews |
+| `/roadmap`, `/roadmap/[slug]` | Product roadmap (from repo `roadmap/`) |
+| `/{slug}/changelog` | Package changelog (`CHANGELOG.md` when present) |
+| `/docs/...` | Package documentation (from `packages/<category>/*/docs`) |
+| `/blog` | Blog index + posts |
+| `/support` | Support, enterprise, partners |
+| `/story` | Origin story |
+| `/philosophy` | Product tenets |
+| `/maintainers` | Maintainers |
+
+**Search:** Cmd/Ctrl+K (or the Search control in the navbar) — includes layers, libraries, docs, and changelogs.
+
+## Build
+
+```bash
+pnpm --filter @eristack/web build
+pnpm --filter @eristack/web start
+```

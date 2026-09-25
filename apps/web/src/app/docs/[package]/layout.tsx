@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
-import { DocsMobileNav } from "@/components/docs-mobile-nav";
-import { DocsSidebar } from "@/components/docs-sidebar";
-import { isDocPackageSlug, listDocNavSections } from "@/lib/docs";
-import { allPackageReleases } from "@/lib/package-meta";
+import { DocsMobileNav } from "@/components/docs/docs-mobile-nav";
+import { DocsSidebar } from "@/components/docs/docs-sidebar";
+import {
+  getDocPackages,
+  isDocPackageSlug,
+  listDocNavSections,
+  listDocs,
+} from "@/lib/docs";
 import { packages } from "@/lib/site";
 
 type DocsPackageLayoutProps = {
@@ -17,24 +21,37 @@ export default async function DocsPackageLayout({
   const { package: packageSlug } = await params;
   if (!isDocPackageSlug(packageSlug)) notFound();
 
+  const pages = listDocs(packageSlug);
+  if (pages.length === 0) notFound();
+
   const pkg = packages.find((item) => item.slug === packageSlug)!;
   const sections = listDocNavSections(packageSlug);
-  const releases = allPackageReleases();
+
+  const libraryOptions = getDocPackages().map((item) => ({
+    slug: item.slug,
+    title: item.title,
+    name: item.name,
+    category: item.category,
+  }));
 
   return (
-    <div className="min-h-[calc(100svh-3.5rem)] border-b border-border bg-docs-rail">
-      <div className="flex w-full flex-col gap-8 px-4 py-8 sm:px-6 md:flex-row md:gap-10 lg:gap-12 xl:px-10 2xl:px-14">
-        <DocsSidebar
-          packageSlug={packageSlug}
-          packageName={pkg.name}
-          sections={sections}
-          releases={releases}
-        />
-        <div className="min-w-0 flex-1">
+    <div className="min-h-[calc(100dvh-3.5rem)] border-t border-border bg-neutral">
+      <div className="container-docs flex flex-col gap-8 py-8 lg:flex-row lg:gap-10 xl:gap-14 lg:py-10">
+        <div className="hidden min-w-0 shrink-0 lg:block lg:w-72 xl:w-80">
+          <div className="sticky top-[4.5rem] overflow-visible pr-1">
+            <DocsSidebar
+              packageSlug={packageSlug}
+              sections={sections}
+              libraryOptions={libraryOptions}
+            />
+          </div>
+        </div>
+        <div className="min-w-0 flex-1 lg:max-w-[48rem] xl:max-w-[52rem]">
           <DocsMobileNav
             packageSlug={packageSlug}
-            packageName={pkg.name}
+            packageTitle={pkg.title}
             sections={sections}
+            libraryOptions={libraryOptions}
           />
           {children}
         </div>

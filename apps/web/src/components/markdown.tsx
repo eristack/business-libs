@@ -6,10 +6,11 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import { visit } from "unist-util-visit";
 import type { Root } from "hast";
+import { ProseWithCopy } from "@/components/docs/prose-with-copy";
 import { codeTheme } from "@/lib/code-theme";
-import { rehypeDocsDiagram } from "@/lib/rehype-docs-diagram";
 import { rehypeDocsCallouts } from "@/lib/rehype-docs-callouts";
-import { ProseWithCopy } from "@/components/prose-with-copy";
+import { rehypeDocsDiagram } from "@/lib/rehype-docs-diagram";
+import { cn } from "@/lib/cn";
 
 function rewriteDocHref(href: string, packageSlug?: string) {
   if (!packageSlug) return href;
@@ -43,9 +44,14 @@ function rehypeRewriteDocLinks(packageSlug?: string) {
 type MarkdownProps = {
   content: string;
   packageSlug?: string;
+  className?: string;
 };
 
-export async function Markdown({ content, packageSlug }: MarkdownProps) {
+export async function Markdown({
+  content,
+  packageSlug,
+  className,
+}: MarkdownProps) {
   const file = await remark()
     .use(remarkGfm)
     .use(remarkRehype)
@@ -64,5 +70,10 @@ export async function Markdown({ content, packageSlug }: MarkdownProps) {
     .use(rehypeStringify)
     .process(content);
 
-  return <ProseWithCopy html={String(file)} className="prose-docs" />;
+  return (
+    <ProseWithCopy
+      html={String(file)}
+      className={cn("prose-docs", className)}
+    />
+  );
 }
