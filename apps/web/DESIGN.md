@@ -80,7 +80,7 @@ Scripts auto-discover packages with a `docs/` folder (`scripts/doc-packages.mjs`
 ## Layer & package identity (S5)
 
 - **LayerGlyph** — 7 layer SVG icons (`stack/layer-glyphs.tsx`)
-- **Package motifs** — all 19 packages in `library-motif.tsx`
+- **Package motifs** — every package in `site.ts` has a motif in `library-motif.tsx`; hero demos in `package-demos/` (see `demo-slugs.ts`)
 - **Docs chrome** — layer left rail on article cards; glyphs in matrix + badges
 - **Rule:** package motifs inherit layer color — never full-bleed layer washes
 
