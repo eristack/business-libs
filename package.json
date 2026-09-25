@@ -22,6 +22,7 @@
     "test:integration": "node scripts/run-integration-tests.mjs",
     "changesets:check": "node scripts/check-changesets.mjs",
     "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
+    "ticket:triage": "node scripts/ticket-triage.mjs",
     "eristack": "node scripts/eristack-run.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm knowledge:sync && pnpm install --lockfile-only",

@@ -99,6 +99,22 @@ Do not commit secrets into ticket logs (tokens, passwords). Redact before write.
 
 Use tickets for **cross-org handoff**. Use ai-workflow for **in-repo** sprint memory if you adopt it.
 
+## Maintainer triage (monorepo `tickets/`)
+
+When many consumer files land on the same calendar day, use the repo triage workflow — **ingest date = filename prefix `YYYYMMDD`**, not file mtime.
+
+| Step | Action |
+| --- | --- |
+| 1 | Add the markdown under `tickets/` (or merge from `.eristack/tickets/`) |
+| 2 | Register in `tickets/triage.yaml` (`stack` rank or `backlog` tier) |
+| 3 | Update the batch index (`*-index-*-eristack-gaps.md`) if the ticket belongs to a consumer batch |
+| 4 | Run `pnpm ticket:triage check` |
+| 5 | Pick work from `pnpm ticket:triage stack` (bugs and P0 before P3 / `needs-decision`) |
+
+Cross-batch order for **2026-09-25** lives in [`tickets/20260925-index-maintainer-priority-stack.md`](../../../../tickets/20260925-index-maintainer-priority-stack.md).
+
+Optional: upsert high-priority ranks into `.eristack/workflow/backlog/items.yaml` via `@eristack/ai-workflow` — triage YAML remains canonical for ticket files.
+
 ## Next steps
 
 - [Recipes](./recipes.md)

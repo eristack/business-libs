@@ -11,6 +11,7 @@
 - **source of product truth:** `IMPLEMENTATION.md` (§4b Backseat-first, §4d Horizon B delta), [backend-mirror-complete.md](../knowledge/backend-mirror-complete.md)
 - **sprint:** `2026-09-25-derive-backend-ports-drizzle-express` (mirror complete)
 - **prior batch:** [20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md](./20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md) (19/19 shipped on npm as of 2026-08-27 audit)
+- **global stack (same ingest day):** [20260925-index-maintainer-priority-stack.md](./20260925-index-maintainer-priority-stack.md) — ranks 3–4, 9–15, 23 interleave with [household batch](./20260925-index-household-personal-finance-eristack-gaps.md)
 - **narrative doc (non-ticket):** [eristack-recommendations-horizon-b-consumer-2026-09-25.md](../knowledge/eristack-recommendations-horizon-b-consumer-2026-09-25.md)
 
 ---

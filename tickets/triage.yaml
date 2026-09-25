@@ -1,0 +1,158 @@
+# Maintainer triage — ordering source of truth for repo-root tickets/
+# Ingest date = filename prefix YYYYMMDD (not ISO created alone).
+as_of: 2026-09-25
+
+batches:
+  - id: maintainer-stack
+    index: 20260925-index-maintainer-priority-stack.md
+    reporter: Eristack maintainers
+  - id: horizon-b-20260925
+    index: 20260925-index-tiga-sekawan-horizon-b-eristack-gaps.md
+    reporter: Tiga Sekawan ERP (Horizon B mirror)
+  - id: household-20260925
+    index: 20260925-index-household-personal-finance-eristack-gaps.md
+    reporter: household (personal finance tracker)
+  - id: horizon-a-20260827
+    index: 20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md
+    reporter: Tiga Sekawan ERP (Horizon A mockup)
+
+# Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
+stack:
+  - rank: 1
+    priority: P0
+    file: 20260925-163554-bug-instantof-throws-raw-temporal-error-on-wall-loca-341a0a.md
+    notes: Bug — raw Temporal leak into journal API; ship with rank 2 in one changeset if practical
+  - rank: 2
+    priority: P0
+    file: 20260925-163554-suggestion-asinstant-helper-for-journal-and-invoice-planner-e252b3.md
+    notes: Pairs with rank 1 (@eristack/timestamp)
+  - rank: 3
+    priority: P0
+    file: 20260925-201500-suggestion-drizzle-backseat-store-atomic-sqlite-staging-a1b2c3.md
+    notes: Horizon B — staged Drizzle atomic for workshop mirror
+  - rank: 4
+    priority: P0
+    file: 20260925-201501-suggestion-backseat-workshop-server-bootstrap-without-vite-d4e5f6.md
+    notes: Horizon B — headless workshop boot (no Vite import)
+  - rank: 5
+    priority: P1
+    file: 20260925-163607-suggestion-mapdomainerror-table-for-timestamp-zod-and-uniqu-62cbd9.md
+    notes: household — documents fix for rank 1 class of HTTP mapping errors
+  - rank: 6
+    priority: P1
+    file: 20260925-163606-suggestion-displaybalance-for-credit-normal-accounts-286c48.md
+    notes: household — ledger UI sign convention
+  - rank: 7
+    priority: P1
+    file: 20260925-163555-suggestion-currency-scale-display-string-without-number-f516d5.md
+    notes: household — money display without JS number
+  - rank: 8
+    priority: P1
+    file: 20260925-163555-suggestion-dated-conversion-asof-and-rate-pick-invert-pivot-9ac934.md
+    notes: household — FX as-of without Date literals
+  - rank: 9
+    priority: P1
+    file: 20260925-201502-suggestion-dual-target-api-mirror-contract-testing-cli-g7h8i9.md
+    notes: Horizon B — route snapshot + mirror smoke
+  - rank: 10
+    priority: P1
+    file: 20260925-201503-suggestion-assignment-scope-sql-and-prefilter-parity-j0k1l2.md
+    notes: Horizon B — ABAC scope SQL + list prefilter
+  - rank: 11
+    priority: P1
+    file: 20260925-201508-suggestion-derive-backend-checklist-list-projection-recipe-y5z6a7.md
+    notes: Horizon B — ai-knowledge derive-backend + projection recipe
+  - rank: 12
+    priority: P2
+    file: 20260925-201506-suggestion-express-map-domain-error-unified-adapter-s9t0u1.md
+    notes: Horizon B — Express mapDomainError adapter
+  - rank: 13
+    priority: P2
+    file: 20260925-201505-suggestion-document-store-port-aligned-with-backseat-p6q7r8.md
+    notes: Horizon B — document store port types
+  - rank: 14
+    priority: P2
+    file: 20260925-201507-suggestion-workshop-transport-client-dual-target-v2w3x4.md
+    notes: Horizon B — workshop fetch client pattern
+  - rank: 15
+    priority: P2
+    file: 20260925-201509-suggestion-recommend-suppress-stock-gl-document-lines-b8c9d0.md
+    notes: Horizon B — recommend() product profile (document-with-lines)
+  - rank: 16
+    priority: P2
+    file: 20260925-163614-suggestion-catalog-note-skip-data-grid-on-tiny-household-re-3812f9.md
+    notes: household — tiny app recipe guardrails
+  - rank: 17
+    priority: P2
+    file: 20260925-163606-suggestion-calendar-year-open-periods-bootstrap-factory-e5b684.md
+    notes: household — fiscal-calendar bootstrap (package may be roadmap)
+  - rank: 18
+    priority: P2
+    file: 20260925-163607-suggestion-ledger-first-architecture-recipe-and-recommend-r-63d850.md
+    notes: household — ledger-first recipe (partial)
+  - rank: 19
+    priority: P2
+    file: 20260925-163607-suggestion-one-epoch-per-aggregate-recipe-for-tanstack-quer-5aa09b.md
+    notes: household — epoch cache recipe (partial)
+  - rank: 20
+    priority: P2
+    file: 20260925-163606-suggestion-vite-express-login-path-wiring-example-5b83a9.md
+    notes: household — jwt-auth + Vite proxy example (partial)
+  - rank: 21
+    priority: P2
+    file: 20260925-163555-suggestion-express-5-mount-via-dispatch-instead-of-splat-ca-90fba8.md
+    notes: household — @eristack/rest Express 5 mount pattern (partial)
+  - rank: 22
+    priority: P2
+    file: 20260925-163613-suggestion-recipe-masters-are-not-pbac-documents-191567.md
+    notes: household — opinion/recipe clarity for master data
+  - rank: 23
+    priority: P3
+    file: 20260925-201504-suggestion-drizzle-app-spine-bootstrap-bundle-m3n4o5.md
+    notes: needs-decision — spine drizzle bundle; maintainer ADR before implement
+  - rank: 24
+    priority: P3
+    file: 20260925-163607-suggestion-propose-eristack-chart-posting-tree-capability-01a5dd.md
+    notes: household — new capability horizon (partial); not blocking consumers
+
+backlog:
+  - tier: horizon-a-residual
+    status: open
+    notes: >
+      2026-08-27 Tiga Sekawan Horizon A batch. Debottleneck release shipped spine helper,
+      listRoutes, jsonError, QUPS exports, and related items — verify each file before implementing.
+      Priority order inside batch follows 20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md.
+    files:
+      - 20260827-140852-suggestion-atomic-multi-collection-writes-for-document-aggr-91d521.md
+      - 20260827-140852-suggestion-export-registered-routes-and-handler-snapshots-f-de0821.md
+      - 20260827-140852-suggestion-wall-date-calendar-arithmetic-adddays-without-da-c88deb.md
+      - 20260827-140852-suggestion-wall-compare-and-inclusive-date-range-helpers-fo-a4385d.md
+      - 20260827-140917-suggestion-named-fx-helper-for-quote-per-base-conversion-us-192afd.md
+      - 20260827-140917-suggestion-sequence-period-keys-use-a-specified-iana-timezo-e9e9cf.md
+      - 20260827-140918-suggestion-bumpmany-scopes-in-one-call-eb665a.md
+      - 20260827-140918-suggestion-resource-in-assignment-pairs-helper-for-role-x-b-784143.md
+      - 20260827-140918-suggestion-wall-or-timestamp-field-type-for-date-range-list-3285b3.md
+      - 20260827-141023-suggestion-declarative-document-status-transition-table-2956a5.md
+      - 20260827-141023-suggestion-first-class-backseat-in-memory-list-execution-fo-a5c3bf.md
+      - 20260827-141023-suggestion-react-patchline-on-commit-helpers-for-spreadshee-b0979b.md
+      - 20260827-141023-suggestion-recipe-backseat-first-erp-mockup-then-derive-dri-448793.md
+      - 20260827-141024-suggestion-documented-dual-target-client-same-login-against-4dc222.md
+      - 20260827-141049-suggestion-feature-partner-and-document-with-lines-placehol-75d93e.md
+      - 20260827-141049-suggestion-optimistic-document-version-recipe-expectedversi-2ca365.md
+      - 20260827-141049-suggestion-scoped-sequences-branch-or-location-without-a-se-d17d40.md
+      - 20260827-141049-suggestion-standard-error-envelope-helper-matching-express--d5663d.md
+      - 20260827-141050-suggestion-indexeddb-plain-object-withqupscolumns-twin-for--2b9e57.md
+  - tier: provenance-20260822
+    status: verify-shipped
+    notes: Filed before Horizon A index; check CHANGELOG/npm before re-implementing.
+    files:
+      - 20260822-112914-suggestion-export-qups-truth-modes-and-isqupstruthmode-5d16e3.md
+      - 20260822-112915-suggestion-amount-only-form-validators-for-shared-currency--d7dca6.md
+      - 20260822-112915-suggestion-decimal-or-money-field-type-so-lists-do-not-coer-014fcf.md
+  - tier: early-bugs
+    status: verify-shipped
+    notes: Pre-batch bugs; confirm fixed on current @eristack/backseat and jwt-auth.
+    files:
+      - 20260814-065204-bug-core-import-crashes-in-vite-promisify-scrypt-whe-0d5d09.md
+      - 20260815-040300-bug-backseat-missing-adapters-export-vite-e2b91c.md
+      - 20260814-071900-suggest-multitab-close-tab-activate-previous-tab-not-first-a3f21c.md

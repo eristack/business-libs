@@ -53,4 +53,5 @@ pnpm eristack-ticket bug \
 
 Or call `createBugTicket` + `writeTicketFile` from `@eristack/ai-ticket-generator`.
 
-5. Tell the user the file path and that they can email/attach it to maintainers.
+5. **business-libs maintainers:** register the file in `tickets/triage.yaml` (bugs usually go near the top of `stack`) and run `pnpm ticket:triage check`. Ingest date = filename prefix `YYYYMMDD`.
+6. Tell the user the file path and that they can email/attach it to maintainers.
