@@ -16,7 +16,8 @@
     "architecture",
     "skills",
     "sync",
-    "rbac-permissions"
+    "rbac-permissions",
+    "ledger-first"
   ],
   "sections": [
     {
@@ -52,7 +53,8 @@
         "architecture",
         "skills",
         "sync",
-        "rbac-permissions"
+        "rbac-permissions",
+        "ledger-first"
       ]
     }
   ]

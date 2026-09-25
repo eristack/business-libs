@@ -211,6 +211,34 @@ describe("recommend disambiguation", () => {
       ),
     ).toBe(true);
   });
+
+  it("document-lines product profile suppresses stock/GL unless explicit", () => {
+    const baseline = recommend(["lot", "freight"]);
+    expect(
+      baseline.matches.some((m) =>
+        m.recipe.packages.some((p) => p.name === "@eristack/stock-movement"),
+      ),
+    ).toBe(true);
+
+    const result = recommend(["lot", "freight"], {
+      product: "document-lines-erp",
+    });
+    expect(
+      result.matches.some((m) =>
+        m.recipe.packages.some((p) => p.name === "@eristack/stock-movement"),
+      ),
+    ).toBe(false);
+    expect(result.productNote).toBeTruthy();
+    const plan = loadPlan(result);
+    expect(plan.suppressedPackages).toContain("@eristack/stock-movement");
+  });
+
+  it("routes household ledger to ledger-first recipe", () => {
+    const result = recommend(["household ledger", "cashbook"]);
+    expect(result.matches.some((m) => m.recipe.id === "household-ledger")).toBe(
+      true,
+    );
+  });
 });
 
 describe("recipes", () => {

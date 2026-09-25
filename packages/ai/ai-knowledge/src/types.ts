@@ -44,11 +44,18 @@ export type RecommendationMatch = {
   matchedTriggers: string[];
 };
 
+export type RecommendOptions = {
+  /** Narrows default package matches (e.g. document-lines ERP suppresses stock/GL). */
+  product?: "document-lines-erp";
+};
+
 export type RecommendationResult = {
   input: string[];
   matches: RecommendationMatch[];
   unmatched: string[];
   fallbackNote: string | null;
+  /** Set when `product` profile filtered inventory/GL recipes. */
+  productNote?: string | null;
 };
 
 export type LoadPlanStep = {
@@ -63,4 +70,6 @@ export type LoadPlan = {
   input: string[];
   steps: LoadPlanStep[];
   unmatched: string[];
+  productNote?: string | null;
+  suppressedPackages?: string[];
 };

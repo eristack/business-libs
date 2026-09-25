@@ -86,7 +86,16 @@ type FormatInstantOptions = {
 | `input` | `string \| Date \| number` | ISO, interop Date, or epoch ms |
 | `timezone` | `TimeZoneId` | Reporting context |
 
-Throws: `InvalidTimeZoneError`, `TimestampParseError`.
+Throws: `InvalidTimeZoneError`, `TimestampParseError`. Wall-local strings (no `Z`/offset) throw `TimestampParseError` with a hint to use `wallOf` / `asInstant` — not raw Temporal messages.
+
+### `asInstant(input, timezone): ZonedInstant`
+
+| Param | Type | Notes |
+| --- | --- | --- |
+| `input` | `TimestampJSON \| Timestamp \| undefined` | Wire JSON, typed value, or default to `now` |
+| `timezone` | `TimeZoneId` | Used when `input` is `undefined` |
+
+Wall JSON → `wallToInstantOnce`. Instant JSON → `instantOf`. Prefer at API boundaries when clients send `postedAt` JSON.
 
 ### `wallOf(local, timezone): WallClock`
 

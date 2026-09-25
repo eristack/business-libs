@@ -55,6 +55,12 @@ export {
   MonetaryFormats,
   type FormatOptions,
 } from "./format/format.js";
+export {
+  formatFixed,
+  toDisplayString,
+  padAmountString,
+  type ToDisplayStringOptions,
+} from "./format/fixed-string.js";
 
 export {
   Conversion,
@@ -66,6 +72,13 @@ export {
   type ExchangeRate,
   type ExchangeRateInput,
 } from "./convert/conversion.js";
+export {
+  convertAt,
+  convertAtViaPivot,
+  invertFactor,
+  pickRate,
+  MissingFxRateError,
+} from "./convert/fx-rates.js";
 
 export {
   moneyFromJSON,

@@ -81,6 +81,17 @@ if (snap) {
 
 Do not change SQL ledger column types — only map strings ↔ `Money` at boundaries.
 
+## Display balances (credit-normal accounts)
+
+Ledger snapshots are debit-positive. Flip liability/equity/income for UI:
+
+```ts
+import { trialBalance, signedBalances, displayBalance } from "@eristack/financial-ledger";
+
+const raw = await trialBalance(fin, accounts);
+const ui = signedBalances(raw, { "1000": "asset", "2000": "liability" });
+```
+
 ## Trial balance helper
 
 Snapshot many account chains without reimplementing report math:

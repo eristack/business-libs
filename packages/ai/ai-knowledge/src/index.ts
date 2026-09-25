@@ -13,6 +13,7 @@ export type {
   KnowledgeCatalog,
   LoadPlan,
   LoadPlanStep,
+  RecommendOptions,
   RecommendationMatch,
   RecommendationResult,
   Recipe,

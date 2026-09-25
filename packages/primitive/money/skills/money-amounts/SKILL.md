@@ -31,6 +31,18 @@ const total = price.add(tax).with(Rounding.currencyDefault());
 console.log(total.toString()); // 21.39 USD
 ```
 
+## Display (no `Number()` on amount strings)
+
+```ts
+import { formatFixed, toDisplayString, convertAt, pickRate } from "@eristack/money";
+
+formatFixed(Money.of("2.5", "USD")); // "2.50"
+toDisplayString(Money.of("2.5", "USD"), { minFractionDigits: 4 }); // "2.5000"
+
+const idr = convertAt(usdAmount, "IDR", "2026-01-15T00:00:00.000Z", rates);
+pickRate(rates, "USD", "IDR", asOfInstant); // latest on or before asOf
+```
+
 ## Core Patterns
 
 ### Construct from string or minor units

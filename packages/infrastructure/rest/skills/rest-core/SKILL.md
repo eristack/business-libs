@@ -24,7 +24,12 @@ One HTTP shell pattern for Eristack examples and apps.
 ## Default wiring
 
 ```ts
+import { mountExpressRest, createExpressRestRouter } from "@eristack/rest/express";
+
 const router = defineRoutes([/* handlers */]);
+// Express 5 — prefer dispatch mount (no splat *):
+mountExpressRest(app, { router, mountPath: "/api", basePath: "/api" });
+// Express 4 Router sub-app:
 app.use("/api", createExpressRestRouter({ router, basePath: "/api" }));
 ```
 

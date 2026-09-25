@@ -61,6 +61,14 @@ export const localSkills = [
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#http-errors"
   },
   {
+    "id": "ledger-first",
+    "name": "ledger-first",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "Ledger-first cashbook spine: financial-ledger + money + timestamp + fiscal-calendar + epoch per aggregate. Not qups/document-lines. Masters are CRUD not pbac documents.",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ledger-first"
+  },
+  {
     "id": "optimistic-document-version",
     "name": "optimistic-document-version",
     "packageName": "@eristack/ai-knowledge",

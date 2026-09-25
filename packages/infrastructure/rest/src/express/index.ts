@@ -1,4 +1,11 @@
-import { Router, type NextFunction, type Request, type Response } from "express";
+import {
+  Router,
+  type Express,
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+} from "express";
 import type { RestRouter } from "../core/types.js";
 
 export type CreateExpressRestRouterOptions = {
@@ -20,19 +27,29 @@ function sendResponse(res: Response, result: { status: number; body?: unknown; h
   res.status(result.status).json(result.body);
 }
 
-/** Mount declarative REST routes on an Express Router. */
-export function createExpressRestRouter(
+function resolveDispatchPath(req: Request, base: string): string {
+  let path = req.path || "/";
+  if (base && path.startsWith(base)) {
+    path = path.slice(base.length) || "/";
+  }
+  if (!path.startsWith("/")) {
+    path = `/${path}`;
+  }
+  return path;
+}
+
+/**
+ * Dispatch middleware — use with `app.use(basePath, middleware)` on **Express 5**
+ * (avoids splat `*` mount issues). Unmatched routes call `next()`.
+ */
+export function createExpressRestMiddleware(
   options: CreateExpressRestRouterOptions,
-): Router {
-  const expressRouter = Router();
+): RequestHandler {
   const base = options.basePath?.replace(/\/$/, "") ?? "";
 
-  expressRouter.all("*", async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      let path = req.path;
-      if (base && path.startsWith(base)) {
-        path = path.slice(base.length) || "/";
-      }
+      const path = resolveDispatchPath(req, base);
 
       const result = await options.router.dispatch({
         method: req.method,
@@ -51,7 +68,23 @@ export function createExpressRestRouter(
     } catch (error) {
       next(error);
     }
-  });
+  };
+}
 
+/** Mount on an Express app (Express 4 or 5). */
+export function mountExpressRest(
+  app: Express,
+  options: CreateExpressRestRouterOptions & { mountPath?: string },
+): void {
+  const mountPath = options.mountPath ?? options.basePath ?? "/";
+  app.use(mountPath, createExpressRestMiddleware(options));
+}
+
+/** Mount declarative REST routes on an Express Router (Express 4 splat). */
+export function createExpressRestRouter(
+  options: CreateExpressRestRouterOptions,
+): Router {
+  const expressRouter = Router();
+  expressRouter.use(createExpressRestMiddleware(options));
   return expressRouter;
 }

@@ -152,81 +152,52 @@ return validationError("expectedVersion is required");
 
 ---
 
+## Domain error → envelope (copy-paste table)
+
+Map **library** throws before they become generic 500s or wrong codes (e.g. Temporal text as `BUSINESS_POLICY_DENIED`).
+
+| Error / signal | HTTP | `error.code` | Notes |
+| --- | ---: | --- | --- |
+| `TimestampParseError` (`@eristack/timestamp`) | 400 | `INVALID_TIMESTAMP` | Wall local passed to `instantOf` — use `asInstant` |
+| `ZodError` (Zod 4 `zod`) | 400 | `VALIDATION_ERROR` | Optional `details: err.flatten()` |
+| Postgres `23505` unique violation | 409 | `CONFLICT_UNIQUE` | Drizzle/node-pg `err.code === "23505"` |
+| `StaleEpochError` | 409 | `STALE_EPOCH` | + `X-Epoch-Current` header |
+| `PolicyDeniedError` | 409 | `POLICY_DENIED` | ABAC |
+| `BusinessPolicyDeniedError` | 409 | `BUSINESS_POLICY_DENIED` | PBAC (+ `policyId`, `reason`) |
+| Document version mismatch | 409 | `CONFLICT_VERSION` | App / `versionConflict()` |
+| Backseat validation | 400 | `VALIDATION_ERROR` | `BackseatValidationError` |
+
+---
+
 ## Express unified error mapper (Horizon B)
 
-One middleware-style mapper keeps Backseat graduation trivial — same JSON, swap IndexedDB for Drizzle:
+Use **`@eristack/backseat/express`** — same envelope as Backseat handlers when you swap IndexedDB for Drizzle:
 
 ```ts
-import type { Request, Response, NextFunction } from "express";
-import { StaleEpochError } from "@eristack/epoch";
-import { PolicyDeniedError } from "@eristack/abac";
-import { BusinessPolicyDeniedError } from "@eristack/pbac";
 import {
-  versionConflict,
-  jsonError,
-  BackseatErrorCodes,
-} from "@eristack/backseat";
+  createMapDomainError,
+  createAsyncHandler,
+  resolveDomainError,
+} from "@eristack/backseat/express";
 
-type ErrorBody = { error: { code: string; message: string; [k: string]: unknown } };
+const mapDomainError = createMapDomainError({
+  map: (err) =>
+    err instanceof MyDomainError
+      ? { status: 400, code: err.code, message: err.message }
+      : null,
+});
 
-function sendEnvelope(res: Response, status: number, body: ErrorBody, headers?: Record<string, string>) {
-  if (headers) {
-    for (const [k, v] of Object.entries(headers)) res.setHeader(k, v);
-  }
-  return res.status(status).json(body);
-}
+// In a catch-all or per-route catch:
+mapDomainError(err, res);
 
-/** Map domain errors thrown from handlers to the standard envelope. */
-export function mapDomainError(res: Response, err: unknown): Response {
-  if (err instanceof StaleEpochError) {
-    return sendEnvelope(
-      res,
-      409,
-      { error: { code: err.code, message: err.message } },
-      { "X-Epoch-Current": String(err.current) },
-    );
-  }
-  if (err instanceof PolicyDeniedError) {
-    return sendEnvelope(res, 409, {
-      error: { code: "POLICY_DENIED", message: err.message },
-    });
-  }
-  if (err instanceof BusinessPolicyDeniedError) {
-    return sendEnvelope(res, 409, {
-      error: {
-        code: "BUSINESS_POLICY_DENIED",
-        message: err.message,
-        policyId: err.policyId,
-        reason: err.reason,
-      },
-    });
-  }
-  // Document version — app-owned check
-  if (isVersionConflict(err)) {
-    const body = versionConflict(err.message).body;
-    return sendEnvelope(res, 409, body);
-  }
-  return sendEnvelope(res, 500, {
-    error: { code: BackseatErrorCodes.INTERNAL_ERROR, message: "Unexpected error" },
-  });
-}
-
-function isVersionConflict(err: unknown): err is { message: string } {
-  return err instanceof Error && err.name === "DocumentVersionConflictError";
-}
-
-/** Wrap async route handlers */
-export function asyncHandler(
-  fn: (req: Request, res: Response, next: NextFunction) => Promise<void>,
-) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    fn(req, res, next).catch((err) => {
-      if (res.headersSent) return next(err);
-      mapDomainError(res, err);
-    });
-  };
-}
+// Prefer wrapping async routes:
+const asyncHandler = createAsyncHandler();
+app.patch("/jobs/:id", asyncHandler(async (req, res) => { /* … */ }));
 ```
+
+Built-in mappings (by `error.name` / fields — peers optional at install time): `BackseatVersionConflictError` / `DocumentVersionConflictError` → 409 `CONFLICT_VERSION`; `PolicyDeniedError` / `BusinessPolicyDeniedError` → 409; `ForbiddenError` → 403; `StaleEpochError` → 409 + `X-Epoch-Current`; `TimestampParseError`, `ZodError`, Postgres `23505`; other `BackseatError` subclasses use their `code`/`status`.
+
+Nest: `createDomainErrorExceptionFilter()` from `@eristack/backseat/nest` (global filter) or `toDomainHttpException(err)` for manual throws.
 
 ### PATCH handler with version + PBAC + epoch bump
 

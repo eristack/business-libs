@@ -71,6 +71,29 @@ registerJwtAuthBackseat(api, {
 // In Vite: api.fetch shim or BackseatProvider handle → same-origin /api/*
 ```
 
+## Vite dev proxy (login path)
+
+`createJwtAuthRouter` mounts at **`/auth`** — login is **`POST /auth/login`**, not `/api/auth/login`. Proxy auth and API separately:
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  server: {
+    proxy: {
+      "/auth": { target: "http://localhost:3001", changeOrigin: true },
+      "/api": { target: "http://localhost:3001", changeOrigin: true },
+    },
+  },
+});
+```
+
+| Client call | Resolves to (Express on :3001) |
+| --- | --- |
+| `authClient.login(...)` | `POST /auth/login` |
+| `fetch("/api/jobs")` | `GET /api/jobs` |
+
+Use `@eristack/backseat/client` `createWorkshopClient` when the app also flips `VITE_API_MODE` between Backseat and Express.
+
 ## Express wiring (Horizon B)
 
 ```ts

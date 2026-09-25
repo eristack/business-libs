@@ -37,7 +37,10 @@ Use `assessFeasibility(input, loadSubscription(pkgDir))`.
 2. Restate the user story + proposed behavior/API.
 3. Run feasibility; explain the rationale to the user.
 4. If `possible` / `partial`, write an implementation sketch (files, APIs, tests).
-5. Emit the ticket file:
+5. In **business-libs** maintainers: after writing under `tickets/`, register the file in
+   `tickets/triage.yaml` and run `pnpm ticket:triage check`. Ingest date = filename prefix
+   `YYYYMMDD` (same calendar day can use different time suffixes).
+6. Emit the ticket file:
 
 ```bash
 pnpm eristack-ticket suggest \
@@ -50,5 +53,5 @@ pnpm eristack-ticket suggest \
   --sketch "…"
 ```
 
-6. Hand the path to the user for maintainer delivery. Do **not** implement when
+7. Hand the path to the user for maintainer delivery. Do **not** implement when
    feasibility is `unlikely` or `needs-decision` unless a maintainer overrides.

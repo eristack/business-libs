@@ -15,6 +15,11 @@ export type WallClock = {
 
 const HAS_OFFSET = /(?:[zZ]|[+-]\d{2}:\d{2})$/;
 
+/** True when the string ends with Z or a numeric UTC offset (instant wire), not wall local. */
+export function hasUtcOffsetSuffix(value: string): boolean {
+  return HAS_OFFSET.test(value.trim());
+}
+
 export function wallOf(
   local: string | LocalParts,
   timezone: TimeZoneId,
@@ -43,7 +48,7 @@ export function assertWallLocalString(local: string): void {
   if (typeof local !== "string" || local.length === 0) {
     throw new TimestampParseError("wall local must be a non-empty string");
   }
-  if (HAS_OFFSET.test(local.trim())) {
+  if (hasUtcOffsetSuffix(local)) {
     throw new TimestampParseError(
       "wall local must not include Z or UTC offset — use instant mode instead",
     );

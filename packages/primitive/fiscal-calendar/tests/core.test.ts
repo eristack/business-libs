@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
 import { wallOf } from "@eristack/timestamp";
 import {
   assertPeriodOpen,
+  createCalendarYearCalendar,
   createFiscalCalendar,
   findPeriodForDate,
   FiscalCalendarError,
   listPeriods,
+  PeriodMissingError,
+  requirePeriodForDate,
 } from "../src/index.js";
 
 const calendar = createFiscalCalendar({
@@ -122,5 +125,30 @@ describe("@eristack/fiscal-calendar", () => {
   it("assertPeriodOpen throws when closed", () => {
     const closed = calendar.years[0]!.periods[1]!;
     expect(() => assertPeriodOpen(closed)).toThrow(FiscalCalendarError);
+  });
+});
+
+describe("createCalendarYearCalendar", () => {
+  const yearCal = createCalendarYearCalendar({
+    id: "household",
+    timezone: "Asia/Jakarta",
+    years: [2026],
+  });
+
+  it("finds September 2026 in calendar-year bootstrap", () => {
+    const date = wallOf("2026-09-24T12:00:00", "Asia/Jakarta");
+    const period = findPeriodForDate(yearCal, date);
+    expect(period?.periodNumber).toBe(9);
+    expect(period?.status).toBe("open");
+  });
+
+  it("requirePeriodForDate throws PeriodMissingError", () => {
+    const cal = createCalendarYearCalendar({
+      id: "x",
+      timezone: "UTC",
+      years: [2020],
+    });
+    const date = wallOf("2030-01-01T00:00:00", "UTC");
+    expect(() => requirePeriodForDate(cal, date)).toThrow(PeriodMissingError);
   });
 });

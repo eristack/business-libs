@@ -1,0 +1,172 @@
+# Maintainer triage — ordering source of truth for repo-root tickets/
+# Ingest date = filename prefix YYYYMMDD (not ISO created alone).
+as_of: 2026-09-25
+
+batches:
+  - id: maintainer-stack
+    index: 20260925-index-maintainer-priority-stack.md
+    reporter: Eristack maintainers
+  - id: horizon-b-20260925
+    index: 20260925-index-tiga-sekawan-horizon-b-eristack-gaps.md
+    reporter: Tiga Sekawan ERP (Horizon B mirror)
+  - id: household-20260925
+    index: 20260925-index-household-personal-finance-eristack-gaps.md
+    reporter: household (personal finance tracker)
+  - id: horizon-a-20260827
+    index: 20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md
+    reporter: Tiga Sekawan ERP (Horizon A mockup)
+
+done:
+  - rank: 1
+    file: 20260925-163554-bug-instantof-throws-raw-temporal-error-on-wall-loca-341a0a.md
+    notes: "@eristack/timestamp — TimestampParseError hint; changeset timestamp-asinstant-wall-parse"
+  - rank: 2
+    file: 20260925-163554-suggestion-asinstant-helper-for-journal-and-invoice-planner-e252b3.md
+    notes: asInstant() shipped with rank 1
+  - rank: 3
+    file: 20260925-201500-suggestion-drizzle-backseat-store-atomic-sqlite-staging-a1b2c3.md
+    notes: "@eristack/backseat/drizzle createDrizzleBackseatStore"
+  - rank: 4
+    file: 20260925-201501-suggestion-backseat-workshop-server-bootstrap-without-vite-d4e5f6.md
+    notes: "@eristack/backseat/workshop bootWorkshopServer"
+  - rank: 5
+    file: 20260925-163607-suggestion-mapdomainerror-table-for-timestamp-zod-and-uniqu-62cbd9.md
+    notes: http-errors.md domain table + mapDomainError example
+  - rank: 6
+    file: 20260925-163606-suggestion-displaybalance-for-credit-normal-accounts-286c48.md
+    notes: displayBalance + signedBalances
+  - rank: 7
+    file: 20260925-163555-suggestion-currency-scale-display-string-without-number-f516d5.md
+    notes: formatFixed / toDisplayString
+  - rank: 8
+    file: 20260925-163555-suggestion-dated-conversion-asof-and-rate-pick-invert-pivot-9ac934.md
+    notes: pickRate, invertFactor, convertAt, convertAtViaPivot
+  - rank: 9
+    file: 20260925-201502-suggestion-dual-target-api-mirror-contract-testing-cli-g7h8i9.md
+    notes: backseat/testing mirror helpers + backseat:routes:check
+  - rank: 10
+    file: 20260925-201503-suggestion-assignment-scope-sql-and-prefilter-parity-j0k1l2.md
+    notes: assignmentScopePrefilter + assignmentScopeWhere
+  - rank: 11
+    file: 20260925-201508-suggestion-derive-backend-checklist-list-projection-recipe-y5z6a7.md
+    notes: backseat-then-backend derive-backend checklist section
+  - rank: 12
+    file: 20260925-201506-suggestion-express-map-domain-error-unified-adapter-s9t0u1.md
+    notes: "@eristack/backseat/express + /nest createMapDomainError"
+  - rank: 13
+    file: 20260925-201505-suggestion-document-store-port-aligned-with-backseat-p6q7r8.md
+    notes: CollectionDocumentStore + @eristack/backseat/ports
+  - rank: 14
+    file: 20260925-201507-suggestion-workshop-transport-client-dual-target-v2w3x4.md
+    notes: createWorkshopClient @eristack/backseat/client
+  - rank: 15
+    file: 20260925-201509-suggestion-recommend-suppress-stock-gl-document-lines-b8c9d0.md
+    notes: "recommend product document-lines-erp suppresses stock/GL"
+  - rank: 16
+    file: 20260925-163614-suggestion-catalog-note-skip-data-grid-on-tiny-household-re-3812f9.md
+    notes: data-grid skill + recipe guardrail
+  - rank: 17
+    file: 20260925-163606-suggestion-calendar-year-open-periods-bootstrap-factory-e5b684.md
+    notes: createCalendarYearCalendar + PeriodMissingError
+  - rank: 18
+    file: 20260925-163607-suggestion-ledger-first-architecture-recipe-and-recommend-r-63d850.md
+    notes: knowledge/ledger-first.md + household-ledger recipe
+  - rank: 19
+    file: 20260925-163607-suggestion-one-epoch-per-aggregate-recipe-for-tanstack-quer-5aa09b.md
+    notes: epoch-core skill one-epoch-per-aggregate section
+  - rank: 20
+    file: 20260925-163606-suggestion-vite-express-login-path-wiring-example-5b83a9.md
+    notes: jwt-auth dual-target Vite proxy table
+  - rank: 21
+    file: 20260925-163555-suggestion-express-5-mount-via-dispatch-instead-of-splat-ca-90fba8.md
+    notes: mountExpressRest + createExpressRestMiddleware
+  - rank: 22
+    file: 20260925-163613-suggestion-recipe-masters-are-not-pbac-documents-191567.md
+    notes: opinion-core + ledger-first masters guidance
+  - rank: 23
+    file: 20260925-201504-suggestion-drizzle-app-spine-bootstrap-bundle-m3n4o5.md
+    notes: ADR deferred — backseat-then-backend section only
+  - rank: 24
+    file: 20260925-163607-suggestion-propose-eristack-chart-posting-tree-capability-01a5dd.md
+    notes: ledger-first roadmap note (app-owned COA until capability)
+
+  - rank: 25
+    file: 20260827-140852-suggestion-atomic-multi-collection-writes-for-document-aggr-91d521.md
+    notes: verify-shipped — BackseatStore.atomic
+  - rank: 26
+    file: 20260827-140852-suggestion-export-registered-routes-and-handler-snapshots-f-de0821.md
+    notes: verify-shipped — routesSnapshot / listRoutes
+  - rank: 27
+    file: 20260827-140852-suggestion-wall-date-calendar-arithmetic-adddays-without-da-c88deb.md
+    notes: verify-shipped — addWallDays
+  - rank: 28
+    file: 20260827-140852-suggestion-wall-compare-and-inclusive-date-range-helpers-fo-a4385d.md
+    notes: verify-shipped — compareWall / isWallInRange
+  - rank: 29
+    file: 20260827-140917-suggestion-named-fx-helper-for-quote-per-base-conversion-us-192afd.md
+    notes: verify-shipped — money pickRate / convertAt (2026-09 stack)
+  - rank: 30
+    file: 20260827-140917-suggestion-sequence-period-keys-use-a-specified-iana-timezo-e9e9cf.md
+    notes: verify-shipped — doc-number ResetPeriod + app TZ (document in package)
+  - rank: 31
+    file: 20260827-140918-suggestion-bumpmany-scopes-in-one-call-eb665a.md
+    notes: verify-shipped — epoch.bumpMany
+  - rank: 32
+    file: 20260827-140918-suggestion-resource-in-assignment-pairs-helper-for-role-x-b-784143.md
+    notes: verify-shipped — assignmentScopePrefilter / matchesAssignmentPair
+  - rank: 33
+    file: 20260827-140918-suggestion-wall-or-timestamp-field-type-for-date-range-list-3285b3.md
+    notes: verify-shipped — data-grid type wall
+  - rank: 34
+    file: 20260827-141023-suggestion-declarative-document-status-transition-table-2956a5.md
+    notes: verify-shipped — @eristack/doc-transitions
+  - rank: 35
+    file: 20260827-141023-suggestion-first-class-backseat-in-memory-list-execution-fo-a5c3bf.md
+    notes: verify-shipped — executeBackseatList
+  - rank: 36
+    file: 20260827-141023-suggestion-react-patchline-on-commit-helpers-for-spreadshee-b0979b.md
+    notes: verify-shipped — qups patchLine / calculateLine (no separate patch-on-commit export)
+  - rank: 37
+    file: 20260827-141023-suggestion-recipe-backseat-first-erp-mockup-then-derive-dri-448793.md
+    notes: verify-shipped — backseat-then-backend recipe
+  - rank: 38
+    file: 20260827-141024-suggestion-documented-dual-target-client-same-login-against-4dc222.md
+    notes: verify-shipped — jwt-auth dual-target + createWorkshopClient
+  - rank: 39
+    file: 20260827-141049-suggestion-feature-partner-and-document-with-lines-placehol-75d93e.md
+    notes: verify-shipped — document-lines-erp app-owned masters guidance
+  - rank: 40
+    file: 20260827-141049-suggestion-optimistic-document-version-recipe-expectedversi-2ca365.md
+    notes: verify-shipped — optimistic-document-version recipe
+  - rank: 41
+    file: 20260827-141049-suggestion-scoped-sequences-branch-or-location-without-a-se-d17d40.md
+    notes: verify-shipped — doc-number app-owned scope keys (documented)
+  - rank: 42
+    file: 20260827-141049-suggestion-standard-error-envelope-helper-matching-express--d5663d.md
+    notes: verify-shipped — backseat/express createMapDomainError
+  - rank: 43
+    file: 20260827-141050-suggestion-indexeddb-plain-object-withqupscolumns-twin-for--2b9e57.md
+    notes: verify-shipped — qups drizzle column inject / withQupsColumns
+  - rank: 44
+    file: 20260822-112914-suggestion-export-qups-truth-modes-and-isqupstruthmode-5d16e3.md
+    notes: verify-shipped — QUPS_TRUTH_MODES
+  - rank: 45
+    file: 20260822-112915-suggestion-amount-only-form-validators-for-shared-currency--d7dca6.md
+    notes: verify-shipped — createAmountOnlyFieldValidators
+  - rank: 46
+    file: 20260822-112915-suggestion-decimal-or-money-field-type-so-lists-do-not-coer-014fcf.md
+    notes: verify-shipped — data-grid decimal/money types
+  - rank: 47
+    file: 20260814-065204-bug-core-import-crashes-in-vite-promisify-scrypt-whe-0d5d09.md
+    notes: verify-shipped — jwt-auth browser bundle (historical)
+  - rank: 48
+    file: 20260815-040300-bug-backseat-missing-adapters-export-vite-e2b91c.md
+    notes: verify-shipped — @eristack/backseat/adapters export
+  - rank: 49
+    file: 20260814-071900-suggest-multitab-close-tab-activate-previous-tab-not-first-a3f21c.md
+    notes: verify-shipped — confirm in @eristack/multitab if UX still wrong (file closed)
+
+# Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
+stack: []
+
+backlog: []

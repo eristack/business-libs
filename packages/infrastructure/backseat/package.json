@@ -72,6 +72,66 @@
         "types": "./dist/testing/index.d.ts",
         "default": "./dist/testing/index.cjs"
       }
+    },
+    "./drizzle": {
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
+    },
+    "./workshop": {
+      "import": {
+        "types": "./dist/workshop/index.d.ts",
+        "default": "./dist/workshop/index.js"
+      },
+      "require": {
+        "types": "./dist/workshop/index.d.ts",
+        "default": "./dist/workshop/index.cjs"
+      }
+    },
+    "./express": {
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
+    },
+    "./nest": {
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
+    },
+    "./ports": {
+      "import": {
+        "types": "./dist/ports/index.d.ts",
+        "default": "./dist/ports/index.js"
+      },
+      "require": {
+        "types": "./dist/ports/index.d.ts",
+        "default": "./dist/ports/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.cjs"
+      }
     }
   },
   "files": [
@@ -101,29 +161,57 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
+    "@eristack/abac": "^0.2.0",
+    "@eristack/epoch": "^0.1.0",
+    "@eristack/pbac": "^0.2.0",
+    "@eristack/rbac": "^0.2.0",
+    "@eristack/timestamp": "^0.1.0",
+    "@nestjs/common": "^10.0.0 || ^11.0.0",
+    "drizzle-orm": "^0.44.0",
+    "express": "^4.0.0 || ^5.0.0",
+    "zod": "^3.0.0 || ^4.0.0",
     "@eristack/data-grid": "^0.2.0",
     "@eristack/doc-transitions": "^0.1.0",
-    "@eristack/epoch": "^0.1.0",
     "@eristack/jwt-auth": "^0.4.0",
-    "@eristack/pbac": "^0.2.0",
     "@eristack/qups": "^0.3.0",
     "@tanstack/react-query": "^5.0.0",
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
+    "@eristack/abac": {
+      "optional": true
+    },
+    "@eristack/epoch": {
+      "optional": true
+    },
+    "@eristack/pbac": {
+      "optional": true
+    },
+    "@eristack/rbac": {
+      "optional": true
+    },
+    "@eristack/timestamp": {
+      "optional": true
+    },
+    "@nestjs/common": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
     "@eristack/data-grid": {
       "optional": true
     },
     "@eristack/doc-transitions": {
       "optional": true
     },
-    "@eristack/epoch": {
-      "optional": true
-    },
     "@eristack/jwt-auth": {
-      "optional": true
-    },
-    "@eristack/pbac": {
       "optional": true
     },
     "@eristack/qups": {
@@ -137,6 +225,13 @@
     }
   },
   "devDependencies": {
+    "@nestjs/common": "^11.1.3",
+    "@types/express": "^5.0.3",
+    "@types/better-sqlite3": "^7.6.13",
+    "express": "^5.1.0",
+    "zod": "^4.1.5",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.44.5",
     "@tanstack/intent": "^0.3.6",
     "@tanstack/react-query": "^5.90.2",
     "@types/node": "^22.15.29",

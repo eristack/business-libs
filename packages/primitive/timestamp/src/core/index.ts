@@ -59,4 +59,5 @@ export {
 export { formatInstant, formatWall, type FormatInstantOptions } from "./format/format.js";
 
 export { now } from "./now.js";
+export { asInstant } from "./as-instant.js";
 export { setClock, resetClock } from "./engine/clock.js";

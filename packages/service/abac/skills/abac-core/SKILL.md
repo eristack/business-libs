@@ -36,9 +36,13 @@ abac.registerPolicy({
   }),
 });
 
-// Pure helper for executeBackseatList prefilter
-import { matchesAssignmentPair } from "@eristack/abac";
+// Pure helpers for executeBackseatList prefilter + Drizzle scope SQL
+import { assignmentScopePrefilter, matchesAssignmentPair } from "@eristack/abac";
+import { assignmentScopeWhere } from "@eristack/data-grid/drizzle";
+
+assignmentScopePrefilter(user.assignments, doc); // empty assignments ⇒ false
 matchesAssignmentPair(user.assignments, doc.branchId, doc.trade);
+// SQL: .where(and(assignmentScopeWhere({ branchId, trade }, user.assignments), ...))
 ```
 
 ## Money in ABAC attrs

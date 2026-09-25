@@ -24,12 +24,25 @@ Load **one** deep page after this skill when implementing:
 | Copy-paste ERP fields | `docs/recipes.md` |
 | Wire JSON / API bodies | `docs/serialization.md` |
 
+## API bodies — use `asInstant` first
+
+When HTTP/JSON sends `TimestampJSON` (`kind: "wall"` or `"instant"`), normalize to a UTC fact with **`asInstant(json, entityTimezone)`**. Undefined input → `now(timezone)`.
+
+**Failure mode:** `instantOf("2026-09-24T12:00:00", "Asia/Jakarta")` throws **`TimestampParseError`** (wall local has no offset) — not raw `Temporal.Instant requires a time zone offset`. Fix: `asInstant({ kind: "wall", local, timezone }, zone)` or `wallToInstantOnce(wallOf(local, zone))`.
+
+```ts
+import { asInstant, timestampToJSON } from "@eristack/timestamp";
+
+const posted = asInstant(req.body.postedAt, "Asia/Jakarta");
+timestampToJSON(posted);
+```
+
 ## Pick the mode (required)
 
 | User means | Mode | Constructor |
 | --- | --- | --- |
-| When it **happened** | `instant` | `instantOf(iso \| Date \| epochMs, timezone)` |
-| When it **will happen** (local clock) | `wall` | `wallOf(localIso, timezone)` |
+| When it **happened** | `instant` | `instantOf(iso \| Date \| epochMs, timezone)` — ISO must be UTC `Z` or offset |
+| When it **will happen** (local clock) | `wall` | `wallOf(localIso, timezone)` — local string **without** `Z`/offset |
 
 Both require **IANA** `timezone` (`Asia/Jakarta`) — never bare `+07:00` as persisted zone.
 

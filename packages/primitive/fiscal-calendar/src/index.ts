@@ -5,6 +5,13 @@ export {
   FiscalCalendarError,
   listPeriods,
 } from "./core/calendar.js";
+export {
+  createCalendarYearCalendar,
+  monthsForCalendarYear,
+  PeriodMissingError,
+  PERIOD_MISSING_CODE,
+  requirePeriodForDate,
+} from "./core/calendar-year.js";
 export type {
   FiscalCalendarDefinition,
   FiscalDate,

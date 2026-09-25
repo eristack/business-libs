@@ -11,6 +11,12 @@ export {
 } from "./posting-pair.js";
 export { trialBalance, type TrialBalanceAccount } from "./trial-balance.js";
 export {
+  displayBalance,
+  signedBalances,
+  type AccountDisplayType,
+  type AccountChart,
+} from "./display-balance.js";
+export {
   hydrateLedgerEntry,
   hydrateLedgerSnapshot,
   moneyFromLedgerAmount,

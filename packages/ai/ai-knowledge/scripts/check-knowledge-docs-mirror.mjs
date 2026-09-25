@@ -18,6 +18,7 @@ const REQUIRED_MIRRORS = [
   "backseat-then-backend.md",
   "optimistic-document-version.md",
   "http-errors.md",
+  "ledger-first.md",
 ];
 
 function stripFrontmatter(text) {

@@ -101,7 +101,7 @@ Financial/stock ledgers hash ISO strings. Changing hash format requires migratio
 
 | Error | Typical cause |
 | --- | --- |
-| `TimestampParseError` | Bad ISO, wall string with offset |
+| `TimestampParseError` | Bad ISO, wall string with offset, or wall-local passed to `instantOf` — use `asInstant` |
 | `InvalidTimeZoneError` | Bad IANA, offset as zone |
 | `TimestampGapError` | Wall time in spring-forward gap |
 | `TimestampOverlapError` | Wall time in fall-back overlap without disambiguation |

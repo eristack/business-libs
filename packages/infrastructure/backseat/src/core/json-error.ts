@@ -22,6 +22,7 @@ export type JsonErrorBody = {
     code: string;
     message: string;
     details?: Record<string, unknown>;
+    [key: string]: unknown;
   };
 };
 
