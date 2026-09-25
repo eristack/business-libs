@@ -1,5 +1,11 @@
 # @eristack/ai-dev
 
+## 0.1.3
+
+### Patch Changes
+
+- Add debottleneck check profile (recipe overlap budget + workspace dep guard) wired into pr/catalog CI.
+
 ## 0.1.2
 
 ### Patch Changes

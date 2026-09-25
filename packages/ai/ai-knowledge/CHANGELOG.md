@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.13
+
+### Patch Changes
+
+- Add package-relationships guide, recipe dedupe, catalog test, backseat-then-backend bootstrap alignment (registerHorizonDocumentSpine), and upgrading §5.1.2 changeset sync playbook.
+
 ## 0.1.12
 
 ### Patch Changes

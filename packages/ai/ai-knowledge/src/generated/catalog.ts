@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-25T16:23:33.370Z",
+  "generatedAt": "2026-09-25T16:26:38.185Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -128,7 +128,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.6",
+      "version": "0.1.7",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
