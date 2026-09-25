@@ -13,7 +13,7 @@ export default function HomePage() {
       <ProsCons />
       <HistoryTimeline />
       <section className="container-page py-16 text-center sm:py-20">
-        <h2 className="text-2xl font-semibold text-neutral">
+        <h2 className="text-2xl font-semibold text-foreground">
           Ready to pick a library?
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-muted">

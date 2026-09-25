@@ -35,7 +35,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     <article className="container-page py-16 sm:py-20">
       <Link
         href="/blog"
-        className="text-sm font-medium text-muted hover:text-neutral"
+        className="text-sm font-medium text-muted hover:text-foreground"
       >
         ← Blog
       </Link>
@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <time dateTime={post.date} className="text-sm text-muted">
           {formatDate(post.date)} · {post.author}
         </time>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral">
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground">
           {post.title}
         </h1>
         <p className="mt-4 text-lg text-muted">{post.description}</p>

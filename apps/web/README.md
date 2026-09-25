@@ -20,5 +20,6 @@ pnpm --filter @eristack/web dev
 ## Design
 
 - Fonts: Inter, JetBrains Mono
-- Brand: primary `#10b981`, secondary `#6366f1`, tertiary `#f59e0b`, neutral `#11151d`
+- Dark-first: canvas `#11151d`, surfaces `#171b26` / `#1e2433`, text `#f1f5f9`
+- Accents: primary `#10b981`, secondary `#6366f1`, tertiary `#f59e0b`
 - Nav: Products · Story · Blog · Docs

@@ -1,5 +1,5 @@
 /**
- * WCAG AA (4.5:1) for primary marketing text colors on page surfaces.
+ * WCAG AA contrast for dark-first marketing surfaces.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -9,13 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const tokensPath = path.join(root, "src/lib/brand-tokens.ts");
 
 const MIN_BODY = 4.5;
-/** Accent hues are used for large type, chips, and fills — AA large text (3:1). */
 const MIN_ACCENT = 3;
-const BACKGROUNDS = {
-  lightPage: "#f4f5f7",
-  lightCard: "#ffffff",
-  darkPage: "#11151d",
-};
 
 function luminance([r, g, b]) {
   const channel = (v) => {
@@ -46,20 +40,23 @@ const src = fs.readFileSync(tokensPath, "utf8");
 const primary = parseHex(src, "primary");
 const secondary = parseHex(src, "secondary");
 const tertiary = parseHex(src, "tertiary");
-const onSurface = parseHex(src, "onSurface");
+const neutral = parseHex(src, "neutral");
+const surface = parseHex(src, "surface");
+const foreground = parseHex(src, "foreground");
+const muted = parseHex(src, "muted");
 const onPrimary = parseHex(src, "onPrimary");
-const onDark = parseHex(src, "onDark");
 
 const bodyChecks = [
-  ["onSurface on light page", onSurface, BACKGROUNDS.lightPage, MIN_BODY],
-  ["onSurface on white card", onSurface, BACKGROUNDS.lightCard, MIN_BODY],
-  ["onDark on neutral footer", onDark, BACKGROUNDS.darkPage, MIN_BODY],
+  ["foreground on page", foreground, neutral, MIN_BODY],
+  ["foreground on surface card", foreground, surface, MIN_BODY],
+  ["muted on page", muted, neutral, MIN_BODY],
+  ["onPrimary on primary button", onPrimary, primary, MIN_BODY],
 ];
 
 const accentChecks = [
-  ["secondary on white (links)", secondary, BACKGROUNDS.lightCard, MIN_ACCENT],
-  ["primary on dark band", primary, BACKGROUNDS.darkPage, MIN_ACCENT],
-  ["onPrimary on primary button", onPrimary, primary, MIN_BODY],
+  ["primary on page (accent)", primary, neutral, MIN_ACCENT],
+  ["secondary on page (links)", secondary, neutral, MIN_ACCENT],
+  ["tertiary on page (accent)", tertiary, neutral, MIN_ACCENT],
 ];
 
 let failed = false;
@@ -72,4 +69,4 @@ for (const [label, fg, bg, min] of [...bodyChecks, ...accentChecks]) {
 }
 
 if (failed) process.exit(1);
-console.log("✓ brand contrast — WCAG AA on marketing surfaces");
+console.log("✓ brand contrast — WCAG AA on dark marketing surfaces");

@@ -4,7 +4,7 @@ export function HistoryTimeline() {
   return (
     <section className="border-y border-border bg-surface py-16 sm:py-20">
       <div className="container-page">
-        <h2 className="text-3xl font-semibold tracking-tight text-neutral">
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground">
           History
         </h2>
         <p className="mt-3 max-w-xl text-muted">
@@ -18,7 +18,7 @@ export function HistoryTimeline() {
               <p className="font-mono text-sm font-medium text-secondary">
                 {m.year}
               </p>
-              <p className="mt-1 text-lg font-semibold text-neutral">
+              <p className="mt-1 text-lg font-semibold text-foreground">
                 {m.title}
               </p>
               <p className="mt-2 max-w-2xl text-sm text-muted">{m.body}</p>

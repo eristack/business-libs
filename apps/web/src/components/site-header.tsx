@@ -16,11 +16,11 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-surface/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-neutral/85 backdrop-blur-md">
       <div className="container-page flex h-14 items-center justify-between gap-4">
         <Link
           href="/"
-          className="flex items-center gap-2 font-semibold tracking-tight text-neutral"
+          className="flex items-center gap-2 font-semibold tracking-tight text-foreground"
         >
           <span
             className="inline-flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-neutral"
@@ -41,8 +41,8 @@ export function SiteHeader() {
                 className={cn(
                   "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   active
-                    ? "bg-neutral/5 text-neutral"
-                    : "text-muted hover:text-neutral",
+                    ? "bg-foreground/10 text-foreground"
+                    : "text-muted hover:text-foreground",
                 )}
               >
                 {item.label}
@@ -74,7 +74,7 @@ export function SiteHeader() {
           <Link
             key={item.href}
             href={item.href}
-            className="shrink-0 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-neutral"
+            className="shrink-0 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground"
           >
             {item.label}
           </Link>

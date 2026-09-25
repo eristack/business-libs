@@ -3,11 +3,12 @@ import { siteConfig } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-surface">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_color-mix(in_srgb,var(--color-secondary)_18%,transparent),transparent_55%)]" />
+    <section className="relative overflow-hidden border-b border-border bg-surface-raised">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_color-mix(in_srgb,var(--color-secondary)_22%,transparent),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_color-mix(in_srgb,var(--color-primary)_12%,transparent),transparent_50%)]" />
       <div className="container-page relative py-16 sm:py-24">
         <p className="text-sm font-medium text-primary">Open @eristack libraries</p>
-        <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-neutral sm:text-5xl lg:text-6xl">
+        <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
           Enterprise building blocks TypeScript teams should not rebuild
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted">

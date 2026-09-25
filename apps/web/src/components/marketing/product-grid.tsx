@@ -12,7 +12,7 @@ export function ProductGrid() {
         return (
           <section key={category.id}>
             <div className="max-w-2xl">
-              <h2 className="text-2xl font-semibold text-neutral">
+              <h2 className="text-2xl font-semibold text-foreground">
                 {category.label}
               </h2>
               <p className="mt-2 text-muted">{category.tagline}</p>
@@ -22,9 +22,9 @@ export function ProductGrid() {
                 const release = getPackageRelease(pkg);
                 return (
                   <li key={pkg.slug}>
-                    <article className="card flex h-full flex-col transition-shadow hover:shadow-md">
+                    <article className="card flex h-full flex-col transition-shadow hover:shadow-md hover:shadow-black/30">
                       <div className="flex items-start justify-between gap-2">
-                        <h3 className="font-semibold text-neutral">
+                        <h3 className="font-semibold text-foreground">
                           {pkg.name.replace("@eristack/", "")}
                         </h3>
                         <span className="font-mono text-xs text-muted">

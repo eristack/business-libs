@@ -30,15 +30,15 @@ export function StatsBand() {
   ] as const;
 
   return (
-    <section className="border-b border-border bg-neutral py-12 text-white">
+    <section className="border-b border-border bg-neutral py-12">
       <div className="container-page grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item) => (
           <div key={item.label}>
             <p className="font-mono text-3xl font-semibold text-primary">
               {item.value}
             </p>
-            <p className="mt-1 text-sm font-medium">{item.label}</p>
-            <p className="mt-1 text-xs text-white/60">{item.hint}</p>
+            <p className="mt-1 text-sm font-medium text-foreground">{item.label}</p>
+            <p className="mt-1 text-xs text-muted">{item.hint}</p>
           </div>
         ))}
       </div>

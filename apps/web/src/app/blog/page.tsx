@@ -15,7 +15,7 @@ export default function BlogIndexPage() {
   return (
     <div className="container-page py-16 sm:py-20">
       <p className="text-sm font-medium text-secondary">Writing</p>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight text-neutral">
+      <h1 className="mt-2 text-4xl font-semibold tracking-tight text-foreground">
         Blog
       </h1>
       <p className="mt-4 max-w-xl text-lg text-muted">
@@ -32,7 +32,7 @@ export default function BlogIndexPage() {
               >
                 {formatDate(post.date)}
               </time>
-              <h2 className="mt-2 text-xl font-semibold text-neutral">
+              <h2 className="mt-2 text-xl font-semibold text-foreground">
                 <Link href={post.href} className="hover:text-primary">
                   {post.title}
                 </Link>

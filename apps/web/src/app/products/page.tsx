@@ -12,10 +12,10 @@ export const metadata = pageMetadata({
 export default function ProductsPage() {
   return (
     <>
-      <div className="border-b border-border bg-surface">
+      <div className="border-b border-border bg-surface-raised">
         <div className="container-page py-14 sm:py-16">
           <p className="text-sm font-medium text-primary">Libraries</p>
-          <h1 className="mt-2 text-4xl font-semibold tracking-tight text-neutral">
+          <h1 className="mt-2 text-4xl font-semibold tracking-tight text-foreground">
             Products
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted">

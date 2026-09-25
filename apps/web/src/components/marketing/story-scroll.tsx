@@ -40,8 +40,8 @@ export function StoryScroll() {
                 className={cn(
                   "block shrink-0 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   active === chapter.id
-                    ? "bg-secondary/10 text-secondary"
-                    : "text-muted hover:text-neutral",
+                    ? "bg-secondary/15 text-secondary"
+                    : "text-muted hover:text-foreground",
                 )}
               >
                 {chapter.label}
@@ -62,7 +62,7 @@ export function StoryScroll() {
             className="scroll-mt-24"
           >
             <p className="text-sm font-medium text-primary">{chapter.label}</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral sm:text-3xl">
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
               {chapter.title}
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">

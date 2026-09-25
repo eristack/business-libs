@@ -48,7 +48,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      className={`dark ${inter.variable} ${mono.variable}`}
+    >
       <body className="min-h-dvh flex flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>

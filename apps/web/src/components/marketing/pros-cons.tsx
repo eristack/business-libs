@@ -4,7 +4,7 @@ export function ProsCons() {
   return (
     <section className="container-page py-16 sm:py-20">
       <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold tracking-tight text-neutral">
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground">
           What you get — and what we do not pretend
         </h2>
         <p className="mt-3 text-muted">
@@ -13,23 +13,23 @@ export function ProsCons() {
         </p>
       </div>
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
-        <div className="card border-primary/20">
+        <div className="card border-primary/30">
           <h3 className="text-lg font-semibold text-primary">Strengths</h3>
           <ul className="mt-4 space-y-4">
             {strengths.map((item) => (
               <li key={item.title}>
-                <p className="font-medium text-neutral">{item.title}</p>
+                <p className="font-medium text-foreground">{item.title}</p>
                 <p className="mt-1 text-sm text-muted">{item.body}</p>
               </li>
             ))}
           </ul>
         </div>
-        <div className="card">
+        <div className="card border-tertiary/25">
           <h3 className="text-lg font-semibold text-tertiary">Tradeoffs</h3>
           <ul className="mt-4 space-y-4">
             {tradeoffs.map((item) => (
               <li key={item.title}>
-                <p className="font-medium text-neutral">{item.title}</p>
+                <p className="font-medium text-foreground">{item.title}</p>
                 <p className="mt-1 text-sm text-muted">{item.body}</p>
               </li>
             ))}

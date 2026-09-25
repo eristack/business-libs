@@ -11,7 +11,7 @@ recipes: []
 
 - Relocated prior Next app to `apps/old-web` (`@eristack/old-web`, changeset-ignored).
 - New `apps/web`: marketing-first IA — **Products · Story · Blog · Docs** (hub stub).
-- Design: Inter + JetBrains Mono; `#10b981` / `#6366f1` / `#f59e0b` / `#11151d`.
+- Design: Inter + JetBrains Mono; dark-first canvas `#11151d`, surfaces `#171b26` / `#1e2433`; accents `#10b981` / `#6366f1` / `#f59e0b`.
 - `site.ts` retained for `pnpm docs:check`; package doc renderer deferred.
 
 ## Follow-ups

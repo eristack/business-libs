@@ -11,10 +11,10 @@ export const metadata = pageMetadata({
 export default function StoryPage() {
   return (
     <>
-      <div className="border-b border-border bg-surface">
+      <div className="border-b border-border bg-surface-raised">
         <div className="container-page py-14 sm:py-16">
           <p className="text-sm font-medium text-secondary">Philosophy</p>
-          <h1 className="mt-2 max-w-3xl text-4xl font-semibold tracking-tight text-neutral">
+          <h1 className="mt-2 max-w-3xl text-4xl font-semibold tracking-tight text-foreground">
             We publish the boring parts so your team ships the product
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted">
