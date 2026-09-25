@@ -8,6 +8,27 @@ Define a fiscal calendar, resolve posting dates to periods, and guard closed per
 pnpm add @eristack/fiscal-calendar @eristack/timestamp
 ```
 
+## Calendar-year bootstrap (cashbook)
+
+Twelve open months per year without hand-rolling period rows:
+
+```ts
+import {
+  createCalendarYearCalendar,
+  findPeriodForDate,
+  PeriodMissingError,
+  PERIOD_MISSING_CODE,
+} from "@eristack/fiscal-calendar";
+
+const calendar = createCalendarYearCalendar({
+  id: "household",
+  timezone: "Asia/Jakarta",
+  years: [2025, 2026, 2027],
+});
+```
+
+Map `PeriodMissingError` (`PERIOD_MISSING_CODE`) in Express via `@eristack/backseat/express` or your app mapper.
+
 ## Minimal calendar
 
 ```ts

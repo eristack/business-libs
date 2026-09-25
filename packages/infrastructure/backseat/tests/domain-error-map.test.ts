@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { PolicyDeniedError } from "@eristack/abac";
-import { BusinessPolicyDeniedError } from "@eristack/pbac";
-import { ForbiddenError } from "@eristack/rbac";
+import { PolicyDeniedError } from "../../../service/abac/src/core/errors.js";
+import { BusinessPolicyDeniedError } from "../../../service/pbac/src/core/errors.js";
+import { ForbiddenError } from "../../../service/rbac/src/core/errors.js";
 import { BackseatVersionConflictError } from "../src/core/errors.js";
 import {
   createAsyncHandler,

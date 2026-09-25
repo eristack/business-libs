@@ -195,7 +195,7 @@ const asyncHandler = createAsyncHandler();
 app.patch("/jobs/:id", asyncHandler(async (req, res) => { /* … */ }));
 ```
 
-Built-in mappings: `BackseatVersionConflictError` / `DocumentVersionConflictError` → 409 `CONFLICT_VERSION`; `PolicyDeniedError` / `BusinessPolicyDeniedError` → 409; `ForbiddenError` → 403; `StaleEpochError` → 409 + `X-Epoch-Current`; `TimestampParseError`, `ZodError`, Postgres `23505`; other `BackseatError` subclasses use their `code`/`status`.
+Built-in mappings (by `error.name` / fields — peers optional at install time): `BackseatVersionConflictError` / `DocumentVersionConflictError` → 409 `CONFLICT_VERSION`; `PolicyDeniedError` / `BusinessPolicyDeniedError` → 409; `ForbiddenError` → 403; `StaleEpochError` → 409 + `X-Epoch-Current`; `TimestampParseError`, `ZodError`, Postgres `23505`; other `BackseatError` subclasses use their `code`/`status`.
 
 Nest: `createDomainErrorExceptionFilter()` from `@eristack/backseat/nest` (global filter) or `toDomainHttpException(err)` for manual throws.
 

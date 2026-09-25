@@ -35,11 +35,5 @@ export default defineConfig({
     "@eristack/qups/backseat",
     "express",
     "@nestjs/common",
-    "@eristack/abac",
-    "@eristack/epoch",
-    "@eristack/pbac",
-    "@eristack/rbac",
-    "@eristack/timestamp",
-    "zod",
   ],
 });

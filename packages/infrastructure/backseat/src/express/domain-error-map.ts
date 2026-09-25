@@ -1,9 +1,3 @@
-import { PolicyDeniedError } from "@eristack/abac";
-import { StaleEpochError } from "@eristack/epoch";
-import { BusinessPolicyDeniedError } from "@eristack/pbac";
-import { ForbiddenError } from "@eristack/rbac";
-import { TimestampParseError } from "@eristack/timestamp";
-import { ZodError } from "zod";
 import {
   BackseatError,
   BackseatVersionConflictError,
@@ -60,9 +54,43 @@ function isDocumentVersionConflict(err: unknown): err is Error {
   return err instanceof Error && err.name === "DocumentVersionConflictError";
 }
 
+function isNamedError(err: unknown, name: string): err is Error {
+  return err instanceof Error && err.name === name;
+}
+
+function readStringField(err: unknown, key: string): string | undefined {
+  if (typeof err !== "object" || err === null || !(key in err)) return undefined;
+  const value = (err as Record<string, unknown>)[key];
+  return typeof value === "string" ? value : undefined;
+}
+
+function readNumberField(err: unknown, key: string): number | undefined {
+  if (typeof err !== "object" || err === null || !(key in err)) return undefined;
+  const value = (err as Record<string, unknown>)[key];
+  return typeof value === "number" ? value : undefined;
+}
+
+function mapZodError(err: unknown): DomainErrorEnvelope | null {
+  if (!isNamedError(err, "ZodError")) return null;
+  const flatten =
+    "flatten" in err && typeof err.flatten === "function"
+      ? (err.flatten as () => Record<string, unknown>)()
+      : undefined;
+  return {
+    status: 400,
+    body: {
+      error: {
+        code: BackseatErrorCodes.VALIDATION_ERROR,
+        message: err.message,
+        ...(flatten ? { details: flatten } : {}),
+      },
+    },
+  };
+}
+
 /**
  * Map thrown domain errors to the standard JSON envelope (Backseat-compatible).
- * Returns null only when `onUnknown` returns null and no built-in rule matched.
+ * Uses error `name` / fields so consumers need not link every @eristack/* package at build time.
  */
 export function resolveDomainError(
   err: unknown,
@@ -73,7 +101,7 @@ export function resolveDomainError(
     if (custom) return envelopeFromMapping(custom);
   }
 
-  if (err instanceof TimestampParseError) {
+  if (isNamedError(err, "TimestampParseError")) {
     return {
       status: 400,
       body: {
@@ -81,18 +109,10 @@ export function resolveDomainError(
       },
     };
   }
-  if (err instanceof ZodError) {
-    return {
-      status: 400,
-      body: {
-        error: {
-          code: BackseatErrorCodes.VALIDATION_ERROR,
-          message: err.message,
-          details: err.flatten(),
-        },
-      },
-    };
-  }
+
+  const zodMapped = mapZodError(err);
+  if (zodMapped) return zodMapped;
+
   if (isPgUniqueViolation(err)) {
     return {
       status: 409,
@@ -104,38 +124,51 @@ export function resolveDomainError(
       },
     };
   }
-  if (err instanceof StaleEpochError) {
+
+  if (isNamedError(err, "StaleEpochError")) {
+    const code = readStringField(err, "code") ?? "STALE_EPOCH";
+    const current = readNumberField(err, "current");
     return {
       status: 409,
-      body: { error: { code: err.code, message: err.message } },
-      headers: { "X-Epoch-Current": String(err.current) },
+      body: { error: { code, message: err.message } },
+      headers:
+        current !== undefined
+          ? { "X-Epoch-Current": String(current) }
+          : undefined,
     };
   }
-  if (err instanceof ForbiddenError) {
+
+  if (isNamedError(err, "ForbiddenError")) {
+    const code = readStringField(err, "code") ?? "FORBIDDEN";
     return {
       status: 403,
-      body: { error: { code: err.code, message: err.message } },
+      body: { error: { code, message: err.message } },
     };
   }
-  if (err instanceof PolicyDeniedError) {
+
+  if (isNamedError(err, "PolicyDeniedError")) {
     return {
       status: 409,
       body: { error: { code: "POLICY_DENIED", message: err.message } },
     };
   }
-  if (err instanceof BusinessPolicyDeniedError) {
+
+  if (isNamedError(err, "BusinessPolicyDeniedError")) {
+    const policyId = readStringField(err, "policyId");
+    const reason = readStringField(err, "reason");
     return {
       status: 409,
       body: {
         error: {
           code: "BUSINESS_POLICY_DENIED",
           message: err.message,
-          policyId: err.policyId,
-          reason: err.reason,
+          ...(policyId ? { policyId } : {}),
+          ...(reason ? { reason } : {}),
         },
       },
     };
   }
+
   if (
     err instanceof BackseatVersionConflictError ||
     isDocumentVersionConflict(err)
