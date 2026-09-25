@@ -89,6 +89,32 @@ const backseat = await bootWorkshopServer({
 
 Do not register routes twice — call `bootWorkshopServer` once at API startup.
 
+## API mirror smoke
+
+Export `routesSnapshot()` from workshop Backseat and from Express boot; diff with:
+
+```bash
+pnpm backseat:routes:check baseline.json candidate.json
+```
+
+Helpers: `@eristack/backseat/testing` — `assertRoutesSnapshotsEqual`, `assertDataGridEnvelope`, `isSafeMirrorGetRoute`. Template: `examples/express/scripts/api-mirror-smoke.template.mjs`.
+
+## Express error envelope
+
+Workshop proxies should not copy-paste mappers — use `@eristack/backseat/express`:
+
+```ts
+import { createAsyncHandler } from "@eristack/backseat/express";
+
+const asyncHandler = createAsyncHandler();
+app.all("/api/*", asyncHandler(async (req, res) => {
+  const response = await backseat.fetch(req.url, { method: req.method, body: req.body });
+  res.status(response.status).json(await response.json());
+}));
+```
+
+Load `@eristack/ai-knowledge#http-errors` for status/code table and client handling.
+
 ## Related
 
 - [Graduation](./graduation.md) — Horizon A → B checklist

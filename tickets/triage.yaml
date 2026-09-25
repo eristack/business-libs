@@ -41,25 +41,21 @@ done:
   - rank: 8
     file: 20260925-163555-suggestion-dated-conversion-asof-and-rate-pick-invert-pivot-9ac934.md
     notes: pickRate, invertFactor, convertAt, convertAtViaPivot
+  - rank: 9
+    file: 20260925-201502-suggestion-dual-target-api-mirror-contract-testing-cli-g7h8i9.md
+    notes: backseat/testing mirror helpers + backseat:routes:check
+  - rank: 10
+    file: 20260925-201503-suggestion-assignment-scope-sql-and-prefilter-parity-j0k1l2.md
+    notes: assignmentScopePrefilter + assignmentScopeWhere
+  - rank: 11
+    file: 20260925-201508-suggestion-derive-backend-checklist-list-projection-recipe-y5z6a7.md
+    notes: backseat-then-backend derive-backend checklist section
+  - rank: 12
+    file: 20260925-201506-suggestion-express-map-domain-error-unified-adapter-s9t0u1.md
+    notes: "@eristack/backseat/express + /nest createMapDomainError"
 
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack:
-  - rank: 9
-    priority: P1
-    file: 20260925-201502-suggestion-dual-target-api-mirror-contract-testing-cli-g7h8i9.md
-    notes: Horizon B — route snapshot + mirror smoke
-  - rank: 10
-    priority: P1
-    file: 20260925-201503-suggestion-assignment-scope-sql-and-prefilter-parity-j0k1l2.md
-    notes: Horizon B — ABAC scope SQL + list prefilter
-  - rank: 11
-    priority: P1
-    file: 20260925-201508-suggestion-derive-backend-checklist-list-projection-recipe-y5z6a7.md
-    notes: Horizon B — ai-knowledge derive-backend + projection recipe
-  - rank: 12
-    priority: P2
-    file: 20260925-201506-suggestion-express-map-domain-error-unified-adapter-s9t0u1.md
-    notes: Horizon B — Express mapDomainError adapter
   - rank: 13
     priority: P2
     file: 20260925-201505-suggestion-document-store-port-aligned-with-backseat-p6q7r8.md

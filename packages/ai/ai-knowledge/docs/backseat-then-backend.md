@@ -219,6 +219,50 @@ Load `@eristack/ai-knowledge#upgrading-eristack` for adapter matrix and semver.
 
 ---
 
+## Derive-backend checklist (Horizon B mirror)
+
+Use this when Express proxies the same routes as Backseat (Tiga Sekawan-style **workshop mirror**). Goal: same paths, same list envelopes, same scope rules — different persistence.
+
+### Document store vs list projections
+
+| Layer | Horizon A | Horizon B (phase 1) |
+| --- | --- | --- |
+| Canonical JSON docs | IndexedDB collections | `backseat_documents` (or app table) via `@eristack/backseat/drizzle` |
+| Register / grid rows | `executeBackseatList` + in-memory joins | Denormalized `*_register_rows` + `executeDrizzleList` |
+| Scope | `assignmentScopePrefilter` on prefilter | `assignmentScopeWhere` AND grid `where` |
+
+**Pattern:** keep full documents in one store; maintain **projection tables** for filters/sorts the grid needs. On seed/boot run `rebuild*Index`; after each mutation `upsert*Row` (or rebuild incrementally).
+
+Do not jump to fully normalized job/invoice tables until mirror smoke is green — projections are the default Horizon B phase 1 exit.
+
+### Maturity ladder
+
+1. **Proxy mirror** — Express forwards to headless Backseat (`bootWorkshopServer`) or identical handlers against Drizzle store.
+2. **Shared use cases** — extract peeked handler logic; Express and Backseat call the same functions.
+3. **Normalized SQL** (optional) — replace projections when product needs reporting beyond grid envelopes.
+
+### Exit criteria (CI)
+
+- [ ] `routesSnapshot()` from Backseat boot matches Express-mounted inventory (`pnpm backseat:routes:check` or `@eristack/backseat/testing` `assertRoutesSnapshotsEqual`).
+- [ ] Login → bearer → **GET-only** smoke on safe routes (no default POST probes).
+- [ ] List routes return `{ items, pageInfo, query }` — use `assertDataGridEnvelope`.
+- [ ] Role × Branch × Trade: same row set from `executeBackseatList` prefilter and Drizzle list with `assignmentScopeWhere`.
+- [ ] `pnpm test:api-mirror` (app script) wraps the above; library ships helpers, app owns URLs and tokens.
+
+### Commands (repo helpers)
+
+```bash
+# After writing baseline.json (Backseat) and candidate.json (Express boot):
+pnpm backseat:routes:check baseline.json candidate.json
+
+# In app package.json:
+# "test:api-mirror": "node scripts/express-api-mirror.mjs"
+```
+
+Load `@eristack/backseat/drizzle` + `@eristack/backseat/workshop` for server boot; `@eristack/backseat/testing` for snapshot diff and grid envelope asserts.
+
+---
+
 ## Graduation checklist
 
 - [ ] Every Backseat route has Express equivalent path + method

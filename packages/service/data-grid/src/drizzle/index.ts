@@ -15,6 +15,13 @@ export {
   columnsFromSource,
   executeDrizzleList,
 } from "./execute.js";
+
+export {
+  assignmentScopeWhere,
+  type AssignmentPair,
+  type AssignmentScopeColumns,
+  type AssignmentScopeWhereOptions,
+} from "./assignment-scope.js";
 export type {
   DrizzleListDb,
   ExecuteDrizzleListOptions,

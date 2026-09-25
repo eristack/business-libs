@@ -86,8 +86,13 @@ attrs.assignmentPairMatch({
 });
 
 // List prefilter (Backseat / in-memory)
+import { assignmentScopePrefilter } from "@eristack/abac";
+
 prefilter: (doc) =>
-  matchesAssignmentPair(user.assignments, doc.branchId, doc.trade);
+  assignmentScopePrefilter(user.assignments, doc);
+
+// Drizzle register list — same row set:
+// .where(and(assignmentScopeWhere({ branchId: cols.branchId, trade: cols.trade }, user.assignments), ...))
 ```
 
 Custom pair keys when your schema uses different field names:

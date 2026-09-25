@@ -80,6 +80,21 @@ describe("abac", () => {
     expect(denied.allowed).toBe(false);
   });
 
+  it("assignmentScopePrefilter denies when assignments empty", async () => {
+    const { assignmentScopePrefilter } = await import(
+      "../src/core/assignment-scope.js"
+    );
+    expect(
+      assignmentScopePrefilter([], { branchId: "HQ", trade: "export" }),
+    ).toBe(false);
+    expect(
+      assignmentScopePrefilter(
+        [{ branchId: "HQ", trade: "export" }],
+        { branchId: "HQ", trade: "export" },
+      ),
+    ).toBe(true);
+  });
+
   it("matchesAssignmentPair supports custom pair keys", () => {
     const pairs = [{ siteId: "A", lob: "freight" }];
     expect(

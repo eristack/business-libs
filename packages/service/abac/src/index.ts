@@ -4,6 +4,10 @@ export {
   matchesAssignmentPair,
   assignmentPairMatch,
 } from "./core/assignment-pairs.js";
+export {
+  assignmentScopePrefilter,
+  type AssignmentScopeDoc,
+} from "./core/assignment-scope.js";
 export type {
   MatchesAssignmentPairOptions,
   AssignmentPairMatchOptions,
