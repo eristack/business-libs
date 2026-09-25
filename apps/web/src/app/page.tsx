@@ -4,13 +4,16 @@ import { HistoryTimeline } from "@/components/marketing/history-timeline";
 import { HomeEcosystem } from "@/components/marketing/home-ecosystem";
 import { ProsCons } from "@/components/marketing/pros-cons";
 import { ServicesBand } from "@/components/marketing/services-band";
+import { PlatformStrip } from "@/components/marketing/platform-strip";
 import { StatsBand } from "@/components/marketing/stats-band";
+import { BrandLogo } from "@/components/brand-logo";
 import { siteConfig } from "@/lib/site";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <PlatformStrip />
       <StatsBand />
       <ProsCons />
       <HistoryTimeline />
@@ -31,14 +34,15 @@ export default function HomePage() {
           <Link href="/blog" className="btn btn-outline">
             Read the blog
           </Link>
-          <Link
+          <a
             href={siteConfig.npmOrg}
-            className="btn btn-ghost"
+            className="btn btn-ghost inline-flex items-center gap-2"
             target="_blank"
             rel="noreferrer"
           >
+            <BrandLogo icon="npm" size={18} />
             npm org
-          </Link>
+          </a>
         </div>
       </section>
     </>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import { siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
@@ -37,18 +38,20 @@ export function SiteFooter() {
           <p className="font-medium text-foreground">Connect</p>
           <a
             href={siteConfig.github}
-            className="text-muted hover:text-foreground"
+            className="inline-flex items-center gap-2 text-muted hover:text-foreground"
             target="_blank"
             rel="noreferrer"
           >
+            <BrandLogo icon="github" size={16} variant="brand" />
             GitHub
           </a>
           <a
             href={siteConfig.npmOrg}
-            className="text-muted hover:text-foreground"
+            className="inline-flex items-center gap-2 text-muted hover:text-foreground"
             target="_blank"
             rel="noreferrer"
           >
+            <BrandLogo icon="npm" size={16} variant="brand" />
             npm
           </a>
           <a

@@ -1,8 +1,5 @@
-import {
-  organizationsUsing,
-  technologyStack,
-  userFeedback,
-} from "@/lib/ecosystem-content";
+import { organizationsUsing, userFeedback } from "@/lib/ecosystem-content";
+import { TechStackGrid } from "@/components/marketing/tech-stack-grid";
 
 export function HomeEcosystem() {
   return (
@@ -68,51 +65,7 @@ export function HomeEcosystem() {
         </ul>
       </section>
 
-      <section
-        id="technology"
-        className="border-t border-border bg-surface-raised py-16 sm:py-20"
-      >
-        <div className="container-page">
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground">
-            Technology we use
-          </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            Stack defaults for libraries and recommended consumer apps — Drizzle,
-            Zod, pnpm, TanStack, and the rest of the spine.
-          </p>
-          <div className="mt-10 space-y-10">
-            {technologyStack.map((group) => (
-              <div key={group.label}>
-                <h3 className="text-lg font-semibold text-secondary">
-                  {group.label}
-                </h3>
-                <p className="mt-1 text-sm text-muted">{group.description}</p>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex flex-col rounded-xl border border-border bg-surface px-3 py-2 transition-colors hover:border-secondary/40"
-                      >
-                        <span className="text-sm font-medium text-foreground">
-                          {item.name}
-                        </span>
-                        {item.note ? (
-                          <span className="text-[11px] text-muted">
-                            {item.note}
-                          </span>
-                        ) : null}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TechStackGrid />
     </>
   );
 }

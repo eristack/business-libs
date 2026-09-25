@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
+import { BrandLogo } from "@/components/brand-logo";
 import { siteConfig } from "@/lib/site";
 
 const nav = [
@@ -53,16 +54,26 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Link
+        <div className="flex items-center gap-1.5">
+          <a
             href={siteConfig.github}
-            className="btn btn-ghost hidden text-sm sm:inline-flex"
+            className="inline-flex size-9 items-center justify-center rounded-lg text-foreground/80 transition-colors hover:bg-foreground/10 hover:text-foreground"
             target="_blank"
             rel="noreferrer"
+            aria-label="GitHub"
           >
-            GitHub
-          </Link>
-          <Link href="/products" className="btn btn-primary text-sm">
+            <BrandLogo icon="github" size={20} variant="brand" />
+          </a>
+          <a
+            href={siteConfig.npmOrg}
+            className="inline-flex size-9 items-center justify-center rounded-lg text-foreground/80 transition-colors hover:bg-foreground/10 hover:text-foreground"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="npm"
+          >
+            <BrandLogo icon="npm" size={20} variant="brand" />
+          </a>
+          <Link href="/products" className="btn btn-primary ml-1 text-sm">
             Browse libraries
           </Link>
         </div>

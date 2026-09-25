@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
+import { PlatformStrip } from "@/components/marketing/platform-strip";
 import { sponsorActions, sponsors } from "@/lib/sponsor-content";
 import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
@@ -33,6 +35,8 @@ export default function SponsorPage() {
         </div>
       </div>
 
+      <PlatformStrip />
+
       <div className="container-page py-16 sm:py-20">
         <h2 className="text-xl font-semibold text-foreground">
           Supporting organizations
@@ -50,11 +54,18 @@ export default function SponsorPage() {
         <ul className="mt-8 grid gap-4 sm:grid-cols-2">
           {sponsors.map((entry) => (
             <li key={entry.name} className="card">
-              {entry.tier ? (
-                <p className="text-xs font-semibold tracking-wide text-tertiary uppercase">
-                  {tierLabel[entry.tier]}
-                </p>
-              ) : null}
+              <div className="flex items-start justify-between gap-3">
+                {entry.tier ? (
+                  <p className="text-xs font-semibold tracking-wide text-tertiary uppercase">
+                    {tierLabel[entry.tier]}
+                  </p>
+                ) : (
+                  <span />
+                )}
+                {entry.href?.includes("github.com") ? (
+                  <BrandLogo icon="github" size={24} />
+                ) : null}
+              </div>
               <p className="mt-1 font-semibold text-foreground">
                 {entry.href ? (
                   <a
@@ -107,7 +118,9 @@ export default function SponsorPage() {
 }
 
 function ActionCta({ cta }: { cta: { label: string; href: string } }) {
-  const className = "btn btn-primary mt-6 w-full text-sm";
+  const className =
+    "btn btn-primary mt-6 inline-flex w-full items-center justify-center gap-2 text-sm";
+  const showGithub = cta.href.includes("github.com");
   if (cta.href.startsWith("mailto:") || cta.href.startsWith("http")) {
     return (
       <a
@@ -117,6 +130,7 @@ function ActionCta({ cta }: { cta: { label: string; href: string } }) {
           ? { target: "_blank", rel: "noreferrer" }
           : {})}
       >
+        {showGithub ? <BrandLogo icon="github" size={18} variant="brand" /> : null}
         {cta.label}
       </a>
     );

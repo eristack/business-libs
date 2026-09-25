@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import { packageCategories, packages } from "@/lib/site";
 import { getPackageRelease } from "@/lib/package-meta";
 
@@ -37,10 +38,11 @@ export function ProductGrid() {
                       <div className="mt-4 flex flex-wrap gap-2 text-sm">
                         <a
                           href={release.npmHref}
-                          className="text-primary hover:underline"
+                          className="inline-flex items-center gap-1 text-primary hover:underline"
                           target="_blank"
                           rel="noreferrer"
                         >
+                          <BrandLogo icon="npm" size={14} />
                           npm
                         </a>
                         <span className="text-border">·</span>

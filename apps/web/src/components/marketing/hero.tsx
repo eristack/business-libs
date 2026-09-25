@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import { siteConfig } from "@/lib/site";
 
 export function Hero() {
@@ -24,14 +25,26 @@ export function Hero() {
           <Link href="/support" className="btn btn-ghost">
             Enterprise support
           </Link>
-          <Link
+        </div>
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <a
             href={siteConfig.github}
-            className="btn btn-ghost"
             target="_blank"
             rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground/25"
           >
+            <BrandLogo icon="github" size={22} />
             Star on GitHub
-          </Link>
+          </a>
+          <a
+            href={siteConfig.npmOrg}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground/25"
+          >
+            <BrandLogo icon="npm" size={22} />
+            @eristack on npm
+          </a>
         </div>
       </div>
     </section>
