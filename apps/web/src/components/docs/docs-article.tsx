@@ -92,7 +92,7 @@ export async function DocsArticle({
         </div>
       </header>
 
-      <div className="py-8">
+      <div className="docs-article-body py-8">
         <Markdown content={body} packageSlug={packageSlug} />
       </div>
 

@@ -98,6 +98,10 @@
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
 
+  .container-docs {
+    @apply mx-auto w-full max-w-[90rem] px-4 sm:px-6 lg:px-8 xl:px-10;
+  }
+
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors;
   }
@@ -124,7 +128,11 @@
   }
 
   .prose-docs {
-    @apply max-w-none text-[16px] leading-relaxed text-foreground/90;
+    @apply max-w-none text-[17px] leading-[1.75] text-foreground/92;
+  }
+
+  .prose-docs > :first-child {
+    @apply mt-0;
   }
 
   .prose-docs h2,
@@ -134,11 +142,15 @@
   }
 
   .prose-docs h2 {
-    @apply mt-10 mb-4 text-2xl;
+    @apply mt-14 mb-3 border-t border-border/80 pt-9 text-2xl;
   }
 
   .prose-docs h3 {
-    @apply mt-8 mb-3 text-xl;
+    @apply mt-9 mb-2.5 text-xl;
+  }
+
+  .prose-docs h4 {
+    @apply mt-6 mb-2 text-lg;
   }
 
   .prose-docs p {
@@ -146,52 +158,196 @@
   }
 
   .prose-docs a {
-    @apply text-primary underline-offset-4 hover:underline;
+    @apply font-medium text-primary underline decoration-primary/25 underline-offset-[3px] hover:decoration-primary;
   }
 
   .prose-docs ul,
   .prose-docs ol {
-    @apply my-4 ml-6 list-outside;
+    @apply my-4 pl-5;
   }
 
   .prose-docs ul {
-    @apply list-disc;
+    list-style: disc;
   }
 
   .prose-docs ol {
-    @apply list-decimal;
+    list-style: decimal;
   }
 
   .prose-docs li {
-    @apply my-1;
+    @apply my-1.5 pl-1;
   }
 
-  .prose-docs pre {
-    @apply my-4 overflow-x-auto rounded-xl border border-border text-sm;
+  .prose-docs li::marker {
+    color: var(--muted);
   }
 
   .prose-docs :not(pre) > code {
-    @apply rounded bg-surface-raised px-1.5 py-0.5 font-mono text-[0.88em] text-secondary;
+    @apply rounded-md border border-border bg-surface-raised px-1.5 py-0.5 font-mono text-[0.84em] text-foreground/90;
+  }
+
+  .prose-docs blockquote {
+    @apply my-6 rounded-r-lg border-l-[3px] border-primary/40 bg-surface py-3 pr-4 pl-4 text-foreground/85;
+  }
+
+  .prose-docs hr {
+    @apply my-10 border-border;
+  }
+
+  .prose-docs strong {
+    @apply font-semibold text-foreground;
   }
 
   .prose-docs table {
-    @apply my-6 w-full border-collapse text-sm;
+    @apply my-6 w-full overflow-hidden rounded-lg border border-border text-sm;
   }
 
   .prose-docs th,
   .prose-docs td {
-    @apply border border-border px-3 py-2 text-left;
+    @apply border-b border-border px-3 py-2.5 text-left;
   }
 
   .prose-docs th {
-    @apply bg-surface-raised font-medium;
+    @apply bg-surface-raised text-xs font-semibold uppercase tracking-wide text-muted;
   }
 
-  .docs-callout {
-    @apply my-6 rounded-xl border border-border bg-surface px-4 py-3;
+  .prose-docs tr:last-child td {
+    @apply border-b-0;
   }
 
-  .docs-callout__label {
-    @apply mb-2 text-xs font-semibold uppercase tracking-wide text-primary;
+  .prose-docs figure.docs-diagram {
+    @apply my-6 overflow-hidden rounded-xl border border-border bg-surface;
+    box-shadow: inset 3px 0 0 0 var(--brand-primary);
+  }
+
+  .prose-docs figure.docs-diagram::before {
+    content: "Diagram";
+    display: block;
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .prose-docs figure.docs-diagram pre {
+    @apply m-0 overflow-x-auto bg-transparent p-4 font-mono text-[13px] leading-relaxed;
+  }
+
+  .docs-code-block {
+    position: relative;
+  }
+
+  .docs-code-copy-anchor {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    z-index: 3;
+  }
+
+  .docs-code-copy {
+    @apply inline-flex size-8 items-center justify-center rounded-md border border-border/70 bg-surface/95 text-muted shadow-sm backdrop-blur-sm transition-[opacity,color,border-color,background-color];
+    @apply hover:border-primary/30 hover:bg-surface hover:text-foreground;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30;
+    opacity: 0;
+  }
+
+  .docs-code-copy[data-copied="true"] {
+    @apply border-primary/40 text-primary opacity-100;
+  }
+
+  .docs-code-block:hover .docs-code-copy,
+  .docs-code-block:focus-within .docs-code-copy,
+  .docs-code-copy[data-copied="true"] {
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    .docs-code-copy {
+      opacity: 0.9;
+    }
+  }
+
+  .prose-docs figure[data-rehype-pretty-code-figure] {
+    @apply my-6 overflow-hidden rounded-xl border border-border shadow-sm;
+  }
+
+  .prose-docs figure[data-rehype-pretty-code-figure] pre {
+    @apply m-0 overflow-x-auto p-4 text-[13.5px] leading-[1.7];
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  .prose-docs figure[data-rehype-pretty-code-figure] code {
+    @apply bg-transparent p-0 font-[inherit] text-[inherit];
+  }
+
+  .prose-docs code[data-theme*=" "],
+  .prose-docs code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+
+  .dark .prose-docs code[data-theme*=" "],
+  .dark .prose-docs code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+
+  .prose-docs figure[data-rehype-pretty-code-figure] pre[data-theme*=" "] {
+    background-color: var(--shiki-light-bg) !important;
+  }
+
+  .dark .prose-docs figure[data-rehype-pretty-code-figure] pre[data-theme*=" "] {
+    background-color: var(--shiki-dark-bg) !important;
+  }
+
+  .prose-docs .docs-callout {
+    @apply my-6 overflow-hidden rounded-xl border text-[15px] leading-6;
+  }
+
+  .prose-docs .docs-callout__label {
+    @apply px-4 py-2 text-[11px] font-semibold tracking-wide uppercase;
+  }
+
+  .prose-docs .docs-callout__body {
+    @apply px-4 pb-4;
+  }
+
+  .prose-docs .docs-callout__body > :first-child {
+    @apply mt-0;
+  }
+
+  .prose-docs .docs-callout--agent {
+    @apply border-violet-500/25 bg-violet-500/[0.06] dark:border-violet-400/20 dark:bg-violet-400/[0.08];
+  }
+
+  .prose-docs .docs-callout--agent .docs-callout__label {
+    @apply text-violet-900 dark:text-violet-200;
+  }
+
+  .prose-docs .docs-callout--note {
+    @apply border-primary/30 bg-primary/[0.06];
+  }
+
+  .prose-docs .docs-callout--note .docs-callout__label {
+    @apply text-primary;
+  }
+
+  .prose-docs .docs-callout--warn {
+    @apply border-amber-500/30 bg-amber-500/[0.08];
+  }
+
+  .prose-docs .docs-callout--warn .docs-callout__label {
+    @apply text-amber-900 dark:text-amber-200;
+  }
+
+  .prose-docs .docs-callout--tip {
+    @apply border-emerald-500/25 bg-emerald-500/[0.06];
+  }
+
+  .prose-docs .docs-callout--tip .docs-callout__label {
+    @apply text-emerald-900 dark:text-emerald-200;
   }
 }

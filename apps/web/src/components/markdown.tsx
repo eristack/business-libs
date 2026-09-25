@@ -6,6 +6,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import { visit } from "unist-util-visit";
 import type { Root } from "hast";
+import { ProseWithCopy } from "@/components/docs/prose-with-copy";
 import { codeTheme } from "@/lib/code-theme";
 import { rehypeDocsCallouts } from "@/lib/rehype-docs-callouts";
 import { rehypeDocsDiagram } from "@/lib/rehype-docs-diagram";
@@ -70,9 +71,9 @@ export async function Markdown({
     .process(content);
 
   return (
-    <article
+    <ProseWithCopy
+      html={String(file)}
       className={cn("prose-docs", className)}
-      dangerouslySetInnerHTML={{ __html: String(file) }}
     />
   );
 }
