@@ -18,7 +18,7 @@ export function DocsNavTree({ sections, onNavigate }: DocsNavTreeProps) {
     <nav aria-label="Pages in this library" className="flex flex-col">
       {sections.map((section, index) => (
         <div
-          key={section.label || `section-${index}`}
+          key={`${index}-${section.pages[0]?.slug ?? "empty"}`}
           className={cn(index > 0 && "mt-4 border-t border-border pt-4")}
         >
           {section.label ? (
