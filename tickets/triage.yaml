@@ -90,47 +90,83 @@ done:
     file: 20260925-163607-suggestion-propose-eristack-chart-posting-tree-capability-01a5dd.md
     notes: ledger-first roadmap note (app-owned COA until capability)
 
+  - rank: 25
+    file: 20260827-140852-suggestion-atomic-multi-collection-writes-for-document-aggr-91d521.md
+    notes: verify-shipped — BackseatStore.atomic
+  - rank: 26
+    file: 20260827-140852-suggestion-export-registered-routes-and-handler-snapshots-f-de0821.md
+    notes: verify-shipped — routesSnapshot / listRoutes
+  - rank: 27
+    file: 20260827-140852-suggestion-wall-date-calendar-arithmetic-adddays-without-da-c88deb.md
+    notes: verify-shipped — addWallDays
+  - rank: 28
+    file: 20260827-140852-suggestion-wall-compare-and-inclusive-date-range-helpers-fo-a4385d.md
+    notes: verify-shipped — compareWall / isWallInRange
+  - rank: 29
+    file: 20260827-140917-suggestion-named-fx-helper-for-quote-per-base-conversion-us-192afd.md
+    notes: verify-shipped — money pickRate / convertAt (2026-09 stack)
+  - rank: 30
+    file: 20260827-140917-suggestion-sequence-period-keys-use-a-specified-iana-timezo-e9e9cf.md
+    notes: verify-shipped — doc-number ResetPeriod + app TZ (document in package)
+  - rank: 31
+    file: 20260827-140918-suggestion-bumpmany-scopes-in-one-call-eb665a.md
+    notes: verify-shipped — epoch.bumpMany
+  - rank: 32
+    file: 20260827-140918-suggestion-resource-in-assignment-pairs-helper-for-role-x-b-784143.md
+    notes: verify-shipped — assignmentScopePrefilter / matchesAssignmentPair
+  - rank: 33
+    file: 20260827-140918-suggestion-wall-or-timestamp-field-type-for-date-range-list-3285b3.md
+    notes: verify-shipped — data-grid type wall
+  - rank: 34
+    file: 20260827-141023-suggestion-declarative-document-status-transition-table-2956a5.md
+    notes: verify-shipped — @eristack/doc-transitions
+  - rank: 35
+    file: 20260827-141023-suggestion-first-class-backseat-in-memory-list-execution-fo-a5c3bf.md
+    notes: verify-shipped — executeBackseatList
+  - rank: 36
+    file: 20260827-141023-suggestion-react-patchline-on-commit-helpers-for-spreadshee-b0979b.md
+    notes: verify-shipped — qups patchLine / calculateLine (no separate patch-on-commit export)
+  - rank: 37
+    file: 20260827-141023-suggestion-recipe-backseat-first-erp-mockup-then-derive-dri-448793.md
+    notes: verify-shipped — backseat-then-backend recipe
+  - rank: 38
+    file: 20260827-141024-suggestion-documented-dual-target-client-same-login-against-4dc222.md
+    notes: verify-shipped — jwt-auth dual-target + createWorkshopClient
+  - rank: 39
+    file: 20260827-141049-suggestion-feature-partner-and-document-with-lines-placehol-75d93e.md
+    notes: verify-shipped — document-lines-erp app-owned masters guidance
+  - rank: 40
+    file: 20260827-141049-suggestion-optimistic-document-version-recipe-expectedversi-2ca365.md
+    notes: verify-shipped — optimistic-document-version recipe
+  - rank: 41
+    file: 20260827-141049-suggestion-scoped-sequences-branch-or-location-without-a-se-d17d40.md
+    notes: verify-shipped — doc-number app-owned scope keys (documented)
+  - rank: 42
+    file: 20260827-141049-suggestion-standard-error-envelope-helper-matching-express--d5663d.md
+    notes: verify-shipped — backseat/express createMapDomainError
+  - rank: 43
+    file: 20260827-141050-suggestion-indexeddb-plain-object-withqupscolumns-twin-for--2b9e57.md
+    notes: verify-shipped — qups drizzle column inject / withQupsColumns
+  - rank: 44
+    file: 20260822-112914-suggestion-export-qups-truth-modes-and-isqupstruthmode-5d16e3.md
+    notes: verify-shipped — QUPS_TRUTH_MODES
+  - rank: 45
+    file: 20260822-112915-suggestion-amount-only-form-validators-for-shared-currency--d7dca6.md
+    notes: verify-shipped — createAmountOnlyFieldValidators
+  - rank: 46
+    file: 20260822-112915-suggestion-decimal-or-money-field-type-so-lists-do-not-coer-014fcf.md
+    notes: verify-shipped — data-grid decimal/money types
+  - rank: 47
+    file: 20260814-065204-bug-core-import-crashes-in-vite-promisify-scrypt-whe-0d5d09.md
+    notes: verify-shipped — jwt-auth browser bundle (historical)
+  - rank: 48
+    file: 20260815-040300-bug-backseat-missing-adapters-export-vite-e2b91c.md
+    notes: verify-shipped — @eristack/backseat/adapters export
+  - rank: 49
+    file: 20260814-071900-suggest-multitab-close-tab-activate-previous-tab-not-first-a3f21c.md
+    notes: verify-shipped — confirm in @eristack/multitab if UX still wrong (file closed)
+
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack: []
 
-backlog:
-  - tier: horizon-a-residual
-    status: open
-    notes: >
-      2026-08-27 Tiga Sekawan Horizon A batch. Debottleneck release shipped spine helper,
-      listRoutes, jsonError, QUPS exports, and related items — verify each file before implementing.
-      Priority order inside batch follows 20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md.
-    files:
-      - 20260827-140852-suggestion-atomic-multi-collection-writes-for-document-aggr-91d521.md
-      - 20260827-140852-suggestion-export-registered-routes-and-handler-snapshots-f-de0821.md
-      - 20260827-140852-suggestion-wall-date-calendar-arithmetic-adddays-without-da-c88deb.md
-      - 20260827-140852-suggestion-wall-compare-and-inclusive-date-range-helpers-fo-a4385d.md
-      - 20260827-140917-suggestion-named-fx-helper-for-quote-per-base-conversion-us-192afd.md
-      - 20260827-140917-suggestion-sequence-period-keys-use-a-specified-iana-timezo-e9e9cf.md
-      - 20260827-140918-suggestion-bumpmany-scopes-in-one-call-eb665a.md
-      - 20260827-140918-suggestion-resource-in-assignment-pairs-helper-for-role-x-b-784143.md
-      - 20260827-140918-suggestion-wall-or-timestamp-field-type-for-date-range-list-3285b3.md
-      - 20260827-141023-suggestion-declarative-document-status-transition-table-2956a5.md
-      - 20260827-141023-suggestion-first-class-backseat-in-memory-list-execution-fo-a5c3bf.md
-      - 20260827-141023-suggestion-react-patchline-on-commit-helpers-for-spreadshee-b0979b.md
-      - 20260827-141023-suggestion-recipe-backseat-first-erp-mockup-then-derive-dri-448793.md
-      - 20260827-141024-suggestion-documented-dual-target-client-same-login-against-4dc222.md
-      - 20260827-141049-suggestion-feature-partner-and-document-with-lines-placehol-75d93e.md
-      - 20260827-141049-suggestion-optimistic-document-version-recipe-expectedversi-2ca365.md
-      - 20260827-141049-suggestion-scoped-sequences-branch-or-location-without-a-se-d17d40.md
-      - 20260827-141049-suggestion-standard-error-envelope-helper-matching-express--d5663d.md
-      - 20260827-141050-suggestion-indexeddb-plain-object-withqupscolumns-twin-for--2b9e57.md
-  - tier: provenance-20260822
-    status: verify-shipped
-    notes: Filed before Horizon A index; check CHANGELOG/npm before re-implementing.
-    files:
-      - 20260822-112914-suggestion-export-qups-truth-modes-and-isqupstruthmode-5d16e3.md
-      - 20260822-112915-suggestion-amount-only-form-validators-for-shared-currency--d7dca6.md
-      - 20260822-112915-suggestion-decimal-or-money-field-type-so-lists-do-not-coer-014fcf.md
-  - tier: early-bugs
-    status: verify-shipped
-    notes: Pre-batch bugs; confirm fixed on current @eristack/backseat and jwt-auth.
-    files:
-      - 20260814-065204-bug-core-import-crashes-in-vite-promisify-scrypt-whe-0d5d09.md
-      - 20260815-040300-bug-backseat-missing-adapters-export-vite-e2b91c.md
-      - 20260814-071900-suggest-multitab-close-tab-activate-previous-tab-not-first-a3f21c.md
+backlog: []
