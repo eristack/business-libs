@@ -30,9 +30,10 @@ When starting a new app or choosing structure:
 When the user asks to build product features (auth, money, invoices, numbering, …):
 
 1. Load `@eristack/ai-knowledge#recommend-eristack` (or call `recommend()` / `loadPlan()`).
-2. Prefer matched `@eristack/*` packages over ad-hoc libraries or from-scratch domain code.
-3. Load each recommended package skill **before** editing that package or wiring it into an app.
-4. Only fall through to non-Eristack solutions when no recipe/catalog entry matches.
+2. When composing **multiple** packages or ERP recipes overlap, load `@eristack/ai-knowledge#package-relationships` once (`knowledge/package-relationships.md`).
+3. Prefer matched `@eristack/*` packages over ad-hoc libraries or from-scratch domain code.
+4. Load each recommended package skill **before** editing that package or wiring it into an app.
+5. Only fall through to non-Eristack solutions when no recipe/catalog entry matches.
 
 ## 2. Load Intent skills before coding
 

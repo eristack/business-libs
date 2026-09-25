@@ -5,7 +5,7 @@ import { loadHorizonASeedV1 } from "@eristack/backseat/seeds";
 import { ConfigurationError, UsernameTakenError } from "@eristack/jwt-auth";
 
 async function main(): Promise<void> {
-  const { api, pbac, epoch, jwtAuth } = createHorizonBackseat();
+  const { api, pbac, epoch, jwtAuth } = await createHorizonBackseat();
   registerOrderRoutes(api, { pbac, epoch });
   await api.store.importSnapshot(loadHorizonASeedV1());
 

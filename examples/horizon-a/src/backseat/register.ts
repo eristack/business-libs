@@ -1,18 +1,15 @@
 import { createBackseat, createMemoryBackseatStore, type Backseat } from "@eristack/backseat";
+import { registerHorizonDocumentSpine } from "@eristack/backseat/seeds";
 import { createJwtAuth } from "@eristack/jwt-auth";
 import {
   createBackseatJwtAuthStores,
-  registerJwtAuthBackseat,
 } from "@eristack/jwt-auth/backseat";
 import { registerDataGridBackseatRoute } from "@eristack/data-grid/backseat";
-import { registerEpochBackseat } from "@eristack/epoch/backseat";
 import { createPbac } from "@eristack/pbac";
 import {
   publicationGraph,
   registerTransitionGraph,
 } from "@eristack/doc-transitions";
-import { registerPbacBackseat } from "@eristack/pbac/backseat";
-import { registerQupsBackseat } from "@eristack/qups/backseat";
 
 const DEMO_SECRETS = {
   accessSecret: "horizon-a-access-secret-min-32-chars!",
@@ -22,12 +19,12 @@ const DEMO_SECRETS = {
 export type HorizonSpine = {
   api: Backseat;
   pbac: ReturnType<typeof createPbac>;
-  epoch: ReturnType<typeof registerEpochBackseat>;
+  epoch: Awaited<ReturnType<typeof registerHorizonDocumentSpine>>["epoch"];
   jwtAuth: ReturnType<typeof createJwtAuth>;
 };
 
 /** Register Horizon A spine packages on one Backseat engine. */
-export function createHorizonBackseat(): HorizonSpine {
+export async function createHorizonBackseat(): Promise<HorizonSpine> {
   const store = createMemoryBackseatStore();
   const api = createBackseat({ store, baseUrl: "/api" });
 
@@ -43,10 +40,6 @@ export function createHorizonBackseat(): HorizonSpine {
     terminal: ["approved", "cancelled"],
   };
   registerTransitionGraph(pbac, { entityKey: "order", graph: orderGraph });
-  registerPbacBackseat(api, { basePath: "/pbac", pbac });
-
-  const epoch = registerEpochBackseat(api, { basePath: "/epoch" });
-  registerQupsBackseat(api, { basePath: "/qups" });
 
   const ordersGridSchema = {
     fields: [
@@ -64,37 +57,38 @@ export function createHorizonBackseat(): HorizonSpine {
     maxPageSize: 100,
   };
 
-  registerDataGridBackseatRoute(api, {
-    path: "/orders-grid",
-    name: "orders.grid",
-    schema: ordersGridSchema,
-    load: async (query) => {
-      const { executeBackseatList } = await import("@eristack/data-grid/backseat");
-      return executeBackseatList({
-        store: api.store,
-        collection: "orders",
-        schema: ordersGridSchema,
-        query,
-        toRow: async (doc) => ({
-          number: String(doc.number ?? ""),
-          status: String(doc.status ?? ""),
-          total: String(doc.total ?? "0"),
-          postedAt: String(doc.postedAt ?? "2026-01-15"),
-        }),
-      });
-    },
-  });
-
   const { credentials, refreshTokens } = createBackseatJwtAuthStores({ store });
   const jwtAuth = createJwtAuth({
     credentials,
     store: refreshTokens,
     ...DEMO_SECRETS,
   });
-  registerJwtAuthBackseat(api, {
-    basePath: "/auth",
-    jwtAuth,
-    refreshTokenTransport: "body",
+
+  const { epoch } = await registerHorizonDocumentSpine(api, {
+    pbac,
+    jwt: { jwtAuth, basePath: "/auth", refreshTokenTransport: "body" },
+    afterCore: async (backseat) => {
+      registerDataGridBackseatRoute(backseat, {
+        path: "/orders-grid",
+        name: "orders.grid",
+        schema: ordersGridSchema,
+        load: async (query) => {
+          const { executeBackseatList } = await import("@eristack/data-grid/backseat");
+          return executeBackseatList({
+            store: backseat.store,
+            collection: "orders",
+            schema: ordersGridSchema,
+            query,
+            toRow: async (doc) => ({
+              number: String(doc.number ?? ""),
+              status: String(doc.status ?? ""),
+              total: String(doc.total ?? "0"),
+              postedAt: String(doc.postedAt ?? "2026-01-15"),
+            }),
+          });
+        },
+      });
+    },
   });
 
   return { api, pbac, epoch, jwtAuth };

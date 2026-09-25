@@ -33,6 +33,7 @@ Start here
 | Ask | Load |
 | --- | --- |
 | Build login / money / doc numbers | `#recommend-eristack` |
+| Which packages depend on which | `#package-relationships` |
 | Horizon A Backseat mock → real API | `#backseat-then-backend` |
 | Job + cost sheet + lines | `#document-lines-erp` |
 | PATCH version / 409 errors | `#optimistic-document-version`, `#http-errors` |

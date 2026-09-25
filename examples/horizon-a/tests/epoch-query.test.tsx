@@ -23,7 +23,7 @@ function createWrapper() {
 
 describe("useEpochCachePolicy (Horizon A)", () => {
   it("reports refetch when list epoch is stale after order PATCH", async () => {
-    const { api, pbac, epoch } = createHorizonBackseat();
+    const { api, pbac, epoch } = await createHorizonBackseat();
     registerOrderRoutes(api, { pbac, epoch });
     await api.store.importSnapshot(loadHorizonASeedV1());
 

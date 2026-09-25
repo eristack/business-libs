@@ -126,6 +126,19 @@ Prioritized clusters match [executive-summary.md](./executive-summary.md) Sprint
 
 ---
 
+## Sprint E — Package debottlenecking
+
+| ID | Title | Effort | Layer | Acceptance criteria |
+| --- | --- | --- | --- | --- |
+| **E-001** | Canonical `package-relationships.md` + skill + recipe | M | ai-knowledge | **done** — mirror in docs/; `pnpm debottleneck:check` |
+| **E-002** | Recipe trigger dedupe (compose-spine, erp-app-core) | S | ai-knowledge | **done** — canonicalSkills redirect; overlap report |
+| **E-003** | Catalog test scans repo (no hardcoded package list) | S | ai-knowledge | **done** — `expected-catalog-packages.mjs` |
+| **E-004** | `registerHorizonDocumentSpine` in backseat/seeds | M | backseat | **done** — horizon-a uses helper; optional peers |
+| **E-005** | `pnpm debottleneck:check` script | S | root | **done** — deps + recipe overlap + register count |
+| **E-006** | CI wire debottleneck (optional strict) | S | root | **open** — add to catalog profile if desired |
+
+---
+
 ## Horizon / future (do not implement until promoted)
 
 | ID | Title | Notes |

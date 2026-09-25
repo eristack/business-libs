@@ -69,6 +69,14 @@ export const localSkills = [
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#optimistic-document-version"
   },
   {
+    "id": "package-relationships",
+    "name": "package-relationships",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "Canonical @eristack package dependency map, layer order, ERP vs HTTP vs ledger stacks, and which ai-knowledge skill to load first. Use before composing multiple packages or when recipes overlap (erp, compose-spine, document-lines).",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#package-relationships"
+  },
+  {
     "id": "recommend-eristack",
     "name": "recommend-eristack",
     "packageName": "@eristack/ai-knowledge",
