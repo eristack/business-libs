@@ -888,6 +888,47 @@ app.use("/oauth", createOAuthConsumerRouter({ consumer, onCallback }))`,
     },
   },
   {
+    slug: "comms",
+    name: "@eristack/comms",
+    title: "Comms",
+    category: "service" as const,
+    directory: "packages/service/comms",
+    href: "/comms",
+    docsHref: "/docs/comms",
+    tagline: "Email, SMS, WhatsApp — SendGrid, Twilio, Postmark, Meta; idempotent sends in SQL.",
+    description:
+      "Transactional messaging hub with vendor drivers (SendGrid, Postmark, Mailgun, Twilio SMS/WhatsApp, Vonage, Meta WhatsApp Cloud), idempotency keys, Drizzle message + delivery event log, Express send and webhooks.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/comms",
+    highlights: [
+      {
+        title: "Same pattern as payments",
+        body: "createCommsHub + drivers + Drizzle audit — no vendor SDK peers required (fetch).",
+      },
+      {
+        title: "Three channels",
+        body: "email, sms, whatsapp — register only the vendors you ship.",
+      },
+      {
+        title: "jwt-auth pairing",
+        body: "Comms delivers magic-link email/SMS; jwt-auth issues the session when the user completes login.",
+      },
+    ],
+    sample: {
+      filename: "comms-send.ts",
+      language: "ts",
+      code: `import { createCommsHub } from "@eristack/comms"
+import { createSendGridEmailDriver } from "@eristack/comms/sendgrid"
+import { createCommsRouter } from "@eristack/comms/express"
+
+const hub = createCommsHub({
+  store,
+  drivers: { sendgrid: createSendGridEmailDriver({ apiKey, defaultFrom }) },
+})
+app.use("/comms", createCommsRouter({ hub }))`,
+    },
+  },
+  {
     slug: "rbac",
     name: "@eristack/rbac",
     title: "RBAC",

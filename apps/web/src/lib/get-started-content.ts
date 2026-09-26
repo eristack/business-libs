@@ -101,10 +101,10 @@ export const getStartedTips = [
   },
   {
     want: "Transactional email, SMS, or WhatsApp (SendGrid, Twilio, …)",
-    then: "On the horizon: @eristack/comms (Candidate) — same driver pattern as payment-manager; not shipped yet.",
-    load: "@eristack/ai-knowledge#package-relationships",
+    then: "comms hub + vendor drivers + Drizzle message log — idempotent send keys like payment-manager.",
+    load: "@eristack/comms#comms-adapters",
     prompt:
-      "Read roadmap/horizon.md @eristack/comms and _ai-docs/brainstorm/comms-integrations.md. Until comms ships, wire vendor SDKs in the app or track the Candidate package.",
+      "Load @eristack/comms getting-started and vendors.md. Wire createSendGridEmailDriver or createTwilioDriver, createDrizzleCommsStore, createCommsRouter; guard POST /comms/send with jwt-auth.",
   },
   {
     want: "Stripe or Xendit checkout with idempotent charges and webhooks",

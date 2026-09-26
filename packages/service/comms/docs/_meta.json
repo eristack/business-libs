@@ -1,0 +1,8 @@
+{
+  "title": "Comms",
+  "pages": ["index", "getting-started", "vendors", "webhooks", "database"],
+  "sections": [
+    { "label": "Start", "pages": ["index", "getting-started"] },
+    { "label": "Guides", "pages": ["vendors", "webhooks", "database"] }
+  ]
+}

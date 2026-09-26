@@ -482,6 +482,35 @@ export const recipes = [
     ]
   },
   {
+    "id": "comms-email-sms-whatsapp",
+    "title": "Transactional email, SMS, and WhatsApp",
+    "priority": 15,
+    "triggers": [
+      "send email",
+      "transactional email",
+      "sendgrid",
+      "postmark",
+      "mailgun",
+      "twilio",
+      "send sms",
+      "whatsapp message",
+      "otp sms",
+      "notification email",
+      "magic link email"
+    ],
+    "rationale": "Use @eristack/comms for idempotent outbound messaging — SendGrid/Postmark/Mailgun email, Twilio/Vonage SMS, Twilio/Meta WhatsApp. Drizzle delivery log; Express send + webhooks. Load comms-core + comms-adapters; docs/vendors.md for driver pick. Pair with jwt-auth for magic-link session minting, not message transport.",
+    "packages": [
+      {
+        "name": "@eristack/comms",
+        "skills": [
+          "comms-core",
+          "comms-adapters"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "payment-gateway-stripe-xendit",
     "title": "Stripe, Xendit, and payment intents",
     "priority": 17,

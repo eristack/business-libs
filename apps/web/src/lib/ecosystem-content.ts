@@ -92,13 +92,14 @@ export const technologyStack: TechStackGroup[] = [
     ],
   },
   {
-    label: "Comms (planned)",
-    description: "Next service layer: @eristack/comms — email, SMS, WhatsApp via vendor drivers.",
+    label: "Comms & messaging",
+    description: "@eristack/comms — transactional email, SMS, WhatsApp with Drizzle delivery log.",
     items: [
-      { name: "SendGrid", href: "https://docs.sendgrid.com/", note: "planned email driver" },
-      { name: "Twilio", href: "https://www.twilio.com/docs", note: "planned SMS + WhatsApp" },
-      { name: "Postmark / SES", href: "https://postmarkapp.com/developer", note: "planned alternate email" },
-      { name: "Horizon", href: "/roadmap", note: "@eristack/comms Candidate" },
+      { name: "SendGrid", href: "https://docs.sendgrid.com/", note: "createSendGridEmailDriver" },
+      { name: "Twilio", href: "https://www.twilio.com/docs", note: "SMS + WhatsApp" },
+      { name: "Postmark", href: "https://postmarkapp.com/developer", note: "createPostmarkEmailDriver" },
+      { name: "Meta WhatsApp", href: "https://developers.facebook.com/docs/whatsapp", note: "createMetaWhatsAppDriver" },
+      { name: "Comms vendors", href: "/docs/comms/vendors", note: "Mailgun, Vonage, webhooks" },
     ],
   },
   {

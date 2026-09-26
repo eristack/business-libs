@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T11:16:00.810Z",
+  "generatedAt": "2026-09-26T11:18:45.565Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -152,6 +152,44 @@ export const catalog = {
           "description": "@eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/comms",
+      "version": "0.0.0",
+      "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
+      "slug": "comms",
+      "adapters": [
+        "drizzle",
+        "express",
+        "mailgun",
+        "meta-whatsapp",
+        "nest",
+        "postmark",
+        "rest",
+        "sendgrid",
+        "testing",
+        "twilio",
+        "vonage",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "comms-adapters",
+          "name": "comms-adapters",
+          "packageName": "@eristack/comms",
+          "description": "@eristack/comms/express createCommsRouter — POST /send, GET /messages/:id, POST /webhooks/:vendor; Twilio x-twilio-webhook-url header.",
+          "type": "adapters",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-adapters"
+        },
+        {
+          "id": "comms-core",
+          "name": "comms-core",
+          "packageName": "@eristack/comms",
+          "description": "@eristack/comms createCommsHub — idempotent email/SMS/WhatsApp sends, vendor drivers, delivery log. Drizzle default; memory drivers tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-core"
         }
       ]
     },
@@ -536,7 +574,7 @@ export const catalog = {
     {
       "name": "@eristack/oauth",
       "version": "0.0.0",
-      "description": "OAuth2 client (Sign-in with Google/OIDC) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
+      "description": "OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
       "slug": "oauth",
       "adapters": [
         "client",

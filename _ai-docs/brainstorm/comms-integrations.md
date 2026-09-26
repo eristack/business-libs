@@ -1,6 +1,6 @@
 # @eristack/comms — email, SMS, WhatsApp
 
-**Status:** brainstorm · **Layer:** Service (`packages/service/comms`) · **Next after:** `@eristack/oauth`
+**Status:** shipped → `packages/service/comms/docs/` · **Layer:** Service · **Promoted from brainstorm**
 
 ## Problem
 
