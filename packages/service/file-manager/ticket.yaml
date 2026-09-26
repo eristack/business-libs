@@ -1,0 +1,13 @@
+package: "@eristack/file-manager"
+title: file-manager
+maintainers:
+  - support@eristack.dev
+scope: >
+  Object storage uploads (S3-first): presigned browser PUT, server-side putObject,
+  FileRef JSON for Drizzle columns, metadata table, REST/Express/client/React dev panel.
+outOfScope: >
+  Image transformation pipelines, virus scanning, CDN provisioning, or owning app
+  business entities (invoices, users) beyond file metadata rows.
+skills:
+  - file-manager-core
+  - file-manager-adapters

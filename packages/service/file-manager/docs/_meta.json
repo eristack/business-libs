@@ -1,0 +1,14 @@
+{
+  "title": "File Manager",
+  "pages": ["index", "getting-started", "database", "s3-and-presigned", "http", "dev-tools"],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": ["index", "getting-started"]
+    },
+    {
+      "label": "Guide",
+      "pages": ["database", "s3-and-presigned", "http", "dev-tools"]
+    }
+  ]
+}
