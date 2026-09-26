@@ -3,6 +3,7 @@ import { GetStartedCopy } from "@/components/get-started-copy";
 import {
   agentKickoffPrompt,
   getStartedSteps,
+  getStartedTips,
   intentLoads,
   starterAgentsMd,
 } from "@/lib/get-started-content";
@@ -80,6 +81,49 @@ export default function GetStartedPage() {
       <section className="border-t border-border">
         <div className="container-page py-14 sm:py-16">
           <h2 className="text-2xl font-semibold text-foreground">
+            Tips &amp; tricks
+          </h2>
+          <p className="mt-2 max-w-2xl text-muted">
+            You do not need every package on day one. When you know what you
+            want, give your agent a clear goal — load the matching skill, then
+            ask it to implement.
+          </p>
+          <ul className="mt-8 space-y-4">
+            {getStartedTips.map((tip) => (
+              <li
+                key={tip.want}
+                className="rounded-xl border border-border bg-surface px-4 py-4 sm:px-5"
+              >
+                <p className="text-sm text-muted">
+                  <span className="font-medium text-foreground">If you want</span>{" "}
+                  {tip.want}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/90">
+                  <span className="font-medium text-primary">Then</span>{" "}
+                  {tip.then}
+                </p>
+                {"load" in tip && tip.load ? (
+                  <code className="mt-3 block overflow-x-auto rounded-lg bg-surface-raised px-3 py-2 font-mono text-xs text-secondary">
+                    pnpm dlx @tanstack/intent@latest load {tip.load}
+                  </code>
+                ) : null}
+                {"prompt" in tip && tip.prompt ? (
+                  <p className="mt-3 text-xs leading-relaxed text-muted">
+                    <span className="font-medium text-foreground/80">
+                      Example prompt:
+                    </span>{" "}
+                    {tip.prompt}
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-surface-raised">
+        <div className="container-page py-14 sm:py-16">
+          <h2 className="text-2xl font-semibold text-foreground">
             Intent skills to load first
           </h2>
           <p className="mt-2 max-w-2xl text-muted">
@@ -104,7 +148,7 @@ export default function GetStartedPage() {
         </div>
       </section>
 
-      <section id="agents-md" className="border-t border-border bg-surface-raised">
+      <section id="agents-md" className="border-t border-border">
         <div className="container-page py-14 sm:py-16">
           <h2 className="text-2xl font-semibold text-foreground">
             Starter AGENTS.md

@@ -61,6 +61,54 @@ Follow the AGENTS.md in this repo. Before writing code:
 
 Do not pick generic npm money/auth/libs — use Eristack recipes first.`;
 
+/** Short “if this, then that” paths — paste the *Then* line into agent chat. */
+export const getStartedTips = [
+  {
+    want: "The newest @eristack versions in my app",
+    then: "Ask your agent to load upgrading guidance, diff versions, and implement the plan — do not hand-edit package.json from memory.",
+    load: "@eristack/ai-knowledge#upgrading-eristack",
+    prompt:
+      "Load @eristack/ai-knowledge#upgrading-eristack (Intent). Run pnpm outdated for @eristack/*, read the relevant changelogs on eristack.dev, then apply the upgrade steps and fix breakages.",
+  },
+  {
+    want: "To pick libraries without reading every package doc",
+    then: "Describe the product feature in plain language; let recommend() return packages, skills, and load order.",
+    load: "@eristack/ai-knowledge#recommend-eristack",
+    prompt:
+      'Using @eristack/ai-knowledge recommend() / recipes, map this feature to packages and Intent skills: "[your feature]". List load commands before coding.',
+  },
+  {
+    want: "Invoices, jobs, or any document with lines and totals",
+    then: "Load the document-lines ERP spine (QUPS, doc-number, lists, optional Backseat mock) before you design tables.",
+    load: "@eristack/ai-knowledge#document-lines-erp",
+  },
+  {
+    want: "Login and sessions without a library-owned users table",
+    then: "Use jwt-auth with credentials as a child of your users table; wire Drizzle + Express from getting-started.",
+    load: "@eristack/jwt-auth#jwt-auth-adapters",
+  },
+  {
+    want: "Browser uploads to S3 (no proxying file bytes through your API)",
+    then: "Use file-manager presign → complete → FileRef in Postgres; protect Express routes with your auth.",
+    load: "@eristack/file-manager#file-manager-adapters",
+  },
+  {
+    want: "A working API in the browser before Postgres is ready",
+    then: "Horizon A: Backseat + IndexedDB factories, then graduate the same routes to Express + Drizzle.",
+    load: "@eristack/ai-knowledge#backseat-then-backend",
+  },
+  {
+    want: "Filterable, sortable admin lists from the URL",
+    then: "data-grid for query parse + Drizzle list execution; keep joins in your app, library runs filter/sort/page.",
+    load: "@eristack/data-grid#data-grid-adapters",
+  },
+  {
+    want: "A maintainer-ready bug report from your agent",
+    then: "Generate a portable ticket markdown with repro and fix plan — send to support or your own PR branch.",
+    load: "@eristack/ai-ticket-generator#ai-ticket-bug",
+  },
+] as const;
+
 export const intentLoads = [
   {
     label: "Route features to packages",
