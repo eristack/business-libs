@@ -37,7 +37,7 @@ Supporting norms:
 | `_artifacts/` | Domain maps / skill specs |
 | `.changeset/` | Pending release notes |
 
-Category order (docs + filesystem): primitive → capability → service → infrastructure → ui → features → AI.
+Category order (docs + filesystem): primitive → registries → capability → service → infrastructure → ui → features → AI.
 
 ## Branching and releases
 

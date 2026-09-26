@@ -133,9 +133,11 @@ Deliverables when promoted:
 
 ---
 
-## Package catalog — ISO (layer 02, proposed)
+## Package catalog — Registries (layer 02)
 
-One package per standard body. **Validate and normalize codes only** — not tenant masters (those stay app-owned + data-grid).
+Filesystem: `packages/registries/`. One package per code system / standards body. **Validate and normalize codes only** — not tenant masters (those stay app-owned + data-grid).
+
+Brainstorm: [`_ai-docs/brainstorm/registries-and-payment-manager.md`](../_ai-docs/brainstorm/registries-and-payment-manager.md).
 
 | Package | Status | Purpose | Depends | Blocks |
 | --- | --- | --- | --- | --- |
@@ -144,8 +146,6 @@ One package per standard body. **Validate and normalize codes only** — not ten
 | `@eristack/iso-639` | Candidate | Language codes (ISO 639 / BCP 47 subset) | — | i18n masters |
 | `@eristack/unlocode` | Candidate | UN/LOCODE ports/places (5-char) | iso-3166? | forwarding, B/L, logistics |
 | `@eristack/reference-data` | Candidate | Versioned dataset packs + Drizzle seed helpers | iso-3166, unlocode, epoch? | import-job, global code lists |
-
-Brainstorm detail: [`_ai-docs/brainstorm/iso-layer-and-payment-manager.md`](../_ai-docs/brainstorm/iso-layer-and-payment-manager.md).
 
 ---
 

@@ -1,8 +1,3 @@
----
-title: Package relationships
-description: Dependency map, layer order, and which skill to load first
-sidebar_position: 4
----
 # Package relationships
 
 One map of how `@eristack/*` packages depend on each other and which guide to load first. Use this before wiring multiple libraries or debugging “which package owns this?”
@@ -11,7 +6,18 @@ Load: `@eristack/ai-knowledge#package-relationships` · ERP lines: `#document-li
 
 ## Layer order (filesystem)
 
-`packages/primitive` → `capability` → `service` → `infrastructure` → `ui` → `ai`
+`packages/primitive` → `registries` → `capability` → `service` → `infrastructure` → `ui` → `ai`
+
+### Registries (layer 02, planned)
+
+| Package | Role |
+| --- | --- |
+| `@eristack/iso-3166` | Country/subdivision codes |
+| `@eristack/unlocode` | UN/LOCODE ports/places |
+| `@eristack/iso-4217` | Currency metadata (pairs with money) |
+| `@eristack/reference-data` | **Capability** — versioned dataset packs over registries |
+
+Registry packages validate/normalize only — tenant masters stay app-owned.
 
 Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core` entrypoints — use adapters.
 

@@ -10,7 +10,7 @@ EriStack fills those gaps with small, well-scoped libraries inspired by establis
 
 ## Packages
 
-Packages live under `packages/<category>/<name>/` in this order: **primitive → capability → service → infrastructure → ui → features → AI**.
+Packages live under `packages/<category>/<name>/` in this order: **primitive → registries → capability → service → infrastructure → ui → features → AI**.
 
 | Category | Package | Description |
 | --- | --- | --- |

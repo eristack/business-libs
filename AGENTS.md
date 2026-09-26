@@ -187,7 +187,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.
-- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 06 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/registries` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 02 **Registries** (iso-3166, unlocode, …) is **planned** — see `roadmap/layers.md`. Layer 07 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
 
 ## Examples
 
@@ -206,7 +206,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 - **Site-only pages** (story, support, philosophy, blog posts) live under `apps/web/`.
 - When promoting AI notes for a library change, update `packages/<category>/*/docs` first; the site picks them up automatically. Update `apps/web` only for marketing/company copy or search/nav wiring.
 - Web docs UI links back to the GitHub source path for each page.
-- Docs listing order matches categories: primitive → capability → service → infrastructure → ui → features → AI.
+- Docs listing order matches categories: primitive → registries → capability → service → infrastructure → ui → features → AI.
 
 ## Monorepo layout
 

@@ -1,6 +1,6 @@
 export { packageDocsGithubHref, siteConfig } from "@/lib/site-config";
 
-/** Display / filesystem order: primitive → capability → service → infrastructure → ui → features → ai */
+/** Display / filesystem order: primitive → registries → capability → service → infrastructure → ui → features → ai */
 export const packageCategories = [
   {
     id: "primitive",
@@ -21,6 +21,28 @@ export const packageCategories = [
       {
         title: "Business time",
         body: "Instant (UTC facts) and wall (local schedules) with IANA zones — DST gaps handled explicitly.",
+      },
+    ],
+  },
+  {
+    id: "registries",
+    label: "Registries",
+    href: "/registries",
+    tagline: "Authoritative code lists — ISO, UN/LOCODE, and friends.",
+    description:
+      "Registry packages validate and normalize standard codes (countries, ports, languages). Bulk datasets and seeds live in reference-data (capability); your enabled ports and regions stay in app tables.",
+    highlights: [
+      {
+        title: "One package per code system",
+        body: "iso-3166, unlocode, iso-4217 — not a grab-bag ISO layer.",
+      },
+      {
+        title: "Not your CRM masters",
+        body: "Libraries parse codes; apps own which rows are active per company.",
+      },
+      {
+        title: "Pairs with reference-data",
+        body: "Versioned seed packs when you need the full list in Postgres.",
       },
     ],
   },
