@@ -1,4 +1,5 @@
 import { execSync } from "node:child_process";
+import { formatExecError } from "../checks/runner.js";
 
 export type SyncTarget = "docs" | "knowledge" | "all";
 
@@ -32,7 +33,6 @@ export function runSync(
     }
     return { target, check, ok: true, output: outputs.join("\n").trim() };
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return { target, check, ok: false, output: message.slice(0, 500) };
+    return { target, check, ok: false, output: formatExecError(error) };
   }
 }

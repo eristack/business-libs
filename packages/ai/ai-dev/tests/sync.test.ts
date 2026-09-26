@@ -13,13 +13,13 @@ describe("runSync", () => {
     const result = runSync(repoRoot, "knowledge", true);
     expect(result.target).toBe("knowledge");
     expect(result.check).toBe(true);
-    expect(result.ok).toBe(true);
+    expect(result.ok, result.output).toBe(true);
   });
 
   it("docs check succeeds when nav catalog matches package docs", () => {
     const result = runSync(repoRoot, "docs", true);
     expect(result.target).toBe("docs");
     expect(result.check).toBe(true);
-    expect(result.ok).toBe(true);
+    expect(result.ok, result.output).toBe(true);
   });
 });
