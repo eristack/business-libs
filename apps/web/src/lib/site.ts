@@ -915,6 +915,47 @@ const { policy } = await epoch.resolveCachePolicy("orders", clientEpoch)`,
     },
   },
   {
+    slug: "file-manager",
+    name: "@eristack/file-manager",
+    title: "File Manager",
+    category: "service" as const,
+    directory: "packages/service/file-manager",
+    href: "/file-manager",
+    docsHref: "/docs/file-manager",
+    tagline: "S3 uploads, presigned URLs, FileRef for Drizzle — server and browser.",
+    description:
+      "Headless file uploads: S3 presigned PUT/GET, server putObject, file_manager_files metadata, FileRef JSON for entity columns, Express REST, client + React dev panel.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/file-manager",
+    highlights: [
+      {
+        title: "Presigned first",
+        body: "Browser uploads bytes straight to S3; API only signs and completes metadata.",
+      },
+      {
+        title: "DB convention",
+        body: "Store fileId or FileRef v1 JSON — regenerate download URLs instead of expiring links.",
+      },
+      {
+        title: "Dev panel",
+        body: "FileManagerDevPanel lists, uploads, and deletes for internal tooling routes.",
+      },
+    ],
+    sample: {
+      filename: "files.ts",
+      language: "ts",
+      code: `import { createFileManager } from "@eristack/file-manager"
+import { createS3StorageDriver } from "@eristack/file-manager/s3"
+import { createFileManagerRouter } from "@eristack/file-manager/express"
+
+const fileManager = createFileManager({
+  driver: createS3StorageDriver({ bucket: process.env.S3_BUCKET!, region: "ap-southeast-1" }),
+  store, // createDrizzleFileRecordStore — see docs/database.md
+})
+app.use("/files", createFileManagerRouter({ fileManager }))`,
+    },
+  },
+  {
     slug: "opinion",
     name: "@eristack/opinion",
     title: "Opinion",

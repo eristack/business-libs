@@ -1,0 +1,25 @@
+---
+description: When adding a new @eristack/* package — site, docs, recipes, and marketing must ship together
+globs:
+  - packages/**/package.json
+  - packages/service/**
+  - packages/capability/**
+  - packages/infrastructure/**
+  - apps/web/src/lib/site.ts
+  - apps/web/src/lib/ecosystem-content.ts
+alwaysApply: false
+---
+
+# New `@eristack/*` package — ship the whole surface
+
+Adding a publishable package is **not** done when `src/` compiles. Same iteration must include:
+
+1. **Package docs** — `docs/getting-started.md`, `_meta.json`, production path (Drizzle/S3/etc.).
+2. **Skills + recipe** — `skills/`, `recipes.yaml`, `pnpm knowledge:sync` + `knowledge:check`.
+3. **Relationship docs** — `package-relationships.md`, `upgrading.md` rows.
+4. **`apps/web`** — `site.ts` product entry; **ecosystem-content.ts** (home tech stack); products/marketing copy when relevant; **`pnpm docs:sync`** after nav changes.
+5. **Build gate** — `pnpm build`, `pnpm exports:check`, package tests.
+
+Canonical checklist: `packages/ai/ai-knowledge/knowledge/dev-conventions.md` § Shipping a new package.
+
+Do not leave S3, auth, or other headline tech off the home ecosystem grid when the package introduces it.

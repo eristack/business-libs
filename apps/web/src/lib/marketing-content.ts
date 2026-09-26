@@ -9,7 +9,7 @@ export const strengths = [
   },
   {
     title: "Production defaults",
-    body: "Drizzle/Postgres paths, hash-chained ledgers, string-first money — not in-memory demos dressed as defaults.",
+    body: "Drizzle/Postgres paths, S3 presigned uploads, hash-chained ledgers, string-first money — not in-memory demos dressed as defaults.",
   },
 ] as const;
 

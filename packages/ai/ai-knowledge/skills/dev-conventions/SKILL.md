@@ -31,6 +31,7 @@ Full table: `knowledge/agent-workflow.md` § Design targets.
 
 ## Quick rules
 
+- **New `@eristack/*` package** — same PR: package docs + skills + recipe + `apps/web` (`site.ts`, `ecosystem-content.ts`) + `pnpm docs:sync` — see § Shipping a new package in the full guide
 - **GitHub Flow** — feature branch → PR → `main` only
 - **Changesets** required for user-facing package changes; not for docs/CI-only
 - **Debottleneck** — `#package-relationships` before multi-package work; `pnpm debottleneck:check:ci` in PR profile

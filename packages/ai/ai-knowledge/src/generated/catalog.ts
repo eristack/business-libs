@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-25T17:22:50.660Z",
+  "generatedAt": "2026-09-26T03:29:46.595Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -278,6 +278,43 @@ export const catalog = {
           "description": "@eristack/epoch headless data-version counters: current/bump per scope, compareEpochs use-cache vs refetch, resolveCachePolicy, StaleEpochError. Drizzle default; memory store tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/file-manager",
+      "version": "0.0.0",
+      "description": "Headless file uploads: S3 presigned PUT/GET, server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
+      "slug": "file-manager",
+      "adapters": [
+        "backseat",
+        "backseat/store",
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest",
+        "s3",
+        "testing",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "file-manager-adapters",
+          "name": "file-manager-adapters",
+          "packageName": "@eristack/file-manager",
+          "description": "@eristack/file-manager adapters: drizzle tables/store, REST + express createFileManagerRouter, client uploadViaPresign, react FileUploadDropzone and FileManagerDevPanel. Use when wiring S3 uploads in API and Vite apps.",
+          "type": "adapters",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/file-manager#file-manager-adapters"
+        },
+        {
+          "id": "file-manager-core",
+          "name": "file-manager-core",
+          "packageName": "@eristack/file-manager",
+          "description": "Pure @eristack/file-manager: createFileManager, FileRef JSON for DB columns, presigned upload sessions, server uploadFromServer, resolveDownloadUrl, buildObjectKey. S3 via @eristack/file-manager/s3. Memory driver tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/file-manager#file-manager-core"
         }
       ]
     },

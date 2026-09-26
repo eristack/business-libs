@@ -49,6 +49,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/jwt-auth` | — | Credentials child of app users |
 | `@eristack/rbac` / `@eristack/abac` / `@eristack/pbac` | — | Boolean roles vs attrs vs document policies |
 | `@eristack/epoch` | — | Cache version scopes |
+| `@eristack/file-manager` | **peer:** backseat, AWS S3 SDK | Uploads + `FileRef`; optional `@eristack/jwt-auth` at app edge |
 | `@eristack/hash-chained-ledger` | drizzle default | Primitive for stock/financial/valuations |
 | `@eristack/opinion` | **peers:** rest, pbac, data-grid, doc-transitions | ERP document REST **canon** (not generic REST) |
 
@@ -68,6 +69,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | Clickable ERP mock → real API | `#backseat-then-backend` | Same spine; upgrading §3 for peers |
 | “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
 | Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
+| Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
 | Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
 | PATCH `/:id/:action`, document route map | `#opinion-http` | opinion + rest + doc-transitions |
 | Inventory / GL / valuation | Dedicated recipes | **Do not** pull into document-lines products by default |
@@ -102,7 +104,7 @@ await registerHorizonDocumentSpine(api, {
 });
 ```
 
-Peers for `./seeds` spine helper: `@eristack/jwt-auth`, `@eristack/epoch`, `@eristack/pbac`, `@eristack/qups`, `@eristack/doc-transitions`, `@eristack/data-grid` (install what you register). See `knowledge/backseat-then-backend.md` for full matrix.
+Peers for `./seeds` spine helper: `@eristack/jwt-auth`, `@eristack/epoch`, `@eristack/file-manager`, `@eristack/pbac`, `@eristack/qups`, `@eristack/doc-transitions`, `@eristack/data-grid` (install what you register). See `knowledge/backseat-then-backend.md` for full matrix.
 
 ## Optional vs required edges
 

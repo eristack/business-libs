@@ -17,7 +17,8 @@
     "skills",
     "sync",
     "rbac-permissions",
-    "ledger-first"
+    "ledger-first",
+    "dev-conventions"
   ],
   "sections": [
     {
@@ -54,7 +55,8 @@
         "skills",
         "sync",
         "rbac-permissions",
-        "ledger-first"
+        "ledger-first",
+        "dev-conventions"
       ]
     }
   ]

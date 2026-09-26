@@ -378,6 +378,31 @@ recipes:
           - epoch-adapters
         role: primary
 
+  - id: file-upload-s3
+    title: File uploads, S3, and presigned URLs
+    priority: 16
+    triggers:
+      - file upload
+      - upload file
+      - s3 upload
+      - presigned url
+      - presign
+      - object storage
+      - attachment
+      - file manager
+      - blob storage
+      - avatar upload
+    rationale: >
+      Use @eristack/file-manager for S3 presigned browser PUT, server uploads,
+      FileRef JSON or fileId on Drizzle rows, and Express /files routes. Load
+      file-manager-core then file-manager-adapters — docs/getting-started.md only.
+    packages:
+      - name: "@eristack/file-manager"
+        skills:
+          - file-manager-core
+          - file-manager-adapters
+        role: primary
+
   - id: package-relationships-map
     title: Package dependency map and load order
     priority: 4
