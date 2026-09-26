@@ -27,4 +27,12 @@ description: Assigned ISO 3166-1/2 country and subdivision codes — validate, n
 | `@eristack/iso-3166` | `normalizeAlpha2`, `alpha3ToAlpha2`, `normalizeSubdivisionCode`, … |
 | `@eristack/iso-3166/zod` | `countryAlpha2Schema`, `countryAlpha3Schema` |
 
+## Compose with sibling packages
+
+| Need | Package |
+| --- | --- |
+| Port / locode fields | [`@eristack/unlocode`](/docs/unlocode/getting-started) (peer: iso-3166) |
+| Address formatting | [`@eristack/address`](/docs/address) — use iso-3166 when codes must be **assigned** |
+| List filters on country | [`@eristack/data-grid`](/docs/data-grid) + your master tables |
+
 Next: [Getting started](./getting-started.md) · [Concepts](./concepts.md)

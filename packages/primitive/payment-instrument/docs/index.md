@@ -26,4 +26,12 @@ Primitive **payment instrument** values — credit/debit **display** and **gatew
 Browser PSP.js → your API stores toPersistable() → charge via payment-manager + saved tokenId
 ```
 
-Next: [Getting started](./getting-started.md) · [Security & PCI scope](./security.md) · [Payment manager](/docs/payment-manager/getting-started)
+## Compose with sibling packages
+
+| Need | Package |
+| --- | --- |
+| Charge intents + webhooks | [`@eristack/payment-manager`](/docs/payment-manager/getting-started) |
+| Line totals on invoices | [`@eristack/money`](/docs/money) + [`@eristack/qups`](/docs/qups) |
+| PAN rejection middleware | `createRejectRawPanMiddleware` on Express before payment routes |
+
+Next: [Getting started](./getting-started.md) · [Security & PCI scope](./security.md)

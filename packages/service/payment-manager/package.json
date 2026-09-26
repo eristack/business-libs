@@ -160,10 +160,8 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/money": "workspace:*"
-  },
   "peerDependencies": {
+    "@eristack/money": "^0.3.0",
     "@eristack/backseat": "^0.1.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
     "@nestjs/core": "^10.0.0 || ^11.0.0",
@@ -186,6 +184,7 @@
     "zod": { "optional": true }
   },
   "devDependencies": {
+    "@eristack/money": "workspace:*",
     "@eristack/backseat": "workspace:*",
     "@internal/test-harness": "workspace:*",
     "@nestjs/common": "^11.0.12",

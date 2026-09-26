@@ -20,6 +20,15 @@ Service-layer orchestration for **payment intents**: create charges at a PSP, pe
 
 **Production default:** Drizzle store + real Stripe or Xendit driver. **Tests only:** `@eristack/payment-manager/testing` memory store/driver.
 
-**Site:** [Getting started](/docs/payment-manager/getting-started) · Saved cards: [payment-instrument](/docs/payment-instrument/getting-started)
+**Required peer:** `@eristack/money` — all intent amounts are `{ currency, amount }` JSON strings.
 
-Next: [Getting started](./getting-started.md).
+## Compose with sibling packages
+
+| Need | Package |
+| --- | --- |
+| Saved card display + PSP token rows | [`@eristack/payment-instrument`](/docs/payment-instrument/getting-started) |
+| Invoice line amounts | [`@eristack/money`](/docs/money) + [`@eristack/qups`](/docs/qups) |
+| Receipt / failed-payment email | [`@eristack/comms`](/docs/comms/getting-started) (your app triggers after webhook) |
+| Authenticated checkout API | [`@eristack/jwt-auth`](/docs/jwt-auth) guard on `/payments/*` |
+
+Next: [Getting started](./getting-started.md) · [Security](./security.md) · [Production wiring](./wiring-production.md)

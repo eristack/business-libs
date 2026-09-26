@@ -30,4 +30,12 @@ description: Five-character trade location codes — normalize, parse, display; 
 | `@eristack/unlocode` | `normalizeUnlocode`, `parseUnlocode`, `formatUnlocodeDisplay`, `isSampleUnlocode` |
 | `@eristack/unlocode/zod` | `unlocodeSchema` |
 
+## Compose with sibling packages
+
+| Need | Package |
+| --- | --- |
+| Country prefix validation | [`@eristack/iso-3166`](/docs/iso-3166/getting-started) (**peer**, install both) |
+| Enabled ports master list | App table + [`@eristack/data-grid`](/docs/data-grid) |
+| Document lines with ports | [`@eristack/ai-knowledge`](/docs/ai-knowledge) document-lines ERP spine |
+
 Next: [Getting started](./getting-started.md) · [Concepts](./concepts.md)

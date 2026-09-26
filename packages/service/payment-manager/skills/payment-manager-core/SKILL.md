@@ -16,6 +16,7 @@ sources:
 ## Defaults
 
 - **Production:** Drizzle `payment_manager_*` tables + Stripe or Xendit driver — never `createMemory*` in prod.
+- **Peer:** `@eristack/money` (^0.3.0) — required; install alongside payment-manager.
 - Amounts: `{ currency, amount }` strings via `@eristack/money` — no JS float literals.
 - Saved cards: `@eristack/payment-instrument` tokens in app tables — not PAN in intents.
 

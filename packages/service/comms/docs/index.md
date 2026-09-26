@@ -19,7 +19,15 @@ Headless **outbound messaging** for ERP apps: one hub, many vendor drivers, idem
 | `@eristack/comms/drizzle` | Messages + delivery events |
 | `@eristack/comms/express` | `POST /send`, webhooks |
 
-**Not** jwt-auth, **not** a template UI — your app owns copy, locale, and when to send. Pair with `@eristack/jwt-auth` for magic-link **content** after you decide the subject.
+**Not** jwt-auth, **not** a template UI — your app owns copy, locale, and when to send.
+
+## Compose with other service packages
+
+| Need | Package |
+| --- | --- |
+| Who receives the message (logged-in user) | Your users table + [`@eristack/jwt-auth`](/docs/jwt-auth) |
+| SSO instead of magic link | [`@eristack/oauth`](/docs/oauth/getting-started) → `issueTokens` |
+| Payment receipt email | This package + [`@eristack/payment-manager`](/docs/payment-manager) events in your app |
 
 ## Docs map
 

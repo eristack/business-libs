@@ -40,6 +40,9 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#document-lines-erp
 - **Money:** \`@eristack/money\` — string amounts; no JS number literals for currency.
 - **Persistence:** Drizzle + Postgres in production; SQLite only in tests unless we say otherwise.
 - **Auth:** \`@eristack/jwt-auth\` — credentials are a child of *our* users table, not a library-owned users table.
+- **SSO:** \`@eristack/oauth\` for IdP login → \`issueTokens\`; **comms** for email/SMS/WhatsApp (SendGrid, Twilio) — not interchangeable.
+- **Payments:** \`@eristack/payment-manager\` + \`@eristack/money\` peer; saved cards via \`@eristack/payment-instrument\` (never persist PAN).
+- **Registries:** \`@eristack/iso-3166\` + \`@eristack/unlocode\` (install both) for country/port validation on masters and B/L fields.
 - **Recommend first:** run \`recommend("…")\` / recipes from \`@eristack/ai-knowledge\` for every feature ask.
 
 ## First scaffold prompt (paste into your agent)

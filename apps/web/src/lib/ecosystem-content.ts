@@ -103,6 +103,16 @@ export const technologyStack: TechStackGroup[] = [
     ],
   },
   {
+    label: "Registries & trade data",
+    description: "@eristack/iso-3166 + unlocode — validate assigned countries and UN/LOCODE ports.",
+    items: [
+      { name: "ISO 3166", href: "https://www.iso.org/iso-3166-country-codes.html", note: "Assigned alpha-2/alpha-3" },
+      { name: "UN/LOCODE", href: "https://unece.org/trade/cefact/unlocode-code-list-country-and-destination", note: "Five-char port codes" },
+      { name: "Country validation", href: "/docs/iso-3166/getting-started", note: "normalizeAlpha2, subdivisions" },
+      { name: "Port codes", href: "/docs/unlocode/getting-started", note: "normalizeUnlocode + data-grid masters" },
+    ],
+  },
+  {
     label: "Payments & PSPs",
     description: "@eristack/payment-manager + payment-instrument — intents in SQL, tokens not PAN.",
     items: [
@@ -119,7 +129,12 @@ export const technologyStack: TechStackGroup[] = [
       {
         name: "Payment intents",
         href: "/docs/payment-manager/getting-started",
-        note: "Idempotency + Drizzle history",
+        note: "@eristack/money peer + Drizzle history",
+      },
+      {
+        name: "Saved cards",
+        href: "/docs/payment-instrument/security",
+        note: "toPersistable — no PAN in SQL",
       },
     ],
   },

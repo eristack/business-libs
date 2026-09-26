@@ -22,6 +22,7 @@ import {
 } from "@eristack/unlocode";
 ```
 
+- **Peer:** `pnpm add @eristack/unlocode @eristack/iso-3166` — iso-3166 is required at runtime.
 - **`normalizeUnlocode`** — `ID JKT` → `IDJKT`; validates country via iso-3166
 - **`parseUnlocode`** — `{ country, location, code }`
 - **`isSampleUnlocode`** — demo port list only; not full UN registry

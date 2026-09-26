@@ -1277,7 +1277,7 @@ export const recipes = [
       "address",
       "postal address",
       "shipping address",
-      "country code",
+      "billing address format",
       "partner address"
     ],
     "rationale": "Load @eristack/address#address-core for PostalAddress normalize/format and ISO country codes — app owns partner tables and geocoding.",

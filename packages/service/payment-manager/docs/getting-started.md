@@ -9,6 +9,8 @@ description: Wire Drizzle, Stripe or Xendit, Express, and React in a few files â
 
 ```bash
 pnpm add @eristack/payment-manager @eristack/money drizzle-orm
+# @eristack/money is a required peer â€” intent amounts are Money JSON strings
+pnpm add stripe   # when using @eristack/payment-manager/stripe
 ```
 
 Peers for production adapters (install what you use):

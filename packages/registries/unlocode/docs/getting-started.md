@@ -11,7 +11,7 @@ description: Normalize port codes, display, sample list, Zod, and app master pat
 pnpm add @eristack/unlocode @eristack/iso-3166
 ```
 
-(`iso-3166` is a runtime dependency of `unlocode`.)
+(`@eristack/iso-3166` is a **required peer** — install both in apps and monorepo packages that import `unlocode`.)
 
 ## 1. Normalize on write
 

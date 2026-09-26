@@ -39,4 +39,10 @@ User already logged in via jwt-auth → consent → authorization code → `POST
 | [Provider](./provider.md) | Inbound OAuth for integrators |
 | [Database](./database.md) | Drizzle tables |
 
-**Related (planned):** `@eristack/comms` on the [roadmap](/roadmap) — email, SMS, WhatsApp (SendGrid, Twilio, …); notification spine, not login.
+## Compose with other service packages
+
+| Need | Package |
+| --- | --- |
+| App JWT + refresh after login | [`@eristack/jwt-auth`](/docs/jwt-auth/getting-started) |
+| Magic-link / OTP **delivery** | [`@eristack/comms`](/docs/comms/getting-started) (email/SMS — not login) |
+| Checkout after authenticated user | [`@eristack/payment-manager`](/docs/payment-manager/getting-started) |
