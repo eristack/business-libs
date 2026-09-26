@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T03:18:43.406Z",
+  "generatedAt": "2026-09-26T03:23:07.425Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -287,6 +287,7 @@ export const catalog = {
       "description": "Headless file uploads: S3 presigned PUT/GET, server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
       "slug": "file-manager",
       "adapters": [
+        "backseat",
         "client",
         "drizzle",
         "express",

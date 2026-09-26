@@ -56,4 +56,4 @@ import {
 } from "@eristack/file-manager/testing";
 ```
 
-Load `file-manager-adapters` for Express, client, React dev panel.
+Load `file-manager-adapters` for Express, client, React dev panel, and `@eristack/file-manager/backseat` for Horizon A.

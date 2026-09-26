@@ -70,6 +70,7 @@ Several packages export memory stores and sqlite helpers on **`./testing`** — 
 | `@eristack/doc-number/testing` | memory format + sequence stores |
 | `@eristack/rbac/testing` | memory RBAC store |
 | `@eristack/epoch/testing` | memory epoch store |
+| `@eristack/file-manager/testing` | memory storage driver + file record store |
 | `@eristack/valuations/testing` | memory layer helpers |
 | `@eristack/financial-ledger/testing` | memory ledger re-exports |
 | `@eristack/stock-movement/testing` | memory store helpers |
@@ -156,6 +157,7 @@ Use **one shared** `dbName` across `createIndexedDb*…()` calls so all packages
 | `@eristack/abac` | `createBackseatAbacContext()` → `{ backseatStore }` | `createIndexedDbAbacContext({ dbName })` | `registerAbacBackseat` | `/abac` | `abac` instance (policies are code-registered), + optional `basePath` |
 | `@eristack/pbac` | `createBackseatPbacContext()` → `{ backseatStore }` | `createIndexedDbPbacContext({ dbName })` | `registerPbacBackseat` | `/pbac` | `pbac` instance, + optional `basePath` |
 | `@eristack/epoch` | `createBackseatEpochStores()` → `{ backseatStore, epochStore }` | `createIndexedDbEpochStores({ dbName })` | `registerEpochBackseat` | `/epoch` | optional prebuilt `epoch`, + optional `basePath` |
+| `@eristack/file-manager` | `createBackseatFileManagerStores()` → `{ backseatStore, fileManager, driver }` | — (use same memory factory; IndexedDB via shared `backseatStore`) | `registerFileManagerBackseat` | `/files` | optional prebuilt `fileManager`, + optional `basePath`, `maxPresignBytes` |
 
 **IndexedDB collection prefixes (debugging in Devtools):**
 
@@ -169,6 +171,7 @@ Use **one shared** `dbName` across `createIndexedDb*…()` calls so all packages
 | rbac | `rbac.roles`, `rbac.grants` (see `RBAC_COLLECTIONS`) |
 | abac / pbac / data-grid | no extra collections — HTTP/actions only |
 | epoch | `epoch.counters` |
+| file-manager | `fileManager.files` |
 
 ### 3.3 Full ERP prototype bootstrap (copy-paste)
 

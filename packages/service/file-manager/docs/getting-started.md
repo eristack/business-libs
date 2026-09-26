@@ -73,3 +73,13 @@ Or use [`FileUploadDropzone`](./dev-tools.md) from `@eristack/file-manager/react
 | **`resolveDownloadUrl`** | Short-lived GET for private buckets |
 
 Always call **`completeUpload`** after a successful presigned PUT so metadata moves from `pending` → `ready`.
+
+## Backseat prototype
+
+```ts
+import { registerFileManagerBackseat } from "@eristack/file-manager/backseat";
+
+registerFileManagerBackseat(api, { basePath: "/files" });
+```
+
+Details: [Backseat](./backseat.md).

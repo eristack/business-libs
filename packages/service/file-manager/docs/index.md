@@ -15,7 +15,8 @@ Store blobs in **S3** (or a test memory driver), track metadata in **`file_manag
 | `@eristack/file-manager/express` | `createFileManagerRouter` |
 | `@eristack/file-manager/client` | presign + `uploadViaPresign` |
 | `@eristack/file-manager/react` | dropzone + `FileManagerDevPanel` |
+| `@eristack/file-manager/backseat` | Horizon A `/files` on Backseat |
 
-Production: **Drizzle + Postgres + S3**. Memory driver/store is **tests only**.
+Production: **Drizzle + Postgres + S3**. Memory driver/store is **tests and Backseat prototypes only**.
 
 Next: [Getting started](./getting-started.md).

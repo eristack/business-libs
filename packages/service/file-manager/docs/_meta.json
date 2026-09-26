@@ -1,6 +1,6 @@
 {
   "title": "File Manager",
-  "pages": ["index", "getting-started", "database", "s3-and-presigned", "http", "dev-tools"],
+  "pages": ["index", "getting-started", "database", "s3-and-presigned", "http", "dev-tools", "backseat"],
   "sections": [
     {
       "label": "Start",
@@ -8,7 +8,7 @@
     },
     {
       "label": "Guide",
-      "pages": ["database", "s3-and-presigned", "http", "dev-tools"]
+      "pages": ["database", "s3-and-presigned", "http", "dev-tools", "backseat"]
     }
   ]
 }

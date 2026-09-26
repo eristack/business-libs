@@ -23,4 +23,17 @@ describe("FileRef", () => {
   it("rejects invalid version", () => {
     expect(() => parseFileRef({ ...sample, v: 2 })).toThrow(/version/i);
   });
+
+  it("rejects negative size", () => {
+    expect(() =>
+      createFileRef({
+        provider: "s3",
+        bucket: "b",
+        key: "k",
+        mimeType: "text/plain",
+        sizeBytes: -1,
+        originalName: "x",
+      }),
+    ).toThrow(/sizeBytes/i);
+  });
 });

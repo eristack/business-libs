@@ -112,6 +112,16 @@
         "types": "./dist/testing/index.d.ts",
         "default": "./dist/testing/index.cjs"
       }
+    },
+    "./backseat": {
+      "import": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.cjs"
+      }
     }
   },
   "files": [
@@ -141,6 +151,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
+    "@eristack/backseat": "^0.1.0",
     "@aws-sdk/client-s3": "^3.0.0",
     "@aws-sdk/s3-request-presigner": "^3.0.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
@@ -152,6 +163,9 @@
     "zod": "^4.0.0"
   },
   "peerDependenciesMeta": {
+    "@eristack/backseat": {
+      "optional": true
+    },
     "@aws-sdk/client-s3": {
       "optional": true
     },
@@ -181,6 +195,8 @@
     }
   },
   "devDependencies": {
+    "@eristack/backseat": "workspace:*",
+    "@internal/test-harness": "workspace:*",
     "@aws-sdk/client-s3": "^3.893.0",
     "@aws-sdk/s3-request-presigner": "^3.893.0",
     "@nestjs/common": "^11.0.12",
@@ -188,10 +204,12 @@
     "@tanstack/intent": "^0.3.6",
     "@tanstack/react-query": "^5.90.2",
     "@types/express": "^5.0.1",
+    "@types/supertest": "^6.0.3",
     "@types/node": "^22.15.29",
     "@types/react": "^19.0.12",
     "drizzle-orm": "^0.44.0",
     "express": "^5.1.0",
+    "supertest": "^7.1.0",
     "react": "^19.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",

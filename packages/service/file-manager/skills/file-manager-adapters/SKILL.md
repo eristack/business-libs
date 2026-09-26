@@ -51,3 +51,13 @@ See `docs/http.md`: `POST /uploads/presign`, `POST /uploads/complete`, `GET /:id
 ## Zod
 
 `@eristack/file-manager/zod` — `presignUploadBodySchema`, `completeUploadBodySchema`, `fileRefSchema`.
+
+## Backseat (Horizon A)
+
+```ts
+import { registerFileManagerBackseat } from "@eristack/file-manager/backseat";
+
+registerFileManagerBackseat(api, { basePath: "/files" });
+```
+
+Memory blob driver + `fileManager.files` collection — not for production/Vercel.

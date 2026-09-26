@@ -53,4 +53,37 @@ describe("createFileManager", () => {
     expect(stored.status).toBe("ready");
     expect(stored.ref.checksumSha256).toHaveLength(64);
   });
+
+  it("deleteFile removes storage object and marks deleted", async () => {
+    const driver = createMemoryStorageDriver();
+    const files = createFileManager({
+      driver,
+      store: createMemoryFileRecordStore(),
+    });
+
+    const stored = await files.uploadFromServer({
+      originalName: "rm.txt",
+      mimeType: "text/plain",
+      body: new TextEncoder().encode("x"),
+    });
+
+    await files.deleteFile(stored.id);
+    expect(await files.getFile(stored.id)).toBeNull();
+    expect(await driver.headObject({ key: stored.ref.key })).toBeNull();
+  });
+
+  it("resolveDownloadUrl rejects pending files", async () => {
+    const files = createFileManager({
+      driver: createMemoryStorageDriver(),
+      store: createMemoryFileRecordStore(),
+    });
+    const session = await files.beginPresignedUpload({
+      originalName: "p.txt",
+      mimeType: "text/plain",
+      sizeBytes: 1,
+    });
+    await expect(files.resolveDownloadUrl(session.fileId)).rejects.toThrow(
+      /not completed/i,
+    );
+  });
 });
