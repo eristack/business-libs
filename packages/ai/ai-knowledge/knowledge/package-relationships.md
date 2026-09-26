@@ -29,6 +29,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | --- | --- | --- |
 | `@eristack/money` | Currency amounts, tax/discount operators | qups, financial-ledger, data-grid (decimal columns) |
 | `@eristack/percent` | Ratio / bps strings, `percentOf` on strings | Forms, tax config — **round with money at ledger** |
+| `@eristack/fraction` | Exact rationals `{ num, den }`, approximate irrationals | Recipe/BOM ratios — **not** tax % (use percent) |
 | `@eristack/uom` | Qty + fixed-ratio conversion | stock-movement, inventory forms (before qups money lines) |
 | `@eristack/timestamp` | Instant vs wall time | data-grid wall filters, fiscal-calendar, SQL adapters |
 | `@eristack/address` | Postal address normalization | App masters (not a document spine requirement) |
@@ -36,6 +37,8 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/fiscal-calendar` | Fiscal periods | **Peer:** `@eristack/timestamp` |
 
 **percent vs qups vs money:** Line modifiers and tax on documents use `@eristack/qups` + `@eristack/money` (`Discount.ofPercent`, etc.). Use `@eristack/percent` for standalone rate fields (VAT %, bps in config) — not for duplicating qups line math.
+
+**fraction vs percent:** Use `@eristack/fraction` when the domain is exact rational parts (`1/3` cup, 2:1 mix). Use `@eristack/percent` for rate fields stored as decimal ratios or bps. Irrationals are approximated with an explicit `maxDenominator`, not stored exactly.
 
 ### Capability (domain math + presets)
 

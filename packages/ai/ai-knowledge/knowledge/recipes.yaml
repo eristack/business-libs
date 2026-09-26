@@ -988,6 +988,27 @@ recipes:
           - money-amounts
         role: supporting
 
+  - id: fraction-exact-rational
+    title: Exact rationals as fractions (recipe yields, BOM ratios)
+    priority: 18
+    triggers:
+      - fraction
+      - rational number
+      - numerator denominator
+      - recipe yield
+      - bom ratio
+      - parts ratio
+      - irrational approximation
+      - sqrt approximation
+    rationale: >
+      Load @eristack/fraction#fraction-core for exact num/den arithmetic; approximateFraction
+      for decimals/irrationals with maxDenominator — not @eristack/percent for VAT rates.
+    packages:
+      - name: "@eristack/fraction"
+        skills:
+          - fraction-core
+        role: primary
+
   - id: household-ledger
     title: Household cashbook / ledger-first spine
     priority: 11

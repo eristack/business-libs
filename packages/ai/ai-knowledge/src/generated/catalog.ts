@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T12:32:01.775Z",
+  "generatedAt": "2026-09-26T15:10:19.808Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -402,6 +402,25 @@ export const catalog = {
           "description": "@eristack/fiscal-calendar fiscal years and open/closed periods on @eristack/timestamp wall dates — findPeriodForDate, assertPeriodOpen, listPeriods. Pair with doc-transitions lockGraph for period close.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fiscal-calendar#fiscal-calendar-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/fraction",
+      "version": "0.0.0",
+      "description": "Exact rational numbers as reduced fractions — string numerators/denominators, no float literals",
+      "slug": "fraction",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "fraction-core",
+          "name": "fraction-core",
+          "packageName": "@eristack/fraction",
+          "description": "@eristack/fraction exact rationals as reduced num/den strings — parse n/d and mixed numbers, exact arithmetic, approximateFraction for irrationals/decimals with max denominator. Not float math.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fraction#fraction-core"
         }
       ]
     },

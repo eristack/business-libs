@@ -12,7 +12,8 @@ Promote to [horizon.md](../../roadmap/horizon.md) only after human review.
 | # | Package | Status | One-liner | Notes |
 | ---: | --- | --- | --- | --- |
 | 214 | `@eristack/quantity` | idea | String decimal qty distinct from money | pairs uom, qups |
-| 215 | `@eristack/ratio` | idea | Pure ratio strings (e.g. "0.125") | tax, allocation |
+| 215 | `@eristack/ratio` | idea | Pure ratio strings (e.g. "0.125") | tax, allocation — **fraction** covers exact rationals |
+| 215b | `@eristack/fraction` | **alpha** | Exact `{ num, den }`; approximate irrationals | recipes, BOM |
 | 216 | `@eristack/entity-id` | sketch | UUID v7 generate/parse, Drizzle column | horizon observing |
 | 217 | `@eristack/uom` | sketch | Units + fixed conversion ratios | horizon |
 | 218 | `@eristack/percent` | idea | Basis points / percent strings | qups modifiers |

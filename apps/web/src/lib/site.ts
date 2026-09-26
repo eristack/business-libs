@@ -333,6 +333,43 @@ percentOf("100", vat) // "11"`,
     },
   },
   {
+    slug: "fraction",
+    name: "@eristack/fraction",
+    title: "Fraction",
+    category: "primitive" as const,
+    directory: "packages/primitive/fraction",
+    href: "/fraction",
+    docsHref: "/docs/fraction",
+    tagline: "Exact rationals as reduced fractions — recipe yields and BOM ratios.",
+    description:
+      "Integer string numerators and denominators with exact arithmetic. approximateFraction and convergentFraction for decimals and irrationals under a max denominator. Complements @eristack/percent (tax rates) and @eristack/uom (unit conversion). Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/fraction",
+    highlights: [
+      {
+        title: "Exact rationals",
+        body: "1/3 + 1/6 = 1/2 with BigInt normalization — no 0.333 float literals.",
+      },
+      {
+        title: "Human parse",
+        body: 'Accept "3/4", mixed "1 1/2", and integers as domain values.',
+      },
+      {
+        title: "Irrational bounds",
+        body: "approximateFraction / convergentFraction with maxDenominator when input is decimal or √2, π.",
+      },
+    ],
+    sample: {
+      filename: "fraction.ts",
+      language: "ts",
+      code: `import { parseFraction, addFraction, formatFraction } from "@eristack/fraction"
+
+formatFraction(
+  addFraction(parseFraction("1/3"), parseFraction("1/6")),
+) // "1/2"`,
+    },
+  },
+  {
     slug: "fiscal-calendar",
     name: "@eristack/fiscal-calendar",
     title: "Fiscal Calendar",

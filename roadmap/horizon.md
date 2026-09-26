@@ -119,6 +119,7 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/coa` | Candidate | Chart of accounts **tree** — code, name, type, parent | entity-id? | accounting, reporting |
 | `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
+| `@eristack/fraction` | **Alpha 0.0.0** | Exact rationals `{ num, den }`; approximate irrationals | — | recipes, BOM |
 | `@eristack/geo` | Candidate | Lat/lng + timezone default for address | timestamp | logistics (later) |
 | `@eristack/payment-instrument` | Shipped | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
 
