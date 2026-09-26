@@ -192,7 +192,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/audit-event` | Candidate | Domain audit stream (who/when/what) | timestamp, entity-id | compliance |
 | `@eristack/outbox` | Candidate | Reliable webhook/email dispatch | — | integrations |
 | `@eristack/file-manager` | Shipped | S3 presigned uploads, FileRef, webhooks N/A | money? | attachments |
-| `@eristack/payment-manager` | Candidate | PSP hub: intents, webhooks, notification log, history (file-manager spine) | money, payment-instrument | invoice pay, ID gateways |
+| `@eristack/payment-manager` | Shipped | PSP hub: intents, webhooks, gateway event log (file-manager spine) | money, payment-instrument | invoice pay, Stripe/Xendit |
 | `@eristack/file-ref` | Superseded by file-manager | — | — | — |
 | `@eristack/scheduler` | Candidate | Cron/recurrence as data | timestamp | reporting jobs |
 | `@eristack/import-job` | Candidate | CSV/Excel master import pipeline | data-grid | migrations |

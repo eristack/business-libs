@@ -79,6 +79,27 @@ export const technologyStack: TechStackGroup[] = [
     ],
   },
   {
+    label: "Payments & PSPs",
+    description: "@eristack/payment-manager + payment-instrument — intents in SQL, tokens not PAN.",
+    items: [
+      {
+        name: "Stripe",
+        href: "https://stripe.com/docs",
+        note: "createStripePaymentDriver peer",
+      },
+      {
+        name: "Xendit",
+        href: "https://docs.xendit.co/",
+        note: "SEA checkout + callback token webhooks",
+      },
+      {
+        name: "Payment intents",
+        href: "/docs/payment-manager/getting-started",
+        note: "Idempotency + Drizzle history",
+      },
+    ],
+  },
+  {
     label: "Files & object storage",
     description: "@eristack/file-manager — metadata in SQL, bytes in the cloud.",
     items: [

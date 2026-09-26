@@ -28,4 +28,4 @@ createPaymentManagerTables(dialect: "pgsql" | "mysql" | "sqlite", prefix?: strin
 createDrizzlePaymentManagerStore({ db, tables })
 ```
 
-SQLite dialect is for integration tests (`@internal/test-harness`).
+SQLite dialect is for integration tests (`@internal/test-harness` — see `tests/drizzle.integration.test.ts`).
