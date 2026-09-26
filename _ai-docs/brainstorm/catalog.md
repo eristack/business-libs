@@ -20,7 +20,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P04 | `@eristack/uom`               | sketch  | Units + fixed conversion ratios (g, kg, L, pcs) | TS · **H**     |
 | P05 | `@eristack/quantity`          | idea    | String decimal qty (distinct from money)        | pairs with uom |
 | P06 | `@eristack/address`           | sketch  | Normalized postal lines, country/region         | TS · **H**     |
-| P07 | `@eristack/contact`           | sketch  | Person/channel roles on a party                 | TS · **H**     |
+| P07 | `@eristack/contact`           | sketch  | Person/channel roles on a party                 | TS · **H** · plan: `_ai-docs/wip/wave13-party-platform/` |
 | P08 | `@eristack/person-name`       | idea    | Structured given/family, salutation             |                |
 | P09 | `@eristack/org-name`          | idea    | Legal vs trade name                             |                |
 | P10 | `@eristack/phone`             | idea    | E.164 parse/format                              |                |
@@ -146,7 +146,8 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | S21 | `@eristack/notification`        | idea    | Multi-channel notify dispatch                                            |                     |
 | S22 | `@eristack/email-template`      | idea    | Handlebars-style templates                                               |                     |
 | S23 | `@eristack/print-queue`         | idea    | Async print/PDF jobs                                                     |                     |
-| S24 | `@eristack/pdf-render`          | idea    | HTML→PDF adapter interface                                               |                     |
+| S24 | `@eristack/pdf-render`          | idea    | HTML→PDF adapter interface                                               | plan: `_ai-docs/wip/wave13-party-platform/` |
+| S24b | `@eristack/spreadsheet-render` | idea    | Workbook model + xlsx/csv driver (export); not import-job                | plan: `_ai-docs/wip/wave13-party-platform/` |
 | S25 | `@eristack/edi`                 | idea    | EDI parse/generate (X12/EDIFACT lite)                                    |                     |
 | S26 | `@eristack/oauth`               | idea    | `/client` consumer + `/provider` AS (see `oauth-client-and-provider.md`) | split from jwt-auth |
 | S27 | `@eristack/scim`                | idea    | SCIM provisioning hooks                                                  |                     |
