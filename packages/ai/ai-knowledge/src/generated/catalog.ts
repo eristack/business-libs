@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T03:29:46.595Z",
+  "generatedAt": "2026-09-26T03:36:44.447Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -283,7 +283,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/file-manager",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Headless file uploads: S3 presigned PUT/GET, server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
       "slug": "file-manager",
       "adapters": [
