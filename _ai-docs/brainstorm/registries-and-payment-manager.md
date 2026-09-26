@@ -86,5 +86,6 @@ Mirror `@eristack/file-manager`: core, `/stripe`, `/xendit`, `/doku`, Drizzle hi
 - [x] `roadmap/layers.md` + `horizon.md`  
 - [ ] `roadmap/priorities.md` — rank when spine proof exists  
 - [ ] `apps/web` category (empty until first package ships)  
-- [ ] First scaffold PR: iso-3166 or payment-instrument  
+- [x] First scaffold PR: **iso-3166** shipped (0.0.0 → changeset minor)  
+- [ ] payment-instrument  
 - [ ] Recipe + `package-relationships` on ship  

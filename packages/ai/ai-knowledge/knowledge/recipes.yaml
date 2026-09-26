@@ -378,6 +378,28 @@ recipes:
           - epoch-adapters
         role: primary
 
+  - id: country-codes-iso-3166
+    title: Country codes and ISO 3166 validation
+    priority: 15
+    triggers:
+      - country code
+      - iso 3166
+      - iso country
+      - alpha-2
+      - alpha-3
+      - subdivision code
+      - region code
+      - validate country
+    rationale: >
+      Use @eristack/iso-3166 for assigned ISO 3166-1 alpha-2/alpha-3 and ISO 3166-2
+      subdivision format. Pair with @eristack/address for postal shape. Load
+      iso-3166-core — docs/getting-started.md only.
+    packages:
+      - name: "@eristack/iso-3166"
+        skills:
+          - iso-3166-core
+        role: primary
+
   - id: file-upload-s3
     title: File uploads, S3, and presigned URLs
     priority: 16

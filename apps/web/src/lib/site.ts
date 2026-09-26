@@ -409,6 +409,42 @@ formatAddressOneLine(addr)`,
     },
   },
   {
+    slug: "iso-3166",
+    name: "@eristack/iso-3166",
+    title: "ISO 3166",
+    category: "registries" as const,
+    directory: "packages/registries/iso-3166",
+    href: "/iso-3166",
+    docsHref: "/docs/iso-3166",
+    tagline: "Assigned ISO country codes — alpha-2, alpha-3, subdivisions.",
+    description:
+      "Registries layer — validate assigned ISO 3166-1 alpha-2, convert alpha-3, normalize ISO 3166-2 subdivision ids. Pair with @eristack/address for postal shape; reference-data for full dataset seeds.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/iso-3166",
+    highlights: [
+      {
+        title: "Assigned codes",
+        body: "Reject QQ-style two-letter strings — not just regex format checks.",
+      },
+      {
+        title: "Alpha-3 feeds",
+        body: "IDN → ID for customs, banking, and legacy integrations.",
+      },
+      {
+        title: "Subdivision prefix",
+        body: "US-CA / ID-JK normalized with country match before SQL.",
+      },
+    ],
+    sample: {
+      filename: "country.ts",
+      language: "ts",
+      code: `import { normalizeAlpha2, alpha3ToAlpha2 } from "@eristack/iso-3166"
+
+normalizeAlpha2("id") // "ID"
+alpha3ToAlpha2("IDN") // "ID"`,
+    },
+  },
+  {
     slug: "doc-number",
     name: "@eristack/doc-number",
     title: "Doc Number",

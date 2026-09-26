@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T03:36:44.447Z",
+  "generatedAt": "2026-09-26T10:45:41.657Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -394,6 +394,25 @@ export const catalog = {
           "description": "Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/iso-3166",
+      "version": "0.0.0",
+      "description": "ISO 3166-1 country codes and ISO 3166-2 subdivision normalization — assigned alpha-2/alpha-3 registry",
+      "slug": "iso-3166",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "iso-3166-core",
+          "name": "iso-3166-core",
+          "packageName": "@eristack/iso-3166",
+          "description": "@eristack/iso-3166 assigned ISO 3166-1 alpha-2/alpha-3 and ISO 3166-2 subdivision normalization. Use when validating country codes beyond two-letter format — not for postal address shape (address) or port codes (unlocode).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/iso-3166#iso-3166-core"
         }
       ]
     },

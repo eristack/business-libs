@@ -8,11 +8,11 @@ Load: `@eristack/ai-knowledge#package-relationships` · ERP lines: `#document-li
 
 `packages/primitive` → `registries` → `capability` → `service` → `infrastructure` → `ui` → `ai`
 
-### Registries (layer 02, planned)
+### Registries (layer 02)
 
 | Package | Role |
 | --- | --- |
-| `@eristack/iso-3166` | Country/subdivision codes |
+| `@eristack/iso-3166` | Assigned ISO 3166-1/2 codes — validate, alpha-3 convert |
 | `@eristack/unlocode` | UN/LOCODE ports/places |
 | `@eristack/iso-4217` | Currency metadata (pairs with money) |
 | `@eristack/reference-data` | **Capability** — versioned dataset packs over registries |

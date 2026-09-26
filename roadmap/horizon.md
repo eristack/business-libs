@@ -141,7 +141,7 @@ Brainstorm: [`_ai-docs/brainstorm/registries-and-payment-manager.md`](../_ai-doc
 
 | Package | Status | Purpose | Depends | Blocks |
 | --- | --- | --- | --- | --- |
-| `@eristack/iso-3166` | Candidate | Country/subdivision codes (ISO 3166-1/2) | — | address labels, reference-data |
+| `@eristack/iso-3166` | Shipped | Country/subdivision codes (ISO 3166-1/2) | — | address labels, reference-data |
 | `@eristack/iso-4217` | Candidate | Currency code metadata (minor units); pairs with money | — | reference-data, FX apps |
 | `@eristack/iso-639` | Candidate | Language codes (ISO 639 / BCP 47 subset) | — | i18n masters |
 | `@eristack/unlocode` | Candidate | UN/LOCODE ports/places (5-char) | iso-3166? | forwarding, B/L, logistics |
