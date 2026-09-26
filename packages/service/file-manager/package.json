@@ -1,6 +1,6 @@
 {
   "name": "@eristack/file-manager",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Headless file uploads: S3 presigned PUT/GET, server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
   "repository": {
     "type": "git",
