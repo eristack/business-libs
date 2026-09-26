@@ -93,6 +93,20 @@ export const getStartedTips = [
     load: "@eristack/file-manager#file-manager-adapters",
   },
   {
+    want: "Stripe or Xendit checkout with idempotent charges and webhooks",
+    then: "payment-manager for intents + Drizzle history; payment-instrument for saved card tokens — never PAN in SQL.",
+    load: "@eristack/payment-manager#payment-manager-adapters",
+    prompt:
+      "Load @eristack/payment-manager getting-started and @eristack/payment-instrument security. Wire createPaymentManager + Express router + webhook verification; use toPersistable for saved methods.",
+  },
+  {
+    want: "Country codes or UN/LOCODE ports on masters and B/L fields",
+    then: "Registries packages validate codes; your enabled rows stay in app tables + data-grid.",
+    load: "@eristack/iso-3166#iso-3166-core",
+    prompt:
+      "Use @eristack/iso-3166 for assigned alpha-2/alpha-3 and @eristack/unlocode for five-char locodes. Normalize on write; do not duplicate ISO lists in the app.",
+  },
+  {
     want: "A working API in the browser before Postgres is ready",
     then: "Horizon A: Backseat + IndexedDB factories, then graduate the same routes to Express + Drizzle.",
     load: "@eristack/ai-knowledge#backseat-then-backend",

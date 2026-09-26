@@ -22,6 +22,6 @@ import { toPersistable, CardPan } from "@eristack/payment-instrument";
 - **`CardPan.parse`** — Luhn in browser; **never** POST full PAN to your API
 - **`@eristack/payment-instrument/express`** — `createRejectRawPanMiddleware()`
 - **`/zod`** — `persistablePaymentInstrumentSchema`
-- Checkout/tokenization → **`@eristack/payment-manager`** (service, planned)
+- Checkout/intents/webhooks → **`@eristack/payment-manager`** — load `payment-manager-core` after this skill for Stripe/Xendit
 
 Security: `docs/security.md` — PCI scope reduction, not certification.

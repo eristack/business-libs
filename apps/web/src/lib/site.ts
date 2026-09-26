@@ -74,7 +74,7 @@ export const packageCategories = [
     href: "/service",
     tagline: "Lifecycle services with stores and framework shells.",
     description:
-      "Services own long-lived flows — sessions, credentials, refresh rotation — while your app still owns users, UX, and infrastructure.",
+      "Services own long-lived flows — auth sessions, payment intents, file uploads, list queries, cache epochs — while your app still owns users, UX, and business tables.",
     highlights: [
       {
         title: "Inject, don’t absorb",
@@ -82,7 +82,7 @@ export const packageCategories = [
       },
       {
         title: "Child resources",
-        body: "Credentials and refresh tokens hang off your subjects — not a stolen users table.",
+        body: "Credentials, payment methods, and file refs hang off your entities — not library-owned masters.",
       },
       {
         title: "Thin shells",

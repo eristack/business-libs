@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: Assigned vs format-only validation, shipped data, errors.
+---
+
 # Concepts
 
 ## Assigned vs format-only
@@ -19,3 +24,7 @@ Dataset updates ship as **patch/minor package releases**; bulk exports belong in
 ## Errors
 
 `CountryCodeError` — invalid format, unassigned code, subdivision prefix mismatch.
+
+## Registries layer on the site
+
+Browse **Registries** on [eristack.dev/docs](/docs) for `@eristack/unlocode` and future code-system packages. Tenant masters (which ports you operate) stay in **your** tables + `@eristack/data-grid`.

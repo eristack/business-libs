@@ -20,4 +20,6 @@ Service-layer orchestration for **payment intents**: create charges at a PSP, pe
 
 **Production default:** Drizzle store + real Stripe or Xendit driver. **Tests only:** `@eristack/payment-manager/testing` memory store/driver.
 
+**Site:** [Getting started](/docs/payment-manager/getting-started) · Saved cards: [payment-instrument](/docs/payment-instrument/getting-started)
+
 Next: [Getting started](./getting-started.md).

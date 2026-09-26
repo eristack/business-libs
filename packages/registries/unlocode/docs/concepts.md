@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: LOCODE shape, format vs UN membership, iso-3166 dependency.
+---
+
 # Concepts
 
 ## Shape
@@ -18,3 +23,7 @@
 | Future reference-data | Full UN/LOCODE release files |
 
 Location triple `XXX` is **not** validated against the UN register in v0.1 — only country assignment is authoritative via iso-3166.
+
+## Errors
+
+`UnlocodeError` wraps invalid country prefixes from iso-3166 and adds locode-specific format messages.

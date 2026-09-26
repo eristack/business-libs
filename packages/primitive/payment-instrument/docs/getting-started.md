@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Persist tokens after PSP tokenization, transient CardPan, Express PAN guard, Zod.
+---
+
 # Getting started
 
 ## Install
@@ -6,7 +11,13 @@
 pnpm add @eristack/payment-instrument
 ```
 
-## Persist after PSP tokenization
+Optional adapters:
+
+```bash
+pnpm add zod express   # /zod and /express peers
+```
+
+## 1. Persist after PSP tokenization
 
 Your checkout calls Stripe/Xendit client-side or server-side tokenization, then the API stores:
 
@@ -27,10 +38,10 @@ const saved = toPersistable({
     fingerprint: "fp_optional",
   },
 });
-// Drizzle insert JSON column or normalized columns — app-owned table
+// Drizzle insert JSON column or normalized columns — app-owned customer_payment_methods table
 ```
 
-## Transient PAN (client-side Luhn only)
+## 2. Transient PAN (client-side Luhn only)
 
 ```ts
 import { CardPan } from "@eristack/payment-instrument";
@@ -39,7 +50,9 @@ const pan = CardPan.parse("4242 4242 4242 4242");
 pan.last4; // "4242" — send full PAN only to PSP SDK, not your API
 ```
 
-## Block raw PAN on Express JSON bodies
+## 3. Block raw PAN on Express JSON bodies
+
+Mount **before** payment routes:
 
 ```ts
 import express from "express";
@@ -50,12 +63,20 @@ app.use(express.json());
 app.use(createRejectRawPanMiddleware());
 ```
 
-## Zod on API payloads
+## 4. Zod on API payloads
 
 ```ts
 import { persistablePaymentInstrumentSchema } from "@eristack/payment-instrument/zod";
 
 const body = persistablePaymentInstrumentSchema.parse(req.body);
 ```
+
+## 5. With @eristack/payment-manager
+
+| Concern | Package |
+| --- | --- |
+| Saved card rows | **payment-instrument** (this package) |
+| Charge invoice, webhooks, intent history | [@eristack/payment-manager](/docs/payment-manager/getting-started) |
+| Money on invoice lines | `@eristack/money` + `@eristack/qups` |
 
 See [Security & PCI scope](./security.md).

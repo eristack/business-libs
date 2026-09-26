@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Normalize port codes, display, sample list, Zod, and app master pattern.
+---
+
 # Getting started
 
 ## Install
@@ -8,16 +13,18 @@ pnpm add @eristack/unlocode @eristack/iso-3166
 
 (`iso-3166` is a runtime dependency of `unlocode`.)
 
-## Normalize port code
+## 1. Normalize on write
 
 ```ts
 import { normalizeUnlocode, parseUnlocode } from "@eristack/unlocode";
 
 const pol = normalizeUnlocode("id jkt"); // "IDJKT"
-const { country, location } = parseUnlocode(pol); // SG-style: country "ID", location "JKT"
+const { country, location } = parseUnlocode(pol); // country "ID", location "JKT"
 ```
 
-## Display
+Store **compact** form (`IDJKT`) in Postgres; format for display at read time.
+
+## 2. Display
 
 ```ts
 import { formatUnlocodeDisplay } from "@eristack/unlocode";
@@ -25,7 +32,7 @@ import { formatUnlocodeDisplay } from "@eristack/unlocode";
 formatUnlocodeDisplay("USNYC"); // "US NYC"
 ```
 
-## Strict demo list (optional)
+## 3. Sample list vs full UN register
 
 `isSampleUnlocode` checks a **small shipped sample** (major ports) — not the full UN registry:
 
@@ -36,9 +43,13 @@ isSampleUnlocode("IDJKT"); // true
 isSampleUnlocode("IDZZZ"); // false (format may still pass normalizeUnlocode if country valid)
 ```
 
-Use **`normalizeUnlocode`** for shape + country; use **reference-data** later when you need “exists in official UN list.”
+| API | Validates |
+| --- | --- |
+| `normalizeUnlocode` | Shape, charset, **assigned country** |
+| `isSampleUnlocode` | In-package sample only |
+| Future `@eristack/reference-data` | Full UN release files |
 
-## Zod
+## 4. Zod
 
 ```ts
 import { unlocodeSchema } from "@eristack/unlocode/zod";
@@ -46,7 +57,7 @@ import { unlocodeSchema } from "@eristack/unlocode/zod";
 unlocodeSchema.parse("SG SIN"); // "SGSIN"
 ```
 
-## App master pattern
+## 5. App master pattern
 
 ```text
 Table port_sites (
@@ -56,4 +67,8 @@ Table port_sites (
 )
 ```
 
-Validate on write with `normalizeUnlocode`; list filters via `@eristack/data-grid`.
+Validate on write with `normalizeUnlocode`; list filters via `@eristack/data-grid`. The library does **not** own which ports your tenant enables.
+
+## ERP documents
+
+Use normalized locodes on B/L and forwarding line fields; pair with `@eristack/ai-knowledge#document-lines-erp` when lines carry money via `@eristack/qups`.
