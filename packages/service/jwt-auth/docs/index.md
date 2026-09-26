@@ -23,7 +23,7 @@ Every business app eventually needs the same five things: sign a user in, hand t
 | Not this | Because |
 | --- | --- |
 | A `users` table | Your app owns users. Credentials attach to them by `subject`. |
-| An identity provider | No OAuth server, no SAML, no email delivery, no MFA enrollment. |
+| An identity provider | No OAuth **authorization server**, no SAML, no email delivery, no MFA enrollment. For “Sign in with Google/OIDC” use **`@eristack/oauth/client`** (planned) → then `issueTokens`; see [Tokens & refresh](./tokens-and-refresh.md#issue-without-a-password). |
 | A UI kit | `/react` ships hooks and form *options* — zero widgets. |
 | A config loader | You pass `accessSecret`, `baseUrl`, `db`. The package never reads `process.env`. |
 | A DB connection manager | You create the Drizzle client; the store adapter receives it. |

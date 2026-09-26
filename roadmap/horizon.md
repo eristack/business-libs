@@ -182,6 +182,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | Package | Status | Purpose | Depends | Blocks |
 | --- | --- | --- | --- | --- |
 | `@eristack/jwt-auth` | Shipped | Credentials + tokens | — | API |
+| `@eristack/oauth` | Candidate | OAuth2 **client** (`/client`: Sign-in with Google/OIDC, integrations) + **provider** (`/provider`: your API as authorization server) — separate subpaths, not jwt-auth | jwt-auth (handoff via `issueTokens`) | SSO login, partner API access |
 | `@eristack/rbac` | Shipped | Role permissions | — | API |
 | `@eristack/abac` | Shipped | Attribute policies | — | branch/trade scope |
 | `@eristack/pbac` | Shipped | Document policies | — | transitions |
