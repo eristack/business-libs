@@ -1,23 +1,46 @@
 import type { SimpleIcon } from "simple-icons";
 import {
+  siApple,
+  siAuth0,
   siDrizzle,
   siExpress,
+  siFacebook,
   siGithub,
+  siGoogle,
+  siKeycloak,
+  siMailgun,
   siNestjs,
   siNextdotjs,
   siNpm,
+  siOkta,
   siOpenapiinitiative,
+  siOpenid,
   siPnpm,
   siPostgresql,
   siReact,
   siReactquery,
+  siStripe,
   siTailwindcss,
   siTanstack,
   siTurborepo,
   siTypescript,
   siVitest,
+  siVonage,
+  siWhatsapp,
+  siXendit,
   siZod,
 } from "simple-icons";
+import {
+  placeholderAmazonS3,
+  placeholderEristack,
+  placeholderGeneric,
+  placeholderIso,
+  placeholderMicrosoft,
+  placeholderPostmark,
+  placeholderSendGrid,
+  placeholderTwilio,
+  placeholderUnlocode,
+} from "@/lib/brand-placeholder-icons";
 import type { ResolvedTheme } from "@/lib/theme";
 
 /** Keys used in ecosystem content + platform links */
@@ -41,7 +64,29 @@ export type BrandLogoKey =
   | "tanstack-form"
   | "tanstack-intent"
   | "nextjs"
-  | "tailwind";
+  | "tailwind"
+  | "google"
+  | "apple"
+  | "microsoft"
+  | "okta"
+  | "auth0"
+  | "keycloak"
+  | "openid"
+  | "stripe"
+  | "xendit"
+  | "mailgun"
+  | "vonage"
+  | "whatsapp"
+  | "meta"
+  | "sendgrid"
+  | "twilio"
+  | "postmark"
+  | "amazon-s3"
+  | "aws-sdk"
+  | "iso-3166"
+  | "unlocode"
+  | "eristack"
+  | "placeholder";
 
 export const brandLogos: Record<BrandLogoKey, SimpleIcon> = {
   github: siGithub,
@@ -64,6 +109,28 @@ export const brandLogos: Record<BrandLogoKey, SimpleIcon> = {
   "tanstack-intent": siTanstack,
   nextjs: siNextdotjs,
   tailwind: siTailwindcss,
+  google: siGoogle,
+  apple: siApple,
+  microsoft: placeholderMicrosoft,
+  okta: siOkta,
+  auth0: siAuth0,
+  keycloak: siKeycloak,
+  openid: siOpenid,
+  stripe: siStripe,
+  xendit: siXendit,
+  mailgun: siMailgun,
+  vonage: siVonage,
+  whatsapp: siWhatsapp,
+  meta: siFacebook,
+  sendgrid: placeholderSendGrid,
+  twilio: placeholderTwilio,
+  postmark: placeholderPostmark,
+  "amazon-s3": placeholderAmazonS3,
+  "aws-sdk": placeholderAmazonS3,
+  "iso-3166": placeholderIso,
+  unlocode: placeholderUnlocode,
+  eristack: placeholderEristack,
+  placeholder: placeholderGeneric,
 };
 
 /** Keep in sync with globals.css */
@@ -95,6 +162,8 @@ const LIGHT_UI_GLYPH: Partial<Record<BrandLogoKey, string>> = {
   "tanstack-form": "#8b7355",
   "tanstack-intent": "#8b7355",
   vitest: "#6e9f48",
+  postmark: "#b8860b",
+  "iso-3166": "#003366",
 };
 
 function hexToRgb(hex: string): [number, number, number] {

@@ -2,7 +2,7 @@ import { technologyStack } from "@/lib/ecosystem-content";
 import type { BrandLogoKey } from "@/lib/brand-logos";
 import { BrandLogoTile } from "@/components/brand-logo";
 
-/** Maps stack item display names to simple-icons keys */
+/** Fallback when `logo` is omitted on a stack item (legacy name map). */
 const itemLogoKey: Record<string, BrandLogoKey> = {
   TypeScript: "typescript",
   pnpm: "pnpm",
@@ -23,6 +23,10 @@ const itemLogoKey: Record<string, BrandLogoKey> = {
   "Next.js": "nextjs",
   "Tailwind CSS": "tailwind",
 };
+
+function resolveLogo(item: { name: string; logo?: BrandLogoKey }): BrandLogoKey | undefined {
+  return item.logo ?? itemLogoKey[item.name];
+}
 
 export function TechStackGrid() {
   return (
@@ -50,7 +54,7 @@ export function TechStackGrid() {
               </div>
               <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {group.items.map((item) => {
-                  const logoKey = itemLogoKey[item.name];
+                  const logoKey = resolveLogo(item);
                   if (!logoKey) {
                     return (
                       <li
