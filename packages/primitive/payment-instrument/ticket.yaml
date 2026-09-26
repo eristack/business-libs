@@ -1,0 +1,11 @@
+package: "@eristack/payment-instrument"
+title: payment-instrument
+maintainers:
+  - support@eristack.dev
+scope: >
+  Token-safe payment card display + gateway refs, transient CardPan, PAN detect,
+  optional Express middleware and Zod 4.
+outOfScope: >
+  PSP drivers, payment intents, webhooks, PCI audit, customer tables, CVV handling.
+skills:
+  - payment-instrument-core

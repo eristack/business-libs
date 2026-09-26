@@ -120,7 +120,7 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
 | `@eristack/geo` | Candidate | Lat/lng + timezone default for address | timestamp | logistics (later) |
-| `@eristack/payment-instrument` | Candidate | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
+| `@eristack/payment-instrument` | Shipped | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
 
 ### `@eristack/entity-id` (observing)
 

@@ -4,7 +4,7 @@ Eight layers organize the monorepo and site. Lower layers never import higher on
 
 | # | Layer | Role | Shipped / scaffold |
 | ---: | --- | --- | --- |
-| 01 | **Primitive** | Pure value types — core + optional adapters | money, timestamp, address, uom, geo (candidate), payment-instrument (candidate) |
+| 01 | **Primitive** | Pure value types — core + optional adapters | money, timestamp, address, uom, **payment-instrument**, geo (candidate) |
 | 02 | **Registries** | Authoritative code lists (ISO, UN, …) — validate/normalize; one package per code system | **iso-3166**, **unlocode** shipped; iso-4217, iso-639 (candidate) |
 | 03 | **Capability** | Reusable business capabilities + optional Drizzle | doc-number, qups, reference-data (candidate), stock-movement, financial-ledger, valuations |
 | 04 | **Service** | Auth, access, lists, integrations, cache epochs | jwt-auth, file-manager, payment-manager (candidate), data-grid, epoch, hash-chained-ledger |

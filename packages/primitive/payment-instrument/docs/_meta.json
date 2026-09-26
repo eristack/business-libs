@@ -1,0 +1,23 @@
+{
+  "title": "Payment instrument",
+  "pages": [
+    "index",
+    "getting-started",
+    "security"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "security"
+      ]
+    }
+  ]
+}

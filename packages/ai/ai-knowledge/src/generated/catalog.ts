@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T10:47:22.723Z",
+  "generatedAt": "2026-09-26T10:48:49.380Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -551,6 +551,26 @@ export const catalog = {
           "description": "@eristack/opinion ERP HTTP route table on @eristack/rest: options, data-grid, CRUD, PATCH /:id/:action for pbac/doc-transitions. Use when scaffolding document APIs instead of inventing paths per app.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/opinion#opinion-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/payment-instrument",
+      "version": "0.0.0",
+      "description": "Token-safe payment card value types — display + gateway refs, PAN transient only, PCI-minded guards",
+      "slug": "payment-instrument",
+      "adapters": [
+        "express",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "payment-instrument-core",
+          "name": "payment-instrument-core",
+          "packageName": "@eristack/payment-instrument",
+          "description": "@eristack/payment-instrument token-safe card/debit display + gateway refs. CardPan is transient; toPersistable for Drizzle. Use before payment-manager or when modeling saved payment methods — never store PAN/CVV in SQL.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-instrument#payment-instrument-core"
         }
       ]
     },

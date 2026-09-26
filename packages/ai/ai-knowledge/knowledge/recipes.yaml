@@ -378,6 +378,27 @@ recipes:
           - epoch-adapters
         role: primary
 
+  - id: payment-instrument-token
+    title: Saved cards and payment method tokens
+    priority: 16
+    triggers:
+      - saved card
+      - payment method
+      - credit card token
+      - debit card
+      - store card
+      - card on file
+      - pci token
+    rationale: >
+      Use @eristack/payment-instrument for token-safe display + gateway refs in Postgres.
+      Never store PAN/CVV. Load payment-instrument-core; pair with payment-manager when
+      wiring Stripe/Xendit (planned).
+    packages:
+      - name: "@eristack/payment-instrument"
+        skills:
+          - payment-instrument-core
+        role: primary
+
   - id: unlocode-ports
     title: UN/LOCODE ports and trade locations
     priority: 15

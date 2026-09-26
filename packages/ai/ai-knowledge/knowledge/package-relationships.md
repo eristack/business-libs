@@ -32,6 +32,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/uom` | Qty + fixed-ratio conversion | stock-movement, inventory forms (before qups money lines) |
 | `@eristack/timestamp` | Instant vs wall time | data-grid wall filters, fiscal-calendar, SQL adapters |
 | `@eristack/address` | Postal address normalization | App masters (not a document spine requirement) |
+| `@eristack/payment-instrument` | Token-safe card display + gateway refs; PAN transient | payment-manager, checkout forms |
 | `@eristack/fiscal-calendar` | Fiscal periods | **Peer:** `@eristack/timestamp` |
 
 **percent vs qups vs money:** Line modifiers and tax on documents use `@eristack/qups` + `@eristack/money` (`Discount.ofPercent`, etc.). Use `@eristack/percent` for standalone rate fields (VAT %, bps in config) — not for duplicating qups line math.

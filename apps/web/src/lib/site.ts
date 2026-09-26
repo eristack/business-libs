@@ -409,6 +409,44 @@ formatAddressOneLine(addr)`,
     },
   },
   {
+    slug: "payment-instrument",
+    name: "@eristack/payment-instrument",
+    title: "Payment instrument",
+    category: "primitive" as const,
+    directory: "packages/primitive/payment-instrument",
+    href: "/payment-instrument",
+    docsHref: "/docs/payment-instrument",
+    tagline: "Token-safe card display and gateway refs — never persist PAN.",
+    description:
+      "Credit/debit as value objects: last4, brand, funding, exp + PSP tokenId. CardPan is transient (Luhn only). Express middleware rejects raw PAN in JSON. Pairs with payment-manager for Stripe/Xendit.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/payment-instrument",
+    highlights: [
+      {
+        title: "toPersistable",
+        body: "One helper for what may be written to Postgres after tokenization.",
+      },
+      {
+        title: "PAN guards",
+        body: "Zod + optional Express middleware block 13–19 digit card numbers on your API.",
+      },
+      {
+        title: "Debit & credit",
+        body: "Same types — funding discriminant, no duplicate packages.",
+      },
+    ],
+    sample: {
+      filename: "saved-card.ts",
+      language: "ts",
+      code: `import { toPersistable } from "@eristack/payment-instrument"
+
+toPersistable({
+  display: { last4: "4242", brand: "visa", funding: "credit", expMonth: 12, expYear: 2030 },
+  gateway: { gateway: "stripe", tokenId: "pm_123" },
+})`,
+    },
+  },
+  {
     slug: "iso-3166",
     name: "@eristack/iso-3166",
     title: "ISO 3166",
