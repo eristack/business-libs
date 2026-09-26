@@ -378,6 +378,35 @@ recipes:
           - epoch-adapters
         role: primary
 
+  - id: oauth-sso-google-oidc
+    title: Sign in with Google, OIDC, or OAuth provider API
+    priority: 16
+    triggers:
+      - sign in with google
+      - google oauth
+      - microsoft login
+      - oidc login
+      - oauth2 client
+      - pkce
+      - authorization server
+      - oauth provider
+      - partner api tokens
+      - sso login
+    rationale: >
+      Use @eristack/oauth for IdP login (Google/OIDC drivers, PKCE, Drizzle pending logins)
+      then @eristack/jwt-auth issueTokens for app sessions. Use /provider for third-party
+      clients calling your API. Load oauth-client-core + oauth-provider-core only when needed;
+      docs/getting-started.md for consumer wiring.
+    packages:
+      - name: "@eristack/oauth"
+        skills:
+          - oauth-client-core
+        role: primary
+      - name: "@eristack/jwt-auth"
+        skills:
+          - jwt-auth-core
+        role: companion
+
   - id: payment-gateway-stripe-xendit
     title: Stripe, Xendit, and payment intents
     priority: 17

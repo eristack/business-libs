@@ -846,6 +846,48 @@ const session = await auth.login({ username, password })`,
     },
   },
   {
+    slug: "oauth",
+    name: "@eristack/oauth",
+    title: "OAuth",
+    category: "service" as const,
+    directory: "packages/service/oauth",
+    href: "/oauth",
+    docsHref: "/docs/oauth",
+    tagline: "Sign-in with Google/OIDC and your API as authorization server.",
+    description:
+      "OAuth2 consumer (PKCE, Google/OIDC drivers, Drizzle pending logins) and provider (client registry, auth codes, token endpoint). Hand off to jwt-auth for app sessions.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/oauth",
+    highlights: [
+      {
+        title: "Two roles, one package",
+        body: "/client for IdP login; /provider for partner API tokens — not jwt-auth refresh rows.",
+      },
+      {
+        title: "jwt-auth handoff",
+        body: "completeLogin → upsert user → issueTokens. IdP tokens stay separate from ERP JWTs.",
+      },
+      {
+        title: "Express + Drizzle",
+        body: "Consumer routes per provider; provider POST /token with PKCE.",
+      },
+    ],
+    sample: {
+      filename: "oauth-login.ts",
+      language: "ts",
+      code: `import { createOAuthConsumer } from "@eristack/oauth"
+import { createGoogleOAuthDriver } from "@eristack/oauth/client"
+import { createOAuthConsumerRouter } from "@eristack/oauth/express"
+
+const consumer = createOAuthConsumer({
+  drivers: { google: createGoogleOAuthDriver({ clientId, clientSecret }) },
+  pendingStore,
+  allowedRedirectUris: [redirectUri],
+})
+app.use("/oauth", createOAuthConsumerRouter({ consumer, onCallback }))`,
+    },
+  },
+  {
     slug: "rbac",
     name: "@eristack/rbac",
     title: "RBAC",

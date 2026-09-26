@@ -1,0 +1,12 @@
+package: "@eristack/oauth"
+title: oauth
+maintainers:
+  - support@eristack.dev
+scope: >
+  OAuth2 consumer (Sign-in with Google/OIDC, PKCE) and authorization-server provider
+  (partner API access). Hand off to jwt-auth for app sessions — not a replacement for jwt-auth.
+outOfScope: >
+  SAML, MFA enrollment, email magic links, owning users table, UI login widgets.
+skills:
+  - oauth-client-core
+  - oauth-provider-core

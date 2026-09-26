@@ -93,6 +93,13 @@ export const getStartedTips = [
     load: "@eristack/file-manager#file-manager-adapters",
   },
   {
+    want: "Sign in with Google, Microsoft, or generic OIDC (not passwords)",
+    then: "oauth consumer + PKCE → upsert user → jwt-auth issueTokens. Provider mode is separate (partner API tokens).",
+    load: "@eristack/oauth#oauth-client-core",
+    prompt:
+      "Load @eristack/oauth getting-started and jwt-auth-handoff. Wire createGoogleOAuthDriver or createOidcOAuthDriver, Drizzle pending store, Express /:provider/login and callback with onCallback issuing tokens.",
+  },
+  {
     want: "Stripe or Xendit checkout with idempotent charges and webhooks",
     then: "payment-manager for intents + Drizzle history; payment-instrument for saved card tokens — never PAN in SQL.",
     load: "@eristack/payment-manager#payment-manager-adapters",

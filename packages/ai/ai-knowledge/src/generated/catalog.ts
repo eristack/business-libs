@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T11:01:43.652Z",
+  "generatedAt": "2026-09-26T11:13:27.315Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -530,6 +530,40 @@ export const catalog = {
           "description": "@eristack/multitab: headless multi-tab workspace for React ERP screens — tab model, closeGuard, TanStack Router sync. UI chrome stays in the app.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/oauth",
+      "version": "0.0.0",
+      "description": "OAuth2 client (Sign-in with Google/OIDC) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
+      "slug": "oauth",
+      "adapters": [
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "provider",
+        "rest",
+        "testing",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "oauth-client-core",
+          "name": "oauth-client-core",
+          "packageName": "@eristack/oauth",
+          "description": "@eristack/oauth consumer: createOAuthConsumer, PKCE, Google/OIDC drivers, pending login store. Complete with jwt-auth.issueTokens — not jwt-auth replacement.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-client-core"
+        },
+        {
+          "id": "oauth-provider-core",
+          "name": "oauth-provider-core",
+          "packageName": "@eristack/oauth",
+          "description": "@eristack/oauth/provider: registerClient, authorization codes, PKCE token exchange, opaque access tokens for partner APIs — user must already be logged in via jwt-auth.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-provider-core"
         }
       ]
     },

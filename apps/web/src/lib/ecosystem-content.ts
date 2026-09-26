@@ -79,6 +79,27 @@ export const technologyStack: TechStackGroup[] = [
     ],
   },
   {
+    label: "Auth & SSO",
+    description: "@eristack/oauth client + jwt-auth sessions — IdP login, your JWTs.",
+    items: [
+      {
+        name: "Google OAuth",
+        href: "https://developers.google.com/identity/protocols/oauth2",
+        note: "createGoogleOAuthDriver",
+      },
+      {
+        name: "OpenID Connect",
+        href: "https://openid.net/connect/",
+        note: "createOidcOAuthDriver (Azure, Okta, …)",
+      },
+      {
+        name: "OAuth getting started",
+        href: "/docs/oauth/getting-started",
+        note: "PKCE + jwt-auth handoff",
+      },
+    ],
+  },
+  {
     label: "Payments & PSPs",
     description: "@eristack/payment-manager + payment-instrument — intents in SQL, tokens not PAN.",
     items: [
