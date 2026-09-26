@@ -1,14 +1,49 @@
 {
   "title": "File Manager",
-  "pages": ["index", "getting-started", "database", "s3-and-presigned", "http", "dev-tools", "backseat"],
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "wiring-production",
+    "database",
+    "s3-and-presigned",
+    "http",
+    "security",
+    "dev-tools",
+    "backseat",
+    "production-checklist"
+  ],
   "sections": [
     {
       "label": "Start",
-      "pages": ["index", "getting-started"]
+      "pages": [
+        "index",
+        "getting-started"
+      ]
     },
     {
-      "label": "Guide",
-      "pages": ["database", "s3-and-presigned", "http", "dev-tools", "backseat"]
+      "label": "Guides",
+      "pages": [
+        "concepts",
+        "wiring-production",
+        "database",
+        "s3-and-presigned",
+        "http",
+        "security",
+        "dev-tools"
+      ]
+    },
+    {
+      "label": "Adapters",
+      "pages": [
+        "backseat"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "production-checklist"
+      ]
     }
   ]
 }

@@ -10,6 +10,7 @@ description: In-browser mock /files routes and fileManager.files collection.
 | Imports | `@eristack/file-manager/backseat` |
 | Register | `registerFileManagerBackseat(api, { basePath?: "/files", fileManager? })` |
 | Memory factory | `createBackseatFileManagerStores()` → `{ backseatStore, fileManager, driver }` |
+| IndexedDB | `createIndexedDbFileManagerStores({ dbName })` from `@eristack/file-manager/backseat/store` |
 | Collection | `fileManager.files` |
 
 Production uploads use **S3 + Drizzle**. Backseat uses the **memory storage driver** for blob bytes and Backseat IndexedDB/memory for metadata — prototypes only.

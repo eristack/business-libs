@@ -14,6 +14,9 @@ sources:
 
 # File manager adapters
 
+Production end-to-end (Postgres + S3 + Express + Vite): read
+`packages/service/file-manager/docs/wiring-production.md` after this skill.
+
 ## Express
 
 ```ts

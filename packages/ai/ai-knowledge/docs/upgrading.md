@@ -1,9 +1,3 @@
----
-title: Upgrading packages
-description: Single canonical guide — versions, Backseat matrix, peers, Changesets (read this file only)
-sidebar_position: 3
----
-
 # Upgrading @eristack packages
 
 **Canonical guide — read this file only.** Do not open per-package `docs/backseat.md` files for upgrades or Backseat wiring; everything needed is below.
@@ -78,10 +72,27 @@ Several packages export memory stores and sqlite helpers on **`./testing`** — 
 | `@eristack/epoch/testing` | memory epoch store |
 | `@eristack/file-manager/testing` | memory storage driver + file record store |
 | `@eristack/valuations/testing` | memory layer helpers |
+| `@eristack/financial-ledger/testing` | memory ledger re-exports |
+| `@eristack/stock-movement/testing` | memory store helpers |
+| `@eristack/backseat/testing` | `createMemoryBackseatStore` |
+| `@eristack/abac/testing` | `createAbac`, policy fixture harness |
+| `@eristack/pbac/testing` | `createPbac`, transition table validators |
+| `@eristack/data-grid/testing` | `executeInMemoryList` (Vitest list helper) |
 
 Prefer **`./drizzle`** in apps; use **`./testing`** only in Vitest. Main package exports stay production-facing — migration from deep test imports is incremental (D-006).
 
----
+### 2.2 Zod 4 subpaths
+
+| Package | `./zod` exports (examples) |
+| --- | --- |
+| `@eristack/money/zod` | money JSON + form schemas |
+| `@eristack/timestamp/zod` | instant/wall JSON schemas |
+| `@eristack/jwt-auth/zod` | login/register/refresh bodies |
+| `@eristack/doc-number/zod` | register/update format bodies |
+| `@eristack/data-grid/zod` | search params + saved view JSON |
+| `@eristack/epoch/zod` | scope, bump body, cache-policy query |
+
+Optional peer **`zod@^4`** — import `./zod` only when validating HTTP/forms.
 
 ## 3. Backseat release train (what changed)
 
@@ -146,7 +157,7 @@ Use **one shared** `dbName` across `createIndexedDb*…()` calls so all packages
 | `@eristack/abac` | `createBackseatAbacContext()` → `{ backseatStore }` | `createIndexedDbAbacContext({ dbName })` | `registerAbacBackseat` | `/abac` | `abac` instance (policies are code-registered), + optional `basePath` |
 | `@eristack/pbac` | `createBackseatPbacContext()` → `{ backseatStore }` | `createIndexedDbPbacContext({ dbName })` | `registerPbacBackseat` | `/pbac` | `pbac` instance, + optional `basePath` |
 | `@eristack/epoch` | `createBackseatEpochStores()` → `{ backseatStore, epochStore }` | `createIndexedDbEpochStores({ dbName })` | `registerEpochBackseat` | `/epoch` | optional prebuilt `epoch`, + optional `basePath` |
-| `@eristack/file-manager` | `createBackseatFileManagerStores()` → `{ backseatStore, fileManager, driver }` | — (use same memory factory; IndexedDB via shared `backseatStore`) | `registerFileManagerBackseat` | `/files` | optional prebuilt `fileManager`, + optional `basePath`, `maxPresignBytes` |
+| `@eristack/file-manager` | `createBackseatFileManagerStores()` → `{ backseatStore, fileManager, driver }` | `createIndexedDbFileManagerStores({ dbName })` | `registerFileManagerBackseat` | `/files` | optional prebuilt `fileManager`, + optional `basePath`, `maxPresignBytes` |
 
 **IndexedDB collection prefixes (debugging in Devtools):**
 

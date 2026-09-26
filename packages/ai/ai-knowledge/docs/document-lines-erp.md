@@ -1,8 +1,3 @@
----
-title: Document-with-lines ERP
-description: Header + QUPS lines — jobs, cost sheets, invoices
-sidebar_position: 5
----
 # Document-with-lines ERP (header + QUPS lines)
 
 **Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.
@@ -254,6 +249,15 @@ Package-specific production guides:
 - [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md)
 - [money wiring-production](../../primitive/money/docs/wiring-production.md)
 - [data-grid wiring-production](../../service/data-grid/docs/wiring-production.md)
+- [file-manager wiring-production](../../service/file-manager/docs/wiring-production.md)
+
+### Document attachments (optional)
+
+Store **metadata in Postgres**, bytes in **S3** — not BLOB columns on line tables.
+
+- Add nullable `attachmentFileId` (uuid) or `attachmentFileRef` (jsonb `FileRef` v1) on your header table.
+- Upload via `@eristack/file-manager` presign flow; persist returned `FileRef` on save.
+- Horizon A: `registerFileManagerBackseat` + same `dbName` as jwt-auth/doc-number IndexedDB factories.
 
 ---
 

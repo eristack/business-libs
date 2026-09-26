@@ -79,6 +79,27 @@ export const technologyStack: TechStackGroup[] = [
     ],
   },
   {
+    label: "Files & object storage",
+    description: "@eristack/file-manager — metadata in SQL, bytes in the cloud.",
+    items: [
+      {
+        name: "Amazon S3",
+        href: "https://aws.amazon.com/s3/",
+        note: "Default production driver",
+      },
+      {
+        name: "AWS SDK for JavaScript",
+        href: "https://docs.aws.amazon.com/sdk-for-javascript/",
+        note: "Presigned PUT/GET",
+      },
+      {
+        name: "Presigned uploads",
+        href: "/docs/file-manager/s3-and-presigned",
+        note: "Browser → S3 without proxying bytes",
+      },
+    ],
+  },
+  {
     label: "HTTP & services",
     description: "Thin shells around framework-free cores.",
     items: [

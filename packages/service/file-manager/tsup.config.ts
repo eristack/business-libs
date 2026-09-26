@@ -13,6 +13,7 @@ export default defineConfig({
     "src/react/index.ts",
     "src/zod/index.ts",
     "src/backseat/index.ts",
+    "src/backseat/store/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,
@@ -21,6 +22,7 @@ export default defineConfig({
   external: [
     "@eristack/backseat",
     "@eristack/backseat/adapters",
+    "@eristack/backseat/store",
     "@aws-sdk/client-s3",
     "@aws-sdk/s3-request-presigner",
     "@nestjs/common",

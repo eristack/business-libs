@@ -157,7 +157,7 @@ Use **one shared** `dbName` across `createIndexedDb*…()` calls so all packages
 | `@eristack/abac` | `createBackseatAbacContext()` → `{ backseatStore }` | `createIndexedDbAbacContext({ dbName })` | `registerAbacBackseat` | `/abac` | `abac` instance (policies are code-registered), + optional `basePath` |
 | `@eristack/pbac` | `createBackseatPbacContext()` → `{ backseatStore }` | `createIndexedDbPbacContext({ dbName })` | `registerPbacBackseat` | `/pbac` | `pbac` instance, + optional `basePath` |
 | `@eristack/epoch` | `createBackseatEpochStores()` → `{ backseatStore, epochStore }` | `createIndexedDbEpochStores({ dbName })` | `registerEpochBackseat` | `/epoch` | optional prebuilt `epoch`, + optional `basePath` |
-| `@eristack/file-manager` | `createBackseatFileManagerStores()` → `{ backseatStore, fileManager, driver }` | — (use same memory factory; IndexedDB via shared `backseatStore`) | `registerFileManagerBackseat` | `/files` | optional prebuilt `fileManager`, + optional `basePath`, `maxPresignBytes` |
+| `@eristack/file-manager` | `createBackseatFileManagerStores()` → `{ backseatStore, fileManager, driver }` | `createIndexedDbFileManagerStores({ dbName })` | `registerFileManagerBackseat` | `/files` | optional prebuilt `fileManager`, + optional `basePath`, `maxPresignBytes` |
 
 **IndexedDB collection prefixes (debugging in Devtools):**
 

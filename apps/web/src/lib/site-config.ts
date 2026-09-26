@@ -3,7 +3,7 @@ export const siteConfig = {
   name: "Eristack",
   tagline: "Enterprise business libraries for TypeScript",
   description:
-    "Open enterprise libraries for money, timestamps, auth, document numbers, AI workflow, and the other domain building blocks business stacks take for granted.",
+    "Open enterprise libraries for money, timestamps, auth, document numbers, S3 file uploads, AI workflow, and the other domain building blocks business stacks take for granted.",
   url: "https://eristack.dev",
   github: "https://github.com/eristack/business-libs",
   org: "https://github.com/eristack",

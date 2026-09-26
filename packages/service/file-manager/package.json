@@ -122,6 +122,16 @@
         "types": "./dist/backseat/index.d.ts",
         "default": "./dist/backseat/index.cjs"
       }
+    },
+    "./backseat/store": {
+      "import": {
+        "types": "./dist/backseat/store/index.d.ts",
+        "default": "./dist/backseat/store/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/store/index.d.ts",
+        "default": "./dist/backseat/store/index.cjs"
+      }
     }
   },
   "files": [
