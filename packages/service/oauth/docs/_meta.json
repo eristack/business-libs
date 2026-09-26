@@ -1,8 +1,8 @@
 {
   "title": "OAuth",
-  "pages": ["index", "getting-started", "provider", "jwt-auth-handoff", "database"],
+  "pages": ["index", "getting-started", "drivers", "provider", "jwt-auth-handoff", "database"],
   "sections": [
     { "label": "Start", "pages": ["index", "getting-started"] },
-    { "label": "Guides", "pages": ["provider", "jwt-auth-handoff", "database"] }
+    { "label": "Guides", "pages": ["drivers", "provider", "jwt-auth-handoff", "database"] }
   ]
 }

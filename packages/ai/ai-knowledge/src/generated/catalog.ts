@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T11:13:27.315Z",
+  "generatedAt": "2026-09-26T11:16:00.810Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -553,7 +553,7 @@ export const catalog = {
           "id": "oauth-client-core",
           "name": "oauth-client-core",
           "packageName": "@eristack/oauth",
-          "description": "@eristack/oauth consumer: createOAuthConsumer, PKCE, Google/OIDC drivers, pending login store. Complete with jwt-auth.issueTokens — not jwt-auth replacement.",
+          "description": "@eristack/oauth consumer: createOAuthConsumer, PKCE, 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …), Drizzle pending store. End at jwt-auth.issueTokens.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-client-core"
         },

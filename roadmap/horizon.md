@@ -182,7 +182,8 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | Package | Status | Purpose | Depends | Blocks |
 | --- | --- | --- | --- | --- |
 | `@eristack/jwt-auth` | Shipped | Credentials + tokens | — | API |
-| `@eristack/oauth` | Shipped | OAuth2 **client** (`/client`: Sign-in with Google/OIDC, integrations) + **provider** (`/provider`: your API as authorization server) — separate subpaths, not jwt-auth | jwt-auth (handoff via `issueTokens`) | SSO login, partner API access |
+| `@eristack/oauth` | Shipped | OAuth2 **client** (`/client`: 17+ IdP drivers, PKCE) + **provider** (`/provider`: your API as authorization server) | jwt-auth (handoff via `issueTokens`) | SSO login, partner API access |
+| `@eristack/comms` | **Candidate** | Email, SMS, WhatsApp — SendGrid, Twilio, Postmark, SES, Meta WA Cloud; Drizzle delivery log + webhook verify (payment-manager driver pattern) | — | notifications, magic links, OTP |
 | `@eristack/rbac` | Shipped | Role permissions | — | API |
 | `@eristack/abac` | Shipped | Attribute policies | — | branch/trade scope |
 | `@eristack/pbac` | Shipped | Document policies | — | transitions |

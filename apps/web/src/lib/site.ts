@@ -853,9 +853,9 @@ const session = await auth.login({ username, password })`,
     directory: "packages/service/oauth",
     href: "/oauth",
     docsHref: "/docs/oauth",
-    tagline: "Sign-in with Google/OIDC and your API as authorization server.",
+    tagline: "17+ IdP drivers — Google, Microsoft, GitHub, Apple — plus your API as authorization server.",
     description:
-      "OAuth2 consumer (PKCE, Google/OIDC drivers, Drizzle pending logins) and provider (client registry, auth codes, token endpoint). Hand off to jwt-auth for app sessions.",
+      "OAuth2 consumer with preset drivers (Google, Entra ID, GitHub, Apple, LinkedIn, Okta, Auth0, Keycloak, Slack, Discord, …), PKCE, Drizzle pending logins, GET|POST callbacks. Provider mode for partner API tokens. Hand off to jwt-auth for app sessions.",
     status: "alpha" as const,
     install: "pnpm add @eristack/oauth",
     highlights: [

@@ -445,6 +445,16 @@ export const recipes = [
       "sign in with google",
       "google oauth",
       "microsoft login",
+      "entra id",
+      "github login",
+      "sign in with apple",
+      "facebook login",
+      "linkedin login",
+      "okta login",
+      "auth0 login",
+      "keycloak login",
+      "slack login",
+      "discord login",
       "oidc login",
       "oauth2 client",
       "pkce",
@@ -453,7 +463,7 @@ export const recipes = [
       "partner api tokens",
       "sso login"
     ],
-    "rationale": "Use @eristack/oauth for IdP login (Google/OIDC drivers, PKCE, Drizzle pending logins) then @eristack/jwt-auth issueTokens for app sessions. Use /provider for third-party clients calling your API. Load oauth-client-core + oauth-provider-core only when needed; docs/getting-started.md for consumer wiring.",
+    "rationale": "Use @eristack/oauth for IdP login — preset drivers (Google, Microsoft, GitHub, Apple, Okta, Auth0, Keycloak, …) in docs/drivers.md — PKCE, Drizzle pending logins, then @eristack/jwt-auth issueTokens. Use /provider for third-party clients. Load oauth-client-core (drivers.md) + oauth-provider-core only when needed.",
     "packages": [
       {
         "name": "@eristack/oauth",

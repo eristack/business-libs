@@ -72,18 +72,39 @@ export function createOAuthConsumerRouter(options: {
     }
   });
 
-  router.get("/:provider/callback", async (req, res, next) => {
+  const handleCallback = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await actions.callback(toRestRequest(req));
+      const rest = toRestRequest(req);
+      if (req.method === "POST" && req.body && typeof req.body === "object") {
+        const body = req.body as Record<string, unknown>;
+        rest.query = {
+          ...rest.query,
+          code: typeof body.code === "string" ? body.code : rest.query.code,
+          state: typeof body.state === "string" ? body.state : rest.query.state,
+          error: typeof body.error === "string" ? body.error : rest.query.error,
+          error_description:
+            typeof body.error_description === "string"
+              ? body.error_description
+              : rest.query.error_description,
+        };
+      }
+      const result = await actions.callback(rest);
       if (result.status !== 200 || !options.onCallback) {
         sendRest(res, result);
         return;
       }
-      await options.onCallback(result.body as Awaited<ReturnType<OAuthConsumer["completeLogin"]>>, req, res);
+      await options.onCallback(
+        result.body as Awaited<ReturnType<OAuthConsumer["completeLogin"]>>,
+        req,
+        res,
+      );
     } catch (err) {
       next(err);
     }
-  });
+  };
+
+  router.get("/:provider/callback", handleCallback);
+  router.post("/:provider/callback", handleCallback);
 
   router.use((err: unknown, _req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {

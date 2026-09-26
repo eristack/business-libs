@@ -80,23 +80,25 @@ export const technologyStack: TechStackGroup[] = [
   },
   {
     label: "Auth & SSO",
-    description: "@eristack/oauth client + jwt-auth sessions — IdP login, your JWTs.",
+    description: "@eristack/oauth (17+ IdP drivers) + @eristack/jwt-auth sessions.",
     items: [
-      {
-        name: "Google OAuth",
-        href: "https://developers.google.com/identity/protocols/oauth2",
-        note: "createGoogleOAuthDriver",
-      },
-      {
-        name: "OpenID Connect",
-        href: "https://openid.net/connect/",
-        note: "createOidcOAuthDriver (Azure, Okta, …)",
-      },
-      {
-        name: "OAuth getting started",
-        href: "/docs/oauth/getting-started",
-        note: "PKCE + jwt-auth handoff",
-      },
+      { name: "Google", href: "https://developers.google.com/identity/protocols/oauth2", note: "createGoogleOAuthDriver" },
+      { name: "Microsoft Entra ID", href: "https://learn.microsoft.com/en-us/entra/identity-platform/", note: "createMicrosoftOAuthDriver" },
+      { name: "GitHub", href: "https://docs.github.com/en/apps/oauth-apps", note: "createGitHubOAuthDriver" },
+      { name: "Sign in with Apple", href: "https://developer.apple.com/sign-in-with-apple/", note: "POST callback + JWT client secret" },
+      { name: "Okta / Auth0 / Keycloak", href: "https://openid.net/connect/", note: "createOktaOAuthDriver, createAuth0OAuthDriver, createKeycloakOAuthDriver" },
+      { name: "IdP driver catalog", href: "/docs/oauth/drivers", note: "LinkedIn, Slack, Discord, Cognito, Salesforce, …" },
+      { name: "jwt-auth handoff", href: "/docs/oauth/jwt-auth-handoff", note: "issueTokens after OAuth callback" },
+    ],
+  },
+  {
+    label: "Comms (planned)",
+    description: "Next service layer: @eristack/comms — email, SMS, WhatsApp via vendor drivers.",
+    items: [
+      { name: "SendGrid", href: "https://docs.sendgrid.com/", note: "planned email driver" },
+      { name: "Twilio", href: "https://www.twilio.com/docs", note: "planned SMS + WhatsApp" },
+      { name: "Postmark / SES", href: "https://postmarkapp.com/developer", note: "planned alternate email" },
+      { name: "Horizon", href: "/roadmap", note: "@eristack/comms Candidate" },
     ],
   },
   {

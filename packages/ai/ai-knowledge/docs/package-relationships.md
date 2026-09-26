@@ -54,7 +54,8 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | --- | --- | --- |
 | `@eristack/data-grid` | **peer:** money; **optional peer:** timestamp | Wall filters need timestamp |
 | `@eristack/jwt-auth` | — | Credentials child of app users |
-| `@eristack/oauth` | jwt-auth (handoff) | OAuth2 client (Google/OIDC) + provider AS; sessions via `issueTokens` |
+| `@eristack/oauth` | jwt-auth (handoff) | OAuth2 client (17+ IdP drivers) + provider AS; sessions via `issueTokens` |
+| `@eristack/comms` | — (planned) | Email/SMS/WhatsApp vendor drivers; pairs with jwt-auth for magic links |
 | `@eristack/rbac` / `@eristack/abac` / `@eristack/pbac` | — | Boolean roles vs attrs vs document policies |
 | `@eristack/epoch` | — | Cache version scopes |
 | `@eristack/file-manager` | **peer:** backseat, AWS S3 SDK | Uploads + `FileRef`; optional `@eristack/jwt-auth` at app edge |

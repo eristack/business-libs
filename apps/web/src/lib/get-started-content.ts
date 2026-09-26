@@ -93,11 +93,18 @@ export const getStartedTips = [
     load: "@eristack/file-manager#file-manager-adapters",
   },
   {
-    want: "Sign in with Google, Microsoft, or generic OIDC (not passwords)",
-    then: "oauth consumer + PKCE → upsert user → jwt-auth issueTokens. Provider mode is separate (partner API tokens).",
+    want: "Sign in with Google, Microsoft, GitHub, Apple, or enterprise OIDC (not passwords)",
+    then: "Pick preset drivers from docs/drivers.md → oauth + PKCE → upsert user → jwt-auth issueTokens.",
     load: "@eristack/oauth#oauth-client-core",
     prompt:
-      "Load @eristack/oauth getting-started and jwt-auth-handoff. Wire createGoogleOAuthDriver or createOidcOAuthDriver, Drizzle pending store, Express /:provider/login and callback with onCallback issuing tokens.",
+      "Load @eristack/oauth docs/drivers.md and getting-started. Register createGoogleOAuthDriver / createMicrosoftOAuthDriver / etc., Drizzle pending store, Express /:provider/login and GET|POST callback with onCallback → issueTokens.",
+  },
+  {
+    want: "Transactional email, SMS, or WhatsApp (SendGrid, Twilio, …)",
+    then: "On the horizon: @eristack/comms (Candidate) — same driver pattern as payment-manager; not shipped yet.",
+    load: "@eristack/ai-knowledge#package-relationships",
+    prompt:
+      "Read roadmap/horizon.md @eristack/comms and _ai-docs/brainstorm/comms-integrations.md. Until comms ships, wire vendor SDKs in the app or track the Candidate package.",
   },
   {
     want: "Stripe or Xendit checkout with idempotent charges and webhooks",

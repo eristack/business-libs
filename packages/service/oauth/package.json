@@ -1,7 +1,7 @@
 {
   "name": "@eristack/oauth",
   "version": "0.0.0",
-  "description": "OAuth2 client (Sign-in with Google/OIDC) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
+  "description": "OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
   "repository": {
     "type": "git",
     "url": "https://github.com/eristack/business-libs.git",

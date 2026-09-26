@@ -225,7 +225,8 @@ Categories under `packages/` (order matters):
 - `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
 - `packages/service/epoch` — `@eristack/epoch` (data-version epochs for cache invalidation + drizzle/rest/express/nest/client/react/backseat)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
-- `packages/service/oauth` — `@eristack/oauth` (OAuth2 client Google/OIDC + provider AS; drizzle/express/rest; hand off to jwt-auth)
+- `packages/service/oauth` — `@eristack/oauth` (OAuth2 client: 17+ IdP drivers + OIDC/OAuth2 factories; provider AS; drizzle/express/rest; hand off to jwt-auth)
+- `packages/service/comms` — **planned** (`@eristack/comms`) — email/SMS/WhatsApp vendor drivers; see `roadmap/horizon.md` and `_ai-docs/brainstorm/comms-integrations.md`
 - `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
 - `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)

@@ -1,18 +1,42 @@
 ---
 title: OAuth
-description: OAuth2 client (Google/OIDC login) and provider (your API as authorization server).
+description: OAuth2 client drivers (Google, Microsoft, GitHub, …) and authorization-server provider.
 ---
 
 # @eristack/oauth
 
+One package, **two roles** — do not mix them with `@eristack/jwt-auth` refresh tokens.
+
 | Entry | Role |
 | --- | --- |
 | `@eristack/oauth` | `createOAuthConsumer`, PKCE, pending login store |
-| `@eristack/oauth/client` | `createGoogleOAuthDriver`, `createOidcOAuthDriver` |
-| `@eristack/oauth/provider` | `createOAuthProvider` — register clients, auth codes, token endpoint |
+| `@eristack/oauth/client` | **17+ preset IdP drivers** + `createOidcOAuthDriver` / `createOAuth2Driver` |
+| `@eristack/oauth/provider` | Your API as authorization server (partner clients) |
 | `@eristack/oauth/drizzle` | Pending logins + provider tables |
-| `@eristack/oauth/express` | Consumer + provider routers |
+| `@eristack/oauth/express` | Consumer + provider routers (`GET\|POST` callback for Apple) |
 
-**Not** a replacement for [`@eristack/jwt-auth`](/docs/jwt-auth) — after OAuth login, issue your JWT with `issueTokens`.
+## Consumer flow (Sign in with …)
 
-Next: [Getting started](./getting-started.md) · [Provider](./provider.md) · [jwt-auth handoff](./jwt-auth-handoff.md)
+```text
+Browser → GET /oauth/google/login?redirect_uri=…
+       → IdP (PKCE)
+       → GET|POST /oauth/google/callback
+       → upsert user from profile
+       → jwt-auth.issueTokens({ subject })
+```
+
+## Provider flow (partners call your API)
+
+User already logged in via jwt-auth → consent → authorization code → `POST /oauth/as/token` → opaque partner access token.
+
+## Docs map
+
+| Page | Read when |
+| --- | --- |
+| [Getting started](./getting-started.md) | First consumer wiring + Express |
+| [**IdP drivers**](./drivers.md) | Pick Google, Microsoft, GitHub, Apple, Okta, … |
+| [jwt-auth handoff](./jwt-auth-handoff.md) | Session after OAuth |
+| [Provider](./provider.md) | Inbound OAuth for integrators |
+| [Database](./database.md) | Drizzle tables |
+
+**Related (planned):** `@eristack/comms` on the [roadmap](/roadmap) — email, SMS, WhatsApp (SendGrid, Twilio, …); notification spine, not login.
