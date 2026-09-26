@@ -378,6 +378,31 @@ recipes:
           - epoch-adapters
         role: primary
 
+  - id: unlocode-ports
+    title: UN/LOCODE ports and trade locations
+    priority: 15
+    triggers:
+      - unlocode
+      - locode
+      - port code
+      - port of loading
+      - port of discharge
+      - pol pod
+      - bill of lading port
+      - forwarding port
+    rationale: >
+      Use @eristack/unlocode with @eristack/iso-3166 for five-character locodes on
+      B/L and logistics docs. Load unlocode-core — docs/getting-started.md only.
+    packages:
+      - name: "@eristack/unlocode"
+        skills:
+          - unlocode-core
+        role: primary
+      - name: "@eristack/iso-3166"
+        skills:
+          - iso-3166-core
+        role: supporting
+
   - id: country-codes-iso-3166
     title: Country codes and ISO 3166 validation
     priority: 15

@@ -445,6 +445,42 @@ alpha3ToAlpha2("IDN") // "ID"`,
     },
   },
   {
+    slug: "unlocode",
+    name: "@eristack/unlocode",
+    title: "UN/LOCODE",
+    category: "registries" as const,
+    directory: "packages/registries/unlocode",
+    href: "/unlocode",
+    docsHref: "/docs/unlocode",
+    tagline: "Ports and trade locations — five-character UN/LOCODE.",
+    description:
+      "Normalize ID JKT → IDJKT, validate country prefix via iso-3166, parse pol/pod on forwarding documents. Sample major ports in-package; full UN lists via reference-data later.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/unlocode",
+    highlights: [
+      {
+        title: "B/L friendly",
+        body: "Compact storage, spaced display — same rules in API and forms.",
+      },
+      {
+        title: "ISO country gate",
+        body: "Invalid country prefixes fail before bad locodes hit SQL.",
+      },
+      {
+        title: "Masters stay in app",
+        body: "Library validates codes; you own enabled ports per company.",
+      },
+    ],
+    sample: {
+      filename: "port.ts",
+      language: "ts",
+      code: `import { normalizeUnlocode, formatUnlocodeDisplay } from "@eristack/unlocode"
+
+const pol = normalizeUnlocode("ID JKT")
+formatUnlocodeDisplay(pol) // "ID JKT"`,
+    },
+  },
+  {
     slug: "doc-number",
     name: "@eristack/doc-number",
     title: "Doc Number",

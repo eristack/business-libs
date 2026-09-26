@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T10:45:41.657Z",
+  "generatedAt": "2026-09-26T10:47:22.723Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -756,6 +756,25 @@ export const catalog = {
           "description": "Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/unlocode",
+      "version": "0.0.0",
+      "description": "UN/LOCODE port and place codes — normalize five-character locodes with ISO 3166 country validation",
+      "slug": "unlocode",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "unlocode-core",
+          "name": "unlocode-core",
+          "packageName": "@eristack/unlocode",
+          "description": "@eristack/unlocode UN/LOCODE normalization for ports and trade locations. Depends on @eristack/iso-3166 for country prefix. Use for B/L, forwarding, and logistics locode fields — not for tenant port masters or full UN datasets.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/unlocode#unlocode-core"
         }
       ]
     },

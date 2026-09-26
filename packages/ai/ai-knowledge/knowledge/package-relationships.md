@@ -13,7 +13,7 @@ Load: `@eristack/ai-knowledge#package-relationships` · ERP lines: `#document-li
 | Package | Role |
 | --- | --- |
 | `@eristack/iso-3166` | Assigned ISO 3166-1/2 codes — validate, alpha-3 convert |
-| `@eristack/unlocode` | UN/LOCODE ports/places |
+| `@eristack/unlocode` | UN/LOCODE normalize/parse — **depends on** iso-3166 |
 | `@eristack/iso-4217` | Currency metadata (pairs with money) |
 | `@eristack/reference-data` | **Capability** — versioned dataset packs over registries |
 

@@ -215,6 +215,7 @@ Categories under `packages/` (order matters):
 - `packages/primitive/money` — `@eristack/money`
 - `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
 - `packages/registries/iso-3166` — `@eristack/iso-3166` (assigned ISO 3166-1/2 codes; optional `/zod`)
+- `packages/registries/unlocode` — `@eristack/unlocode` (UN/LOCODE; depends on iso-3166; optional `/zod`)
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `packages/capability/qups` — `@eristack/qups` (QUPS 2-of-3 SoT + modifiers + tax on Money; drizzle injects columns into app detail lines)
 - `packages/capability/stock-movement` — `@eristack/stock-movement` (qty ledger + composable locations/lots on hash-chained-ledger)
