@@ -1,6 +1,6 @@
 {
   "name": "@eristack/payment-instrument",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Token-safe payment card value types — display + gateway refs, PAN transient only, PCI-minded guards",
   "repository": {
     "type": "git",
@@ -75,8 +75,12 @@
     "zod": "^4.0.0"
   },
   "peerDependenciesMeta": {
-    "express": { "optional": true },
-    "zod": { "optional": true }
+    "express": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",

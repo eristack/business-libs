@@ -1,6 +1,6 @@
 {
   "name": "@eristack/iso-3166",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "ISO 3166-1 country codes and ISO 3166-2 subdivision normalization — assigned alpha-2/alpha-3 registry",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/unlocode",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "UN/LOCODE port and place codes — normalize five-character locodes with ISO 3166 country validation",
   "repository": {
     "type": "git",

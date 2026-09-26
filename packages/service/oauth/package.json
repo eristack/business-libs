@@ -1,6 +1,6 @@
 {
   "name": "@eristack/oauth",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
   "repository": {
     "type": "git",
@@ -14,45 +14,113 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "require": { "types": "./dist/index.d.ts", "default": "./dist/index.cjs" }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./client": {
-      "import": { "types": "./dist/client/index.d.ts", "default": "./dist/client/index.js" },
-      "require": { "types": "./dist/client/index.d.ts", "default": "./dist/client/index.cjs" }
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.cjs"
+      }
     },
     "./provider": {
-      "import": { "types": "./dist/provider/index.d.ts", "default": "./dist/provider/index.js" },
-      "require": { "types": "./dist/provider/index.d.ts", "default": "./dist/provider/index.cjs" }
+      "import": {
+        "types": "./dist/provider/index.d.ts",
+        "default": "./dist/provider/index.js"
+      },
+      "require": {
+        "types": "./dist/provider/index.d.ts",
+        "default": "./dist/provider/index.cjs"
+      }
     },
     "./drizzle": {
-      "import": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.js" },
-      "require": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.cjs" }
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
     },
     "./rest": {
-      "import": { "types": "./dist/rest/index.d.ts", "default": "./dist/rest/index.js" },
-      "require": { "types": "./dist/rest/index.d.ts", "default": "./dist/rest/index.cjs" }
+      "import": {
+        "types": "./dist/rest/index.d.ts",
+        "default": "./dist/rest/index.js"
+      },
+      "require": {
+        "types": "./dist/rest/index.d.ts",
+        "default": "./dist/rest/index.cjs"
+      }
     },
     "./express": {
-      "import": { "types": "./dist/express/index.d.ts", "default": "./dist/express/index.js" },
-      "require": { "types": "./dist/express/index.d.ts", "default": "./dist/express/index.cjs" }
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
     },
     "./nest": {
-      "import": { "types": "./dist/nest/index.d.ts", "default": "./dist/nest/index.js" },
-      "require": { "types": "./dist/nest/index.d.ts", "default": "./dist/nest/index.cjs" }
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
     },
     "./testing": {
-      "import": { "types": "./dist/testing/index.d.ts", "default": "./dist/testing/index.js" },
-      "require": { "types": "./dist/testing/index.d.ts", "default": "./dist/testing/index.cjs" }
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.cjs"
+      }
     },
     "./zod": {
-      "import": { "types": "./dist/zod/index.d.ts", "default": "./dist/zod/index.js" },
-      "require": { "types": "./dist/zod/index.d.ts", "default": "./dist/zod/index.cjs" }
+      "import": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.js"
+      },
+      "require": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.cjs"
+      }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "oauth", "oidc", "pkce", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "oauth",
+    "oidc",
+    "pkce",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -67,9 +135,15 @@
     "zod": "^4.0.0"
   },
   "peerDependenciesMeta": {
-    "drizzle-orm": { "optional": true },
-    "express": { "optional": true },
-    "zod": { "optional": true }
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

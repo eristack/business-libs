@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T12:16:55.305Z",
+  "generatedAt": "2026-09-26T12:32:01.775Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -157,7 +157,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/comms",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
       "slug": "comms",
       "adapters": [
@@ -437,7 +437,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/iso-3166",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "ISO 3166-1 country codes and ISO 3166-2 subdivision normalization — assigned alpha-2/alpha-3 registry",
       "slug": "iso-3166",
       "adapters": [
@@ -573,7 +573,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/oauth",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
       "slug": "oauth",
       "adapters": [
@@ -628,7 +628,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/payment-instrument",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Token-safe payment card value types — display + gateway refs, PAN transient only, PCI-minded guards",
       "slug": "payment-instrument",
       "adapters": [
@@ -648,7 +648,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/payment-manager",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
       "slug": "payment-manager",
       "adapters": [
@@ -890,7 +890,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/unlocode",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "UN/LOCODE port and place codes — normalize five-character locodes with ISO 3166 country validation",
       "slug": "unlocode",
       "adapters": [
