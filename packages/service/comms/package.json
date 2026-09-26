@@ -1,0 +1,103 @@
+{
+  "name": "@eristack/comms",
+  "version": "0.0.0",
+  "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/service/comms"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/service/comms",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.ts", "default": "./dist/index.cjs" }
+    },
+    "./sendgrid": {
+      "import": { "types": "./dist/sendgrid/index.d.ts", "default": "./dist/sendgrid/index.js" },
+      "require": { "types": "./dist/sendgrid/index.d.ts", "default": "./dist/sendgrid/index.cjs" }
+    },
+    "./postmark": {
+      "import": { "types": "./dist/postmark/index.d.ts", "default": "./dist/postmark/index.js" },
+      "require": { "types": "./dist/postmark/index.d.ts", "default": "./dist/postmark/index.cjs" }
+    },
+    "./mailgun": {
+      "import": { "types": "./dist/mailgun/index.d.ts", "default": "./dist/mailgun/index.js" },
+      "require": { "types": "./dist/mailgun/index.d.ts", "default": "./dist/mailgun/index.cjs" }
+    },
+    "./twilio": {
+      "import": { "types": "./dist/twilio/index.d.ts", "default": "./dist/twilio/index.js" },
+      "require": { "types": "./dist/twilio/index.d.ts", "default": "./dist/twilio/index.cjs" }
+    },
+    "./vonage": {
+      "import": { "types": "./dist/vonage/index.d.ts", "default": "./dist/vonage/index.js" },
+      "require": { "types": "./dist/vonage/index.d.ts", "default": "./dist/vonage/index.cjs" }
+    },
+    "./meta-whatsapp": {
+      "import": { "types": "./dist/meta-whatsapp/index.d.ts", "default": "./dist/meta-whatsapp/index.js" },
+      "require": { "types": "./dist/meta-whatsapp/index.d.ts", "default": "./dist/meta-whatsapp/index.cjs" }
+    },
+    "./drizzle": {
+      "import": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.js" },
+      "require": { "types": "./dist/drizzle/index.d.ts", "default": "./dist/drizzle/index.cjs" }
+    },
+    "./rest": {
+      "import": { "types": "./dist/rest/index.d.ts", "default": "./dist/rest/index.js" },
+      "require": { "types": "./dist/rest/index.d.ts", "default": "./dist/rest/index.cjs" }
+    },
+    "./express": {
+      "import": { "types": "./dist/express/index.d.ts", "default": "./dist/express/index.js" },
+      "require": { "types": "./dist/express/index.d.ts", "default": "./dist/express/index.cjs" }
+    },
+    "./nest": {
+      "import": { "types": "./dist/nest/index.d.ts", "default": "./dist/nest/index.js" },
+      "require": { "types": "./dist/nest/index.d.ts", "default": "./dist/nest/index.cjs" }
+    },
+    "./testing": {
+      "import": { "types": "./dist/testing/index.d.ts", "default": "./dist/testing/index.js" },
+      "require": { "types": "./dist/testing/index.d.ts", "default": "./dist/testing/index.cjs" }
+    },
+    "./zod": {
+      "import": { "types": "./dist/zod/index.d.ts", "default": "./dist/zod/index.js" },
+      "require": { "types": "./dist/zod/index.d.ts", "default": "./dist/zod/index.cjs" }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
+  "keywords": ["tanstack-intent", "email", "sms", "whatsapp", "sendgrid", "twilio", "eristack"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
+    "express": "^4.0.0 || ^5.0.0",
+    "zod": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "drizzle-orm": { "optional": true },
+    "express": { "optional": true },
+    "zod": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.29",
+    "@types/supertest": "^6.0.3",
+    "drizzle-orm": "^0.44.0",
+    "express": "^5.1.0",
+    "supertest": "^7.1.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10",
+    "zod": "^4.4.3"
+  },
+  "license": "MIT"
+}

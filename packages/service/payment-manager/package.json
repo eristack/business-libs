@@ -1,0 +1,209 @@
+{
+  "name": "@eristack/payment-manager",
+  "version": "0.0.0",
+  "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/service/payment-manager"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/service/payment-manager",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./stripe": {
+      "import": {
+        "types": "./dist/stripe/index.d.ts",
+        "default": "./dist/stripe/index.js"
+      },
+      "require": {
+        "types": "./dist/stripe/index.d.ts",
+        "default": "./dist/stripe/index.cjs"
+      }
+    },
+    "./xendit": {
+      "import": {
+        "types": "./dist/xendit/index.d.ts",
+        "default": "./dist/xendit/index.js"
+      },
+      "require": {
+        "types": "./dist/xendit/index.d.ts",
+        "default": "./dist/xendit/index.cjs"
+      }
+    },
+    "./drizzle": {
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
+    },
+    "./rest": {
+      "import": {
+        "types": "./dist/rest/index.d.ts",
+        "default": "./dist/rest/index.js"
+      },
+      "require": {
+        "types": "./dist/rest/index.d.ts",
+        "default": "./dist/rest/index.cjs"
+      }
+    },
+    "./express": {
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
+    },
+    "./nest": {
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.cjs"
+      }
+    },
+    "./zod": {
+      "import": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.js"
+      },
+      "require": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.cjs"
+      }
+    },
+    "./testing": {
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.cjs"
+      }
+    },
+    "./backseat": {
+      "import": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.js"
+      },
+      "require": {
+        "types": "./dist/backseat/index.d.ts",
+        "default": "./dist/backseat/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "payments",
+    "stripe",
+    "xendit",
+    "webhook",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@eristack/money": "^0.3.0",
+    "@eristack/backseat": "^0.1.0",
+    "@nestjs/common": "^10.0.0 || ^11.0.0",
+    "@nestjs/core": "^10.0.0 || ^11.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
+    "express": "^4.0.0 || ^5.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "stripe": "^17.0.0 || ^18.0.0",
+    "zod": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@eristack/backseat": { "optional": true },
+    "@nestjs/common": { "optional": true },
+    "@nestjs/core": { "optional": true },
+    "@tanstack/react-query": { "optional": true },
+    "drizzle-orm": { "optional": true },
+    "express": { "optional": true },
+    "react": { "optional": true },
+    "stripe": { "optional": true },
+    "zod": { "optional": true }
+  },
+  "devDependencies": {
+    "@eristack/money": "workspace:*",
+    "@eristack/backseat": "workspace:*",
+    "@internal/test-harness": "workspace:*",
+    "@nestjs/common": "^11.0.12",
+    "@nestjs/core": "^11.0.12",
+    "@tanstack/react-query": "^5.90.2",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.0.12",
+    "@types/supertest": "^6.0.3",
+    "drizzle-orm": "^0.44.0",
+    "express": "^5.1.0",
+    "react": "^19.0.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "supertest": "^7.1.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10",
+    "zod": "^4.4.3"
+  },
+  "license": "MIT"
+}

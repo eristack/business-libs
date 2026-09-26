@@ -1,8 +1,3 @@
----
-title: Package relationships
-description: Dependency map, layer order, and which skill to load first
-sidebar_position: 4
----
 # Package relationships
 
 One map of how `@eristack/*` packages depend on each other and which guide to load first. Use this before wiring multiple libraries or debugging “which package owns this?”
@@ -11,7 +6,18 @@ Load: `@eristack/ai-knowledge#package-relationships` · ERP lines: `#document-li
 
 ## Layer order (filesystem)
 
-`packages/primitive` → `capability` → `service` → `infrastructure` → `ui` → `ai`
+`packages/primitive` → `registries` → `capability` → `service` → `infrastructure` → `ui` → `ai`
+
+### Registries (layer 02)
+
+| Package | Role |
+| --- | --- |
+| `@eristack/iso-3166` | Assigned ISO 3166-1/2 codes — validate, alpha-3 convert |
+| `@eristack/unlocode` | UN/LOCODE normalize/parse — **depends on** iso-3166 |
+| `@eristack/iso-4217` | Currency metadata (pairs with money) |
+| `@eristack/reference-data` | **Capability** — versioned dataset packs over registries |
+
+Registry packages validate/normalize only — tenant masters stay app-owned.
 
 Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core` entrypoints — use adapters.
 
@@ -26,6 +32,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/uom` | Qty + fixed-ratio conversion | stock-movement, inventory forms (before qups money lines) |
 | `@eristack/timestamp` | Instant vs wall time | data-grid wall filters, fiscal-calendar, SQL adapters |
 | `@eristack/address` | Postal address normalization | App masters (not a document spine requirement) |
+| `@eristack/payment-instrument` | Token-safe card display + gateway refs; PAN transient | payment-manager, checkout forms |
 | `@eristack/fiscal-calendar` | Fiscal periods | **Peer:** `@eristack/timestamp` |
 
 **percent vs qups vs money:** Line modifiers and tax on documents use `@eristack/qups` + `@eristack/money` (`Discount.ofPercent`, etc.). Use `@eristack/percent` for standalone rate fields (VAT %, bps in config) — not for duplicating qups line math.
@@ -47,9 +54,12 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | --- | --- | --- |
 | `@eristack/data-grid` | **peer:** money; **optional peer:** timestamp | Wall filters need timestamp |
 | `@eristack/jwt-auth` | — | Credentials child of app users |
+| `@eristack/oauth` | jwt-auth (handoff) | OAuth2 client (17+ IdP drivers) + provider AS; sessions via `issueTokens` |
+| `@eristack/comms` | — | Email/SMS/WhatsApp vendor drivers; pairs with jwt-auth for magic-link content |
 | `@eristack/rbac` / `@eristack/abac` / `@eristack/pbac` | — | Boolean roles vs attrs vs document policies |
 | `@eristack/epoch` | — | Cache version scopes |
 | `@eristack/file-manager` | **peer:** backseat, AWS S3 SDK | Uploads + `FileRef`; optional `@eristack/jwt-auth` at app edge |
+| `@eristack/payment-manager` | money; **peer:** stripe, backseat | Intents + webhooks; **companion:** payment-instrument for saved cards |
 | `@eristack/hash-chained-ledger` | drizzle default | Primitive for stock/financial/valuations |
 | `@eristack/opinion` | **peers:** rest, pbac, data-grid, doc-transitions | ERP document REST **canon** (not generic REST) |
 
@@ -70,6 +80,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
 | Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
 | Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
+| Stripe / Xendit / payment intents | `#payment-gateway-stripe-xendit` | payment-manager-core → adapters; payment-instrument for tokens |
 | Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
 | PATCH `/:id/:action`, document route map | `#opinion-http` | opinion + rest + doc-transitions |
 | Inventory / GL / valuation | Dedicated recipes | **Do not** pull into document-lines products by default |

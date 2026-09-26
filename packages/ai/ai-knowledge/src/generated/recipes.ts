@@ -438,6 +438,199 @@ export const recipes = [
     ]
   },
   {
+    "id": "oauth-sso-google-oidc",
+    "title": "Sign in with Google, OIDC, or OAuth provider API",
+    "priority": 16,
+    "triggers": [
+      "sign in with google",
+      "google oauth",
+      "microsoft login",
+      "entra id",
+      "github login",
+      "sign in with apple",
+      "facebook login",
+      "linkedin login",
+      "okta login",
+      "auth0 login",
+      "keycloak login",
+      "slack login",
+      "discord login",
+      "oidc login",
+      "oauth2 client",
+      "pkce",
+      "authorization server",
+      "oauth provider",
+      "partner api tokens",
+      "sso login"
+    ],
+    "rationale": "Use @eristack/oauth for IdP login — preset drivers (Google, Microsoft, GitHub, Apple, Okta, Auth0, Keycloak, …) in docs/drivers.md — PKCE, Drizzle pending logins, then @eristack/jwt-auth issueTokens. Use /provider for third-party clients. Load oauth-client-core (drivers.md) + oauth-provider-core only when needed.",
+    "packages": [
+      {
+        "name": "@eristack/oauth",
+        "skills": [
+          "oauth-client-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/jwt-auth",
+        "skills": [
+          "jwt-auth-core"
+        ],
+        "role": "companion"
+      }
+    ]
+  },
+  {
+    "id": "comms-email-sms-whatsapp",
+    "title": "Transactional email, SMS, and WhatsApp",
+    "priority": 15,
+    "triggers": [
+      "send email",
+      "transactional email",
+      "sendgrid",
+      "postmark",
+      "mailgun",
+      "twilio",
+      "send sms",
+      "whatsapp message",
+      "otp sms",
+      "notification email",
+      "magic link email"
+    ],
+    "rationale": "Use @eristack/comms for idempotent outbound messaging — SendGrid/Postmark/Mailgun email, Twilio/Vonage SMS, Twilio/Meta WhatsApp. Drizzle delivery log; Express send + webhooks. Load comms-core + comms-adapters; docs/vendors.md for driver pick. Pair with jwt-auth for magic-link session minting, not message transport.",
+    "packages": [
+      {
+        "name": "@eristack/comms",
+        "skills": [
+          "comms-core",
+          "comms-adapters"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "payment-gateway-stripe-xendit",
+    "title": "Stripe, Xendit, and payment intents",
+    "priority": 17,
+    "triggers": [
+      "stripe",
+      "xendit",
+      "payment intent",
+      "payment gateway",
+      "checkout webhook",
+      "capture payment",
+      "online payment"
+    ],
+    "rationale": "Use @eristack/payment-manager for intents, webhooks, and Drizzle history with Stripe/Xendit drivers. Amounts via @eristack/money; saved cards via payment-instrument. Load payment-manager-core + payment-manager-adapters — docs/getting-started.md only.",
+    "packages": [
+      {
+        "name": "@eristack/payment-manager",
+        "skills": [
+          "payment-manager-core",
+          "payment-manager-adapters"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/payment-instrument",
+        "skills": [
+          "payment-instrument-core"
+        ],
+        "role": "companion"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-amounts"
+        ],
+        "role": "companion"
+      }
+    ]
+  },
+  {
+    "id": "payment-instrument-token",
+    "title": "Saved cards and payment method tokens",
+    "priority": 16,
+    "triggers": [
+      "saved card",
+      "payment method",
+      "credit card token",
+      "debit card",
+      "store card",
+      "card on file",
+      "pci token"
+    ],
+    "rationale": "Use @eristack/payment-instrument for token-safe display + gateway refs in Postgres. Never store PAN/CVV. Load payment-instrument-core; pair with payment-manager-core when wiring Stripe/Xendit checkout.",
+    "packages": [
+      {
+        "name": "@eristack/payment-instrument",
+        "skills": [
+          "payment-instrument-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "unlocode-ports",
+    "title": "UN/LOCODE ports and trade locations",
+    "priority": 15,
+    "triggers": [
+      "unlocode",
+      "locode",
+      "port code",
+      "port of loading",
+      "port of discharge",
+      "pol pod",
+      "bill of lading port",
+      "forwarding port"
+    ],
+    "rationale": "Use @eristack/unlocode with @eristack/iso-3166 for five-character locodes on B/L and logistics docs. Load unlocode-core — docs/getting-started.md only.",
+    "packages": [
+      {
+        "name": "@eristack/unlocode",
+        "skills": [
+          "unlocode-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/iso-3166",
+        "skills": [
+          "iso-3166-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "country-codes-iso-3166",
+    "title": "Country codes and ISO 3166 validation",
+    "priority": 15,
+    "triggers": [
+      "country code",
+      "iso 3166",
+      "iso country",
+      "alpha-2",
+      "alpha-3",
+      "subdivision code",
+      "region code",
+      "validate country"
+    ],
+    "rationale": "Use @eristack/iso-3166 for assigned ISO 3166-1 alpha-2/alpha-3 and ISO 3166-2 subdivision format. Pair with @eristack/address for postal shape. Load iso-3166-core — docs/getting-started.md only.",
+    "packages": [
+      {
+        "name": "@eristack/iso-3166",
+        "skills": [
+          "iso-3166-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "file-upload-s3",
     "title": "File uploads, S3, and presigned URLs",
     "priority": 16,
@@ -1084,7 +1277,7 @@ export const recipes = [
       "address",
       "postal address",
       "shipping address",
-      "country code",
+      "billing address format",
       "partner address"
     ],
     "rationale": "Load @eristack/address#address-core for PostalAddress normalize/format and ISO country codes — app owns partner tables and geocoding.",

@@ -40,6 +40,9 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#document-lines-erp
 - **Money:** \`@eristack/money\` — string amounts; no JS number literals for currency.
 - **Persistence:** Drizzle + Postgres in production; SQLite only in tests unless we say otherwise.
 - **Auth:** \`@eristack/jwt-auth\` — credentials are a child of *our* users table, not a library-owned users table.
+- **SSO:** \`@eristack/oauth\` for IdP login → \`issueTokens\`; **comms** for email/SMS/WhatsApp (SendGrid, Twilio) — not interchangeable.
+- **Payments:** \`@eristack/payment-manager\` + \`@eristack/money\` peer; saved cards via \`@eristack/payment-instrument\` (never persist PAN).
+- **Registries:** \`@eristack/iso-3166\` + \`@eristack/unlocode\` (install both) for country/port validation on masters and B/L fields.
 - **Recommend first:** run \`recommend("…")\` / recipes from \`@eristack/ai-knowledge\` for every feature ask.
 
 ## First scaffold prompt (paste into your agent)
@@ -91,6 +94,34 @@ export const getStartedTips = [
     want: "Browser uploads to S3 (no proxying file bytes through your API)",
     then: "Use file-manager presign → complete → FileRef in Postgres; protect Express routes with your auth.",
     load: "@eristack/file-manager#file-manager-adapters",
+  },
+  {
+    want: "Sign in with Google, Microsoft, GitHub, Apple, or enterprise OIDC (not passwords)",
+    then: "Pick preset drivers from docs/drivers.md → oauth + PKCE → upsert user → jwt-auth issueTokens.",
+    load: "@eristack/oauth#oauth-client-core",
+    prompt:
+      "Load @eristack/oauth docs/drivers.md and getting-started. Register createGoogleOAuthDriver / createMicrosoftOAuthDriver / etc., Drizzle pending store, Express /:provider/login and GET|POST callback with onCallback → issueTokens.",
+  },
+  {
+    want: "Transactional email, SMS, or WhatsApp (SendGrid, Twilio, …)",
+    then: "comms hub + vendor drivers + Drizzle message log — idempotent send keys like payment-manager.",
+    load: "@eristack/comms#comms-adapters",
+    prompt:
+      "Load @eristack/comms getting-started and vendors.md. Wire createSendGridEmailDriver or createTwilioDriver, createDrizzleCommsStore, createCommsRouter; guard POST /comms/send with jwt-auth.",
+  },
+  {
+    want: "Stripe or Xendit checkout with idempotent charges and webhooks",
+    then: "payment-manager for intents + Drizzle history; payment-instrument for saved card tokens — never PAN in SQL.",
+    load: "@eristack/payment-manager#payment-manager-adapters",
+    prompt:
+      "Load @eristack/payment-manager getting-started and @eristack/payment-instrument security. Wire createPaymentManager + Express router + webhook verification; use toPersistable for saved methods.",
+  },
+  {
+    want: "Country codes or UN/LOCODE ports on masters and B/L fields",
+    then: "Registries packages validate codes; your enabled rows stay in app tables + data-grid.",
+    load: "@eristack/iso-3166#iso-3166-core",
+    prompt:
+      "Use @eristack/iso-3166 for assigned alpha-2/alpha-3 and @eristack/unlocode for five-char locodes. Normalize on write; do not duplicate ISO lists in the app.",
   },
   {
     want: "A working API in the browser before Postgres is ready",

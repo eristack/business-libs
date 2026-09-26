@@ -2,9 +2,20 @@
 
 Marketing-first public site for Eristack (Next.js 16 + Tailwind 4).
 
-## Previous site
+## Documentation source of truth
 
-The prior doc-heavy experience lives in [`../old-web`](../old-web) for reference and gradual porting.
+**Library guides are not duplicated in this app.** The site renders markdown from the monorepo:
+
+```text
+packages/<category>/<name>/docs/*.md
+packages/<category>/<name>/docs/_meta.json   ← sidebar order / sections
+```
+
+- URLs: `/docs/<package-slug>/<page-slug>` (e.g. `/docs/payment-manager/getting-started`)
+- Registry: `src/lib/site.ts` — run `pnpm docs:sync` from the repo root after adding packages or changing `_meta.json`
+- CI: `pnpm docs:check`
+
+The older doc-heavy Next app lives in [`../old-web`](../old-web) for reference only — **do not** port content from there; update package docs under `packages/` instead.
 
 ## Dev
 
@@ -34,6 +45,7 @@ Dev binds to **http://127.0.0.1:3000**. Default **`pnpm dev` uses webpack** (`--
 
 - Blog: `content/blog/*.md` (frontmatter: title, description, date, author)
 - Package registry for `docs:check`: `src/lib/site.ts` (sync via `pnpm docs:sync`)
+- Site-only pages: get-started, story, philosophy, layer landing copy in `src/lib/site.ts` and `ecosystem-content.ts`
 
 ## Design
 

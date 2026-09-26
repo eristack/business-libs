@@ -1,0 +1,11 @@
+package: "@eristack/unlocode"
+title: unlocode
+maintainers:
+  - support@eristack.dev
+scope: >
+  UN/LOCODE five-character normalization, ISO 3166 country prefix validation,
+  optional sample port list, Zod 4.
+outOfScope: >
+  Full UN locode database, tenant port CRM, geocoding, Drizzle columns.
+skills:
+  - unlocode-core

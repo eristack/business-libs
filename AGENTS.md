@@ -187,7 +187,7 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.
-- **Package categories:** filesystem order is `packages/primitive` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 06 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/registries` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 02 **Registries** (iso-3166, unlocode, …) is **planned** — see `roadmap/layers.md`. Layer 07 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
 
 ## Examples
 
@@ -206,7 +206,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 - **Site-only pages** (story, support, philosophy, blog posts) live under `apps/web/`.
 - When promoting AI notes for a library change, update `packages/<category>/*/docs` first; the site picks them up automatically. Update `apps/web` only for marketing/company copy or search/nav wiring.
 - Web docs UI links back to the GitHub source path for each page.
-- Docs listing order matches categories: primitive → capability → service → infrastructure → ui → features → AI.
+- Docs listing order matches categories: primitive → registries → capability → service → infrastructure → ui → features → AI.
 
 ## Monorepo layout
 
@@ -214,6 +214,9 @@ Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
 - `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
+- `packages/registries/iso-3166` — `@eristack/iso-3166` (assigned ISO 3166-1/2 codes; optional `/zod`)
+- `packages/registries/unlocode` — `@eristack/unlocode` (UN/LOCODE; depends on iso-3166; optional `/zod`)
+- `packages/primitive/payment-instrument` — `@eristack/payment-instrument` (token-safe card refs; optional `/zod`, `/express`)
 - `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
 - `packages/capability/qups` — `@eristack/qups` (QUPS 2-of-3 SoT + modifiers + tax on Money; drizzle injects columns into app detail lines)
 - `packages/capability/stock-movement` — `@eristack/stock-movement` (qty ledger + composable locations/lots on hash-chained-ledger)
@@ -222,6 +225,8 @@ Categories under `packages/` (order matters):
 - `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
 - `packages/service/epoch` — `@eristack/epoch` (data-version epochs for cache invalidation + drizzle/rest/express/nest/client/react/backseat)
 - `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
+- `packages/service/oauth` — `@eristack/oauth` (OAuth2 client: 17+ IdP drivers + OIDC/OAuth2 factories; provider AS; drizzle/express/rest; hand off to jwt-auth)
+- `packages/service/comms` — `@eristack/comms` (SendGrid/Postmark/Mailgun/Twilio/Vonage/Meta drivers; drizzle/express/rest)
 - `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
 - `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
 - `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)

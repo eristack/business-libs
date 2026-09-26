@@ -1,0 +1,13 @@
+package: "@eristack/payment-manager"
+title: payment-manager
+maintainers:
+  - support@eristack.dev
+scope: >
+  Payment intents, gateway drivers (Stripe, Xendit), webhook verification,
+  append-only gateway events, Drizzle persistence, REST/Express/client/React.
+outOfScope: >
+  Owning customer/user tables, GL posting, PCI card data storage, or full
+  checkout UX — apps compose payment-instrument + financial-ledger.
+skills:
+  - payment-manager-core
+  - payment-manager-adapters

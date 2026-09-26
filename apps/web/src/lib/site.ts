@@ -1,6 +1,6 @@
 export { packageDocsGithubHref, siteConfig } from "@/lib/site-config";
 
-/** Display / filesystem order: primitive → capability → service → infrastructure → ui → features → ai */
+/** Display / filesystem order: primitive → registries → capability → service → infrastructure → ui → features → ai */
 export const packageCategories = [
   {
     id: "primitive",
@@ -21,6 +21,28 @@ export const packageCategories = [
       {
         title: "Business time",
         body: "Instant (UTC facts) and wall (local schedules) with IANA zones — DST gaps handled explicitly.",
+      },
+    ],
+  },
+  {
+    id: "registries",
+    label: "Registries",
+    href: "/registries",
+    tagline: "Authoritative code lists — ISO, UN/LOCODE, and friends.",
+    description:
+      "Registry packages validate and normalize standard codes (countries, ports, languages). Bulk datasets and seeds live in reference-data (capability); your enabled ports and regions stay in app tables.",
+    highlights: [
+      {
+        title: "One package per code system",
+        body: "iso-3166, unlocode, iso-4217 — not a grab-bag ISO layer.",
+      },
+      {
+        title: "Not your CRM masters",
+        body: "Libraries parse codes; apps own which rows are active per company.",
+      },
+      {
+        title: "Pairs with reference-data",
+        body: "Versioned seed packs when you need the full list in Postgres.",
       },
     ],
   },
@@ -52,7 +74,7 @@ export const packageCategories = [
     href: "/service",
     tagline: "Lifecycle services with stores and framework shells.",
     description:
-      "Services own long-lived flows — sessions, credentials, refresh rotation — while your app still owns users, UX, and infrastructure.",
+      "Services own long-lived flows — auth sessions, payment intents, file uploads, list queries, cache epochs — while your app still owns users, UX, and business tables.",
     highlights: [
       {
         title: "Inject, don’t absorb",
@@ -60,7 +82,7 @@ export const packageCategories = [
       },
       {
         title: "Child resources",
-        body: "Credentials and refresh tokens hang off your subjects — not a stolen users table.",
+        body: "Credentials, payment methods, and file refs hang off your entities — not library-owned masters.",
       },
       {
         title: "Thin shells",
@@ -384,6 +406,116 @@ const addr = normalizeAddress({
   countryCode: "id",
 })
 formatAddressOneLine(addr)`,
+    },
+  },
+  {
+    slug: "payment-instrument",
+    name: "@eristack/payment-instrument",
+    title: "Payment instrument",
+    category: "primitive" as const,
+    directory: "packages/primitive/payment-instrument",
+    href: "/payment-instrument",
+    docsHref: "/docs/payment-instrument",
+    tagline: "Token-safe card display and gateway refs — never persist PAN.",
+    description:
+      "Credit/debit as value objects: last4, brand, funding, exp + PSP tokenId. CardPan is transient (Luhn only). Express middleware rejects raw PAN in JSON. Pairs with payment-manager for Stripe/Xendit.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/payment-instrument",
+    highlights: [
+      {
+        title: "toPersistable",
+        body: "One helper for what may be written to Postgres after tokenization.",
+      },
+      {
+        title: "PAN guards",
+        body: "Zod + optional Express middleware block 13–19 digit card numbers on your API.",
+      },
+      {
+        title: "Debit & credit",
+        body: "Same types — funding discriminant, no duplicate packages.",
+      },
+    ],
+    sample: {
+      filename: "saved-card.ts",
+      language: "ts",
+      code: `import { toPersistable } from "@eristack/payment-instrument"
+
+toPersistable({
+  display: { last4: "4242", brand: "visa", funding: "credit", expMonth: 12, expYear: 2030 },
+  gateway: { gateway: "stripe", tokenId: "pm_123" },
+})`,
+    },
+  },
+  {
+    slug: "iso-3166",
+    name: "@eristack/iso-3166",
+    title: "ISO 3166",
+    category: "registries" as const,
+    directory: "packages/registries/iso-3166",
+    href: "/iso-3166",
+    docsHref: "/docs/iso-3166",
+    tagline: "Assigned ISO country codes — alpha-2, alpha-3, subdivisions.",
+    description:
+      "Registries layer — validate assigned ISO 3166-1 alpha-2, convert alpha-3, normalize ISO 3166-2 subdivision ids. Pair with @eristack/address for postal shape; reference-data for full dataset seeds.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/iso-3166",
+    highlights: [
+      {
+        title: "Assigned codes",
+        body: "Reject QQ-style two-letter strings — not just regex format checks.",
+      },
+      {
+        title: "Alpha-3 feeds",
+        body: "IDN → ID for customs, banking, and legacy integrations.",
+      },
+      {
+        title: "Subdivision prefix",
+        body: "US-CA / ID-JK normalized with country match before SQL.",
+      },
+    ],
+    sample: {
+      filename: "country.ts",
+      language: "ts",
+      code: `import { normalizeAlpha2, alpha3ToAlpha2 } from "@eristack/iso-3166"
+
+normalizeAlpha2("id") // "ID"
+alpha3ToAlpha2("IDN") // "ID"`,
+    },
+  },
+  {
+    slug: "unlocode",
+    name: "@eristack/unlocode",
+    title: "UN/LOCODE",
+    category: "registries" as const,
+    directory: "packages/registries/unlocode",
+    href: "/unlocode",
+    docsHref: "/docs/unlocode",
+    tagline: "Ports and trade locations — five-character UN/LOCODE.",
+    description:
+      "Normalize ID JKT → IDJKT, validate country prefix via iso-3166, parse pol/pod on forwarding documents. Sample major ports in-package; full UN lists via reference-data later.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/unlocode",
+    highlights: [
+      {
+        title: "B/L friendly",
+        body: "Compact storage, spaced display — same rules in API and forms.",
+      },
+      {
+        title: "ISO country gate",
+        body: "Invalid country prefixes fail before bad locodes hit SQL.",
+      },
+      {
+        title: "Masters stay in app",
+        body: "Library validates codes; you own enabled ports per company.",
+      },
+    ],
+    sample: {
+      filename: "port.ts",
+      language: "ts",
+      code: `import { normalizeUnlocode, formatUnlocodeDisplay } from "@eristack/unlocode"
+
+const pol = normalizeUnlocode("ID JKT")
+formatUnlocodeDisplay(pol) // "ID JKT"`,
     },
   },
   {
@@ -714,6 +846,89 @@ const session = await auth.login({ username, password })`,
     },
   },
   {
+    slug: "oauth",
+    name: "@eristack/oauth",
+    title: "OAuth",
+    category: "service" as const,
+    directory: "packages/service/oauth",
+    href: "/oauth",
+    docsHref: "/docs/oauth",
+    tagline: "17+ IdP drivers — Google, Microsoft, GitHub, Apple — plus your API as authorization server.",
+    description:
+      "OAuth2 consumer with preset drivers (Google, Entra ID, GitHub, Apple, LinkedIn, Okta, Auth0, Keycloak, Slack, Discord, …), PKCE, Drizzle pending logins, GET|POST callbacks. Provider mode for partner API tokens. Hand off to jwt-auth for app sessions.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/oauth",
+    highlights: [
+      {
+        title: "Two roles, one package",
+        body: "/client for IdP login; /provider for partner API tokens — not jwt-auth refresh rows.",
+      },
+      {
+        title: "jwt-auth handoff",
+        body: "completeLogin → upsert user → issueTokens. IdP tokens stay separate from ERP JWTs.",
+      },
+      {
+        title: "Express + Drizzle",
+        body: "Consumer routes per provider; provider POST /token with PKCE.",
+      },
+    ],
+    sample: {
+      filename: "oauth-login.ts",
+      language: "ts",
+      code: `import { createOAuthConsumer } from "@eristack/oauth"
+import { createGoogleOAuthDriver } from "@eristack/oauth/client"
+import { createOAuthConsumerRouter } from "@eristack/oauth/express"
+
+const consumer = createOAuthConsumer({
+  drivers: { google: createGoogleOAuthDriver({ clientId, clientSecret }) },
+  pendingStore,
+  allowedRedirectUris: [redirectUri],
+})
+app.use("/oauth", createOAuthConsumerRouter({ consumer, onCallback }))`,
+    },
+  },
+  {
+    slug: "comms",
+    name: "@eristack/comms",
+    title: "Comms",
+    category: "service" as const,
+    directory: "packages/service/comms",
+    href: "/comms",
+    docsHref: "/docs/comms",
+    tagline: "Email, SMS, WhatsApp — SendGrid, Twilio, Postmark, Meta; idempotent sends in SQL.",
+    description:
+      "Transactional messaging hub with vendor drivers (SendGrid, Postmark, Mailgun, Twilio SMS/WhatsApp, Vonage, Meta WhatsApp Cloud), idempotency keys, Drizzle message + delivery event log, Express send and webhooks.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/comms",
+    highlights: [
+      {
+        title: "Same pattern as payments",
+        body: "createCommsHub + drivers + Drizzle audit — no vendor SDK peers required (fetch).",
+      },
+      {
+        title: "Three channels",
+        body: "email, sms, whatsapp — register only the vendors you ship.",
+      },
+      {
+        title: "jwt-auth pairing",
+        body: "Comms delivers magic-link email/SMS; jwt-auth issues the session when the user completes login.",
+      },
+    ],
+    sample: {
+      filename: "comms-send.ts",
+      language: "ts",
+      code: `import { createCommsHub } from "@eristack/comms"
+import { createSendGridEmailDriver } from "@eristack/comms/sendgrid"
+import { createCommsRouter } from "@eristack/comms/express"
+
+const hub = createCommsHub({
+  store,
+  drivers: { sendgrid: createSendGridEmailDriver({ apiKey, defaultFrom }) },
+})
+app.use("/comms", createCommsRouter({ hub }))`,
+    },
+  },
+  {
     slug: "rbac",
     name: "@eristack/rbac",
     title: "RBAC",
@@ -953,6 +1168,47 @@ const fileManager = createFileManager({
   store, // createDrizzleFileRecordStore — see docs/database.md
 })
 app.use("/files", createFileManagerRouter({ fileManager }))`,
+    },
+  },
+  {
+    slug: "payment-manager",
+    name: "@eristack/payment-manager",
+    title: "Payment Manager",
+    category: "service" as const,
+    directory: "packages/service/payment-manager",
+    href: "/payment-manager",
+    docsHref: "/docs/payment-manager",
+    tagline: "Payment intents, Stripe/Xendit webhooks, Drizzle history — pairs with payment-instrument.",
+    description:
+      "Headless payment intents with idempotency keys, gateway event log, Stripe and Xendit drivers, Express REST + webhooks, client/React hooks, Backseat mock.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/payment-manager",
+    highlights: [
+      {
+        title: "Money-first amounts",
+        body: "Intent amounts stored as @eristack/money JSON — same strings in API and SQL.",
+      },
+      {
+        title: "Webhook audit",
+        body: "Append-only gateway_events plus status updates from verified PSP payloads.",
+      },
+      {
+        title: "Regional PSPs",
+        body: "Stripe driver plus Xendit adapter pattern for Indonesia and SEA checkout.",
+      },
+    ],
+    sample: {
+      filename: "payments.ts",
+      language: "ts",
+      code: `import { createPaymentManager } from "@eristack/payment-manager"
+import { createStripePaymentDriver } from "@eristack/payment-manager/stripe"
+import { createPaymentManagerRouter } from "@eristack/payment-manager/express"
+
+const paymentManager = createPaymentManager({
+  store, // createDrizzlePaymentManagerStore
+  drivers: { stripe: createStripePaymentDriver({ stripe, webhookSecret }) },
+})
+app.use("/payments", createPaymentManagerRouter({ paymentManager }))`,
     },
   },
   {

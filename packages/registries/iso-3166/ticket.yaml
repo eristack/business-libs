@@ -1,0 +1,12 @@
+package: "@eristack/iso-3166"
+title: iso-3166
+maintainers:
+  - support@eristack.dev
+scope: >
+  ISO 3166-1 assigned alpha-2/alpha-3 codes and ISO 3166-2 subdivision format
+  normalization; static registry in-package; optional Zod 4.
+outOfScope: >
+  Country display names, full subdivision membership tables, UN/LOCODE, geocoding,
+  Drizzle columns (app-owned), replacing @eristack/address postal model.
+skills:
+  - iso-3166-core

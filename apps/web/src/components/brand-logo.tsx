@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import type { SimpleIcon } from "simple-icons";
 import { useMounted, useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/cn";
@@ -79,21 +80,19 @@ export function BrandLogoTile({ icon, label, note, href }: BrandLogoTileProps) {
   const { resolved } = useTheme();
   const glow = mounted ? brandGlowHex(icon, resolved) : undefined;
   const tileBg = mounted ? brandTileBackground(icon, resolved) : undefined;
+  const external = /^https?:\/\//i.test(href);
 
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="group flex flex-col rounded-2xl border border-border bg-surface p-4 transition-[border-color,transform,box-shadow] hover:-translate-y-0.5 hover:border-border hover:shadow-lg hover:shadow-black/10 dark:hover:shadow-black/30"
-      style={
-        glow
-          ? ({
-              "--brand-glow": glow,
-            } as CSSProperties)
-          : undefined
-      }
-    >
+  const className =
+    "group flex flex-col rounded-2xl border border-border bg-surface p-4 transition-[border-color,transform,box-shadow] hover:-translate-y-0.5 hover:border-border hover:shadow-lg hover:shadow-black/10 dark:hover:shadow-black/30";
+
+  const style = glow
+    ? ({
+        "--brand-glow": glow,
+      } as CSSProperties)
+    : undefined;
+
+  const body = (
+    <>
       <div
         className="flex size-12 items-center justify-center rounded-xl border border-border/60 bg-surface-raised transition-colors group-hover:border-[color:var(--brand-glow)]/45 dark:border-white/8"
         style={tileBg ? { background: tileBg } : undefined}
@@ -106,7 +105,21 @@ export function BrandLogoTile({ icon, label, note, href }: BrandLogoTileProps) {
           {note}
         </p>
       ) : null}
-    </a>
+    </>
+  );
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={className} style={style}>
+        {body}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className} style={style}>
+      {body}
+    </Link>
   );
 }
 

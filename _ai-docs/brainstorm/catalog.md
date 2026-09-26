@@ -148,7 +148,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | S23 | `@eristack/print-queue` | idea | Async print/PDF jobs | |
 | S24 | `@eristack/pdf-render` | idea | HTML→PDF adapter interface | |
 | S25 | `@eristack/edi` | idea | EDI parse/generate (X12/EDIFACT lite) | |
-| S26 | `@eristack/oauth-bridge` | idea | OAuth2 client for integrations | |
+| S26 | `@eristack/oauth` | idea | `/client` consumer + `/provider` AS (see `oauth-client-and-provider.md`) | split from jwt-auth |
 | S27 | `@eristack/scim` | idea | SCIM provisioning hooks | |
 | S28 | `@eristack/pii-mask` | idea | Redact logs/responses | |
 | S29 | `@eristack/retention` | idea | Data retention policies | |

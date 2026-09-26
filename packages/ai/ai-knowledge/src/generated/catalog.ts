@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T03:36:44.447Z",
+  "generatedAt": "2026-09-26T11:27:34.081Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -152,6 +152,44 @@ export const catalog = {
           "description": "@eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/comms",
+      "version": "0.0.0",
+      "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
+      "slug": "comms",
+      "adapters": [
+        "drizzle",
+        "express",
+        "mailgun",
+        "meta-whatsapp",
+        "nest",
+        "postmark",
+        "rest",
+        "sendgrid",
+        "testing",
+        "twilio",
+        "vonage",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "comms-adapters",
+          "name": "comms-adapters",
+          "packageName": "@eristack/comms",
+          "description": "@eristack/comms/express createCommsRouter — POST /send, GET /messages/:id, POST /webhooks/:vendor; Twilio x-twilio-webhook-url header.",
+          "type": "adapters",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-adapters"
+        },
+        {
+          "id": "comms-core",
+          "name": "comms-core",
+          "packageName": "@eristack/comms",
+          "description": "@eristack/comms createCommsHub — idempotent email/SMS/WhatsApp sends, vendor drivers, delivery log. Drizzle default; memory drivers tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-core"
         }
       ]
     },
@@ -398,6 +436,25 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/iso-3166",
+      "version": "0.0.0",
+      "description": "ISO 3166-1 country codes and ISO 3166-2 subdivision normalization — assigned alpha-2/alpha-3 registry",
+      "slug": "iso-3166",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "iso-3166-core",
+          "name": "iso-3166-core",
+          "packageName": "@eristack/iso-3166",
+          "description": "@eristack/iso-3166 assigned ISO 3166-1 alpha-2/alpha-3 and ISO 3166-2 subdivision normalization. Use when validating country codes beyond two-letter format — not for postal address shape (address) or port codes (unlocode).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/iso-3166#iso-3166-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/jwt-auth",
       "version": "0.4.5",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
@@ -515,6 +572,40 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/oauth",
+      "version": "0.0.0",
+      "description": "OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
+      "slug": "oauth",
+      "adapters": [
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "provider",
+        "rest",
+        "testing",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "oauth-client-core",
+          "name": "oauth-client-core",
+          "packageName": "@eristack/oauth",
+          "description": "@eristack/oauth consumer: createOAuthConsumer, PKCE, 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …), Drizzle pending store. End at jwt-auth.issueTokens.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-client-core"
+        },
+        {
+          "id": "oauth-provider-core",
+          "name": "oauth-provider-core",
+          "packageName": "@eristack/oauth",
+          "description": "@eristack/oauth/provider: registerClient, authorization codes, PKCE token exchange, opaque access tokens for partner APIs — user must already be logged in via jwt-auth.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-provider-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/opinion",
       "version": "0.1.1",
       "description": "Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions",
@@ -532,6 +623,63 @@ export const catalog = {
           "description": "@eristack/opinion ERP HTTP route table on @eristack/rest: options, data-grid, CRUD, PATCH /:id/:action for pbac/doc-transitions. Use when scaffolding document APIs instead of inventing paths per app.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/opinion#opinion-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/payment-instrument",
+      "version": "0.0.0",
+      "description": "Token-safe payment card value types — display + gateway refs, PAN transient only, PCI-minded guards",
+      "slug": "payment-instrument",
+      "adapters": [
+        "express",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "payment-instrument-core",
+          "name": "payment-instrument-core",
+          "packageName": "@eristack/payment-instrument",
+          "description": "@eristack/payment-instrument token-safe card/debit display + gateway refs. CardPan is transient; toPersistable for Drizzle. Use before payment-manager or when modeling saved payment methods — never store PAN/CVV in SQL.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-instrument#payment-instrument-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/payment-manager",
+      "version": "0.0.0",
+      "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
+      "slug": "payment-manager",
+      "adapters": [
+        "backseat",
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest",
+        "stripe",
+        "testing",
+        "xendit",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "payment-manager-adapters",
+          "name": "payment-manager-adapters",
+          "packageName": "@eristack/payment-manager",
+          "description": "@eristack/payment-manager adapters: drizzle tables/store, express createPaymentManagerRouter, stripe/xendit drivers, client, react hooks, backseat.",
+          "type": "adapters",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-manager#payment-manager-adapters"
+        },
+        {
+          "id": "payment-manager-core",
+          "name": "payment-manager-core",
+          "packageName": "@eristack/payment-manager",
+          "description": "Pure @eristack/payment-manager: createPaymentManager, PaymentDriver, idempotency, webhook handleWebhook, Money JSON amounts. Memory driver tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-manager#payment-manager-core"
         }
       ]
     },
@@ -737,6 +885,25 @@ export const catalog = {
           "description": "Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/unlocode",
+      "version": "0.0.0",
+      "description": "UN/LOCODE port and place codes — normalize five-character locodes with ISO 3166 country validation",
+      "slug": "unlocode",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "unlocode-core",
+          "name": "unlocode-core",
+          "packageName": "@eristack/unlocode",
+          "description": "@eristack/unlocode UN/LOCODE normalization for ports and trade locations. Depends on @eristack/iso-3166 for country prefix. Use for B/L, forwarding, and logistics locode fields — not for tenant port masters or full UN datasets.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/unlocode#unlocode-core"
         }
       ]
     },
