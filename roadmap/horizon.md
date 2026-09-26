@@ -120,6 +120,7 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
 | `@eristack/geo` | Candidate | Lat/lng + timezone default for address | timestamp | logistics (later) |
+| `@eristack/payment-instrument` | Candidate | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
 
 ### `@eristack/entity-id` (observing)
 
@@ -129,6 +130,22 @@ Deliverables when promoted:
 
 - `EntityId.generate()` · `EntityId.parse()` · Drizzle column helper
 - Sort-by-id lists without separate `created_at` index hacks
+
+---
+
+## Package catalog — ISO (layer 02, proposed)
+
+One package per standard body. **Validate and normalize codes only** — not tenant masters (those stay app-owned + data-grid).
+
+| Package | Status | Purpose | Depends | Blocks |
+| --- | --- | --- | --- | --- |
+| `@eristack/iso-3166` | Candidate | Country/subdivision codes (ISO 3166-1/2) | — | address labels, reference-data |
+| `@eristack/iso-4217` | Candidate | Currency code metadata (minor units); pairs with money | — | reference-data, FX apps |
+| `@eristack/iso-639` | Candidate | Language codes (ISO 639 / BCP 47 subset) | — | i18n masters |
+| `@eristack/unlocode` | Candidate | UN/LOCODE ports/places (5-char) | iso-3166? | forwarding, B/L, logistics |
+| `@eristack/reference-data` | Candidate | Versioned dataset packs + Drizzle seed helpers | iso-3166, unlocode, epoch? | import-job, global code lists |
+
+Brainstorm detail: [`_ai-docs/brainstorm/iso-layer-and-payment-manager.md`](../_ai-docs/brainstorm/iso-layer-and-payment-manager.md).
 
 ---
 
@@ -174,7 +191,9 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/opinion` | **Shipped 0.1.0** | REST canon + OpenAPI compose | data-grid, pbac, jwt-auth | app HTTP |
 | `@eristack/audit-event` | Candidate | Domain audit stream (who/when/what) | timestamp, entity-id | compliance |
 | `@eristack/outbox` | Candidate | Reliable webhook/email dispatch | — | integrations |
-| `@eristack/file-ref` | Candidate | Attachment metadata (app-owned blob store) | entity-id | document scans |
+| `@eristack/file-manager` | Shipped | S3 presigned uploads, FileRef, webhooks N/A | money? | attachments |
+| `@eristack/payment-manager` | Candidate | PSP hub: intents, webhooks, notification log, history (file-manager spine) | money, payment-instrument | invoice pay, ID gateways |
+| `@eristack/file-ref` | Superseded by file-manager | — | — | — |
 | `@eristack/scheduler` | Candidate | Cron/recurrence as data | timestamp | reporting jobs |
 | `@eristack/import-job` | Candidate | CSV/Excel master import pipeline | data-grid | migrations |
 | `@eristack/tenant-scope` | Candidate | Company/site scoping helpers for ABAC | abac | multi-company |
