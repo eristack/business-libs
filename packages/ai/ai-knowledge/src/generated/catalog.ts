@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T10:48:49.380Z",
+  "generatedAt": "2026-09-26T10:54:43.581Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -571,6 +571,43 @@ export const catalog = {
           "description": "@eristack/payment-instrument token-safe card/debit display + gateway refs. CardPan is transient; toPersistable for Drizzle. Use before payment-manager or when modeling saved payment methods — never store PAN/CVV in SQL.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-instrument#payment-instrument-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/payment-manager",
+      "version": "0.0.0",
+      "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
+      "slug": "payment-manager",
+      "adapters": [
+        "backseat",
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "react",
+        "rest",
+        "stripe",
+        "testing",
+        "xendit",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "payment-manager-adapters",
+          "name": "payment-manager-adapters",
+          "packageName": "@eristack/payment-manager",
+          "description": "@eristack/payment-manager adapters: drizzle tables/store, express createPaymentManagerRouter, stripe/xendit drivers, client, react hooks, backseat.",
+          "type": "adapters",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-manager#payment-manager-adapters"
+        },
+        {
+          "id": "payment-manager-core",
+          "name": "payment-manager-core",
+          "packageName": "@eristack/payment-manager",
+          "description": "Pure @eristack/payment-manager: createPaymentManager, PaymentDriver, idempotency, webhook handleWebhook, Money JSON amounts. Memory driver tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/payment-manager#payment-manager-core"
         }
       ]
     },

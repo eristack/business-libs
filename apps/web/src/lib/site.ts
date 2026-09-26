@@ -1088,6 +1088,47 @@ app.use("/files", createFileManagerRouter({ fileManager }))`,
     },
   },
   {
+    slug: "payment-manager",
+    name: "@eristack/payment-manager",
+    title: "Payment Manager",
+    category: "service" as const,
+    directory: "packages/service/payment-manager",
+    href: "/payment-manager",
+    docsHref: "/docs/payment-manager",
+    tagline: "Payment intents, Stripe/Xendit webhooks, Drizzle history — pairs with payment-instrument.",
+    description:
+      "Headless payment intents with idempotency keys, gateway event log, Stripe and Xendit drivers, Express REST + webhooks, client/React hooks, Backseat mock.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/payment-manager",
+    highlights: [
+      {
+        title: "Money-first amounts",
+        body: "Intent amounts stored as @eristack/money JSON — same strings in API and SQL.",
+      },
+      {
+        title: "Webhook audit",
+        body: "Append-only gateway_events plus status updates from verified PSP payloads.",
+      },
+      {
+        title: "Regional PSPs",
+        body: "Stripe driver plus Xendit adapter pattern for Indonesia and SEA checkout.",
+      },
+    ],
+    sample: {
+      filename: "payments.ts",
+      language: "ts",
+      code: `import { createPaymentManager } from "@eristack/payment-manager"
+import { createStripePaymentDriver } from "@eristack/payment-manager/stripe"
+import { createPaymentManagerRouter } from "@eristack/payment-manager/express"
+
+const paymentManager = createPaymentManager({
+  store, // createDrizzlePaymentManagerStore
+  drivers: { stripe: createStripePaymentDriver({ stripe, webhookSecret }) },
+})
+app.use("/payments", createPaymentManagerRouter({ paymentManager }))`,
+    },
+  },
+  {
     slug: "opinion",
     name: "@eristack/opinion",
     title: "Opinion",

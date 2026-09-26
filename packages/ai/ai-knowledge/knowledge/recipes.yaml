@@ -378,6 +378,36 @@ recipes:
           - epoch-adapters
         role: primary
 
+  - id: payment-gateway-stripe-xendit
+    title: Stripe, Xendit, and payment intents
+    priority: 17
+    triggers:
+      - stripe
+      - xendit
+      - payment intent
+      - payment gateway
+      - checkout webhook
+      - capture payment
+      - online payment
+    rationale: >
+      Use @eristack/payment-manager for intents, webhooks, and Drizzle history with
+      Stripe/Xendit drivers. Amounts via @eristack/money; saved cards via payment-instrument.
+      Load payment-manager-core + payment-manager-adapters — docs/getting-started.md only.
+    packages:
+      - name: "@eristack/payment-manager"
+        skills:
+          - payment-manager-core
+          - payment-manager-adapters
+        role: primary
+      - name: "@eristack/payment-instrument"
+        skills:
+          - payment-instrument-core
+        role: companion
+      - name: "@eristack/money"
+        skills:
+          - money-amounts
+        role: companion
+
   - id: payment-instrument-token
     title: Saved cards and payment method tokens
     priority: 16
@@ -391,8 +421,8 @@ recipes:
       - pci token
     rationale: >
       Use @eristack/payment-instrument for token-safe display + gateway refs in Postgres.
-      Never store PAN/CVV. Load payment-instrument-core; pair with payment-manager when
-      wiring Stripe/Xendit (planned).
+      Never store PAN/CVV. Load payment-instrument-core; pair with payment-manager-core
+      when wiring Stripe/Xendit checkout.
     packages:
       - name: "@eristack/payment-instrument"
         skills:

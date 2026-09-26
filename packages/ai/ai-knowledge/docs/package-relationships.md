@@ -57,6 +57,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/rbac` / `@eristack/abac` / `@eristack/pbac` | — | Boolean roles vs attrs vs document policies |
 | `@eristack/epoch` | — | Cache version scopes |
 | `@eristack/file-manager` | **peer:** backseat, AWS S3 SDK | Uploads + `FileRef`; optional `@eristack/jwt-auth` at app edge |
+| `@eristack/payment-manager` | money; **peer:** stripe, backseat | Intents + webhooks; **companion:** payment-instrument for saved cards |
 | `@eristack/hash-chained-ledger` | drizzle default | Primitive for stock/financial/valuations |
 | `@eristack/opinion` | **peers:** rest, pbac, data-grid, doc-transitions | ERP document REST **canon** (not generic REST) |
 
@@ -77,6 +78,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
 | Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
 | Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
+| Stripe / Xendit / payment intents | `#payment-gateway-stripe-xendit` | payment-manager-core → adapters; payment-instrument for tokens |
 | Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
 | PATCH `/:id/:action`, document route map | `#opinion-http` | opinion + rest + doc-transitions |
 | Inventory / GL / valuation | Dedicated recipes | **Do not** pull into document-lines products by default |
