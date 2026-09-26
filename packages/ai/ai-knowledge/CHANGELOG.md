@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.16
+
+### Patch Changes
+
+- baa8a95: Catalog and recipes: payment-manager, oauth, comms, payment-gateway-stripe-xendit, oauth-sso-google-oidc, comms-email-sms-whatsapp, package-relationships.
+
 ## 0.1.15
 
 ### Patch Changes

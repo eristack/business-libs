@@ -1,6 +1,6 @@
 {
   "name": "@eristack/payment-manager",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
   "repository": {
     "type": "git",
@@ -173,15 +173,33 @@
     "zod": "^4.0.0"
   },
   "peerDependenciesMeta": {
-    "@eristack/backseat": { "optional": true },
-    "@nestjs/common": { "optional": true },
-    "@nestjs/core": { "optional": true },
-    "@tanstack/react-query": { "optional": true },
-    "drizzle-orm": { "optional": true },
-    "express": { "optional": true },
-    "react": { "optional": true },
-    "stripe": { "optional": true },
-    "zod": { "optional": true }
+    "@eristack/backseat": {
+      "optional": true
+    },
+    "@nestjs/common": {
+      "optional": true
+    },
+    "@nestjs/core": {
+      "optional": true
+    },
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "stripe": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eristack/money": "workspace:*",
