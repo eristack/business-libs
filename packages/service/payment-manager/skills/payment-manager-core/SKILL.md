@@ -6,7 +6,7 @@ description: >
 metadata:
   type: core
   library: "@eristack/payment-manager"
-  library_version: "0.0.0"
+  library_version: "0.1.0"
 sources:
   - "eristack/business-libs:packages/service/payment-manager/docs/getting-started.md"
 ---
