@@ -130,6 +130,7 @@ function driftChecksForCatalogOnly(changed: string[]): CheckId[] {
 
 function driftChecksForAffected(changed: string[]): CheckId[] {
   const checks: CheckId[] = [
+    "lockfile",
     "changesets",
     "publish",
     "skills",

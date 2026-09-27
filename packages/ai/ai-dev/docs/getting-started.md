@@ -88,6 +88,16 @@ These delegate to `eristack` — prefer `pnpm eristack` for new work:
 | `pnpm ci:affected` | Force affected turbo only — **local** pre-push when full CI is slow |
 | `pnpm ci:drift` | Catalog only (~seconds): docs, knowledge, skills, **ticket.yaml** |
 | `pnpm ticket:check` | Subscription scan only (fix ticket YAML before full CI) |
+| `pnpm lockfile:sync` | After any `package.json` dep change — refresh `pnpm-lock.yaml` |
+| `pnpm lockfile:check` | Same as CI install gate (`--frozen-lockfile`) |
+| `pnpm prepush` | **Bundled drift:** lockfile + docs + knowledge + ticket (seconds) |
+
+After editing workspace **`package.json`** (including `examples/*`):
+
+```bash
+pnpm lockfile:sync    # commit pnpm-lock.yaml with the package.json change
+pnpm prepush          # catch ticket/docs/knowledge/lockfile before push
+```
 | `pnpm docs:check` | `pnpm eristack sync docs --check` |
 | `pnpm knowledge:check` | `pnpm eristack sync knowledge --check` |
 | `pnpm skills:validate` | `node scripts/skills-validate.mjs` (used internally by check) |

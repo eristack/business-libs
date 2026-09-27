@@ -129,6 +129,11 @@ function commandForCheck(
         argv: ["node", "scripts/package-debottleneck-check.mjs", "--ci"],
         display: "pnpm debottleneck:check --ci",
       };
+    case "lockfile":
+      return {
+        argv: ["node", "scripts/lockfile-check.mjs"],
+        display: "pnpm lockfile:check",
+      };
     case "skills":
       return {
         argv: ["node", "scripts/skills-validate.mjs"],

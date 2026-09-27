@@ -361,6 +361,9 @@ importers:
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:../../packages/service/data-grid
+      '@eristack/entity-id':
+        specifier: workspace:*
+        version: link:../../packages/primitive/entity-id
       '@eristack/jwt-auth':
         specifier: workspace:*
         version: link:../../packages/service/jwt-auth
@@ -468,6 +471,9 @@ importers:
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:../../packages/service/data-grid
+      '@eristack/entity-id':
+        specifier: workspace:*
+        version: link:../../packages/primitive/entity-id
       '@eristack/jwt-auth':
         specifier: workspace:*
         version: link:../../packages/service/jwt-auth

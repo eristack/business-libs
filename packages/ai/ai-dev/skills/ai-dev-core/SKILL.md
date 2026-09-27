@@ -21,9 +21,11 @@ sources:
 1. **`pnpm eristack plan --json`** — changed files → profile, checks, sync, skills, commands, **`nextBrainstormItem`** (first open row in `_ai-docs/brainstorm/improvements.md`). Run this **first** instead of glob-reading AGENTS.md check lists.
 2. **`pnpm ci:pr`** / **`pnpm eristack ci --base origin/main`** — **GitHub PR CI** (full when lockfile/root changes; else affected turbo).
 3. **`pnpm ci:affected`** — local only: force affected turbo when full mode is too slow.
-4. **`pnpm ci:drift`** or **`pnpm ticket:check`** — seconds: catalog/ticket before a full CI run.
-5. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate; includes `debottleneck:check:ci` overlap budget).
-6. **`pnpm eristack sync knowledge`** / **`docs`** — when recipes, skills, or package docs changed.
+4. **`pnpm prepush`** — bundled drift: **`pnpm eristack sync deps --check`**, docs, knowledge, ticket (~seconds).
+5. After **`package.json`** dependency edits: **`pnpm lockfile:sync`** then commit **`pnpm-lock.yaml`** (CI runs `pnpm install --frozen-lockfile` first).
+6. **`pnpm ci:drift`** or **`pnpm ticket:check`** — subset checks only.
+7. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate; includes `debottleneck:check:ci` overlap budget).
+8. **`pnpm eristack sync knowledge`** / **`docs`** / **`deps`** — when recipes, skills, docs, or lockfile drift.
 
 ## Profiles
 
