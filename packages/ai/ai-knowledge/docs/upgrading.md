@@ -94,6 +94,31 @@ Prefer **`./drizzle`** in apps; use **`./testing`** only in Vitest. Main package
 
 Optional peer **`zod@^4`** — import `./zod` only when validating HTTP/forms.
 
+### 2.3 ERP UI stack (first npm install)
+
+Nine new `@eristack/*` packages under **Layer UI** ship together as **`0.1.0`** (minor from monorepo `0.0.0`). `@eristack/multitab` was already published separately.
+
+| Step | Command / doc |
+| --- | --- |
+| Map + compose | `@eristack/ai-knowledge#ui-package-stack` (one guide) |
+| Minimum shell | `pnpm add @eristack/design-system tailwindcss react` + tokens in root CSS |
+| List page | `list-shell` + `data-grid` + `@tanstack/react-query` |
+| Document + lines | `doc-shell` + `line-grid` + `form-ui` + `qups` |
+
+```bash
+pnpm add @eristack/design-system@^0.1.0 @eristack/form-ui@^0.1.0 @eristack/list-shell@^0.1.0
+pnpm add @eristack/data-grid@^0.2.0 @eristack/qups@^0.3.0 @tanstack/react-query@^5
+```
+
+| Gotcha | Fix |
+| --- | --- |
+| Peer **`^0.0.0`** on UI packages does **not** match **`0.1.0`** after publish | Use floors from each package’s `peerDependencies` (inter-UI peers are **`^0.1.0`**) |
+| Styled vs headless money fields | Headless: `@eristack/money/react/fields`; styled: `@eristack/form-ui` `MoneyInput` |
+| QUPS math in components | Only `@eristack/line-grid` → `patchLine`; never duplicate in app inputs |
+| shadcn components | App runs `shadcn add` locally — design-system is tokens + density only |
+
+Changelogs: `https://eristack.dev/design-system/changelog` (and sibling slugs). Pending release: `.changeset/ui-*-initial.md` in the monorepo.
+
 ## 3. Backseat release train (what changed)
 
 `@eristack/backseat@0.1.0` adds a browser mock REST engine. Eleven spine packages add:

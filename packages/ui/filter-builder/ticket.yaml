@@ -1,0 +1,7 @@
+package: "@eristack/filter-builder"
+title: filter-builder
+maintainers:
+  - support@eristack.dev
+scope: data-grid filter chip bar + sheet stubs.
+skills:
+  - filter-builder-core

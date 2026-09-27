@@ -1,0 +1,7 @@
+package: "@eristack/master-detail"
+title: master-detail
+maintainers:
+  - support@eristack.dev
+scope: Master + detail pane layout.
+skills:
+  - master-detail-core

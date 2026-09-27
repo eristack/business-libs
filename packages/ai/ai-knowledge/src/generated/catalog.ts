@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T07:26:00.401Z",
+  "generatedAt": "2026-09-27T08:07:24.982Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -209,6 +209,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/command-palette",
+      "version": "0.0.0",
+      "description": "Headless command palette state and simple dialog shell",
+      "slug": "command-palette",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "command-palette-core",
+          "name": "command-palette-core",
+          "packageName": "@eristack/command-palette",
+          "description": "@eristack/command-palette — useCommandPalette, CommandPaletteDialog.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/command-palette#command-palette-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/comms",
       "version": "0.1.0",
       "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
@@ -319,6 +336,25 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/design-system",
+      "version": "0.0.0",
+      "description": "Erista design tokens, Tailwind preset, and React density context for ERP UI",
+      "slug": "design-system",
+      "adapters": [
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "design-system-core",
+          "name": "design-system-core",
+          "packageName": "@eristack/design-system",
+          "description": "@eristack/design-system — Erista tokens, Tailwind preset, React density.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/design-system#design-system-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/dimension",
       "version": "0.1.0",
       "description": "L×W×H dimension triple as decimal strings — cubic volume, optional unit label",
@@ -370,6 +406,23 @@ export const catalog = {
           "description": "Pure @eristack/doc-number: token patterns ({YYYY}/{YY}/{MM}/{DD}/{SEQ:n}), formatDocumentNumber, parseDocumentNumber, createDocNumber, registerFormat, updateFormat, listFormats, getFormatById, next, peekNext, preview, ResetPeriod, FormatStore, SequenceStore, Incrementer, memory stores. Use for document numbers without HTTP or Drizzle.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/doc-shell",
+      "version": "0.0.0",
+      "description": "Document detail page shell — header, actions, body slots",
+      "slug": "doc-shell",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "doc-shell-core",
+          "name": "doc-shell-core",
+          "packageName": "@eristack/doc-shell",
+          "description": "@eristack/doc-shell — DocShell, DocHeader, DocActionBar.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-shell#doc-shell-core"
         }
       ]
     },
@@ -538,6 +591,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/filter-builder",
+      "version": "0.0.0",
+      "description": "Stub filter chip bar and sheet UI for data-grid list filters",
+      "slug": "filter-builder",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "filter-builder-core",
+          "name": "filter-builder-core",
+          "packageName": "@eristack/filter-builder",
+          "description": "@eristack/filter-builder — FilterChipBar, FilterSheet stubs.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/filter-builder#filter-builder-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/financial-ledger",
       "version": "0.2.5",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
@@ -583,6 +653,23 @@ export const catalog = {
           "description": "@eristack/fiscal-calendar fiscal years and open/closed periods on @eristack/timestamp wall dates — findPeriodForDate, assertPeriodOpen, listPeriods. Pair with doc-transitions lockGraph for period close.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fiscal-calendar#fiscal-calendar-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/form-ui",
+      "version": "0.0.0",
+      "description": "Native React form controls wired to @eristack money, percent, and timestamp",
+      "slug": "form-ui",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "form-ui-core",
+          "name": "form-ui-core",
+          "packageName": "@eristack/form-ui",
+          "description": "@eristack/form-ui — MoneyInput, PercentInput, TimestampWallInput.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/form-ui#form-ui-core"
         }
       ]
     },
@@ -747,6 +834,40 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/line-grid",
+      "version": "0.0.0",
+      "description": "Editable QUPS line table with patchLine recalculation hook",
+      "slug": "line-grid",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "line-grid-core",
+          "name": "line-grid-core",
+          "packageName": "@eristack/line-grid",
+          "description": "@eristack/line-grid — LineGrid + useLineGridRecalc on @eristack/qups.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/line-grid#line-grid-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/list-shell",
+      "version": "0.0.0",
+      "description": "Presentational list page layout, toolbar, and TanStack Query state banners",
+      "slug": "list-shell",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "list-shell-core",
+          "name": "list-shell-core",
+          "packageName": "@eristack/list-shell",
+          "description": "@eristack/list-shell — ListPageLayout, toolbar, QueryStateBanner.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/list-shell#list-shell-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/logger",
       "version": "0.1.1",
       "description": "JSON-lines structured logger with request context and Express/Nest adapters",
@@ -767,6 +888,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/master-detail",
+      "version": "0.0.0",
+      "description": "Two-pane master list + detail layout for picker flows",
+      "slug": "master-detail",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "master-detail-core",
+          "name": "master-detail-core",
+          "packageName": "@eristack/master-detail",
+          "description": "@eristack/master-detail — MasterDetailLayout panes.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/master-detail#master-detail-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/money",
       "version": "0.3.4",
       "description": "Money primitives for Eristack",
@@ -777,6 +915,7 @@ export const catalog = {
         "express",
         "nest",
         "react",
+        "react/fields",
         "rest",
         "zod"
       ],
@@ -994,6 +1133,7 @@ export const catalog = {
       "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
       "slug": "percent",
       "adapters": [
+        "react",
         "zod"
       ],
       "skills": [
@@ -1042,6 +1182,23 @@ export const catalog = {
           "description": "@eristack/phone E.164 normalizeE164 — Wave 13 party spine.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/phone#phone-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/policy-ui",
+      "version": "0.0.0",
+      "description": "RBAC and PBAC gate components with v0 allowed override",
+      "slug": "policy-ui",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "policy-ui-core",
+          "name": "policy-ui-core",
+          "packageName": "@eristack/policy-ui",
+          "description": "@eristack/policy-ui — Can, BusinessPolicyGate (allowed prop v0).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/policy-ui#policy-ui-core"
         }
       ]
     },
@@ -1245,6 +1402,7 @@ export const catalog = {
         "express",
         "nest",
         "react",
+        "react/fields",
         "rest",
         "zod"
       ],

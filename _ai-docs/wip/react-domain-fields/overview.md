@@ -50,7 +50,7 @@ Tier 2 — Styled (optional, packages/ui/)
 
 **Recommendation:** Implement **Tier 1 in owning primitive packages**; add **`@eristack/form-ui`** only after **two** headless fields prove the pattern (money + timestamp).
 
-**Styled stack:** Full ERP UI order (design-system → form-ui → list-shell → line-grid → doc-shell) — [`../ui-package-stack/overview.md`](../ui-package-stack/overview.md).
+**Styled stack:** Full ERP UI order (design-system → form-ui → list-shell → line-grid → doc-shell) — `packages/ai/ai-knowledge/knowledge/ui-package-stack.md` (`@eristack/ai-knowledge#ui-package-stack`).
 
 ---
 

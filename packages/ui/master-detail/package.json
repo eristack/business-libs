@@ -1,0 +1,54 @@
+{
+  "name": "@eristack/master-detail",
+  "version": "0.0.0",
+  "description": "Two-pane master list + detail layout for picker flows",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/ui/master-detail"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/ui/master-detail",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
+  "keywords": ["tanstack-intent", "react", "master-detail", "eristack"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@eristack/list-shell": "^0.1.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@eristack/list-shell": "workspace:*",
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}

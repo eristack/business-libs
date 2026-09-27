@@ -24,7 +24,8 @@
     "client",
     "react",
     "recipes",
-    "api-reference"
+    "api-reference",
+    "react-fields"
   ],
   "sections": [
     {
@@ -69,6 +70,12 @@
       "pages": [
         "recipes",
         "api-reference"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "react-fields"
       ]
     }
   ]

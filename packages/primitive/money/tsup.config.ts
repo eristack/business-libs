@@ -10,6 +10,7 @@ export default defineConfig({
     "src/nest/index.ts",
     "src/client/index.ts",
     "src/react/index.ts",
+    "src/react/fields/index.ts",
   ],
   format: ["esm", "cjs"],
   dts: false,

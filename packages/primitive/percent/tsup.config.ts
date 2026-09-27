@@ -1,10 +1,10 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/zod/index.ts"],
+  entry: ["src/index.ts", "src/zod/index.ts", "src/react/index.ts"],
   format: ["esm", "cjs"],
   dts: false,
   sourcemap: true,
   clean: true,
-  external: ["decimal.js", "zod"],
+  external: ["decimal.js", "zod", "react"],
 });

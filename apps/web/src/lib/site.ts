@@ -1899,6 +1899,273 @@ await api.seed(createErpDemoSnapshot())
     },
   },
   {
+    slug: "design-system",
+    name: "@eristack/design-system",
+    title: "Design system",
+    category: "ui" as const,
+    directory: "packages/ui/design-system",
+    href: "/design-system",
+    docsHref: "/docs/design-system",
+    tagline: "Erista tokens and density for ERP screens.",
+    description:
+      "CSS variables, Tailwind preset, and React DensityProvider — the shared visual layer for the ERP UI stack. Apps keep shadcn components local; this package ships tokens and spacing density only.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/design-system tailwindcss react",
+    highlights: [
+      { title: "Erista tokens", body: "ERISTACK_CSS_VARS or shipped tokens.css — one palette for lists and docs." },
+      { title: "Tailwind preset", body: "Extend config with tailwindPreset instead of copying hex values." },
+      { title: "Density context", body: "compact | comfortable | spacious for data-dense tables." },
+    ],
+    sample: {
+      filename: "layout.tsx",
+      language: "tsx",
+      code: `import { ERISTACK_CSS_VARS, tailwindPreset } from "@eristack/design-system"
+import { DensityProvider } from "@eristack/design-system/react"
+
+// Inject ERISTACK_CSS_VARS in root layout CSS
+<DensityProvider density="comfortable">{children}</DensityProvider>`,
+    },
+  },
+  {
+    slug: "form-ui",
+    name: "@eristack/form-ui",
+    title: "Form UI",
+    category: "ui" as const,
+    directory: "packages/ui/form-ui",
+    href: "/form-ui",
+    docsHref: "/docs/form-ui",
+    tagline: "Money, percent, and wall-date inputs aligned with core libs.",
+    description:
+      "Styled React fields wired to @eristack/money, percent, and timestamp — string-first values for TanStack Form and API parity.",
+    status: "alpha" as const,
+    install:
+      "pnpm add @eristack/form-ui @eristack/design-system @eristack/money @eristack/percent @eristack/timestamp react",
+    highlights: [
+      { title: "Domain inputs", body: "MoneyInput, PercentInput, TimestampWallInput with blur normalization." },
+      { title: "FormField shell", body: "Label + error slot consistent across ERP forms." },
+      { title: "Headless option", body: "useMoneyField and siblings on primitive /react/fields subpaths." },
+    ],
+    sample: {
+      filename: "price-field.tsx",
+      language: "tsx",
+      code: `import { FormField, MoneyInput } from "@eristack/form-ui"
+
+<FormField label="Unit price">
+  <MoneyInput amount={amount} currency="USD" onAmountChange={setAmount} />
+</FormField>`,
+    },
+  },
+  {
+    slug: "list-shell",
+    name: "@eristack/list-shell",
+    title: "List shell",
+    category: "ui" as const,
+    directory: "packages/ui/list-shell",
+    href: "/list-shell",
+    docsHref: "/docs/list-shell",
+    tagline: "List page chrome — toolbar, layout, query banners.",
+    description:
+      "Presentational list page layout and TanStack Query state banners — compose with @eristack/data-grid/react for filter/sort/pagination JSON.",
+    status: "alpha" as const,
+    install:
+      "pnpm add @eristack/list-shell @eristack/design-system @eristack/data-grid @tanstack/react-query react",
+    highlights: [
+      { title: "ListPageLayout", body: "Toolbar + body slots without owning table markup." },
+      { title: "QueryStateBanner", body: "Loading and error affordances aligned with Query." },
+      { title: "Spine-only", body: "No duplicate data-grid parsers — wire hooks in the app." },
+    ],
+    sample: {
+      filename: "partners-list.tsx",
+      language: "tsx",
+      code: `import { ListPageLayout, ListToolbar, QueryStateBanner } from "@eristack/list-shell"
+
+<ListPageLayout
+  toolbar={<ListToolbar leading={<h1>Partners</h1>} />}
+  banner={<QueryStateBanner isLoading={q.isLoading} isError={q.isError} />}
+>
+  {table}
+</ListPageLayout>`,
+    },
+  },
+  {
+    slug: "filter-builder",
+    name: "@eristack/filter-builder",
+    title: "Filter builder",
+    category: "ui" as const,
+    directory: "packages/ui/filter-builder",
+    href: "/filter-builder",
+    docsHref: "/docs/filter-builder",
+    tagline: "Chip bar and sheet UI for data-grid filters.",
+    description:
+      "Filter chip bar and advanced filter sheet shells — map column defs from @eristack/data-grid and value widgets from form-ui in the app.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/filter-builder @eristack/data-grid @eristack/form-ui react",
+    highlights: [
+      { title: "FilterChipBar", body: "Active filter chips above the grid." },
+      { title: "FilterSheet", body: "Slide-over for advanced criteria." },
+      { title: "JSON in/out", body: "Same search params as data-grid parse/serialize." },
+    ],
+    sample: {
+      filename: "filters.tsx",
+      language: "tsx",
+      code: `import { FilterChipBar, FilterSheet } from "@eristack/filter-builder"
+
+<FilterChipBar>{chips}</FilterChipBar>
+<FilterSheet open={open} footer={<ApplyButton />}>{fields}</FilterSheet>`,
+    },
+  },
+  {
+    slug: "line-grid",
+    name: "@eristack/line-grid",
+    title: "Line grid",
+    category: "ui" as const,
+    directory: "packages/ui/line-grid",
+    href: "/line-grid",
+    docsHref: "/docs/line-grid",
+    tagline: "Editable QUPS lines with patchLine recalculation.",
+    description:
+      "Line table UI with useLineGridRecalc — delegates math to @eristack/qups and money fields to form-ui.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/line-grid @eristack/qups @eristack/form-ui @eristack/money react",
+    highlights: [
+      { title: "QUPS truth modes", body: "quantity+unitPrice and other 2-of-3 SoT via qups." },
+      { title: "applyPatch", body: "Single hook entry for line recalc on cell edit." },
+      { title: "Custom cells", body: "renderCell for qty, money, and read-only columns." },
+    ],
+    sample: {
+      filename: "lines.tsx",
+      language: "tsx",
+      code: `import { LineGrid, useLineGridRecalc } from "@eristack/line-grid"
+
+const { line, applyPatch } = useLineGridRecalc({
+  truth: "quantity+unitPrice",
+  currency: "USD",
+  quantity: "1",
+  unitPrice: "10",
+})
+
+<LineGrid line={line} columns={cols} renderCell={renderCell} />`,
+    },
+  },
+  {
+    slug: "doc-shell",
+    name: "@eristack/doc-shell",
+    title: "Doc shell",
+    category: "ui" as const,
+    directory: "packages/ui/doc-shell",
+    href: "/doc-shell",
+    docsHref: "/docs/doc-shell",
+    tagline: "Document detail layout — header, actions, body.",
+    description:
+      "Document page shell with header, status badges, and action bar slots — compose with line-grid and optional multitab workspaces.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/doc-shell @eristack/design-system react",
+    highlights: [
+      { title: "DocShell", body: "Three-zone layout for ERP documents." },
+      { title: "DocActionBar", body: "Primary/secondary actions without routing opinion." },
+      { title: "Multitab-ready", body: "Optional peer for tabbed document UX." },
+    ],
+    sample: {
+      filename: "invoice.tsx",
+      language: "tsx",
+      code: `import { DocShell, DocHeader, DocActionBar } from "@eristack/doc-shell"
+
+<DocShell
+  header={<DocHeader title={docNumber} badges={status} />}
+  actions={<DocActionBar trailing={<PostButton />} />}
+>
+  {form}
+</DocShell>`,
+    },
+  },
+  {
+    slug: "policy-ui",
+    name: "@eristack/policy-ui",
+    title: "Policy UI",
+    category: "ui" as const,
+    directory: "packages/ui/policy-ui",
+    href: "/policy-ui",
+    docsHref: "/docs/policy-ui",
+    tagline: "RBAC and PBAC gates for buttons and sections.",
+    description:
+      "Can and BusinessPolicyGate presentation components — supply allowed from rbac/pbac react hooks or boolean overrides in v0.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/policy-ui @eristack/rbac @eristack/pbac react",
+    highlights: [
+      { title: "Can", body: "Hide or disable actions by permission id." },
+      { title: "BusinessPolicyGate", body: "Document policy checks with fallback UI." },
+      { title: "Thin layer", body: "Authorization logic stays in rbac/pbac core." },
+    ],
+    sample: {
+      filename: "gates.tsx",
+      language: "tsx",
+      code: `import { Can, BusinessPolicyGate } from "@eristack/policy-ui"
+
+<Can permission="partners:edit" allowed={canEdit}>
+  <button>Edit</button>
+</Can>`,
+    },
+  },
+  {
+    slug: "master-detail",
+    name: "@eristack/master-detail",
+    title: "Master detail",
+    category: "ui" as const,
+    directory: "packages/ui/master-detail",
+    href: "/master-detail",
+    docsHref: "/docs/master-detail",
+    tagline: "Split list and detail panes for picker flows.",
+    description:
+      "Two-pane master list + detail layout — typically wraps list-shell on the master side and a form route on the detail side.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/master-detail @eristack/list-shell react",
+    highlights: [
+      { title: "MasterDetailLayout", body: "Responsive split without owning selection state." },
+      { title: "List composition", body: "Pairs with list-shell and data-grid lists." },
+      { title: "App-owned selection", body: "Selected id and navigation stay in the app." },
+    ],
+    sample: {
+      filename: "picker.tsx",
+      language: "tsx",
+      code: `import { MasterDetailLayout } from "@eristack/master-detail"
+
+<MasterDetailLayout
+  master={<PartnerList onSelect={setId} />}
+  detail={id ? <PartnerForm id={id} /> : <EmptyPane />}
+/>`,
+    },
+  },
+  {
+    slug: "command-palette",
+    name: "@eristack/command-palette",
+    title: "Command palette",
+    category: "ui" as const,
+    directory: "packages/ui/command-palette",
+    href: "/command-palette",
+    docsHref: "/docs/command-palette",
+    tagline: "Cmd+K navigation shell for ERP apps.",
+    description:
+      "Headless command palette state and a minimal dialog shell — style with design-system tokens in the app.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/command-palette react",
+    highlights: [
+      { title: "useCommandPalette", body: "Open/close/toggle without a specific UI kit." },
+      { title: "CommandPaletteDialog", body: "Accessible dialog wrapper for commands." },
+      { title: "Token-friendly", body: "erista-command-palette* classes map to Erista CSS vars." },
+    ],
+    sample: {
+      filename: "palette.tsx",
+      language: "tsx",
+      code: `import { useCommandPalette, CommandPaletteDialog } from "@eristack/command-palette"
+
+const { open, togglePalette, closePalette } = useCommandPalette()
+
+<CommandPaletteDialog open={open} onClose={closePalette}>
+  {commandList}
+</CommandPaletteDialog>`,
+    },
+  },
+  {
     slug: "multitab",
     name: "@eristack/multitab",
     title: "Multitab",

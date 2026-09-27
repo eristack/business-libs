@@ -1,0 +1,7 @@
+package: "@eristack/doc-shell"
+title: doc-shell
+maintainers:
+  - support@eristack.dev
+scope: ERP document detail layout chrome.
+skills:
+  - doc-shell-core

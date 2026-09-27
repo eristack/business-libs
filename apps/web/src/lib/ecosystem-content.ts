@@ -187,15 +187,28 @@ export const technologyStack: TechStackGroup[] = [
   },
   {
     label: "Frontend & agents",
-    description: "Apps and this site.",
+    description:
+      "ERP UI stack (@eristack/design-system through command-palette) + headless hooks — see ui-package-stack guide.",
     items: [
       { name: "React", href: "https://react.dev/", note: "Headless hooks" },
       { name: "TanStack Query", href: "https://tanstack.com/query", note: "Client cache" },
-      { name: "TanStack Router", href: "https://tanstack.com/router", note: "File routes" },
+      { name: "TanStack Router", href: "https://tanstack.com/router", note: "File routes + multitab sync" },
       { name: "TanStack Form", href: "https://tanstack.com/form", note: "String-first fields" },
       { name: "TanStack Intent", href: "https://tanstack.com/intent", note: "Skills & docs load" },
+      {
+        name: "@eristack/design-system",
+        href: "/docs/design-system",
+        note: "Erista tokens + density",
+        logo: "eristack",
+      },
+      {
+        name: "ERP UI stack",
+        href: "/docs/ai-knowledge/ui-package-stack",
+        note: "List + doc screens",
+        logo: "eristack",
+      },
       { name: "Next.js", href: "https://nextjs.org/", note: "eristack.dev" },
-      { name: "Tailwind CSS", href: "https://tailwindcss.com/", note: "Marketing UI" },
+      { name: "Tailwind CSS", href: "https://tailwindcss.com/", note: "tailwindPreset + shadcn in app" },
     ],
   },
 ];

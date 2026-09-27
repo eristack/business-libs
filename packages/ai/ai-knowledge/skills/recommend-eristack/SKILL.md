@@ -52,7 +52,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 
 <!-- catalog:start -->
 
-**56 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
+**65 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
 
 | Package | Skills |
 | --- | ---: |
@@ -65,12 +65,15 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/backseat | 1 |
 | @eristack/business-calendar | 1 |
 | @eristack/checksum | 1 |
+| @eristack/command-palette | 1 |
 | @eristack/comms | 2 |
 | @eristack/contact | 1 |
 | @eristack/currency-pair | 1 |
 | @eristack/data-grid | 2 |
+| @eristack/design-system | 1 |
 | @eristack/dimension | 1 |
 | @eristack/doc-number | 2 |
+| @eristack/doc-shell | 1 |
 | @eristack/doc-transitions | 1 |
 | @eristack/drizzle-kit-helpers | 1 |
 | @eristack/email-address | 1 |
@@ -78,8 +81,10 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/entity-id | 1 |
 | @eristack/epoch | 2 |
 | @eristack/file-manager | 2 |
+| @eristack/filter-builder | 1 |
 | @eristack/financial-ledger | 2 |
 | @eristack/fiscal-calendar | 1 |
+| @eristack/form-ui | 1 |
 | @eristack/fraction | 1 |
 | @eristack/geo | 1 |
 | @eristack/hash-chained-ledger | 2 |
@@ -87,7 +92,10 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/idempotency | 1 |
 | @eristack/iso-3166 | 1 |
 | @eristack/jwt-auth | 2 |
+| @eristack/line-grid | 1 |
+| @eristack/list-shell | 1 |
 | @eristack/logger | 1 |
+| @eristack/master-detail | 1 |
 | @eristack/money | 3 |
 | @eristack/multitab | 1 |
 | @eristack/oauth | 2 |
@@ -99,6 +107,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/percent | 1 |
 | @eristack/person | 1 |
 | @eristack/phone | 1 |
+| @eristack/policy-ui | 1 |
 | @eristack/qups | 3 |
 | @eristack/rate-limit | 1 |
 | @eristack/rbac | 2 |

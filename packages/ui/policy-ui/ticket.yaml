@@ -1,0 +1,7 @@
+package: "@eristack/policy-ui"
+title: policy-ui
+maintainers:
+  - support@eristack.dev
+scope: Can + BusinessPolicyGate with allowed override (v0).
+skills:
+  - policy-ui-core

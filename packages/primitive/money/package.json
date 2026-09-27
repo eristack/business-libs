@@ -92,6 +92,16 @@
         "types": "./dist/react/index.d.ts",
         "default": "./dist/react/index.cjs"
       }
+    },
+    "./react/fields": {
+      "import": {
+        "types": "./dist/react/fields/index.d.ts",
+        "default": "./dist/react/fields/index.js"
+      },
+      "require": {
+        "types": "./dist/react/fields/index.d.ts",
+        "default": "./dist/react/fields/index.cjs"
+      }
     }
   },
   "files": [
@@ -142,7 +152,9 @@
   },
   "devDependencies": {
     "@nestjs/common": "^11.0.12",
+    "@types/react": "^19.0.12",
     "@tanstack/intent": "^0.3.6",
+    "react": "^19.0.0",
     "@types/express": "^5.0.1",
     "drizzle-orm": "^0.44.0",
     "express": "^5.1.0",
