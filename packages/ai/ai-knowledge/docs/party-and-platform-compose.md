@@ -142,7 +142,7 @@ E1 entity-id (shipped @eristack/entity-id) → A person, phone, email, contact �
 
 **Deferred:** `@eristack/weight` / `@eristack/volume` — use `@eristack/uom`.
 
-**UI (parallel):** ERP list/doc screens — `@eristack/ai-knowledge` ui-package-stack WIP; React fields — `react-domain-fields` WIP.
+**UI (parallel):** ERP list/doc screens — `@eristack/ai-knowledge#ui-package-stack`; headless fields — `@eristack/money/react/fields`, `@eristack/percent/react`, `@eristack/timestamp/react/fields`.
 
 ---
 

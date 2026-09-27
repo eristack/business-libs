@@ -1,0 +1,7 @@
+package: "@eristack/design-system"
+title: design-system
+maintainers:
+  - support@eristack.dev
+scope: Erista tokens, Tailwind preset, density (UI Tier 0).
+skills:
+  - design-system-core

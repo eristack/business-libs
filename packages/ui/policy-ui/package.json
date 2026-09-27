@@ -1,0 +1,61 @@
+{
+  "name": "@eristack/policy-ui",
+  "version": "0.0.0",
+  "description": "RBAC and PBAC gate components with v0 allowed override",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/ui/policy-ui"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/ui/policy-ui",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
+  "keywords": ["tanstack-intent", "react", "rbac", "pbac", "eristack"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@eristack/pbac": "^0.0.0",
+    "@eristack/rbac": "^0.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@eristack/pbac": { "optional": true },
+    "@eristack/rbac": { "optional": true },
+    "react": { "optional": true }
+  },
+  "devDependencies": {
+    "@eristack/pbac": "workspace:*",
+    "@eristack/rbac": "workspace:*",
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}

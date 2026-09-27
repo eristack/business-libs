@@ -1,0 +1,7 @@
+package: "@eristack/line-grid"
+title: line-grid
+maintainers:
+  - support@eristack.dev
+scope: QUPS document line table + recalc hook.
+skills:
+  - line-grid-core

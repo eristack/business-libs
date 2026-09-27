@@ -2134,5 +2134,94 @@ export const recipes = [
         "role": "primary"
       }
     ]
+  },
+  {
+    "id": "erp-ui-design-system",
+    "title": "Erista tokens and density",
+    "priority": 18,
+    "triggers": [
+      "design system",
+      "erista tokens",
+      "tailwind preset erp",
+      "density compact comfortable"
+    ],
+    "rationale": "Load @eristack/design-system#design-system-core — ERISTACK_CSS_VARS, tailwindPreset, DensityProvider.",
+    "packages": [
+      {
+        "name": "@eristack/design-system",
+        "skills": [
+          "design-system-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "erp-ui-shell",
+    "title": "ERP React UI shell (lists, forms, docs)",
+    "priority": 17,
+    "triggers": [
+      "list page layout",
+      "document detail shell",
+      "money input react",
+      "qups line grid",
+      "command palette erp",
+      "filter builder data grid"
+    ],
+    "rationale": "UI stack: form-ui, list-shell, filter-builder, line-grid, doc-shell, policy-ui, master-detail, command-palette — load package skill getting-started per task.",
+    "packages": [
+      {
+        "name": "@eristack/form-ui",
+        "skills": [
+          "form-ui-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/list-shell",
+        "skills": [
+          "list-shell-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/line-grid",
+        "skills": [
+          "line-grid-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/doc-shell",
+        "skills": [
+          "doc-shell-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "erp-list-and-doc-screens",
+    "title": "List and document ERP screens (canonical stack)",
+    "priority": 16,
+    "triggers": [
+      "erp list screen",
+      "erp document screen",
+      "ui package stack",
+      "load ui-package-stack"
+    ],
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#ui-package-stack"
+    ],
+    "rationale": "One guide: knowledge/ui-package-stack.md — design-system through command-palette; headless fields on money/percent/timestamp.",
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "ui-package-stack"
+        ],
+        "role": "primary"
+      }
+    ]
   }
 ] as Recipe[];

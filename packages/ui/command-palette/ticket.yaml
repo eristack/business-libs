@@ -1,0 +1,7 @@
+package: "@eristack/command-palette"
+title: command-palette
+maintainers:
+  - support@eristack.dev
+scope: Headless palette state + dialog div.
+skills:
+  - command-palette-core

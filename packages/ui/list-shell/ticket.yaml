@@ -1,0 +1,7 @@
+package: "@eristack/list-shell"
+title: list-shell
+maintainers:
+  - support@eristack.dev
+scope: List page chrome + query state banners.
+skills:
+  - list-shell-core

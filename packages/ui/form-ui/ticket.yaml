@@ -1,0 +1,7 @@
+package: "@eristack/form-ui"
+title: form-ui
+maintainers:
+  - support@eristack.dev
+scope: Domain React inputs (money, percent, wall dates).
+skills:
+  - form-ui-core
