@@ -69,7 +69,7 @@ Draft package catalog (not sequenced here): [Horizon](./horizon.md).
 | First slices | Doc |
 | --- | --- |
 | ~~`@eristack/entity-id` (E1)~~ **shipped 0.0.0** | [Horizon § entity-id](./horizon.md) |
-| ~~Party spine A1–A3~~ **shipped** (`person`, `phone`, `email-address`, `contact`) | next: `rounding-policy`, `tax` (C) |
+| ~~Party spine A1–A3~~ **shipped** | ~~F2/F3 rounding-policy, tax~~ **shipped** — Wave 13 npm queue **complete** (2026-09-27) |
 | Compose at boundary | `@eristack/ai-knowledge#party-and-platform-compose` (after promotion) |
 
 Pull individual rows into this file as **Now** when implementation starts.

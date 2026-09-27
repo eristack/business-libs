@@ -1048,6 +1048,60 @@ await fin.post({
     },
   },
   {
+    slug: "rounding-policy",
+    name: "@eristack/rounding-policy",
+    title: "Rounding policy",
+    category: "capability" as const,
+    directory: "packages/capability/rounding-policy",
+    href: "/rounding-policy",
+    docsHref: "/docs/rounding-policy",
+    tagline: "Named rounding profiles → money operators.",
+    description:
+      "createRoundingPolicyRegistry and roundingFor map company policy ids to @eristack/money Rounding at ledger and invoice boundaries (Wave 13 F2).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rounding-policy",
+    highlights: [
+      { title: "No duplicate math", body: "Policies select scale/mode; money owns rounding." },
+      { title: "Per currency", body: "Optional currencyOverrides on each policy." },
+      { title: "Compose", body: "Recipe ledger-rounding-policy with tax and qups post." },
+    ],
+    sample: {
+      filename: "rounding.ts",
+      language: "ts",
+      code: `import { createRoundingPolicyRegistry } from "@eristack/rounding-policy"
+
+const reg = createRoundingPolicyRegistry([{ id: "ledger" }])
+reg.roundingFor({ policyId: "ledger", currency: "USD" })`,
+    },
+  },
+  {
+    slug: "tax",
+    name: "@eristack/tax",
+    title: "Tax",
+    category: "capability" as const,
+    directory: "packages/capability/tax",
+    href: "/tax",
+    docsHref: "/docs/tax",
+    tagline: "Tax codes and effective-dated rates.",
+    description:
+      "createTaxRegistry, resolveTaxRate by wall date, applyTaxToAmount via money Tax ops — Wave 13 F3; qups keeps line math.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/tax",
+    highlights: [
+      { title: "Master data", body: "Codes + rate schedules; app persists in Drizzle." },
+      { title: "asOf lookup", body: "Latest effectiveFrom on or before transaction date." },
+      { title: "Recipe", body: "invoice-line-tax with qups + money." },
+    ],
+    sample: {
+      filename: "tax.ts",
+      language: "ts",
+      code: `import { createTaxRegistry } from "@eristack/tax"
+
+const tax = createTaxRegistry()
+tax.resolveTaxRate({ code: "VAT-STD", asOf: "2026-06-01" })`,
+    },
+  },
+  {
     slug: "valuations",
     name: "@eristack/valuations",
     title: "Valuations",

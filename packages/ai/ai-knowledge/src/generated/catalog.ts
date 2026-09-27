@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:53:51.220Z",
+  "generatedAt": "2026-09-27T04:57:10.050Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -1154,6 +1154,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/rounding-policy",
+      "version": "0.0.0",
+      "description": "Named rounding profiles that resolve to @eristack/money Rounding operators",
+      "slug": "rounding-policy",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "rounding-policy-core",
+          "name": "rounding-policy-core",
+          "packageName": "@eristack/rounding-policy",
+          "description": "@eristack/rounding-policy createRoundingPolicyRegistry and roundingFor → money Rounding (Wave 13 F2).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rounding-policy#rounding-policy-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/spreadsheet-render",
       "version": "0.0.0",
       "description": "Declarative workbook model and xlsx/csv render drivers — ExcelJS/SheetJS in app or adapter",
@@ -1197,6 +1214,23 @@ export const catalog = {
           "description": "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/tax",
+      "version": "0.0.0",
+      "description": "Tax code registry and effective-dated rates — math via @eristack/money Tax ops",
+      "slug": "tax",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "tax-core",
+          "name": "tax-core",
+          "packageName": "@eristack/tax",
+          "description": "@eristack/tax createTaxRegistry, resolveTaxRate, applyTaxToAmount — Wave 13 F3; math via money Tax ops.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/tax#tax-core"
         }
       ]
     },

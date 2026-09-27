@@ -1599,15 +1599,40 @@ recipes:
       - vat rate
       - sales tax rate
     rationale: >
-      Planned @eristack/tax resolves rates; @eristack/qups + @eristack/money apply math.
-      Load #party-and-platform-compose until tax package ships.
-    canonicalSkills:
-      - "@eristack/ai-knowledge#party-and-platform-compose"
+      @eristack/tax resolveTaxRate + applyTaxToAmount; @eristack/qups line math; @eristack/money Tax ops.
     packages:
-      - name: "@eristack/ai-knowledge"
+      - name: "@eristack/tax"
         skills:
-          - party-and-platform-compose
+          - tax-core
         role: primary
+      - name: "@eristack/qups"
+        skills:
+          - qups-line
+        role: supporting
+      - name: "@eristack/money"
+        skills:
+          - money-amounts
+        role: supporting
+
+  - id: ledger-rounding-policy
+    title: Company rounding policy at ledger boundary
+    priority: 17
+    triggers:
+      - rounding policy
+      - company rounding
+      - ledger rounding
+      - half even policy
+    rationale: >
+      @eristack/rounding-policy roundingFor → money.with at post time; pair with tax and qups totals.
+    packages:
+      - name: "@eristack/rounding-policy"
+        skills:
+          - rounding-policy-core
+        role: primary
+      - name: "@eristack/money"
+        skills:
+          - money-ledger
+        role: supporting
 
   - id: email-template-render
     title: "Render {{var}} email bodies"

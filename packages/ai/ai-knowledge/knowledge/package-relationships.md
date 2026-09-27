@@ -83,7 +83,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | Clickable ERP mock → real API | `#backseat-then-backend` | Same spine; upgrading §3 for peers |
 | “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
 | Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
-| Wave 13 party / platform / tax (planned) | `#party-and-platform-compose` | This file for **shipped** spine only |
+| Wave 13 party / platform / tax | `#party-and-platform-compose` | Shipped packages listed in § Wave 13 below |
 | Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
 | Stripe / Xendit / payment intents | `#payment-gateway-stripe-xendit` | payment-manager-core → adapters; payment-instrument for tokens |
 | Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
@@ -141,20 +141,20 @@ Peers for `./seeds` spine helper: `@eristack/jwt-auth`, `@eristack/epoch`, `@eri
     └── @eristack/valuations (+ stock + financial stores)
 ```
 
-## Wave 13 (planned — compose, not shipped graph)
+## Wave 13 (shipped — compose at app boundary)
 
-Approved 2026-09-27. **No npm packages yet** — do not add fictional imports to apps.
+Approved and **shipped** 2026-09-27. Load `#party-and-platform-compose` for handler order; recipes per row in `recipes.yaml`.
 
-| Wave | Packages | Compose guide |
+| Wave | Packages | Recipes (examples) |
 | --- | --- | --- |
-| E | **entity-id (shipped)**, business-calendar, checksum | `#party-and-platform-compose` § finance / identity · `#entity-id-v7-primary-key` |
-| A | person, phone, email-address, contact | § party pipeline |
-| B | dimension, geo | § measures |
-| F | currency-pair, rounding-policy, tax | § finance (uses shipped fiscal-calendar, money, qups) |
-| C | email-template, idempotency, api-key, rate-limit, pdf-render, spreadsheet-render | § platform + outbound |
-| G | health, drizzle-kit-helpers, vercel-adapters | § deploy DX |
+| E | entity-id, business-calendar, checksum | entity-id-v7-primary-key, posting-date-guard |
+| A | person, phone, email-address, contact | person-normalize, party-contact-normalize |
+| B | dimension, geo | — |
+| F | currency-pair, rounding-policy, tax | ledger-rounding-policy, invoice-line-tax |
+| C | email-template, idempotency, api-key, rate-limit, pdf-render, spreadsheet-render | platform-api-guard, email-template-render |
+| G | health, drizzle-kit-helpers, vercel-adapters | health-readiness, vercel-express-handler |
 
-**First implementation slice:** `@eristack/entity-id` (E1). **Rule:** one package per PR. Horizon: `roadmap/horizon.md`.
+Horizon catalog: `roadmap/horizon.md`.
 
 ---
 

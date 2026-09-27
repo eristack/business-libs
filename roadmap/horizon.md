@@ -171,8 +171,8 @@ Business capabilities composable into documents and ledgers.
 | `@eristack/partner` | Candidate | Business partner (supplier + customer roles) | address, contact | app masters |
 | `@eristack/item` | Candidate | Product + service, category tree | uom, entity-id | app catalogs |
 | `@eristack/accounting` | Candidate | COA assignments, posting rules, period control | coa, financial-ledger, pbac | GL apps |
-| `@eristack/tax` | **Planned** (Wave 13 F3) | Tax codes + effective-dated rates | money, qups | invoicing |
-| `@eristack/rounding-policy` | **Planned** (Wave 13 F2) | Named profiles → money `Rounding` | money | GL, invoices |
+| `@eristack/tax` | **Shipped** 0.0.0 | Tax codes + effective-dated rates | money, qups | invoicing |
+| `@eristack/rounding-policy` | **Shipped** 0.0.0 | Named profiles → money `Rounding` | money | GL, invoices |
 | `@eristack/payment-terms` | Candidate | Net 30, cash discount dates | timestamp, money | invoicing apps |
 | `@eristack/reporting` | **Candidate** | Query + run report jobs, snapshot rows | data-grid, epoch | DSL |
 | `@eristack/reporting-dsl` | **Candidate** | Dynamic report layout (bands, groups, aggregates) | reporting, money | print/PDF |
