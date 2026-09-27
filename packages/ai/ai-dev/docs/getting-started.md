@@ -84,6 +84,10 @@ These delegate to `eristack` — prefer `pnpm eristack` for new work:
 | Legacy | Unified |
 | --- | --- |
 | `pnpm ci` | `pnpm build && pnpm eristack check --profile full --skip-build` |
+| `pnpm ci:pr` | Smart PR CI (full when lockfile/root changes; else affected turbo) |
+| `pnpm ci:affected` | Force affected turbo only — **local** pre-push when full CI is slow |
+| `pnpm ci:drift` | Catalog only (~seconds): docs, knowledge, skills, **ticket.yaml** |
+| `pnpm ticket:check` | Subscription scan only (fix ticket YAML before full CI) |
 | `pnpm docs:check` | `pnpm eristack sync docs --check` |
 | `pnpm knowledge:check` | `pnpm eristack sync knowledge --check` |
 | `pnpm skills:validate` | `node scripts/skills-validate.mjs` (used internally by check) |

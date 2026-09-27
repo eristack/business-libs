@@ -15,6 +15,7 @@
     "recipes",
     "authoring",
     "architecture",
+    "stack-defaults",
     "skills",
     "sync",
     "rbac-permissions",
@@ -54,6 +55,7 @@
       "pages": [
         "authoring",
         "architecture",
+        "stack-defaults",
         "skills",
         "sync",
         "rbac-permissions",

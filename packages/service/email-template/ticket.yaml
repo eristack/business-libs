@@ -2,7 +2,7 @@ package: "@eristack/email-template"
 title: email-template
 maintainers:
   - support@eristack.dev
-scope: {{var}} email body render and key extraction (Wave 13 C1).
+scope: "{{var}} email body render and key extraction (Wave 13 C1)."
 outOfScope: SMTP send — use @eristack/comms; MJML/React email builders.
 skills:
   - email-template-core

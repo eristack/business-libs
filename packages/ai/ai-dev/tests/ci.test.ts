@@ -74,6 +74,17 @@ describe("resolveCiPlanFromChanged", () => {
     const plan = resolveCiPlanFromChanged(repoRoot, ["pnpm-lock.yaml"]);
     expect(plan.mode).toBe("full");
   });
+
+  it("affected mode when forced despite lockfile", () => {
+    const plan = resolveCiPlanFromChanged(
+      repoRoot,
+      ["pnpm-lock.yaml"],
+      "origin/main",
+      { forceAffected: true },
+    );
+    expect(plan.mode).toBe("affected");
+    expect(plan.driftChecks).toContain("integration");
+  });
 });
 
 describe("path helpers", () => {

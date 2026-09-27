@@ -31,6 +31,8 @@
     "release": "changeset publish",
     "ci": "pnpm build && pnpm eristack check --profile full --skip-build",
     "ci:pr": "pnpm --filter @eristack/ai-dev build && pnpm eristack ci --base origin/main",
+    "ci:affected": "pnpm --filter @eristack/ai-dev build && pnpm eristack ci --base origin/main --affected",
+    "ci:drift": "pnpm eristack check --profile catalog --skip-build",
     "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {
