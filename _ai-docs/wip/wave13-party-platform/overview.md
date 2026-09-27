@@ -9,9 +9,11 @@ skills: []
 recipes: []
 ---
 
-# Wave 13 — party, measures, and platform helpers (plan only)
+# Wave 13 — party, finance spine, platform & infra (plan only)
 
-**Status:** Plan saved 2026-09-26. Prior agent attempt to scaffold **all 13 packages in one pass was scrapped** — shells without depth, no `site.ts`/recipes sync, thin duplicates of `@eristack/uom`, and no compose rules (see `_ai-docs/wip/package-compose-audit/overview.md`).
+**Status:** Plan saved 2026-09-26; expanded 2026-09-27 (entity-id, business-calendar, checksum, currency-pair, tax, rounding-policy, health, vercel-adapters, drizzle-kit-helpers). Prior agent attempt to scaffold **many packages in one pass was scrapped** — shells without depth, no `site.ts`/recipes sync, thin duplicates of `@eristack/uom`, and no compose rules (see `_ai-docs/wip/package-compose-audit/overview.md`).
+
+**UI track (separate WIP):** [`../ui-package-stack/overview.md`](../ui-package-stack/overview.md) — design-system, form-ui, list-shell, line-grid, doc-shell (bold ERP UI stack).
 
 **Rule:** Ship **one or two packages per iteration** with full checklist (docs, skill, recipe, `pnpm knowledge:sync`, `site.ts`, tests, changeset). No batch scaffold script.
 
@@ -37,6 +39,17 @@ recipes: []
 | 12 | `@eristack/pdf-render` | service | Driver interface only; Puppeteer/Playwright in app |
 | 13 | `@eristack/email-template` | service | `{{var}}` render; pair with `@eristack/comms` to send |
 | 14 | `@eristack/spreadsheet-render` | service | Tabular **export** driver (xlsx/csv bytes); not import (`import-job` horizon) |
+| 15 | `@eristack/entity-id` | primitive | UUID v7 generate/parse/sort; Drizzle column helper — **not** app ULID ad hoc |
+| 16 | `@eristack/business-calendar` | primitive | Working days + holiday sets; **peer** `@eristack/timestamp` (wall dates) |
+| 17 | `@eristack/checksum` | primitive | SHA-256 / hex normalize for exports & file refs; pairs `file-manager` |
+| 18 | `@eristack/currency-pair` | primitive | Base/quote validation, canonical pair string; **peer** `@eristack/money` currencies |
+| 19 | `@eristack/tax` | capability | Tax code registry + **effective-dated rate** resolve; line tax uses `@eristack/money` Tax ops |
+| 20 | `@eristack/rounding-policy` | capability | Named rounding profiles → `@eristack/money` `Rounding` modes (company policy) |
+| 21 | `@eristack/health` | service | `/health` + `/ready` aggregator (checks registry); Express/Nest mount helpers |
+| 22 | `@eristack/vercel-adapters` | infrastructure | Serverless-friendly Express/Nest entry, edge constraints doc — **no** Vercel SDK in core |
+| 23 | `@eristack/drizzle-kit-helpers` | infrastructure | Shared `drizzle.config` snippets, pg/sqlite test split — monorepo DX |
+
+**Already shipped (not Wave 13 work):** `@eristack/fiscal-calendar` — fiscal **periods** open/closed; **`business-calendar`** is **operating days** (ship separately, compose at app: “post only on business day in open period”).
 
 **Catalog naming note:** Brainstorm has `@eristack/person-name` — ship as **`@eristack/person`** (user request) and mark P08 superseded in catalog when promoted.
 
@@ -108,6 +121,38 @@ Ship together only as **documentation group**; code **one per iteration**:
 | C6 | `spreadsheet-render` | `SpreadsheetRenderDriver`, sheet model (columns + rows as strings), xlsx/csv MIME |
 
 After C2–C4 ship: add recipe **`platform-api-guard`** (middleware order: rate-limit → api-key → idempotency). After C1+C5+C6: recipes **`outbound-message-render`** and **`spreadsheet-export-download`** (see collaboration.md).
+
+### Wave E — Identity & time (2–3 iterations)
+
+| Iter | Package | MVP |
+| --- | --- | --- |
+| E1 | `entity-id` | `generateEntityId()`, `parseEntityId()`, sortable time ordering; optional `./drizzle` uuid column |
+| E2 | `business-calendar` | `BusinessCalendar` def (weekend mask + holiday list refs), `isBusinessDay(wallDate)`, `addBusinessDays` |
+| E3 | `checksum` | `sha256Hex(bytes \| string)`, `normalizeChecksumHex`, constant-time compare helper |
+
+**Compose:** `business-calendar` + `@eristack/fiscal-calendar` + `@eristack/timestamp` — recipe **`posting-date-guard`** (documented pipeline, no hard deps between E1 and E2).
+
+### Wave F — Money policy & tax (3 iterations)
+
+| Iter | Package | MVP |
+| --- | --- | --- |
+| F1 | `currency-pair` | `CurrencyPair` type, `normalizePair(base, quote)`, invert, same-currency reject |
+| F2 | `rounding-policy` | `RoundingPolicy` registry, `resolveRounding(policyId, currency)` → money `Rounding` |
+| F3 | `tax` | `TaxCode`, `registerTaxRate`, `resolveTaxRate(code, asOfWallDate)`, `applyLineTax` delegates to money Tax |
+
+**Compose with qups:** qups keeps **line math**; `@eristack/tax` owns **master data + rate lookup** — app passes resolved rate string into line or uses helper `taxForLine`. Recipe **`invoice-line-tax`**.
+
+**Do not duplicate:** `@eristack/money` rounding modes, `@eristack/qups` tax application math, `@eristack/fx-table` (horizon) for rate tables — `currency-pair` validates pair keys only until fx-table ships.
+
+### Wave G — Ops & deploy DX (3 iterations)
+
+| Iter | Package | MVP |
+| --- | --- | --- |
+| G1 | `health` | `createHealthRegistry`, `registerCheck`, `livenessHandler`, `readinessHandler`; `./express` `./nest` |
+| G2 | `drizzle-kit-helpers` | `defineEristackDrizzleConfig`, sqlite test + pg prod template, docs for consumer monorepos |
+| G3 | `vercel-adapters` | `createVercelExpressHandler`, cold-start notes, max duration / body size guidance |
+
+After G1: wire default checks doc for Drizzle ping + optional epoch scope — **checks are app-supplied**, library aggregates.
 
 ### Wave D — Adapters (later, not in first ship)
 
@@ -191,6 +236,63 @@ After C2–C4 ship: add recipe **`platform-api-guard`** (middleware order: rate-
 - Driver methods: `renderWorkbook(workbook, format: 'xlsx' | 'csv')` → `Uint8Array` + `contentType`
 - Optional: `workbookFromRows(columns, rows[])` helper in core (no Excel library)
 
+### `@eristack/entity-id`
+
+- `generateEntityId()`, `parseEntityId`, `entityIdToDate()` (v7 time component)
+- Errors: `EntityIdParseError`
+- `./drizzle`: column type + default generator hook
+
+### `@eristack/business-calendar`
+
+- `createBusinessCalendar({ weekendDays, holidays })` — holidays as wall date strings or refs
+- `isBusinessDay`, `nextBusinessDay`, `addBusinessDays(n)`
+- Optional `./zod` for API payloads
+
+### `@eristack/checksum`
+
+- `sha256Hex`, `normalizeChecksumHex`, `checksumEquals`
+- Document pairing with export/download and `@eristack/file-manager` metadata
+
+### `@eristack/currency-pair`
+
+- `normalizeCurrencyPair`, `formatPairKey`, `invertPair`
+- Peers money `CurrencyUnit` codes only — no FX rates in v0
+
+### `@eristack/tax`
+
+- `createTaxRegistry`, `registerTaxCode`, `registerRateSchedule`
+- `resolveTaxRate({ code, asOf })` → `{ rate: string, … }` for percent/money ops
+- `applyTaxToAmount` thin wrapper → money Tax operator
+
+### `@eristack/rounding-policy`
+
+- `createRoundingPolicyRegistry`, `registerPolicy`, `roundingFor({ policyId, currency })`
+- Maps to existing `@eristack/money` rounding enums — **no new math**
+
+### `@eristack/health`
+
+- `HealthRegistry`, `CheckResult`, `aggregateStatus`
+- HTTP: JSON `{ status, checks: { db: … } }` — 503 when readiness fails
+
+### `@eristack/drizzle-kit-helpers`
+
+- Exportable config fragments + README for `pnpm drizzle-kit migrate`
+- No runtime dependency on app schemas
+
+### `@eristack/vercel-adapters`
+
+- Handler factory + types; link to `@eristack/logger` requestId in serverless
+
+---
+
+## Recommended macro order (user packages + original wave)
+
+```text
+A (party) → E1 entity-id early (every new table) → B (measures) → E2–E3 → F (money/tax) → C (platform) → G (health/deploy)
+```
+
+**entity-id (E1)** can jump ahead of A2 if person/contact tables need IDs first — still **one package per PR**.
+
 ---
 
 ## Explicit non-goals (whole wave)
@@ -199,8 +301,11 @@ After C2–C4 ship: add recipe **`platform-api-guard`** (middleware order: rate-
 - libphonenumber / Google geocoding in core
 - Puppeteer bundled in repo
 - Replacing `@eristack/comms` or `@eristack/file-manager`
-- fourteen packages in one PR
+- twenty-three packages in one PR
 - Bundling ExcelJS/SheetJS in core (adapter or app only)
+- Full tax engine / Avalara — `@eristack/tax` is **codes + rates + money ops glue**
+- Replacing `@eristack/fiscal-calendar` with business-calendar
+- Vercel-specific logic inside Express/Nest core packages
 
 ---
 
@@ -215,8 +320,10 @@ When user says **start Wave A1**:
 **User choices to confirm later:**
 
 1. Skip weight/volume packages? (recommended yes)
-2. Wave order A → B → C OK?
+2. Macro order A → E1 → B → E/F → C → G OK?
 3. Person package name `@eristack/person` vs `@eristack/person-name`?
+4. Ship **`entity-id`** before party spine? (recommended if greenfield IDs)
+5. UI stack in parallel per [`ui-package-stack`](../ui-package-stack/overview.md)?
 
 ---
 

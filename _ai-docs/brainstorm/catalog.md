@@ -16,7 +16,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | --: | ----------------------------- | ------- | ----------------------------------------------- | -------------- |
 | P01 | `@eristack/money`             | shipped | Currency-safe amounts, tax/discount ops         |                |
 | P02 | `@eristack/timestamp`         | shipped | Instant + wall time, DST-safe                   |                |
-| P03 | `@eristack/entity-id`         | sketch  | UUID v7 generate/parse, Drizzle column          | TS · **H**     |
+| P03 | `@eristack/entity-id`         | sketch  | UUID v7 generate/parse, Drizzle column          | TS · **H** · plan: `_ai-docs/wip/wave13-party-platform/` Wave E1 |
 | P04 | `@eristack/uom`               | sketch  | Units + fixed conversion ratios (g, kg, L, pcs) | TS · **H**     |
 | P05 | `@eristack/quantity`          | idea    | String decimal qty (distinct from money)        | pairs with uom |
 | P06 | `@eristack/address`           | sketch  | Normalized postal lines, country/region         | TS · **H**     |
@@ -30,7 +30,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P14 | `@eristack/tax-id`            | idea    | NPWP/VAT/EIN string validators                  |                |
 | P15 | `@eristack/coa`               | sketch  | Account code tree, type enum                    | TS · **H**     |
 | P16 | `@eristack/fiscal-calendar`   | idea    | Fiscal year + periods                           | **H**          |
-| P17 | `@eristack/business-calendar` | idea    | Working days, holidays                          |                |
+| P17 | `@eristack/business-calendar` | idea    | Working days, holidays                          | plan: wave13 Wave E2 · peers timestamp · not fiscal-calendar |
 | P18 | `@eristack/percent`           | idea    | Basis points / ratio strings                    |                |
 | P19 | `@eristack/geo`               | idea    | Lat/lng, geohash optional                       |                |
 | P20 | `@eristack/locale-format`     | idea    | Number/date display intents                     |                |
@@ -49,6 +49,8 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P33 | `@eristack/slug`              | idea    | URL-safe identifiers                            |                |
 | P34 | `@eristack/enum-pack`         | idea    | Registered enum sets with labels                |                |
 | P35 | `@eristack/allocation-weight` | idea    | Weights that sum to 100% for splits             | money allocate |
+| P36 | `@eristack/currency-pair`     | idea    | Base/quote pair validation for FX               | plan: wave13 Wave F1 · money |
+| P37 | `@eristack/checksum`          | idea    | SHA-256 hex normalize/compare for exports       | plan: wave13 Wave E3 · file-manager |
 
 ---
 
@@ -66,7 +68,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | C08 | `@eristack/item`                  | sketch  | Product/service master + category              | TS · **H** |
 | C09 | `@eristack/warehouse`             | idea    | Location hierarchy (WH/zone/bin)               |            |
 | C10 | `@eristack/accounting`            | sketch  | Posting rules, periods, pbac config            | TS · **H** |
-| C11 | `@eristack/tax`                   | idea    | Tax codes on lines                             | **H**      |
+| C11 | `@eristack/tax`                   | idea    | Tax codes + effective-dated rates on lines     | **H** · plan: wave13 Wave F3 · money + qups |
 | C12 | `@eristack/payment-terms`         | idea    | Net 30, cash discount                          | **H**      |
 | C13 | `@eristack/pricelist`             | idea    | Effective-dated prices                         |            |
 | C14 | `@eristack/discount-scheme`       | idea    | Header/line discount rules                     | qups       |
@@ -116,6 +118,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | C58 | `@eristack/expense-policy`        | idea    | Per-diem / category caps                       |            |
 | C59 | `@eristack/payroll-export`        | idea    | GL export only (not payroll calc)              |            |
 | C60 | `@eristack/shop-floor`            | idea    | Operation reporting qty                        |            |
+| C61 | `@eristack/rounding-policy`       | idea    | Named rounding profiles → money Rounding       | plan: wave13 Wave F2 |
 
 ---
 
@@ -139,9 +142,9 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | S14 | `@eristack/export-job`          | idea    | Bulk export jobs                                                         |                     |
 | S15 | `@eristack/tenant-scope`        | idea    | Company/site scope helpers                                               | **H**               |
 | S16 | `@eristack/webhook`             | idea    | Signed inbound webhooks                                                  |                     |
-| S17 | `@eristack/api-key`             | idea    | Service API keys                                                         |                     |
-| S18 | `@eristack/rate-limit`          | idea    | Token bucket limiter                                                     |                     |
-| S19 | `@eristack/idempotency`         | idea    | Idempotency-Key store                                                    |                     |
+| S17 | `@eristack/api-key`             | idea    | Service API keys                                                         | plan: wave13 Wave C3 |
+| S18 | `@eristack/rate-limit`          | idea    | Token bucket limiter                                                     | plan: wave13 Wave C4 |
+| S19 | `@eristack/idempotency`         | idea    | Idempotency-Key store                                                    | plan: wave13 Wave C2 |
 | S20 | `@eristack/correlation`         | idea    | Request/causation id helpers                                             |                     |
 | S21 | `@eristack/notification`        | idea    | Multi-channel notify dispatch                                            |                     |
 | S22 | `@eristack/email-template`      | idea    | Handlebars-style templates                                               |                     |
@@ -157,7 +160,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | S31 | `@eristack/read-model`          | idea    | Projector from events → SQL                                              |                     |
 | S32 | `@eristack/saga`                | idea    | Multi-step compensating flows                                            |                     |
 | S33 | `@eristack/dead-letter`         | idea    | Failed job replay                                                        |                     |
-| S34 | `@eristack/health`              | idea    | Health/readiness aggregators                                             |                     |
+| S34 | `@eristack/health`              | idea    | Health/readiness aggregators                                             | plan: wave13 Wave G1 |
 | S35 | `@eristack/metrics`             | idea    | Prometheus-style counters                                                |                     |
 | S36 | `@eristack/signature-verify`    | idea    | Webhook HMAC verify                                                      |                     |
 | S37 | `@eristack/consent`             | idea    | GDPR consent log                                                         |                     |
@@ -181,8 +184,8 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | I10 | `@eristack/fixture-loader`      | idea    | Test fixture JSON loader       |                    |
 | I11 | `@eristack/contract-test`       | idea    | OpenAPI contract test harness  | opinion            |
 | I12 | `@eristack/chaos-hook`          | idea    | Fault injection for tests      |                    |
-| I13 | `@eristack/vercel-adapters`     | idea    | Vercel serverless helpers      |                    |
-| I14 | `@eristack/drizzle-kit-helpers` | idea    | Shared drizzle config snippets |                    |
+| I13 | `@eristack/vercel-adapters`     | idea    | Vercel serverless helpers      | plan: wave13 Wave G3 |
+| I14 | `@eristack/drizzle-kit-helpers` | idea    | Shared drizzle config snippets | plan: wave13 Wave G2 |
 
 ---
 
@@ -191,14 +194,16 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 |   # | Package                       | Status   | One-liner                    | Notes          |
 | --: | ----------------------------- | -------- | ---------------------------- | -------------- |
 | U01 | `@eristack/multitab`          | scaffold | Tab workspace headless       |                |
-| U02 | `@eristack/design-system`     | sketch   | Canon Erista tokens + shadcn | TS · **H**     |
-| U03 | `@eristack/doc-shell`         | idea     | Doc header, status, actions  | **H**          |
+| U02 | `@eristack/design-system`     | sketch   | Canon Erista tokens + shadcn | TS · **H** · plan: `_ai-docs/wip/ui-package-stack/` Tier 0 |
+| U03 | `@eristack/doc-shell`         | idea     | Doc header, status, actions  | **H** · ui-package-stack Tier 1 |
 | U04 | `@eristack/form-kit`          | idea     | TanStack Form + /options     | **H**          |
-| U04b | `@eristack/form-ui`          | idea     | shadcn domain inputs (money, timestamp, …) | plan: `_ai-docs/wip/react-domain-fields/` — headless in primitives |
-| U05 | `@eristack/data-dense-table`  | idea     | data-grid + table UX         | **H**          |
+| U04b | `@eristack/form-ui`          | idea     | shadcn domain inputs (money, timestamp, …) | plan: react-domain-fields + ui-package-stack |
+| U05 | `@eristack/data-dense-table`  | idea     | data-grid + table UX         | **H** · → **`list-shell`** in ui-package-stack |
+| U05b | `@eristack/list-shell`       | idea     | List page + DataGrid table + toolbar | ui-package-stack Tier 1 |
+| U05c | `@eristack/policy-ui`        | idea     | rbac/pbac gates + disabled tooltips | ui-package-stack Tier 2 |
 | U06 | `@eristack/command-palette`   | idea     | Jump/nav palette             | **H**          |
 | U07 | `@eristack/print-view`        | idea     | Print CSS + report preview   | **H**          |
-| U08 | `@eristack/line-grid`         | idea     | Spreadsheet line editor      | qups · TS      |
+| U08 | `@eristack/line-grid`         | idea     | Spreadsheet line editor      | qups · TS · **P0** ui-package-stack |
 | U09 | `@eristack/kanban`            | idea     | Status column board          |                |
 | U10 | `@eristack/gantt`             | idea     | Schedule bars                |                |
 | U11 | `@eristack/calendar-view`     | idea     | Month/week resource calendar | timestamp wall |
@@ -221,6 +226,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | U28 | `@eristack/column-manager`    | idea     | Show/hide/reorder columns    |                |
 | U29 | `@eristack/density-modes`     | idea     | Compact/comfortable density  | design-system  |
 | U30 | `@eristack/i18n-shell`        | idea     | RTL + locale switch          |                |
+| U31 | `@eristack/app-chrome`        | idea     | Sidebar + multitab + command palette layout | ui-package-stack Tier 4 optional |
 
 ---
 

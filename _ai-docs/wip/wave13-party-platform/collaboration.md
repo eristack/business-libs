@@ -110,6 +110,41 @@ export function normalizePartyInput(body: PartyInput) {
 
 ---
 
+## Finance & posting pipeline (Wave E/F — compose, no subscription)
+
+| Step | Package | Role |
+| --- | --- | --- |
+| 1 | `entity-id` | PKs on new rows — sortable UUID v7 |
+| 2 | `@eristack/timestamp` | `transaction_date` instant or wall |
+| 3 | `@eristack/fiscal-calendar` | Period open/closed for GL post |
+| 4 | `business-calendar` | Operating day rules (due dates, SLA) |
+| 5 | `currency-pair` | Validate FX pair keys before `@eristack/money` Conversion |
+| 6 | `rounding-policy` | Company policy → money `Rounding` at ledger boundary |
+| 7 | `tax` | Resolve rate by code + date → money Tax on line |
+| 8 | `@eristack/qups` | Line extension with resolved tax/rate strings from app |
+
+**Posting date guard (handler pattern):**
+
+```ts
+import { assertPeriodOpen } from "@eristack/fiscal-calendar";
+import { isBusinessDay } from "@eristack/business-calendar";
+import { roundingFor } from "@eristack/rounding-policy";
+import { resolveTaxRate, applyTaxToAmount } from "@eristack/tax";
+
+// App loads calendar + policy registries from Drizzle
+assertPeriodOpen(fiscalCal, input.postingWallDate);
+if (!isBusinessDay(bizCal, input.dueWallDate)) { /* app policy */ }
+const rounding = roundingFor({ policyId: company.defaultRoundingId, currency: line.currency });
+const rate = resolveTaxRate({ code: line.taxCode, asOf: input.postingWallDate });
+const tax = applyTaxToAmount(line.amount, rate, { rounding });
+```
+
+**Export integrity:** `checksum.sha256Hex(bytes)` on `spreadsheet-render` / PDF output before `file-manager` stores `checksumSha256`.
+
+**Deploy:** `health` registers app checks (Drizzle ping); `vercel-adapters` + `drizzle-kit-helpers` are **DX only** — no runtime coupling to tax or party packages.
+
+---
+
 ## Platform pipeline (API edge — collaborate by order)
 
 Middleware / handler **order** (document in `platform-api-guard` recipe):
@@ -192,7 +227,10 @@ Add **three composite recipes** when packages ship (not thirteen isolated entrie
 | `party-contact-normalize` | contact | person, phone, email-address, address, iso-3166 |
 | `platform-api-guard` | idempotency | rate-limit, api-key |
 | `outbound-message-render` | email-template | person, address, comms, pdf-render |
-| `spreadsheet-export-download` | spreadsheet-render | data-grid (app list), money (format cells in app), file-manager (optional attach) |
+| `spreadsheet-export-download` | spreadsheet-render | data-grid (app list), money (format cells in app), file-manager (optional attach), checksum (optional integrity) |
+| `posting-date-guard` | fiscal-calendar | business-calendar, timestamp, rounding-policy, tax |
+| `invoice-line-tax` | tax | qups, money, rounding-policy |
+| `fx-pair-validate` | currency-pair | money Conversion (app rates) |
 
 Each recipe **`rationale`** must name **one** canonical markdown section (after promotion: `knowledge/party-and-platform-compose.md`).
 
@@ -209,6 +247,8 @@ Each recipe **`rationale`** must name **one** canonical markdown section (after 
 ## React fields (Wave 13 + party UI)
 
 Party primitives collaborate in **normalize pipelines** (strings). For **forms**, see **`_ai-docs/wip/react-domain-fields/`** — headless `PhoneField`, `EmailField`, `PersonNameField` in each package `./react/fields`; optional `@eristack/form-ui` skins. No CRM UI in contact core.
+
+**ERP screens (list + doc):** **`_ai-docs/wip/ui-package-stack/`** — `list-shell`, `line-grid`, `doc-shell` compose data-grid + qups + multitab; parallel track to Wave 13 primitives.
 
 ---
 
