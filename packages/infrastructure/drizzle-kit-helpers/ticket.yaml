@@ -1,0 +1,7 @@
+package: "@eristack/drizzle-kit-helpers"
+title: drizzle-kit-helpers
+maintainers:
+  - support@eristack.dev
+scope: Monorepo drizzle DX (Wave 13 G2).
+skills:
+  - drizzle-kit-helpers-core
