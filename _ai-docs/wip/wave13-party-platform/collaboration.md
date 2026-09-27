@@ -206,6 +206,12 @@ Each recipe **`rationale`** must name **one** canonical markdown section (after 
 
 ---
 
+## React fields (Wave 13 + party UI)
+
+Party primitives collaborate in **normalize pipelines** (strings). For **forms**, see **`_ai-docs/wip/react-domain-fields/`** — headless `PhoneField`, `EmailField`, `PersonNameField` in each package `./react/fields`; optional `@eristack/form-ui` skins. No CRM UI in contact core.
+
+---
+
 ## Anti-patterns
 
 | Avoid | Do instead |

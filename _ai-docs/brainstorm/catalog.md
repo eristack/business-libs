@@ -194,6 +194,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | U02 | `@eristack/design-system`     | sketch   | Canon Erista tokens + shadcn | TS · **H**     |
 | U03 | `@eristack/doc-shell`         | idea     | Doc header, status, actions  | **H**          |
 | U04 | `@eristack/form-kit`          | idea     | TanStack Form + /options     | **H**          |
+| U04b | `@eristack/form-ui`          | idea     | shadcn domain inputs (money, timestamp, …) | plan: `_ai-docs/wip/react-domain-fields/` — headless in primitives |
 | U05 | `@eristack/data-dense-table`  | idea     | data-grid + table UX         | **H**          |
 | U06 | `@eristack/command-palette`   | idea     | Jump/nav palette             | **H**          |
 | U07 | `@eristack/print-view`        | idea     | Print CSS + report preview   | **H**          |
