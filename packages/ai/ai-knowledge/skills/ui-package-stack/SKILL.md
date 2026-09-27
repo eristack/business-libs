@@ -24,10 +24,15 @@ sources:
 4. Docs — `@eristack/doc-shell` + `@eristack/line-grid` for QUPS lines.
 5. Actions — `@eristack/policy-ui` with rbac/pbac checks from the app.
 
+## Release / peers
+
+- First npm versions are **`0.1.0`** (minor from monorepo `0.0.0`). Inter-UI peers use **`^0.1.0`** — not `^0.0.0`.
+- Consumer install floors: `@eristack/ai-knowledge#upgrading-eristack` §2.3.
+
 ## Do not
 
 - Put QUPS math in UI packages — call `@eristack/qups` from `line-grid` only.
 - Ship `@eristack/feature-*` screens from this stack.
 - Duplicate filter JSON parsers — use `@eristack/data-grid` parse/serialize.
 
-See **knowledge/ui-package-stack.md** for ship order and diagram.
+See **knowledge/ui-package-stack.md** for ship order, peer table, and end-to-end wiring.

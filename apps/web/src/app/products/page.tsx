@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Products",
   description:
-    "All @eristack packages — money, auth, S3 file manager, data grids, ledgers, Backseat, and agent tooling — with live monorepo versions.",
+    "All @eristack packages — money, auth, ERP UI stack, S3 file manager, data grids, ledgers, Backseat, and agent tooling — with live monorepo versions.",
   path: "/products",
 });
 
@@ -20,8 +20,9 @@ export default function ProductsPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted">
             One npm scope, layered by responsibility — from money and auth to
-            presigned S3 uploads and hash-chained ledgers. Deep docs live in the
-            library hub; this page is the catalog with live versions.
+            design-system list/doc UI, presigned S3 uploads, and hash-chained
+            ledgers. Deep docs live in the library hub; this page is the catalog
+            with live versions.
           </p>
         </div>
       </div>

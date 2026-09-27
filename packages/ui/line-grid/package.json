@@ -36,7 +36,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "@eristack/form-ui": "^0.0.0",
+    "@eristack/form-ui": "^0.1.0",
     "@eristack/money": "^0.3.0",
     "@eristack/qups": "^0.3.0",
     "react": "^18.0.0 || ^19.0.0"

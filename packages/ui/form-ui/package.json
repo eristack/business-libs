@@ -36,7 +36,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "@eristack/design-system": "^0.0.0",
+    "@eristack/design-system": "^0.1.0",
     "@eristack/money": "^0.3.0",
     "@eristack/percent": "^0.1.0",
     "@eristack/timestamp": "^0.1.0",

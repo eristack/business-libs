@@ -36,7 +36,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "@eristack/list-shell": "^0.0.0",
+    "@eristack/list-shell": "^0.1.0",
     "react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
