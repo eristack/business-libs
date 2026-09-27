@@ -1,0 +1,6 @@
+package: "@eristack/phone"
+title: phone
+maintainers: [support@eristack.dev]
+scope: E.164 normalization for contact channels.
+outOfScope: libphonenumber, SMS send.
+skills: [phone-core]
