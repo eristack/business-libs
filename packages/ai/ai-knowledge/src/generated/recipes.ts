@@ -1728,28 +1728,69 @@ export const recipes = [
     ]
   },
   {
+    "id": "person-normalize",
+    "title": "Normalize person name and gender",
+    "priority": 14,
+    "triggers": [
+      "person name",
+      "normalize person",
+      "gender identity",
+      "contact name form"
+    ],
+    "rationale": "Use @eristack/person normalizePerson and formatPersonDisplay — app owns person rows.",
+    "packages": [
+      {
+        "name": "@eristack/person",
+        "skills": [
+          "person-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "party-contact-normalize",
     "title": "Normalize party contacts (person, phone, email)",
-    "priority": 14,
+    "priority": 15,
     "triggers": [
       "party normalize",
       "contact list",
       "primary contact",
       "e.164",
-      "normalize email",
-      "person name form"
+      "normalize email"
     ],
-    "rationale": "Chain @eristack/person, phone, email-address, and contact at the API boundary. Until packages ship, load #party-and-platform-compose (party pipeline section).",
+    "rationale": "Chain @eristack/person, phone, email-address, and contact at the API boundary. Handler order in #party-and-platform-compose.",
     "canonicalSkills": [
       "@eristack/ai-knowledge#party-and-platform-compose"
     ],
     "packages": [
       {
-        "name": "@eristack/ai-knowledge",
+        "name": "@eristack/contact",
         "skills": [
-          "party-and-platform-compose"
+          "contact-core"
         ],
         "role": "primary"
+      },
+      {
+        "name": "@eristack/person",
+        "skills": [
+          "person-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/phone",
+        "skills": [
+          "phone-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/email-address",
+        "skills": [
+          "email-address-core"
+        ],
+        "role": "supporting"
       }
     ]
   },

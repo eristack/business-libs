@@ -113,16 +113,16 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/money` | Shipped | Currency-safe amounts | — | all pricing |
 | `@eristack/timestamp` | Shipped | Instant + wall time | — | doc dates, grids |
 | `@eristack/entity-id` | **Shipped** 0.0.0 | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
-| `@eristack/person` | **Planned** (Wave 13 A1) | Structured name + gender identity (not HRIS) | — | contact, partner |
-| `@eristack/phone` | **Planned** (Wave 13 A2) | E.164 normalize/validate | — | contact, comms |
-| `@eristack/email-address` | **Planned** (Wave 13 A2) | Normalized local@domain | — | contact, comms |
+| `@eristack/person` | **Shipped** 0.0.0 | Structured name + gender identity (not HRIS) | — | contact, partner |
+| `@eristack/phone` | **Shipped** 0.0.0 | E.164 normalize/validate | — | contact, comms |
+| `@eristack/email-address` | **Shipped** 0.0.0 | Normalized local@domain | — | contact, comms |
 | `@eristack/dimension` | **Shipped** 0.0.0 | L×W×H string triple + cubic volume | uom (peer, optional) | logistics |
 | `@eristack/business-calendar` | **Shipped** 0.0.0 | Working days + holidays (wall dates) | — | due dates, SLAs |
 | `@eristack/currency-pair` | **Shipped** 0.0.0 | Base/quote pair validation | money | FX apps |
 | `@eristack/checksum` | **Shipped** 0.0.0 | SHA-256 hex normalize/compare | — | exports, file-manager |
 | `@eristack/uom` | **Shipped 0.1.0** | Unit of measure + **fixed ratios** (g, kg, L, pcs) | — | qups qty, product, stock |
 | `@eristack/address` | **Shipped 0.1.0** | Normalized address lines, country/region codes | — | partner, contact |
-| `@eristack/contact` | **Planned** (Wave 13 A3) | Person/channel roles on a party | compose: person, phone, email | partner |
+| `@eristack/contact` | **Shipped** 0.0.0 | Person/channel roles on a party | compose: person, phone, email | partner |
 | `@eristack/coa` | Candidate | Chart of accounts **tree** — code, name, type, parent | entity-id? | accounting, reporting |
 | `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |

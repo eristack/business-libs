@@ -68,8 +68,8 @@ Draft package catalog (not sequenced here): [Horizon](./horizon.md).
 
 | First slices | Doc |
 | --- | --- |
-| ~~`@eristack/entity-id` (E1)~~ **shipped 0.0.0** | [Horizon § entity-id](./horizon.md) · next: `person` (A1) |
-| Party spine A1–A3 | WIP `_ai-docs/wip/wave13-party-platform/overview.md` |
+| ~~`@eristack/entity-id` (E1)~~ **shipped 0.0.0** | [Horizon § entity-id](./horizon.md) |
+| ~~Party spine A1–A3~~ **shipped** (`person`, `phone`, `email-address`, `contact`) | next: `rounding-policy`, `tax` (C) |
 | Compose at boundary | `@eristack/ai-knowledge#party-and-platform-compose` (after promotion) |
 
 Pull individual rows into this file as **Now** when implementation starts.

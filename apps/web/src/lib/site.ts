@@ -664,6 +664,112 @@ parseEntityId(id)
     },
   },
   {
+    slug: "person",
+    name: "@eristack/person",
+    title: "Person",
+    category: "primitive" as const,
+    directory: "packages/primitive/person",
+    href: "/person",
+    docsHref: "/docs/person",
+    tagline: "Structured person names and gender identity — not HRIS.",
+    description:
+      "normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES enum. Wave 13 A1 — compose with phone, email-address, contact at the API boundary.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/person",
+    highlights: [
+      { title: "Normalize once", body: "Trim given/family; validate genderOther when gender is other." },
+      { title: "Display vs sort", body: "formatPersonDisplay for labels; formatPersonSortable for directories." },
+      { title: "Compose", body: "No sibling deps — party pipeline in #party-and-platform-compose." },
+    ],
+    sample: {
+      filename: "person.ts",
+      language: "ts",
+      code: `import { normalizePerson, formatPersonDisplay } from "@eristack/person"
+
+formatPersonDisplay(normalizePerson({
+  name: { given: "Ada", family: "Lovelace" },
+}))`,
+    },
+  },
+  {
+    slug: "phone",
+    name: "@eristack/phone",
+    title: "Phone",
+    category: "primitive" as const,
+    directory: "packages/primitive/phone",
+    href: "/phone",
+    docsHref: "/docs/phone",
+    tagline: "Strict E.164 phone normalization.",
+    description: "normalizeE164 strips formatting and validates ITU length. Wave 13 A2 — no libphonenumber in core.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/phone",
+    highlights: [
+      { title: "Plus required", body: "Reject national-only strings — full international input at boundary." },
+      { title: "Zod", body: "e164PhoneSchema for HTTP bodies." },
+      { title: "Contact channels", body: "Pair with @eristack/contact after normalize." },
+    ],
+    sample: {
+      filename: "phone.ts",
+      language: "ts",
+      code: `import { normalizeE164 } from "@eristack/phone"
+
+normalizeE164("+1 (415) 555-0100")`,
+    },
+  },
+  {
+    slug: "email-address",
+    name: "@eristack/email-address",
+    title: "Email address",
+    category: "primitive" as const,
+    directory: "packages/primitive/email-address",
+    href: "/email-address",
+    docsHref: "/docs/email-address",
+    tagline: "Normalized local@domain strings.",
+    description: "normalizeEmail lowercases domain; parseEmailAddress splits parts. Wave 13 A2 — not SMTP.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/email-address",
+    highlights: [
+      { title: "Stable storage", body: "Canonical lowercase address for unique indexes." },
+      { title: "emailEquals", body: "Case-insensitive compare after normalize." },
+      { title: "Comms", body: "Send via @eristack/comms after normalize." },
+    ],
+    sample: {
+      filename: "email.ts",
+      language: "ts",
+      code: `import { normalizeEmail } from "@eristack/email-address"
+
+normalizeEmail("User@Example.COM")`,
+    },
+  },
+  {
+    slug: "contact",
+    name: "@eristack/contact",
+    title: "Contact",
+    category: "primitive" as const,
+    directory: "packages/primitive/contact",
+    href: "/contact",
+    docsHref: "/docs/contact",
+    tagline: "Contact roles and channel lists on a party.",
+    description:
+      "normalizeContactList enforces one primary channel and roles. Wave 13 A3 — phone/email/person normalized upstream.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/contact",
+    highlights: [
+      { title: "Roles", body: "billing, shipping, technical, sales, general, other." },
+      { title: "Primary", body: "At most one isPrimary; primaryContact helper." },
+      { title: "Compose", body: "Recipe party-contact-normalize lists load order." },
+    ],
+    sample: {
+      filename: "contact.ts",
+      language: "ts",
+      code: `import { normalizeContactList } from "@eristack/contact"
+
+normalizeContactList({
+  channels: [{ role: "general", email: "a@b.com", isPrimary: true }],
+})`,
+    },
+  },
+  {
     slug: "payment-instrument",
     name: "@eristack/payment-instrument",
     title: "Payment instrument",

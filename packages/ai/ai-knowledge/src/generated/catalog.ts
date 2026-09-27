@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:48:23.547Z",
+  "generatedAt": "2026-09-27T04:49:49.946Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -235,7 +235,16 @@ export const catalog = {
       "description": "Contact roles and channel list normalization on a party — compose with person/phone/email",
       "slug": "contact",
       "adapters": [],
-      "skills": []
+      "skills": [
+        {
+          "id": "contact-core",
+          "name": "contact-core",
+          "packageName": "@eristack/contact",
+          "description": "@eristack/contact channel list + primary — Wave 13 A3.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/contact#contact-core"
+        }
+      ]
     },
     {
       "name": "@eristack/currency-pair",
@@ -372,7 +381,16 @@ export const catalog = {
       "adapters": [
         "zod"
       ],
-      "skills": []
+      "skills": [
+        {
+          "id": "email-address-core",
+          "name": "email-address-core",
+          "packageName": "@eristack/email-address",
+          "description": "@eristack/email-address normalizeEmail — Wave 13 party spine.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-address#email-address-core"
+        }
+      ]
     },
     {
       "name": "@eristack/entity-id",
@@ -911,7 +929,16 @@ export const catalog = {
       "adapters": [
         "zod"
       ],
-      "skills": []
+      "skills": [
+        {
+          "id": "phone-core",
+          "name": "phone-core",
+          "packageName": "@eristack/phone",
+          "description": "@eristack/phone E.164 normalizeE164 — Wave 13 party spine.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/phone#phone-core"
+        }
+      ]
     },
     {
       "name": "@eristack/qups",

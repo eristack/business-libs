@@ -65,13 +65,13 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/business-calendar | 1 |
 | @eristack/checksum | 1 |
 | @eristack/comms | 2 |
-| @eristack/contact | 0 |
+| @eristack/contact | 1 |
 | @eristack/currency-pair | 1 |
 | @eristack/data-grid | 2 |
 | @eristack/dimension | 1 |
 | @eristack/doc-number | 2 |
 | @eristack/doc-transitions | 1 |
-| @eristack/email-address | 0 |
+| @eristack/email-address | 1 |
 | @eristack/entity-id | 1 |
 | @eristack/epoch | 2 |
 | @eristack/file-manager | 2 |
@@ -92,7 +92,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/pbac | 2 |
 | @eristack/percent | 1 |
 | @eristack/person | 1 |
-| @eristack/phone | 0 |
+| @eristack/phone | 1 |
 | @eristack/qups | 3 |
 | @eristack/rbac | 2 |
 | @eristack/rest | 1 |
