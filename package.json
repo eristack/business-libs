@@ -35,7 +35,7 @@
     "ci:drift": "pnpm eristack check --profile catalog --skip-build",
     "lockfile:check": "node scripts/lockfile-check.mjs",
     "lockfile:sync": "node scripts/lockfile-sync.mjs",
-    "prepush": "pnpm eristack sync deps --check && pnpm eristack sync all --check && pnpm ticket:check",
+    "prepush": "pnpm publish:check && pnpm changesets:check && pnpm eristack sync deps --check && pnpm eristack sync all --check && pnpm ticket:check",
     "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {

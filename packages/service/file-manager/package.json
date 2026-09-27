@@ -161,6 +161,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
+    "@eristack/entity-id": "^0.1.0",
     "@eristack/backseat": "^0.1.0",
     "@aws-sdk/client-s3": "^3.0.0",
     "@aws-sdk/s3-request-presigner": "^3.0.0",
@@ -205,6 +206,7 @@
     }
   },
   "devDependencies": {
+    "@eristack/entity-id": "workspace:*",
     "@eristack/backseat": "workspace:*",
     "@internal/test-harness": "workspace:*",
     "@aws-sdk/client-s3": "^3.893.0",
@@ -228,8 +230,5 @@
     "vitest": "^4.1.10",
     "zod": "^4.4.3"
   },
-  "license": "MIT",
-  "dependencies": {
-    "@eristack/entity-id": "workspace:*"
-  }
+  "license": "MIT"
 }

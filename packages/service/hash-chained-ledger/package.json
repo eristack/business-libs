@@ -90,10 +90,10 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "decimal.js": "^10.6.0",
-    "@eristack/entity-id": "workspace:*"
+    "decimal.js": "^10.6.0"
   },
   "peerDependencies": {
+    "@eristack/entity-id": "^0.1.0",
     "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
     "@eristack/backseat": "^0.1.0"
   },
@@ -113,6 +113,7 @@
     "typescript": "catalog:",
     "vitest": "^4.1.10",
     "@eristack/backseat": "workspace:*",
+    "@eristack/entity-id": "workspace:*",
     "@internal/test-harness": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",
     "better-sqlite3": "^11.10.0"

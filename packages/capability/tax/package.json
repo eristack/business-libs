@@ -35,10 +35,11 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@eristack/money": "workspace:*"
+  "peerDependencies": {
+    "@eristack/money": "^0.3.0"
   },
   "devDependencies": {
+    "@eristack/money": "workspace:*",
     "@tanstack/intent": "^0.3.6",
     "@types/node": "^22.15.29",
     "tsup": "catalog:",
