@@ -27,11 +27,12 @@ id: entityIdColumn("pgsql", "id").primaryKey(),
 
 ## Checklist
 
-1. Default new table PKs with `entityIdColumn` + `generateEntityId` — not serial/bigserial for app-facing rows.
-2. `parseEntityId` on every FK string from JSON before insert.
-3. `@eristack/entity-id/zod` on HTTP bodies for id fields.
-4. Display numbers still use `@eristack/doc-number` — entity id is internal PK.
-5. Multi-package Wave 13: `#party-and-platform-compose` — do not add sibling primitive deps.
+1. Default new table PKs with `entityIdColumn` + `generateEntityId` — not serial/bigserial, not DB `gen_random_uuid()` / identity columns, not `crypto.randomUUID()` in Eristack cores (`entityIdFactory` is the default idFactory).
+2. All `@eristack/*/drizzle` shipped tables use `entityIdColumn` on surrogate `id` — match in app-owned tables.
+3. `parseEntityId` on every FK string from JSON before insert.
+4. `@eristack/entity-id/zod` on HTTP bodies for id fields.
+5. Display numbers still use `@eristack/doc-number` — entity id is internal PK.
+6. Multi-package Wave 13: `#party-and-platform-compose` — do not add sibling primitive deps.
 
 ## Do not
 

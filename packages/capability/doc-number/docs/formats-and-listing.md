@@ -30,7 +30,7 @@ const record = await docNumber.registerFormat({
 | `active` | No | `true` | When true, **deactivates every other active format** for the same `entityKey` |
 | `id` | No | `idFactory()` | Supply your own to make registration idempotent |
 
-Ids come from `crypto.randomUUID()` unless you inject an `idFactory` into `createDocNumber` — useful when you want prefixed ids (`fmt_…`) or deterministic ids in tests:
+Ids default to `@eristack/entity-id` (`entityIdFactory`) unless you inject an `idFactory` into `createDocNumber` — useful for prefixed ids (`fmt_…`) or deterministic ids in tests:
 
 ```ts
 let n = 0;

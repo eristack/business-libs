@@ -17,7 +17,7 @@ import { createBackseat } from "@eristack/backseat";
 | `baseUrl` | `"/api"` | Prefix for `handle()` / `fetch()` |
 | `collections` | — | Auto-register CRUD routes + `handlers` |
 | `seed` | — | Snapshot or factory for `reseed()` / devtools |
-| `idFactory` | `crypto.randomUUID()` | Used when `create()` body omits id |
+| `idFactory` | `@eristack/entity-id` `entityIdFactory` | Used when `create()` body omits id |
 
 Returns a `Backseat` instance.
 

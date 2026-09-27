@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { generateEntityId } from "@eristack/entity-id";
 import type { PaymentDriver, PaymentIntentStatus } from "./types.js";
 
 /** Unit tests and Backseat prototypes — not production PSP traffic. */
@@ -6,7 +6,7 @@ export function createMemoryPaymentDriver(gateway = "memory"): PaymentDriver {
   return {
     gateway,
     async createIntent(input) {
-      const gatewayIntentId = `mem_${randomUUID()}`;
+      const gatewayIntentId = `mem_${generateEntityId()}`;
       const simulate = input.metadata?.simulate;
       let status: PaymentIntentStatus = "processing";
       if (simulate === "requires_action") status = "requires_action";

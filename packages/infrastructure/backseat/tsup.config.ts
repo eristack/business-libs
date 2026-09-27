@@ -20,6 +20,8 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
+    "@eristack/entity-id",
+    "@eristack/entity-id/drizzle",
     "drizzle-orm",
     "drizzle-orm/better-sqlite3",
     "drizzle-orm/pg-core",

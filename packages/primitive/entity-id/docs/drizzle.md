@@ -9,7 +9,7 @@ pnpm add @eristack/entity-id drizzle-orm
 ```ts
 import { entityIdColumn } from "@eristack/entity-id/drizzle";
 
-entityIdColumn("pgsql", "id"); // uuid().$defaultFn(() => generateEntityId())
+entityIdColumn("pgsql", "id"); // uuid().$defaultFn(() => generateEntityId()) — app-side default, not DB serial/identity
 entityIdColumn("mysql", "id"); // char(36)
 entityIdColumn("sqlite", "id"); // text
 ```

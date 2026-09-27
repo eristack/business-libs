@@ -15,6 +15,11 @@ function randomOctets(length: number): Uint8Array {
   return bytes;
 }
 
+/** Default Eristack `idFactory` — UUID v7, not DB serial or `randomUUID`. */
+export function entityIdFactory(): EntityId {
+  return generateEntityId();
+}
+
 export function generateEntityId(unixMs: number = Date.now()): EntityId {
   const rnd = randomOctets(10);
   const bytes = generateEntityIdBytes(unixMs, rnd);

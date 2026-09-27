@@ -16,6 +16,7 @@ import {
   sqliteTable,
   text as sqliteText,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 
 export function createHashChainedLedgerTables(
   dialect: DrizzleDialect,
@@ -41,7 +42,7 @@ export type HashChainedLedgerTables = ReturnType<
 
 function createPgsql(prefix: string) {
   const entries = pgTable(`${prefix}_entries`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     chainId: pgText("chain_id").notNull(),
     sequence: integer("sequence").notNull(),
     openingBalance: pgText("opening_balance").notNull(),
@@ -68,7 +69,7 @@ function createPgsql(prefix: string) {
 
 function createMysql(prefix: string) {
   const entries = mysqlTable(`${prefix}_entries`, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     chainId: mysqlVarchar("chain_id", { length: 191 }).notNull(),
     sequence: mysqlInt("sequence").notNull(),
     openingBalance: mysqlVarchar("opening_balance", { length: 64 }).notNull(),
@@ -95,7 +96,7 @@ function createMysql(prefix: string) {
 
 function createSqlite(prefix: string) {
   const entries = sqliteTable(`${prefix}_entries`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     chainId: sqliteText("chain_id").notNull(),
     sequence: sqliteInt("sequence").notNull(),
     openingBalance: sqliteText("opening_balance").notNull(),

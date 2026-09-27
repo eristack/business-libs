@@ -5,6 +5,7 @@ import { periodKeyFor } from "./period.js";
 import { normalizeScope } from "./scope.js";
 import { parsePattern } from "./tokens.js";
 import { createDataGrid } from "@eristack/data-grid";
+import { entityIdFactory } from "@eristack/entity-id";
 import type {
   Clock,
   DocNumberResult,
@@ -45,13 +46,9 @@ export interface DocNumberApi {
   parse: typeof parseDocumentNumber;
 }
 
-function defaultId(): string {
-  return globalThis.crypto?.randomUUID?.() ?? `fmt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-}
-
 export function createDocNumber(options: CreateDocNumberOptions = {}): DocNumberApi {
   const clock = options.clock ?? (() => new Date());
-  const idFactory = options.idFactory ?? defaultId;
+  const idFactory = options.idFactory ?? entityIdFactory;
   const formats = options.formats;
   const sequences = options.sequences;
   const incrementer = options.incrementer;

@@ -19,6 +19,8 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
+    "@eristack/entity-id",
+    "@eristack/entity-id/drizzle",
     "@eristack/backseat",
     "@eristack/rest",
     "@eristack/backseat/store",

@@ -26,6 +26,7 @@ import type {
   UpdateProfileInput,
 } from "./stores/types.js";
 import type { QupsTruthMode } from "./qups.js";
+import { entityIdFactory } from "@eristack/entity-id";
 
 export interface CreateQupsOptions {
   profiles?: PricingProfileStore;
@@ -61,16 +62,6 @@ export interface QupsApi {
   ): string[];
 }
 
-function defaultId(): string {
-  const c = globalThis as typeof globalThis & {
-    crypto?: { randomUUID?: () => string };
-  };
-  return (
-    c.crypto?.randomUUID?.() ??
-    `qups_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
-  );
-}
-
 function attachFieldIds(
   profileId: string,
   seeds: Omit<PricingField, "id" | "profileId">[],
@@ -85,7 +76,7 @@ function attachFieldIds(
 
 export function createQups(options: CreateQupsOptions = {}): QupsApi {
   const clock = options.clock ?? (() => new Date());
-  const idFactory = options.idFactory ?? defaultId;
+  const idFactory = options.idFactory ?? entityIdFactory;
   const profiles = options.profiles;
   const lines = options.lines;
 

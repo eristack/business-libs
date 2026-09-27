@@ -1,4 +1,5 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import {
   createCredentialsTable,
   createRefreshTokenTable,
@@ -9,7 +10,7 @@ import {
  * jwt-auth credentials are a child of this table via `subject` = `users.id`.
  */
 export const users = sqliteTable("users", {
-  id: text("id").primaryKey(),
+  id: entityIdColumn("sqlite", "id").primaryKey(),
   displayName: text("display_name").notNull(),
   createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
 });
@@ -21,7 +22,7 @@ export const jwtAuthRefreshTokens = createRefreshTokenTable("sqlite");
 
 /** CRM customer — parent of orders. */
 export const customers = sqliteTable("customers", {
-  id: text("id").primaryKey(),
+  id: entityIdColumn("sqlite", "id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   region: text("region").notNull(),
@@ -30,7 +31,7 @@ export const customers = sqliteTable("customers", {
 });
 
 export const products = sqliteTable("products", {
-  id: text("id").primaryKey(),
+  id: entityIdColumn("sqlite", "id").primaryKey(),
   sku: text("sku").notNull(),
   name: text("name").notNull(),
   category: text("category").notNull(),
@@ -39,7 +40,7 @@ export const products = sqliteTable("products", {
 });
 
 export const orders = sqliteTable("orders", {
-  id: text("id").primaryKey(),
+  id: entityIdColumn("sqlite", "id").primaryKey(),
   number: text("number").notNull(),
   customerId: text("customer_id")
     .notNull()
@@ -52,7 +53,7 @@ export const orders = sqliteTable("orders", {
 });
 
 export const orderLines = sqliteTable("order_lines", {
-  id: text("id").primaryKey(),
+  id: entityIdColumn("sqlite", "id").primaryKey(),
   orderId: text("order_id")
     .notNull()
     .references(() => orders.id),

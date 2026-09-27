@@ -214,5 +214,8 @@
     "better-sqlite3": "^11.10.0",
     "zod": "^4.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@eristack/entity-id": "workspace:*"
+  }
 }

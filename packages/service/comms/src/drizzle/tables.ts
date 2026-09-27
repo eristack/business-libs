@@ -14,6 +14,7 @@ import {
   uniqueIndex as mysqlUniqueIndex,
 } from "drizzle-orm/mysql-core";
 import { sqliteTable, text as sqliteText, uniqueIndex as sqliteUniqueIndex } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 
 export function createCommsTables(dialect: DrizzleDialect, prefix = "comms") {
   switch (dialect) {
@@ -36,7 +37,7 @@ function createPgsqlTables(prefix: string) {
   const messages = pgTable(
     `${prefix}_messages`,
     {
-      id: pgText("id").primaryKey(),
+      id: entityIdColumn("pgsql", "id").primaryKey(),
       channel: pgText("channel").notNull(),
       vendor: pgText("vendor").notNull(),
       idempotencyKey: pgText("idempotency_key").notNull(),
@@ -52,7 +53,7 @@ function createPgsqlTables(prefix: string) {
   );
 
   const deliveryEvents = pgTable(`${prefix}_delivery_events`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     vendor: pgText("vendor").notNull(),
     eventType: pgText("event_type").notNull(),
     providerEventId: pgText("provider_event_id"),
@@ -68,7 +69,7 @@ function createMysqlTables(prefix: string) {
   const messages = mysqlTable(
     `${prefix}_messages`,
     {
-      id: mysqlVarchar("id", { length: 36 }).primaryKey(),
+      id: entityIdColumn("mysql", "id").primaryKey(),
       channel: mysqlVarchar("channel", { length: 16 }).notNull(),
       vendor: mysqlVarchar("vendor", { length: 64 }).notNull(),
       idempotencyKey: mysqlVarchar("idempotency_key", { length: 255 }).notNull(),
@@ -84,7 +85,7 @@ function createMysqlTables(prefix: string) {
   );
 
   const deliveryEvents = mysqlTable(`${prefix}_delivery_events`, {
-    id: mysqlVarchar("id", { length: 36 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     vendor: mysqlVarchar("vendor", { length: 64 }).notNull(),
     eventType: mysqlVarchar("event_type", { length: 128 }).notNull(),
     providerEventId: mysqlVarchar("provider_event_id", { length: 255 }),
@@ -100,7 +101,7 @@ function createSqliteTables(prefix: string) {
   const messages = sqliteTable(
     `${prefix}_messages`,
     {
-      id: sqliteText("id").primaryKey(),
+      id: entityIdColumn("sqlite", "id").primaryKey(),
       channel: sqliteText("channel").notNull(),
       vendor: sqliteText("vendor").notNull(),
       idempotencyKey: sqliteText("idempotency_key").notNull(),
@@ -116,7 +117,7 @@ function createSqliteTables(prefix: string) {
   );
 
   const deliveryEvents = sqliteTable(`${prefix}_delivery_events`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     vendor: sqliteText("vendor").notNull(),
     eventType: sqliteText("event_type").notNull(),
     providerEventId: sqliteText("provider_event_id"),

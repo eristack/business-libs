@@ -6,6 +6,7 @@ export {
   entityIdEquals,
   entityIdToDate,
   entityIdToUnixMs,
+  entityIdFactory,
   generateEntityId,
   generateEntityIdAt,
   isValidEntityId,

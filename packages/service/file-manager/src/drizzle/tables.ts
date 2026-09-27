@@ -12,6 +12,7 @@ import {
   datetime as mysqlDatetime,
 } from "drizzle-orm/mysql-core";
 import { sqliteTable, text as sqliteText } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 
 /** Default: `{prefix}_files` — canonical metadata rows; blob bytes live in object storage. */
 export function createFileManagerTables(
@@ -34,7 +35,7 @@ export function createFileManagerTables(
 
 function createPgsqlTables(prefix: string) {
   const files = pgTable(`${prefix}_files`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     status: pgText("status").notNull(),
     namespace: pgText("namespace").notNull(),
     ownerId: pgText("owner_id"),
@@ -48,7 +49,7 @@ function createPgsqlTables(prefix: string) {
 
 function createMysqlTables(prefix: string) {
   const files = mysqlTable(`${prefix}_files`, {
-    id: mysqlVarchar("id", { length: 36 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     status: mysqlVarchar("status", { length: 32 }).notNull(),
     namespace: mysqlVarchar("namespace", { length: 128 }).notNull(),
     ownerId: mysqlVarchar("owner_id", { length: 128 }),
@@ -62,7 +63,7 @@ function createMysqlTables(prefix: string) {
 
 function createSqliteTables(prefix: string) {
   const files = sqliteTable(`${prefix}_files`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     status: sqliteText("status").notNull(),
     namespace: sqliteText("namespace").notNull(),
     ownerId: sqliteText("owner_id"),

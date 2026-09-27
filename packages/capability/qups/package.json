@@ -94,7 +94,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "decimal.js": "^10.6.0"
+    "decimal.js": "^10.6.0",
+    "@eristack/entity-id": "workspace:*"
   },
   "peerDependencies": {
     "@eristack/money": "^0.3.0",

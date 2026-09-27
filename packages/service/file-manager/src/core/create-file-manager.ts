@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { generateEntityId } from "@eristack/entity-id";
 import {
   FileNotFoundError,
   FileNotReadyError,
@@ -75,7 +75,7 @@ export function createFileManager(config: FileManagerConfig): FileManager {
   return {
     async beginPresignedUpload(input: BeginPresignedUploadInput) {
       assertUploadInput(input);
-      const fileId = randomUUID();
+      const fileId = generateEntityId();
       const namespace = input.namespace?.trim() || "default";
       const key = objectKey({
         namespace,
@@ -144,7 +144,7 @@ export function createFileManager(config: FileManagerConfig): FileManager {
         sizeBytes: input.body.byteLength,
       });
 
-      const fileId = randomUUID();
+      const fileId = generateEntityId();
       const namespace = input.namespace?.trim() || "default";
       const key = objectKey({
         namespace,

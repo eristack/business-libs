@@ -1,4 +1,5 @@
 import { describe, expect, it, afterEach } from "vitest";
+import { generateEntityId } from "@eristack/entity-id";
 import { createTestSqliteDb, execSql, canUseBetterSqlite } from "@internal/test-harness";
 import { createDocNumber, createMemoryFormatStore } from "../src/index.js";
 import {
@@ -35,7 +36,7 @@ describe.skipIf(!canUseBetterSqlite())("doc-number drizzle integration", () => {
       dialect: "sqlite",
       db: dbHandle.db,
       table: sequenceTable,
-      idFactory: () => crypto.randomUUID(),
+      idFactory: () => generateEntityId(),
     });
 
     const clock = () => new Date("2026-08-11T00:00:00.000Z");
