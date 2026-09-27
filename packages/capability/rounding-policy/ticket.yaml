@@ -1,0 +1,8 @@
+package: "@eristack/rounding-policy"
+title: rounding-policy
+maintainers:
+  - support@eristack.dev
+scope: Named profiles → @eristack/money Rounding (Wave 13 F2).
+outOfScope: New rounding modes or currency tables.
+skills:
+  - rounding-policy-core
