@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T07:15:08.485Z",
+  "generatedAt": "2026-09-27T07:26:00.401Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -128,7 +128,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/api-key",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Generate, hash, and timing-safe verify API keys for partner B2B routes",
       "slug": "api-key",
       "adapters": [],
@@ -174,7 +174,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/business-calendar",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Business days and holidays on YYYY-MM-DD wall dates — no timestamp import in core",
       "slug": "business-calendar",
       "adapters": [
@@ -193,7 +193,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/checksum",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "SHA-256 hex normalize and constant-time compare for exports and file refs",
       "slug": "checksum",
       "adapters": [],
@@ -248,7 +248,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/contact",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Contact roles and channel list normalization on a party — compose with person/phone/email",
       "slug": "contact",
       "adapters": [],
@@ -265,7 +265,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/currency-pair",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Base/quote currency pair validation and canonical pair keys — no FX rates",
       "slug": "currency-pair",
       "adapters": [
@@ -320,7 +320,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/dimension",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "L×W×H dimension triple as decimal strings — cubic volume, optional unit label",
       "slug": "dimension",
       "adapters": [
@@ -392,7 +392,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/drizzle-kit-helpers",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Shared drizzle-kit config fragments for Eristack consumer monorepos (pg prod, sqlite tests)",
       "slug": "drizzle-kit-helpers",
       "adapters": [],
@@ -409,7 +409,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/email-address",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Normalized email local@domain strings for contact channels",
       "slug": "email-address",
       "adapters": [
@@ -428,7 +428,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/email-template",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "{{var}} HTML/text email template render and key extraction — pair with @eristack/comms",
       "slug": "email-template",
       "adapters": [],
@@ -445,7 +445,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/entity-id",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "UUID v7 entity identifiers — sortable, parseable, Drizzle column helper",
       "slug": "entity-id",
       "adapters": [
@@ -588,7 +588,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/fraction",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Exact rational numbers as reduced fractions — string numerators/denominators, no float literals",
       "slug": "fraction",
       "adapters": [
@@ -607,7 +607,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/geo",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Latitude and longitude as decimal strings — normalize and haversine distance",
       "slug": "geo",
       "adapters": [
@@ -656,7 +656,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/health",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Liveness and readiness health check registry with Express and Nest mount helpers",
       "slug": "health",
       "adapters": [
@@ -676,7 +676,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/idempotency",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Idempotency-Key guard and store interface — memory store for tests; Drizzle in a later iteration",
       "slug": "idempotency",
       "adapters": [],
@@ -973,7 +973,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/pdf-render",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "HTML to PDF driver interface — Puppeteer/Playwright stays in the app or optional adapter",
       "slug": "pdf-render",
       "adapters": [],
@@ -1009,7 +1009,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/person",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Structured person name and gender identity — normalize and display, not HRIS",
       "slug": "person",
       "adapters": [
@@ -1028,7 +1028,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/phone",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "E.164 phone normalization — strict plus prefix, no libphonenumber in core",
       "slug": "phone",
       "adapters": [
@@ -1085,7 +1085,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rate-limit",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Fixed-window in-memory rate limiter — Redis adapter in app or later package",
       "slug": "rate-limit",
       "adapters": [],
@@ -1155,7 +1155,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rounding-policy",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Named rounding profiles that resolve to @eristack/money Rounding operators",
       "slug": "rounding-policy",
       "adapters": [],
@@ -1172,7 +1172,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/spreadsheet-render",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Declarative workbook model and xlsx/csv render drivers — ExcelJS/SheetJS in app or adapter",
       "slug": "spreadsheet-render",
       "adapters": [],
@@ -1219,7 +1219,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/tax",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Tax code registry and effective-dated rates — math via @eristack/money Tax ops",
       "slug": "tax",
       "adapters": [],
@@ -1337,7 +1337,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/vercel-adapters",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Serverless-friendly Express entry helpers for Vercel — no Vercel SDK in core",
       "slug": "vercel-adapters",
       "adapters": [],

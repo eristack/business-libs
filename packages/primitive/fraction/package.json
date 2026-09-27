@@ -1,6 +1,6 @@
 {
   "name": "@eristack/fraction",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Exact rational numbers as reduced fractions — string numerators/denominators, no float literals",
   "repository": {
     "type": "git",

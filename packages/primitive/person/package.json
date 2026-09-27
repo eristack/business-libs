@@ -1,6 +1,6 @@
 {
   "name": "@eristack/person",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Structured person name and gender identity — normalize and display, not HRIS",
   "repository": {
     "type": "git",
@@ -34,9 +34,24 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "person", "name", "contact", "erp", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "person",
+    "name",
+    "contact",
+    "erp",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -45,8 +60,14 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "peerDependencies": { "zod": "^4.0.0" },
-  "peerDependenciesMeta": { "zod": { "optional": true } },
+  "peerDependencies": {
+    "zod": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",
     "@types/node": "^22.15.29",
