@@ -1,6 +1,6 @@
 {
   "name": "@eristack/currency-pair",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Base/quote currency pair validation and canonical pair keys — no FX rates",
   "repository": {
     "type": "git",
@@ -34,9 +34,23 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "fx", "currency-pair", "erp", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "fx",
+    "currency-pair",
+    "erp",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -49,7 +63,11 @@
     "@eristack/money": "^0.3.0",
     "zod": "^4.0.0"
   },
-  "peerDependenciesMeta": { "zod": { "optional": true } },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@eristack/money": "workspace:*",
     "@tanstack/intent": "^0.3.6",

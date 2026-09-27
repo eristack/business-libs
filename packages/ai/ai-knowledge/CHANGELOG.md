@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.17
+
+### Patch Changes
+
+- ca8355c: Add fraction recipe, narrow Wave 13 compose triggers (zero overlap budget), and catalog sync.
+
 ## 0.1.16
 
 ### Patch Changes
