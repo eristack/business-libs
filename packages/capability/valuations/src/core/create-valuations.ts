@@ -1,3 +1,4 @@
+import { entityIdFactory } from "@eristack/entity-id";
 import { Money } from "@eristack/money";
 import {
   createHashChainedLedger,
@@ -71,7 +72,7 @@ export function createValuationEngine(options: {
   now?: () => Date;
 }): ValuationEngine {
   const ledger = createHashChainedLedger(options.ledger);
-  const idFactory = options.idFactory ?? (() => crypto.randomUUID());
+  const idFactory = options.idFactory ?? entityIdFactory;
   const now = options.now ?? (() => new Date());
   const method = options.method;
 

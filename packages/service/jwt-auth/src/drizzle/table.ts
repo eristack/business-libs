@@ -15,6 +15,7 @@ import {
   text as sqliteText,
   integer as sqliteInteger,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import type { DrizzleDialect } from "./types.js";
 
 const DEFAULT_TABLE_NAME = "jwt_auth_refresh_tokens";
@@ -51,7 +52,7 @@ export function createRefreshTokenTable(
 
 export function createPgsqlRefreshTokenTable(tableName = DEFAULT_TABLE_NAME) {
   return pgTable(tableName, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     subject: pgText("subject").notNull(),
     tokenHash: pgText("token_hash").notNull().unique(),
     familyId: pgText("family_id").notNull(),
@@ -65,7 +66,7 @@ export function createPgsqlRefreshTokenTable(tableName = DEFAULT_TABLE_NAME) {
 
 export function createMysqlRefreshTokenTable(tableName = DEFAULT_TABLE_NAME) {
   return mysqlTable(tableName, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     subject: mysqlVarchar("subject", { length: 255 }).notNull(),
     tokenHash: mysqlVarchar("token_hash", { length: 64 }).notNull().unique(),
     familyId: mysqlVarchar("family_id", { length: 64 }).notNull(),
@@ -79,7 +80,7 @@ export function createMysqlRefreshTokenTable(tableName = DEFAULT_TABLE_NAME) {
 
 export function createSqliteRefreshTokenTable(tableName = DEFAULT_TABLE_NAME) {
   return sqliteTable(tableName, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     subject: sqliteText("subject").notNull(),
     tokenHash: sqliteText("token_hash").notNull().unique(),
     familyId: sqliteText("family_id").notNull(),

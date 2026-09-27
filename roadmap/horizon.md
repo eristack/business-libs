@@ -112,24 +112,31 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | --- | --- | --- | --- | --- |
 | `@eristack/money` | Shipped | Currency-safe amounts | — | all pricing |
 | `@eristack/timestamp` | Shipped | Instant + wall time | — | doc dates, grids |
-| `@eristack/entity-id` | **Observing** | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
+| `@eristack/entity-id` | **Shipped** 0.0.0 | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
+| `@eristack/person` | **Shipped** 0.0.0 | Structured name + gender identity (not HRIS) | — | contact, partner |
+| `@eristack/phone` | **Shipped** 0.0.0 | E.164 normalize/validate | — | contact, comms |
+| `@eristack/email-address` | **Shipped** 0.0.0 | Normalized local@domain | — | contact, comms |
+| `@eristack/dimension` | **Shipped** 0.0.0 | L×W×H string triple + cubic volume | uom (peer, optional) | logistics |
+| `@eristack/business-calendar` | **Shipped** 0.0.0 | Working days + holidays (wall dates) | — | due dates, SLAs |
+| `@eristack/currency-pair` | **Shipped** 0.0.0 | Base/quote pair validation | money | FX apps |
+| `@eristack/checksum` | **Shipped** 0.0.0 | SHA-256 hex normalize/compare | — | exports, file-manager |
 | `@eristack/uom` | **Shipped 0.1.0** | Unit of measure + **fixed ratios** (g, kg, L, pcs) | — | qups qty, product, stock |
 | `@eristack/address` | **Shipped 0.1.0** | Normalized address lines, country/region codes | — | partner, contact |
-| `@eristack/contact` | Candidate | Person/channel refs (email, phone roles) | address? | partner |
+| `@eristack/contact` | **Shipped** 0.0.0 | Person/channel roles on a party | compose: person, phone, email | partner |
 | `@eristack/coa` | Candidate | Chart of accounts **tree** — code, name, type, parent | entity-id? | accounting, reporting |
 | `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
-| `@eristack/geo` | Candidate | Lat/lng + timezone default for address | timestamp | logistics (later) |
+| `@eristack/fraction` | **Alpha 0.0.0** | Exact rationals `{ num, den }`; approximate irrationals | — | recipes, BOM |
+| `@eristack/geo` | **Shipped** 0.0.0 | Lat/lng strings + haversine km | — | logistics |
 | `@eristack/payment-instrument` | Shipped | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
 
-### `@eristack/entity-id` (observing)
+### `@eristack/entity-id` (shipped — Wave 13 E1)
 
-Waiting on **#project-tiga-sekawan** observation: v7 in Postgres, index behavior, migration from serial/uuid v4.
+Shipped 2026-09-27. Use on greenfield Drizzle tables before party spine packages land.
 
-Deliverables when promoted:
-
-- `EntityId.generate()` · `EntityId.parse()` · Drizzle column helper
-- Sort-by-id lists without separate `created_at` index hacks
+- `generateEntityId()` · `parseEntityId()` · `entityIdToDate()` (v7 time sort)
+- Optional `@eristack/entity-id/drizzle` column helper
+- **Compose guide:** `@eristack/ai-knowledge#party-and-platform-compose` (not a sibling dep web)
 
 ---
 
@@ -164,7 +171,8 @@ Business capabilities composable into documents and ledgers.
 | `@eristack/partner` | Candidate | Business partner (supplier + customer roles) | address, contact | app masters |
 | `@eristack/item` | Candidate | Product + service, category tree | uom, entity-id | app catalogs |
 | `@eristack/accounting` | Candidate | COA assignments, posting rules, period control | coa, financial-ledger, pbac | GL apps |
-| `@eristack/tax` | Candidate | Tax codes, inclusive/exclusive on lines | money, qups | invoicing |
+| `@eristack/tax` | **Shipped** 0.0.0 | Tax codes + effective-dated rates | money, qups | invoicing |
+| `@eristack/rounding-policy` | **Shipped** 0.0.0 | Named profiles → money `Rounding` | money | GL, invoices |
 | `@eristack/payment-terms` | Candidate | Net 30, cash discount dates | timestamp, money | invoicing apps |
 | `@eristack/reporting` | **Candidate** | Query + run report jobs, snapshot rows | data-grid, epoch | DSL |
 | `@eristack/reporting-dsl` | **Candidate** | Dynamic report layout (bands, groups, aggregates) | reporting, money | print/PDF |
@@ -199,6 +207,13 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/scheduler` | Candidate | Cron/recurrence as data | timestamp | reporting jobs |
 | `@eristack/import-job` | Candidate | CSV/Excel master import pipeline | data-grid | migrations |
 | `@eristack/tenant-scope` | Candidate | Company/site scoping helpers for ABAC | abac | multi-company |
+| `@eristack/email-template` | **Shipped** 0.0.0 | `{{var}}` HTML/text render | — | comms, PDF |
+| `@eristack/idempotency` | **Shipped** 0.0.0 | Idempotency-Key guard + store | — | payments, comms POST |
+| `@eristack/api-key` | **Shipped** 0.0.0 | Generate/hash/verify API keys | — | partner B2B |
+| `@eristack/rate-limit` | **Shipped** 0.0.0 | Fixed-window limiter (memory v0) | — | edge middleware |
+| `@eristack/pdf-render` | **Shipped** 0.0.0 | HTML→PDF driver interface | — | invoices, reports |
+| `@eristack/spreadsheet-render` | **Shipped** 0.0.0 | Workbook model + xlsx/csv driver | — | list export |
+| `@eristack/health` | **Shipped** 0.0.0 | Liveness/readiness registry | — | k8s, Vercel |
 
 ---
 
@@ -212,6 +227,8 @@ Runtime glue, mock engines, HTTP shells.
 | `@eristack/ai-dev` | Shipped (0.x) | Plan/check/sync CLI + MCP | — | maintainer UX |
 | `@eristack/logger` | Planned | JSON lines, request context | — | prod REST |
 | `@eristack/rest` | Planned | Mount opinion routes on Express/Nest | opinion | examples |
+| `@eristack/drizzle-kit-helpers` | **Shipped** 0.0.0 | Shared drizzle-kit config snippets | — | monorepo DX |
+| `@eristack/vercel-adapters` | **Shipped** 0.0.0 | Serverless Express/Nest entry helpers | logger? | Vercel deploy |
 
 ---
 
@@ -252,14 +269,19 @@ Not dates — **waves** for reprioritization.
 ```text
 Wave 0  (now)     Spine hardening, ai-dev, document-ERP guides, Backseat B
 Wave 1  (strict)  opinion (REST) + rest + logger
-Wave 2  (ids)     entity-id (after Tiga Sekawan) + doc-transitions
-Wave 3  (masters) uom, address, contact, partner, item
-Wave 4  (finance) coa, accounting, fiscal-calendar, tax, payment-terms
-Wave 5  (UX)      design-system, doc-shell, form-kit
+Wave 2  (ids)     doc-transitions (shipped) + entity-id (Wave 13 E1)
+Wave 3  (masters) uom, address (shipped) → Wave 13 party + measures
+Wave 4  (finance) fiscal-calendar (shipped) → rounding-policy, tax, currency-pair, business-calendar
+Wave 5  (UX)      design-system, form-ui, list-shell, line-grid, doc-shell — see ui-package-stack WIP
 Wave 6  (report)  reporting → reporting-dsl → print-view
+Wave 13 (approved) Party A · measures B · platform C · identity/time E · money policy F · ops G
 ```
 
-**Parallel allowed:** design-system (Wave 5) can start during Wave 3 if tokens only; **opinion** should land before app HTTP scaffolding.
+**Wave 13 detail (approved 2026-09-27):** `_ai-docs/wip/wave13-party-platform/overview.md` · **Compose (one file):** `@eristack/ai-knowledge#party-and-platform-compose` · **Rule:** one npm package per PR.
+
+**Parallel allowed:** UI Tier 0 (`design-system`) during Wave 13 E1/A; **opinion** before app HTTP scaffolding.
+
+**Deferred inside Wave 13:** `@eristack/weight` / `@eristack/volume` — use `@eristack/uom` until typed aliases are justified.
 
 **Out of scope for near-term work:** shipping `@eristack/feature-*` npm packages — layer 06 is [under construction](./features.md). Apps compose the spine; horizontal capability drafts below remain in this catalog.
 
@@ -299,3 +321,4 @@ When a candidate promotes to Planned, add a row to [Priorities](./priorities.md)
 | --- | --- |
 | 2026-08-29 | Dropped Features layer and `@eristack/feature-*` planning — apps compose spine |
 | 2026-08-27 | Initial horizon catalog: opinion, entity-id, doc-transitions, masters, reporting, design-system, UI/UX rename, multi-maintainer, tRPC note |
+| 2026-09-27 | Wave 13 approved: 23 planned packages (party, platform, finance spine, health, vercel/drizzle DX); entity-id → Planned E1 |

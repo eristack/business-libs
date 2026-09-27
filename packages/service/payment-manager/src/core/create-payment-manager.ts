@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { generateEntityId } from "@eristack/entity-id";
 import {
   IdempotencyConflictError,
   InvalidPaymentInputError,
@@ -66,7 +66,7 @@ export function createPaymentManager(config: PaymentManagerConfig): PaymentManag
         metadata: input.metadata,
       });
 
-      const id = randomUUID();
+      const id = generateEntityId();
       return config.store.insertIntent({
         id,
         status: created.status,
@@ -133,7 +133,7 @@ export function createPaymentManager(config: PaymentManagerConfig): PaymentManag
       }
 
       const event = await config.store.appendGatewayEvent({
-        id: randomUUID(),
+        id: generateEntityId(),
         gateway,
         eventType: parsed.eventType,
         gatewayEventId: parsed.gatewayEventId,

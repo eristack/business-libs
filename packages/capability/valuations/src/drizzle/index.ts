@@ -15,6 +15,7 @@ import {
   sqliteTable,
   text as sqliteText,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import { moneyAmountColumn } from "@eristack/money/drizzle";
 import type { CostLayer } from "../core/methods.js";
 import type { LayerStore, ValuationKey } from "../core/create-valuations.js";
@@ -49,7 +50,7 @@ export function createValuationLayerTables(
   if (dialect === "pgsql") {
     return pgTable(`${prefix}_cost_layers`, {
       keyId: pgText("key_id").notNull(),
-      id: pgText("id").notNull(),
+      id: entityIdColumn("pgsql", "id").notNull(),
       qty: pgText("qty").notNull(),
       ...unitCostAmount,
       currency: pgVarchar("currency", { length: 16 }).notNull(),
@@ -61,7 +62,7 @@ export function createValuationLayerTables(
   if (dialect === "sqlite") {
     return sqliteTable(`${prefix}_cost_layers`, {
       keyId: sqliteText("key_id").notNull(),
-      id: sqliteText("id").notNull(),
+      id: entityIdColumn("sqlite", "id").notNull(),
       qty: sqliteText("qty").notNull(),
       ...unitCostAmount,
       currency: sqliteText("currency").notNull(),
@@ -72,7 +73,7 @@ export function createValuationLayerTables(
   }
   return mysqlTable(`${prefix}_cost_layers`, {
     keyId: mysqlVarchar("key_id", { length: 191 }).notNull(),
-    id: mysqlVarchar("id", { length: 64 }).notNull(),
+    id: entityIdColumn("mysql", "id").notNull(),
     qty: mysqlVarchar("qty", { length: 64 }).notNull(),
     ...unitCostAmount,
     currency: mysqlVarchar("currency", { length: 16 }).notNull(),

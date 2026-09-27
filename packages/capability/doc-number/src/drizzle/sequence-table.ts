@@ -18,6 +18,7 @@ import {
   integer as sqliteInteger,
   uniqueIndex as sqliteUniqueIndex,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import type { DrizzleDialect } from "./types.js";
 
 const DEFAULT_TABLE_NAME = "doc_number_sequences";
@@ -56,7 +57,7 @@ export function createPgsqlDocNumberSequenceTable(tableName = DEFAULT_TABLE_NAME
   return pgTable(
     tableName,
     {
-      id: pgText("id").primaryKey(),
+      id: entityIdColumn("pgsql", "id").primaryKey(),
       formatId: pgText("format_id").notNull(),
       periodKey: pgText("period_key").notNull(),
       scope: pgText("scope").notNull().default(""),
@@ -77,7 +78,7 @@ export function createMysqlDocNumberSequenceTable(tableName = DEFAULT_TABLE_NAME
   return mysqlTable(
     tableName,
     {
-      id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+      id: entityIdColumn("mysql", "id").primaryKey(),
       formatId: mysqlVarchar("format_id", { length: 64 }).notNull(),
       periodKey: mysqlVarchar("period_key", { length: 32 }).notNull(),
       scope: mysqlVarchar("scope", { length: 64 }).notNull().default(""),
@@ -98,7 +99,7 @@ export function createSqliteDocNumberSequenceTable(tableName = DEFAULT_TABLE_NAM
   return sqliteTable(
     tableName,
     {
-      id: sqliteText("id").primaryKey(),
+      id: entityIdColumn("sqlite", "id").primaryKey(),
       formatId: sqliteText("format_id").notNull(),
       periodKey: sqliteText("period_key").notNull(),
       scope: sqliteText("scope").notNull().default(""),

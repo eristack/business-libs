@@ -1,0 +1,7 @@
+package: "@eristack/api-key"
+title: api-key
+maintainers:
+  - support@eristack.dev
+scope: B2B API keys (Wave 13 C3).
+skills:
+  - api-key-core

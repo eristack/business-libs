@@ -1,0 +1,9 @@
+package: "@eristack/geo"
+title: geo
+maintainers:
+  - support@eristack.dev
+scope: >
+  Lat/lng decimal strings, haversine km distance (Wave 13 B2).
+outOfScope: Geocoding, map tiles, routing APIs.
+skills:
+  - geo-core

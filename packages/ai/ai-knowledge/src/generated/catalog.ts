@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-26T12:32:01.775Z",
+  "generatedAt": "2026-09-27T06:30:58.774Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -127,6 +127,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/api-key",
+      "version": "0.0.0",
+      "description": "Generate, hash, and timing-safe verify API keys for partner B2B routes",
+      "slug": "api-key",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "api-key-core",
+          "name": "api-key-core",
+          "packageName": "@eristack/api-key",
+          "description": "@eristack/api-key — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/api-key#api-key-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/backseat",
       "version": "0.1.8",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
@@ -152,6 +169,42 @@ export const catalog = {
           "description": "@eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/business-calendar",
+      "version": "0.0.0",
+      "description": "Business days and holidays on YYYY-MM-DD wall dates — no timestamp import in core",
+      "slug": "business-calendar",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "business-calendar-core",
+          "name": "business-calendar-core",
+          "packageName": "@eristack/business-calendar",
+          "description": "@eristack/business-calendar createBusinessCalendar, isBusinessDay, addBusinessDays on YYYY-MM-DD wall dates (Wave 13 E2).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/checksum",
+      "version": "0.0.0",
+      "description": "SHA-256 hex normalize and constant-time compare for exports and file refs",
+      "slug": "checksum",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "checksum-core",
+          "name": "checksum-core",
+          "packageName": "@eristack/checksum",
+          "description": "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals — Wave 13 E3.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
         }
       ]
     },
@@ -194,6 +247,42 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/contact",
+      "version": "0.0.0",
+      "description": "Contact roles and channel list normalization on a party — compose with person/phone/email",
+      "slug": "contact",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "contact-core",
+          "name": "contact-core",
+          "packageName": "@eristack/contact",
+          "description": "@eristack/contact channel list + primary — Wave 13 A3.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/contact#contact-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/currency-pair",
+      "version": "0.0.0",
+      "description": "Base/quote currency pair validation and canonical pair keys — no FX rates",
+      "slug": "currency-pair",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "currency-pair-core",
+          "name": "currency-pair-core",
+          "packageName": "@eristack/currency-pair",
+          "description": "@eristack/currency-pair normalizeCurrencyPair, formatPairKey, invertPair — Wave 13 F1.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/data-grid",
       "version": "0.2.6",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
@@ -226,6 +315,25 @@ export const catalog = {
           "description": "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), decimal/money field types for string amount sort/filter without Number(), toSearch/fromSearch, advanced vs search modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/dimension",
+      "version": "0.0.0",
+      "description": "L×W×H dimension triple as decimal strings — cubic volume, optional unit label",
+      "slug": "dimension",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "dimension-core",
+          "name": "dimension-core",
+          "packageName": "@eristack/dimension",
+          "description": "@eristack/dimension normalizeDimension, dimensionVolume, formatDimension — L×W×H decimal strings (Wave 13 B1). Optional unit label; pair with uom in the app.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
         }
       ]
     },
@@ -279,6 +387,79 @@ export const catalog = {
           "description": "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/drizzle-kit-helpers",
+      "version": "0.0.0",
+      "description": "Shared drizzle-kit config fragments for Eristack consumer monorepos (pg prod, sqlite tests)",
+      "slug": "drizzle-kit-helpers",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "drizzle-kit-helpers-core",
+          "name": "drizzle-kit-helpers-core",
+          "packageName": "@eristack/drizzle-kit-helpers",
+          "description": "@eristack/drizzle-kit-helpers — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/drizzle-kit-helpers#drizzle-kit-helpers-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/email-address",
+      "version": "0.0.0",
+      "description": "Normalized email local@domain strings for contact channels",
+      "slug": "email-address",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "email-address-core",
+          "name": "email-address-core",
+          "packageName": "@eristack/email-address",
+          "description": "@eristack/email-address normalizeEmail — Wave 13 party spine.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-address#email-address-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/email-template",
+      "version": "0.0.0",
+      "description": "{{var}} HTML/text email template render and key extraction — pair with @eristack/comms",
+      "slug": "email-template",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "email-template-core",
+          "name": "email-template-core",
+          "packageName": "@eristack/email-template",
+          "description": "@eristack/email-template renderEmailTemplate and extractTemplateKeys — Wave 13 C1.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-template#email-template-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/entity-id",
+      "version": "0.0.0",
+      "description": "UUID v7 entity identifiers — sortable, parseable, Drizzle column helper",
+      "slug": "entity-id",
+      "adapters": [
+        "drizzle",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "entity-id-core",
+          "name": "entity-id-core",
+          "packageName": "@eristack/entity-id",
+          "description": "@eristack/entity-id UUID v7 generate/parse/compare, entityIdToDate, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables. Wave 13 E1; no sibling deps.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
         }
       ]
     },
@@ -406,6 +587,44 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/fraction",
+      "version": "0.0.0",
+      "description": "Exact rational numbers as reduced fractions — string numerators/denominators, no float literals",
+      "slug": "fraction",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "fraction-core",
+          "name": "fraction-core",
+          "packageName": "@eristack/fraction",
+          "description": "@eristack/fraction exact rationals as reduced num/den strings — parse n/d and mixed numbers, exact arithmetic, approximateFraction for irrationals/decimals with max denominator. Not float math.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fraction#fraction-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/geo",
+      "version": "0.0.0",
+      "description": "Latitude and longitude as decimal strings — normalize and haversine distance",
+      "slug": "geo",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "geo-core",
+          "name": "geo-core",
+          "packageName": "@eristack/geo",
+          "description": "@eristack/geo normalizeGeoPoint, geoDistanceKm — lat/lng decimal strings (Wave 13 B2). No geocoding in core.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/hash-chained-ledger",
       "version": "0.1.3",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
@@ -432,6 +651,43 @@ export const catalog = {
           "description": "Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/health",
+      "version": "0.0.0",
+      "description": "Liveness and readiness health check registry with Express and Nest mount helpers",
+      "slug": "health",
+      "adapters": [
+        "express",
+        "nest"
+      ],
+      "skills": [
+        {
+          "id": "health-core",
+          "name": "health-core",
+          "packageName": "@eristack/health",
+          "description": "@eristack/health — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/health#health-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/idempotency",
+      "version": "0.0.0",
+      "description": "Idempotency-Key guard and store interface — memory store for tests; Drizzle in a later iteration",
+      "slug": "idempotency",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "idempotency-core",
+          "name": "idempotency-core",
+          "packageName": "@eristack/idempotency",
+          "description": "@eristack/idempotency createIdempotencyGuard and memory store — Wave 13 C2.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-core"
         }
       ]
     },
@@ -716,6 +972,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/pdf-render",
+      "version": "0.0.0",
+      "description": "HTML to PDF driver interface — Puppeteer/Playwright stays in the app or optional adapter",
+      "slug": "pdf-render",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "pdf-render-core",
+          "name": "pdf-render-core",
+          "packageName": "@eristack/pdf-render",
+          "description": "@eristack/pdf-render — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pdf-render#pdf-render-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/percent",
       "version": "0.1.1",
       "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
@@ -731,6 +1004,44 @@ export const catalog = {
           "description": "@eristack/percent ratio strings, basis points, percentOf/plus/minus for tax and discounts without float literals. Use before @eristack/money rounding at boundaries.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/percent#percent-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/person",
+      "version": "0.0.0",
+      "description": "Structured person name and gender identity — normalize and display, not HRIS",
+      "slug": "person",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "person-core",
+          "name": "person-core",
+          "packageName": "@eristack/person",
+          "description": "@eristack/person normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES, personSchema — Wave 13 party spine. Compose with phone/email/contact at app boundary.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/person#person-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/phone",
+      "version": "0.0.0",
+      "description": "E.164 phone normalization — strict plus prefix, no libphonenumber in core",
+      "slug": "phone",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "phone-core",
+          "name": "phone-core",
+          "packageName": "@eristack/phone",
+          "description": "@eristack/phone E.164 normalizeE164 — Wave 13 party spine.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/phone#phone-core"
         }
       ]
     },
@@ -769,6 +1080,23 @@ export const catalog = {
           "description": "@eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money. Use for invoice/order lines in the business layer — not float math in React.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/rate-limit",
+      "version": "0.0.0",
+      "description": "Fixed-window in-memory rate limiter — Redis adapter in app or later package",
+      "slug": "rate-limit",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "rate-limit-core",
+          "name": "rate-limit-core",
+          "packageName": "@eristack/rate-limit",
+          "description": "@eristack/rate-limit — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rate-limit#rate-limit-core"
         }
       ]
     },
@@ -826,6 +1154,40 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/rounding-policy",
+      "version": "0.0.0",
+      "description": "Named rounding profiles that resolve to @eristack/money Rounding operators",
+      "slug": "rounding-policy",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "rounding-policy-core",
+          "name": "rounding-policy-core",
+          "packageName": "@eristack/rounding-policy",
+          "description": "@eristack/rounding-policy createRoundingPolicyRegistry and roundingFor → money Rounding (Wave 13 F2).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rounding-policy#rounding-policy-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/spreadsheet-render",
+      "version": "0.0.0",
+      "description": "Declarative workbook model and xlsx/csv render drivers — ExcelJS/SheetJS in app or adapter",
+      "slug": "spreadsheet-render",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "spreadsheet-render-core",
+          "name": "spreadsheet-render-core",
+          "packageName": "@eristack/spreadsheet-render",
+          "description": "@eristack/spreadsheet-render — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/spreadsheet-render#spreadsheet-render-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/stock-movement",
       "version": "0.1.3",
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
@@ -852,6 +1214,23 @@ export const catalog = {
           "description": "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/tax",
+      "version": "0.0.0",
+      "description": "Tax code registry and effective-dated rates — math via @eristack/money Tax ops",
+      "slug": "tax",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "tax-core",
+          "name": "tax-core",
+          "packageName": "@eristack/tax",
+          "description": "@eristack/tax createTaxRegistry, resolveTaxRate, applyTaxToAmount — Wave 13 F3; math via money Tax ops.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/tax#tax-core"
         }
       ]
     },
@@ -953,6 +1332,23 @@ export const catalog = {
           "description": "@eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/movingAverage/weightedAverage/ standardCost/specificIdentification with dual qty/value hash chains. Default stores are Drizzle ledger + Drizzle layers — memory is tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/vercel-adapters",
+      "version": "0.0.0",
+      "description": "Serverless-friendly Express entry helpers for Vercel — no Vercel SDK in core",
+      "slug": "vercel-adapters",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "vercel-adapters-core",
+          "name": "vercel-adapters-core",
+          "packageName": "@eristack/vercel-adapters",
+          "description": "@eristack/vercel-adapters — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/vercel-adapters#vercel-adapters-core"
         }
       ]
     }

@@ -1,0 +1,9 @@
+package: "@eristack/dimension"
+title: dimension
+maintainers:
+  - support@eristack.dev
+scope: >
+  L×W×H decimal string triple, cubic volume, optional unit label (Wave 13 B1).
+outOfScope: Unit conversion, freight rating, 3D packing optimization.
+skills:
+  - dimension-core

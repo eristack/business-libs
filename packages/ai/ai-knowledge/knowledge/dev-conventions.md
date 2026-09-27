@@ -39,6 +39,18 @@ Supporting norms:
 
 Category order (docs + filesystem): primitive → registries → capability → service → infrastructure → ui → features → AI.
 
+## Lockfile (pnpm)
+
+GitHub CI runs **`pnpm install --frozen-lockfile`** before any tests. Any workspace **`package.json`** change (including `examples/*`) must ship an updated **`pnpm-lock.yaml`** in the same PR.
+
+| Step | Command |
+| --- | --- |
+| Refresh lockfile after dep edits | `pnpm lockfile:sync` or `pnpm eristack sync deps` |
+| Verify locally / catalog CI | `pnpm lockfile:check` or `pnpm eristack sync deps --check` |
+| Bundled drift before push | `pnpm prepush` (publish, changesets, debottleneck overlap budget, lockfile, docs, knowledge, ticket) |
+
+`eristack plan --json` adds **`sync deps`** when changed paths include `package.json`.
+
 ## Branching and releases
 
 - **GitHub Flow** — feature branches from `main`, PRs into `main` only

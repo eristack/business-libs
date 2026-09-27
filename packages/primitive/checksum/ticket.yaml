@@ -1,0 +1,8 @@
+package: "@eristack/checksum"
+title: checksum
+maintainers:
+  - support@eristack.dev
+scope: SHA-256 hex for exports and file integrity (Wave 13 E3).
+outOfScope: Streaming hash of multi-GB files — app may wrap crypto.
+skills:
+  - checksum-core

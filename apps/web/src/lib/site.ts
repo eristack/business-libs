@@ -223,6 +223,41 @@ const total = Money.of("19.99", "USD")
     },
   },
   {
+    slug: "currency-pair",
+    name: "@eristack/currency-pair",
+    title: "Currency pair",
+    category: "primitive" as const,
+    directory: "packages/primitive/currency-pair",
+    href: "/currency-pair",
+    docsHref: "/docs/currency-pair",
+    tagline: "Validate BASE/QUOTE keys — no FX rates in v0.",
+    description:
+      "normalizeCurrencyPair uses @eristack/money registry codes, rejects same-currency pairs, formatPairKey for rate-table PKs. Wave 13 F1.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/currency-pair",
+    highlights: [
+      {
+        title: "Registry-backed",
+        body: "Unknown ISO codes fail at normalize — same catalog as Money.of.",
+      },
+      {
+        title: "Canonical keys",
+        body: "formatPairKey → USD/IDR for Drizzle unique indexes.",
+      },
+      {
+        title: "Invert",
+        body: "invertPair swaps base and quote for display vs settlement direction.",
+      },
+    ],
+    sample: {
+      filename: "pair.ts",
+      language: "ts",
+      code: `import { normalizeCurrencyPair, formatPairKey } from "@eristack/currency-pair"
+
+formatPairKey(normalizeCurrencyPair("usd", "idr"))`,
+    },
+  },
+  {
     slug: "timestamp",
     name: "@eristack/timestamp",
     title: "Timestamp",
@@ -333,6 +368,79 @@ percentOf("100", vat) // "11"`,
     },
   },
   {
+    slug: "fraction",
+    name: "@eristack/fraction",
+    title: "Fraction",
+    category: "primitive" as const,
+    directory: "packages/primitive/fraction",
+    href: "/fraction",
+    docsHref: "/docs/fraction",
+    tagline: "Exact rationals as reduced fractions — recipe yields and BOM ratios.",
+    description:
+      "Integer string numerators and denominators with exact arithmetic. approximateFraction and convergentFraction for decimals and irrationals under a max denominator. Complements @eristack/percent (tax rates) and @eristack/uom (unit conversion). Optional ./zod.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/fraction",
+    highlights: [
+      {
+        title: "Exact rationals",
+        body: "1/3 + 1/6 = 1/2 with BigInt normalization — no 0.333 float literals.",
+      },
+      {
+        title: "Human parse",
+        body: 'Accept "3/4", mixed "1 1/2", and integers as domain values.',
+      },
+      {
+        title: "Irrational bounds",
+        body: "approximateFraction / convergentFraction with maxDenominator when input is decimal or √2, π.",
+      },
+    ],
+    sample: {
+      filename: "fraction.ts",
+      language: "ts",
+      code: `import { parseFraction, addFraction, formatFraction } from "@eristack/fraction"
+
+formatFraction(
+  addFraction(parseFraction("1/3"), parseFraction("1/6")),
+) // "1/2"`,
+    },
+  },
+  {
+    slug: "business-calendar",
+    name: "@eristack/business-calendar",
+    title: "Business calendar",
+    category: "primitive" as const,
+    directory: "packages/primitive/business-calendar",
+    href: "/business-calendar",
+    docsHref: "/docs/business-calendar",
+    tagline: "Working days and holidays on YYYY-MM-DD wall dates.",
+    description:
+      "createBusinessCalendar with weekend mask and holiday list — isBusinessDay, addBusinessDays, nextBusinessDay. Wave 13 E2 — compose with fiscal-calendar for posting guards.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/business-calendar",
+    highlights: [
+      {
+        title: "Wall dates only",
+        body: "Core uses YYYY-MM-DD strings — no @eristack/timestamp import required.",
+      },
+      {
+        title: "SLA math",
+        body: "addBusinessDays skips weekends and configured holidays.",
+      },
+      {
+        title: "Fiscal compose",
+        body: "Business day ∧ open fiscal period checks live in the app handler.",
+      },
+    ],
+    sample: {
+      filename: "business-calendar.ts",
+      language: "ts",
+      code: `import { createBusinessCalendar } from "@eristack/business-calendar"
+
+const cal = createBusinessCalendar({ weekendDays: [0, 6], holidays: ["2026-01-01"] })
+cal.addBusinessDays("2026-01-02", 1)`,
+    },
+  },
+  {
     slug: "fiscal-calendar",
     name: "@eristack/fiscal-calendar",
     title: "Fiscal Calendar",
@@ -406,6 +514,259 @@ const addr = normalizeAddress({
   countryCode: "id",
 })
 formatAddressOneLine(addr)`,
+    },
+  },
+  {
+    slug: "checksum",
+    name: "@eristack/checksum",
+    title: "Checksum",
+    category: "primitive" as const,
+    directory: "packages/primitive/checksum",
+    href: "/checksum",
+    docsHref: "/docs/checksum",
+    tagline: "SHA-256 hex for exports and file integrity.",
+    description:
+      "sha256Hex on UTF-8 or bytes, normalizeChecksumHex storage, timing-safe checksumEquals. Wave 13 E3 — pair with file-manager metadata in the app.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/checksum",
+    highlights: [
+      {
+        title: "Node crypto",
+        body: "SHA-256 in core — no extra hash dependencies.",
+      },
+      {
+        title: "Normalize hex",
+        body: "Lowercase even-length digests for stable DB unique constraints.",
+      },
+      {
+        title: "Safe compare",
+        body: "checksumEquals uses timingSafeEqual on decoded bytes.",
+      },
+    ],
+    sample: {
+      filename: "checksum.ts",
+      language: "ts",
+      code: `import { sha256Hex, checksumEquals } from "@eristack/checksum"
+
+const digest = sha256Hex("export payload")
+checksumEquals(stored, digest)`,
+    },
+  },
+  {
+    slug: "dimension",
+    name: "@eristack/dimension",
+    title: "Dimension",
+    category: "primitive" as const,
+    directory: "packages/primitive/dimension",
+    href: "/dimension",
+    docsHref: "/docs/dimension",
+    tagline: "L×W×H as decimal strings — cubic volume without float math.",
+    description:
+      "Normalize length, width, and height as positive decimal strings, compute L×W×H volume, and optional unit label for logistics. Wave 13 B1 — pair with @eristack/uom in the app; no hard dep on uom.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/dimension",
+    highlights: [
+      {
+        title: "String-first sides",
+        body: "Same canonical decimals in forms, API JSON, and Drizzle — no Number() on edges.",
+      },
+      {
+        title: "Cubic volume",
+        body: "dimensionVolume multiplies normalized sides with configurable decimal scale.",
+      },
+      {
+        title: "Optional unit label",
+        body: "Store display unit text; validate against uom master in the app.",
+      },
+    ],
+    sample: {
+      filename: "dimension.ts",
+      language: "ts",
+      code: `import { normalizeDimension, dimensionVolume } from "@eristack/dimension"
+
+const box = normalizeDimension({ length: "60", width: "40", height: "30", unit: "cm" })
+dimensionVolume(box)`,
+    },
+  },
+  {
+    slug: "geo",
+    name: "@eristack/geo",
+    title: "Geo",
+    category: "primitive" as const,
+    directory: "packages/primitive/geo",
+    href: "/geo",
+    docsHref: "/docs/geo",
+    tagline: "Lat/lng decimal strings — haversine distance in km.",
+    description:
+      "Normalize latitude and longitude bounds, compute great-circle distance with decimal.js. Wave 13 B2 — no geocoding; pair with @eristack/address for postal facts.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/geo",
+    highlights: [
+      {
+        title: "Bounded parse",
+        body: "Reject out-of-range lat/lng at normalize — same strings in API and DB.",
+      },
+      {
+        title: "Haversine km",
+        body: "geoDistanceKm for depot radius and lane checks — not driving routes.",
+      },
+      {
+        title: "No geocoder",
+        body: "Forward/reverse geocode in the app; this package stores coordinates only.",
+      },
+    ],
+    sample: {
+      filename: "geo.ts",
+      language: "ts",
+      code: `import { normalizeGeoPoint, geoDistanceKm } from "@eristack/geo"
+
+const a = normalizeGeoPoint({ latitude: "-6.2", longitude: "106.8" })
+geoDistanceKm(a, { latitude: "1.35", longitude: "103.82" })`,
+    },
+  },
+  {
+    slug: "entity-id",
+    name: "@eristack/entity-id",
+    title: "Entity ID",
+    category: "primitive" as const,
+    directory: "packages/primitive/entity-id",
+    href: "/entity-id",
+    docsHref: "/docs/entity-id",
+    tagline: "UUID v7 primary keys — sortable, strict parse, Drizzle defaults.",
+    description:
+      "Generate and parse RFC 9562 UUID v7 entity ids for ERP tables. compareEntityIds for time-ordered lists; entityIdColumn for Postgres uuid / sqlite text. Wave 13 E1 — pairs with doc-number for display numbers.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/entity-id",
+    highlights: [
+      {
+        title: "Time-sortable PK",
+        body: "List by id without a separate created_at index when rows are inserted in real time.",
+      },
+      {
+        title: "Strict v7",
+        body: "parseEntityId rejects legacy v4 — canonical lowercase hyphenated storage.",
+      },
+      {
+        title: "Drizzle default",
+        body: "entityIdColumn(dialect, \"id\").primaryKey() wires $defaultFn(() => generateEntityId()).",
+      },
+    ],
+    sample: {
+      filename: "entity-id.ts",
+      language: "ts",
+      code: `import { generateEntityId, parseEntityId } from "@eristack/entity-id"
+import { entityIdColumn } from "@eristack/entity-id/drizzle"
+
+const id = generateEntityId()
+parseEntityId(id)
+
+// id: entityIdColumn("pgsql", "id").primaryKey()`,
+    },
+  },
+  {
+    slug: "person",
+    name: "@eristack/person",
+    title: "Person",
+    category: "primitive" as const,
+    directory: "packages/primitive/person",
+    href: "/person",
+    docsHref: "/docs/person",
+    tagline: "Structured person names and gender identity — not HRIS.",
+    description:
+      "normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES enum. Wave 13 A1 — compose with phone, email-address, contact at the API boundary.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/person",
+    highlights: [
+      { title: "Normalize once", body: "Trim given/family; validate genderOther when gender is other." },
+      { title: "Display vs sort", body: "formatPersonDisplay for labels; formatPersonSortable for directories." },
+      { title: "Compose", body: "No sibling deps — party pipeline in #party-and-platform-compose." },
+    ],
+    sample: {
+      filename: "person.ts",
+      language: "ts",
+      code: `import { normalizePerson, formatPersonDisplay } from "@eristack/person"
+
+formatPersonDisplay(normalizePerson({
+  name: { given: "Ada", family: "Lovelace" },
+}))`,
+    },
+  },
+  {
+    slug: "phone",
+    name: "@eristack/phone",
+    title: "Phone",
+    category: "primitive" as const,
+    directory: "packages/primitive/phone",
+    href: "/phone",
+    docsHref: "/docs/phone",
+    tagline: "Strict E.164 phone normalization.",
+    description: "normalizeE164 strips formatting and validates ITU length. Wave 13 A2 — no libphonenumber in core.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/phone",
+    highlights: [
+      { title: "Plus required", body: "Reject national-only strings — full international input at boundary." },
+      { title: "Zod", body: "e164PhoneSchema for HTTP bodies." },
+      { title: "Contact channels", body: "Pair with @eristack/contact after normalize." },
+    ],
+    sample: {
+      filename: "phone.ts",
+      language: "ts",
+      code: `import { normalizeE164 } from "@eristack/phone"
+
+normalizeE164("+1 (415) 555-0100")`,
+    },
+  },
+  {
+    slug: "email-address",
+    name: "@eristack/email-address",
+    title: "Email address",
+    category: "primitive" as const,
+    directory: "packages/primitive/email-address",
+    href: "/email-address",
+    docsHref: "/docs/email-address",
+    tagline: "Normalized local@domain strings.",
+    description: "normalizeEmail lowercases domain; parseEmailAddress splits parts. Wave 13 A2 — not SMTP.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/email-address",
+    highlights: [
+      { title: "Stable storage", body: "Canonical lowercase address for unique indexes." },
+      { title: "emailEquals", body: "Case-insensitive compare after normalize." },
+      { title: "Comms", body: "Send via @eristack/comms after normalize." },
+    ],
+    sample: {
+      filename: "email.ts",
+      language: "ts",
+      code: `import { normalizeEmail } from "@eristack/email-address"
+
+normalizeEmail("User@Example.COM")`,
+    },
+  },
+  {
+    slug: "contact",
+    name: "@eristack/contact",
+    title: "Contact",
+    category: "primitive" as const,
+    directory: "packages/primitive/contact",
+    href: "/contact",
+    docsHref: "/docs/contact",
+    tagline: "Contact roles and channel lists on a party.",
+    description:
+      "normalizeContactList enforces one primary channel and roles. Wave 13 A3 — phone/email/person normalized upstream.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/contact",
+    highlights: [
+      { title: "Roles", body: "billing, shipping, technical, sales, general, other." },
+      { title: "Primary", body: "At most one isPrimary; primaryContact helper." },
+      { title: "Compose", body: "Recipe party-contact-normalize lists load order." },
+    ],
+    sample: {
+      filename: "contact.ts",
+      language: "ts",
+      code: `import { normalizeContactList } from "@eristack/contact"
+
+normalizeContactList({
+  channels: [{ role: "general", email: "a@b.com", isPrimary: true }],
+})`,
     },
   },
   {
@@ -687,6 +1048,60 @@ await fin.post({
     },
   },
   {
+    slug: "rounding-policy",
+    name: "@eristack/rounding-policy",
+    title: "Rounding policy",
+    category: "capability" as const,
+    directory: "packages/capability/rounding-policy",
+    href: "/rounding-policy",
+    docsHref: "/docs/rounding-policy",
+    tagline: "Named rounding profiles → money operators.",
+    description:
+      "createRoundingPolicyRegistry and roundingFor map company policy ids to @eristack/money Rounding at ledger and invoice boundaries (Wave 13 F2).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rounding-policy",
+    highlights: [
+      { title: "No duplicate math", body: "Policies select scale/mode; money owns rounding." },
+      { title: "Per currency", body: "Optional currencyOverrides on each policy." },
+      { title: "Compose", body: "Recipe ledger-rounding-policy with tax and qups post." },
+    ],
+    sample: {
+      filename: "rounding.ts",
+      language: "ts",
+      code: `import { createRoundingPolicyRegistry } from "@eristack/rounding-policy"
+
+const reg = createRoundingPolicyRegistry([{ id: "ledger" }])
+reg.roundingFor({ policyId: "ledger", currency: "USD" })`,
+    },
+  },
+  {
+    slug: "tax",
+    name: "@eristack/tax",
+    title: "Tax",
+    category: "capability" as const,
+    directory: "packages/capability/tax",
+    href: "/tax",
+    docsHref: "/docs/tax",
+    tagline: "Tax codes and effective-dated rates.",
+    description:
+      "createTaxRegistry, resolveTaxRate by wall date, applyTaxToAmount via money Tax ops — Wave 13 F3; qups keeps line math.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/tax",
+    highlights: [
+      { title: "Master data", body: "Codes + rate schedules; app persists in Drizzle." },
+      { title: "asOf lookup", body: "Latest effectiveFrom on or before transaction date." },
+      { title: "Recipe", body: "invoice-line-tax with qups + money." },
+    ],
+    sample: {
+      filename: "tax.ts",
+      language: "ts",
+      code: `import { createTaxRegistry } from "@eristack/tax"
+
+const tax = createTaxRegistry()
+tax.resolveTaxRate({ code: "VAT-STD", asOf: "2026-06-01" })`,
+    },
+  },
+  {
     slug: "valuations",
     name: "@eristack/valuations",
     title: "Valuations",
@@ -810,6 +1225,33 @@ const query = fromSearch(search, schema)`,
     },
   },
   {
+    slug: "idempotency",
+    name: "@eristack/idempotency",
+    title: "Idempotency",
+    category: "service" as const,
+    directory: "packages/service/idempotency",
+    href: "/idempotency",
+    docsHref: "/docs/idempotency",
+    tagline: "Idempotency-Key guard for POST replay safety.",
+    description:
+      "createIdempotencyGuard(store).run(key, fn) replays completed responses. Wave 13 C2 — memory store for tests; Drizzle in production.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/idempotency",
+    highlights: [
+      { title: "Replay", body: "Completed keys return stored result without re-running fn." },
+      { title: "Conflict", body: "Pending duplicate keys raise IdempotencyConflictError." },
+      { title: "Payments/comms", body: "Third in platform-api-guard middleware order." },
+    ],
+    sample: {
+      filename: "idempotency.ts",
+      language: "ts",
+      code: `import { createIdempotencyGuard, createMemoryIdempotencyStore } from "@eristack/idempotency"
+
+const guard = createIdempotencyGuard(createMemoryIdempotencyStore())
+await guard.run(idempotencyKey, () => charge())`,
+    },
+  },
+  {
     slug: "jwt-auth",
     name: "@eristack/jwt-auth",
     title: "JWT Auth",
@@ -885,6 +1327,32 @@ const consumer = createOAuthConsumer({
   allowedRedirectUris: [redirectUri],
 })
 app.use("/oauth", createOAuthConsumerRouter({ consumer, onCallback }))`,
+    },
+  },
+  {
+    slug: "email-template",
+    name: "@eristack/email-template",
+    title: "Email template",
+    category: "service" as const,
+    directory: "packages/service/email-template",
+    href: "/email-template",
+    docsHref: "/docs/email-template",
+    tagline: "{{var}} HTML and text bodies before comms send.",
+    description:
+      "extractTemplateKeys and renderEmailTemplate with optional HTML escape. Wave 13 C1 — compose with @eristack/comms in the app; no SMTP in core.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/email-template",
+    highlights: [
+      { title: "{{var}} keys", body: "extractTemplateKeys for validation before send." },
+      { title: "HTML escape", body: "escapeHtml option for HTML bodies." },
+      { title: "Comms pair", body: "Render in handler, pass body to @eristack/comms." },
+    ],
+    sample: {
+      filename: "template.ts",
+      language: "ts",
+      code: `import { renderEmailTemplate } from "@eristack/email-template"
+
+const body = renderEmailTemplate("Hi {{name}}", { name: "Ada" }, { escapeHtml: true })`,
     },
   },
   {
@@ -969,6 +1437,60 @@ await rbac.can(userId, "orders.create")`,
     },
   },
   {
+    slug: "rate-limit",
+    name: "@eristack/rate-limit",
+    title: "Rate limit",
+    category: "service" as const,
+    directory: "packages/service/rate-limit",
+    href: "/rate-limit",
+    docsHref: "/docs/rate-limit",
+    tagline: "Fixed-window limiter for API edge.",
+    description:
+      "createRateLimiter({ windowMs, max }).check(key). Wave 13 C4 — memory for tests; Redis at app edge in production.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rate-limit",
+    highlights: [
+      { title: "Fixed window", body: "Simple allowed/remaining/resetAt result." },
+      { title: "First guard", body: "First middleware in platform-api-guard." },
+      { title: "No Redis in core", body: "App or future adapter for distributed limits." },
+    ],
+    sample: {
+      filename: "rate-limit.ts",
+      language: "ts",
+      code: `import { createRateLimiter } from "@eristack/rate-limit"
+
+const limiter = createRateLimiter({ windowMs: 60_000, max: 100 })
+limiter.check(clientIp)`,
+    },
+  },
+  {
+    slug: "spreadsheet-render",
+    name: "@eristack/spreadsheet-render",
+    title: "Spreadsheet render",
+    category: "service" as const,
+    directory: "packages/service/spreadsheet-render",
+    href: "/spreadsheet-render",
+    docsHref: "/docs/spreadsheet-render",
+    tagline: "Workbook model and xlsx/csv export drivers.",
+    description:
+      "workbookFromRows, createSpreadsheetRenderer, createStubSpreadsheetDriver. Wave 13 C6 — ExcelJS/SheetJS in app or future adapter.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/spreadsheet-render",
+    highlights: [
+      { title: "String cells", body: "Format money/timestamps in app before render." },
+      { title: "CSV stub", body: "Real CSV from stub driver for tests." },
+      { title: "List export", body: "Recipe spreadsheet-export-download." },
+    ],
+    sample: {
+      filename: "export.ts",
+      language: "ts",
+      code: `import { workbookFromRows, createSpreadsheetRenderer, createStubSpreadsheetDriver } from "@eristack/spreadsheet-render"
+
+const wb = workbookFromRows("Sheet1", [{ key: "id", header: "ID" }], [["1"]])
+await createSpreadsheetRenderer(createStubSpreadsheetDriver()).renderWorkbook(wb, "csv")`,
+    },
+  },
+  {
     slug: "abac",
     name: "@eristack/abac",
     title: "ABAC",
@@ -1011,6 +1533,33 @@ abac.registerPolicy({
     },
   },
   {
+    slug: "api-key",
+    name: "@eristack/api-key",
+    title: "API key",
+    category: "service" as const,
+    directory: "packages/service/api-key",
+    href: "/api-key",
+    docsHref: "/docs/api-key",
+    tagline: "Generate, hash, and verify partner API keys.",
+    description:
+      "generateApiKey, hashApiKey, and timing-safe verifyApiKey with optional pepper. Wave 13 C3 — persist hashes in Drizzle; recipe platform-api-guard.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/api-key",
+    highlights: [
+      { title: "Show once", body: "Return raw key once; store hash + keyId in SQL." },
+      { title: "Pepper", body: "Optional server pepper mixed into SHA-256." },
+      { title: "B2B stack", body: "After rate-limit, before idempotency middleware." },
+    ],
+    sample: {
+      filename: "api-key.ts",
+      language: "ts",
+      code: `import { generateApiKey, hashApiKey, verifyApiKey } from "@eristack/api-key"
+
+const { key } = generateApiKey()
+verifyApiKey(key, hashApiKey(key, pepper), pepper)`,
+    },
+  },
+  {
     slug: "pbac",
     name: "@eristack/pbac",
     title: "PBAC",
@@ -1047,6 +1596,32 @@ pbac.registerPolicy({
   id: "job.can-submit",
   evaluate: documents.positiveAmount("totalMinor"),
 })`,
+    },
+  },
+  {
+    slug: "pdf-render",
+    name: "@eristack/pdf-render",
+    title: "PDF render",
+    category: "service" as const,
+    directory: "packages/service/pdf-render",
+    href: "/pdf-render",
+    docsHref: "/docs/pdf-render",
+    tagline: "HTML→PDF driver interface — no Puppeteer in core.",
+    description:
+      "createPdfRenderer(driver) and createStubPdfDriver for tests. Wave 13 C5 — install browser PDF engine in the app.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/pdf-render",
+    highlights: [
+      { title: "Driver pattern", body: "Same shape as spreadsheet-render exports." },
+      { title: "Stub", body: "Deterministic bytes for unit tests." },
+      { title: "Invoices", body: "Pair with email-template + comms for outbound PDF." },
+    ],
+    sample: {
+      filename: "pdf.ts",
+      language: "ts",
+      code: `import { createPdfRenderer, createStubPdfDriver } from "@eristack/pdf-render"
+
+await createPdfRenderer(createStubPdfDriver()).render({ html: "<p>Hi</p>" })`,
     },
   },
   {
@@ -1087,6 +1662,34 @@ const ledger = createHashChainedLedger({
 })
 await ledger.append({ chainId: "demo", openingBalance: "0", inAmount: "10", entryType: "receipt", entryTypeId: "r1" })
 await ledger.verify("demo")`,
+    },
+  },
+  {
+    slug: "health",
+    name: "@eristack/health",
+    title: "Health",
+    category: "service" as const,
+    directory: "packages/service/health",
+    href: "/health",
+    docsHref: "/docs/health",
+    tagline: "Liveness and readiness check registry.",
+    description:
+      "createHealthRegistry, registerCheck, Express and Nest handlers. Wave 13 G1 — app supplies Drizzle ping checks; 503 when readiness fails.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/health",
+    highlights: [
+      { title: "/health", body: "Liveness — process up." },
+      { title: "/ready", body: "Readiness aggregates registered checks." },
+      { title: "Express + Nest", body: "createHealthRouter or HealthModule.forRoot." },
+    ],
+    sample: {
+      filename: "health.ts",
+      language: "ts",
+      code: `import { createHealthRegistry } from "@eristack/health"
+import { createHealthRouter } from "@eristack/health/express"
+
+const registry = createHealthRegistry()
+const { liveness, readiness } = createHealthRouter(registry)`,
     },
   },
   {
@@ -1388,6 +1991,36 @@ app.use(createLoggerMiddleware({ logger: log }))`,
     },
   },
   {
+    slug: "drizzle-kit-helpers",
+    name: "@eristack/drizzle-kit-helpers",
+    title: "Drizzle kit helpers",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/drizzle-kit-helpers",
+    href: "/drizzle-kit-helpers",
+    docsHref: "/docs/drizzle-kit-helpers",
+    tagline: "Shared drizzle-kit config snippets for consumer monorepos.",
+    description:
+      "defineEristackDrizzleConfig, eristackProdPostgresConfig, eristackTestSqliteConfig. Wave 13 G2 — no runtime schema deps.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/drizzle-kit-helpers -D",
+    highlights: [
+      { title: "pg + sqlite", body: "Prod Postgres vs test SQLite templates." },
+      { title: "Env keys", body: "DATABASE_URL / SQLITE_URL conventions." },
+      { title: "DX only", body: "Config fragments — app owns schemas." },
+    ],
+    sample: {
+      filename: "drizzle.config.ts",
+      language: "ts",
+      code: `import { defineConfig } from "drizzle-kit"
+import { eristackProdPostgresConfig } from "@eristack/drizzle-kit-helpers"
+
+export default defineConfig({
+  ...eristackProdPostgresConfig("./src/db/schema.ts"),
+  dbCredentials: { url: process.env.DATABASE_URL! },
+})`,
+    },
+  },
+  {
     slug: "rest",
     name: "@eristack/rest",
     title: "REST",
@@ -1426,6 +2059,34 @@ export const api = defineRoutes([
     handler: () => ({ status: 200, body: { ok: true } }),
   },
 ])`,
+    },
+  },
+  {
+    slug: "vercel-adapters",
+    name: "@eristack/vercel-adapters",
+    title: "Vercel adapters",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/vercel-adapters",
+    href: "/vercel-adapters",
+    docsHref: "/docs/vercel-adapters",
+    tagline: "Express default export for Vercel serverless.",
+    description:
+      "createVercelExpressHandler(app) and deploy notes. Wave 13 G3 — no Vercel SDK; pair with @eristack/logger.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/vercel-adapters",
+    highlights: [
+      { title: "Handler factory", body: "Wrap Express app for @vercel/node." },
+      { title: "Cold start", body: "defaultVercelDeployNotes documents singleton app." },
+      { title: "No SDK", body: "Types + guidance only in core." },
+    ],
+    sample: {
+      filename: "api/index.ts",
+      language: "ts",
+      code: `import express from "express"
+import { createVercelExpressHandler } from "@eristack/vercel-adapters"
+
+const app = express()
+export default createVercelExpressHandler(app)`,
     },
   },
   {

@@ -130,6 +130,7 @@ function driftChecksForCatalogOnly(changed: string[]): CheckId[] {
 
 function driftChecksForAffected(changed: string[]): CheckId[] {
   const checks: CheckId[] = [
+    "lockfile",
     "changesets",
     "publish",
     "skills",
@@ -157,11 +158,14 @@ export function resolveCiPlanFromChanged(
   repoRoot: string,
   changed: string[],
   base = "origin/main",
-  opts?: { forceFull?: boolean },
+  opts?: { forceFull?: boolean; forceAffected?: boolean },
 ): CiPlan {
   const plan = planFromPaths(repoRoot, changed);
 
-  if (opts?.forceFull || requiresFullCi(changed)) {
+  if (
+    !opts?.forceAffected &&
+    (opts?.forceFull || requiresFullCi(changed))
+  ) {
     return {
       ...plan,
       mode: "full",
@@ -196,7 +200,7 @@ export function resolveCiPlanFromChanged(
 export function resolveCiPlan(
   repoRoot: string,
   base = "origin/main",
-  opts?: { forceFull?: boolean },
+  opts?: { forceFull?: boolean; forceAffected?: boolean },
 ): CiPlan {
   const changed = gitChangedFiles(repoRoot, base);
   return resolveCiPlanFromChanged(repoRoot, changed, base, opts);
@@ -248,6 +252,8 @@ export type RunCiOptions = {
   repoRoot: string;
   base?: string;
   forceFull?: boolean;
+  /** Local only — skip full CI when lockfile/root changed; GitHub PR CI does not use this. */
+  forceAffected?: boolean;
 };
 
 export type RunCiResult = {
@@ -257,8 +263,9 @@ export type RunCiResult = {
 };
 
 export function runCi(options: RunCiOptions): RunCiResult {
-  const { repoRoot, base = "origin/main", forceFull } = options;
-  const plan = resolveCiPlan(repoRoot, base, { forceFull });
+  const { repoRoot, base = "origin/main", forceFull, forceAffected } =
+    options;
+  const plan = resolveCiPlan(repoRoot, base, { forceFull, forceAffected });
   const results: CheckRunResult[] = [];
 
   if (plan.mode === "full") {

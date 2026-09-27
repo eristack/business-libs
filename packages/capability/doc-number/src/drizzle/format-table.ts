@@ -15,6 +15,7 @@ import {
   text as sqliteText,
   integer as sqliteInteger,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import type { DrizzleDialect } from "./types.js";
 
 const DEFAULT_TABLE_NAME = "doc_number_formats";
@@ -51,7 +52,7 @@ export function createDocNumberFormatTable(
 
 export function createPgsqlDocNumberFormatTable(tableName = DEFAULT_TABLE_NAME) {
   return pgTable(tableName, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     entityKey: pgText("entity_key").notNull(),
     pattern: pgText("pattern").notNull(),
     reset: pgText("reset").notNull(),
@@ -65,7 +66,7 @@ export function createPgsqlDocNumberFormatTable(tableName = DEFAULT_TABLE_NAME) 
 
 export function createMysqlDocNumberFormatTable(tableName = DEFAULT_TABLE_NAME) {
   return mysqlTable(tableName, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     entityKey: mysqlVarchar("entity_key", { length: 255 }).notNull(),
     pattern: mysqlVarchar("pattern", { length: 512 }).notNull(),
     reset: mysqlVarchar("reset", { length: 32 }).notNull(),
@@ -79,7 +80,7 @@ export function createMysqlDocNumberFormatTable(tableName = DEFAULT_TABLE_NAME) 
 
 export function createSqliteDocNumberFormatTable(tableName = DEFAULT_TABLE_NAME) {
   return sqliteTable(tableName, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     entityKey: sqliteText("entity_key").notNull(),
     pattern: sqliteText("pattern").notNull(),
     reset: sqliteText("reset").notNull(),

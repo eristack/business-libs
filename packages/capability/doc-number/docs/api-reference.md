@@ -42,7 +42,7 @@ createDocNumber(options?: {
   sequences?: SequenceStore;
   incrementer?: Incrementer;  // replaces sequences.allocateNext for next()
   clock?: Clock;              // default () => new Date()
-  idFactory?: () => string;   // default crypto.randomUUID()
+  idFactory?: () => string;   // default entityIdFactory (@eristack/entity-id)
 }): DocNumberApi
 ```
 

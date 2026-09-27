@@ -1,3 +1,4 @@
+import { entityIdFactory } from "@eristack/entity-id";
 import {
   assertBalanceEquation,
   computeClosing,
@@ -13,15 +14,11 @@ import type {
 } from "./types.js";
 import { assertChainIntact, verifyEntries } from "./verify.js";
 
-function defaultId(): string {
-  return crypto.randomUUID();
-}
-
 export function createHashChainedLedger(
   options: CreateHashChainedLedgerOptions,
 ): HashChainedLedger {
   const store = options.store;
-  const idFactory = options.idFactory ?? defaultId;
+  const idFactory = options.idFactory ?? entityIdFactory;
   const now = options.now ?? (() => new Date());
 
   return {

@@ -31,6 +31,9 @@ tanstackIntent:
   - id: "@eristack/ai-knowledge#package-relationships"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#package-relationships"
     for: "Canonical @eristack dependency map, ERP vs HTTP vs ledger stacks, recipe load order, Horizon A registerHorizonDocumentSpine. Use when composing many packages or ERP recipes overlap."
+  - id: "@eristack/ai-knowledge#party-and-platform-compose"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#party-and-platform-compose"
+    for: "Wave 13 approved compose-at-boundary: party normalizers, finance posting, platform API guard order, outbound template/PDF/spreadsheet export — one npm package per PR, no sibling hard deps in primitives."
   - id: "@eristack/ai-knowledge#dev-conventions"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
     for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, HARD RULE docs+ai-knowledge every iteration, _ai-docs promote-then-delete."
@@ -148,6 +151,24 @@ tanstackIntent:
   - id: "@eristack/timestamp#timestamp-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-adapters"
     for: "@eristack/timestamp adapters (mirror money): Drizzle, REST, Zod 4, Express, Nest, client, React. Hub docs/adapters.md — load when persisting or validating timestamps in SQL/HTTP/forms."
+  - id: "@eristack/entity-id#entity-id-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
+    for: "@eristack/entity-id UUID v7 generate/parse, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables (Wave 13 E1)."
+  - id: "@eristack/dimension#dimension-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
+    for: "@eristack/dimension L×W×H decimal strings, dimensionVolume, optional unit label — logistics carton sizes (Wave 13 B1)."
+  - id: "@eristack/geo#geo-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
+    for: "@eristack/geo lat/lng decimal strings and geoDistanceKm haversine — no geocoding (Wave 13 B2)."
+  - id: "@eristack/business-calendar#business-calendar-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
+    for: "@eristack/business-calendar working days, holidays, addBusinessDays on YYYY-MM-DD (Wave 13 E2)."
+  - id: "@eristack/checksum#checksum-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
+    for: "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals (Wave 13 E3)."
+  - id: "@eristack/currency-pair#currency-pair-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
+    for: "@eristack/currency-pair normalizeCurrencyPair, formatPairKey on @eristack/money codes (Wave 13 F1)."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)
@@ -213,6 +234,12 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
+- `packages/primitive/business-calendar` — `@eristack/business-calendar` (working days)
+- `packages/primitive/checksum` — `@eristack/checksum` (SHA-256 hex)
+- `packages/primitive/currency-pair` — `@eristack/currency-pair` (FX pair keys)
+- `packages/primitive/dimension` — `@eristack/dimension` (L×W×H decimal strings)
+- `packages/primitive/geo` — `@eristack/geo` (lat/lng + haversine km)
+- `packages/primitive/entity-id` — `@eristack/entity-id` (UUID v7 PKs)
 - `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
 - `packages/registries/iso-3166` — `@eristack/iso-3166` (assigned ISO 3166-1/2 codes; optional `/zod`)
 - `packages/registries/unlocode` — `@eristack/unlocode` (UN/LOCODE; depends on iso-3166; optional `/zod`)

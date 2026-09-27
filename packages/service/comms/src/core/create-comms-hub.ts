@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { generateEntityId } from "@eristack/entity-id";
 import {
   CommsChannelNotSupportedError,
   CommsIdempotencyConflictError,
@@ -77,7 +77,7 @@ export function createCommsHub(config: CommsHubConfig): CommsHub {
         metadata: input.metadata,
       });
 
-      const id = randomUUID();
+      const id = generateEntityId();
       const metadata = {
         ...(input.metadata ?? {}),
         _fingerprint: payloadFingerprint(input),
@@ -134,7 +134,7 @@ export function createCommsHub(config: CommsHubConfig): CommsHub {
 
         stored.push(
           await config.store.appendDeliveryEvent({
-            id: randomUUID(),
+            id: generateEntityId(),
             vendor,
             eventType: evt.eventType,
             providerEventId: evt.providerEventId,
@@ -147,7 +147,7 @@ export function createCommsHub(config: CommsHubConfig): CommsHub {
       if (parsed.length === 0) {
         stored.push(
           await config.store.appendDeliveryEvent({
-            id: randomUUID(),
+            id: generateEntityId(),
             vendor,
             eventType: "webhook.received",
             payloadJson,

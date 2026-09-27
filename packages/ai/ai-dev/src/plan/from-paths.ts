@@ -35,7 +35,7 @@ const PACKAGE_SKILL: Record<string, string> = {
 type PathRule = {
   pattern: RegExp;
   checks: CheckId[];
-  sync?: ("docs" | "knowledge")[];
+  sync?: ("docs" | "knowledge" | "deps")[];
   profileHint?: CheckProfile;
 };
 
@@ -54,8 +54,9 @@ const PATH_RULES: PathRule[] = [
   { pattern: /^packages\/[^/]+\/[^/]+\/skills\//, checks: ["skills"] },
   { pattern: /^packages\/[^/]+\/[^/]+\/ticket\.yaml$/, checks: ["ticket"] },
   {
-    pattern: /^packages\/[^/]+\/[^/]+\/package\.json$/,
-    checks: ["exports"],
+    pattern: /^(packages\/[^/]+\/[^/]|examples\/[^/]+)\/package\.json$/,
+    checks: ["lockfile", "exports"],
+    sync: ["deps"],
   },
   { pattern: /^scripts\//, checks: ["exports", "changesets", "docs"] },
   { pattern: /^apps\/web\//, checks: ["contrast", "lint"] },
@@ -77,7 +78,7 @@ export type DevPlan = {
   changed: string[];
   packages: string[];
   checks: CheckId[];
-  sync: ("docs" | "knowledge")[];
+  sync: ("docs" | "knowledge" | "deps")[];
   skills: string[];
   commands: string[];
   note?: string;
@@ -115,7 +116,7 @@ export function planFromPaths(
 ): DevPlan {
   const normalized = paths.map((p) => p.replace(/\\/g, "/"));
   const checkSet = new Set<CheckId>();
-  const syncSet = new Set<"docs" | "knowledge">();
+  const syncSet = new Set<"docs" | "knowledge" | "deps">();
   let profileHint: CheckProfile | undefined;
 
   for (const rel of normalized) {
@@ -160,6 +161,7 @@ export function planFromPaths(
       : "";
 
   const commands: string[] = [];
+  if (syncSet.has("deps")) commands.push("pnpm eristack sync deps");
   if (syncSet.has("knowledge")) commands.push("pnpm eristack sync knowledge");
   if (syncSet.has("docs")) commands.push("pnpm eristack sync docs");
   if (profile === "fast" && filter) {

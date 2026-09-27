@@ -59,6 +59,7 @@ Before shipping or accepting a package change:
 - [ ] Updated that package’s skills/docs if public guidance changed
 - [ ] Ran `pnpm knowledge:sync`
 - [ ] Added/updated recipes if users should discover the capability by product language
+- [ ] `pnpm debottleneck:check:ci` clean after recipe trigger edits (CI overlap budget is 0)
 - [ ] `pnpm knowledge:check` clean
 - [ ] Changeset added for user-facing package changes
 - [ ] **One changeset file per package**; body lists only that package (no mega shared changelog)

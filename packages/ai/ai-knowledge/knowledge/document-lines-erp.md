@@ -100,11 +100,13 @@ POST /jobs               → { header fields }
 ```
 
 ```ts
+import { generateEntityId } from "@eristack/entity-id";
+
 await api.store.atomic(async (tx) => {
-  const jobId = crypto.randomUUID();
+  const jobId = generateEntityId();
   await tx.set("jobs", { id: jobId, version: 1, status: "draft", ...header });
   await tx.set("costSheets", {
-    id: crypto.randomUUID(),
+    id: generateEntityId(),
     jobId,
     version: 1,
     status: "draft",

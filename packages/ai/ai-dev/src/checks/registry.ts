@@ -25,7 +25,8 @@ export type CheckId =
   | "ticket"
   | "contrast"
   | "features"
-  | "debottleneck";
+  | "debottleneck"
+  | "lockfile";
 
 export type CheckDef = {
   id: CheckId;
@@ -40,6 +41,12 @@ export type CheckDef = {
 };
 
 export const CHECK_DEFS: CheckDef[] = [
+  {
+    id: "lockfile",
+    label: "pnpm-lock.yaml frozen install",
+    profiles: ["catalog", "pr", "full"],
+    order: 5,
+  },
   {
     id: "build",
     label: "turbo build",

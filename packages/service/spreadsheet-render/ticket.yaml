@@ -1,0 +1,7 @@
+package: "@eristack/spreadsheet-render"
+title: spreadsheet-render
+maintainers:
+  - support@eristack.dev
+scope: Spreadsheet export (Wave 13 C6).
+skills:
+  - spreadsheet-render-core

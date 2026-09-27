@@ -31,10 +31,11 @@ Commands:
       Minimal check/sync/skill plan from git diff or explicit paths.
   check [--profile catalog|pr|full|fast|integration|examples|publish|features] [--skip-build] [--json] [check-id...]
       Run a check profile (same as CI when --profile pr).
-  ci [--base origin/main] [--full] [--json]
-      PR-optimized CI: affected turbo + drift checks; full on main or --full.
-  sync <docs|knowledge|all> [--check] [--json]
-      Sync or verify docs/knowledge catalogs.
+  ci [--base origin/main] [--full] [--affected] [--json]
+      PR-optimized CI: affected turbo + drift checks; full when lockfile/root
+      changes. --affected forces turbo filter (local pre-push; not GitHub default).
+  sync <docs|knowledge|deps|all> [--check] [--json]
+      Sync or verify docs/knowledge catalogs; deps = pnpm-lock.yaml (install --lockfile-only).
   packages list [--json] [--docs] [--skills] [--ticket]
       List @eristack/* packages (canonical walker).
 
@@ -135,11 +136,13 @@ async function cmdCi(args: string[], repoRoot: string): Promise<void> {
   const base = flagValue(args, "--base") ?? "origin/main";
   const forceFull =
     hasFlag(args, "--full") || process.env.CI_FULL === "true";
+  const forceAffected = hasFlag(args, "--affected");
 
   const { plan, results, summary } = runCi({
     repoRoot,
     base,
     forceFull,
+    forceAffected,
   });
 
   if (json) {
@@ -148,7 +151,9 @@ async function cmdCi(args: string[], repoRoot: string): Promise<void> {
     return;
   }
 
-  console.log(`ci mode: ${plan.mode}${forceFull ? " (forced full)" : ""}`);
+  const forced =
+    forceFull ? " (forced full)" : forceAffected ? " (forced affected)" : "";
+  console.log(`ci mode: ${plan.mode}${forced}`);
   if (plan.packages.length) {
     console.log(`packages: ${plan.packages.join(", ")}`);
   }
@@ -181,8 +186,8 @@ async function cmdSync(args: string[], repoRoot: string): Promise<void> {
     | SyncTarget
     | undefined;
 
-  if (!target || !["docs", "knowledge", "all"].includes(target)) {
-    console.error("Usage: eristack sync <docs|knowledge|all> [--check]");
+  if (!target || !["docs", "knowledge", "deps", "all"].includes(target)) {
+    console.error("Usage: eristack sync <docs|knowledge|deps|all> [--check]");
     process.exitCode = 1;
     return;
   }

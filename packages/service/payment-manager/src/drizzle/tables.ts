@@ -14,6 +14,7 @@ import {
   uniqueIndex as mysqlUniqueIndex,
 } from "drizzle-orm/mysql-core";
 import { sqliteTable, text as sqliteText, uniqueIndex as sqliteUniqueIndex } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 
 /** Default prefix: `payment_manager` → `{prefix}_payment_intents`, `{prefix}_gateway_events`. */
 export function createPaymentManagerTables(
@@ -40,7 +41,7 @@ function createPgsqlTables(prefix: string) {
   const paymentIntents = pgTable(
     `${prefix}_payment_intents`,
     {
-      id: pgText("id").primaryKey(),
+      id: entityIdColumn("pgsql", "id").primaryKey(),
       status: pgText("status").notNull(),
       gateway: pgText("gateway").notNull(),
       idempotencyKey: pgText("idempotency_key").notNull(),
@@ -56,7 +57,7 @@ function createPgsqlTables(prefix: string) {
   );
 
   const gatewayEvents = pgTable(`${prefix}_gateway_events`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     gateway: pgText("gateway").notNull(),
     eventType: pgText("event_type").notNull(),
     gatewayEventId: pgText("gateway_event_id"),
@@ -72,7 +73,7 @@ function createMysqlTables(prefix: string) {
   const paymentIntents = mysqlTable(
     `${prefix}_payment_intents`,
     {
-      id: mysqlVarchar("id", { length: 36 }).primaryKey(),
+      id: entityIdColumn("mysql", "id").primaryKey(),
       status: mysqlVarchar("status", { length: 32 }).notNull(),
       gateway: mysqlVarchar("gateway", { length: 64 }).notNull(),
       idempotencyKey: mysqlVarchar("idempotency_key", { length: 255 }).notNull(),
@@ -88,7 +89,7 @@ function createMysqlTables(prefix: string) {
   );
 
   const gatewayEvents = mysqlTable(`${prefix}_gateway_events`, {
-    id: mysqlVarchar("id", { length: 36 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     gateway: mysqlVarchar("gateway", { length: 64 }).notNull(),
     eventType: mysqlVarchar("event_type", { length: 128 }).notNull(),
     gatewayEventId: mysqlVarchar("gateway_event_id", { length: 255 }),
@@ -104,7 +105,7 @@ function createSqliteTables(prefix: string) {
   const paymentIntents = sqliteTable(
     `${prefix}_payment_intents`,
     {
-      id: sqliteText("id").primaryKey(),
+      id: entityIdColumn("sqlite", "id").primaryKey(),
       status: sqliteText("status").notNull(),
       gateway: sqliteText("gateway").notNull(),
       idempotencyKey: sqliteText("idempotency_key").notNull(),
@@ -120,7 +121,7 @@ function createSqliteTables(prefix: string) {
   );
 
   const gatewayEvents = sqliteTable(`${prefix}_gateway_events`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     gateway: sqliteText("gateway").notNull(),
     eventType: sqliteText("event_type").notNull(),
     gatewayEventId: sqliteText("gateway_event_id"),

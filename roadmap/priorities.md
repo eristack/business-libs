@@ -62,6 +62,18 @@ What we are doing now and what comes next. Infrastructure milestones live here �
 
 Draft package catalog (not sequenced here): [Horizon](./horizon.md).
 
+## Wave 13 (approved — implementation queue)
+
+**Status:** Planned packages approved 2026-09-27. **Not** a single milestone — ship **one `@eristack/*` package per PR** with full docs/skills/recipes checklist.
+
+| First slices | Doc |
+| --- | --- |
+| ~~`@eristack/entity-id` (E1)~~ **shipped 0.0.0** | [Horizon § entity-id](./horizon.md) |
+| ~~Party spine A1–A3~~ **shipped** | ~~F2/F3 rounding-policy, tax~~ **shipped** — Wave 13 npm queue **complete** (2026-09-27) |
+| Compose at boundary | `@eristack/ai-knowledge#party-and-platform-compose` (after promotion) |
+
+Pull individual rows into this file as **Now** when implementation starts.
+
 ## Onboarding
 
 [/start](/start) on the site — pnpm monorepo, selective `@eristack/*` installs, Intent / ai-knowledge. Not a package.

@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 import { formatExecError } from "../checks/runner.js";
 
-export type SyncTarget = "docs" | "knowledge" | "all";
+export type SyncTarget = "docs" | "knowledge" | "deps" | "all";
 
 export function runSync(
   repoRoot: string,
@@ -9,6 +9,13 @@ export function runSync(
   check = false,
 ): { target: SyncTarget; check: boolean; ok: boolean; output: string } {
   const cmds: string[] = [];
+  if (target === "deps" || target === "all") {
+    cmds.push(
+      check
+        ? "node scripts/lockfile-check.mjs"
+        : "node scripts/lockfile-sync.mjs",
+    );
+  }
   if (target === "docs" || target === "all") {
     cmds.push(
       check

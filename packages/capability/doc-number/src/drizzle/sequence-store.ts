@@ -2,6 +2,7 @@ import { and, eq } from "drizzle-orm";
 import { normalizeScope } from "../core/scope.js";
 import type { SequenceStore } from "../core/types.js";
 import type { AnyDocNumberSequenceTable } from "./sequence-table.js";
+import { entityIdFactory } from "@eristack/entity-id";
 import type { DrizzleDialect, DrizzleLikeDb } from "./types.js";
 
 export interface CreateDrizzleSequenceStoreOptions {
@@ -10,13 +11,6 @@ export interface CreateDrizzleSequenceStoreOptions {
   table: AnyDocNumberSequenceTable;
   /** Optional id factory for new sequence rows. */
   idFactory?: () => string;
-}
-
-function defaultId(): string {
-  return (
-    globalThis.crypto?.randomUUID?.() ??
-    `seq_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
-  );
 }
 
 /**
@@ -28,7 +22,7 @@ export function createDrizzleSequenceStore(
   options: CreateDrizzleSequenceStoreOptions,
 ): SequenceStore {
   const { db, table } = options;
-  const idFactory = options.idFactory ?? defaultId;
+  const idFactory = options.idFactory ?? entityIdFactory;
 
   async function findRow(formatId: string, periodKey: string, scope: string) {
     const rows = (await db

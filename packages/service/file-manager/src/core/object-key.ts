@@ -1,4 +1,5 @@
-import { createHash, randomUUID } from "node:crypto";
+import { createHash } from "node:crypto";
+import { generateEntityId } from "@eristack/entity-id";
 
 export type BuildObjectKeyInput = {
   prefix?: string;
@@ -26,7 +27,7 @@ function extensionFromName(name: string): string {
 
 /** Deterministic-ish storage keys: `{prefix}/{namespace}/{yyyy}/{mm}/{id}{ext}`. */
 export function buildObjectKey(input: BuildObjectKeyInput): string {
-  const id = input.fileId ?? randomUUID();
+  const id = input.fileId ?? generateEntityId();
   const now = new Date();
   const year = String(now.getUTCFullYear());
   const month = String(now.getUTCMonth() + 1).padStart(2, "0");

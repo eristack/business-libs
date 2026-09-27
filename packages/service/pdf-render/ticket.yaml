@@ -1,0 +1,7 @@
+package: "@eristack/pdf-render"
+title: pdf-render
+maintainers:
+  - support@eristack.dev
+scope: PDF driver shell (Wave 13 C5).
+skills:
+  - pdf-render-core

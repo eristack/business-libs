@@ -13,6 +13,7 @@ import {
   text as sqliteText,
   integer as sqliteInteger,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import type { DrizzleDialect } from "./types.js";
 
 /**
@@ -53,7 +54,7 @@ export function createCredentialsTable(
 
 export function createPgsqlCredentialsTable(tableName = DEFAULT_TABLE_NAME) {
   return pgTable(tableName, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     /** App user id — FK target lives in the application's users table. */
     subject: pgText("subject").notNull().unique(),
     username: pgText("username").notNull().unique(),
@@ -66,7 +67,7 @@ export function createPgsqlCredentialsTable(tableName = DEFAULT_TABLE_NAME) {
 
 export function createMysqlCredentialsTable(tableName = DEFAULT_TABLE_NAME) {
   return mysqlTable(tableName, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     subject: mysqlVarchar("subject", { length: 255 }).notNull().unique(),
     username: mysqlVarchar("username", { length: 255 }).notNull().unique(),
     passwordHash: mysqlVarchar("password_hash", { length: 255 }).notNull(),
@@ -78,7 +79,7 @@ export function createMysqlCredentialsTable(tableName = DEFAULT_TABLE_NAME) {
 
 export function createSqliteCredentialsTable(tableName = DEFAULT_TABLE_NAME) {
   return sqliteTable(tableName, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     subject: sqliteText("subject").notNull().unique(),
     username: sqliteText("username").notNull().unique(),
     passwordHash: sqliteText("password_hash").notNull(),

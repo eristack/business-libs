@@ -1,0 +1,8 @@
+package: "@eristack/currency-pair"
+title: currency-pair
+maintainers:
+  - support@eristack.dev
+scope: Base/quote validation and pair keys (Wave 13 F1).
+outOfScope: FX rate tables and conversion math.
+skills:
+  - currency-pair-core

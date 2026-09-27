@@ -1,0 +1,5 @@
+{
+  "title": "@eristack/pdf-render",
+  "pages": ["index", "getting-started"],
+  "sections": [{ "label": "Start", "pages": ["index", "getting-started"] }]
+}

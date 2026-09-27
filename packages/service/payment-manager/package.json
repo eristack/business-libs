@@ -161,6 +161,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
+    "@eristack/entity-id": "^0.1.0",
     "@eristack/money": "^0.3.0",
     "@eristack/backseat": "^0.1.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
@@ -202,6 +203,7 @@
     }
   },
   "devDependencies": {
+    "@eristack/entity-id": "workspace:*",
     "@eristack/money": "workspace:*",
     "@eristack/backseat": "workspace:*",
     "@internal/test-harness": "workspace:*",

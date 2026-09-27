@@ -3,6 +3,7 @@ import { createHandlerContext } from "./context.js";
 import { BackseatRouter, normalizeApiPath } from "./router.js";
 import { toBackseatErrorResponse } from "./errors.js";
 import { buildRoutesSnapshot, listRoutesMeta } from "./routes-meta.js";
+import { entityIdFactory } from "@eristack/entity-id";
 import type {
   Backseat,
   BackseatActionHandler,
@@ -16,13 +17,6 @@ import type {
   RouteDefinition,
 } from "./types.js";
 
-const defaultIdFactory = (): string => {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-  return `bs_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-};
-
 async function resolveSeed(source: BackseatSeedSource): Promise<BackseatSnapshot> {
   return typeof source === "function" ? source() : source;
 }
@@ -30,7 +24,7 @@ async function resolveSeed(source: BackseatSeedSource): Promise<BackseatSnapshot
 export function createBackseat(options: CreateBackseatOptions): Backseat {
   const store = options.store;
   const baseUrl = options.baseUrl ?? "/api";
-  const idFactory = options.idFactory ?? defaultIdFactory;
+  const idFactory = options.idFactory ?? entityIdFactory;
   const defaultSeed = options.seed;
   const router = new BackseatRouter();
   const handlers: Record<string, CrudHandlers> = {};

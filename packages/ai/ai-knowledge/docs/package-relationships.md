@@ -29,13 +29,17 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | --- | --- | --- |
 | `@eristack/money` | Currency amounts, tax/discount operators | qups, financial-ledger, data-grid (decimal columns) |
 | `@eristack/percent` | Ratio / bps strings, `percentOf` on strings | Forms, tax config — **round with money at ledger** |
+| `@eristack/fraction` | Exact rationals `{ num, den }`, approximate irrationals | Recipe/BOM ratios — **not** tax % (use percent) |
 | `@eristack/uom` | Qty + fixed-ratio conversion | stock-movement, inventory forms (before qups money lines) |
 | `@eristack/timestamp` | Instant vs wall time | data-grid wall filters, fiscal-calendar, SQL adapters |
 | `@eristack/address` | Postal address normalization | App masters (not a document spine requirement) |
 | `@eristack/payment-instrument` | Token-safe card display + gateway refs; PAN transient | payment-manager, checkout forms |
 | `@eristack/fiscal-calendar` | Fiscal periods | **Peer:** `@eristack/timestamp` |
+| `@eristack/entity-id` | UUID v7 PK generate/parse | New Drizzle tables; **no** sibling deps |
 
 **percent vs qups vs money:** Line modifiers and tax on documents use `@eristack/qups` + `@eristack/money` (`Discount.ofPercent`, etc.). Use `@eristack/percent` for standalone rate fields (VAT %, bps in config) — not for duplicating qups line math.
+
+**fraction vs percent:** Use `@eristack/fraction` when the domain is exact rational parts (`1/3` cup, 2:1 mix). Use `@eristack/percent` for rate fields stored as decimal ratios or bps. Irrationals are approximated with an explicit `maxDenominator`, not stored exactly.
 
 ### Capability (domain math + presets)
 
@@ -79,6 +83,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | Clickable ERP mock → real API | `#backseat-then-backend` | Same spine; upgrading §3 for peers |
 | “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
 | Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
+| Wave 13 party / platform / tax | `#party-and-platform-compose` | Shipped packages listed in § Wave 13 below |
 | Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
 | Stripe / Xendit / payment intents | `#payment-gateway-stripe-xendit` | payment-manager-core → adapters; payment-instrument for tokens |
 | Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
@@ -135,6 +140,23 @@ Peers for `./seeds` spine helper: `@eristack/jwt-auth`, `@eristack/epoch`, `@eri
     ├── @eristack/financial-ledger (+ money)
     └── @eristack/valuations (+ stock + financial stores)
 ```
+
+## Wave 13 (shipped — compose at app boundary)
+
+Approved and **shipped** 2026-09-27. Load `#party-and-platform-compose` for handler order; recipes per row in `recipes.yaml`.
+
+| Wave | Packages | Recipes (examples) |
+| --- | --- | --- |
+| E | entity-id, business-calendar, checksum | entity-id-v7-primary-key, posting-date-guard |
+| A | person, phone, email-address, contact | person-normalize, party-contact-normalize |
+| B | dimension, geo | — |
+| F | currency-pair, rounding-policy, tax | ledger-rounding-policy, invoice-line-tax |
+| C | email-template, idempotency, api-key, rate-limit, pdf-render, spreadsheet-render | platform-api-guard, email-template-render |
+| G | health, drizzle-kit-helpers, vercel-adapters | health-readiness, vercel-express-handler |
+
+Horizon catalog: `roadmap/horizon.md`.
+
+---
 
 ## Agent checklist
 

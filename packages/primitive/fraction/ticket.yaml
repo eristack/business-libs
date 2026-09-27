@@ -1,0 +1,12 @@
+package: "@eristack/fraction"
+title: fraction
+maintainers:
+  - support@eristack.dev
+scope: >
+  Exact rational fractions with string numerators/denominators, parse mixed numbers,
+  rational arithmetic, decimal/irrational approximation with max denominator, optional Zod.
+outOfScope: >
+  Irrational exact values (algebraic symbols), float literals, currency rounding (@eristack/money),
+  percent display (@eristack/percent), unit conversion (@eristack/uom).
+skills:
+  - fraction-core

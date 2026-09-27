@@ -1,0 +1,8 @@
+package: "@eristack/tax"
+title: tax
+maintainers:
+  - support@eristack.dev
+scope: Tax codes + effective-dated rates; money Tax glue (Wave 13 F3).
+outOfScope: Avalara, jurisdiction inference, filing.
+skills:
+  - tax-core

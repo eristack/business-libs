@@ -1,0 +1,29 @@
+{
+  "title": "@eristack/fraction",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "approximate",
+    "zod",
+    "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": ["index", "getting-started"]
+    },
+    {
+      "label": "Guides",
+      "pages": ["concepts", "approximate"]
+    },
+    {
+      "label": "Adapters",
+      "pages": ["zod"]
+    },
+    {
+      "label": "Reference",
+      "pages": ["api-reference"]
+    }
+  ]
+}

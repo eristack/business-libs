@@ -1,0 +1,7 @@
+package: "@eristack/rate-limit"
+title: rate-limit
+maintainers:
+  - support@eristack.dev
+scope: Edge rate limit (Wave 13 C4).
+skills:
+  - rate-limit-core

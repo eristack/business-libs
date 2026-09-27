@@ -148,6 +148,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
+    "@eristack/entity-id": "^0.1.0",
     "@eristack/data-grid": "^0.2.0",
     "@eristack/timestamp": "^0.1.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
@@ -206,6 +207,7 @@
     "typescript": "catalog:",
     "vitest": "^4.1.10",
     "@eristack/backseat": "workspace:*",
+    "@eristack/entity-id": "workspace:*",
     "@eristack/data-grid": "workspace:*",
     "@eristack/rest": "workspace:*",
     "@internal/test-harness": "workspace:*",

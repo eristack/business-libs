@@ -150,6 +150,7 @@
     "jose": "^6.0.11"
   },
   "peerDependencies": {
+    "@eristack/entity-id": "^0.1.0",
     "@eristack/data-grid": "^0.2.0",
     "@nestjs/common": "^10.0.0 || ^11.0.0",
     "@nestjs/core": "^10.0.0 || ^11.0.0",
@@ -207,7 +208,8 @@
     "vitest": "^4.1.10",
     "zod": "^4.4.3",
     "@eristack/backseat": "workspace:*",
-    "@eristack/data-grid": "workspace:*"
+    "@eristack/data-grid": "workspace:*",
+    "@eristack/entity-id": "workspace:*"
   },
   "license": "MIT"
 }

@@ -1,0 +1,9 @@
+package: "@eristack/business-calendar"
+title: business-calendar
+maintainers:
+  - support@eristack.dev
+scope: >
+  Working days, holidays, addBusinessDays on wall dates (Wave 13 E2).
+outOfScope: Fiscal period open/closed — use fiscal-calendar.
+skills:
+  - business-calendar-core

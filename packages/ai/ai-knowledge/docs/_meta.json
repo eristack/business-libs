@@ -5,6 +5,7 @@
     "getting-started",
     "upgrading",
     "package-relationships",
+    "party-and-platform-compose",
     "backseat-then-backend",
     "document-lines-erp",
     "optimistic-document-version",
@@ -14,6 +15,7 @@
     "recipes",
     "authoring",
     "architecture",
+    "stack-defaults",
     "skills",
     "sync",
     "rbac-permissions",
@@ -33,6 +35,7 @@
       "pages": [
         "upgrading",
         "package-relationships",
+        "party-and-platform-compose",
         "backseat-then-backend",
         "document-lines-erp",
         "optimistic-document-version",
@@ -52,6 +55,7 @@
       "pages": [
         "authoring",
         "architecture",
+        "stack-defaults",
         "skills",
         "sync",
         "rbac-permissions",

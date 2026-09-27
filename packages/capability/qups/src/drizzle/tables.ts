@@ -20,6 +20,7 @@ import {
   integer as sqliteInteger,
   primaryKey as sqlitePrimaryKey,
 } from "drizzle-orm/sqlite-core";
+import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import type { DrizzleDialect } from "./types.js";
 
 /**
@@ -77,7 +78,7 @@ export function createQupsTables(dialect: DrizzleDialect, prefix = "qups") {
 
 function createPgsqlProfileTables(prefix: string) {
   const profiles = pgTable(`${prefix}_pricing_profiles`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     entityKey: pgText("entity_key").notNull(),
     defaultTruth: pgText("default_truth").notNull(),
     defaultCurrencyCode: pgText("default_currency_code").notNull(),
@@ -89,7 +90,7 @@ function createPgsqlProfileTables(prefix: string) {
   });
 
   const fields = pgTable(`${prefix}_pricing_fields`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     profileId: pgText("profile_id").notNull(),
     key: pgText("key").notNull(),
     label: pgText("label"),
@@ -114,7 +115,7 @@ function createPgsqlProfileTables(prefix: string) {
 
 function createMysqlProfileTables(prefix: string) {
   const profiles = mysqlTable(`${prefix}_pricing_profiles`, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     entityKey: mysqlVarchar("entity_key", { length: 255 }).notNull(),
     defaultTruth: mysqlVarchar("default_truth", { length: 64 }).notNull(),
     defaultCurrencyCode: mysqlVarchar("default_currency_code", {
@@ -130,7 +131,7 @@ function createMysqlProfileTables(prefix: string) {
   });
 
   const fields = mysqlTable(`${prefix}_pricing_fields`, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     profileId: mysqlVarchar("profile_id", { length: 64 }).notNull(),
     key: mysqlVarchar("key", { length: 128 }).notNull(),
     label: mysqlVarchar("label", { length: 255 }),
@@ -155,7 +156,7 @@ function createMysqlProfileTables(prefix: string) {
 
 function createSqliteProfileTables(prefix: string) {
   const profiles = sqliteTable(`${prefix}_pricing_profiles`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     entityKey: sqliteText("entity_key").notNull(),
     defaultTruth: sqliteText("default_truth").notNull(),
     defaultCurrencyCode: sqliteText("default_currency_code").notNull(),
@@ -167,7 +168,7 @@ function createSqliteProfileTables(prefix: string) {
   });
 
   const fields = sqliteTable(`${prefix}_pricing_fields`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     profileId: sqliteText("profile_id").notNull(),
     key: sqliteText("key").notNull(),
     label: sqliteText("label"),
@@ -192,7 +193,7 @@ function createSqliteProfileTables(prefix: string) {
 
 function createPgsqlSideTables(prefix: string) {
   const modifiers = pgTable(`${prefix}_pricing_line_modifiers`, {
-    id: pgText("id").primaryKey(),
+    id: entityIdColumn("pgsql", "id").primaryKey(),
     lineId: pgText("line_id").notNull(),
     position: pgInteger("position").notNull(),
     kind: pgText("kind").notNull(),
@@ -218,7 +219,7 @@ function createPgsqlSideTables(prefix: string) {
 
 function createMysqlSideTables(prefix: string) {
   const modifiers = mysqlTable(`${prefix}_pricing_line_modifiers`, {
-    id: mysqlVarchar("id", { length: 64 }).primaryKey(),
+    id: entityIdColumn("mysql", "id").primaryKey(),
     lineId: mysqlVarchar("line_id", { length: 64 }).notNull(),
     position: mysqlInt("position").notNull(),
     kind: mysqlVarchar("kind", { length: 32 }).notNull(),
@@ -244,7 +245,7 @@ function createMysqlSideTables(prefix: string) {
 
 function createSqliteSideTables(prefix: string) {
   const modifiers = sqliteTable(`${prefix}_pricing_line_modifiers`, {
-    id: sqliteText("id").primaryKey(),
+    id: entityIdColumn("sqlite", "id").primaryKey(),
     lineId: sqliteText("line_id").notNull(),
     position: sqliteInteger("position").notNull(),
     kind: sqliteText("kind").notNull(),

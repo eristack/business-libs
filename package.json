@@ -31,6 +31,11 @@
     "release": "changeset publish",
     "ci": "pnpm build && pnpm eristack check --profile full --skip-build",
     "ci:pr": "pnpm --filter @eristack/ai-dev build && pnpm eristack ci --base origin/main",
+    "ci:affected": "pnpm --filter @eristack/ai-dev build && pnpm eristack ci --base origin/main --affected",
+    "ci:drift": "pnpm eristack check --profile catalog --skip-build",
+    "lockfile:check": "node scripts/lockfile-check.mjs",
+    "lockfile:sync": "node scripts/lockfile-sync.mjs",
+    "prepush": "pnpm publish:check && pnpm changesets:check && pnpm debottleneck:check:ci && pnpm eristack sync deps --check && pnpm eristack sync all --check && pnpm ticket:check",
     "web": "pnpm --filter @eristack/web dev"
   },
   "devDependencies": {

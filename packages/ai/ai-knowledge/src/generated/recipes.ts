@@ -100,8 +100,7 @@ export const recipes = [
       "posted_at",
       "occurred at",
       "occurred_at",
-      "business date",
-      "posting date"
+      "business date"
     ],
     "rationale": "Use @eristack/timestamp instant mode: UTC instant + IANA timezone for local transaction_date labels. Not raw Date or server timezone.",
     "packages": [
@@ -1156,7 +1155,6 @@ export const recipes = [
       "basis points",
       "bps",
       "tax rate",
-      "vat rate",
       "discount rate",
       "markup rate",
       "ratio string"
@@ -1176,6 +1174,31 @@ export const recipes = [
           "money-amounts"
         ],
         "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "fraction-exact-rational",
+    "title": "Exact rationals as fractions (recipe yields, BOM ratios)",
+    "priority": 18,
+    "triggers": [
+      "fraction",
+      "rational number",
+      "numerator denominator",
+      "recipe yield",
+      "bom ratio",
+      "parts ratio",
+      "irrational approximation",
+      "sqrt approximation"
+    ],
+    "rationale": "Load @eristack/fraction#fraction-core for exact num/den arithmetic; approximateFraction for decimals/irrationals with maxDenominator — not @eristack/percent for VAT rates.",
+    "packages": [
+      {
+        "name": "@eristack/fraction",
+        "skills": [
+          "fraction-core"
+        ],
+        "role": "primary"
       }
     ]
   },
@@ -1548,6 +1571,565 @@ export const recipes = [
         "skills": [
           "ai-ticket-bug",
           "ai-ticket-suggest"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "checksum-export-integrity",
+    "title": "Export file SHA-256 checksum",
+    "priority": 14,
+    "triggers": [
+      "checksum",
+      "sha256 export",
+      "file digest",
+      "export integrity"
+    ],
+    "rationale": "@eristack/checksum sha256Hex and checksumEquals for download/export verification; pair with @eristack/file-manager metadata in the app.",
+    "packages": [
+      {
+        "name": "@eristack/checksum",
+        "skills": [
+          "checksum-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "currency-pair-fx-key",
+    "title": "FX currency pair keys (no rates)",
+    "priority": 14,
+    "triggers": [
+      "currency pair",
+      "base quote",
+      "fx pair",
+      "usd/idr"
+    ],
+    "rationale": "@eristack/currency-pair validates ISO codes via @eristack/money — formatPairKey for rate table PKs until fx-table ships.",
+    "packages": [
+      {
+        "name": "@eristack/currency-pair",
+        "skills": [
+          "currency-pair-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "geo-distance-logistics",
+    "title": "Geo coordinates and distance (km)",
+    "priority": 14,
+    "triggers": [
+      "geo point",
+      "latitude longitude",
+      "haversine",
+      "depot radius",
+      "distance km"
+    ],
+    "rationale": "Use @eristack/geo for lat/lng decimal strings and geoDistanceKm. Geocode in the app; postal addresses stay on @eristack/address.",
+    "packages": [
+      {
+        "name": "@eristack/geo",
+        "skills": [
+          "geo-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "dimension-logistics",
+    "title": "Carton and item dimensions (L×W×H)",
+    "priority": 14,
+    "triggers": [
+      "dimension",
+      "l x w x h",
+      "carton size",
+      "cubic volume",
+      "package dimensions"
+    ],
+    "rationale": "Use @eristack/dimension for length/width/height decimal strings and dimensionVolume. Optional unit label — validate units with @eristack/uom in the app.",
+    "packages": [
+      {
+        "name": "@eristack/dimension",
+        "skills": [
+          "dimension-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "entity-id-v7-primary-key",
+    "title": "UUID v7 sortable primary keys",
+    "priority": 13,
+    "triggers": [
+      "entity id",
+      "entity-id",
+      "uuid v7",
+      "uuidv7",
+      "sortable primary key",
+      "primary key uuid"
+    ],
+    "rationale": "Use @eristack/entity-id for RFC 9562 UUID v7 generate/parse, Drizzle entityIdColumn, and zod entityIdSchema — not ad hoc uuid v4 or serial ids on app-facing tables.",
+    "packages": [
+      {
+        "name": "@eristack/entity-id",
+        "skills": [
+          "entity-id-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "party-and-platform-compose",
+    "title": "Wave 13 party, platform, and finance compose",
+    "priority": 8,
+    "triggers": [
+      "wave 13 compose",
+      "wave 13 platform",
+      "party platform compose",
+      "compose at boundary",
+      "one package per pr wave 13",
+      "party contact",
+      "normalize contact",
+      "business calendar",
+      "working days",
+      "api key middleware",
+      "rate limit middleware",
+      "email template render",
+      "spreadsheet export",
+      "checksum export",
+      "health readiness",
+      "drizzle kit helper"
+    ],
+    "rationale": "Approved Wave 13 pipelines compose at the app boundary without sibling hard deps. Load @eristack/ai-knowledge#party-and-platform-compose and read knowledge/party-and-platform-compose.md — ship one npm package per PR.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "person-normalize",
+    "title": "Normalize person name and gender",
+    "priority": 14,
+    "triggers": [
+      "person name",
+      "normalize person",
+      "gender identity",
+      "contact name form"
+    ],
+    "rationale": "Use @eristack/person normalizePerson and formatPersonDisplay — app owns person rows.",
+    "packages": [
+      {
+        "name": "@eristack/person",
+        "skills": [
+          "person-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "party-contact-normalize",
+    "title": "Normalize party contacts (person, phone, email)",
+    "priority": 15,
+    "triggers": [
+      "party normalize",
+      "contact list",
+      "primary contact",
+      "e.164",
+      "normalize email"
+    ],
+    "rationale": "Chain @eristack/person, phone, email-address, and contact at the API boundary. Handler order in #party-and-platform-compose.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/contact",
+        "skills": [
+          "contact-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/person",
+        "skills": [
+          "person-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/phone",
+        "skills": [
+          "phone-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/email-address",
+        "skills": [
+          "email-address-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "platform-api-guard",
+    "title": "B2B API edge (rate limit, API key, idempotency)",
+    "priority": 16,
+    "triggers": [
+      "platform api guard",
+      "partner api",
+      "b2b api",
+      "idempotency store"
+    ],
+    "rationale": "Middleware order: @eristack/rate-limit → @eristack/api-key → @eristack/idempotency → handler. Memory limiter and idempotency store are tests only — Drizzle/Redis in prod.",
+    "packages": [
+      {
+        "name": "@eristack/rate-limit",
+        "skills": [
+          "rate-limit-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/api-key",
+        "skills": [
+          "api-key-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/idempotency",
+        "skills": [
+          "idempotency-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "idempotency-post-guard",
+    "title": "Idempotency-Key on POST mutations",
+    "priority": 15,
+    "triggers": [
+      "idempotency key",
+      "replay post",
+      "duplicate payment post"
+    ],
+    "rationale": "@eristack/idempotency createIdempotencyGuard(store).run(key, fn) — Drizzle store in prod; createMemoryIdempotencyStore for unit tests only.",
+    "packages": [
+      {
+        "name": "@eristack/idempotency",
+        "skills": [
+          "idempotency-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "api-key-partner-auth",
+    "title": "Partner API key verify",
+    "priority": 15,
+    "triggers": [
+      "api key hash",
+      "partner b2b key",
+      "verify api key"
+    ],
+    "rationale": "@eristack/api-key generateApiKey, hashApiKey, verifyApiKey with optional pepper — persist hash in Drizzle; show raw key once.",
+    "packages": [
+      {
+        "name": "@eristack/api-key",
+        "skills": [
+          "api-key-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "rate-limit-edge",
+    "title": "Fixed-window rate limit",
+    "priority": 15,
+    "triggers": [
+      "rate limit",
+      "throttle api",
+      "too many requests"
+    ],
+    "rationale": "@eristack/rate-limit createRateLimiter — memory for tests/dev; Redis at app edge in prod.",
+    "packages": [
+      {
+        "name": "@eristack/rate-limit",
+        "skills": [
+          "rate-limit-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "pdf-render-invoice",
+    "title": "HTML to PDF (driver)",
+    "priority": 20,
+    "triggers": [
+      "html to pdf",
+      "invoice pdf",
+      "pdf render driver"
+    ],
+    "rationale": "@eristack/pdf-render createPdfRenderer(driver) — stub for tests; Puppeteer/Playwright in app.",
+    "packages": [
+      {
+        "name": "@eristack/pdf-render",
+        "skills": [
+          "pdf-render-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "posting-date-guard",
+    "title": "Posting date, fiscal period, and business days",
+    "priority": 17,
+    "triggers": [
+      "posting date",
+      "business day",
+      "holiday calendar",
+      "period closed",
+      "fiscal period post"
+    ],
+    "rationale": "Compose @eristack/fiscal-calendar and @eristack/business-calendar with timestamp wall dates at the app boundary. Load #party-and-platform-compose (finance pipeline).",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/business-calendar",
+        "skills": [
+          "business-calendar-core"
+        ],
+        "role": "secondary"
+      },
+      {
+        "name": "@eristack/fiscal-calendar",
+        "skills": [
+          "fiscal-calendar-core"
+        ],
+        "role": "secondary"
+      }
+    ]
+  },
+  {
+    "id": "invoice-line-tax",
+    "title": "Tax codes and line tax with qups",
+    "priority": 18,
+    "triggers": [
+      "tax code",
+      "tax rate effective date",
+      "line tax",
+      "vat rate",
+      "sales tax rate"
+    ],
+    "rationale": "@eristack/tax resolveTaxRate + applyTaxToAmount; @eristack/qups line math; @eristack/money Tax ops.",
+    "packages": [
+      {
+        "name": "@eristack/tax",
+        "skills": [
+          "tax-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/qups",
+        "skills": [
+          "qups-line"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-amounts"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "ledger-rounding-policy",
+    "title": "Company rounding policy at ledger boundary",
+    "priority": 17,
+    "triggers": [
+      "rounding policy",
+      "company rounding",
+      "ledger rounding",
+      "half even policy"
+    ],
+    "rationale": "@eristack/rounding-policy roundingFor → money.with at post time; pair with tax and qups totals.",
+    "packages": [
+      {
+        "name": "@eristack/rounding-policy",
+        "skills": [
+          "rounding-policy-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/money",
+        "skills": [
+          "money-ledger"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "email-template-render",
+    "title": "Render {{var}} email bodies",
+    "priority": 15,
+    "triggers": [
+      "email template",
+      "mail merge",
+      "template variables",
+      "render email body",
+      "{{var}} email"
+    ],
+    "rationale": "@eristack/email-template renderEmailTemplate and extractTemplateKeys — HTML escape for HTML parts; send via @eristack/comms in the app.",
+    "packages": [
+      {
+        "name": "@eristack/email-template",
+        "skills": [
+          "email-template-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "outbound-message-render",
+    "title": "Outbound email (template, comms, optional PDF)",
+    "priority": 21,
+    "triggers": [
+      "outbound email",
+      "transactional email render",
+      "invoice email pdf",
+      "message render pipeline"
+    ],
+    "rationale": "App pipeline: email-template → comms send; optional pdf-render attachment. Load @eristack/ai-knowledge#party-and-platform-compose for compose rules.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/email-template",
+        "skills": [
+          "email-template-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "spreadsheet-export-download",
+    "title": "Export list rows to xlsx or csv",
+    "priority": 22,
+    "triggers": [
+      "export xlsx",
+      "export csv",
+      "spreadsheet download",
+      "excel export",
+      "download list excel"
+    ],
+    "rationale": "App maps data-grid list rows to string cells, then @eristack/spreadsheet-render driver. Optional @eristack/checksum for file-manager downloads.",
+    "packages": [
+      {
+        "name": "@eristack/spreadsheet-render",
+        "skills": [
+          "spreadsheet-render-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "health-readiness",
+    "title": "Liveness and readiness HTTP",
+    "priority": 19,
+    "triggers": [
+      "health check",
+      "readiness probe",
+      "liveness probe",
+      "k8s health"
+    ],
+    "rationale": "@eristack/health createHealthRegistry + express/nest handlers — app registers Drizzle ping checks.",
+    "packages": [
+      {
+        "name": "@eristack/health",
+        "skills": [
+          "health-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "drizzle-kit-monorepo",
+    "title": "drizzle-kit config for Eristack apps",
+    "priority": 12,
+    "triggers": [
+      "drizzle kit config",
+      "drizzle migrate monorepo",
+      "sqlite test drizzle"
+    ],
+    "rationale": "@eristack/drizzle-kit-helpers defineEristackDrizzleConfig and pg/sqlite templates.",
+    "packages": [
+      {
+        "name": "@eristack/drizzle-kit-helpers",
+        "skills": [
+          "drizzle-kit-helpers-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "vercel-express-deploy",
+    "title": "Deploy Express on Vercel serverless",
+    "priority": 12,
+    "triggers": [
+      "vercel express",
+      "serverless express handler",
+      "vercel adapter"
+    ],
+    "rationale": "@eristack/vercel-adapters createVercelExpressHandler — pair with @eristack/logger requestId.",
+    "packages": [
+      {
+        "name": "@eristack/vercel-adapters",
+        "skills": [
+          "vercel-adapters-core"
         ],
         "role": "primary"
       }

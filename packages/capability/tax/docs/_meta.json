@@ -1,0 +1,17 @@
+{
+  "index": "Overview",
+  "getting-started": "Getting started",
+  "pages": [
+    "getting-started",
+    "index"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "getting-started",
+        "index"
+      ]
+    }
+  ]
+}

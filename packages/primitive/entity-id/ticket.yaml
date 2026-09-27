@@ -1,0 +1,10 @@
+package: "@eristack/entity-id"
+title: entity-id
+maintainers:
+  - support@eristack.dev
+scope: >
+  UUID v7 entity identifiers: generate, parse, compare, Drizzle column helper, Zod schema.
+outOfScope: >
+  ULID/CUID, display document numbers, multi-tenant id encoding, migrating legacy v4 data.
+skills:
+  - entity-id-core

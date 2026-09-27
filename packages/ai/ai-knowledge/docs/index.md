@@ -48,6 +48,7 @@ Product ask ("need login + invoice totals")
 | [Getting started](./getting-started.md) | First `recommend` / Intent load |
 | [Backseat-first ERP](./backseat-then-backend.md) | Horizon A mockup → derive backend |
 | [Document-with-lines ERP](./document-lines-erp.md) | Job/cost sheet / invoice spine |
+| [Party and platform compose](./party-and-platform-compose.md) | Approved Wave 13 pipelines (party, tax, API edge, export) — one package per PR |
 | [Upgrading packages](./upgrading.md) | New versions, changelogs, Backseat peers |
 | [Recommend API](./recommend.md) | Scoring, unmatched, `loadPlan` |
 | [Recipes](./recipes.md) | Catalog of product → package maps |
