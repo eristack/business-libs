@@ -1,5 +1,11 @@
 # @eristack/money
 
+## 0.3.5
+
+### Patch Changes
+
+- d69c4b5: Add `@eristack/money/react/fields` headless `useMoneyField`.
+
 ## 0.3.4
 
 ### Patch Changes

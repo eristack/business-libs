@@ -1,5 +1,11 @@
 # @eristack/percent
 
+## 0.1.2
+
+### Patch Changes
+
+- d69c4b5: Add `@eristack/percent/react` headless `usePercentField`.
+
 ## 0.1.1
 
 ### Patch Changes

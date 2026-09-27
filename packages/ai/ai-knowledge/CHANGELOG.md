@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.18
+
+### Patch Changes
+
+- d69c4b5: Add ui-package-stack guide, skill, and ERP UI recipes.
+
 ## 0.1.17
 
 ### Patch Changes
