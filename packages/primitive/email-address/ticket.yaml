@@ -1,0 +1,6 @@
+package: "@eristack/email-address"
+title: email-address
+maintainers: [support@eristack.dev]
+scope: Email string normalization.
+outOfScope: SMTP, deliverability.
+skills: [email-address-core]
