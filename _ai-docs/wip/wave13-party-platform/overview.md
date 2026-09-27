@@ -1,17 +1,24 @@
 ---
-status: draft
+status: approved
 topic: wave13-party-platform
 promotes-to:
   - roadmap/horizon.md
+  - packages/ai/ai-knowledge/knowledge/party-and-platform-compose.md
   - packages/ai/ai-knowledge/knowledge/package-relationships.md
   - _ai-docs/brainstorm/catalog.md
-skills: []
-recipes: []
+skills:
+  - "@eristack/ai-knowledge#party-and-platform-compose"
+recipes:
+  - party-and-platform-compose
+  - party-contact-normalize
+  - platform-api-guard
+  - posting-date-guard
+  - invoice-line-tax
 ---
 
 # Wave 13 — party, finance spine, platform & infra (plan only)
 
-**Status:** Plan saved 2026-09-26; expanded 2026-09-27 (entity-id, business-calendar, checksum, currency-pair, tax, rounding-policy, health, vercel-adapters, drizzle-kit-helpers). Prior agent attempt to scaffold **many packages in one pass was scrapped** — shells without depth, no `site.ts`/recipes sync, thin duplicates of `@eristack/uom`, and no compose rules (see `_ai-docs/wip/package-compose-audit/overview.md`).
+**Status:** **Approved** 2026-09-27 (implementation still one package per PR). Plan saved 2026-09-26; expanded 2026-09-27 (entity-id, business-calendar, checksum, currency-pair, tax, rounding-policy, health, vercel-adapters, drizzle-kit-helpers). Prior agent attempt to scaffold **many packages in one pass was scrapped** — shells without depth, no `site.ts`/recipes sync, thin duplicates of `@eristack/uom`, and no compose rules (see `_ai-docs/wip/package-compose-audit/overview.md`).
 
 **UI track (separate WIP):** [`../ui-package-stack/overview.md`](../ui-package-stack/overview.md) — design-system, form-ui, list-shell, line-grid, doc-shell (bold ERP UI stack).
 

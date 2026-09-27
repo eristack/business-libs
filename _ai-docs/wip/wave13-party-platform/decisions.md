@@ -13,3 +13,6 @@
 | 2026-09-27 | **`rounding-policy` and `tax`** wrap / master-data layer on **`@eristack/money`** — no duplicate rounding or Tax math. |
 | 2026-09-27 | **`entity-id` (E1)** may ship before party spine when greenfield IDs; still one package per iteration. |
 | 2026-09-27 | UI ERP stack planned separately: `_ai-docs/wip/ui-package-stack/`. |
+| 2026-09-27 | **Human approved** full Wave 13 scope (23 packages + compose). Promotion iteration: `iteration-plan.md`. |
+| 2026-09-27 | **Skip weight/volume** — confirmed default. **`@eristack/person`** naming confirmed over person-name. |
+| 2026-09-27 | **entity-id before party spine** — recommended first implementation slice (E1). |
