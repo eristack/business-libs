@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:36:35.636Z",
+  "generatedAt": "2026-09-27T04:41:14.762Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -279,6 +279,26 @@ export const catalog = {
           "description": "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/entity-id",
+      "version": "0.0.0",
+      "description": "UUID v7 entity identifiers — sortable, parseable, Drizzle column helper",
+      "slug": "entity-id",
+      "adapters": [
+        "drizzle",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "entity-id-core",
+          "name": "entity-id-core",
+          "packageName": "@eristack/entity-id",
+          "description": "@eristack/entity-id UUID v7 generate/parse/compare, entityIdToDate, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables. Wave 13 E1; no sibling deps.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
         }
       ]
     },

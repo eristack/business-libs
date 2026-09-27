@@ -1579,6 +1579,29 @@ export const recipes = [
     ]
   },
   {
+    "id": "entity-id-v7-primary-key",
+    "title": "UUID v7 sortable primary keys",
+    "priority": 13,
+    "triggers": [
+      "entity id",
+      "entity-id",
+      "uuid v7",
+      "uuidv7",
+      "sortable primary key",
+      "primary key uuid"
+    ],
+    "rationale": "Use @eristack/entity-id for RFC 9562 UUID v7 generate/parse, Drizzle entityIdColumn, and zod entityIdSchema — not ad hoc uuid v4 or serial ids on app-facing tables.",
+    "packages": [
+      {
+        "name": "@eristack/entity-id",
+        "skills": [
+          "entity-id-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "party-and-platform-compose",
     "title": "Wave 13 party, platform, and finance compose",
     "priority": 8,
