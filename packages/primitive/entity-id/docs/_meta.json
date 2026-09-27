@@ -1,0 +1,35 @@
+{
+  "title": "@eristack/entity-id",
+  "pages": [
+    "index",
+    "getting-started",
+    "concepts",
+    "drizzle",
+    "zod",
+    "gotchas",
+    "recipes",
+    "api-reference"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": ["index", "getting-started"]
+    },
+    {
+      "label": "Guides",
+      "pages": ["concepts"]
+    },
+    {
+      "label": "Adapters",
+      "pages": ["drizzle", "zod"]
+    },
+    {
+      "label": "Guides",
+      "pages": ["gotchas"]
+    },
+    {
+      "label": "Reference",
+      "pages": ["recipes", "api-reference"]
+    }
+  ]
+}
