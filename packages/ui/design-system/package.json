@@ -1,6 +1,6 @@
 {
   "name": "@eristack/design-system",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Erista design tokens, Tailwind preset, and React density context for ERP UI",
   "repository": {
     "type": "git",
@@ -34,9 +34,25 @@
       }
     }
   },
-  "files": ["dist", "src/tokens.css", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "design-system", "tailwind", "tokens", "eristack", "react"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "src/tokens.css",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "design-system",
+    "tailwind",
+    "tokens",
+    "eristack",
+    "react"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -50,8 +66,12 @@
     "tailwindcss": "^3.0.0 || ^4.0.0"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true },
-    "tailwindcss": { "optional": true }
+    "react": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",
