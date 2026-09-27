@@ -1,6 +1,6 @@
 {
   "name": "@eristack/health",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Liveness and readiness health check registry with Express and Nest mount helpers",
   "repository": {
     "type": "git",
@@ -44,9 +44,23 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "health", "readiness", "liveness", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "health",
+    "readiness",
+    "liveness",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -60,8 +74,12 @@
     "express": "^4.0.0 || ^5.0.0"
   },
   "peerDependenciesMeta": {
-    "@nestjs/common": { "optional": true },
-    "express": { "optional": true }
+    "@nestjs/common": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@nestjs/common": "^11.0.12",

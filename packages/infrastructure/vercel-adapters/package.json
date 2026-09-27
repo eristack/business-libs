@@ -1,6 +1,6 @@
 {
   "name": "@eristack/vercel-adapters",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Serverless-friendly Express entry helpers for Vercel — no Vercel SDK in core",
   "repository": {
     "type": "git",
@@ -24,9 +24,23 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "vercel", "serverless", "express", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "vercel",
+    "serverless",
+    "express",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -39,7 +53,9 @@
     "express": "^4.0.0 || ^5.0.0"
   },
   "peerDependenciesMeta": {
-    "express": { "optional": true }
+    "express": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",

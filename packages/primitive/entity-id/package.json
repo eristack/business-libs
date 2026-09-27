@@ -1,6 +1,6 @@
 {
   "name": "@eristack/entity-id",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "UUID v7 entity identifiers — sortable, parseable, Drizzle column helper",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/pdf-render",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "HTML to PDF driver interface — Puppeteer/Playwright stays in the app or optional adapter",
   "repository": {
     "type": "git",
@@ -24,9 +24,23 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "pdf", "render", "invoice", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "pdf",
+    "render",
+    "invoice",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
