@@ -82,6 +82,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | Clickable ERP mock → real API | `#backseat-then-backend` | Same spine; upgrading §3 for peers |
 | “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
 | Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
+| Wave 13 party / platform / tax (planned) | `#party-and-platform-compose` | This file for **shipped** spine only |
 | Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
 | Stripe / Xendit / payment intents | `#payment-gateway-stripe-xendit` | payment-manager-core → adapters; payment-instrument for tokens |
 | Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
@@ -138,6 +139,23 @@ Peers for `./seeds` spine helper: `@eristack/jwt-auth`, `@eristack/epoch`, `@eri
     ├── @eristack/financial-ledger (+ money)
     └── @eristack/valuations (+ stock + financial stores)
 ```
+
+## Wave 13 (planned — compose, not shipped graph)
+
+Approved 2026-09-27. **No npm packages yet** — do not add fictional imports to apps.
+
+| Wave | Packages | Compose guide |
+| --- | --- | --- |
+| E | entity-id, business-calendar, checksum | `#party-and-platform-compose` § finance / identity |
+| A | person, phone, email-address, contact | § party pipeline |
+| B | dimension, geo | § measures |
+| F | currency-pair, rounding-policy, tax | § finance (uses shipped fiscal-calendar, money, qups) |
+| C | email-template, idempotency, api-key, rate-limit, pdf-render, spreadsheet-render | § platform + outbound |
+| G | health, drizzle-kit-helpers, vercel-adapters | § deploy DX |
+
+**First implementation slice:** `@eristack/entity-id` (E1). **Rule:** one package per PR. Horizon: `roadmap/horizon.md`.
+
+---
 
 ## Agent checklist
 
