@@ -1,0 +1,7 @@
+package: "@eristack/vercel-adapters"
+title: vercel-adapters
+maintainers:
+  - support@eristack.dev
+scope: Serverless deploy (Wave 13 G3).
+skills:
+  - vercel-adapters-core

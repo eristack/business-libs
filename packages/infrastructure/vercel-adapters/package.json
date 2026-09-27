@@ -1,0 +1,54 @@
+{
+  "name": "@eristack/vercel-adapters",
+  "version": "0.0.0",
+  "description": "Serverless-friendly Express entry helpers for Vercel — no Vercel SDK in core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/infrastructure/vercel-adapters"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/infrastructure/vercel-adapters",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
+  "keywords": ["tanstack-intent", "vercel", "serverless", "express", "eristack"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "express": "^4.0.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": { "optional": true }
+  },
+  "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.15.29",
+    "express": "^5.0.0",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}
