@@ -1,0 +1,9 @@
+package: "@eristack/person"
+title: person
+maintainers:
+  - support@eristack.dev
+scope: >
+  Person name + gender identity normalization and display formatters (Wave 13 A1).
+outOfScope: HRIS, payroll, demographics analytics.
+skills:
+  - person-core
