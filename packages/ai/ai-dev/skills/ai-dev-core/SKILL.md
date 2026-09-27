@@ -21,7 +21,7 @@ sources:
 1. **`pnpm eristack plan --json`** — changed files → profile, checks, sync, skills, commands, **`nextBrainstormItem`** (first open row in `_ai-docs/brainstorm/improvements.md`). Run this **first** instead of glob-reading AGENTS.md check lists.
 2. **`pnpm ci:pr`** / **`pnpm eristack ci --base origin/main`** — **GitHub PR CI** (full when lockfile/root changes; else affected turbo).
 3. **`pnpm ci:affected`** — local only: force affected turbo when full mode is too slow.
-4. **`pnpm prepush`** — before push: **`publish:check`**, **`changesets:check`**, **`debottleneck:check:ci`** (recipe trigger overlaps), then **`eristack sync deps/all --check`**, ticket (~seconds).
+4. **`pnpm prepush`** — runs **`pnpm ci:affected`** (same as GitHub PR CI when the diff is small: drift + affected turbo build/typecheck/test). Use **`pnpm ci:pr`** for the full affected/default plan without forcing affected only.
 5. After **`package.json`** dependency edits: **`pnpm lockfile:sync`** then commit **`pnpm-lock.yaml`** (CI runs `pnpm install --frozen-lockfile` first).
 6. **`pnpm ci:drift`** or **`pnpm ticket:check`** — subset checks only.
 7. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate; includes `debottleneck:check:ci` overlap budget).

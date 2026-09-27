@@ -62,7 +62,7 @@ describe.skipIf(!canUseBetterSqlite())("hash-chained-ledger drizzle integration"
       entryTypeId: "2",
     });
 
-    tamperHclEntryHash(sqlite, "tamper", 1);
+    tamperHclEntryHash(sqlite, "tamper", 1, harness.tablePrefix);
 
     const check = await ledger.check("tamper");
     expect(check.ok).toBe(false);

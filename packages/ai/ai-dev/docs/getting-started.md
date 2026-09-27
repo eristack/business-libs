@@ -90,7 +90,7 @@ These delegate to `eristack` — prefer `pnpm eristack` for new work:
 | `pnpm ticket:check` | Subscription scan only (fix ticket YAML before full CI) |
 | `pnpm lockfile:sync` | After any `package.json` dep change — refresh `pnpm-lock.yaml` |
 | `pnpm lockfile:check` | Same as CI install gate (`--frozen-lockfile`) |
-| `pnpm prepush` | **Before push:** publish + changesets + debottleneck + lockfile + docs + knowledge + ticket (seconds) |
+| `pnpm prepush` | **Before push:** `ci:affected` — drift gates + build/typecheck/test on packages changed vs `origin/main` (~1–2 min) |
 
 After editing workspace **`package.json`** (including `examples/*`):
 
