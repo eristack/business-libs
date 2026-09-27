@@ -47,7 +47,7 @@ GitHub CI runs **`pnpm install --frozen-lockfile`** before any tests. Any worksp
 | --- | --- |
 | Refresh lockfile after dep edits | `pnpm lockfile:sync` or `pnpm eristack sync deps` |
 | Verify locally / catalog CI | `pnpm lockfile:check` or `pnpm eristack sync deps --check` |
-| Bundled drift before push | `pnpm prepush` (lockfile + docs + knowledge + ticket) |
+| Bundled drift before push | `pnpm prepush` (publish, changesets, debottleneck overlap budget, lockfile, docs, knowledge, ticket) |
 
 `eristack plan --json` adds **`sync deps`** when changed paths include `package.json`.
 

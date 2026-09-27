@@ -100,8 +100,7 @@ export const recipes = [
       "posted_at",
       "occurred at",
       "occurred_at",
-      "business date",
-      "posting date"
+      "business date"
     ],
     "rationale": "Use @eristack/timestamp instant mode: UTC instant + IANA timezone for local transaction_date labels. Not raw Date or server timezone.",
     "packages": [
@@ -1156,7 +1155,6 @@ export const recipes = [
       "basis points",
       "bps",
       "tax rate",
-      "vat rate",
       "discount rate",
       "markup rate",
       "ratio string"
@@ -1692,25 +1690,21 @@ export const recipes = [
     "title": "Wave 13 party, platform, and finance compose",
     "priority": 8,
     "triggers": [
-      "wave 13",
+      "wave 13 compose",
+      "wave 13 platform",
+      "party platform compose",
+      "compose at boundary",
+      "one package per pr wave 13",
       "party contact",
       "normalize contact",
-      "entity-id",
-      "entity id",
-      "uuid v7",
       "business calendar",
       "working days",
-      "idempotency key",
       "api key middleware",
       "rate limit middleware",
       "email template render",
-      "pdf render driver",
       "spreadsheet export",
-      "rounding policy",
-      "currency pair",
       "checksum export",
       "health readiness",
-      "vercel adapter",
       "drizzle kit helper"
     ],
     "rationale": "Approved Wave 13 pipelines compose at the app boundary without sibling hard deps. Load @eristack/ai-knowledge#party-and-platform-compose and read knowledge/party-and-platform-compose.md — ship one npm package per PR.",
@@ -1802,7 +1796,6 @@ export const recipes = [
       "platform api guard",
       "partner api",
       "b2b api",
-      "replay post",
       "idempotency store"
     ],
     "rationale": "Middleware order: @eristack/rate-limit → @eristack/api-key → @eristack/idempotency → handler. Memory limiter and idempotency store are tests only — Drizzle/Redis in prod.",
