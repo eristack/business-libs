@@ -1,0 +1,6 @@
+package: "@eristack/contact"
+title: contact
+maintainers: [support@eristack.dev]
+scope: Contact roles and channel lists.
+outOfScope: CRM dedupe, marketing lists.
+skills: [contact-core]
