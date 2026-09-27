@@ -160,6 +160,15 @@ tanstackIntent:
   - id: "@eristack/geo#geo-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
     for: "@eristack/geo lat/lng decimal strings and geoDistanceKm haversine — no geocoding (Wave 13 B2)."
+  - id: "@eristack/business-calendar#business-calendar-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
+    for: "@eristack/business-calendar working days, holidays, addBusinessDays on YYYY-MM-DD (Wave 13 E2)."
+  - id: "@eristack/checksum#checksum-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
+    for: "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals (Wave 13 E3)."
+  - id: "@eristack/currency-pair#currency-pair-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
+    for: "@eristack/currency-pair normalizeCurrencyPair, formatPairKey on @eristack/money codes (Wave 13 F1)."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)
@@ -225,6 +234,9 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
+- `packages/primitive/business-calendar` — `@eristack/business-calendar` (working days)
+- `packages/primitive/checksum` — `@eristack/checksum` (SHA-256 hex)
+- `packages/primitive/currency-pair` — `@eristack/currency-pair` (FX pair keys)
 - `packages/primitive/dimension` — `@eristack/dimension` (L×W×H decimal strings)
 - `packages/primitive/geo` — `@eristack/geo` (lat/lng + haversine km)
 - `packages/primitive/entity-id` — `@eristack/entity-id` (UUID v7 PKs)

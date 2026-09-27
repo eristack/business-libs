@@ -30,7 +30,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P14 | `@eristack/tax-id`            | idea    | NPWP/VAT/EIN string validators                  |                |
 | P15 | `@eristack/coa`               | sketch  | Account code tree, type enum                    | TS · **H**     |
 | P16 | `@eristack/fiscal-calendar`   | idea    | Fiscal year + periods                           | **H**          |
-| P17 | `@eristack/business-calendar` | idea    | Working days, holidays                          | plan: wave13 Wave E2 · peers timestamp · not fiscal-calendar |
+| P17 | `@eristack/business-calendar` | shipped | Working days, holidays (wall dates)             | Wave 13 E2     |
 | P18 | `@eristack/percent`           | idea    | Basis points / ratio strings                    |                |
 | P19 | `@eristack/geo`               | shipped | Lat/lng strings + haversine km                  | Wave 13 B2     |
 | P20 | `@eristack/locale-format`     | idea    | Number/date display intents                     |                |
@@ -49,8 +49,8 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P33 | `@eristack/slug`              | idea    | URL-safe identifiers                            |                |
 | P34 | `@eristack/enum-pack`         | idea    | Registered enum sets with labels                |                |
 | P35 | `@eristack/allocation-weight` | idea    | Weights that sum to 100% for splits             | money allocate |
-| P36 | `@eristack/currency-pair`     | idea    | Base/quote pair validation for FX               | plan: wave13 Wave F1 · money |
-| P37 | `@eristack/checksum`          | idea    | SHA-256 hex normalize/compare for exports       | plan: wave13 Wave E3 · file-manager |
+| P36 | `@eristack/currency-pair`     | shipped | Base/quote pair validation for FX               | Wave 13 F1     |
+| P37 | `@eristack/checksum`          | shipped | SHA-256 hex normalize/compare for exports       | Wave 13 E3     |
 
 ---
 

@@ -1579,6 +1579,48 @@ export const recipes = [
     ]
   },
   {
+    "id": "checksum-export-integrity",
+    "title": "Export file SHA-256 checksum",
+    "priority": 14,
+    "triggers": [
+      "checksum",
+      "sha256 export",
+      "file digest",
+      "export integrity"
+    ],
+    "rationale": "@eristack/checksum sha256Hex and checksumEquals for download/export verification; pair with @eristack/file-manager metadata in the app.",
+    "packages": [
+      {
+        "name": "@eristack/checksum",
+        "skills": [
+          "checksum-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "currency-pair-fx-key",
+    "title": "FX currency pair keys (no rates)",
+    "priority": 14,
+    "triggers": [
+      "currency pair",
+      "base quote",
+      "fx pair",
+      "usd/idr"
+    ],
+    "rationale": "@eristack/currency-pair validates ISO codes via @eristack/money — formatPairKey for rate table PKs until fx-table ships.",
+    "packages": [
+      {
+        "name": "@eristack/currency-pair",
+        "skills": [
+          "currency-pair-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "geo-distance-logistics",
     "title": "Geo coordinates and distance (km)",
     "priority": 14,
@@ -1747,7 +1789,7 @@ export const recipes = [
       "period closed",
       "fiscal period post"
     ],
-    "rationale": "Compose @eristack/fiscal-calendar (shipped) with planned business-calendar and timestamp wall dates. Load #party-and-platform-compose (finance pipeline).",
+    "rationale": "Compose @eristack/fiscal-calendar and @eristack/business-calendar with timestamp wall dates at the app boundary. Load #party-and-platform-compose (finance pipeline).",
     "canonicalSkills": [
       "@eristack/ai-knowledge#party-and-platform-compose"
     ],
@@ -1758,6 +1800,20 @@ export const recipes = [
           "party-and-platform-compose"
         ],
         "role": "primary"
+      },
+      {
+        "name": "@eristack/business-calendar",
+        "skills": [
+          "business-calendar-core"
+        ],
+        "role": "secondary"
+      },
+      {
+        "name": "@eristack/fiscal-calendar",
+        "skills": [
+          "fiscal-calendar-core"
+        ],
+        "role": "secondary"
       }
     ]
   },

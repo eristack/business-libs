@@ -117,9 +117,9 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/phone` | **Planned** (Wave 13 A2) | E.164 normalize/validate | — | contact, comms |
 | `@eristack/email-address` | **Planned** (Wave 13 A2) | Normalized local@domain | — | contact, comms |
 | `@eristack/dimension` | **Shipped** 0.0.0 | L×W×H string triple + cubic volume | uom (peer, optional) | logistics |
-| `@eristack/business-calendar` | **Planned** (Wave 13 E2) | Working days + holidays | timestamp (peer) | due dates, SLAs |
-| `@eristack/currency-pair` | **Planned** (Wave 13 F1) | Base/quote pair validation | money | FX apps |
-| `@eristack/checksum` | **Planned** (Wave 13 E3) | SHA-256 hex normalize/compare | — | exports, file-manager |
+| `@eristack/business-calendar` | **Shipped** 0.0.0 | Working days + holidays (wall dates) | — | due dates, SLAs |
+| `@eristack/currency-pair` | **Shipped** 0.0.0 | Base/quote pair validation | money | FX apps |
+| `@eristack/checksum` | **Shipped** 0.0.0 | SHA-256 hex normalize/compare | — | exports, file-manager |
 | `@eristack/uom` | **Shipped 0.1.0** | Unit of measure + **fixed ratios** (g, kg, L, pcs) | — | qups qty, product, stock |
 | `@eristack/address` | **Shipped 0.1.0** | Normalized address lines, country/region codes | — | partner, contact |
 | `@eristack/contact` | **Planned** (Wave 13 A3) | Person/channel roles on a party | compose: person, phone, email | partner |

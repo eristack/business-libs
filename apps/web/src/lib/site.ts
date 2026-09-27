@@ -223,6 +223,41 @@ const total = Money.of("19.99", "USD")
     },
   },
   {
+    slug: "currency-pair",
+    name: "@eristack/currency-pair",
+    title: "Currency pair",
+    category: "primitive" as const,
+    directory: "packages/primitive/currency-pair",
+    href: "/currency-pair",
+    docsHref: "/docs/currency-pair",
+    tagline: "Validate BASE/QUOTE keys — no FX rates in v0.",
+    description:
+      "normalizeCurrencyPair uses @eristack/money registry codes, rejects same-currency pairs, formatPairKey for rate-table PKs. Wave 13 F1.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/currency-pair",
+    highlights: [
+      {
+        title: "Registry-backed",
+        body: "Unknown ISO codes fail at normalize — same catalog as Money.of.",
+      },
+      {
+        title: "Canonical keys",
+        body: "formatPairKey → USD/IDR for Drizzle unique indexes.",
+      },
+      {
+        title: "Invert",
+        body: "invertPair swaps base and quote for display vs settlement direction.",
+      },
+    ],
+    sample: {
+      filename: "pair.ts",
+      language: "ts",
+      code: `import { normalizeCurrencyPair, formatPairKey } from "@eristack/currency-pair"
+
+formatPairKey(normalizeCurrencyPair("usd", "idr"))`,
+    },
+  },
+  {
     slug: "timestamp",
     name: "@eristack/timestamp",
     title: "Timestamp",
@@ -370,6 +405,42 @@ formatFraction(
     },
   },
   {
+    slug: "business-calendar",
+    name: "@eristack/business-calendar",
+    title: "Business calendar",
+    category: "primitive" as const,
+    directory: "packages/primitive/business-calendar",
+    href: "/business-calendar",
+    docsHref: "/docs/business-calendar",
+    tagline: "Working days and holidays on YYYY-MM-DD wall dates.",
+    description:
+      "createBusinessCalendar with weekend mask and holiday list — isBusinessDay, addBusinessDays, nextBusinessDay. Wave 13 E2 — compose with fiscal-calendar for posting guards.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/business-calendar",
+    highlights: [
+      {
+        title: "Wall dates only",
+        body: "Core uses YYYY-MM-DD strings — no @eristack/timestamp import required.",
+      },
+      {
+        title: "SLA math",
+        body: "addBusinessDays skips weekends and configured holidays.",
+      },
+      {
+        title: "Fiscal compose",
+        body: "Business day ∧ open fiscal period checks live in the app handler.",
+      },
+    ],
+    sample: {
+      filename: "business-calendar.ts",
+      language: "ts",
+      code: `import { createBusinessCalendar } from "@eristack/business-calendar"
+
+const cal = createBusinessCalendar({ weekendDays: [0, 6], holidays: ["2026-01-01"] })
+cal.addBusinessDays("2026-01-02", 1)`,
+    },
+  },
+  {
     slug: "fiscal-calendar",
     name: "@eristack/fiscal-calendar",
     title: "Fiscal Calendar",
@@ -443,6 +514,42 @@ const addr = normalizeAddress({
   countryCode: "id",
 })
 formatAddressOneLine(addr)`,
+    },
+  },
+  {
+    slug: "checksum",
+    name: "@eristack/checksum",
+    title: "Checksum",
+    category: "primitive" as const,
+    directory: "packages/primitive/checksum",
+    href: "/checksum",
+    docsHref: "/docs/checksum",
+    tagline: "SHA-256 hex for exports and file integrity.",
+    description:
+      "sha256Hex on UTF-8 or bytes, normalizeChecksumHex storage, timing-safe checksumEquals. Wave 13 E3 — pair with file-manager metadata in the app.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/checksum",
+    highlights: [
+      {
+        title: "Node crypto",
+        body: "SHA-256 in core — no extra hash dependencies.",
+      },
+      {
+        title: "Normalize hex",
+        body: "Lowercase even-length digests for stable DB unique constraints.",
+      },
+      {
+        title: "Safe compare",
+        body: "checksumEquals uses timingSafeEqual on decoded bytes.",
+      },
+    ],
+    sample: {
+      filename: "checksum.ts",
+      language: "ts",
+      code: `import { sha256Hex, checksumEquals } from "@eristack/checksum"
+
+const digest = sha256Hex("export payload")
+checksumEquals(stored, digest)`,
     },
   },
   {

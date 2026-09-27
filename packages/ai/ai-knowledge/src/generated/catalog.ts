@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:46:46.757Z",
+  "generatedAt": "2026-09-27T04:48:23.547Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -156,6 +156,42 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/business-calendar",
+      "version": "0.0.0",
+      "description": "Business days and holidays on YYYY-MM-DD wall dates — no timestamp import in core",
+      "slug": "business-calendar",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "business-calendar-core",
+          "name": "business-calendar-core",
+          "packageName": "@eristack/business-calendar",
+          "description": "@eristack/business-calendar createBusinessCalendar, isBusinessDay, addBusinessDays on YYYY-MM-DD wall dates (Wave 13 E2).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/checksum",
+      "version": "0.0.0",
+      "description": "SHA-256 hex normalize and constant-time compare for exports and file refs",
+      "slug": "checksum",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "checksum-core",
+          "name": "checksum-core",
+          "packageName": "@eristack/checksum",
+          "description": "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals — Wave 13 E3.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/comms",
       "version": "0.1.0",
       "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
@@ -200,6 +236,25 @@ export const catalog = {
       "slug": "contact",
       "adapters": [],
       "skills": []
+    },
+    {
+      "name": "@eristack/currency-pair",
+      "version": "0.0.0",
+      "description": "Base/quote currency pair validation and canonical pair keys — no FX rates",
+      "slug": "currency-pair",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "currency-pair-core",
+          "name": "currency-pair-core",
+          "packageName": "@eristack/currency-pair",
+          "description": "@eristack/currency-pair normalizeCurrencyPair, formatPairKey, invertPair — Wave 13 F1.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
+        }
+      ]
     },
     {
       "name": "@eristack/data-grid",
