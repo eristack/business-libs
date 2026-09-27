@@ -1577,5 +1577,171 @@ export const recipes = [
         "role": "primary"
       }
     ]
+  },
+  {
+    "id": "party-and-platform-compose",
+    "title": "Wave 13 party, platform, and finance compose",
+    "priority": 8,
+    "triggers": [
+      "wave 13",
+      "party contact",
+      "normalize contact",
+      "entity-id",
+      "entity id",
+      "uuid v7",
+      "business calendar",
+      "working days",
+      "idempotency key",
+      "api key middleware",
+      "rate limit middleware",
+      "email template render",
+      "pdf render driver",
+      "spreadsheet export",
+      "rounding policy",
+      "currency pair",
+      "checksum export",
+      "health readiness",
+      "vercel adapter",
+      "drizzle kit helper"
+    ],
+    "rationale": "Approved Wave 13 pipelines compose at the app boundary without sibling hard deps. Load @eristack/ai-knowledge#party-and-platform-compose and read knowledge/party-and-platform-compose.md — ship one npm package per PR.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "party-contact-normalize",
+    "title": "Normalize party contacts (person, phone, email)",
+    "priority": 14,
+    "triggers": [
+      "party normalize",
+      "contact list",
+      "primary contact",
+      "e.164",
+      "normalize email",
+      "person name form"
+    ],
+    "rationale": "Chain @eristack/person, phone, email-address, and contact at the API boundary. Until packages ship, load #party-and-platform-compose (party pipeline section).",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "platform-api-guard",
+    "title": "B2B API edge (rate limit, API key, idempotency)",
+    "priority": 16,
+    "triggers": [
+      "platform api guard",
+      "partner api",
+      "b2b api",
+      "replay post",
+      "idempotency store"
+    ],
+    "rationale": "Middleware order: rate-limit → api-key → idempotency → handler. Load #party-and-platform-compose until @eristack/idempotency, api-key, and rate-limit ship.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "posting-date-guard",
+    "title": "Posting date, fiscal period, and business days",
+    "priority": 17,
+    "triggers": [
+      "posting date",
+      "business day",
+      "holiday calendar",
+      "period closed",
+      "fiscal period post"
+    ],
+    "rationale": "Compose @eristack/fiscal-calendar (shipped) with planned business-calendar and timestamp wall dates. Load #party-and-platform-compose (finance pipeline).",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "invoice-line-tax",
+    "title": "Tax codes and line tax with qups",
+    "priority": 18,
+    "triggers": [
+      "tax code",
+      "tax rate effective date",
+      "line tax",
+      "vat rate",
+      "sales tax rate"
+    ],
+    "rationale": "Planned @eristack/tax resolves rates; @eristack/qups + @eristack/money apply math. Load #party-and-platform-compose until tax package ships.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "spreadsheet-export-download",
+    "title": "Export list rows to xlsx or csv",
+    "priority": 22,
+    "triggers": [
+      "export xlsx",
+      "export csv",
+      "spreadsheet download",
+      "excel export",
+      "download list excel"
+    ],
+    "rationale": "App maps data-grid list rows to string cells, then spreadsheet-render driver. Optional checksum for file-manager. Load #party-and-platform-compose (outbound).",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#party-and-platform-compose"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/ai-knowledge",
+        "skills": [
+          "party-and-platform-compose"
+        ],
+        "role": "primary"
+      }
+    ]
   }
 ] as Recipe[];

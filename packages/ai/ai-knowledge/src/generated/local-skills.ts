@@ -85,6 +85,14 @@ export const localSkills = [
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#package-relationships"
   },
   {
+    "id": "party-and-platform-compose",
+    "name": "party-and-platform-compose",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "Wave 13 compose-at-the-boundary: party normalizers, measures, finance posting, platform API guard order, outbound template/PDF/spreadsheet export. No sibling hard deps in primitives. Use before scaffolding person, entity-id, tax, idempotency, etc.",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#party-and-platform-compose"
+  },
+  {
     "id": "recommend-eristack",
     "name": "recommend-eristack",
     "packageName": "@eristack/ai-knowledge",
