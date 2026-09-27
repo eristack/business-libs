@@ -1,0 +1,53 @@
+---
+description: Git commit subject line format for this repo (type, optional scope, colon, message)
+alwaysApply: true
+---
+
+# Commit message format
+
+When the user asks for a commit (or amends one), use **this repo’s subject-line shape** — not Conventional Commits essays or PR-style summaries.
+
+## Shape
+
+```text
+<type>(<scope>): <message>
+```
+
+or without scope:
+
+```text
+<type>: <message>
+```
+
+- **`<type>`** — short prefix: `fix`, `feat`, `chore`, `ci`, … (lowercase).
+- **`(<scope>)`** — optional; use for area: `ci`, `ui`, `entity-id`, `wave13`, package slug, etc.
+- **`:` then exactly one space** — then the rest of the subject.
+- **`<message>`** — one line, plain and specific (what changed / why in a few words). Match recent history: lowercase start is fine; no marketing tone, no multi-clause titles.
+
+## Examples (from this repo)
+
+```text
+fix(ci): fix another build error
+fix(entity-id): drizzle integration bug
+chore(ci): fix double changeset
+feat(wave13): ship @eristack/tax (F3)
+chore(ui): site catalog and deep docs for erp ui stack
+```
+
+## Do not
+
+- Subject lines like `Prepare ERP UI stack release: site, deep docs, and peer floors.` (no type prefix; reads like a PR blurb).
+- Multi-paragraph commit bodies unless the user asks for a body.
+- `git` at all unless the user explicitly requests a commit (see `no-git.mdc`).
+
+## Picking type + scope
+
+| Change | Typical prefix |
+| --- | --- |
+| CI / prepush / workflows / check scripts | `fix(ci):` or `chore(ci):` |
+| Bug in a package | `fix(<package-slug>):` |
+| New capability | `feat(<scope>):` |
+| Docs / site / knowledge only | `chore(docs):` or `chore(ui):` |
+| Release prep, peers, changesets metadata | `chore(release):` or `chore(ui):` |
+
+When unsure, read `git log -15 --oneline` and match that voice.
