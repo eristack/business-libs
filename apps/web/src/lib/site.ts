@@ -446,6 +446,45 @@ formatAddressOneLine(addr)`,
     },
   },
   {
+    slug: "entity-id",
+    name: "@eristack/entity-id",
+    title: "Entity ID",
+    category: "primitive" as const,
+    directory: "packages/primitive/entity-id",
+    href: "/entity-id",
+    docsHref: "/docs/entity-id",
+    tagline: "UUID v7 primary keys — sortable, strict parse, Drizzle defaults.",
+    description:
+      "Generate and parse RFC 9562 UUID v7 entity ids for ERP tables. compareEntityIds for time-ordered lists; entityIdColumn for Postgres uuid / sqlite text. Wave 13 E1 — pairs with doc-number for display numbers.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/entity-id",
+    highlights: [
+      {
+        title: "Time-sortable PK",
+        body: "List by id without a separate created_at index when rows are inserted in real time.",
+      },
+      {
+        title: "Strict v7",
+        body: "parseEntityId rejects legacy v4 — canonical lowercase hyphenated storage.",
+      },
+      {
+        title: "Drizzle default",
+        body: "entityIdColumn(dialect, \"id\").primaryKey() wires $defaultFn(() => generateEntityId()).",
+      },
+    ],
+    sample: {
+      filename: "entity-id.ts",
+      language: "ts",
+      code: `import { generateEntityId, parseEntityId } from "@eristack/entity-id"
+import { entityIdColumn } from "@eristack/entity-id/drizzle"
+
+const id = generateEntityId()
+parseEntityId(id)
+
+// id: entityIdColumn("pgsql", "id").primaryKey()`,
+    },
+  },
+  {
     slug: "payment-instrument",
     name: "@eristack/payment-instrument",
     title: "Payment instrument",
