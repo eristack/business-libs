@@ -134,7 +134,7 @@ No runtime coupling between G packages and party/tax primitives.
 ## Wave 13 implementation order (macro)
 
 ```text
-E1 entity-id → A person, phone, email, contact → B dimension, geo
+E1 entity-id (shipped @eristack/entity-id) → A person, phone, email, contact → B dimension, geo
 → E2 business-calendar, E3 checksum → F currency-pair, rounding-policy, tax
 → C email-template, idempotency, api-key, rate-limit, pdf-render, spreadsheet-render
 → G health, drizzle-kit-helpers, vercel-adapters

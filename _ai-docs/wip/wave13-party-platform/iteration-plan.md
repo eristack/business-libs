@@ -31,4 +31,4 @@
 
 ## Ship order (implementation — unchanged)
 
-`E1 entity-id` → `A person/phone/email/contact` → `B dimension/geo` → `E2/E3` → `F` → `C` → `G` — one package per iteration with full checklist in `overview.md`.
+~~`E1 entity-id`~~ **done 2026-09-27** (`@eristack/entity-id` 0.0.0) → `A person/phone/email/contact` → `B dimension/geo` → `E2/E3` → `F` → `C` → `G` — one package per iteration with full checklist in `overview.md`.

@@ -16,7 +16,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | --: | ----------------------------- | ------- | ----------------------------------------------- | -------------- |
 | P01 | `@eristack/money`             | shipped | Currency-safe amounts, tax/discount ops         |                |
 | P02 | `@eristack/timestamp`         | shipped | Instant + wall time, DST-safe                   |                |
-| P03 | `@eristack/entity-id`         | sketch  | UUID v7 generate/parse, Drizzle column          | TS · **H** · plan: `_ai-docs/wip/wave13-party-platform/` Wave E1 |
+| P03 | `@eristack/entity-id`         | shipped | UUID v7 generate/parse, Drizzle column          | TS · **H** · Wave 13 E1 |
 | P04 | `@eristack/uom`               | sketch  | Units + fixed conversion ratios (g, kg, L, pcs) | TS · **H**     |
 | P05 | `@eristack/quantity`          | idea    | String decimal qty (distinct from money)        | pairs with uom |
 | P06 | `@eristack/address`           | sketch  | Normalized postal lines, country/region         | TS · **H**     |

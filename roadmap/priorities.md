@@ -68,7 +68,7 @@ Draft package catalog (not sequenced here): [Horizon](./horizon.md).
 
 | First slices | Doc |
 | --- | --- |
-| `@eristack/entity-id` (E1) | [Horizon § entity-id](./horizon.md) |
+| ~~`@eristack/entity-id` (E1)~~ **shipped 0.0.0** | [Horizon § entity-id](./horizon.md) · next: `person` (A1) |
 | Party spine A1–A3 | WIP `_ai-docs/wip/wave13-party-platform/overview.md` |
 | Compose at boundary | `@eristack/ai-knowledge#party-and-platform-compose` (after promotion) |
 

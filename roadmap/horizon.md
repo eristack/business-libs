@@ -112,7 +112,7 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | --- | --- | --- | --- | --- |
 | `@eristack/money` | Shipped | Currency-safe amounts | — | all pricing |
 | `@eristack/timestamp` | Shipped | Instant + wall time | — | doc dates, grids |
-| `@eristack/entity-id` | **Planned** (Wave 13 E1) | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
+| `@eristack/entity-id` | **Shipped** 0.0.0 | **UUID v7** primary keys, sortable, URL-safe | — | all new Drizzle tables |
 | `@eristack/person` | **Planned** (Wave 13 A1) | Structured name + gender identity (not HRIS) | — | contact, partner |
 | `@eristack/phone` | **Planned** (Wave 13 A2) | E.164 normalize/validate | — | contact, comms |
 | `@eristack/email-address` | **Planned** (Wave 13 A2) | Normalized local@domain | — | contact, comms |
@@ -130,9 +130,9 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/geo` | **Planned** (Wave 13 B2) | Lat/lng strings; optional distance | timestamp | logistics |
 | `@eristack/payment-instrument` | Shipped | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
 
-### `@eristack/entity-id` (Wave 13 E1 — first implementation slice)
+### `@eristack/entity-id` (shipped — Wave 13 E1)
 
-Approved in Wave 13 (2026-09-27). Ship before party spine on greenfield apps.
+Shipped 2026-09-27. Use on greenfield Drizzle tables before party spine packages land.
 
 - `generateEntityId()` · `parseEntityId()` · `entityIdToDate()` (v7 time sort)
 - Optional `@eristack/entity-id/drizzle` column helper

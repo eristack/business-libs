@@ -151,6 +151,9 @@ tanstackIntent:
   - id: "@eristack/timestamp#timestamp-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-adapters"
     for: "@eristack/timestamp adapters (mirror money): Drizzle, REST, Zod 4, Express, Nest, client, React. Hub docs/adapters.md — load when persisting or validating timestamps in SQL/HTTP/forms."
+  - id: "@eristack/entity-id#entity-id-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
+    for: "@eristack/entity-id UUID v7 generate/parse, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables (Wave 13 E1)."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)

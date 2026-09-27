@@ -35,6 +35,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/address` | Postal address normalization | App masters (not a document spine requirement) |
 | `@eristack/payment-instrument` | Token-safe card display + gateway refs; PAN transient | payment-manager, checkout forms |
 | `@eristack/fiscal-calendar` | Fiscal periods | **Peer:** `@eristack/timestamp` |
+| `@eristack/entity-id` | UUID v7 PK generate/parse | New Drizzle tables; **no** sibling deps |
 
 **percent vs qups vs money:** Line modifiers and tax on documents use `@eristack/qups` + `@eristack/money` (`Discount.ofPercent`, etc.). Use `@eristack/percent` for standalone rate fields (VAT %, bps in config) — not for duplicating qups line math.
 
@@ -146,7 +147,7 @@ Approved 2026-09-27. **No npm packages yet** — do not add fictional imports to
 
 | Wave | Packages | Compose guide |
 | --- | --- | --- |
-| E | entity-id, business-calendar, checksum | `#party-and-platform-compose` § finance / identity |
+| E | **entity-id (shipped)**, business-calendar, checksum | `#party-and-platform-compose` § finance / identity · `#entity-id-v7-primary-key` |
 | A | person, phone, email-address, contact | § party pipeline |
 | B | dimension, geo | § measures |
 | F | currency-pair, rounding-policy, tax | § finance (uses shipped fiscal-calendar, money, qups) |
