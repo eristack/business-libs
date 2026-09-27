@@ -1171,6 +1171,33 @@ const query = fromSearch(search, schema)`,
     },
   },
   {
+    slug: "idempotency",
+    name: "@eristack/idempotency",
+    title: "Idempotency",
+    category: "service" as const,
+    directory: "packages/service/idempotency",
+    href: "/idempotency",
+    docsHref: "/docs/idempotency",
+    tagline: "Idempotency-Key guard for POST replay safety.",
+    description:
+      "createIdempotencyGuard(store).run(key, fn) replays completed responses. Wave 13 C2 — memory store for tests; Drizzle in production.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/idempotency",
+    highlights: [
+      { title: "Replay", body: "Completed keys return stored result without re-running fn." },
+      { title: "Conflict", body: "Pending duplicate keys raise IdempotencyConflictError." },
+      { title: "Payments/comms", body: "Third in platform-api-guard middleware order." },
+    ],
+    sample: {
+      filename: "idempotency.ts",
+      language: "ts",
+      code: `import { createIdempotencyGuard, createMemoryIdempotencyStore } from "@eristack/idempotency"
+
+const guard = createIdempotencyGuard(createMemoryIdempotencyStore())
+await guard.run(idempotencyKey, () => charge())`,
+    },
+  },
+  {
     slug: "jwt-auth",
     name: "@eristack/jwt-auth",
     title: "JWT Auth",
@@ -1356,6 +1383,60 @@ await rbac.can(userId, "orders.create")`,
     },
   },
   {
+    slug: "rate-limit",
+    name: "@eristack/rate-limit",
+    title: "Rate limit",
+    category: "service" as const,
+    directory: "packages/service/rate-limit",
+    href: "/rate-limit",
+    docsHref: "/docs/rate-limit",
+    tagline: "Fixed-window limiter for API edge.",
+    description:
+      "createRateLimiter({ windowMs, max }).check(key). Wave 13 C4 — memory for tests; Redis at app edge in production.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/rate-limit",
+    highlights: [
+      { title: "Fixed window", body: "Simple allowed/remaining/resetAt result." },
+      { title: "First guard", body: "First middleware in platform-api-guard." },
+      { title: "No Redis in core", body: "App or future adapter for distributed limits." },
+    ],
+    sample: {
+      filename: "rate-limit.ts",
+      language: "ts",
+      code: `import { createRateLimiter } from "@eristack/rate-limit"
+
+const limiter = createRateLimiter({ windowMs: 60_000, max: 100 })
+limiter.check(clientIp)`,
+    },
+  },
+  {
+    slug: "spreadsheet-render",
+    name: "@eristack/spreadsheet-render",
+    title: "Spreadsheet render",
+    category: "service" as const,
+    directory: "packages/service/spreadsheet-render",
+    href: "/spreadsheet-render",
+    docsHref: "/docs/spreadsheet-render",
+    tagline: "Workbook model and xlsx/csv export drivers.",
+    description:
+      "workbookFromRows, createSpreadsheetRenderer, createStubSpreadsheetDriver. Wave 13 C6 — ExcelJS/SheetJS in app or future adapter.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/spreadsheet-render",
+    highlights: [
+      { title: "String cells", body: "Format money/timestamps in app before render." },
+      { title: "CSV stub", body: "Real CSV from stub driver for tests." },
+      { title: "List export", body: "Recipe spreadsheet-export-download." },
+    ],
+    sample: {
+      filename: "export.ts",
+      language: "ts",
+      code: `import { workbookFromRows, createSpreadsheetRenderer, createStubSpreadsheetDriver } from "@eristack/spreadsheet-render"
+
+const wb = workbookFromRows("Sheet1", [{ key: "id", header: "ID" }], [["1"]])
+await createSpreadsheetRenderer(createStubSpreadsheetDriver()).renderWorkbook(wb, "csv")`,
+    },
+  },
+  {
     slug: "abac",
     name: "@eristack/abac",
     title: "ABAC",
@@ -1398,6 +1479,33 @@ abac.registerPolicy({
     },
   },
   {
+    slug: "api-key",
+    name: "@eristack/api-key",
+    title: "API key",
+    category: "service" as const,
+    directory: "packages/service/api-key",
+    href: "/api-key",
+    docsHref: "/docs/api-key",
+    tagline: "Generate, hash, and verify partner API keys.",
+    description:
+      "generateApiKey, hashApiKey, and timing-safe verifyApiKey with optional pepper. Wave 13 C3 — persist hashes in Drizzle; recipe platform-api-guard.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/api-key",
+    highlights: [
+      { title: "Show once", body: "Return raw key once; store hash + keyId in SQL." },
+      { title: "Pepper", body: "Optional server pepper mixed into SHA-256." },
+      { title: "B2B stack", body: "After rate-limit, before idempotency middleware." },
+    ],
+    sample: {
+      filename: "api-key.ts",
+      language: "ts",
+      code: `import { generateApiKey, hashApiKey, verifyApiKey } from "@eristack/api-key"
+
+const { key } = generateApiKey()
+verifyApiKey(key, hashApiKey(key, pepper), pepper)`,
+    },
+  },
+  {
     slug: "pbac",
     name: "@eristack/pbac",
     title: "PBAC",
@@ -1434,6 +1542,32 @@ pbac.registerPolicy({
   id: "job.can-submit",
   evaluate: documents.positiveAmount("totalMinor"),
 })`,
+    },
+  },
+  {
+    slug: "pdf-render",
+    name: "@eristack/pdf-render",
+    title: "PDF render",
+    category: "service" as const,
+    directory: "packages/service/pdf-render",
+    href: "/pdf-render",
+    docsHref: "/docs/pdf-render",
+    tagline: "HTML→PDF driver interface — no Puppeteer in core.",
+    description:
+      "createPdfRenderer(driver) and createStubPdfDriver for tests. Wave 13 C5 — install browser PDF engine in the app.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/pdf-render",
+    highlights: [
+      { title: "Driver pattern", body: "Same shape as spreadsheet-render exports." },
+      { title: "Stub", body: "Deterministic bytes for unit tests." },
+      { title: "Invoices", body: "Pair with email-template + comms for outbound PDF." },
+    ],
+    sample: {
+      filename: "pdf.ts",
+      language: "ts",
+      code: `import { createPdfRenderer, createStubPdfDriver } from "@eristack/pdf-render"
+
+await createPdfRenderer(createStubPdfDriver()).render({ html: "<p>Hi</p>" })`,
     },
   },
   {
@@ -1474,6 +1608,34 @@ const ledger = createHashChainedLedger({
 })
 await ledger.append({ chainId: "demo", openingBalance: "0", inAmount: "10", entryType: "receipt", entryTypeId: "r1" })
 await ledger.verify("demo")`,
+    },
+  },
+  {
+    slug: "health",
+    name: "@eristack/health",
+    title: "Health",
+    category: "service" as const,
+    directory: "packages/service/health",
+    href: "/health",
+    docsHref: "/docs/health",
+    tagline: "Liveness and readiness check registry.",
+    description:
+      "createHealthRegistry, registerCheck, Express and Nest handlers. Wave 13 G1 — app supplies Drizzle ping checks; 503 when readiness fails.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/health",
+    highlights: [
+      { title: "/health", body: "Liveness — process up." },
+      { title: "/ready", body: "Readiness aggregates registered checks." },
+      { title: "Express + Nest", body: "createHealthRouter or HealthModule.forRoot." },
+    ],
+    sample: {
+      filename: "health.ts",
+      language: "ts",
+      code: `import { createHealthRegistry } from "@eristack/health"
+import { createHealthRouter } from "@eristack/health/express"
+
+const registry = createHealthRegistry()
+const { liveness, readiness } = createHealthRouter(registry)`,
     },
   },
   {
@@ -1775,6 +1937,36 @@ app.use(createLoggerMiddleware({ logger: log }))`,
     },
   },
   {
+    slug: "drizzle-kit-helpers",
+    name: "@eristack/drizzle-kit-helpers",
+    title: "Drizzle kit helpers",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/drizzle-kit-helpers",
+    href: "/drizzle-kit-helpers",
+    docsHref: "/docs/drizzle-kit-helpers",
+    tagline: "Shared drizzle-kit config snippets for consumer monorepos.",
+    description:
+      "defineEristackDrizzleConfig, eristackProdPostgresConfig, eristackTestSqliteConfig. Wave 13 G2 — no runtime schema deps.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/drizzle-kit-helpers -D",
+    highlights: [
+      { title: "pg + sqlite", body: "Prod Postgres vs test SQLite templates." },
+      { title: "Env keys", body: "DATABASE_URL / SQLITE_URL conventions." },
+      { title: "DX only", body: "Config fragments — app owns schemas." },
+    ],
+    sample: {
+      filename: "drizzle.config.ts",
+      language: "ts",
+      code: `import { defineConfig } from "drizzle-kit"
+import { eristackProdPostgresConfig } from "@eristack/drizzle-kit-helpers"
+
+export default defineConfig({
+  ...eristackProdPostgresConfig("./src/db/schema.ts"),
+  dbCredentials: { url: process.env.DATABASE_URL! },
+})`,
+    },
+  },
+  {
     slug: "rest",
     name: "@eristack/rest",
     title: "REST",
@@ -1813,6 +2005,34 @@ export const api = defineRoutes([
     handler: () => ({ status: 200, body: { ok: true } }),
   },
 ])`,
+    },
+  },
+  {
+    slug: "vercel-adapters",
+    name: "@eristack/vercel-adapters",
+    title: "Vercel adapters",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/vercel-adapters",
+    href: "/vercel-adapters",
+    docsHref: "/docs/vercel-adapters",
+    tagline: "Express default export for Vercel serverless.",
+    description:
+      "createVercelExpressHandler(app) and deploy notes. Wave 13 G3 — no Vercel SDK; pair with @eristack/logger.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/vercel-adapters",
+    highlights: [
+      { title: "Handler factory", body: "Wrap Express app for @vercel/node." },
+      { title: "Cold start", body: "defaultVercelDeployNotes documents singleton app." },
+      { title: "No SDK", body: "Types + guidance only in core." },
+    ],
+    sample: {
+      filename: "api/index.ts",
+      language: "ts",
+      code: `import express from "express"
+import { createVercelExpressHandler } from "@eristack/vercel-adapters"
+
+const app = express()
+export default createVercelExpressHandler(app)`,
     },
   },
   {

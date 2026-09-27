@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:51:19.626Z",
+  "generatedAt": "2026-09-27T04:53:51.220Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -123,6 +123,23 @@ export const catalog = {
           "description": "Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/api-key",
+      "version": "0.0.0",
+      "description": "Generate, hash, and timing-safe verify API keys for partner B2B routes",
+      "slug": "api-key",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "api-key-core",
+          "name": "api-key-core",
+          "packageName": "@eristack/api-key",
+          "description": "@eristack/api-key — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/api-key#api-key-core"
         }
       ]
     },
@@ -374,6 +391,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/drizzle-kit-helpers",
+      "version": "0.0.0",
+      "description": "Shared drizzle-kit config fragments for Eristack consumer monorepos (pg prod, sqlite tests)",
+      "slug": "drizzle-kit-helpers",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "drizzle-kit-helpers-core",
+          "name": "drizzle-kit-helpers-core",
+          "packageName": "@eristack/drizzle-kit-helpers",
+          "description": "@eristack/drizzle-kit-helpers — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/drizzle-kit-helpers#drizzle-kit-helpers-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/email-address",
       "version": "0.0.0",
       "description": "Normalized email local@domain strings for contact channels",
@@ -617,6 +651,43 @@ export const catalog = {
           "description": "Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/health",
+      "version": "0.0.0",
+      "description": "Liveness and readiness health check registry with Express and Nest mount helpers",
+      "slug": "health",
+      "adapters": [
+        "express",
+        "nest"
+      ],
+      "skills": [
+        {
+          "id": "health-core",
+          "name": "health-core",
+          "packageName": "@eristack/health",
+          "description": "@eristack/health — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/health#health-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/idempotency",
+      "version": "0.0.0",
+      "description": "Idempotency-Key guard and store interface — memory store for tests; Drizzle in a later iteration",
+      "slug": "idempotency",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "idempotency-core",
+          "name": "idempotency-core",
+          "packageName": "@eristack/idempotency",
+          "description": "@eristack/idempotency createIdempotencyGuard and memory store — Wave 13 C2.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-core"
         }
       ]
     },
@@ -901,6 +972,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/pdf-render",
+      "version": "0.0.0",
+      "description": "HTML to PDF driver interface — Puppeteer/Playwright stays in the app or optional adapter",
+      "slug": "pdf-render",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "pdf-render-core",
+          "name": "pdf-render-core",
+          "packageName": "@eristack/pdf-render",
+          "description": "@eristack/pdf-render — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pdf-render#pdf-render-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/percent",
       "version": "0.1.1",
       "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
@@ -996,6 +1084,23 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/rate-limit",
+      "version": "0.0.0",
+      "description": "Fixed-window in-memory rate limiter — Redis adapter in app or later package",
+      "slug": "rate-limit",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "rate-limit-core",
+          "name": "rate-limit-core",
+          "packageName": "@eristack/rate-limit",
+          "description": "@eristack/rate-limit — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rate-limit#rate-limit-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/rbac",
       "version": "0.2.3",
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
@@ -1045,6 +1150,23 @@ export const catalog = {
           "description": "@eristack/rest: declarative REST route definitions, Express/Nest mounting, minimal OpenAPI 3.1 emit. Pair with jwt-auth and data-grid in apps.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/spreadsheet-render",
+      "version": "0.0.0",
+      "description": "Declarative workbook model and xlsx/csv render drivers — ExcelJS/SheetJS in app or adapter",
+      "slug": "spreadsheet-render",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "spreadsheet-render-core",
+          "name": "spreadsheet-render-core",
+          "packageName": "@eristack/spreadsheet-render",
+          "description": "@eristack/spreadsheet-render — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/spreadsheet-render#spreadsheet-render-core"
         }
       ]
     },
@@ -1176,6 +1298,23 @@ export const catalog = {
           "description": "@eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/movingAverage/weightedAverage/ standardCost/specificIdentification with dual qty/value hash chains. Default stores are Drizzle ledger + Drizzle layers — memory is tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/vercel-adapters",
+      "version": "0.0.0",
+      "description": "Serverless-friendly Express entry helpers for Vercel — no Vercel SDK in core",
+      "slug": "vercel-adapters",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "vercel-adapters-core",
+          "name": "vercel-adapters-core",
+          "packageName": "@eristack/vercel-adapters",
+          "description": "@eristack/vercel-adapters — Wave 13.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/vercel-adapters#vercel-adapters-core"
         }
       ]
     }

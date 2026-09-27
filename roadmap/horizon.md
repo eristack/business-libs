@@ -208,12 +208,12 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/import-job` | Candidate | CSV/Excel master import pipeline | data-grid | migrations |
 | `@eristack/tenant-scope` | Candidate | Company/site scoping helpers for ABAC | abac | multi-company |
 | `@eristack/email-template` | **Shipped** 0.0.0 | `{{var}}` HTML/text render | — | comms, PDF |
-| `@eristack/idempotency` | **Planned** (Wave 13 C2) | Idempotency-Key guard + store | — | payments, comms POST |
-| `@eristack/api-key` | **Planned** (Wave 13 C3) | Generate/hash/verify API keys | — | partner B2B |
-| `@eristack/rate-limit` | **Planned** (Wave 13 C4) | Fixed-window limiter (memory v0) | — | edge middleware |
-| `@eristack/pdf-render` | **Planned** (Wave 13 C5) | HTML→PDF driver interface | — | invoices, reports |
-| `@eristack/spreadsheet-render` | **Planned** (Wave 13 C6) | Workbook model + xlsx/csv driver | — | list export |
-| `@eristack/health` | **Planned** (Wave 13 G1) | Liveness/readiness registry | — | k8s, Vercel |
+| `@eristack/idempotency` | **Shipped** 0.0.0 | Idempotency-Key guard + store | — | payments, comms POST |
+| `@eristack/api-key` | **Shipped** 0.0.0 | Generate/hash/verify API keys | — | partner B2B |
+| `@eristack/rate-limit` | **Shipped** 0.0.0 | Fixed-window limiter (memory v0) | — | edge middleware |
+| `@eristack/pdf-render` | **Shipped** 0.0.0 | HTML→PDF driver interface | — | invoices, reports |
+| `@eristack/spreadsheet-render` | **Shipped** 0.0.0 | Workbook model + xlsx/csv driver | — | list export |
+| `@eristack/health` | **Shipped** 0.0.0 | Liveness/readiness registry | — | k8s, Vercel |
 
 ---
 
@@ -227,8 +227,8 @@ Runtime glue, mock engines, HTTP shells.
 | `@eristack/ai-dev` | Shipped (0.x) | Plan/check/sync CLI + MCP | — | maintainer UX |
 | `@eristack/logger` | Planned | JSON lines, request context | — | prod REST |
 | `@eristack/rest` | Planned | Mount opinion routes on Express/Nest | opinion | examples |
-| `@eristack/drizzle-kit-helpers` | **Planned** (Wave 13 G2) | Shared drizzle-kit config snippets | — | monorepo DX |
-| `@eristack/vercel-adapters` | **Planned** (Wave 13 G3) | Serverless Express/Nest entry helpers | logger? | Vercel deploy |
+| `@eristack/drizzle-kit-helpers` | **Shipped** 0.0.0 | Shared drizzle-kit config snippets | — | monorepo DX |
+| `@eristack/vercel-adapters` | **Shipped** 0.0.0 | Serverless Express/Nest entry helpers | logger? | Vercel deploy |
 
 ---
 

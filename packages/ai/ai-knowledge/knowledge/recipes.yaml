@@ -1483,14 +1483,82 @@ recipes:
       - replay post
       - idempotency store
     rationale: >
-      Middleware order: rate-limit → api-key → idempotency → handler. Load
-      #party-and-platform-compose until @eristack/idempotency, api-key, and rate-limit ship.
-    canonicalSkills:
-      - "@eristack/ai-knowledge#party-and-platform-compose"
+      Middleware order: @eristack/rate-limit → @eristack/api-key → @eristack/idempotency
+      → handler. Memory limiter and idempotency store are tests only — Drizzle/Redis in prod.
     packages:
-      - name: "@eristack/ai-knowledge"
+      - name: "@eristack/rate-limit"
         skills:
-          - party-and-platform-compose
+          - rate-limit-core
+        role: primary
+      - name: "@eristack/api-key"
+        skills:
+          - api-key-core
+        role: supporting
+      - name: "@eristack/idempotency"
+        skills:
+          - idempotency-core
+        role: supporting
+
+  - id: idempotency-post-guard
+    title: Idempotency-Key on POST mutations
+    priority: 15
+    triggers:
+      - idempotency key
+      - replay post
+      - duplicate payment post
+    rationale: >
+      @eristack/idempotency createIdempotencyGuard(store).run(key, fn) — Drizzle store in prod;
+      createMemoryIdempotencyStore for unit tests only.
+    packages:
+      - name: "@eristack/idempotency"
+        skills:
+          - idempotency-core
+        role: primary
+
+  - id: api-key-partner-auth
+    title: Partner API key verify
+    priority: 15
+    triggers:
+      - api key hash
+      - partner b2b key
+      - verify api key
+    rationale: >
+      @eristack/api-key generateApiKey, hashApiKey, verifyApiKey with optional pepper —
+      persist hash in Drizzle; show raw key once.
+    packages:
+      - name: "@eristack/api-key"
+        skills:
+          - api-key-core
+        role: primary
+
+  - id: rate-limit-edge
+    title: Fixed-window rate limit
+    priority: 15
+    triggers:
+      - rate limit
+      - throttle api
+      - too many requests
+    rationale: >
+      @eristack/rate-limit createRateLimiter — memory for tests/dev; Redis at app edge in prod.
+    packages:
+      - name: "@eristack/rate-limit"
+        skills:
+          - rate-limit-core
+        role: primary
+
+  - id: pdf-render-invoice
+    title: HTML to PDF (driver)
+    priority: 20
+    triggers:
+      - html to pdf
+      - invoice pdf
+      - pdf render driver
+    rationale: >
+      @eristack/pdf-render createPdfRenderer(driver) — stub for tests; Puppeteer/Playwright in app.
+    packages:
+      - name: "@eristack/pdf-render"
+        skills:
+          - pdf-render-core
         role: primary
 
   - id: posting-date-guard
@@ -1588,12 +1656,56 @@ recipes:
       - excel export
       - download list excel
     rationale: >
-      App maps data-grid list rows to string cells, then spreadsheet-render driver.
-      Optional checksum for file-manager. Load #party-and-platform-compose (outbound).
-    canonicalSkills:
-      - "@eristack/ai-knowledge#party-and-platform-compose"
+      App maps data-grid list rows to string cells, then @eristack/spreadsheet-render driver.
+      Optional @eristack/checksum for file-manager downloads.
     packages:
-      - name: "@eristack/ai-knowledge"
+      - name: "@eristack/spreadsheet-render"
         skills:
-          - party-and-platform-compose
+          - spreadsheet-render-core
+        role: primary
+
+  - id: health-readiness
+    title: Liveness and readiness HTTP
+    priority: 19
+    triggers:
+      - health check
+      - readiness probe
+      - liveness probe
+      - k8s health
+    rationale: >
+      @eristack/health createHealthRegistry + express/nest handlers — app registers Drizzle ping checks.
+    packages:
+      - name: "@eristack/health"
+        skills:
+          - health-core
+        role: primary
+
+  - id: drizzle-kit-monorepo
+    title: drizzle-kit config for Eristack apps
+    priority: 12
+    triggers:
+      - drizzle kit config
+      - drizzle migrate monorepo
+      - sqlite test drizzle
+    rationale: >
+      @eristack/drizzle-kit-helpers defineEristackDrizzleConfig and pg/sqlite templates.
+    packages:
+      - name: "@eristack/drizzle-kit-helpers"
+        skills:
+          - drizzle-kit-helpers-core
+        role: primary
+
+  - id: vercel-express-deploy
+    title: Deploy Express on Vercel serverless
+    priority: 12
+    triggers:
+      - vercel express
+      - serverless express handler
+      - vercel adapter
+    rationale: >
+      @eristack/vercel-adapters createVercelExpressHandler — pair with @eristack/logger requestId.
+    packages:
+      - name: "@eristack/vercel-adapters"
+        skills:
+          - vercel-adapters-core
         role: primary

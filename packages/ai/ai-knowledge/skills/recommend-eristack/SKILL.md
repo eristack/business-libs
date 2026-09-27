@@ -52,7 +52,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 
 <!-- catalog:start -->
 
-**46 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
+**54 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
 
 | Package | Skills |
 | --- | ---: |
@@ -61,6 +61,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/ai-dev | 1 |
 | @eristack/ai-ticket-generator | 2 |
 | @eristack/ai-workflow | 2 |
+| @eristack/api-key | 1 |
 | @eristack/backseat | 1 |
 | @eristack/business-calendar | 1 |
 | @eristack/checksum | 1 |
@@ -71,6 +72,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/dimension | 1 |
 | @eristack/doc-number | 2 |
 | @eristack/doc-transitions | 1 |
+| @eristack/drizzle-kit-helpers | 1 |
 | @eristack/email-address | 1 |
 | @eristack/email-template | 1 |
 | @eristack/entity-id | 1 |
@@ -81,6 +83,8 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/fraction | 1 |
 | @eristack/geo | 1 |
 | @eristack/hash-chained-ledger | 2 |
+| @eristack/health | 1 |
+| @eristack/idempotency | 1 |
 | @eristack/iso-3166 | 1 |
 | @eristack/jwt-auth | 2 |
 | @eristack/logger | 1 |
@@ -91,17 +95,21 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/payment-instrument | 1 |
 | @eristack/payment-manager | 2 |
 | @eristack/pbac | 2 |
+| @eristack/pdf-render | 1 |
 | @eristack/percent | 1 |
 | @eristack/person | 1 |
 | @eristack/phone | 1 |
 | @eristack/qups | 3 |
+| @eristack/rate-limit | 1 |
 | @eristack/rbac | 2 |
 | @eristack/rest | 1 |
+| @eristack/spreadsheet-render | 1 |
 | @eristack/stock-movement | 2 |
 | @eristack/timestamp | 2 |
 | @eristack/unlocode | 1 |
 | @eristack/uom | 1 |
 | @eristack/valuations | 2 |
+| @eristack/vercel-adapters | 1 |
 
 Load `@eristack/ai-knowledge#recommend-eristack` then `loadPlan(goals)` — canonical ERP guides merge via `canonicalSkills` on recipes.
 
