@@ -1,0 +1,46 @@
+{
+  "name": "@eristack/rate-limit",
+  "version": "0.0.0",
+  "description": "Fixed-window in-memory rate limiter — Redis adapter in app or later package",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/service/rate-limit"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/service/rate-limit",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
+  "keywords": ["tanstack-intent", "rate-limit", "middleware", "eristack"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
+    "@types/node": "^22.15.29",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}
