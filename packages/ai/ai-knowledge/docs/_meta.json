@@ -5,6 +5,7 @@
     "getting-started",
     "upgrading",
     "package-relationships",
+    "party-and-platform-compose",
     "backseat-then-backend",
     "document-lines-erp",
     "optimistic-document-version",
@@ -33,6 +34,7 @@
       "pages": [
         "upgrading",
         "package-relationships",
+        "party-and-platform-compose",
         "backseat-then-backend",
         "document-lines-erp",
         "optimistic-document-version",
