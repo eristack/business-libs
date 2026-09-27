@@ -182,7 +182,7 @@ After G1: wire default checks doc for Drizzle ping + optional epoch scope — **
 7. `pnpm build`, package tests, `pnpm knowledge:sync`, `pnpm knowledge:check`
 8. Changeset for new publishable package
 9. `horizon.md` + `catalog.md` status bump when shipped
-10. When last package in a pipeline ships: promote **`knowledge/party-and-platform-compose.md`** from collaboration.md + add composite recipe(s)
+10. Compose guide **promoted** → `knowledge/party-and-platform-compose.md` + recipes (2026-09-27). Refresh guide when pipeline behavior changes; delete WIP after last Wave 13 package ships.
 
 ---
 

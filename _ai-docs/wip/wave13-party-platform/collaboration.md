@@ -2,7 +2,7 @@
 
 **Preference:** Packages **collaborate through shared contracts and compose-at-the-boundary**, not by wiring every sibling as a **required** `dependencies` entry. Optional **peers** only when a package truly cannot function without the other (e.g. `weight` → `uom`). No “god” meta-package that subscribes to all thirteen.
 
-Canonical promotion target: one `@eristack/ai-knowledge` guide `knowledge/party-and-platform-compose.md` (+ recipe) — agents load **one file** for multi-package pipelines.
+**Canonical guide (promoted):** `packages/ai/ai-knowledge/knowledge/party-and-platform-compose.md` — load `@eristack/ai-knowledge#party-and-platform-compose`. This WIP file stays the working copy for pipeline edits until wave ships.
 
 ---
 
