@@ -1,0 +1,7 @@
+package: "@eristack/health"
+title: health
+maintainers:
+  - support@eristack.dev
+scope: Health checks (Wave 13 G1).
+skills:
+  - health-core
