@@ -32,7 +32,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P16 | `@eristack/fiscal-calendar`   | idea    | Fiscal year + periods                           | **H**          |
 | P17 | `@eristack/business-calendar` | idea    | Working days, holidays                          | plan: wave13 Wave E2 · peers timestamp · not fiscal-calendar |
 | P18 | `@eristack/percent`           | idea    | Basis points / ratio strings                    |                |
-| P19 | `@eristack/geo`               | idea    | Lat/lng, geohash optional                       |                |
+| P19 | `@eristack/geo`               | shipped | Lat/lng strings + haversine km                  | Wave 13 B2     |
 | P20 | `@eristack/locale-format`     | idea    | Number/date display intents                     |                |
 | P21 | `@eristack/sku`               | idea    | Stock keeping unit code rules                   |                |
 | P22 | `@eristack/barcode`           | idea    | EAN/UPC/GS1 parse                               |                |

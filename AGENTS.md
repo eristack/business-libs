@@ -157,6 +157,9 @@ tanstackIntent:
   - id: "@eristack/dimension#dimension-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
     for: "@eristack/dimension L×W×H decimal strings, dimensionVolume, optional unit label — logistics carton sizes (Wave 13 B1)."
+  - id: "@eristack/geo#geo-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
+    for: "@eristack/geo lat/lng decimal strings and geoDistanceKm haversine — no geocoding (Wave 13 B2)."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)
@@ -223,6 +226,7 @@ Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
 - `packages/primitive/dimension` — `@eristack/dimension` (L×W×H decimal strings)
+- `packages/primitive/geo` — `@eristack/geo` (lat/lng + haversine km)
 - `packages/primitive/entity-id` — `@eristack/entity-id` (UUID v7 PKs)
 - `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
 - `packages/registries/iso-3166` — `@eristack/iso-3166` (assigned ISO 3166-1/2 codes; optional `/zod`)

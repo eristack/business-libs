@@ -482,6 +482,42 @@ dimensionVolume(box)`,
     },
   },
   {
+    slug: "geo",
+    name: "@eristack/geo",
+    title: "Geo",
+    category: "primitive" as const,
+    directory: "packages/primitive/geo",
+    href: "/geo",
+    docsHref: "/docs/geo",
+    tagline: "Lat/lng decimal strings — haversine distance in km.",
+    description:
+      "Normalize latitude and longitude bounds, compute great-circle distance with decimal.js. Wave 13 B2 — no geocoding; pair with @eristack/address for postal facts.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/geo",
+    highlights: [
+      {
+        title: "Bounded parse",
+        body: "Reject out-of-range lat/lng at normalize — same strings in API and DB.",
+      },
+      {
+        title: "Haversine km",
+        body: "geoDistanceKm for depot radius and lane checks — not driving routes.",
+      },
+      {
+        title: "No geocoder",
+        body: "Forward/reverse geocode in the app; this package stores coordinates only.",
+      },
+    ],
+    sample: {
+      filename: "geo.ts",
+      language: "ts",
+      code: `import { normalizeGeoPoint, geoDistanceKm } from "@eristack/geo"
+
+const a = normalizeGeoPoint({ latitude: "-6.2", longitude: "106.8" })
+geoDistanceKm(a, { latitude: "1.35", longitude: "103.82" })`,
+    },
+  },
+  {
     slug: "entity-id",
     name: "@eristack/entity-id",
     title: "Entity ID",

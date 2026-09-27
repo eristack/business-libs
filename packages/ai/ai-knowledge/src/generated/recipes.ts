@@ -1579,6 +1579,28 @@ export const recipes = [
     ]
   },
   {
+    "id": "geo-distance-logistics",
+    "title": "Geo coordinates and distance (km)",
+    "priority": 14,
+    "triggers": [
+      "geo point",
+      "latitude longitude",
+      "haversine",
+      "depot radius",
+      "distance km"
+    ],
+    "rationale": "Use @eristack/geo for lat/lng decimal strings and geoDistanceKm. Geocode in the app; postal addresses stay on @eristack/address.",
+    "packages": [
+      {
+        "name": "@eristack/geo",
+        "skills": [
+          "geo-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "dimension-logistics",
     "title": "Carton and item dimensions (L×W×H)",
     "priority": 14,

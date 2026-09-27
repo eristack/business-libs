@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:46:07.569Z",
+  "generatedAt": "2026-09-27T04:46:46.757Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -478,6 +478,25 @@ export const catalog = {
           "description": "@eristack/fraction exact rationals as reduced num/den strings — parse n/d and mixed numbers, exact arithmetic, approximateFraction for irrationals/decimals with max denominator. Not float math.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/fraction#fraction-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/geo",
+      "version": "0.0.0",
+      "description": "Latitude and longitude as decimal strings — normalize and haversine distance",
+      "slug": "geo",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "geo-core",
+          "name": "geo-core",
+          "packageName": "@eristack/geo",
+          "description": "@eristack/geo normalizeGeoPoint, geoDistanceKm — lat/lng decimal strings (Wave 13 B2). No geocoding in core.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
         }
       ]
     },

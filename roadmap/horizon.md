@@ -127,7 +127,7 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/fiscal-calendar` | **Shipped 0.1.0** | Fiscal year, periods, open/closed flags | timestamp | finance, journal lock |
 | `@eristack/percent` | **Shipped 0.1.0** | Basis points / ratio strings (tax, discount) | — | tax, qups |
 | `@eristack/fraction` | **Alpha 0.0.0** | Exact rationals `{ num, den }`; approximate irrationals | — | recipes, BOM |
-| `@eristack/geo` | **Planned** (Wave 13 B2) | Lat/lng strings; optional distance | timestamp | logistics |
+| `@eristack/geo` | **Shipped** 0.0.0 | Lat/lng strings + haversine km | — | logistics |
 | `@eristack/payment-instrument` | Shipped | Token-safe card/debit **display** + gateway refs; PAN transient only | — | payment-manager, checkout forms |
 
 ### `@eristack/entity-id` (shipped — Wave 13 E1)
