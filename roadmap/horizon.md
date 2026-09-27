@@ -116,7 +116,7 @@ Pure types, IDs, conversions — no HTTP, no Drizzle in core.
 | `@eristack/person` | **Planned** (Wave 13 A1) | Structured name + gender identity (not HRIS) | — | contact, partner |
 | `@eristack/phone` | **Planned** (Wave 13 A2) | E.164 normalize/validate | — | contact, comms |
 | `@eristack/email-address` | **Planned** (Wave 13 A2) | Normalized local@domain | — | contact, comms |
-| `@eristack/dimension` | **Planned** (Wave 13 B1) | L×W×H string triple | uom (peer, optional) | logistics |
+| `@eristack/dimension` | **Shipped** 0.0.0 | L×W×H string triple + cubic volume | uom (peer, optional) | logistics |
 | `@eristack/business-calendar` | **Planned** (Wave 13 E2) | Working days + holidays | timestamp (peer) | due dates, SLAs |
 | `@eristack/currency-pair` | **Planned** (Wave 13 F1) | Base/quote pair validation | money | FX apps |
 | `@eristack/checksum` | **Planned** (Wave 13 E3) | SHA-256 hex normalize/compare | — | exports, file-manager |

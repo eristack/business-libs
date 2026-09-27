@@ -42,7 +42,7 @@ Numbered brainstorm rows. **Not npm packages.** Shipped rows included so agents 
 | P26 | `@eristack/document-type`     | idea    | Doc family codes (PO, SO, JV)                   |                |
 | P27 | `@eristack/serial-number`     | idea    | Serial identity string rules                    |                |
 | P28 | `@eristack/lot-number`        | idea    | Lot/batch identity string rules                 |                |
-| P29 | `@eristack/dimension`         | idea    | L×W×H string triple + uom                       |                |
+| P29 | `@eristack/dimension`         | shipped | L×W×H string triple + cubic volume              | Wave 13 B1     |
 | P30 | `@eristack/weight`            | idea    | Weight value + uom                              |                |
 | P31 | `@eristack/volume`            | idea    | Volume value + uom                              |                |
 | P32 | `@eristack/etag`              | idea    | Row version / optimistic lock token             |                |

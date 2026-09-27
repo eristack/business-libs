@@ -1579,6 +1579,28 @@ export const recipes = [
     ]
   },
   {
+    "id": "dimension-logistics",
+    "title": "Carton and item dimensions (L×W×H)",
+    "priority": 14,
+    "triggers": [
+      "dimension",
+      "l x w x h",
+      "carton size",
+      "cubic volume",
+      "package dimensions"
+    ],
+    "rationale": "Use @eristack/dimension for length/width/height decimal strings and dimensionVolume. Optional unit label — validate units with @eristack/uom in the app.",
+    "packages": [
+      {
+        "name": "@eristack/dimension",
+        "skills": [
+          "dimension-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "entity-id-v7-primary-key",
     "title": "UUID v7 sortable primary keys",
     "priority": 13,

@@ -154,6 +154,9 @@ tanstackIntent:
   - id: "@eristack/entity-id#entity-id-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
     for: "@eristack/entity-id UUID v7 generate/parse, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables (Wave 13 E1)."
+  - id: "@eristack/dimension#dimension-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
+    for: "@eristack/dimension L×W×H decimal strings, dimensionVolume, optional unit label — logistics carton sizes (Wave 13 B1)."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)
@@ -219,6 +222,7 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 Categories under `packages/` (order matters):
 
 - `packages/primitive/money` — `@eristack/money`
+- `packages/primitive/dimension` — `@eristack/dimension` (L×W×H decimal strings)
 - `packages/primitive/entity-id` — `@eristack/entity-id` (UUID v7 PKs)
 - `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
 - `packages/registries/iso-3166` — `@eristack/iso-3166` (assigned ISO 3166-1/2 codes; optional `/zod`)

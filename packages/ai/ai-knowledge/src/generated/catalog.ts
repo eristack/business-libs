@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:41:14.762Z",
+  "generatedAt": "2026-09-27T04:46:07.569Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -194,6 +194,14 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/contact",
+      "version": "0.0.0",
+      "description": "Contact roles and channel list normalization on a party — compose with person/phone/email",
+      "slug": "contact",
+      "adapters": [],
+      "skills": []
+    },
+    {
       "name": "@eristack/data-grid",
       "version": "0.2.6",
       "description": "Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities",
@@ -226,6 +234,25 @@ export const catalog = {
           "description": "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), decimal/money field types for string amount sort/filter without Number(), toSearch/fromSearch, advanced vs search modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/dimension",
+      "version": "0.0.0",
+      "description": "L×W×H dimension triple as decimal strings — cubic volume, optional unit label",
+      "slug": "dimension",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "dimension-core",
+          "name": "dimension-core",
+          "packageName": "@eristack/dimension",
+          "description": "@eristack/dimension normalizeDimension, dimensionVolume, formatDimension — L×W×H decimal strings (Wave 13 B1). Optional unit label; pair with uom in the app.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
         }
       ]
     },
@@ -281,6 +308,16 @@ export const catalog = {
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
         }
       ]
+    },
+    {
+      "name": "@eristack/email-address",
+      "version": "0.0.0",
+      "description": "Normalized email local@domain strings for contact channels",
+      "slug": "email-address",
+      "adapters": [
+        "zod"
+      ],
+      "skills": []
     },
     {
       "name": "@eristack/entity-id",
@@ -772,6 +809,35 @@ export const catalog = {
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/percent#percent-core"
         }
       ]
+    },
+    {
+      "name": "@eristack/person",
+      "version": "0.0.0",
+      "description": "Structured person name and gender identity — normalize and display, not HRIS",
+      "slug": "person",
+      "adapters": [
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "person-core",
+          "name": "person-core",
+          "packageName": "@eristack/person",
+          "description": "@eristack/person normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES, personSchema — Wave 13 party spine. Compose with phone/email/contact at app boundary.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/person#person-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/phone",
+      "version": "0.0.0",
+      "description": "E.164 phone normalization — strict plus prefix, no libphonenumber in core",
+      "slug": "phone",
+      "adapters": [
+        "zod"
+      ],
+      "skills": []
     },
     {
       "name": "@eristack/qups",

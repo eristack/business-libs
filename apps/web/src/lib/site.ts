@@ -446,6 +446,42 @@ formatAddressOneLine(addr)`,
     },
   },
   {
+    slug: "dimension",
+    name: "@eristack/dimension",
+    title: "Dimension",
+    category: "primitive" as const,
+    directory: "packages/primitive/dimension",
+    href: "/dimension",
+    docsHref: "/docs/dimension",
+    tagline: "L×W×H as decimal strings — cubic volume without float math.",
+    description:
+      "Normalize length, width, and height as positive decimal strings, compute L×W×H volume, and optional unit label for logistics. Wave 13 B1 — pair with @eristack/uom in the app; no hard dep on uom.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/dimension",
+    highlights: [
+      {
+        title: "String-first sides",
+        body: "Same canonical decimals in forms, API JSON, and Drizzle — no Number() on edges.",
+      },
+      {
+        title: "Cubic volume",
+        body: "dimensionVolume multiplies normalized sides with configurable decimal scale.",
+      },
+      {
+        title: "Optional unit label",
+        body: "Store display unit text; validate against uom master in the app.",
+      },
+    ],
+    sample: {
+      filename: "dimension.ts",
+      language: "ts",
+      code: `import { normalizeDimension, dimensionVolume } from "@eristack/dimension"
+
+const box = normalizeDimension({ length: "60", width: "40", height: "30", unit: "cm" })
+dimensionVolume(box)`,
+    },
+  },
+  {
     slug: "entity-id",
     name: "@eristack/entity-id",
     title: "Entity ID",
