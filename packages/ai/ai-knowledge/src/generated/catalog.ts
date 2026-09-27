@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T04:49:49.946Z",
+  "generatedAt": "2026-09-27T04:51:19.626Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -389,6 +389,23 @@ export const catalog = {
           "description": "@eristack/email-address normalizeEmail — Wave 13 party spine.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-address#email-address-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/email-template",
+      "version": "0.0.0",
+      "description": "{{var}} HTML/text email template render and key extraction — pair with @eristack/comms",
+      "slug": "email-template",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "email-template-core",
+          "name": "email-template-core",
+          "packageName": "@eristack/email-template",
+          "description": "@eristack/email-template renderEmailTemplate and extractTemplateKeys — Wave 13 C1.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-template#email-template-core"
         }
       ]
     },

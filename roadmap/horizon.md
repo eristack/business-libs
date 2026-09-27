@@ -207,7 +207,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/scheduler` | Candidate | Cron/recurrence as data | timestamp | reporting jobs |
 | `@eristack/import-job` | Candidate | CSV/Excel master import pipeline | data-grid | migrations |
 | `@eristack/tenant-scope` | Candidate | Company/site scoping helpers for ABAC | abac | multi-company |
-| `@eristack/email-template` | **Planned** (Wave 13 C1) | `{{var}}` HTML/text render | — | comms, PDF |
+| `@eristack/email-template` | **Shipped** 0.0.0 | `{{var}}` HTML/text render | — | comms, PDF |
 | `@eristack/idempotency` | **Planned** (Wave 13 C2) | Idempotency-Key guard + store | — | payments, comms POST |
 | `@eristack/api-key` | **Planned** (Wave 13 C3) | Generate/hash/verify API keys | — | partner B2B |
 | `@eristack/rate-limit` | **Planned** (Wave 13 C4) | Fixed-window limiter (memory v0) | — | edge middleware |

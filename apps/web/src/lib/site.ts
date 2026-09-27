@@ -1249,6 +1249,32 @@ app.use("/oauth", createOAuthConsumerRouter({ consumer, onCallback }))`,
     },
   },
   {
+    slug: "email-template",
+    name: "@eristack/email-template",
+    title: "Email template",
+    category: "service" as const,
+    directory: "packages/service/email-template",
+    href: "/email-template",
+    docsHref: "/docs/email-template",
+    tagline: "{{var}} HTML and text bodies before comms send.",
+    description:
+      "extractTemplateKeys and renderEmailTemplate with optional HTML escape. Wave 13 C1 — compose with @eristack/comms in the app; no SMTP in core.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/email-template",
+    highlights: [
+      { title: "{{var}} keys", body: "extractTemplateKeys for validation before send." },
+      { title: "HTML escape", body: "escapeHtml option for HTML bodies." },
+      { title: "Comms pair", body: "Render in handler, pass body to @eristack/comms." },
+    ],
+    sample: {
+      filename: "template.ts",
+      language: "ts",
+      code: `import { renderEmailTemplate } from "@eristack/email-template"
+
+const body = renderEmailTemplate("Hi {{name}}", { name: "Ada" }, { escapeHtml: true })`,
+    },
+  },
+  {
     slug: "comms",
     name: "@eristack/comms",
     title: "Comms",

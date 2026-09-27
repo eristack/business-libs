@@ -1541,6 +1541,43 @@ recipes:
           - party-and-platform-compose
         role: primary
 
+  - id: email-template-render
+    title: "Render {{var}} email bodies"
+    priority: 15
+    triggers:
+      - email template
+      - mail merge
+      - template variables
+      - render email body
+      - "{{var}} email"
+    rationale: >
+      @eristack/email-template renderEmailTemplate and extractTemplateKeys — HTML escape
+      for HTML parts; send via @eristack/comms in the app.
+    packages:
+      - name: "@eristack/email-template"
+        skills:
+          - email-template-core
+        role: primary
+
+  - id: outbound-message-render
+    title: Outbound email (template, comms, optional PDF)
+    priority: 21
+    triggers:
+      - outbound email
+      - transactional email render
+      - invoice email pdf
+      - message render pipeline
+    rationale: >
+      App pipeline: email-template → comms send; optional pdf-render attachment.
+      Load @eristack/ai-knowledge#party-and-platform-compose for compose rules.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#party-and-platform-compose"
+    packages:
+      - name: "@eristack/email-template"
+        skills:
+          - email-template-core
+        role: primary
+
   - id: spreadsheet-export-download
     title: Export list rows to xlsx or csv
     priority: 22
