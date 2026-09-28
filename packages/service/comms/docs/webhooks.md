@@ -35,6 +35,10 @@ Set **`x-twilio-webhook-url`** to the exact URL configured in Twilio (scheme + h
 
 Configure Event Webhook POST to `/comms/webhooks/sendgrid`. Verification hooks can be added at the app edge; the driver parses JSON event arrays.
 
+## Resend
+
+Configure webhooks POST to `/comms/webhooks/resend`. The driver `parseWebhook` normalizes `email.delivered`, `email.bounced`, and related event types. Use Resend’s signing secret at the app edge when enabled.
+
 ## Meta WhatsApp
 
 Cloud API status callbacks POST JSON — use `vendor: meta_whatsapp` and ensure raw JSON body is available.

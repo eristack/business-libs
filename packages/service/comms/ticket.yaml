@@ -3,7 +3,7 @@ title: comms
 maintainers:
   - support@eristack.dev
 scope: >
-  Transactional email, SMS, and WhatsApp via vendor drivers (SendGrid, Postmark, Mailgun,
+  Transactional email, SMS, and WhatsApp via vendor drivers (SendGrid, Postmark, Mailgun, Resend,
   Twilio, Vonage, Meta WhatsApp Cloud) with idempotent send + Drizzle delivery log.
 outOfScope: >
   Marketing automation UI, template editor, inbound IMAP, jwt-auth, owning users table.

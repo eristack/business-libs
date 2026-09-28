@@ -4,6 +4,7 @@ export const COMMS_PRESET_VENDORS = [
   "sendgrid",
   "postmark",
   "mailgun",
+  "resend",
   "twilio",
   "vonage",
   "meta_whatsapp",
@@ -41,6 +42,13 @@ export const COMMS_PRESET_VENDOR_CATALOG: readonly CommsPresetVendorMeta[] = [
     channels: ["email"],
     factory: "createMailgunEmailDriver",
     exportPath: "@eristack/comms/mailgun",
+  },
+  {
+    id: "resend",
+    label: "Resend",
+    channels: ["email"],
+    factory: "createResendEmailDriver",
+    exportPath: "@eristack/comms/resend",
   },
   {
     id: "twilio",

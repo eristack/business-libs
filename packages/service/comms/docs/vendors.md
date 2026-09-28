@@ -1,6 +1,6 @@
 ---
 title: Vendor drivers
-description: SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta WhatsApp — channels and factories.
+description: SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta WhatsApp — channels and factories.
 ---
 
 # Vendor drivers
@@ -12,6 +12,7 @@ Import factories from subpaths — no SDK peer required (HTTP via `fetch`).
 | `sendgrid` | email | `@eristack/comms/sendgrid` | `createSendGridEmailDriver` |
 | `postmark` | email | `@eristack/comms/postmark` | `createPostmarkEmailDriver` |
 | `mailgun` | email | `@eristack/comms/mailgun` | `createMailgunEmailDriver` |
+| `resend` | email | `@eristack/comms/resend` | `createResendEmailDriver` |
 | `twilio` | sms, whatsapp | `@eristack/comms/twilio` | `createTwilioDriver` |
 | `vonage` | sms | `@eristack/comms/vonage` | `createVonageSmsDriver` |
 | `meta_whatsapp` | whatsapp | `@eristack/comms/meta-whatsapp` | `createMetaWhatsAppDriver` |
@@ -50,6 +51,28 @@ createMailgunEmailDriver({
   apiBase: "https://api.mailgun.net", // or api.eu.mailgun.net
 });
 ```
+
+## Resend (email)
+
+```ts
+import { createResendEmailDriver } from "@eristack/comms/resend";
+
+createResendEmailDriver({
+  apiKey: process.env.RESEND_API_KEY!,
+  defaultFrom: "Acme <noreply@yourdomain.com>",
+});
+
+await hub.send({
+  channel: "email",
+  vendor: "resend",
+  idempotencyKey: "invoice-42-issued",
+  to: "customer@example.com",
+  subject: "Invoice",
+  html: "<p>Your invoice is ready</p>",
+});
+```
+
+Webhook POST to `/comms/webhooks/resend` — driver `parseWebhook` maps `email.delivered` / `email.bounced` events. Verify signing at the app edge if you enable Resend webhook secrets.
 
 ## Twilio (SMS + WhatsApp)
 

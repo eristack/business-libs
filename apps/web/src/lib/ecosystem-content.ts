@@ -109,7 +109,8 @@ export const technologyStack: TechStackGroup[] = [
       { name: "Twilio", href: "https://www.twilio.com/docs", note: "SMS + WhatsApp", logo: "twilio" },
       { name: "Postmark", href: "https://postmarkapp.com/developer", note: "createPostmarkEmailDriver", logo: "postmark" },
       { name: "Meta WhatsApp", href: "https://developers.facebook.com/docs/whatsapp", note: "createMetaWhatsAppDriver", logo: "whatsapp" },
-      { name: "Comms vendors", href: "/docs/comms/vendors", note: "Mailgun, Vonage, webhooks", logo: "mailgun" },
+      { name: "Resend", href: "https://resend.com/", note: "@eristack/comms/resend email driver", logo: "placeholder" },
+      { name: "Comms vendors", href: "/docs/comms/vendors", note: "SendGrid, Resend, Twilio, webhooks", logo: "eristack" },
     ],
   },
   {
