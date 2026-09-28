@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.19
+
+### Patch Changes
+
+- 4c501b9: Add Resend trigger to comms-email-sms-whatsapp recipe.
+
 ## 0.1.18
 
 ### Patch Changes
