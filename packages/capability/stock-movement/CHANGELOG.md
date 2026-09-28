@@ -1,5 +1,11 @@
 # @eristack/stock-movement
 
+## 0.1.4
+
+### Patch Changes
+
+- d2a6f24: Delegate append idempotency to hash-chained-ledger idempotencyKey.
+
 ## 0.1.3
 
 ### Patch Changes

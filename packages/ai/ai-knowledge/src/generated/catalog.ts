@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T13:04:48.472Z",
+  "generatedAt": "2026-09-28T13:08:36.902Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -145,7 +145,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.8",
+      "version": "0.1.9",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -227,7 +227,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/comms",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
       "slug": "comms",
       "adapters": [
@@ -556,7 +556,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/file-manager",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Headless file uploads: S3 presigned PUT/GET, server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
       "slug": "file-manager",
       "adapters": [
@@ -610,7 +610,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/financial-ledger",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "description": "Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money",
       "slug": "financial-ledger",
       "adapters": [
@@ -714,7 +714,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/hash-chained-ledger",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
@@ -764,7 +764,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/idempotency",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Idempotency-Key guard with Drizzle store, scoped keys, lease, Express/Nest/client adapters",
       "slug": "idempotency",
       "adapters": [
@@ -1039,7 +1039,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/outbox",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Transactional outbox enqueue + Drizzle worker batch for reliable comms and payment side effects",
       "slug": "outbox",
       "adapters": [
@@ -1078,7 +1078,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/payment-manager",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
       "slug": "payment-manager",
       "adapters": [
@@ -1381,7 +1381,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/stock-movement",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "description": "Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks",
       "slug": "stock-movement",
       "adapters": [
@@ -1500,7 +1500,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/valuations",
-      "version": "0.2.4",
+      "version": "0.2.5",
       "description": "Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger",
       "slug": "valuations",
       "adapters": [

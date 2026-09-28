@@ -1,6 +1,6 @@
 {
   "name": "@eristack/payment-manager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
   "repository": {
     "type": "git",

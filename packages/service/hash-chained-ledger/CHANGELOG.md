@@ -1,5 +1,11 @@
 # @eristack/hash-chained-ledger
 
+## 0.1.4
+
+### Patch Changes
+
+- d2a6f24: Add optional idempotencyKey on append with Drizzle unique index for retry-safe ledger entries.
+
 ## 0.1.3
 
 ### Patch Changes
