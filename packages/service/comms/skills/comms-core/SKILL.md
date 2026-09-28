@@ -2,7 +2,7 @@
 name: comms-core
 description: >
   @eristack/comms createCommsHub — idempotent email/SMS/WhatsApp sends, vendor drivers,
-  delivery log. Drizzle default; memory drivers tests only.
+  delivery log. Email: SendGrid, Postmark, Mailgun, Resend. Drizzle default; memory drivers tests only.
 metadata:
   type: core
   library: "@eristack/comms"

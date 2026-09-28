@@ -1363,9 +1363,9 @@ const body = renderEmailTemplate("Hi {{name}}", { name: "Ada" }, { escapeHtml: t
     directory: "packages/service/comms",
     href: "/comms",
     docsHref: "/docs/comms",
-    tagline: "Email, SMS, WhatsApp — SendGrid, Twilio, Postmark, Meta; idempotent sends in SQL.",
+    tagline: "Email, SMS, WhatsApp — SendGrid, Resend, Twilio, Postmark, Meta; idempotent sends in SQL.",
     description:
-      "Transactional messaging hub with vendor drivers (SendGrid, Postmark, Mailgun, Twilio SMS/WhatsApp, Vonage, Meta WhatsApp Cloud), idempotency keys, Drizzle message + delivery event log, Express send and webhooks.",
+      "Transactional messaging hub with vendor drivers (SendGrid, Postmark, Mailgun, Resend, Twilio SMS/WhatsApp, Vonage, Meta WhatsApp Cloud), idempotency keys, Drizzle message + delivery event log, Express send and webhooks.",
     status: "alpha" as const,
     install: "pnpm add @eristack/comms",
     highlights: [

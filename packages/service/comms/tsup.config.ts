@@ -6,6 +6,7 @@ export default defineConfig({
     "src/sendgrid/index.ts",
     "src/postmark/index.ts",
     "src/mailgun/index.ts",
+    "src/resend/index.ts",
     "src/twilio/index.ts",
     "src/vonage/index.ts",
     "src/meta-whatsapp/index.ts",

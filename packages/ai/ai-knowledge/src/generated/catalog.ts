@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-27T08:24:31.261Z",
+  "generatedAt": "2026-09-28T08:03:20.457Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -228,7 +228,7 @@ export const catalog = {
     {
       "name": "@eristack/comms",
       "version": "0.1.0",
-      "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
+      "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
       "slug": "comms",
       "adapters": [
         "drizzle",
@@ -237,6 +237,7 @@ export const catalog = {
         "meta-whatsapp",
         "nest",
         "postmark",
+        "resend",
         "rest",
         "sendgrid",
         "testing",
@@ -257,7 +258,7 @@ export const catalog = {
           "id": "comms-core",
           "name": "comms-core",
           "packageName": "@eristack/comms",
-          "description": "@eristack/comms createCommsHub — idempotent email/SMS/WhatsApp sends, vendor drivers, delivery log. Drizzle default; memory drivers tests only.",
+          "description": "@eristack/comms createCommsHub — idempotent email/SMS/WhatsApp sends, vendor drivers, delivery log. Email: SendGrid, Postmark, Mailgun, Resend. Drizzle default; memory drivers tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-core"
         }

@@ -1,7 +1,7 @@
 {
   "name": "@eristack/comms",
   "version": "0.1.0",
-  "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
+  "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
   "repository": {
     "type": "git",
     "url": "https://github.com/eristack/business-libs.git",
@@ -51,6 +51,16 @@
       "require": {
         "types": "./dist/mailgun/index.d.ts",
         "default": "./dist/mailgun/index.cjs"
+      }
+    },
+    "./resend": {
+      "import": {
+        "types": "./dist/resend/index.d.ts",
+        "default": "./dist/resend/index.js"
+      },
+      "require": {
+        "types": "./dist/resend/index.d.ts",
+        "default": "./dist/resend/index.cjs"
       }
     },
     "./twilio": {
@@ -157,6 +167,7 @@
     "sms",
     "whatsapp",
     "sendgrid",
+    "resend",
     "twilio",
     "eristack"
   ],

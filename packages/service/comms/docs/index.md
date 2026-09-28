@@ -13,6 +13,7 @@ Headless **outbound messaging** for ERP apps: one hub, many vendor drivers, idem
 | `@eristack/comms/sendgrid` | Email |
 | `@eristack/comms/postmark` | Email |
 | `@eristack/comms/mailgun` | Email |
+| `@eristack/comms/resend` | Email |
 | `@eristack/comms/twilio` | SMS + WhatsApp |
 | `@eristack/comms/vonage` | SMS |
 | `@eristack/comms/meta-whatsapp` | WhatsApp Cloud API |

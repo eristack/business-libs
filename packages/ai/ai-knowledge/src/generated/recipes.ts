@@ -490,6 +490,7 @@ export const recipes = [
       "sendgrid",
       "postmark",
       "mailgun",
+      "resend",
       "twilio",
       "send sms",
       "whatsapp message",
@@ -497,7 +498,7 @@ export const recipes = [
       "notification email",
       "magic link email"
     ],
-    "rationale": "Use @eristack/comms for idempotent outbound messaging — SendGrid/Postmark/Mailgun email, Twilio/Vonage SMS, Twilio/Meta WhatsApp. Drizzle delivery log; Express send + webhooks. Load comms-core + comms-adapters; docs/vendors.md for driver pick. Pair with jwt-auth for magic-link session minting, not message transport.",
+    "rationale": "Use @eristack/comms for idempotent outbound messaging — SendGrid/Postmark/Mailgun/Resend email, Twilio/Vonage SMS, Twilio/Meta WhatsApp. Drizzle delivery log; Express send + webhooks. Load comms-core + comms-adapters; docs/vendors.md for driver pick. Pair with jwt-auth for magic-link session minting, not message transport.",
     "packages": [
       {
         "name": "@eristack/comms",
