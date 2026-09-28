@@ -1,6 +1,6 @@
 {
   "name": "@eristack/doc-shell",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Document detail page shell — header, actions, body slots",
   "repository": {
     "type": "git",
@@ -24,9 +24,23 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "react", "document", "erp", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "react",
+    "document",
+    "erp",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
@@ -41,7 +55,9 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@eristack/multitab": { "optional": true }
+    "@eristack/multitab": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eristack/design-system": "workspace:*",

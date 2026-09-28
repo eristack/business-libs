@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T08:01:46.819Z",
+  "generatedAt": "2026-09-28T08:03:20.457Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -210,7 +210,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/command-palette",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Headless command palette state and simple dialog shell",
       "slug": "command-palette",
       "adapters": [],
@@ -338,7 +338,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/design-system",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Erista design tokens, Tailwind preset, and React density context for ERP UI",
       "slug": "design-system",
       "adapters": [
@@ -412,7 +412,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-shell",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Document detail page shell — header, actions, body slots",
       "slug": "doc-shell",
       "adapters": [],
@@ -593,7 +593,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/filter-builder",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Stub filter chip bar and sheet UI for data-grid list filters",
       "slug": "filter-builder",
       "adapters": [],
@@ -659,7 +659,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/form-ui",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Native React form controls wired to @eristack money, percent, and timestamp",
       "slug": "form-ui",
       "adapters": [],
@@ -836,7 +836,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/line-grid",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Editable QUPS line table with patchLine recalculation hook",
       "slug": "line-grid",
       "adapters": [],
@@ -853,7 +853,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/list-shell",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Presentational list page layout, toolbar, and TanStack Query state banners",
       "slug": "list-shell",
       "adapters": [],
@@ -890,7 +890,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/master-detail",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Two-pane master list + detail layout for picker flows",
       "slug": "master-detail",
       "adapters": [],
@@ -907,7 +907,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/money",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "description": "Money primitives for Eristack",
       "slug": "money",
       "adapters": [
@@ -1130,7 +1130,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/percent",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Percent and basis-point ratios as strings — tax, discount, markup without float literals",
       "slug": "percent",
       "adapters": [
@@ -1188,7 +1188,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/policy-ui",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "RBAC and PBAC gate components with v0 allowed override",
       "slug": "policy-ui",
       "adapters": [],
@@ -1394,7 +1394,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/timestamp",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
       "slug": "timestamp",
       "adapters": [

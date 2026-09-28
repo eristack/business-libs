@@ -1,6 +1,6 @@
 {
   "name": "@eristack/line-grid",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Editable QUPS line table with patchLine recalculation hook",
   "repository": {
     "type": "git",
@@ -24,9 +24,23 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "react", "qups", "line-grid", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "react",
+    "qups",
+    "line-grid",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",

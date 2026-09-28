@@ -1,6 +1,6 @@
 {
   "name": "@eristack/command-palette",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless command palette state and simple dialog shell",
   "repository": {
     "type": "git",
@@ -24,9 +24,22 @@
       }
     }
   },
-  "files": ["dist", "docs", "README.md", "skills", "LICENSE"],
-  "keywords": ["tanstack-intent", "react", "command-palette", "eristack"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "react",
+    "command-palette",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
