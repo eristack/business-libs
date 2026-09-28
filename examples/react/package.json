@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@eristack/data-grid": "workspace:*",
+    "@eristack/idempotency": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
     "@tanstack/react-form": "catalog:",
     "@tanstack/react-query": "catalog:",

@@ -6,6 +6,7 @@ Full demo UI (app-owned) wired to the Express example:
 | --- | --- |
 | Sign in | `useLogin` → `POST /auth/login` |
 | Profile | `GET /me` with Bearer access token |
+| **Create order** | `createIdempotencyClientFetch` → `POST /orders` with stable `Idempotency-Key` per submit |
 | **Orders grid** | `useDataGridList` → `GET /orders?…` (JSON filters/sorts) |
 | Order detail | `GET /orders/:id` (lines + sums) |
 | Active sessions | `useAuthSessions` → `GET /auth/sessions` |
@@ -26,6 +27,7 @@ The orders panel filters on **relation** fields (`customerRegion`, `customerActi
 # terminal 1 — API with Drizzle SQLite
 pnpm --filter @eristack/data-grid build
 pnpm --filter @eristack/jwt-auth build
+pnpm --filter @eristack/idempotency build
 pnpm --filter @eristack/money build
 pnpm --filter @eristack/example-express dev
 
