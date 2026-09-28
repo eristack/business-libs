@@ -10,6 +10,8 @@ export type StoredFile = {
   ref: FileRef;
   namespace: string;
   ownerId?: string;
+  /** Client-generated key for retry-safe presign/complete (unique per namespace). */
+  clientUploadId?: string;
   createdAt: string;
   updatedAt: string;
   readyAt?: string;
@@ -50,6 +52,10 @@ export type StorageDriver = {
 };
 
 export type FileRecordStore = {
+  findByClientUploadId(
+    namespace: string,
+    clientUploadId: string,
+  ): Promise<StoredFile | null>;
   insert(record: Omit<StoredFile, "createdAt" | "updatedAt"> & Partial<Pick<StoredFile, "createdAt" | "updatedAt">>): Promise<StoredFile>;
   update(id: string, patch: Partial<Pick<StoredFile, "status" | "ref" | "readyAt" | "updatedAt">>): Promise<StoredFile>;
   getById(id: string): Promise<StoredFile | null>;
@@ -75,6 +81,7 @@ export type BeginPresignedUploadInput = {
   sizeBytes: number;
   namespace?: string;
   ownerId?: string;
+  clientUploadId?: string;
 };
 
 export type PresignedUploadSession = {
@@ -98,6 +105,7 @@ export type ServerUploadInput = {
   namespace?: string;
   ownerId?: string;
   checksumSha256?: string;
+  clientUploadId?: string;
 };
 
 export type FileManager = {

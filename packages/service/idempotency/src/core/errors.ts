@@ -6,3 +6,12 @@ export class IdempotencyConflictError extends Error {
     this.name = "IdempotencyConflictError";
   }
 }
+
+export class IdempotencyRequestMismatchError extends Error {
+  readonly code = "IDEMPOTENCY_REQUEST_MISMATCH" as const;
+
+  constructor(readonly key: string) {
+    super(`Idempotency key reused with different request body: ${key}`);
+    this.name = "IdempotencyRequestMismatchError";
+  }
+}

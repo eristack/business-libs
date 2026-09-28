@@ -1,5 +1,6 @@
 import { and, eq } from "drizzle-orm";
-import type { CommsMessageRecord, CommsStore } from "../core/types.js";
+import { isCommsUniqueViolation } from "../core/duplicate-key.js";
+import type { CommsDeliveryEventRecord, CommsMessageRecord, CommsStore } from "../core/types.js";
 import type { CommsTables } from "./tables.js";
 
 type Db = {
@@ -42,6 +43,7 @@ export function createDrizzleCommsStore(options: { db: Db; tables: CommsTables }
     },
     async insertMessage(input) {
       const now = new Date().toISOString();
+      try {
       await db.insert(t.messages).values({
         id: input.id,
         channel: input.channel,
@@ -55,6 +57,10 @@ export function createDrizzleCommsStore(options: { db: Db; tables: CommsTables }
         createdAt: now,
         updatedAt: now,
       });
+      } catch (err) {
+        if (isCommsUniqueViolation(err)) throw err;
+        throw err;
+      }
       return rowToMessage({
         ...input,
         createdAt: now,
@@ -80,8 +86,32 @@ export function createDrizzleCommsStore(options: { db: Db; tables: CommsTables }
       if (!row) throw new Error(`missing message ${id}`);
       return row;
     },
+    async findDeliveryEventByProviderEventId(vendor, providerEventId) {
+      const rows = await db
+        .select()
+        .from(t.deliveryEvents)
+        .where(
+          and(
+            eq(t.deliveryEvents.vendor, vendor),
+            eq(t.deliveryEvents.providerEventId, providerEventId),
+          ),
+        )
+        .limit(1);
+      const row = rows[0] as Record<string, unknown> | undefined;
+      if (!row) return null;
+      return {
+        id: String(row.id),
+        vendor: String(row.vendor),
+        eventType: String(row.eventType),
+        providerEventId: row.providerEventId ? String(row.providerEventId) : undefined,
+        messageId: row.messageId ? String(row.messageId) : undefined,
+        payloadJson: String(row.payloadJson),
+        receivedAt: String(row.receivedAt),
+      } satisfies CommsDeliveryEventRecord;
+    },
     async appendDeliveryEvent(input) {
       const receivedAt = new Date().toISOString();
+      try {
       await db.insert(t.deliveryEvents).values({
         id: input.id,
         vendor: input.vendor,
@@ -91,6 +121,16 @@ export function createDrizzleCommsStore(options: { db: Db; tables: CommsTables }
         payloadJson: input.payloadJson,
         receivedAt,
       });
+      } catch (err) {
+        if (isCommsUniqueViolation(err) && input.providerEventId) {
+          const dup = await this.findDeliveryEventByProviderEventId(
+            input.vendor,
+            input.providerEventId,
+          );
+          if (dup) return dup;
+        }
+        throw err;
+      }
       return {
         id: input.id,
         vendor: input.vendor,

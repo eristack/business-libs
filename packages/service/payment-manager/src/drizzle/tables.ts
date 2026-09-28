@@ -56,15 +56,21 @@ function createPgsqlTables(prefix: string) {
     (t) => [pgUniqueIndex(`${prefix}_intent_idem_uq`).on(t.gateway, t.idempotencyKey)],
   );
 
-  const gatewayEvents = pgTable(`${prefix}_gateway_events`, {
-    id: entityIdColumn("pgsql", "id").primaryKey(),
-    gateway: pgText("gateway").notNull(),
-    eventType: pgText("event_type").notNull(),
-    gatewayEventId: pgText("gateway_event_id"),
-    payloadJson: pgText("payload_json").notNull(),
-    intentId: pgText("intent_id"),
-    receivedAt: pgTimestamp("received_at", { withTimezone: true, mode: "string" }).notNull(),
-  });
+  const gatewayEvents = pgTable(
+    `${prefix}_gateway_events`,
+    {
+      id: entityIdColumn("pgsql", "id").primaryKey(),
+      gateway: pgText("gateway").notNull(),
+      eventType: pgText("event_type").notNull(),
+      gatewayEventId: pgText("gateway_event_id"),
+      payloadJson: pgText("payload_json").notNull(),
+      intentId: pgText("intent_id"),
+      receivedAt: pgTimestamp("received_at", { withTimezone: true, mode: "string" }).notNull(),
+    },
+    (t) => [
+      pgUniqueIndex(`${prefix}_gateway_evt_uq`).on(t.gateway, t.gatewayEventId),
+    ],
+  );
 
   return { paymentIntents, gatewayEvents };
 }
@@ -88,15 +94,21 @@ function createMysqlTables(prefix: string) {
     (t) => [mysqlUniqueIndex(`${prefix}_intent_idem_uq`).on(t.gateway, t.idempotencyKey)],
   );
 
-  const gatewayEvents = mysqlTable(`${prefix}_gateway_events`, {
-    id: entityIdColumn("mysql", "id").primaryKey(),
-    gateway: mysqlVarchar("gateway", { length: 64 }).notNull(),
-    eventType: mysqlVarchar("event_type", { length: 128 }).notNull(),
-    gatewayEventId: mysqlVarchar("gateway_event_id", { length: 255 }),
-    payloadJson: mysqlText("payload_json").notNull(),
-    intentId: mysqlVarchar("intent_id", { length: 36 }),
-    receivedAt: mysqlDatetime("received_at", { mode: "string" }).notNull(),
-  });
+  const gatewayEvents = mysqlTable(
+    `${prefix}_gateway_events`,
+    {
+      id: entityIdColumn("mysql", "id").primaryKey(),
+      gateway: mysqlVarchar("gateway", { length: 64 }).notNull(),
+      eventType: mysqlVarchar("event_type", { length: 128 }).notNull(),
+      gatewayEventId: mysqlVarchar("gateway_event_id", { length: 255 }),
+      payloadJson: mysqlText("payload_json").notNull(),
+      intentId: mysqlVarchar("intent_id", { length: 36 }),
+      receivedAt: mysqlDatetime("received_at", { mode: "string" }).notNull(),
+    },
+    (t) => [
+      mysqlUniqueIndex(`${prefix}_gateway_evt_uq`).on(t.gateway, t.gatewayEventId),
+    ],
+  );
 
   return { paymentIntents, gatewayEvents };
 }
@@ -120,15 +132,21 @@ function createSqliteTables(prefix: string) {
     (t) => [sqliteUniqueIndex(`${prefix}_intent_idem_uq`).on(t.gateway, t.idempotencyKey)],
   );
 
-  const gatewayEvents = sqliteTable(`${prefix}_gateway_events`, {
-    id: entityIdColumn("sqlite", "id").primaryKey(),
-    gateway: sqliteText("gateway").notNull(),
-    eventType: sqliteText("event_type").notNull(),
-    gatewayEventId: sqliteText("gateway_event_id"),
-    payloadJson: sqliteText("payload_json").notNull(),
-    intentId: sqliteText("intent_id"),
-    receivedAt: sqliteText("received_at").notNull(),
-  });
+  const gatewayEvents = sqliteTable(
+    `${prefix}_gateway_events`,
+    {
+      id: entityIdColumn("sqlite", "id").primaryKey(),
+      gateway: sqliteText("gateway").notNull(),
+      eventType: sqliteText("event_type").notNull(),
+      gatewayEventId: sqliteText("gateway_event_id"),
+      payloadJson: sqliteText("payload_json").notNull(),
+      intentId: sqliteText("intent_id"),
+      receivedAt: sqliteText("received_at").notNull(),
+    },
+    (t) => [
+      sqliteUniqueIndex(`${prefix}_gateway_evt_uq`).on(t.gateway, t.gatewayEventId),
+    ],
+  );
 
   return { paymentIntents, gatewayEvents };
 }

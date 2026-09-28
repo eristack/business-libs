@@ -1,7 +1,7 @@
 {
   "name": "@eristack/idempotency",
   "version": "0.1.0",
-  "description": "Idempotency-Key guard and store interface — memory store for tests; Drizzle in a later iteration",
+  "description": "Idempotency-Key guard with Drizzle store, scoped keys, lease, Express/Nest/client adapters",
   "repository": {
     "type": "git",
     "url": "https://github.com/eristack/business-libs.git",
@@ -21,6 +21,66 @@
       "require": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./drizzle": {
+      "import": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.js"
+      },
+      "require": {
+        "types": "./dist/drizzle/index.d.ts",
+        "default": "./dist/drizzle/index.cjs"
+      }
+    },
+    "./express": {
+      "import": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.js"
+      },
+      "require": {
+        "types": "./dist/express/index.d.ts",
+        "default": "./dist/express/index.cjs"
+      }
+    },
+    "./nest": {
+      "import": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.js"
+      },
+      "require": {
+        "types": "./dist/nest/index.d.ts",
+        "default": "./dist/nest/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.cjs"
+      }
+    },
+    "./zod": {
+      "import": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.js"
+      },
+      "require": {
+        "types": "./dist/zod/index.d.ts",
+        "default": "./dist/zod/index.cjs"
+      }
+    },
+    "./testing": {
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.cjs"
       }
     }
   },
@@ -49,12 +109,44 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0 || ^11.0.0",
+    "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
+    "express": "^4.0.0 || ^5.0.0",
+    "rxjs": "^7.0.0",
+    "zod": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/common": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "rxjs": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@internal/test-harness": "workspace:*",
+    "@nestjs/common": "^11.0.12",
     "@tanstack/intent": "^0.3.6",
+    "@types/express": "^5.0.0",
     "@types/node": "^22.15.29",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.44.0",
+    "express": "^5.0.0",
+    "rxjs": "^7.8.2",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "zod": "^4.0.0"
   },
   "license": "MIT"
 }

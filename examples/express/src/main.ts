@@ -17,8 +17,12 @@ import {
   createJwtAuthRouter,
   type AuthedRequest,
 } from "@eristack/jwt-auth/express";
+import { createIdempotencyGuard } from "@eristack/idempotency";
+import {
+  createDrizzleIdempotencyStore,
+} from "@eristack/idempotency/drizzle";
 import { createAppDatabase } from "./db/client.js";
-import { users } from "./db/schema.js";
+import { idempotencyTables, users } from "./db/schema.js";
 import { createOrdersRouter } from "./orders/router.js";
 import { seedOrdersDemo } from "./orders/seed-orders.js";
 
@@ -48,6 +52,15 @@ const jwtAuth = createJwtAuth({
   credentials,
   accessTokenTtl: "15m",
   refreshTokenTtl: "30d",
+});
+
+const idempotencyStore = createDrizzleIdempotencyStore({
+  db,
+  tables: idempotencyTables,
+});
+const idempotencyGuard = createIdempotencyGuard({
+  store: idempotencyStore,
+  defaultLeaseMs: 60_000,
 });
 
 async function seedDemoUser() {
@@ -116,7 +129,28 @@ app.get(
   },
 );
 
-app.use("/orders", createOrdersRouter({ db, jwtAuth }));
+app.use(
+  "/orders",
+  createOrdersRouter({ db, jwtAuth, idempotencyGuard }),
+);
+
+app.use(
+  (
+    err: Error & { status?: number },
+    _req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    if (res.headersSent) {
+      next(err);
+      return;
+    }
+    const status = err.status ?? 500;
+    res.status(status).json({
+      error: { code: status === 400 ? "VALIDATION_ERROR" : "INTERNAL", message: err.message },
+    });
+  },
+);
 
 app.listen(port, () => {
   console.log(`[@eristack/example-express] http://localhost:${port}`);
@@ -128,5 +162,6 @@ app.listen(port, () => {
   console.log(`  DELETE /auth/sessions/:id       Authorization: Bearer <accessToken>`);
   console.log(`  GET    /me                      Authorization: Bearer <accessToken>`);
   console.log(`  GET    /orders?…                data-grid JSON search (auth)`);
+  console.log(`  POST   /orders                  create order (Idempotency-Key + customerId)`);
   console.log(`  GET    /orders/:id              order + lines + sums (auth)`);
 });

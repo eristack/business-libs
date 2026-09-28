@@ -1,5 +1,12 @@
 import type { IdempotencyRecord, IdempotencyStore } from "./types.js";
 
+function isPendingActive(record: IdempotencyRecord, now: number) {
+  return (
+    record.state === "pending" &&
+    (record.leaseExpiresAt == null || record.leaseExpiresAt > now)
+  );
+}
+
 export function createMemoryIdempotencyStore(): IdempotencyStore {
   const records = new Map<string, IdempotencyRecord>();
 
@@ -7,26 +14,44 @@ export function createMemoryIdempotencyStore(): IdempotencyStore {
     async get(key) {
       return records.get(key) ?? null;
     },
-    async claim(key) {
-      const existing = records.get(key);
-      if (existing && (existing.state === "pending" || existing.state === "completed")) {
-        return false;
+    async claim(input) {
+      const now = Date.now();
+      const existing = records.get(input.key);
+      if (existing?.state === "completed") return false;
+      if (existing && isPendingActive(existing, now)) return false;
+      if (existing?.state === "failed" || (existing?.state === "pending" && !isPendingActive(existing, now))) {
+        records.set(input.key, {
+          state: "pending",
+          requestHash: input.requestHash,
+          leaseExpiresAt: now + (input.leaseMs ?? 60_000),
+          createdAt: existing.createdAt,
+        });
+        return true;
       }
-      records.set(key, { state: "pending", createdAt: Date.now() });
+      records.set(input.key, {
+        state: "pending",
+        requestHash: input.requestHash,
+        leaseExpiresAt: now + (input.leaseMs ?? 60_000),
+        createdAt: now,
+      });
       return true;
     },
     async complete(key, result) {
+      const prev = records.get(key);
       records.set(key, {
         state: "completed",
         result,
-        createdAt: records.get(key)?.createdAt ?? Date.now(),
+        requestHash: prev?.requestHash,
+        createdAt: prev?.createdAt ?? Date.now(),
       });
     },
     async fail(key, errorMessage) {
+      const prev = records.get(key);
       records.set(key, {
         state: "failed",
         errorMessage,
-        createdAt: records.get(key)?.createdAt ?? Date.now(),
+        requestHash: prev?.requestHash,
+        createdAt: prev?.createdAt ?? Date.now(),
       });
     },
   };

@@ -69,13 +69,6 @@ export function createStockMovement(
     ledger,
     async append(input) {
       const chainId = chainOf(input);
-      if (input.idempotencyKey) {
-        const existing = await ledger.list(chainId);
-        const hit = existing.find(
-          (entry) => entry.meta?.idempotencyKey === input.idempotencyKey,
-        );
-        if (hit) return hit;
-      }
       const payload: AppendLedgerEntryInput = {
         chainId,
         openingBalance: input.openingBalance,
@@ -86,13 +79,11 @@ export function createStockMovement(
         entryTypeId: input.entryTypeId,
         occurredAt: input.occurredAt,
         id: input.id,
+        idempotencyKey: input.idempotencyKey,
         meta: {
           locationId: input.locationId,
           lotId: input.lotId,
           ownerId: input.ownerId ?? null,
-          ...(input.idempotencyKey
-            ? { idempotencyKey: input.idempotencyKey }
-            : {}),
           ...(input.meta ?? {}),
         },
       };

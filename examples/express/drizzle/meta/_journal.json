@@ -22,6 +22,13 @@
       "when": 1786520233675,
       "tag": "0002_perpetual_puppet_master",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1786600000000,
+      "tag": "0003_idempotency_orders",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,5 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { createIdempotencyTables } from "@eristack/idempotency/drizzle";
 import { entityIdColumn } from "@eristack/entity-id/drizzle";
 import {
   createCredentialsTable,
@@ -20,6 +21,9 @@ export const jwtAuthCredentials = createCredentialsTable("sqlite");
 
 export const jwtAuthRefreshTokens = createRefreshTokenTable("sqlite");
 
+/** HTTP Idempotency-Key replay rows (Express example). */
+export const idempotencyTables = createIdempotencyTables("sqlite");
+
 /** CRM customer — parent of orders. */
 export const customers = sqliteTable("customers", {
   id: entityIdColumn("sqlite", "id").primaryKey(),
@@ -39,18 +43,24 @@ export const products = sqliteTable("products", {
   unitPriceMinor: integer("unit_price_minor").notNull(),
 });
 
-export const orders = sqliteTable("orders", {
-  id: entityIdColumn("sqlite", "id").primaryKey(),
-  number: text("number").notNull(),
-  customerId: text("customer_id")
-    .notNull()
-    .references(() => customers.id),
-  status: text("status").notNull(),
-  orderedAt: integer("ordered_at", { mode: "timestamp_ms" }).notNull(),
-  notes: text("notes"),
-  /** Optional assignee — relation back to app users. */
-  assigneeUserId: text("assignee_user_id").references(() => users.id),
-});
+export const orders = sqliteTable(
+  "orders",
+  {
+    id: entityIdColumn("sqlite", "id").primaryKey(),
+    number: text("number").notNull(),
+    customerId: text("customer_id")
+      .notNull()
+      .references(() => customers.id),
+    status: text("status").notNull(),
+    orderedAt: integer("ordered_at", { mode: "timestamp_ms" }).notNull(),
+    notes: text("notes"),
+    /** Optional assignee — relation back to app users. */
+    assigneeUserId: text("assignee_user_id").references(() => users.id),
+    /** Domain dedup alongside HTTP idempotency guard. */
+    idempotencyKey: text("idempotency_key"),
+  },
+  (t) => [uniqueIndex("orders_idempotency_key_uq").on(t.idempotencyKey)],
+);
 
 export const orderLines = sqliteTable("order_lines", {
   id: entityIdColumn("sqlite", "id").primaryKey(),

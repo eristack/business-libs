@@ -23,8 +23,8 @@ describe("createIdempotencyGuard", () => {
 
   it("throws when key is pending", async () => {
     const store = createMemoryIdempotencyStore();
-    const guard = createIdempotencyGuard(store);
-    await store.claim("k");
+    const guard = createIdempotencyGuard({ store, waitOnPending: false });
+    await store.claim({ key: "_:default:k", requestHash: "abc" });
     await expect(guard.run("k", async () => 1)).rejects.toBeInstanceOf(
       IdempotencyConflictError,
     );

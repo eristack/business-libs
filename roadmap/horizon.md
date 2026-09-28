@@ -200,7 +200,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/hash-chained-ledger` | Shipped | Append-only chain | — | stock, GL |
 | `@eristack/opinion` | **Shipped 0.1.0** | REST canon + OpenAPI compose | data-grid, pbac, jwt-auth | app HTTP |
 | `@eristack/audit-event` | Candidate | Domain audit stream (who/when/what) | timestamp, entity-id | compliance |
-| `@eristack/outbox` | Candidate | Reliable webhook/email dispatch | — | integrations |
+| `@eristack/outbox` | **Shipped** 0.1.0 | Transactional outbox + worker batch | — | integrations |
 | `@eristack/file-manager` | Shipped | S3 presigned uploads, FileRef, webhooks N/A | money? | attachments |
 | `@eristack/payment-manager` | Shipped | PSP hub: intents, webhooks, gateway event log (file-manager spine) | money, payment-instrument | invoice pay, Stripe/Xendit |
 | `@eristack/file-ref` | Superseded by file-manager | — | — | — |
@@ -208,7 +208,7 @@ Auth, access, lists, cache, **opinionated HTTP**.
 | `@eristack/import-job` | Candidate | CSV/Excel master import pipeline | data-grid | migrations |
 | `@eristack/tenant-scope` | Candidate | Company/site scoping helpers for ABAC | abac | multi-company |
 | `@eristack/email-template` | **Shipped** 0.0.0 | `{{var}}` HTML/text render | — | comms, PDF |
-| `@eristack/idempotency` | **Shipped** 0.0.0 | Idempotency-Key guard + store | — | payments, comms POST |
+| `@eristack/idempotency` | **Shipped** 0.1.0 | Idempotency-Key guard + Drizzle/adapters | — | payments, comms POST |
 | `@eristack/api-key` | **Shipped** 0.0.0 | Generate/hash/verify API keys | — | partner B2B |
 | `@eristack/rate-limit` | **Shipped** 0.0.0 | Fixed-window limiter (memory v0) | — | edge middleware |
 | `@eristack/pdf-render` | **Shipped** 0.0.0 | HTML→PDF driver interface | — | invoices, reports |

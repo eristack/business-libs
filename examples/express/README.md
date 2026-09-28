@@ -18,11 +18,14 @@ Injection path:
 
 `GET /orders/:id` returns the same header plus joined line items (product SKU/name/category + line totals).
 
+`POST /orders` demonstrates **HTTP + domain** idempotency: Drizzle `@eristack/idempotency` store + `wrapIdempotentHandler`, and `orders.idempotency_key` UNIQUE. Requires `Idempotency-Key` header and JSON `{ "customerId": "cust-acme" }`.
+
 ## Run
 
 ```bash
 pnpm --filter @eristack/data-grid build
 pnpm --filter @eristack/jwt-auth build
+pnpm --filter @eristack/idempotency build
 pnpm --filter @eristack/money build
 pnpm --filter @eristack/example-express db:generate   # after schema changes
 pnpm --filter @eristack/example-express dev

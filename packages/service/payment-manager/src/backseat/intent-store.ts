@@ -6,6 +6,7 @@ import type {
   PaymentIntentStatus,
   PaymentManagerStore,
 } from "../core/types.js";
+import { PaymentDuplicateIdempotencyKeyError } from "../core/duplicate-key.js";
 import { PAYMENT_MANAGER_COLLECTIONS } from "./collections.js";
 
 type IntentDoc = {
@@ -70,6 +71,11 @@ export function createBackseatPaymentManagerStore(
 
   return {
     async insertIntent(record) {
+      const existing = await this.findIntentByIdempotencyKey(
+        record.gateway,
+        record.idempotencyKey,
+      );
+      if (existing) throw new PaymentDuplicateIdempotencyKeyError();
       const now = new Date().toISOString();
       const doc: IntentDoc = {
         id: record.id,
@@ -146,7 +152,22 @@ export function createBackseatPaymentManagerStore(
       const limit = input?.limit ?? items.length;
       return items.slice(offset, offset + limit);
     },
+    async findGatewayEventByGatewayEventId(gateway, gatewayEventId) {
+      const docs = (await store.list(eventsCol, {
+        where: { gateway, gatewayEventId },
+      })) as EventDoc[];
+      const doc = docs[0];
+      if (!doc) return null;
+      return eventFromDoc(doc);
+    },
     async appendGatewayEvent(event) {
+      if (event.gatewayEventId) {
+        const dup = await this.findGatewayEventByGatewayEventId(
+          event.gateway,
+          event.gatewayEventId,
+        );
+        if (dup) return dup;
+      }
       const doc: EventDoc = {
         id: event.id,
         gateway: event.gateway,

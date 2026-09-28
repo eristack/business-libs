@@ -41,6 +41,8 @@ export type ValuationEngine = {
     qty: string;
     unitCost: string;
     entryTypeId: string;
+    /** Derives ledger idempotency keys `${operationId}:qty` and `:value`. */
+    operationId?: string;
     receivedAt?: string;
     layerId?: string;
     expiresAt?: string;
@@ -54,6 +56,7 @@ export type ValuationEngine = {
     key: ValuationKey;
     qty: string;
     entryTypeId: string;
+    operationId?: string;
     layerId?: string;
   }): Promise<{
     result: IssueResult;
@@ -102,12 +105,14 @@ export function createValuationEngine(options: {
         .multiply(input.qty)
         .toJSON().amount;
 
+      const op = input.operationId ?? input.entryTypeId;
       const qtyEntry = await ledger.append({
         chainId: valuationChainId(input.key, "qty"),
         openingBalance: tipQty ? undefined : "0",
         inAmount: input.qty,
         entryType: "receive",
         entryTypeId: input.entryTypeId,
+        idempotencyKey: `${op}:qty`,
         meta: {
           method,
           productId: input.key.productId,
@@ -120,6 +125,7 @@ export function createValuationEngine(options: {
         inAmount: valueIn,
         entryType: "receive",
         entryTypeId: input.entryTypeId,
+        idempotencyKey: `${op}:value`,
         meta: {
           method,
           unitCost: input.unitCost,
@@ -142,12 +148,14 @@ export function createValuationEngine(options: {
       const tipQty = await ledger.tip(valuationChainId(input.key, "qty"));
       const tipVal = await ledger.tip(valuationChainId(input.key, "value"));
 
+      const op = input.operationId ?? input.entryTypeId;
       const qtyEntry = await ledger.append({
         chainId: valuationChainId(input.key, "qty"),
         openingBalance: tipQty ? undefined : "0",
         outAmount: input.qty,
         entryType: "issue",
         entryTypeId: input.entryTypeId,
+        idempotencyKey: `${op}:qty`,
         meta: { method, picks: result.picks },
       });
       const valueEntry = await ledger.append({
@@ -156,6 +164,7 @@ export function createValuationEngine(options: {
         outAmount: result.totalCost,
         entryType: "issue",
         entryTypeId: input.entryTypeId,
+        idempotencyKey: `${op}:value`,
         meta: { method, picks: result.picks },
       });
       return { result, qtyEntry, valueEntry };

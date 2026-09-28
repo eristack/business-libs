@@ -65,6 +65,10 @@ Use for read-mostly pointers when metadata table is overkill.
 
 Logical grouping (`invoices`, `avatars`, `imports`) — not S3 buckets. One bucket per environment; namespaces appear in object keys and filter list APIs.
 
+## Client upload id (retries)
+
+Pass optional `clientUploadId` on presign or server upload. The metadata store enforces `UNIQUE (namespace, client_upload_id)` so a retry returns the existing row instead of a second object key. Idempotent `completeUpload` when the row is already `ready`.
+
 ## Drivers
 
 | Driver | Use |

@@ -14,6 +14,7 @@
   "dependencies": {
     "@eristack/data-grid": "workspace:*",
     "@eristack/entity-id": "workspace:*",
+    "@eristack/idempotency": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",
     "@eristack/logger": "workspace:*",
     "@eristack/money": "workspace:*",

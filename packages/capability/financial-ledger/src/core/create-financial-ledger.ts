@@ -39,6 +39,8 @@ export type FinancialPostInput = {
   entryTypeId: string;
   occurredAt?: string | Date;
   id?: string;
+  /** Retry-safe dedup via hash-chained-ledger. */
+  idempotencyKey?: string;
   meta?: Record<string, unknown>;
 };
 
@@ -73,6 +75,7 @@ export function createFinancialLedger(
         entryTypeId: input.entryTypeId,
         occurredAt: input.occurredAt,
         id: input.id,
+        idempotencyKey: input.idempotencyKey,
         meta: {
           accountId: input.accountId,
           currency: input.currency,

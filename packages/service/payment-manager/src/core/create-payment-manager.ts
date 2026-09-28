@@ -7,6 +7,7 @@ import {
   UnknownGatewayError,
   WebhookVerificationError,
 } from "./errors.js";
+import { isPaymentUniqueViolation } from "./duplicate-key.js";
 import { moneyJsonEqual, toMoneyAmountJson } from "./money-json.js";
 import type {
   CreateIntentInput,
@@ -33,6 +34,19 @@ function driverFor(config: PaymentManagerConfig, gateway: string) {
   return driver;
 }
 
+async function waitForGatewayIntent(
+  config: PaymentManagerConfig,
+  intentId: string,
+  idempotencyKey: string,
+) {
+  for (let i = 0; i < 100; i += 1) {
+    const row = await config.store.getIntentById(intentId);
+    if (row?.gatewayIntentId) return row;
+    await new Promise((r) => setTimeout(r, 5));
+  }
+  throw new IdempotencyConflictError(idempotencyKey);
+}
+
 function rawBodyToString(rawBody: string | Buffer | Record<string, unknown>): string {
   if (typeof rawBody === "string") return rawBody;
   if (Buffer.isBuffer(rawBody)) return rawBody.toString("utf8");
@@ -56,27 +70,55 @@ export function createPaymentManager(config: PaymentManagerConfig): PaymentManag
         if (existing.gateway !== gateway || !moneyJsonEqual(existing.amount, amount)) {
           throw new IdempotencyConflictError(input.idempotencyKey);
         }
-        return existing;
+        if (existing.gatewayIntentId) return existing;
+        if (existing.status === "pending") {
+          return waitForGatewayIntent(config, existing.id, input.idempotencyKey);
+        }
       }
 
       const driver = driverFor(config, gateway);
+      const id = generateEntityId();
+
+      let intent = existing;
+      if (!intent) {
+        try {
+          intent = await config.store.insertIntent({
+            id,
+            status: "pending",
+            gateway,
+            idempotencyKey: input.idempotencyKey,
+            amount,
+            metadata: input.metadata,
+            ownerId: input.ownerId,
+          });
+        } catch (err) {
+          if (!isPaymentUniqueViolation(err)) throw err;
+          const raced = await config.store.findIntentByIdempotencyKey(
+            gateway,
+            input.idempotencyKey,
+          );
+          if (!raced) throw err;
+          if (!moneyJsonEqual(raced.amount, amount)) {
+            throw new IdempotencyConflictError(input.idempotencyKey);
+          }
+          intent = raced;
+          if (intent.gatewayIntentId) return intent;
+          if (intent.status === "pending") {
+            return waitForGatewayIntent(config, intent.id, input.idempotencyKey);
+          }
+        }
+      }
+
       const created = await driver.createIntent({
         amount,
         idempotencyKey: input.idempotencyKey,
         metadata: input.metadata,
       });
 
-      const id = generateEntityId();
-      return config.store.insertIntent({
-        id,
+      return config.store.updateIntent(intent.id, {
         status: created.status,
-        gateway,
-        idempotencyKey: input.idempotencyKey,
-        amount,
         gatewayIntentId: created.gatewayIntentId,
         clientSecret: created.clientSecret,
-        metadata: input.metadata,
-        ownerId: input.ownerId,
       });
     },
 
@@ -118,6 +160,18 @@ export function createPaymentManager(config: PaymentManagerConfig): PaymentManag
         headers: input.headers,
       });
       const payloadJson = rawBodyToString(input.rawBody);
+
+      if (parsed.gatewayEventId) {
+        const dup = await config.store.findGatewayEventByGatewayEventId(
+          gateway,
+          parsed.gatewayEventId,
+        );
+        if (dup) {
+          let intent =
+            dup.intentId != null ? await config.store.getIntentById(dup.intentId) : null;
+          return { intent: intent ?? undefined, event: dup };
+        }
+      }
 
       let intent =
         parsed.gatewayIntentId != null

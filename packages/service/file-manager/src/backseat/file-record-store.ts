@@ -1,5 +1,6 @@
 import type { BackseatStore } from "@eristack/backseat";
 import { parseFileRef, serializeFileRef } from "../core/file-ref.js";
+import { FileDuplicateClientUploadIdError } from "../core/duplicate-upload.js";
 import type { FileRecordStore, FileStatus, StoredFile } from "../core/types.js";
 import { FILE_MANAGER_COLLECTIONS } from "./collections.js";
 
@@ -8,6 +9,7 @@ type FileDoc = {
   status: FileStatus;
   namespace: string;
   ownerId?: string | null;
+  clientUploadId?: string | null;
   refJson: string;
   createdAt: string;
   updatedAt: string;
@@ -20,6 +22,7 @@ function fromDoc(doc: FileDoc): StoredFile {
     status: doc.status,
     namespace: doc.namespace,
     ownerId: doc.ownerId ?? undefined,
+    clientUploadId: doc.clientUploadId ?? undefined,
     ref: parseFileRef(doc.refJson),
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
@@ -34,13 +37,26 @@ export function createBackseatFileRecordStore(
   const collection = options.collection ?? FILE_MANAGER_COLLECTIONS.files;
 
   return {
+    async findByClientUploadId(namespace, clientUploadId) {
+      const docs = (await store.list(collection, {
+        where: { namespace, clientUploadId },
+        limit: 1,
+      })) as FileDoc[];
+      const doc = docs[0];
+      return doc ? fromDoc(doc) : null;
+    },
     async insert(record) {
+      if (record.clientUploadId) {
+        const hit = await this.findByClientUploadId(record.namespace, record.clientUploadId);
+        if (hit) throw new FileDuplicateClientUploadIdError();
+      }
       const now = new Date().toISOString();
       const doc: FileDoc = {
         id: record.id,
         status: record.status,
         namespace: record.namespace,
         ownerId: record.ownerId ?? null,
+        clientUploadId: record.clientUploadId ?? null,
         refJson: serializeFileRef(record.ref),
         createdAt: record.createdAt ?? now,
         updatedAt: record.updatedAt ?? now,
@@ -64,6 +80,7 @@ export function createBackseatFileRecordStore(
         status: updated.status,
         namespace: updated.namespace,
         ownerId: updated.ownerId ?? null,
+        clientUploadId: updated.clientUploadId ?? null,
         refJson: serializeFileRef(updated.ref),
         createdAt: updated.createdAt,
         updatedAt: updated.updatedAt,

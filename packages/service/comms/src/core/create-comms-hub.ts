@@ -7,6 +7,7 @@ import {
   InvalidCommsInputError,
   UnknownCommsVendorError,
 } from "./errors.js";
+import { isCommsUniqueViolation } from "./duplicate-key.js";
 import type { CommsHub, CommsHubConfig, SendCommsInput } from "./types.js";
 
 function driverFor(config: CommsHubConfig, vendor: string) {
@@ -39,6 +40,26 @@ function payloadFingerprint(input: SendCommsInput) {
   });
 }
 
+function assertFingerprint(existingMetadataJson: string | undefined, input: SendCommsInput) {
+  const meta = existingMetadataJson ? JSON.parse(existingMetadataJson) : {};
+  if (meta._fingerprint && meta._fingerprint !== payloadFingerprint(input)) {
+    throw new CommsIdempotencyConflictError(input.idempotencyKey);
+  }
+}
+
+async function waitForProviderMessage(
+  config: CommsHubConfig,
+  messageId: string,
+  idempotencyKey: string,
+) {
+  for (let i = 0; i < 100; i += 1) {
+    const row = await config.store.getMessageById(messageId);
+    if (row?.providerMessageId) return row;
+    await new Promise((r) => setTimeout(r, 5));
+  }
+  throw new CommsIdempotencyConflictError(idempotencyKey);
+}
+
 export function createCommsHub(config: CommsHubConfig): CommsHub {
   return {
     async send(input) {
@@ -54,16 +75,51 @@ export function createCommsHub(config: CommsHubConfig): CommsHub {
         input.idempotencyKey,
       );
       if (existing) {
-        const meta = existing.metadataJson ? JSON.parse(existing.metadataJson) : {};
-        if (meta._fingerprint && meta._fingerprint !== payloadFingerprint(input)) {
-          throw new CommsIdempotencyConflictError(input.idempotencyKey);
+        assertFingerprint(existing.metadataJson, input);
+        if (existing.providerMessageId) return existing;
+        if (existing.status === "queued") {
+          return waitForProviderMessage(config, existing.id, input.idempotencyKey);
         }
-        return existing;
       }
 
       const driver = driverFor(config, vendor);
       if (!driver.channels.includes(input.channel)) {
         throw new CommsChannelNotSupportedError(vendor, input.channel);
+      }
+
+      const id = generateEntityId();
+      const metadata = {
+        ...(input.metadata ?? {}),
+        _fingerprint: payloadFingerprint(input),
+      };
+
+      let row = existing;
+      if (!row) {
+        try {
+          row = await config.store.insertMessage({
+            id,
+            channel: input.channel,
+            vendor,
+            idempotencyKey: input.idempotencyKey,
+            status: "queued",
+            to: input.to,
+            subject: input.subject,
+            metadataJson: JSON.stringify(metadata),
+          });
+        } catch (err) {
+          if (!isCommsUniqueViolation(err)) throw err;
+          const raced = await config.store.findMessageByIdempotencyKey(
+            vendor,
+            input.idempotencyKey,
+          );
+          if (!raced) throw err;
+          assertFingerprint(raced.metadataJson, input);
+          row = raced;
+          if (row.providerMessageId) return row;
+          if (row.status === "queued") {
+            return waitForProviderMessage(config, row.id, input.idempotencyKey);
+          }
+        }
       }
 
       const sent = await driver.send({
@@ -77,22 +133,9 @@ export function createCommsHub(config: CommsHubConfig): CommsHub {
         metadata: input.metadata,
       });
 
-      const id = generateEntityId();
-      const metadata = {
-        ...(input.metadata ?? {}),
-        _fingerprint: payloadFingerprint(input),
-      };
-
-      return config.store.insertMessage({
-        id,
-        channel: input.channel,
-        vendor,
-        idempotencyKey: input.idempotencyKey,
+      return config.store.updateMessage(row.id, {
         status: sent.status,
-        to: input.to,
-        subject: input.subject,
         providerMessageId: sent.providerMessageId,
-        metadataJson: JSON.stringify(metadata),
       });
     },
 
@@ -120,6 +163,17 @@ export function createCommsHub(config: CommsHubConfig): CommsHub {
       const payloadJson = rawBodyToString(rawBody);
 
       for (const evt of parsed) {
+        if (evt.providerEventId) {
+          const dup = await config.store.findDeliveryEventByProviderEventId(
+            vendor,
+            evt.providerEventId,
+          );
+          if (dup) {
+            stored.push(dup);
+            continue;
+          }
+        }
+
         let messageId: string | undefined;
         if (evt.providerMessageId) {
           const msg = await config.store.findMessageByProviderId(

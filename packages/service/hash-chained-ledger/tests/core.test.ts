@@ -107,6 +107,31 @@ describe("hash-chained-ledger", () => {
     expect(tip?.closingBalance).toBe("3");
   });
 
+  it("dedupes append by idempotencyKey", async () => {
+    const ledger = createHashChainedLedger({
+      store: createMemoryLedgerStore(),
+    });
+    const a = await ledger.append({
+      chainId: "idem",
+      openingBalance: "0",
+      inAmount: "5",
+      entryType: "receipt",
+      entryTypeId: "gr-1",
+      idempotencyKey: "post-gr-99",
+    });
+    const b = await ledger.append({
+      chainId: "idem",
+      inAmount: "999",
+      entryType: "receipt",
+      entryTypeId: "gr-1",
+      idempotencyKey: "post-gr-99",
+    });
+    expect(b.id).toBe(a.id);
+    expect(b.closingBalance).toBe("5");
+    const listed = await ledger.list("idem");
+    expect(listed).toHaveLength(1);
+  });
+
   it("rejects wrong openingBalance when chain exists", async () => {
     const ledger = createHashChainedLedger({
       store: createMemoryLedgerStore(),

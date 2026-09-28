@@ -5,6 +5,44 @@ import { BackseatErrorCodes, jsonError } from "../core/json-error.js";
 export function registerErpDemoControllers(api: Backseat): void {
   api.registerRoute({
     method: "POST",
+    path: "/purchase-orders",
+    name: "purchaseOrders.create",
+    handler: async (ctx) => {
+      const body = ctx.json<{
+        partnerId: string;
+        idempotencyKey: string;
+        currency?: string;
+      }>();
+      if (!body.partnerId?.trim() || !body.idempotencyKey?.trim()) {
+        return jsonError({
+          status: 400,
+          code: BackseatErrorCodes.VALIDATION_ERROR,
+          message: "partnerId and idempotencyKey are required",
+        });
+      }
+      const existing = await ctx.store.list("purchaseOrders", {
+        where: { idempotencyKey: body.idempotencyKey },
+        limit: 1,
+      });
+      if (existing[0]) {
+        return { status: 200, body: existing[0] };
+      }
+      const id = `po-${Date.now()}`;
+      const created = await ctx.store.create("purchaseOrders", {
+        id,
+        docNumber: id.toUpperCase(),
+        status: "draft",
+        partnerId: body.partnerId,
+        currency: body.currency ?? "USD",
+        idempotencyKey: body.idempotencyKey,
+        lines: [],
+      });
+      return { status: 201, body: created };
+    },
+  });
+
+  api.registerRoute({
+    method: "POST",
     path: "/purchase-orders/:id/submit",
     name: "purchaseOrders.submit",
     handler: async (ctx) => {

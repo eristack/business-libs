@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T08:13:09.261Z",
+  "generatedAt": "2026-09-28T12:26:28.833Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -765,10 +765,25 @@ export const catalog = {
     {
       "name": "@eristack/idempotency",
       "version": "0.1.0",
-      "description": "Idempotency-Key guard and store interface — memory store for tests; Drizzle in a later iteration",
+      "description": "Idempotency-Key guard with Drizzle store, scoped keys, lease, Express/Nest/client adapters",
       "slug": "idempotency",
-      "adapters": [],
+      "adapters": [
+        "client",
+        "drizzle",
+        "express",
+        "nest",
+        "testing",
+        "zod"
+      ],
       "skills": [
+        {
+          "id": "idempotency-adapters",
+          "name": "idempotency-adapters",
+          "packageName": "@eristack/idempotency",
+          "description": "Drizzle idempotency store, Express wrapIdempotentHandler, client fetch helper — production path.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-adapters"
+        },
         {
           "id": "idempotency-core",
           "name": "idempotency-core",
@@ -1019,6 +1034,25 @@ export const catalog = {
           "description": "@eristack/opinion ERP HTTP route table on @eristack/rest: options, data-grid, CRUD, PATCH /:id/:action for pbac/doc-transitions. Use when scaffolding document APIs instead of inventing paths per app.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/opinion#opinion-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/outbox",
+      "version": "0.1.0",
+      "description": "Transactional outbox enqueue + Drizzle worker batch for reliable comms and payment side effects",
+      "slug": "outbox",
+      "adapters": [
+        "drizzle"
+      ],
+      "skills": [
+        {
+          "id": "outbox-core",
+          "name": "outbox-core",
+          "packageName": "@eristack/outbox",
+          "description": "@eristack/outbox transactional enqueue in the same TX as domain writes; Drizzle worker batch and idempotencyKey dedup for comms/payment side effects. Memory store tests only.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/outbox#outbox-core"
         }
       ]
     },

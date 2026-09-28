@@ -1,0 +1,8 @@
+package: "@eristack/outbox"
+title: outbox
+maintainers:
+  - support@eristack.dev
+scope: Transactional outbox enqueue + worker batch for reliable side effects.
+outOfScope: Full saga orchestration — app-owned handlers only.
+skills:
+  - outbox-core

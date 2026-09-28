@@ -57,4 +57,24 @@ describe("ERP demo document flow", () => {
     });
     expect(openAfter).toEqual([]);
   });
+
+  it("dedupes POST /purchase-orders by idempotencyKey", async () => {
+    const api = createErpDemoBackseat();
+    await api.reseed();
+
+    const body = { partnerId: "partner-acme", idempotencyKey: "po-create-1" };
+    const first = await api.handle({
+      method: "POST",
+      path: "/api/purchase-orders",
+      body,
+    });
+    const second = await api.handle({
+      method: "POST",
+      path: "/api/purchase-orders",
+      body,
+    });
+    expect(first.status).toBe(201);
+    expect(second.status).toBe(200);
+    expect(second.body).toMatchObject({ id: (first.body as { id: string }).id });
+  });
 });

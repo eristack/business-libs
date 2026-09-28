@@ -1,3 +1,5 @@
+import type { IdempotencyGuard } from "@eristack/idempotency";
+import { wrapIdempotentHandler } from "@eristack/idempotency/express";
 import type { JwtAuth } from "@eristack/jwt-auth";
 import {
   createExpressRequireAuth,
@@ -10,9 +12,10 @@ import {
   toDataGridErrorResponse,
 } from "@eristack/data-grid/express";
 import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import { Router } from "express";
+import { Router, type Request } from "express";
 import * as schema from "../db/schema.js";
 import { orderGridSchema } from "./grid.js";
+import { createOrder } from "./create-order.js";
 import { getOrderDetail, listOrders } from "./list-orders.js";
 
 type AppDb = BetterSQLite3Database<typeof schema>;
@@ -20,10 +23,50 @@ type AppDb = BetterSQLite3Database<typeof schema>;
 export function createOrdersRouter(options: {
   db: AppDb;
   jwtAuth: JwtAuth;
+  idempotencyGuard: IdempotencyGuard;
 }): Router {
   const router = Router();
   const requireAuth = createExpressRequireAuth({ jwtAuth: options.jwtAuth });
   const parseGrid = createDataGridMiddleware(orderGridSchema);
+
+  router.post(
+    "/",
+    requireAuth,
+    wrapIdempotentHandler(
+      {
+        guard: options.idempotencyGuard,
+        scopeFromReq: (req: Request) => ({
+          scope: `user:${(req as AuthedRequest).auth?.subject ?? "anon"}:POST /orders`,
+        }),
+      },
+      async (req: Request) => {
+        const authed = req as AuthedRequest;
+        const body = req.body as { customerId?: string; notes?: string };
+        const headerKey = req.header("Idempotency-Key")?.trim();
+        if (!headerKey) {
+          throw Object.assign(new Error("Idempotency-Key header is required"), {
+            status: 400,
+          });
+        }
+        if (!body.customerId?.trim()) {
+          throw Object.assign(new Error("customerId is required"), { status: 400 });
+        }
+        try {
+          return await createOrder(options.db, {
+            customerId: body.customerId,
+            notes: body.notes,
+            idempotencyKey: headerKey,
+            assigneeUserId: authed.auth?.subject,
+          });
+        } catch (err) {
+          if (err instanceof Error && err.message.includes("required")) {
+            throw Object.assign(err, { status: 400 });
+          }
+          throw err;
+        }
+      },
+    ),
+  );
 
   router.get(
     "/",

@@ -5,6 +5,7 @@ import {
   InvalidFileInputError,
   StorageObjectMissingError,
 } from "./errors.js";
+import { isFileUniqueViolation } from "./duplicate-upload.js";
 import { createFileRef } from "./file-ref.js";
 import { buildObjectKey, sha256Hex } from "./object-key.js";
 import type {
@@ -14,6 +15,7 @@ import type {
   FileManagerConfig,
   FileManagerPresignDefaults,
   PresignGetOptions,
+  PresignedUploadSession,
   ServerUploadInput,
   StoredFile,
 } from "./types.js";
@@ -72,11 +74,39 @@ export function createFileManager(config: FileManagerConfig): FileManager {
     });
   }
 
+  async function presignSessionForRecord(record: StoredFile): Promise<PresignedUploadSession> {
+    const signed = await config.driver.presignPut({
+      key: record.ref.key,
+      options: {
+        expiresInSeconds: presign.putExpiresInSeconds,
+        contentType: record.ref.mimeType,
+        contentLength: record.ref.sizeBytes,
+      },
+    });
+    return {
+      fileId: record.id,
+      uploadUrl: signed.url,
+      uploadMethod: "PUT",
+      uploadHeaders: signed.headers,
+      expiresAt: signed.expiresAt,
+      ref: record.ref,
+    };
+  }
+
   return {
     async beginPresignedUpload(input: BeginPresignedUploadInput) {
       assertUploadInput(input);
-      const fileId = generateEntityId();
       const namespace = input.namespace?.trim() || "default";
+      const clientUploadId = input.clientUploadId?.trim();
+
+      if (clientUploadId) {
+        const existing = await config.store.findByClientUploadId(namespace, clientUploadId);
+        if (existing && existing.status !== "deleted") {
+          return presignSessionForRecord(existing);
+        }
+      }
+
+      const fileId = generateEntityId();
       const key = objectKey({
         namespace,
         originalName: input.originalName,
@@ -92,37 +122,32 @@ export function createFileManager(config: FileManagerConfig): FileManager {
         originalName: input.originalName,
       });
 
-      await config.store.insert({
-        id: fileId,
-        status: "pending",
-        ref,
-        namespace,
-        ownerId: input.ownerId,
-      });
+      let record: StoredFile;
+      try {
+        record = await config.store.insert({
+          id: fileId,
+          status: "pending",
+          ref,
+          namespace,
+          ownerId: input.ownerId,
+          clientUploadId: clientUploadId || undefined,
+        });
+      } catch (err) {
+        if (clientUploadId && isFileUniqueViolation(err)) {
+          const raced = await config.store.findByClientUploadId(namespace, clientUploadId);
+          if (raced) return presignSessionForRecord(raced);
+        }
+        throw err;
+      }
 
-      const signed = await config.driver.presignPut({
-        key,
-        options: {
-          expiresInSeconds: presign.putExpiresInSeconds,
-          contentType: input.mimeType,
-          contentLength: input.sizeBytes,
-        },
-      });
-
-      return {
-        fileId,
-        uploadUrl: signed.url,
-        uploadMethod: "PUT" as const,
-        uploadHeaders: signed.headers,
-        expiresAt: signed.expiresAt,
-        ref,
-      };
+      return presignSessionForRecord(record);
     },
 
     async completeUpload(input: CompleteUploadInput) {
       const record = await config.store.getById(input.fileId);
       if (!record) throw new FileNotFoundError(input.fileId);
       if (record.status === "deleted") throw new FileNotFoundError(input.fileId);
+      if (record.status === "ready") return record;
 
       const head = await config.driver.headObject({ key: record.ref.key });
       if (!head) throw new StorageObjectMissingError(record.ref.key);
@@ -144,8 +169,14 @@ export function createFileManager(config: FileManagerConfig): FileManager {
         sizeBytes: input.body.byteLength,
       });
 
-      const fileId = generateEntityId();
       const namespace = input.namespace?.trim() || "default";
+      const clientUploadId = input.clientUploadId?.trim();
+      if (clientUploadId) {
+        const existing = await config.store.findByClientUploadId(namespace, clientUploadId);
+        if (existing && existing.status === "ready") return existing;
+      }
+
+      const fileId = generateEntityId();
       const key = objectKey({
         namespace,
         originalName: input.originalName,
@@ -171,14 +202,23 @@ export function createFileManager(config: FileManagerConfig): FileManager {
       });
 
       const now = new Date().toISOString();
-      return config.store.insert({
-        id: fileId,
-        status: "ready",
-        ref,
-        namespace,
-        ownerId: input.ownerId,
-        readyAt: now,
-      });
+      try {
+        return await config.store.insert({
+          id: fileId,
+          status: "ready",
+          ref,
+          namespace,
+          ownerId: input.ownerId,
+          clientUploadId: clientUploadId || undefined,
+          readyAt: now,
+        });
+      } catch (err) {
+        if (clientUploadId && isFileUniqueViolation(err)) {
+          const raced = await config.store.findByClientUploadId(namespace, clientUploadId);
+          if (raced?.status === "ready") return raced;
+        }
+        throw err;
+      }
     },
 
     async resolveDownloadUrl(fileId: string, options?: PresignGetOptions) {
