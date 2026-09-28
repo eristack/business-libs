@@ -4,14 +4,16 @@ import {
   pgTable,
   text as pgText,
   timestamp as pgTimestamp,
+  uniqueIndex as pgUniqueIndex,
 } from "drizzle-orm/pg-core";
 import {
   mysqlTable,
   varchar as mysqlVarchar,
   text as mysqlText,
   datetime as mysqlDatetime,
+  uniqueIndex as mysqlUniqueIndex,
 } from "drizzle-orm/mysql-core";
-import { sqliteTable, text as sqliteText } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text as sqliteText, uniqueIndex as sqliteUniqueIndex } from "drizzle-orm/sqlite-core";
 import { entityIdColumn } from "@eristack/entity-id/drizzle";
 
 /** Default: `{prefix}_files` — canonical metadata rows; blob bytes live in object storage. */
@@ -34,44 +36,65 @@ export function createFileManagerTables(
 }
 
 function createPgsqlTables(prefix: string) {
-  const files = pgTable(`${prefix}_files`, {
-    id: entityIdColumn("pgsql", "id").primaryKey(),
-    status: pgText("status").notNull(),
-    namespace: pgText("namespace").notNull(),
-    ownerId: pgText("owner_id"),
-    refJson: pgText("ref_json").notNull(),
-    createdAt: pgTimestamp("created_at", { withTimezone: true, mode: "string" }).notNull(),
-    updatedAt: pgTimestamp("updated_at", { withTimezone: true, mode: "string" }).notNull(),
-    readyAt: pgTimestamp("ready_at", { withTimezone: true, mode: "string" }),
-  });
+  const files = pgTable(
+    `${prefix}_files`,
+    {
+      id: entityIdColumn("pgsql", "id").primaryKey(),
+      status: pgText("status").notNull(),
+      namespace: pgText("namespace").notNull(),
+      ownerId: pgText("owner_id"),
+      clientUploadId: pgText("client_upload_id"),
+      refJson: pgText("ref_json").notNull(),
+      createdAt: pgTimestamp("created_at", { withTimezone: true, mode: "string" }).notNull(),
+      updatedAt: pgTimestamp("updated_at", { withTimezone: true, mode: "string" }).notNull(),
+      readyAt: pgTimestamp("ready_at", { withTimezone: true, mode: "string" }),
+    },
+    (t) => [
+      pgUniqueIndex(`${prefix}_files_client_upload_uq`).on(t.namespace, t.clientUploadId),
+    ],
+  );
   return { files };
 }
 
 function createMysqlTables(prefix: string) {
-  const files = mysqlTable(`${prefix}_files`, {
-    id: entityIdColumn("mysql", "id").primaryKey(),
-    status: mysqlVarchar("status", { length: 32 }).notNull(),
-    namespace: mysqlVarchar("namespace", { length: 128 }).notNull(),
-    ownerId: mysqlVarchar("owner_id", { length: 128 }),
-    refJson: mysqlText("ref_json").notNull(), // long JSON blob
-    createdAt: mysqlDatetime("created_at", { mode: "string", fsp: 3 }).notNull(),
-    updatedAt: mysqlDatetime("updated_at", { mode: "string", fsp: 3 }).notNull(),
-    readyAt: mysqlDatetime("ready_at", { mode: "string", fsp: 3 }),
-  });
+  const files = mysqlTable(
+    `${prefix}_files`,
+    {
+      id: entityIdColumn("mysql", "id").primaryKey(),
+      status: mysqlVarchar("status", { length: 32 }).notNull(),
+      namespace: mysqlVarchar("namespace", { length: 128 }).notNull(),
+      ownerId: mysqlVarchar("owner_id", { length: 128 }),
+      clientUploadId: mysqlVarchar("client_upload_id", { length: 255 }),
+      refJson: mysqlText("ref_json").notNull(),
+      createdAt: mysqlDatetime("created_at", { mode: "string", fsp: 3 }).notNull(),
+      updatedAt: mysqlDatetime("updated_at", { mode: "string", fsp: 3 }).notNull(),
+      readyAt: mysqlDatetime("ready_at", { mode: "string", fsp: 3 }),
+    },
+    (t) => [
+      mysqlUniqueIndex(`${prefix}_files_client_upload_uq`).on(t.namespace, t.clientUploadId),
+    ],
+  );
   return { files };
 }
 
 function createSqliteTables(prefix: string) {
-  const files = sqliteTable(`${prefix}_files`, {
-    id: entityIdColumn("sqlite", "id").primaryKey(),
-    status: sqliteText("status").notNull(),
-    namespace: sqliteText("namespace").notNull(),
-    ownerId: sqliteText("owner_id"),
-    refJson: sqliteText("ref_json").notNull(),
-    createdAt: sqliteText("created_at").notNull(),
-    updatedAt: sqliteText("updated_at").notNull(),
-    readyAt: sqliteText("ready_at"),
-  });
+  const files = sqliteTable(
+    `${prefix}_files`,
+    {
+      id: entityIdColumn("sqlite", "id").primaryKey(),
+      status: sqliteText("status").notNull(),
+      namespace: sqliteText("namespace").notNull(),
+      ownerId: sqliteText("owner_id"),
+      clientUploadId: sqliteText("client_upload_id"),
+      refJson: sqliteText("ref_json").notNull(),
+      createdAt: sqliteText("created_at").notNull(),
+      updatedAt: sqliteText("updated_at").notNull(),
+      readyAt: sqliteText("ready_at"),
+    },
+    (t) => [
+      sqliteUniqueIndex(`${prefix}_files_client_upload_uq`).on(t.namespace, t.clientUploadId),
+    ],
+  );
   return { files };
 }
 

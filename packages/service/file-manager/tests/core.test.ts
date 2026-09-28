@@ -38,6 +38,26 @@ describe("createFileManager", () => {
     expect(download.url).toContain("memory://");
   });
 
+  it("dedupes beginPresignedUpload by clientUploadId", async () => {
+    const files = createFileManager({
+      driver: createMemoryStorageDriver(),
+      store: createMemoryFileRecordStore(),
+    });
+    const a = await files.beginPresignedUpload({
+      originalName: "a.pdf",
+      mimeType: "application/pdf",
+      sizeBytes: 1,
+      clientUploadId: "upload-intent-1",
+    });
+    const b = await files.beginPresignedUpload({
+      originalName: "a.pdf",
+      mimeType: "application/pdf",
+      sizeBytes: 1,
+      clientUploadId: "upload-intent-1",
+    });
+    expect(b.fileId).toBe(a.fileId);
+  });
+
   it("uploadFromServer marks ready immediately", async () => {
     const files = createFileManager({
       driver: createMemoryStorageDriver(),

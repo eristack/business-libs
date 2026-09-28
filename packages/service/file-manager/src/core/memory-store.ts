@@ -1,11 +1,24 @@
 import type { FileRecordStore, FileStatus, StoredFile } from "./types.js";
+import { FileDuplicateClientUploadIdError } from "./duplicate-upload.js";
 
 /** Unit tests only — production uses Drizzle. */
 export function createMemoryFileRecordStore(): FileRecordStore {
   const records = new Map<string, StoredFile>();
+  const byClientUpload = new Map<string, string>();
+
+  const clientKey = (namespace: string, clientUploadId: string) =>
+    `${namespace}\0${clientUploadId}`;
 
   return {
+    async findByClientUploadId(namespace, clientUploadId) {
+      const id = byClientUpload.get(clientKey(namespace, clientUploadId));
+      return id ? (records.get(id) ?? null) : null;
+    },
     async insert(record) {
+      if (record.clientUploadId) {
+        const ik = clientKey(record.namespace, record.clientUploadId);
+        if (byClientUpload.has(ik)) throw new FileDuplicateClientUploadIdError();
+      }
       const now = new Date().toISOString();
       const stored: StoredFile = {
         ...record,
@@ -13,6 +26,9 @@ export function createMemoryFileRecordStore(): FileRecordStore {
         updatedAt: record.updatedAt ?? now,
       };
       records.set(stored.id, stored);
+      if (stored.clientUploadId) {
+        byClientUpload.set(clientKey(stored.namespace, stored.clientUploadId), stored.id);
+      }
       return stored;
     },
     async update(id, patch) {

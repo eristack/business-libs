@@ -1,5 +1,6 @@
 import { and, desc, eq } from "drizzle-orm";
 import { parseFileRef, serializeFileRef } from "../core/file-ref.js";
+import { isFileUniqueViolation } from "../core/duplicate-upload.js";
 import type { FileRecordStore, FileStatus, StoredFile } from "../core/types.js";
 import type { FileManagerTables } from "./tables.js";
 
@@ -18,6 +19,7 @@ function rowToStored(row: Record<string, unknown>): StoredFile {
     status: row.status as FileStatus,
     namespace: String(row.namespace),
     ownerId: row.ownerId ? String(row.ownerId) : undefined,
+    clientUploadId: row.clientUploadId ? String(row.clientUploadId) : undefined,
     ref: parseFileRef(String(row.refJson)),
     createdAt: String(row.createdAt),
     updatedAt: String(row.updatedAt),
@@ -33,6 +35,17 @@ export function createDrizzleFileRecordStore(options: {
   const now = () => new Date().toISOString();
 
   return {
+    async findByClientUploadId(namespace, clientUploadId) {
+      const rows = await db
+        .select()
+        .from(t.files)
+        .where(
+          and(eq(t.files.namespace, namespace), eq(t.files.clientUploadId, clientUploadId)),
+        )
+        .limit(1);
+      const row = rows[0] as Record<string, unknown> | undefined;
+      return row ? rowToStored(row) : null;
+    },
     async insert(record) {
       const createdAt = record.createdAt ?? now();
       const updatedAt = record.updatedAt ?? createdAt;
@@ -41,12 +54,18 @@ export function createDrizzleFileRecordStore(options: {
         status: record.status,
         namespace: record.namespace,
         ownerId: record.ownerId ?? null,
+        clientUploadId: record.clientUploadId ?? null,
         refJson: serializeFileRef(record.ref),
         createdAt,
         updatedAt,
         readyAt: record.readyAt ?? null,
       };
-      await db.insert(t.files).values(row);
+      try {
+        await db.insert(t.files).values(row);
+      } catch (err) {
+        if (isFileUniqueViolation(err)) throw err;
+        throw err;
+      }
       return rowToStored(row);
     },
     async update(id, patch) {

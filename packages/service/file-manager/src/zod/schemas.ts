@@ -17,6 +17,7 @@ export const presignUploadBodySchema = z.object({
   sizeBytes: z.number().nonnegative(),
   namespace: z.string().optional(),
   ownerId: z.string().optional(),
+  clientUploadId: z.string().min(1).max(255).optional(),
 });
 
 export const completeUploadBodySchema = z.object({
