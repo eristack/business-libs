@@ -1,1 +1,5 @@
-["index.md", "getting-started.md"]
+{
+  "title": "@eristack/outbox",
+  "pages": ["index", "getting-started"],
+  "sections": [{ "label": "Start", "pages": ["index", "getting-started"] }]
+}

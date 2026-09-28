@@ -21,7 +21,8 @@
     "sync",
     "rbac-permissions",
     "ledger-first",
-    "dev-conventions"
+    "dev-conventions",
+    "idempotency-and-outbox"
   ],
   "sections": [
     {
@@ -37,7 +38,7 @@
         "upgrading",
         "package-relationships",
         "party-and-platform-compose",
-    "ui-package-stack",
+        "ui-package-stack",
         "backseat-then-backend",
         "document-lines-erp",
         "optimistic-document-version",
@@ -62,7 +63,8 @@
         "sync",
         "rbac-permissions",
         "ledger-first",
-        "dev-conventions"
+        "dev-conventions",
+        "idempotency-and-outbox"
       ]
     }
   ]

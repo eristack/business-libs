@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T11:59:29.023Z",
+  "generatedAt": "2026-09-28T12:26:28.833Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -1050,7 +1050,7 @@ export const catalog = {
           "id": "outbox-core",
           "name": "outbox-core",
           "packageName": "@eristack/outbox",
-          "description": "",
+          "description": "@eristack/outbox transactional enqueue in the same TX as domain writes; Drizzle worker batch and idempotencyKey dedup for comms/payment side effects. Memory store tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/outbox#outbox-core"
         }
