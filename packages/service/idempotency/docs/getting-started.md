@@ -13,11 +13,14 @@ import {
 const store = createMemoryIdempotencyStore(); // tests only — use Drizzle in prod
 const guard = createIdempotencyGuard(store);
 
-await guard.run(requestIdempotencyKey, async () => {
-  return chargePayment();
-});
+await guard.run("pay-1", async () => chargePayment());
 ```
 
-## Collaboration
+Production path, ledger dedup, outbox, and PO UNIQUE: one guide — load `@eristack/ai-knowledge#idempotency-and-outbox` (`knowledge/idempotency-and-outbox.md`).
 
-Wire on payment and comms POST routes after rate-limit and api-key (recipe **`platform-api-guard`**). Completed keys replay the stored JSON body without re-running side effects.
+## Adapters
+
+- `@eristack/idempotency/drizzle` — `createIdempotencyTables`, `createDrizzleIdempotencyStore`
+- `@eristack/idempotency/express` — `wrapIdempotentHandler`
+- `@eristack/idempotency/client` — `createIdempotencyClientFetch`
+- `@eristack/idempotency/nest` — `IdempotencyInterceptor`

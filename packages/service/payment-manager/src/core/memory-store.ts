@@ -1,10 +1,12 @@
 import type { GatewayEvent, PaymentIntent, PaymentManagerStore, PaymentIntentStatus } from "./types.js";
+import { PaymentDuplicateIdempotencyKeyError } from "./duplicate-key.js";
 
 /** Unit tests only — production uses Drizzle. */
 export function createMemoryPaymentManagerStore(): PaymentManagerStore {
   const intents = new Map<string, PaymentIntent>();
   const idempotencyIndex = new Map<string, string>();
   const events: GatewayEvent[] = [];
+  const gatewayEventIndex = new Map<string, string>();
 
   function idempotencyIndexKey(gateway: string, key: string) {
     return `${gateway}::${key}`;
@@ -12,6 +14,9 @@ export function createMemoryPaymentManagerStore(): PaymentManagerStore {
 
   return {
     async insertIntent(record) {
+      if (idempotencyIndex.has(idempotencyIndexKey(record.gateway, record.idempotencyKey))) {
+        throw new PaymentDuplicateIdempotencyKeyError();
+      }
       const now = new Date().toISOString();
       const stored: PaymentIntent = {
         ...record,
@@ -66,12 +71,28 @@ export function createMemoryPaymentManagerStore(): PaymentManagerStore {
       const limit = input?.limit ?? items.length;
       return items.slice(offset, offset + limit);
     },
+    async findGatewayEventByGatewayEventId(gateway, gatewayEventId) {
+      const id = gatewayEventIndex.get(`${gateway}:${gatewayEventId}`);
+      if (!id) return null;
+      return events.find((e) => e.id === id) ?? null;
+    },
     async appendGatewayEvent(event) {
+      if (event.gatewayEventId) {
+        const ik = `${event.gateway}:${event.gatewayEventId}`;
+        const existingId = gatewayEventIndex.get(ik);
+        if (existingId) {
+          const hit = events.find((e) => e.id === existingId);
+          if (hit) return hit;
+        }
+      }
       const stored: GatewayEvent = {
         ...event,
         receivedAt: event.receivedAt ?? new Date().toISOString(),
       };
       events.push(stored);
+      if (event.gatewayEventId) {
+        gatewayEventIndex.set(`${event.gateway}:${event.gatewayEventId}`, stored.id);
+      }
       return stored;
     },
     async listGatewayEvents(intentId) {

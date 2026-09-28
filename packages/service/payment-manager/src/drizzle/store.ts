@@ -1,4 +1,5 @@
 import { and, desc, eq } from "drizzle-orm";
+import { isPaymentUniqueViolation } from "../core/duplicate-key.js";
 import type {
   GatewayEvent,
   MoneyAmountJson,
@@ -84,7 +85,12 @@ export function createDrizzlePaymentManagerStore(options: {
         createdAt,
         updatedAt,
       };
-      await db.insert(t.paymentIntents).values(row);
+      try {
+        await db.insert(t.paymentIntents).values(row);
+      } catch (err) {
+        if (isPaymentUniqueViolation(err)) throw err;
+        throw err;
+      }
       return intentRowToRecord(row);
     },
     async updateIntent(id, patch) {
@@ -169,6 +175,21 @@ export function createDrizzlePaymentManagerStore(options: {
         .offset(input?.offset ?? 0)) as Record<string, unknown>[];
       return rows.map((row) => intentRowToRecord(row));
     },
+    async findGatewayEventByGatewayEventId(gateway, gatewayEventId) {
+      const rows = await db
+        .select()
+        .from(t.gatewayEvents)
+        .where(
+          and(
+            eq(t.gatewayEvents.gateway, gateway),
+            eq(t.gatewayEvents.gatewayEventId, gatewayEventId),
+          ),
+        )
+        .limit(1);
+      const row = rows[0] as Record<string, unknown> | undefined;
+      if (!row) return null;
+      return eventRowToRecord(row);
+    },
     async appendGatewayEvent(event) {
       const receivedAt = event.receivedAt ?? now();
       const row = {
@@ -180,7 +201,18 @@ export function createDrizzlePaymentManagerStore(options: {
         intentId: event.intentId ?? null,
         receivedAt,
       };
-      await db.insert(t.gatewayEvents).values(row);
+      try {
+        await db.insert(t.gatewayEvents).values(row);
+      } catch (err) {
+        if (isPaymentUniqueViolation(err) && event.gatewayEventId) {
+          const dup = await this.findGatewayEventByGatewayEventId(
+            event.gateway,
+            event.gatewayEventId,
+          );
+          if (dup) return dup;
+        }
+        throw err;
+      }
       return eventRowToRecord(row);
     },
     async listGatewayEvents(intentId) {

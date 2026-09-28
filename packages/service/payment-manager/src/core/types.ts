@@ -98,6 +98,10 @@ export type PaymentManagerStore = {
     offset?: number;
   }): Promise<PaymentIntent[]>;
   appendGatewayEvent(event: Omit<GatewayEvent, "receivedAt"> & Partial<Pick<GatewayEvent, "receivedAt">>): Promise<GatewayEvent>;
+  findGatewayEventByGatewayEventId(
+    gateway: string,
+    gatewayEventId: string,
+  ): Promise<GatewayEvent | null>;
   listGatewayEvents(intentId: string): Promise<GatewayEvent[]>;
 };
 

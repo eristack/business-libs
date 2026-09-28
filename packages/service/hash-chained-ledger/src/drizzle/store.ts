@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import type {
   ChainId,
   LedgerEntry,
@@ -31,6 +31,7 @@ function rowToEntry(row: {
   prevHash: string | null;
   entryHash: string;
   metaJson: string | null;
+  idempotencyKey: string | null;
 }): LedgerEntry {
   return {
     id: row.id,
@@ -49,6 +50,7 @@ function rowToEntry(row: {
     meta: row.metaJson
       ? (JSON.parse(row.metaJson) as Record<string, unknown>)
       : undefined,
+    idempotencyKey: row.idempotencyKey,
   };
 }
 
@@ -70,6 +72,21 @@ export function createDrizzleLedgerStore(options: {
         .where(eq(t.entries.chainId, chainId))
         .orderBy(asc(t.entries.sequence));
       return rows.map(rowToEntry);
+    },
+
+    async findByIdempotencyKey(chainId: ChainId, idempotencyKey: string) {
+      const rows = await db
+        .select()
+        .from(t.entries)
+        .where(
+          and(
+            eq(t.entries.chainId, chainId),
+            eq(t.entries.idempotencyKey, idempotencyKey),
+          ),
+        )
+        .limit(1);
+      const row = rows[0];
+      return row ? rowToEntry(row) : null;
     },
 
     async getTip(chainId: ChainId) {
@@ -99,6 +116,7 @@ export function createDrizzleLedgerStore(options: {
         prevHash: entry.prevHash,
         entryHash: entry.entryHash,
         metaJson: entry.meta ? JSON.stringify(entry.meta) : null,
+        idempotencyKey: entry.idempotencyKey ?? null,
       });
     },
 

@@ -1234,7 +1234,7 @@ const query = fromSearch(search, schema)`,
     docsHref: "/docs/idempotency",
     tagline: "Idempotency-Key guard for POST replay safety.",
     description:
-      "createIdempotencyGuard(store).run(key, fn) replays completed responses. Wave 13 C2 — memory store for tests; Drizzle in production.",
+      "Scoped Idempotency-Key guard with Drizzle store, lease, Express wrapIdempotentHandler, and client fetch helper. Memory store for tests only.",
     status: "alpha" as const,
     install: "pnpm add @eristack/idempotency",
     highlights: [
@@ -1249,6 +1249,32 @@ const query = fromSearch(search, schema)`,
 
 const guard = createIdempotencyGuard(createMemoryIdempotencyStore())
 await guard.run(idempotencyKey, () => charge())`,
+    },
+  },
+  {
+    slug: "outbox",
+    name: "@eristack/outbox",
+    title: "Outbox",
+    category: "service" as const,
+    directory: "packages/service/outbox",
+    href: "/outbox",
+    docsHref: "/docs/outbox",
+    tagline: "Transactional outbox for reliable comms and payment side effects.",
+    description:
+      "Enqueue outbox messages in the same DB transaction as domain writes; worker batch with idempotent keys. Drizzle default.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/outbox",
+    highlights: [
+      { title: "Same TX", body: "Commit PO + outbox row together." },
+      { title: "Dedup", body: "UNIQUE idempotencyKey on enqueue." },
+      { title: "Handlers", body: "Wire comms.send / payment with derived keys." },
+    ],
+    sample: {
+      filename: "outbox.ts",
+      language: "ts",
+      code: `import { createOutbox, createMemoryOutboxStore } from "@eristack/outbox"
+
+const outbox = createOutbox(createMemoryOutboxStore())`,
     },
   },
   {

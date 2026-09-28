@@ -12,6 +12,7 @@ import type {
   HashChainedLedger,
   LedgerEntry,
 } from "./types.js";
+import { isLedgerUniqueViolation } from "./idempotency.js";
 import { assertChainIntact, verifyEntries } from "./verify.js";
 
 export function createHashChainedLedger(
@@ -23,6 +24,12 @@ export function createHashChainedLedger(
 
   return {
     async append(input: AppendLedgerEntryInput): Promise<LedgerEntry> {
+      if (input.idempotencyKey?.trim()) {
+        const key = input.idempotencyKey.trim();
+        const existing = await store.findByIdempotencyKey(input.chainId, key);
+        if (existing) return existing;
+      }
+
       const tip = await store.getTip(input.chainId);
       const inAmount = input.inAmount ?? zeroAmount();
       const outAmount = input.outAmount ?? zeroAmount();
@@ -81,13 +88,25 @@ export function createHashChainedLedger(
         occurredAt,
         prevHash,
         meta: input.meta,
+        idempotencyKey: input.idempotencyKey?.trim() || null,
       };
 
       assertBalanceEquation(unsigned);
       const entryHash = await hashLedgerEntry(unsigned);
       const entry: LedgerEntry = { ...unsigned, entryHash };
 
-      await store.append(entry);
+      try {
+        await store.append(entry);
+      } catch (err) {
+        if (input.idempotencyKey?.trim() && isLedgerUniqueViolation(err)) {
+          const again = await store.findByIdempotencyKey(
+            input.chainId,
+            input.idempotencyKey.trim(),
+          );
+          if (again) return again;
+        }
+        throw err;
+      }
       await store.upsertSnapshot({
         chainId: entry.chainId,
         sequence: entry.sequence,

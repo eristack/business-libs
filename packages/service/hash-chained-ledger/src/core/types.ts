@@ -30,6 +30,8 @@ export type LedgerEntry = {
    * Keep JSON-stable (sorted keys when serializing).
    */
   meta?: Record<string, unknown>;
+  /** Dedup index only — not included in entry hash. */
+  idempotencyKey?: string | null;
 };
 
 export type AppendLedgerEntryInput = {
@@ -44,6 +46,8 @@ export type AppendLedgerEntryInput = {
   occurredAt?: string | Date;
   id?: string;
   meta?: Record<string, unknown>;
+  /** When set, a retry with the same key returns the first entry for this chain. */
+  idempotencyKey?: string;
 };
 
 export type LedgerSnapshot = {
@@ -67,6 +71,10 @@ export type ChainVerifyResult =
 export type LedgerEntryStore = {
   listByChain(chainId: ChainId): Promise<LedgerEntry[]>;
   getTip(chainId: ChainId): Promise<LedgerEntry | null>;
+  findByIdempotencyKey(
+    chainId: ChainId,
+    idempotencyKey: string,
+  ): Promise<LedgerEntry | null>;
   append(entry: LedgerEntry): Promise<void>;
   getSnapshot(chainId: ChainId): Promise<LedgerSnapshot | null>;
   upsertSnapshot(snapshot: LedgerSnapshot): Promise<void>;

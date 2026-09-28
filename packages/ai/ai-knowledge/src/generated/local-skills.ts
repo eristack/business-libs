@@ -61,6 +61,14 @@ export const localSkills = [
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#http-errors"
   },
   {
+    "id": "idempotency-and-outbox",
+    "name": "idempotency-and-outbox",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "Canonical idempotency + outbox guide: HTTP replay, ledger dedup, comms/payment ordering, PO UNIQUE.",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#idempotency-and-outbox"
+  },
+  {
     "id": "ledger-first",
     "name": "ledger-first",
     "packageName": "@eristack/ai-knowledge",

@@ -1,0 +1,8 @@
+package: "@eristack/idempotency"
+title: idempotency
+maintainers:
+  - support@eristack.dev
+scope: Idempotency-Key guard + store interface (Wave 13 C2).
+outOfScope: Distributed locks — app Redis or Drizzle unique constraint.
+skills:
+  - idempotency-core

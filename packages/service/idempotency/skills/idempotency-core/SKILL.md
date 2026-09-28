@@ -6,9 +6,9 @@ metadata:
   author: eristack
   version: "0.0"
 sources:
-  - packages/service/idempotency/docs/getting-started.md
+  - packages/ai/ai-knowledge/knowledge/idempotency-and-outbox.md
 ---
 
 # @eristack/idempotency
 
-`createIdempotencyGuard(store).run(key, fn)` replays completed results. **Memory store is tests only** — persist with Drizzle in production.
+`createIdempotencyGuard(store).run(key, fn)` replays completed results. Production: Drizzle store + scoped keys + lease (`runScoped`, Express `wrapIdempotentHandler`). **Memory store is tests only.**

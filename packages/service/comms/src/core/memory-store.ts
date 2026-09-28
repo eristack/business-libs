@@ -1,10 +1,12 @@
 import type { CommsDeliveryEventRecord, CommsMessageRecord, CommsStore } from "./types.js";
+import { CommsDuplicateIdempotencyKeyError } from "./duplicate-key.js";
 
 export function createMemoryCommsStore(): CommsStore {
   const messages = new Map<string, CommsMessageRecord>();
   const idempotency = new Map<string, string>();
   const byProvider = new Map<string, string>();
   const events: CommsDeliveryEventRecord[] = [];
+  const deliveryByProviderEvent = new Map<string, string>();
 
   const key = (vendor: string, idem: string) => `${vendor}:${idem}`;
   const providerKey = (vendor: string, pid: string) => `${vendor}:${pid}`;
@@ -15,6 +17,9 @@ export function createMemoryCommsStore(): CommsStore {
       return id ? (messages.get(id) ?? null) : null;
     },
     async insertMessage(input) {
+      if (idempotency.has(key(input.vendor, input.idempotencyKey))) {
+        throw new CommsDuplicateIdempotencyKeyError();
+      }
       const now = new Date().toISOString();
       const row: CommsMessageRecord = {
         id: input.id,
@@ -53,7 +58,20 @@ export function createMemoryCommsStore(): CommsStore {
       }
       return updated;
     },
+    async findDeliveryEventByProviderEventId(vendor, providerEventId) {
+      const id = deliveryByProviderEvent.get(`${vendor}:${providerEventId}`);
+      if (!id) return null;
+      return events.find((e) => e.id === id) ?? null;
+    },
     async appendDeliveryEvent(input) {
+      if (input.providerEventId) {
+        const ik = `${input.vendor}:${input.providerEventId}`;
+        const existingId = deliveryByProviderEvent.get(ik);
+        if (existingId) {
+          const hit = events.find((e) => e.id === existingId);
+          if (hit) return hit;
+        }
+      }
       const row: CommsDeliveryEventRecord = {
         id: input.id,
         vendor: input.vendor,
@@ -64,6 +82,9 @@ export function createMemoryCommsStore(): CommsStore {
         receivedAt: new Date().toISOString(),
       };
       events.push(row);
+      if (input.providerEventId) {
+        deliveryByProviderEvent.set(`${input.vendor}:${input.providerEventId}`, row.id);
+      }
       return row;
     },
     async findMessageByProviderId(vendor, providerMessageId) {

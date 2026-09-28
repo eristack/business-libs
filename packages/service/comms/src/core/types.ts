@@ -109,6 +109,10 @@ export type CommsStore = {
     vendor: string,
     providerMessageId: string,
   ): Promise<CommsMessageRecord | null>;
+  findDeliveryEventByProviderEventId(
+    vendor: string,
+    providerEventId: string,
+  ): Promise<CommsDeliveryEventRecord | null>;
 };
 
 export type CommsHubConfig = {

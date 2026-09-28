@@ -26,6 +26,8 @@ function entryFromDoc(doc: Record<string, unknown>): LedgerEntry {
       doc.meta && typeof doc.meta === "object" && !Array.isArray(doc.meta)
         ? (doc.meta as Record<string, unknown>)
         : undefined,
+    idempotencyKey:
+      doc.idempotencyKey == null ? null : String(doc.idempotencyKey),
   };
 }
 
@@ -70,6 +72,14 @@ export function createBackseatLedgerStore(
         where: { chainId },
         sort: "sequence",
         order: "desc",
+        limit: 1,
+      });
+      return docs[0] ? entryFromDoc(docs[0]) : null;
+    },
+
+    async findByIdempotencyKey(chainId: ChainId, idempotencyKey: string) {
+      const docs = await store.list(entriesCol, {
+        where: { chainId, idempotencyKey },
         limit: 1,
       });
       return docs[0] ? entryFromDoc(docs[0]) : null;

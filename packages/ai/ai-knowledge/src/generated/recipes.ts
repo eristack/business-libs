@@ -1799,7 +1799,7 @@ export const recipes = [
       "b2b api",
       "idempotency store"
     ],
-    "rationale": "Middleware order: @eristack/rate-limit → @eristack/api-key → @eristack/idempotency → handler. Memory limiter and idempotency store are tests only — Drizzle/Redis in prod.",
+    "rationale": "Load @eristack/ai-knowledge#idempotency-and-outbox — middleware order rate-limit → api-key → idempotency → handler; Drizzle idempotency store in prod (memory tests only).",
     "packages": [
       {
         "name": "@eristack/rate-limit",
@@ -1825,20 +1825,61 @@ export const recipes = [
     ]
   },
   {
-    "id": "idempotency-post-guard",
-    "title": "Idempotency-Key on POST mutations",
+    "id": "idempotency-http-replay",
+    "title": "HTTP Idempotency-Key replay (Drizzle + Express)",
     "priority": 15,
     "triggers": [
       "idempotency key",
       "replay post",
-      "duplicate payment post"
+      "duplicate payment post",
+      "idempotency middleware"
     ],
-    "rationale": "@eristack/idempotency createIdempotencyGuard(store).run(key, fn) — Drizzle store in prod; createMemoryIdempotencyStore for unit tests only.",
+    "rationale": "Load @eristack/ai-knowledge#idempotency-and-outbox — Drizzle store, scoped runScoped, wrapIdempotentHandler; memory store unit tests only.",
     "packages": [
       {
         "name": "@eristack/idempotency",
         "skills": [
-          "idempotency-core"
+          "idempotency-adapters"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "ledger-idempotent-append",
+    "title": "Idempotent ledger append (stock, GL, valuations)",
+    "priority": 14,
+    "triggers": [
+      "duplicate goods receipt",
+      "ledger retry",
+      "idempotent append"
+    ],
+    "rationale": "Load @eristack/ai-knowledge#idempotency-and-outbox — hash-chained-ledger idempotencyKey; stock-movement, financial-ledger, valuations pass keys through.",
+    "packages": [
+      {
+        "name": "@eristack/hash-chained-ledger",
+        "skills": [
+          "hash-chained-ledger-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
+    "id": "reliable-side-effects-outbox",
+    "title": "Outbox for comms and payment side effects",
+    "priority": 14,
+    "triggers": [
+      "transactional outbox",
+      "reliable email",
+      "po confirmation email"
+    ],
+    "rationale": "Load @eristack/ai-knowledge#idempotency-and-outbox — @eristack/outbox enqueue in TX; comms/payment claim-before-vendor; derived idempotency keys in workers.",
+    "packages": [
+      {
+        "name": "@eristack/outbox",
+        "skills": [
+          "outbox-core"
         ],
         "role": "primary"
       }

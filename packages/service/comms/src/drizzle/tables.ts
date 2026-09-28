@@ -52,15 +52,21 @@ function createPgsqlTables(prefix: string) {
     (t) => [pgUniqueIndex(`${prefix}_msg_idem_uq`).on(t.vendor, t.idempotencyKey)],
   );
 
-  const deliveryEvents = pgTable(`${prefix}_delivery_events`, {
-    id: entityIdColumn("pgsql", "id").primaryKey(),
-    vendor: pgText("vendor").notNull(),
-    eventType: pgText("event_type").notNull(),
-    providerEventId: pgText("provider_event_id"),
-    messageId: pgText("message_id"),
-    payloadJson: pgText("payload_json").notNull(),
-    receivedAt: pgTimestamp("received_at", { withTimezone: true, mode: "string" }).notNull(),
-  });
+  const deliveryEvents = pgTable(
+    `${prefix}_delivery_events`,
+    {
+      id: entityIdColumn("pgsql", "id").primaryKey(),
+      vendor: pgText("vendor").notNull(),
+      eventType: pgText("event_type").notNull(),
+      providerEventId: pgText("provider_event_id"),
+      messageId: pgText("message_id"),
+      payloadJson: pgText("payload_json").notNull(),
+      receivedAt: pgTimestamp("received_at", { withTimezone: true, mode: "string" }).notNull(),
+    },
+    (t) => [
+      pgUniqueIndex(`${prefix}_delivery_evt_uq`).on(t.vendor, t.providerEventId),
+    ],
+  );
 
   return { messages, deliveryEvents };
 }
@@ -84,15 +90,21 @@ function createMysqlTables(prefix: string) {
     (t) => [mysqlUniqueIndex(`${prefix}_msg_idem_uq`).on(t.vendor, t.idempotencyKey)],
   );
 
-  const deliveryEvents = mysqlTable(`${prefix}_delivery_events`, {
-    id: entityIdColumn("mysql", "id").primaryKey(),
-    vendor: mysqlVarchar("vendor", { length: 64 }).notNull(),
-    eventType: mysqlVarchar("event_type", { length: 128 }).notNull(),
-    providerEventId: mysqlVarchar("provider_event_id", { length: 255 }),
-    messageId: mysqlVarchar("message_id", { length: 36 }),
-    payloadJson: mysqlText("payload_json").notNull(),
-    receivedAt: mysqlDatetime("received_at", { mode: "string" }).notNull(),
-  });
+  const deliveryEvents = mysqlTable(
+    `${prefix}_delivery_events`,
+    {
+      id: entityIdColumn("mysql", "id").primaryKey(),
+      vendor: mysqlVarchar("vendor", { length: 64 }).notNull(),
+      eventType: mysqlVarchar("event_type", { length: 128 }).notNull(),
+      providerEventId: mysqlVarchar("provider_event_id", { length: 255 }),
+      messageId: mysqlVarchar("message_id", { length: 36 }),
+      payloadJson: mysqlText("payload_json").notNull(),
+      receivedAt: mysqlDatetime("received_at", { mode: "string" }).notNull(),
+    },
+    (t) => [
+      mysqlUniqueIndex(`${prefix}_delivery_evt_uq`).on(t.vendor, t.providerEventId),
+    ],
+  );
 
   return { messages, deliveryEvents };
 }
@@ -116,15 +128,21 @@ function createSqliteTables(prefix: string) {
     (t) => [sqliteUniqueIndex(`${prefix}_msg_idem_uq`).on(t.vendor, t.idempotencyKey)],
   );
 
-  const deliveryEvents = sqliteTable(`${prefix}_delivery_events`, {
-    id: entityIdColumn("sqlite", "id").primaryKey(),
-    vendor: sqliteText("vendor").notNull(),
-    eventType: sqliteText("event_type").notNull(),
-    providerEventId: sqliteText("provider_event_id"),
-    messageId: sqliteText("message_id"),
-    payloadJson: sqliteText("payload_json").notNull(),
-    receivedAt: sqliteText("received_at").notNull(),
-  });
+  const deliveryEvents = sqliteTable(
+    `${prefix}_delivery_events`,
+    {
+      id: entityIdColumn("sqlite", "id").primaryKey(),
+      vendor: sqliteText("vendor").notNull(),
+      eventType: sqliteText("event_type").notNull(),
+      providerEventId: sqliteText("provider_event_id"),
+      messageId: sqliteText("message_id"),
+      payloadJson: sqliteText("payload_json").notNull(),
+      receivedAt: sqliteText("received_at").notNull(),
+    },
+    (t) => [
+      sqliteUniqueIndex(`${prefix}_delivery_evt_uq`).on(t.vendor, t.providerEventId),
+    ],
+  );
 
   return { messages, deliveryEvents };
 }
