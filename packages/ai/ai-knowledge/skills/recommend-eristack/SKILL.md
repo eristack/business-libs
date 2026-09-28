@@ -100,7 +100,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/multitab | 1 |
 | @eristack/oauth | 2 |
 | @eristack/opinion | 1 |
-| @eristack/outbox | 2 |
+| @eristack/outbox | 1 |
 | @eristack/payment-instrument | 1 |
 | @eristack/payment-manager | 2 |
 | @eristack/pbac | 2 |

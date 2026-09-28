@@ -1,8 +1,8 @@
-package: "@eristack/idempotency"
-title: idempotency
+package: "@eristack/outbox"
+title: outbox
 maintainers:
   - support@eristack.dev
-scope: Idempotency-Key guard + store interface (Wave 13 C2).
-outOfScope: Distributed locks — app Redis or Drizzle unique constraint.
+scope: Transactional outbox enqueue + worker batch for reliable side effects.
+outOfScope: Full saga orchestration — app-owned handlers only.
 skills:
-  - idempotency-core
+  - outbox-core

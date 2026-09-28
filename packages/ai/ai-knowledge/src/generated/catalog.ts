@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T11:14:50.604Z",
+  "generatedAt": "2026-09-28T11:16:17.739Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -1046,14 +1046,6 @@ export const catalog = {
         "drizzle"
       ],
       "skills": [
-        {
-          "id": "idempotency-core",
-          "name": "idempotency-core",
-          "packageName": "@eristack/outbox",
-          "description": "@eristack/idempotency createIdempotencyGuard and memory store — Wave 13 C2.",
-          "type": "core",
-          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/outbox#idempotency-core"
-        },
         {
           "id": "outbox-core",
           "name": "outbox-core",
