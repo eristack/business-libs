@@ -1,7 +1,12 @@
 ---
-id: outbox-core
-title: Outbox core
-package: "@eristack/outbox"
+name: outbox-core
+description: >
+  @eristack/outbox transactional enqueue in the same TX as domain writes; Drizzle worker batch
+  and idempotencyKey dedup for comms/payment side effects. Memory store tests only.
+metadata:
+  type: core
+  library: "@eristack/outbox"
+  library_version: "0.1.0"
 sources:
   - packages/ai/ai-knowledge/knowledge/idempotency-and-outbox.md
 ---
