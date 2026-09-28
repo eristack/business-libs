@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T08:03:20.457Z",
+  "generatedAt": "2026-09-28T08:13:09.261Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -227,7 +227,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/comms",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
       "slug": "comms",
       "adapters": [
