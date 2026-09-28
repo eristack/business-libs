@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.20
+
+### Patch Changes
+
+- d2a6f24: Add idempotency-and-outbox canonical guide and recipes for ledger/outbox train; file-manager clientUploadId and Backseat PO demo notes.
+
 ## 0.1.19
 
 ### Patch Changes

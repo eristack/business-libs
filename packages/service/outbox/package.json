@@ -1,6 +1,6 @@
 {
   "name": "@eristack/outbox",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Transactional outbox enqueue + Drizzle worker batch for reliable comms and payment side effects",
   "repository": {
     "type": "git",

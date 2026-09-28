@@ -1,5 +1,11 @@
 # @eristack/comms
 
+## 0.1.2
+
+### Patch Changes
+
+- d2a6f24: Claim queued message before vendor send; dedupe delivery webhook events.
+
 ## 0.1.1
 
 ### Patch Changes

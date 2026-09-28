@@ -1,5 +1,11 @@
 # @eristack/file-manager
 
+## 0.1.1
+
+### Patch Changes
+
+- 1e8a5a6: Optional `clientUploadId` per namespace with UNIQUE dedup on presign, complete, and server upload (Drizzle, memory, Backseat stores).
+
 ## 0.1.0
 
 ### Minor Changes

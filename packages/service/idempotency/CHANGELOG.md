@@ -1,5 +1,11 @@
 # @eristack/idempotency
 
+## 0.1.1
+
+### Patch Changes
+
+- d2a6f24: Drizzle store, scoped guard with lease, express/nest/client/zod/testing exports.
+
 ## 0.1.0
 
 ### Minor Changes

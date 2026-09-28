@@ -1,6 +1,6 @@
 {
   "name": "@eristack/idempotency",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Idempotency-Key guard with Drizzle store, scoped keys, lease, Express/Nest/client adapters",
   "repository": {
     "type": "git",

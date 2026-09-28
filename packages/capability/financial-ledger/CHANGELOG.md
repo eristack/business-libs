@@ -1,5 +1,11 @@
 # @eristack/financial-ledger
 
+## 0.2.6
+
+### Patch Changes
+
+- d2a6f24: Add optional idempotencyKey on financial post input.
+
 ## 0.2.5
 
 ### Patch Changes
