@@ -188,7 +188,7 @@ When adding a **new publishable package** under `packages/<category>/<name>/`, c
 | Recipe | `packages/ai/ai-knowledge/knowledge/recipes.yaml` — product language (`recommend()` must find it) |
 | Dependency map | `knowledge/package-relationships.md` — stack row + load order |
 | Upgrade matrix | `knowledge/upgrading.md` — new package row, IndexedDB/Backseat notes if any |
-| Sync | `pnpm knowledge:sync` then `pnpm knowledge:check` |
+| Sync | `pnpm knowledge:sync` then `pnpm knowledge:check` — **required** when any `skills/**/SKILL.md` frontmatter changes (catalog reads skills) |
 
 ### 3. Public site (`apps/web`) — **required**
 

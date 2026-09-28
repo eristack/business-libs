@@ -43,6 +43,30 @@ const CATALOG_ONLY_PATTERNS: RegExp[] = [
 const WEB_APP_PREFIX = "apps/web/";
 const EXAMPLES_PREFIX = "examples/";
 
+/** Run before affected turbo so docs/knowledge failures are not buried in @eristack/ai-dev#test. */
+const PRE_TURBO_DRIFT_CHECKS = new Set<CheckId>([
+  "lockfile",
+  "changesets",
+  "publish",
+  "skills",
+  "knowledge",
+  "docs",
+  "ticket",
+]);
+
+function partitionDriftChecks(driftChecks: CheckId[]): {
+  preTurbo: CheckId[];
+  postTurbo: CheckId[];
+} {
+  const preTurbo: CheckId[] = [];
+  const postTurbo: CheckId[] = [];
+  for (const id of driftChecks) {
+    if (PRE_TURBO_DRIFT_CHECKS.has(id)) preTurbo.push(id);
+    else postTurbo.push(id);
+  }
+  return { preTurbo, postTurbo };
+}
+
 export type CiMode = "full" | "affected" | "catalog";
 
 export type CiPlan = DevPlan & {
@@ -302,6 +326,22 @@ export function runCi(options: RunCiOptions): RunCiResult {
   }
 
   // affected
+  const { preTurbo, postTurbo } = partitionDriftChecks(plan.driftChecks);
+  if (preTurbo.length) {
+    results.push(
+      ...runChecks({
+        repoRoot,
+        profile: "catalog",
+        only: preTurbo,
+        skipBuild: true,
+      }),
+    );
+    const preSummary = summarizeResults(results);
+    if (!preSummary.ok) {
+      return { plan, results, summary: preSummary };
+    }
+  }
+
   results.push(
     turboAffected(repoRoot, plan.turboBase, ["build", "typecheck", "test"], true),
   );
@@ -346,12 +386,12 @@ export function runCi(options: RunCiOptions): RunCiResult {
     }
   }
 
-  if (plan.driftChecks.length) {
+  if (postTurbo.length) {
     results.push(
       ...runChecks({
         repoRoot,
         profile: "catalog",
-        only: plan.driftChecks,
+        only: postTurbo,
         skipBuild: true,
       }),
     );
