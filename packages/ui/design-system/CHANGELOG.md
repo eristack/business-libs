@@ -1,5 +1,11 @@
 # @eristack/design-system
 
+## 0.1.1
+
+### Patch Changes
+
+- 899beb6: Expose `@eristack/design-system/tokens.css` in the package `exports` map so `@import` / bundler resolution works (previously only reachable via the unexported `src/tokens.css` path).
+
 ## 0.1.0
 
 ### Minor Changes
