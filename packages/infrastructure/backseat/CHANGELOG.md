@@ -1,5 +1,11 @@
 # @eristack/backseat
 
+## 0.1.9
+
+### Patch Changes
+
+- 2e31f73: ERP demo: idempotent `POST /purchase-orders` keyed by body `idempotencyKey`.
+
 ## 0.1.8
 
 ### Patch Changes

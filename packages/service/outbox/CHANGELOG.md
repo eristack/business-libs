@@ -1,5 +1,11 @@
 # @eristack/idempotency
 
+## 0.1.1
+
+### Patch Changes
+
+- d2a6f24: New transactional outbox package with Drizzle store and worker batch processing.
+
 ## 0.1.0
 
 ### Minor Changes

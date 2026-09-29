@@ -1,5 +1,11 @@
 # @eristack/ai-dev
 
+## 0.1.4
+
+### Patch Changes
+
+- f9cf60b: Run knowledge/docs/skills drift checks before affected turbo so stale catalog nav fails with clear messages.
+
 ## 0.1.3
 
 ### Patch Changes

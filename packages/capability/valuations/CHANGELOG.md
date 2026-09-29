@@ -1,5 +1,11 @@
 # @eristack/valuations
 
+## 0.2.5
+
+### Patch Changes
+
+- d2a6f24: Derive ledger idempotency keys on receive/issue via operationId.
+
 ## 0.2.4
 
 ### Patch Changes
