@@ -166,6 +166,10 @@ done:
     file: 20260814-071900-suggest-multitab-close-tab-activate-previous-tab-not-first-a3f21c.md
     notes: verify-shipped — confirm in @eristack/multitab if UX still wrong (file closed)
 
+  - rank: 50
+    file: 20260929-152500-suggestion-unified-spreadsheet-operator-package-a8f2c1.md
+    notes: "@eristack/spreadsheet-operator — headless operator + /react; ADR new package not line-grid embed"
+
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack: []
 

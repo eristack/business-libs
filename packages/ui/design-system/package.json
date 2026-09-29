@@ -32,7 +32,8 @@
         "types": "./dist/react/index.d.ts",
         "default": "./dist/react/index.cjs"
       }
-    }
+    },
+    "./tokens.css": "./src/tokens.css"
   },
   "files": [
     "dist",

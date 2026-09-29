@@ -2074,6 +2074,35 @@ const { line, applyPatch } = useLineGridRecalc({
     },
   },
   {
+    slug: "spreadsheet-operator",
+    name: "@eristack/spreadsheet-operator",
+    title: "Spreadsheet operator",
+    category: "ui" as const,
+    directory: "packages/ui/spreadsheet-operator",
+    href: "/spreadsheet-operator",
+    docsHref: "/docs/spreadsheet-operator",
+    tagline: "Keyboard navigation and active-grid scope for in-browser tables.",
+    description:
+      "Headless Excel-like operator plus React adapter — one active grid per document tab, cell coordinates, Enter/Tab/Esc. Not xlsx export (spreadsheet-render) and not HTTP lists (data-grid).",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/spreadsheet-operator react",
+    highlights: [
+      { title: "Active-grid scope", body: "Two tables on one page; keys apply only to the clicked grid." },
+      { title: "Headless core", body: "createSpreadsheetOperator + getNextEditableAddress for tests." },
+      { title: "React adapter", body: "Provider, nav cells, native text editor, form-ui/Select bridge." },
+    ],
+    sample: {
+      filename: "sheet.tsx",
+      language: "tsx",
+      code: `import { SpreadsheetScopeProvider, SpreadsheetTable } from "@eristack/spreadsheet-operator/react"
+
+<SpreadsheetScopeProvider>
+  <SpreadsheetTable descriptor={sell}>{/* NavCell + TextCell */}</SpreadsheetTable>
+  <SpreadsheetTable descriptor={buy}>{/* second grid */}</SpreadsheetTable>
+</SpreadsheetScopeProvider>`,
+    },
+  },
+  {
     slug: "doc-shell",
     name: "@eristack/doc-shell",
     title: "Doc shell",

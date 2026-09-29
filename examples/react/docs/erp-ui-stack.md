@@ -15,7 +15,7 @@ Optional: `@eristack/multitab`, `@eristack/filter-builder`, `@eristack/policy-ui
 ## 1. Root providers
 
 ```tsx
-import "@eristack/design-system/src/tokens.css";
+import "@eristack/design-system/tokens.css";
 import { DensityProvider } from "@eristack/design-system/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 

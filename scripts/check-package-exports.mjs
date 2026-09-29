@@ -142,6 +142,8 @@ function main() {
     if (tsupSubpaths) {
       for (const sub of exportKeys) {
         if (sub === ".") continue;
+        // Static assets (tokens.css, JSON) are shipped from src/ — no tsup entry expected.
+        if (/\.(css|json)$/.test(sub)) continue;
         if (!tsupSubpaths.includes(sub)) {
           errors.push(
             `${pkg.name}: package.json exports ${sub} but tsup.config.ts has no matching entry (add src/${sub.slice(2)}/index.ts or src/${sub.slice(2)}.ts)`,

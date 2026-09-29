@@ -1,36 +1,45 @@
 ---
 name: person-core
 description: >
-  @eristack/person normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES,
-  personSchema — Wave 13 party spine. Compose with phone/email/contact at app boundary.
+  @eristack/person Person { name { given, family, middle?, prefix?, suffix? }, gender?, genderOther? }:
+  normalizePerson / normalizePersonName (trim, required given+family, genderOther iff gender
+  "other", PersonParseError code PERSON_PARSE), GENDER_IDENTITIES [unknown, woman, man, non_binary,
+  prefer_not_to_say, other], normalizeGenderIdentity ("Non-Binary" → non_binary), formatPersonDisplay
+  "Prefix Given Middle Family Suffix", formatPersonSortable "Family Suffix, Given Middle", zod
+  personSchema. Use for contact/employee rows with structured Drizzle columns; compose with
+  phone/email/contact in the handler — no sibling imports. Not org names or HRIS.
 metadata:
   author: eristack
-  version: "0.0"
+  version: "0.1"
+  type: core
+  library: "@eristack/person"
 sources:
   - packages/primitive/person/docs/getting-started.md
 ---
 
 # @eristack/person
 
-```ts
-import { normalizePerson, formatPersonDisplay } from "@eristack/person";
+Structured name + canonical gender; format at read time.
 
-const person = normalizePerson({
-  name: { given: "Ada", family: "Lovelace" },
-  gender: "woman",
-});
-formatPersonDisplay(person);
+```ts
+import { normalizePerson, formatPersonDisplay, formatPersonSortable, GENDER_IDENTITIES, PersonParseError } from "@eristack/person";
+import { personSchema } from "@eristack/person/zod";
+
+const p = normalizePerson({ name: { given: " Ada ", family: "Lovelace", prefix: "Ms" }, gender: "Woman" }); // gender → "woman"
+formatPersonDisplay(p);   // "Ms Ada Lovelace"
+formatPersonSortable(p);  // "Lovelace, Ada"
 ```
 
 ## Checklist
 
-1. `normalizePerson` on every write — trim given/family, validate gender.
-2. `gender: "other"` requires `genderOther` text.
-3. Lists: `formatPersonSortable` — "Family, Given".
-4. Compose with `@eristack/phone`, `@eristack/email-address`, `@eristack/contact` — **no imports between packages**.
-5. Load `#party-and-platform-compose` for handler snippet.
+1. Drizzle: `given_name`, `family_name`, `middle_name`, `name_prefix`, `name_suffix`, `gender`, `gender_other` columns; CHECK `gender IN (GENDER_IDENTITIES)` and `(gender='other') = (gender_other IS NOT NULL)`.
+2. Boundary: `personSchema` (exact lower-case enum) or `normalizePerson`; catch `ZodError` and `PersonParseError` → 400.
+3. Party handler: person + `normalizeEmail` + `normalizeE164` in one transaction (`#party-and-platform-compose`).
+4. Lists: sort by `family_name, given_name`; return `displayName` + `sortName` computed, never persisted.
+5. Gender optional by default; collect only with a business reason.
 
 ## Do not
 
-- Store display strings instead of structured `Person`
-- Use for legal entity names — app org master
+- Store `full_name` strings or formatted output.
+- Put company/legal names in `Person`.
+- Import phone/email/address into person code — compose in the app.

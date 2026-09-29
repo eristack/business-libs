@@ -109,6 +109,7 @@ Nine new `@eristack/*` packages under **Layer UI** ship together as **`0.1.0`** 
 | Minimum shell | `pnpm add @eristack/design-system tailwindcss react` + tokens in root CSS |
 | List page | `list-shell` + `data-grid` + `@tanstack/react-query` |
 | Document + lines | `doc-shell` + `line-grid` + `form-ui` + `qups` |
+| In-browser spreadsheet keys | `spreadsheet-operator` (not `spreadsheet-render`) |
 
 ```bash
 pnpm add @eristack/design-system@^0.1.0 @eristack/form-ui@^0.1.0 @eristack/list-shell@^0.1.0

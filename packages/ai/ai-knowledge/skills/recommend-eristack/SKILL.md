@@ -52,7 +52,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 
 <!-- catalog:start -->
 
-**66 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
+**67 sibling packages** — full machine-readable catalog: `getCatalog()` from `@eristack/ai-knowledge` or run `pnpm knowledge:sync`.
 
 | Package | Skills |
 | --- | ---: |
@@ -114,6 +114,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 | @eristack/rbac | 2 |
 | @eristack/rest | 1 |
 | @eristack/rounding-policy | 1 |
+| @eristack/spreadsheet-operator | 2 |
 | @eristack/spreadsheet-render | 1 |
 | @eristack/stock-movement | 2 |
 | @eristack/tax | 1 |

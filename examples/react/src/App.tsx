@@ -9,6 +9,7 @@ import {
 } from "@eristack/jwt-auth/react";
 import { Dashboard } from "./components/Dashboard.js";
 import { LoginForm } from "./components/LoginForm.js";
+import { SpreadsheetOperatorDemo } from "./components/SpreadsheetOperatorDemo.js";
 import {
   getCurrentSessionId,
   setCurrentSessionId,
@@ -100,6 +101,8 @@ export function App() {
           `@eristack/data-grid/react`. UI stays app-owned.
         </p>
       </header>
+
+      <SpreadsheetOperatorDemo />
 
       {bootstrapping && status === "unknown" ? (
         <section className="panel">

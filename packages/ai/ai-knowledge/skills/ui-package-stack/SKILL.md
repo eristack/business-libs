@@ -2,8 +2,8 @@
 name: ui-package-stack
 description: >
   ERP UI stack: design-system tokens, form-ui domain inputs, list-shell, filter-builder,
-  line-grid (QUPS), doc-shell, policy-ui, master-detail, command-palette. Use when building
-  TanStack Router list/doc screens instead of one-off shadcn copies.
+  line-grid (QUPS), spreadsheet-operator (keyboard grids), doc-shell, policy-ui, master-detail,
+  command-palette. Use when building TanStack Router list/doc screens instead of one-off shadcn copies.
 sources:
   - knowledge/ui-package-stack.md
 ---
@@ -21,7 +21,7 @@ sources:
 1. `@eristack/design-system` — import `./tokens.css`, wrap app in `DensityProvider` from `./react`.
 2. Domain fields — headless hooks first; `form-ui` for styled inputs.
 3. Lists — `@eristack/list-shell` + `@eristack/data-grid/react` query sync.
-4. Docs — `@eristack/doc-shell` + `@eristack/line-grid` for QUPS lines.
+4. Docs — `@eristack/doc-shell` + `@eristack/line-grid` for QUPS lines; `@eristack/spreadsheet-operator` for keyboard/active-grid (not xlsx).
 5. Actions — `@eristack/policy-ui` with rbac/pbac checks from the app.
 
 ## Release / peers

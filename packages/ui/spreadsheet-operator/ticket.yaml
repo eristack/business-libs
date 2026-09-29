@@ -1,0 +1,15 @@
+package: "@eristack/spreadsheet-operator"
+title: spreadsheet-operator
+maintainers:
+  - support@eristack.dev
+scope: >
+  Headless spreadsheet keyboard operator plus React adapter: active-grid
+  scope, cell coordinates, navigation/editing state machine, ARIA grid
+  wiring, native text cell editor. App owns QUPS math, HTTP lists, and xlsx.
+outOfScope: >
+  QUPS/float math, @eristack/data-grid list queries, xlsx/csv export
+  (@eristack/spreadsheet-render), row virtualization, undo/redo, multi-cell
+  drag selection, Radix/shadcn Select internals, persistence/epoch.
+skills:
+  - spreadsheet-operator-core
+  - spreadsheet-operator-adapters
