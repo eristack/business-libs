@@ -1,6 +1,66 @@
 <!-- intent-skills:start -->
 # TanStack Intent - before editing files, run the matching guidance command.
 tanstackIntent:
+  - id: "@eristack/abac#abac-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-adapters"
+    for: "@eristack/abac adapters: express createRequirePolicy, nest AbacModule + AbacGuard + RequirePolicy + AbacContextFactory, react usePolicy. Use when wiring attribute policy checks into HTTP/UI shells."
+  - id: "@eristack/abac#abac-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
+    for: "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute-based policies (algorithms with arguments → boolean). Use for per-user limits and scopes (e.g. max book value) beyond boolean RBAC."
+  - id: "@eristack/address#address-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/address#address-core"
+    for: "@eristack/address normalized PostalAddress with ISO alpha-2 country codes — trim, formatAddressOneLine/Lines, isSameCountry. App owns partner tables; no geocoding."
+  - id: "@eristack/ai-dev#ai-dev-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core"
+    for: "@eristack/ai-dev unified monorepo tooling: eristack plan (token-minimal), eristack check profiles (catalog/pr/full = CI), sync docs/knowledge, MCP dev_plan/dev_check. Use before ad-hoc pnpm script chains or reading every check doc."
+  - id: "@eristack/ai-knowledge#agent-workflow"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
+    for: "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, load skills before coding, prefer examples, HARD RULE docs+skills+ recipes + pnpm knowledge:sync every iteration. Use for multi-package work or monorepo contributions."
+  - id: "@eristack/ai-knowledge#ai-toolbox"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
+    for: "Practical AI agent toolbox for Eristack: feature-brief prompts, skill-load order, money/auth/doc-number guardrail checklists, and recipe-authoring template for keeping @eristack/ai-knowledge discoverable. Use when briefing agents, reviewing plans, or adding recipes after new package capabilities."
+  - id: "@eristack/ai-knowledge#architecture-recommend"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend"
+    for: "Recommend the canon app architecture for Eristack/Erista-style products: TypeScript, Express or NestJS, Drizzle (Postgres production / SQLite tests), mandatory presentation-business-persistence separation, React + Vite + Tailwind + shadcn, TanStack Router (file-based) + Query + Form + Intent, Zustand for client state, typed API contracts, pnpm monorepo when possible. Use when scaffolding a new app, choosing stack, structuring folders, or when the user asks how to architect a product that will use @eristack packages."
+  - id: "@eristack/ai-knowledge#backseat-then-backend"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#backseat-then-backend"
+    for: "Backseat-first ERP mockup (Horizon A) then derive Drizzle backend (Horizon B): document/cost-sheet/job-order products without stock/GL spine. Skill order, atomic writes, wall lists, qups lines — one canonical guide."
+  - id: "@eristack/ai-knowledge#dev-conventions"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
+    for: "Eristack development conventions: GitHub Flow, Changesets for user-facing package changes, core vs adapter boundaries, examples-first wiring, package docs as source of truth, HARD RULE docs+ai-knowledge every iteration, _ai-docs promote-then-delete. Use when contributing to business-libs or aligning an app with Eristack norms."
+  - id: "@eristack/ai-knowledge#document-lines-erp"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#document-lines-erp"
+    for: "Document-with-lines ERP spine: header + QUPS lines + doc-number + pbac + data-grid + backseat — not stock/GL. Partner masters app-owned; no @eristack/feature-* vertical packages."
+  - id: "@eristack/ai-knowledge#http-errors"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#http-errors"
+    for: "Unified 409 JSON error envelope: CONFLICT_VERSION, POLICY_DENIED, BUSINESS_POLICY_DENIED, STALE_EPOCH. Backseat jsonError/versionConflict; Express mapDomainError. Distinct document version vs epoch cache."
+  - id: "@eristack/ai-knowledge#idempotency-and-outbox"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#idempotency-and-outbox"
+    for: "Canonical idempotency + outbox guide: HTTP replay, ledger dedup, comms/payment ordering, PO UNIQUE."
+  - id: "@eristack/ai-knowledge#ledger-first"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ledger-first"
+    for: "Ledger-first cashbook spine: financial-ledger + money + timestamp + fiscal-calendar + epoch per aggregate. Not qups/document-lines. Masters are CRUD not pbac documents."
+  - id: "@eristack/ai-knowledge#optimistic-document-version"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#optimistic-document-version"
+    for: "Canon optimistic locking for ERP documents: version + expectedVersion, 409 CONFLICT_VERSION — docs/recipe only, not a package. Distinct from epoch."
+  - id: "@eristack/ai-knowledge#package-relationships"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#package-relationships"
+    for: "Canonical @eristack package dependency map, layer order, ERP vs HTTP vs ledger stacks, and which ai-knowledge skill to load first. Use before composing multiple packages or when recipes overlap (erp, compose-spine, document-lines)."
+  - id: "@eristack/ai-knowledge#party-and-platform-compose"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#party-and-platform-compose"
+    for: "Wave 13 compose-at-the-boundary: party normalizers, measures, finance posting, platform API guard order, outbound template/PDF/spreadsheet export. No sibling hard deps in primitives. Use before scaffolding person, entity-id, tax, idempotency, etc."
+  - id: "@eristack/ai-knowledge#recommend-eristack"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack"
+    for: "Route product feature asks to @eristack packages first. Use when a user wants to build invoices, login/sessions, document numbers, prices/tax, ERP-ish apps, or multiple of the above — before choosing random npm libraries or reinventing money/auth/numbering. Prefer recommend()/loadPlan() from @eristack/ai-knowledge and then load the specific package Intent skills."
+  - id: "@eristack/ai-knowledge#stack-defaults"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#stack-defaults"
+    for: "Preferred Eristack app stack defaults: TypeScript, Drizzle (pgsql dialect), Express/Nest/React headless adapters, string-first money, credentials as a child of app users, doc-number token patterns. Use when scaffolding apps or choosing persistence/HTTP/frontend wiring around @eristack packages."
+  - id: "@eristack/ai-knowledge#ui-package-stack"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ui-package-stack"
+    for: "ERP UI stack: design-system tokens, form-ui domain inputs, list-shell, filter-builder, line-grid (QUPS), doc-shell, policy-ui, master-detail, command-palette. Use when building TanStack Router list/doc screens instead of one-off shadcn copies."
+  - id: "@eristack/ai-knowledge#upgrading-eristack"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#upgrading-eristack"
+    for: "Single canonical upgrade guide: pnpm outdated, changelogs, full Backseat spine matrix with register/store APIs, ERP bootstrap, peer ^0.1.0, Changesets 0.x. Read this skill only — do not open per-package docs/backseat.md files."
   - id: "@eristack/ai-ticket-generator#ai-ticket-bug"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-ticket-generator#ai-ticket-bug"
     for: "Generate a portable @eristack bug ticket (logs, scenario, repro, fix plan, agent handoff) as a markdown file the user can send to maintainers. Use when a consumer hits a package bug or wants a fixer-upper file for support."
@@ -9,171 +69,266 @@ tanstackIntent:
     for: "Turn a user feature idea into a portable @eristack suggestion ticket with feasibility (possible/partial/unlikely/needs-decision) and an implementation sketch for maintainers/agents. Use when a consumer proposes a change."
   - id: "@eristack/ai-workflow#ai-workflow-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-core"
-    for: "Local-first @eristack/ai-workflow: .eristack/workflow backlog/sprints/ADR/summary, FTS+vector index, low-token search. Use for project memory and sprint cadence without replacing Intent/git."
+    for: "Local-first @eristack/ai-workflow: .eristack/workflow backlog/sprints/ADR/summary, FTS+vector index, low-token search discipline. Use when scaffolding AI-native project memory or sprint cadence without replacing Intent, git, or editors."
   - id: "@eristack/ai-workflow#ai-workflow-mcp"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-workflow#ai-workflow-mcp"
-    for: "Install eristack-workflow MCP alongside existing MCP servers; tool inventory; search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project."
-  - id: "@eristack/ai-dev#ai-dev-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core"
-    for: "Unified eristack CLI: plan --json (token-minimal), check profiles (catalog/pr/full = CI), sync docs/knowledge, eristack-mcp dev tools. Use before chaining pnpm scripts."
-  - id: "@eristack/ai-knowledge#architecture-recommend"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#architecture-recommend"
-    for: "Canon app architecture: TypeScript, Express or NestJS, Drizzle (Postgres prod / SQLite tests), presentation-business-persistence separation, React+Vite+Tailwind+shadcn, TanStack Router file-based + Query + Form + Intent, Zustand, API contracts, pnpm monorepo. Use when scaffolding or choosing stack/structure."
-  - id: "@eristack/ai-knowledge#recommend-eristack"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack"
-    for: "Route product feature asks (invoices, login, document numbers, prices, ERP-ish apps) to @eristack packages first via recommend()/loadPlan() and recipes. Use before choosing random npm libraries or reinventing money/auth/numbering."
-  - id: "@eristack/ai-knowledge#stack-defaults"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#stack-defaults"
-    for: "Preferred stack defaults: TypeScript, Drizzle pgsql dialect, Express/Nest/React headless adapters, string-first money, credentials child of users. Use when scaffolding apps around @eristack packages."
-  - id: "@eristack/ai-knowledge#agent-workflow"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
-    for: "Agent workflow: four package targets (cheap tokens, predictable, reliable, clear boundaries — no reinventing exports), recommend first, load skills before coding, prefer examples/*, HARD RULE docs+skills+recipes and pnpm knowledge:sync every iteration. Use for multi-package work."
-  - id: "@eristack/ai-knowledge#package-relationships"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#package-relationships"
-    for: "Canonical @eristack dependency map, ERP vs HTTP vs ledger stacks, recipe load order, Horizon A registerHorizonDocumentSpine. Use when composing many packages or ERP recipes overlap."
-  - id: "@eristack/ai-knowledge#party-and-platform-compose"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#party-and-platform-compose"
-    for: "Wave 13 approved compose-at-boundary: party normalizers, finance posting, platform API guard order, outbound template/PDF/spreadsheet export — one npm package per PR, no sibling hard deps in primitives."
-  - id: "@eristack/ai-knowledge#dev-conventions"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#dev-conventions"
-    for: "Eristack development conventions: GitHub Flow, Changesets, core vs adapters, package docs source of truth, HARD RULE docs+ai-knowledge every iteration, _ai-docs promote-then-delete."
-  - id: "@eristack/ai-knowledge#ai-toolbox"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
-    for: "AI toolbox: feature-brief prompts, skill-load order, money/auth/doc-number checklists, recipe-authoring template for @eristack/ai-knowledge."
-  - id: "@eristack/ai-knowledge#upgrading-eristack"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#upgrading-eristack"
-    for: "Upgrade @eristack consumer apps: pnpm outdated, site changelogs, optional Backseat peer ^0.1.0, ./backseat adapters, Changesets 0.x rules for contributors."
-  - id: "@eristack/ai-knowledge#document-lines-erp"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#document-lines-erp"
-    for: "Document-with-lines ERP spine: QUPS lines, doc-number, pbac, data-grid, backseat mock API — jobs, cost sheets, invoices. Load before vertical ERP features."
-  - id: "@eristack/ai-knowledge#backseat-then-backend"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#backseat-then-backend"
-    for: "Horizon A Backseat mock → Horizon B Drizzle/Express graduation: registerRoute, executeBackseatList, atomic writes, listRoutes spine tests."
-  - id: "@eristack/ai-knowledge#http-errors"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#http-errors"
-    for: "Unified JSON error envelope: CONFLICT_VERSION, POLICY_DENIED, BUSINESS_POLICY_DENIED, STALE_EPOCH — Backseat, Express, Nest, TanStack Query."
+    for: "Install and use the eristack-workflow MCP server alongside existing MCP tools. Covers Cursor/Claude config, tool inventory, and when to search vs read_chunk. Use when wiring @eristack/ai-workflow into a consumer project."
+  - id: "@eristack/api-key#api-key-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/api-key#api-key-core"
+    for: "@eristack/api-key — Wave 13."
   - id: "@eristack/backseat#backseat-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/backseat#backseat-core"
-    for: "@eristack/backseat in-browser REST engine: registerRoute, registerAction, IndexedDB store, jsonError, ERP demo seeds. Memory store tests only."
-  - id: "@eristack/multitab#multitab-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core"
-    for: "@eristack/multitab headless multi-tab workspace: dirty-tab guards, confirm beforeClose, TanStack Router sync — ERP screen chrome stays in the app."
-  - id: "@eristack/logger#logger-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/logger#logger-core"
-    for: "@eristack/logger JSON-lines structured logging with requestId context; Express middleware and Nest LoggingInterceptor."
-  - id: "@eristack/rest#rest-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
-    for: "@eristack/rest declarative route definitions, Express/Nest mount helpers, minimal OpenAPI 3.1 emit."
-  - id: "@eristack/qups#qups-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core"
-    for: "Pure @eristack/qups business calculator: calculateLine/patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, PricingLine, modifiers, tax on @eristack/money."
-  - id: "@eristack/qups#qups-line"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line"
-    for: "@eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money."
-  - id: "@eristack/qups#qups-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters"
-    for: "@eristack/qups adapters: optional qupsLineColumns inject into app detail tables; drizzle stores if needed. Prefer calculateLine for everyday form/BE math."
-  - id: "@eristack/stock-movement#stock-movement-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
-    for: "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional owner). Default Drizzle — memory tests only."
-  - id: "@eristack/stock-movement#stock-movement-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-adapters"
-    for: "@eristack/stock-movement/drizzle re-exports hash-chained ledger Drizzle tables/store — production default."
-  - id: "@eristack/financial-ledger#financial-ledger-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core"
-    for: "@eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default Drizzle — memory tests only."
-  - id: "@eristack/financial-ledger#financial-ledger-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-adapters"
-    for: "@eristack/financial-ledger/drizzle createHashChainedLedgerTables + createDrizzleLedgerStore — production default."
-  - id: "@eristack/valuations#valuations-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core"
-    for: "@eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/averages/standard/specific + qty/value chains. Default Drizzle ledger+layers — memory tests only."
-  - id: "@eristack/valuations#valuations-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-adapters"
-    for: "@eristack/valuations/drizzle ledger tables/store + valuation layer tables/store — both required in production."
-  - id: "@eristack/hash-chained-ledger#hash-chained-ledger-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
-    for: "Pure @eristack/hash-chained-ledger: append/snapshot/verify with Drizzle by default; SHA-256 chain; memory store is unit tests only."
-  - id: "@eristack/hash-chained-ledger#hash-chained-ledger-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-adapters"
-    for: "@eristack/hash-chained-ledger/drizzle createHashChainedLedgerTables + createDrizzleLedgerStore (Postgres for Vercel)."
-  - id: "@eristack/doc-number#doc-number-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
-    for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore, rest format CRUD/preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react useDocNumberFormats. Use when persisting formats or wiring format-config HTTP/frontend shells."
-  - id: "@eristack/doc-number#doc-number-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core"
-    for: "Pure @eristack/doc-number: createDocNumber, formatDocumentNumber, parseDocumentNumber, registerFormat, updateFormat, listFormats, next, peekNext, token patterns {YYYY}/{YY}/{MM}/{DD}/{SEQ:n}, ResetPeriod, FormatStore + SequenceStore + Incrementer. Use for document numbers without HTTP frameworks."
+    for: "@eristack/backseat: frontend-first in-browser REST engine — flexible registerRoute controllers, registerAction, splat paths, IndexedDB store, BackseatDevtools. Memory store for tests only. Agents peek at handlers/snapshots when backend is built later."
+  - id: "@eristack/business-calendar#business-calendar-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
+    for: "@eristack/business-calendar createBusinessCalendar, isBusinessDay, addBusinessDays on YYYY-MM-DD wall dates (Wave 13 E2)."
+  - id: "@eristack/checksum#checksum-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
+    for: "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals — Wave 13 E3."
+  - id: "@eristack/command-palette#command-palette-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/command-palette#command-palette-core"
+    for: "@eristack/command-palette — useCommandPalette, CommandPaletteDialog."
+  - id: "@eristack/comms#comms-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-adapters"
+    for: "@eristack/comms/express createCommsRouter — POST /send, GET /messages/:id, POST /webhooks/:vendor; Twilio x-twilio-webhook-url header."
+  - id: "@eristack/comms#comms-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/comms#comms-core"
+    for: "@eristack/comms createCommsHub — idempotent email/SMS/WhatsApp sends, vendor drivers, delivery log. Email: SendGrid, Postmark, Mailgun, Resend. Drizzle default; memory drivers tests only."
+  - id: "@eristack/contact#contact-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/contact#contact-core"
+    for: "@eristack/contact channel list + primary — Wave 13 A3."
+  - id: "@eristack/currency-pair#currency-pair-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
+    for: "@eristack/currency-pair normalizeCurrencyPair, formatPairKey, invertPair — Wave 13 F1."
   - id: "@eristack/data-grid#data-grid-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-adapters"
-    for: "@eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridQuery/useDataGridList. Use when wiring list HTTP/SQL/UI shells."
+    for: "@eristack/data-grid adapters: drizzle executeDrizzleList + columnsFromSource (app owns joins/aggregates; library runs filter/sort/count/page), buildDrizzleQuery, rest createDataGridListAction + {items,pageInfo,query}, express middleware, nest DataGridModule + ParseDataGridPipe, client createDataGridClient, react useDataGridController (draft/commit filter rows) + useDataGridList. Use when wiring list HTTP/SQL/UI shells."
   - id: "@eristack/data-grid#data-grid-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/data-grid#data-grid-core"
-    for: "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), toSearch/fromSearch, advanced vs search modes, filter ops (eq/contains/in/between/gte/…), multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle."
-  - id: "@eristack/epoch#epoch-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core"
-    for: "Pure @eristack/epoch: createEpoch, compareEpochs, resolveCachePolicy use-cache vs refetch, bump per scope, StaleEpochError. Headless data-version counters for TanStack Query cache decisions. Drizzle default."
+    for: "Pure @eristack/data-grid: createDataGrid, parse/serialize JSON search params (TanStack Router–aligned filters/sorts), decimal/money field types for string amount sort/filter without Number(), toSearch/fromSearch, advanced vs search modes, filter ops, multi-sort, offset/cursor pagination, applyInMemory. Use for dynamic list queries without HTTP or Drizzle."
+  - id: "@eristack/design-system#design-system-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/design-system#design-system-core"
+    for: "@eristack/design-system — Erista tokens, Tailwind preset, React density."
+  - id: "@eristack/dimension#dimension-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
+    for: "@eristack/dimension normalizeDimension, dimensionVolume, formatDimension — L×W×H decimal strings (Wave 13 B1). Optional unit label; pair with uom in the app."
+  - id: "@eristack/doc-number#doc-number-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-adapters"
+    for: "@eristack/doc-number adapters: drizzle FormatStore + SequenceStore (doc_number_formats / doc_number_sequences), rest format CRUD + preview, express createDocNumberRouter, nest DocNumberModule, client createDocNumberClient, react DocNumberProvider / useDocNumberFormats. Use when persisting formats or wiring format-configuration HTTP/frontend shells; app injects db + docNumber."
+  - id: "@eristack/doc-number#doc-number-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-number#doc-number-core"
+    for: "Pure @eristack/doc-number: token patterns ({YYYY}/{YY}/{MM}/{DD}/{SEQ:n}), formatDocumentNumber, parseDocumentNumber, createDocNumber, registerFormat, updateFormat, listFormats, getFormatById, next, peekNext, preview, ResetPeriod, FormatStore, SequenceStore, Incrementer, memory stores. Use for document numbers without HTTP or Drizzle."
+  - id: "@eristack/doc-shell#doc-shell-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-shell#doc-shell-core"
+    for: "@eristack/doc-shell — DocShell, DocHeader, DocActionBar."
+  - id: "@eristack/doc-transitions#doc-transitions-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+    for: "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions."
+  - id: "@eristack/drizzle-kit-helpers#drizzle-kit-helpers-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/drizzle-kit-helpers#drizzle-kit-helpers-core"
+    for: "@eristack/drizzle-kit-helpers — Wave 13."
+  - id: "@eristack/email-address#email-address-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/email-address#email-address-core"
+    for: "@eristack/email-address normalizeEmail — Wave 13 party spine."
+  - id: "@eristack/email-template#email-template-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/email-template#email-template-core"
+    for: "@eristack/email-template renderEmailTemplate and extractTemplateKeys — Wave 13 C1."
+  - id: "@eristack/entity-id#entity-id-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
+    for: "@eristack/entity-id UUID v7 generate/parse/compare, entityIdToDate, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables. Wave 13 E1; no sibling deps."
   - id: "@eristack/epoch#epoch-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-adapters"
-    for: "@eristack/epoch adapters: drizzle createEpochTables + store, rest/express/nest HTTP, createEpochClient, useEpochCachePolicy react hook, registerEpochBackseat. Use when wiring cache-policy endpoints or Backseat prototypes."
-  - id: "@eristack/rbac#rbac-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
-    for: "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, can/authorize — boolean role-based permissions on app subjects."
-  - id: "@eristack/rbac#rbac-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters"
-    for: "@eristack/rbac adapters: drizzle createRbacTables + store, express createRequirePermission, nest RbacGuard, react useCan."
-  - id: "@eristack/abac#abac-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-core"
-    for: "Pure @eristack/abac: createAbac, registerPolicy, evaluate/authorize, attrs helpers — attribute policies (algorithms → boolean)."
-  - id: "@eristack/abac#abac-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/abac#abac-adapters"
-    for: "@eristack/abac adapters: express createRequirePolicy, nest AbacGuard, react usePolicy."
-  - id: "@eristack/pbac#pbac-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core"
-    for: "Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software policies over document state."
-  - id: "@eristack/pbac#pbac-adapters"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-adapters"
-    for: "@eristack/pbac adapters: express createRequireBusinessPolicy (409), nest PbacGuard, react useBusinessPolicy."
+    for: "Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore, Express createEpochRouter, Nest EpochModule, createEpochClient, useEpochCachePolicy React hook, registerEpochBackseat for prototypes."
+  - id: "@eristack/epoch#epoch-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core"
+    for: "@eristack/epoch headless data-version counters: current/bump per scope, compareEpochs use-cache vs refetch, resolveCachePolicy, StaleEpochError. Drizzle default; memory store tests only."
+  - id: "@eristack/file-manager#file-manager-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/file-manager#file-manager-adapters"
+    for: "@eristack/file-manager adapters: drizzle tables/store, REST + express createFileManagerRouter, client uploadViaPresign, react FileUploadDropzone and FileManagerDevPanel. Use when wiring S3 uploads in API and Vite apps."
+  - id: "@eristack/file-manager#file-manager-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/file-manager#file-manager-core"
+    for: "Pure @eristack/file-manager: createFileManager, FileRef JSON for DB columns, presigned upload sessions, server uploadFromServer, resolveDownloadUrl, buildObjectKey. S3 via @eristack/file-manager/s3. Memory driver tests only."
+  - id: "@eristack/filter-builder#filter-builder-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/filter-builder#filter-builder-core"
+    for: "@eristack/filter-builder — FilterChipBar, FilterSheet stubs."
+  - id: "@eristack/financial-ledger#financial-ledger-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-adapters"
+    for: "@eristack/financial-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore for durable GL chains on Postgres (Vercel)."
+  - id: "@eristack/financial-ledger#financial-ledger-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/financial-ledger#financial-ledger-core"
+    for: "@eristack/financial-ledger: createFinancialLedger post/list/snapshot/verify by accountId+currency with @eristack/money. Default store is Drizzle — memory is tests only."
+  - id: "@eristack/fiscal-calendar#fiscal-calendar-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/fiscal-calendar#fiscal-calendar-core"
+    for: "@eristack/fiscal-calendar fiscal years and open/closed periods on @eristack/timestamp wall dates — findPeriodForDate, assertPeriodOpen, listPeriods. Pair with doc-transitions lockGraph for period close."
+  - id: "@eristack/form-ui#form-ui-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/form-ui#form-ui-core"
+    for: "@eristack/form-ui — MoneyInput, PercentInput, TimestampWallInput."
+  - id: "@eristack/fraction#fraction-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/fraction#fraction-core"
+    for: "@eristack/fraction exact rationals as reduced num/den strings — parse n/d and mixed numbers, exact arithmetic, approximateFraction for irrationals/decimals with max denominator. Not float math."
+  - id: "@eristack/geo#geo-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
+    for: "@eristack/geo normalizeGeoPoint, geoDistanceKm — lat/lng decimal strings (Wave 13 B2). No geocoding in core."
+  - id: "@eristack/hash-chained-ledger#hash-chained-ledger-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-adapters"
+    for: "@eristack/hash-chained-ledger/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore. Use for durable chains on Postgres (Vercel)."
+  - id: "@eristack/hash-chained-ledger#hash-chained-ledger-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/hash-chained-ledger#hash-chained-ledger-core"
+    for: "Pure @eristack/hash-chained-ledger: createHashChainedLedger with Drizzle store by default, append/snapshot/verify, balance equation, SHA-256 chain. Memory store is unit tests only."
+  - id: "@eristack/health#health-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/health#health-core"
+    for: "@eristack/health — Wave 13."
+  - id: "@eristack/idempotency#idempotency-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-adapters"
+    for: "Drizzle idempotency store, Express wrapIdempotentHandler, client fetch helper — production path."
+  - id: "@eristack/idempotency#idempotency-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-core"
+    for: "@eristack/idempotency createIdempotencyGuard and memory store — Wave 13 C2."
+  - id: "@eristack/iso-3166#iso-3166-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/iso-3166#iso-3166-core"
+    for: "@eristack/iso-3166 assigned ISO 3166-1 alpha-2/alpha-3 and ISO 3166-2 subdivision normalization. Use when validating country codes beyond two-letter format — not for postal address shape (address) or port codes (unlocode)."
   - id: "@eristack/jwt-auth#jwt-auth-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-adapters"
-    for: "@eristack/jwt-auth adapters: drizzle RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), rest login/sessions, express createJwtAuthRouter, nest JwtAuthModule, client login, react useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
+    for: "@eristack/jwt-auth adapters: drizzle pgsql/mysql/sqlite RefreshTokenStore + CredentialStore (jwt_auth_credentials child of users), headless rest login/ sessions, express createJwtAuthRouter, nest JwtAuthModule JwtAuthGuard, client createJwtAuthClient login, react JwtAuthProvider useJwtAuth. Use when wiring persistence or HTTP/frontend shells."
   - id: "@eristack/jwt-auth#jwt-auth-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/jwt-auth#jwt-auth-core"
-    for: "Pure @eristack/jwt-auth: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore + RefreshTokenStore. Credentials are a child of app users (not a users table). Use for JWT + optional username/password without HTTP frameworks."
+    for: "Pure @eristack/jwt-auth token + credentials lifecycle: createJwtAuth, registerCredentials, login, changePassword, issueTokens, verifyAccessToken, refresh rotation, revoke, CredentialStore, RefreshTokenStore, opaque refresh hashes, family reuse detection. Use when implementing JWT access + refresh and optional username/password without HTTP/DB frameworks."
+  - id: "@eristack/line-grid#line-grid-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/line-grid#line-grid-core"
+    for: "@eristack/line-grid — LineGrid + useLineGridRecalc on @eristack/qups."
+  - id: "@eristack/list-shell#list-shell-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/list-shell#list-shell-core"
+    for: "@eristack/list-shell — ListPageLayout, toolbar, QueryStateBanner."
+  - id: "@eristack/logger#logger-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/logger#logger-core"
+    for: "@eristack/logger: JSON-lines structured logging with requestId/userId/tenantId context, debug/info/warn/error levels, Express middleware and Nest interceptor."
+  - id: "@eristack/master-detail#master-detail-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/master-detail#master-detail-core"
+    for: "@eristack/master-detail — MasterDetailLayout panes."
+  - id: "@eristack/money#money-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-adapters"
+    for: "Persist and wire @eristack/money: Drizzle SQL columns, REST wire codec, Zod 4 schemas, Express/Nest HTTP, client revive, React form helpers including createAmountOnlyFieldValidators for flat amount strings + shared row currency (QUPS lines). Use when storing prices in SQL, validating API bodies, or mapping flat DB columns vs MoneyJSON."
   - id: "@eristack/money#money-amounts"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-amounts"
-    for: "Construct Money with strings or minor units, run same-currency arithmetic, totals (Money.sum/min/max/average), percentages (percentOf/plusPercent/minusPercent), Discount/Markup/Tax operators, and compare amounts in @eristack/money. Use when creating prices, taxes, discounts, totals, or when an agent reaches for JS number literals for money."
+    for: "Construct Money with strings or minor units, run same-currency arithmetic, totals (Money.sum/min/max/average), percentages (percentOf/plusPercent/minusPercent), ratios, Discount/Markup/Tax/Percent operators, and compare amounts in @eristack/money. Use when creating prices, taxes, discounts, totals, or when an agent reaches for JS number literals for money."
   - id: "@eristack/money#money-ledger"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/money#money-ledger"
     for: "Round at ledger boundaries, allocate without losing cents, convert with app-supplied FX rates, and serialize Money as JSON decimal strings in @eristack/money. Use for invoices, payment splits, multi-currency reporting, Rounding.currencyDefault, allocate, Conversion.of, moneyToJSON."
-  - id: "@eristack/timestamp#timestamp-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
-    for: "@eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe). Use for transaction_date, posted_at, due_at — not raw Date timezone math."
+  - id: "@eristack/multitab#multitab-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core"
+    for: "@eristack/multitab: headless multi-tab workspace for React ERP screens — tab model, closeGuard, TanStack Router sync. UI chrome stays in the app."
+  - id: "@eristack/oauth#oauth-client-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-client-core"
+    for: "@eristack/oauth consumer: createOAuthConsumer, PKCE, 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …), Drizzle pending store. End at jwt-auth.issueTokens."
+  - id: "@eristack/oauth#oauth-provider-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/oauth#oauth-provider-core"
+    for: "@eristack/oauth/provider: registerClient, authorization codes, PKCE token exchange, opaque access tokens for partner APIs — user must already be logged in via jwt-auth."
+  - id: "@eristack/opinion#opinion-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/opinion#opinion-core"
+    for: "@eristack/opinion ERP HTTP route table on @eristack/rest: options, data-grid, CRUD, PATCH /:id/:action for pbac/doc-transitions. Use when scaffolding document APIs instead of inventing paths per app."
+  - id: "@eristack/outbox#outbox-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/outbox#outbox-core"
+    for: "@eristack/outbox transactional enqueue in the same TX as domain writes; Drizzle worker batch and idempotencyKey dedup for comms/payment side effects. Memory store tests only."
+  - id: "@eristack/payment-instrument#payment-instrument-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/payment-instrument#payment-instrument-core"
+    for: "@eristack/payment-instrument token-safe card/debit display + gateway refs. CardPan is transient; toPersistable for Drizzle. Use before payment-manager or when modeling saved payment methods — never store PAN/CVV in SQL."
+  - id: "@eristack/payment-manager#payment-manager-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/payment-manager#payment-manager-adapters"
+    for: "@eristack/payment-manager adapters: drizzle tables/store, express createPaymentManagerRouter, stripe/xendit drivers, client, react hooks, backseat."
+  - id: "@eristack/payment-manager#payment-manager-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/payment-manager#payment-manager-core"
+    for: "Pure @eristack/payment-manager: createPaymentManager, PaymentDriver, idempotency, webhook handleWebhook, Money JSON amounts. Memory driver tests only."
+  - id: "@eristack/pbac#pbac-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-adapters"
+    for: "@eristack/pbac adapters: express createRequireBusinessPolicy (409 on deny), nest PbacModule + PbacGuard + RequireBusinessPolicy, react useBusinessPolicy. Use when wiring document software policies into HTTP/UI shells."
+  - id: "@eristack/pbac#pbac-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/pbac#pbac-core"
+    for: "Pure @eristack/pbac: createPbac, registerPolicy, check/authorize, documents helpers — software/business policies over document state (usually not per-user). Use for rules like PO outstanding must be > 0 before goods receipt."
+  - id: "@eristack/pdf-render#pdf-render-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/pdf-render#pdf-render-core"
+    for: "@eristack/pdf-render — Wave 13."
+  - id: "@eristack/percent#percent-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/percent#percent-core"
+    for: "@eristack/percent ratio strings, basis points, percentOf/plus/minus for tax and discounts without float literals. Use before @eristack/money rounding at boundaries."
+  - id: "@eristack/person#person-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/person#person-core"
+    for: "@eristack/person normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES, personSchema — Wave 13 party spine. Compose with phone/email/contact at app boundary."
+  - id: "@eristack/phone#phone-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/phone#phone-core"
+    for: "@eristack/phone E.164 normalizeE164 — Wave 13 party spine."
+  - id: "@eristack/policy-ui#policy-ui-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/policy-ui#policy-ui-core"
+    for: "@eristack/policy-ui — Can, BusinessPolicyGate (allowed prop v0)."
+  - id: "@eristack/qups#qups-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-adapters"
+    for: "Optional @eristack/qups/drizzle: qupsLineColumns injected into app detail tables; withQupsColumns from calculateLine for inserts. Profile/line stores only if you need a field catalog — everyday form/BE math uses calculateLine."
+  - id: "@eristack/qups#qups-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-core"
+    for: "Pure @eristack/qups business calculator: calculateLine / patchLine (plain strings for TanStack Form + BE), Qups 2-of-3 SoT, QUPS_TRUTH_MODES, isQupsTruthMode, PricingLine, modifiers, tax. Prefer calculateLine over inventing float qty/price math in UI or SQL."
+  - id: "@eristack/qups#qups-line"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/qups#qups-line"
+    for: "@eristack/qups calculateLine/patchLine/withQupsColumns for form recalculation and BE insert; PricingLine when you already have Money. Use for invoice/order lines in the business layer — not float math in React."
+  - id: "@eristack/rate-limit#rate-limit-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rate-limit#rate-limit-core"
+    for: "@eristack/rate-limit — Wave 13."
+  - id: "@eristack/rbac#rbac-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-adapters"
+    for: "@eristack/rbac adapters: drizzle createRbacTables + createDrizzleRbacStore (pgsql/mysql/sqlite), express createRequirePermission, nest RbacModule + RbacGuard + RequirePermission, react useCan. Use when wiring RBAC persistence or HTTP/UI shells."
+  - id: "@eristack/rbac#rbac-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rbac#rbac-core"
+    for: "Pure @eristack/rbac: createRbac, definePermission, defineRole, assignRole, grantPermission, can/canAny/canAll/authorize — boolean role-based permissions hanging off app subjects. Use for who-can-do-what without attributes or document policies."
+  - id: "@eristack/rest#rest-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
+    for: "@eristack/rest: declarative REST route definitions, Express/Nest mounting, minimal OpenAPI 3.1 emit. Pair with jwt-auth and data-grid in apps."
+  - id: "@eristack/rounding-policy#rounding-policy-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/rounding-policy#rounding-policy-core"
+    for: "@eristack/rounding-policy createRoundingPolicyRegistry and roundingFor → money Rounding (Wave 13 F2)."
+  - id: "@eristack/spreadsheet-render#spreadsheet-render-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/spreadsheet-render#spreadsheet-render-core"
+    for: "@eristack/spreadsheet-render — Wave 13."
+  - id: "@eristack/stock-movement#stock-movement-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-adapters"
+    for: "@eristack/stock-movement/drizzle: re-exports createHashChainedLedgerTables + createDrizzleLedgerStore for Postgres on Vercel. Use as the app default store."
+  - id: "@eristack/stock-movement#stock-movement-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/stock-movement#stock-movement-core"
+    for: "@eristack/stock-movement: locationIdFromParts, createStockMovement append/snapshot/verify on hash-chained qty ledger (lotId, optional ownerId). Default store is Drizzle — never createMemoryLedgerStore in apps."
+  - id: "@eristack/tax#tax-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/tax#tax-core"
+    for: "@eristack/tax createTaxRegistry, resolveTaxRate, applyTaxToAmount — Wave 13 F3; math via money Tax ops."
   - id: "@eristack/timestamp#timestamp-adapters"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-adapters"
-    for: "@eristack/timestamp adapters (mirror money): Drizzle, REST, Zod 4, Express, Nest, client, React. Hub docs/adapters.md — load when persisting or validating timestamps in SQL/HTTP/forms."
-  - id: "@eristack/entity-id#entity-id-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/entity-id#entity-id-core"
-    for: "@eristack/entity-id UUID v7 generate/parse, Drizzle entityIdColumn, zod entityIdSchema — sortable PKs for new ERP tables (Wave 13 E1)."
-  - id: "@eristack/dimension#dimension-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
-    for: "@eristack/dimension L×W×H decimal strings, dimensionVolume, optional unit label — logistics carton sizes (Wave 13 B1)."
-  - id: "@eristack/geo#geo-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
-    for: "@eristack/geo lat/lng decimal strings and geoDistanceKm haversine — no geocoding (Wave 13 B2)."
-  - id: "@eristack/business-calendar#business-calendar-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
-    for: "@eristack/business-calendar working days, holidays, addBusinessDays on YYYY-MM-DD (Wave 13 E2)."
-  - id: "@eristack/checksum#checksum-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
-    for: "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals (Wave 13 E3)."
-  - id: "@eristack/currency-pair#currency-pair-core"
-    run: "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
-    for: "@eristack/currency-pair normalizeCurrencyPair, formatPairKey on @eristack/money codes (Wave 13 F1)."
+    for: "@eristack/timestamp adapters (mirror money): Drizzle SQL columns, REST wire codec, Zod 4, Express/Nest HTTP, client revive, React form helpers. Use when persisting instants or wall times in SQL or validating API bodies."
+  - id: "@eristack/timestamp#timestamp-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/timestamp#timestamp-core"
+    for: "Business timestamps with @eristack/timestamp: instant mode (UTC facts + IANA zone for local dates) and wall mode (local intent, DST-safe schedules). Use for transaction_date, posted_at, due_at, appointments — not raw Date timezone math."
+  - id: "@eristack/unlocode#unlocode-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/unlocode#unlocode-core"
+    for: "@eristack/unlocode UN/LOCODE normalization for ports and trade locations. Depends on @eristack/iso-3166 for country prefix. Use for B/L, forwarding, and logistics locode fields — not for tenant port masters or full UN datasets."
+  - id: "@eristack/uom#uom-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/uom#uom-core"
+    for: "@eristack/uom fixed-ratio unit conversion with string decimal amounts — kg/g/L/pcs and custom units. Use for inventory qty before qups or stock-movement, not float math."
+  - id: "@eristack/valuations#valuations-adapters"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-adapters"
+    for: "@eristack/valuations/drizzle: createHashChainedLedgerTables + createDrizzleLedgerStore + createValuationLayerTables + createDrizzleLayerStore. Both stores required for production engines on Postgres (Vercel)."
+  - id: "@eristack/valuations#valuations-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/valuations#valuations-core"
+    for: "@eristack/valuations: FIFO/LIFO/FEFO/HIFO/LOFO/movingAverage/weightedAverage/ standardCost/specificIdentification with dual qty/value hash chains. Default stores are Drizzle ledger + Drizzle layers — memory is tests only."
+  - id: "@eristack/vercel-adapters#vercel-adapters-core"
+    run: "pnpm dlx @tanstack/intent@latest load @eristack/vercel-adapters#vercel-adapters-core"
+    for: "@eristack/vercel-adapters — Wave 13."
 <!-- intent-skills:end -->
 
 # Agent notes (humans: see README.md)
 
 This file is for AI coding agents. Keep the `intent-skills` block above near the top of the file. Human-facing product docs and release setup live in [`README.md`](./README.md).
+
+The `intent-skills` block is **generated** — never hand-edit it. It is built from root `package.json` → `intent.skills` (one `workspace:@eristack/<name>` per package that ships `skills/`; each must also be a root `devDependencies` entry so Intent can resolve it). After adding a package with skills or changing any `SKILL.md` frontmatter:
+
+```bash
+pnpm lockfile:sync                  # if you touched root devDependencies
+pnpm exec intent install --map      # regenerates the block in AGENTS.md
+pnpm knowledge:sync                 # catalog reads skill frontmatter
+```
 
 ## Before editing packages
 
@@ -192,10 +347,28 @@ pnpm ci                            # build + full profile (local pre-merge)
 pnpm ci:pr                         # PR-style CI (needs origin/main)
 pnpm eristack sync knowledge       # after recipes/skills/catalog edits
 pnpm eristack sync docs            # after package docs nav edits
+pnpm lockfile:sync                 # after any package.json dependency edit
 pnpm skills:list
 pnpm dlx @tanstack/intent@latest load @eristack/ai-dev#ai-dev-core
 pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 ```
+
+### Pre-push checklist (what CI actually enforces)
+
+Every one of these is a **generated artifact that must land in the same commit** as the edit that invalidates it. CI (`pnpm eristack ci --base origin/main`) fails on drift; do not discover this on GitHub.
+
+| You changed… | Run before committing | CI step that fails otherwise |
+| --- | --- | --- |
+| `dependencies` / `devDependencies` / `peerDependencies` in any `package.json` | `pnpm lockfile:sync` (or `pnpm install`) | `pnpm install --frozen-lockfile`, `lockfile` |
+| Added / renamed / removed a `docs/*.md` page | `pnpm docs:sync` → commit `docs/_meta.json` | `docs`, `@eristack/ai-dev#test` |
+| Any `skills/**/SKILL.md` (incl. frontmatter only) | `pnpm knowledge:sync` (+ `pnpm exec intent install --map` if a package was added) | `knowledge`, `skills` |
+| `recipes.yaml`, `knowledge/*.md`, package `description` | `pnpm knowledge:sync` | `knowledge` |
+| `knowledge/<topic>.md` canonical guide | mirror to `packages/ai/ai-knowledge/docs/<topic>.md` | `knowledge` (docs mirror) |
+| `package.json` `exports` or `@eristack/*` subpath imports | `pnpm build && pnpm exports:check` | `exports` |
+| An `@eristack/*` dep a published package imports at runtime | put it in `peerDependencies` + `devDependencies` (never `dependencies` with `workspace:*`) | `publish` |
+| User-facing behavior | `.changeset/*.md`, **one package per file**, `patch` on 0.x (see `scripts/check-changesets.mjs`) | `changesets` |
+
+Then run `pnpm prepush` (affected) or `pnpm ci:pr` (full PR path) locally. Skill frontmatter must use the Intent spec keys (`name`, `description`, `metadata`, `sources`) — `pnpm exec intent validate` rejects `id` / `title` / `package` at top level.
 
 ## Repo conventions agents must follow
 
@@ -211,17 +384,19 @@ pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#recommend-eristack
 - **HARD RULE — export map matches build:** when adding/changing `package.json` exports or spine imports, `pnpm build` + `pnpm exports:check` must pass (`scripts/check-package-exports.mjs`). Prevents published packages missing subpaths like `@eristack/backseat/adapters`.
 - **HARD RULE — package design targets:** cheap (≤3 files / token budget), predictable (same core in forms + API), reliable (Drizzle default, real tests), clear boundaries (export what consumers would duplicate — do not make apps reinvent truth modes, money validators, decimal compare, etc.). See `.cursor/rules/eristack-package-targets.mdc` and `knowledge/agent-workflow.md` § Design targets.
 - **HARD RULE — in-depth docs, minimal file reads:** cross-cutting guides live in **one** canonical `knowledge/<topic>.md` (e.g. upgrading); per-package docs are deltas only. Agents must not need 100+ files. See `.cursor/rules/docs-depth-tokens.mdc`.
-- **Package categories:** filesystem order is `packages/primitive` → `packages/registries` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai`. Layer 02 **Registries** (iso-3166, unlocode, …) is **planned** — see `roadmap/layers.md`. Layer 07 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
+- **Package categories:** filesystem order is `packages/primitive` → `packages/registries` → `packages/capability` → `packages/service` → `packages/infrastructure` → `packages/ui` → `packages/features` → `packages/ai` (eight layers; see `roadmap/layers.md`). Layer 07 (`features/`) is **under construction** — no packages; see `roadmap/features.md`.
+- **Idempotency:** duplicate POSTs, ledger retries, uploads, and async side effects follow **one** canonical guide — `@eristack/ai-knowledge#idempotency-and-outbox` (`@eristack/idempotency` HTTP guard → app `UNIQUE(tenant_id, idempotency_key)` → `@eristack/outbox` for comms/payment). Do not invent per-package dedup.
 
 ## Examples
 
 Prefer `examples/*` when validating or demonstrating framework wiring:
 
-- `examples/express` — Express router + require-auth
-- `examples/nestjs` — Nest module + guard + controller
-- `examples/react` — headless client/provider against the Express example
+- `examples/express` — Express 5 + Drizzle SQLite: jwt-auth router + require-auth, orders data-grid (joins/aggregates), idempotent `POST /orders` (`@eristack/idempotency` guard + domain UNIQUE)
+- `examples/nestjs` — Nest module + guard + controller, `registerAsync` injects app `db`
+- `examples/react` — headless client/provider against the Express example: jwt-auth, data-grid list UI, `createIdempotencyClientFetch` create-order form
+- `examples/horizon-a` — Backseat-only document-with-lines ERP spine (qups, data-grid, doc-number, pbac) before any backend
 
-Do not invent alternate Express/Nest/React integration patterns when an example already shows the supported one. Examples are private and ignored by Changesets.
+Do not invent alternate Express/Nest/React integration patterns when an example already shows the supported one. Examples are private and ignored by Changesets; `pnpm --filter './examples/*' run build` is a CI step.
 
 ## Docs: package ↔ web
 
@@ -234,47 +409,109 @@ Do not invent alternate Express/Nest/React integration patterns when an example 
 
 ## Monorepo layout
 
-Categories under `packages/` (order matters):
+Categories under `packages/` (order matters). Descriptions are the package.json `description` — keep them accurate; `@eristack/ai-knowledge` catalog and the site read them.
 
-- `packages/primitive/money` — `@eristack/money`
-- `packages/primitive/business-calendar` — `@eristack/business-calendar` (working days)
-- `packages/primitive/checksum` — `@eristack/checksum` (SHA-256 hex)
-- `packages/primitive/currency-pair` — `@eristack/currency-pair` (FX pair keys)
-- `packages/primitive/dimension` — `@eristack/dimension` (L×W×H decimal strings)
-- `packages/primitive/geo` — `@eristack/geo` (lat/lng + haversine km)
-- `packages/primitive/entity-id` — `@eristack/entity-id` (UUID v7 PKs)
-- `packages/primitive/timestamp` — `@eristack/timestamp` (instant + wall modes; drizzle/rest/zod/express/nest/client/react adapters)
-- `packages/registries/iso-3166` — `@eristack/iso-3166` (assigned ISO 3166-1/2 codes; optional `/zod`)
-- `packages/registries/unlocode` — `@eristack/unlocode` (UN/LOCODE; depends on iso-3166; optional `/zod`)
-- `packages/primitive/payment-instrument` — `@eristack/payment-instrument` (token-safe card refs; optional `/zod`, `/express`)
-- `packages/capability/doc-number` — `@eristack/doc-number` (core + drizzle + rest/express/nest/client/react format-config adapters)
-- `packages/capability/qups` — `@eristack/qups` (QUPS 2-of-3 SoT + modifiers + tax on Money; drizzle injects columns into app detail lines)
-- `packages/capability/stock-movement` — `@eristack/stock-movement` (qty ledger + composable locations/lots on hash-chained-ledger)
-- `packages/capability/financial-ledger` — `@eristack/financial-ledger` (accountId+currency GL on hash-chained-ledger + money)
-- `packages/capability/valuations` — `@eristack/valuations` (FIFO/LIFO/FEFO/averages/standard/specific + qty/value chains)
-- `packages/service/data-grid` — `@eristack/data-grid` (query parse/serialize + drizzle/rest/express/nest/client/react)
-- `packages/service/epoch` — `@eristack/epoch` (data-version epochs for cache invalidation + drizzle/rest/express/nest/client/react/backseat)
-- `packages/service/jwt-auth` — `@eristack/jwt-auth` (core + drizzle/rest/express/nest/client/react entrypoints)
-- `packages/service/oauth` — `@eristack/oauth` (OAuth2 client: 17+ IdP drivers + OIDC/OAuth2 factories; provider AS; drizzle/express/rest; hand off to jwt-auth)
-- `packages/service/comms` — `@eristack/comms` (SendGrid/Postmark/Mailgun/Twilio/Vonage/Meta drivers; drizzle/express/rest)
-- `packages/service/rbac` — `@eristack/rbac` (boolean role permissions; drizzle/express/nest/react)
-- `packages/service/abac` — `@eristack/abac` (attribute policy functions; express/nest/react)
-- `packages/service/pbac` — `@eristack/pbac` (document software policies; express/nest/react)
-- `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` (append-only hash-chained ledger primitive)
-- `packages/infrastructure/backseat` — `@eristack/backseat` (in-browser mock REST engine — alpha)
-- `packages/infrastructure/logger` — `@eristack/logger` (JSON-lines logging + Express/Nest — alpha)
-- `packages/infrastructure/rest` — `@eristack/rest` (declarative REST shell + OpenAPI — alpha)
-- `packages/ui/multitab` — `@eristack/multitab` (headless multi-tab operational workspace — alpha)
+### Primitive (01)
+
+- `packages/primitive/address` — `@eristack/address` — Normalized postal addresses with ISO country codes — string fields, no geocoding
+- `packages/primitive/business-calendar` — `@eristack/business-calendar` — Business days and holidays on YYYY-MM-DD wall dates — no timestamp import in core
+- `packages/primitive/checksum` — `@eristack/checksum` — SHA-256 hex normalize and constant-time compare for exports and file refs
+- `packages/primitive/contact` — `@eristack/contact` — Contact roles and channel list normalization on a party — compose with person/phone/email
+- `packages/primitive/currency-pair` — `@eristack/currency-pair` — Base/quote currency pair validation and canonical pair keys — no FX rates
+- `packages/primitive/dimension` — `@eristack/dimension` — L×W×H dimension triple as decimal strings — cubic volume, optional unit label
+- `packages/primitive/email-address` — `@eristack/email-address` — Normalized email local@domain strings for contact channels
+- `packages/primitive/entity-id` — `@eristack/entity-id` — UUID v7 entity identifiers — sortable, parseable, Drizzle column helper
+- `packages/primitive/fiscal-calendar` — `@eristack/fiscal-calendar` — Fiscal years and periods with open/closed flags — wall-date boundaries on @eristack/timestamp
+- `packages/primitive/fraction` — `@eristack/fraction` — Exact rational numbers as reduced fractions — string numerators/denominators, no float literals
+- `packages/primitive/geo` — `@eristack/geo` — Latitude and longitude as decimal strings — normalize and haversine distance
+- `packages/primitive/money` — `@eristack/money` — Money primitives for Eristack
+- `packages/primitive/payment-instrument` — `@eristack/payment-instrument` — Token-safe payment card value types — display + gateway refs, PAN transient only, PCI-minded guards
+- `packages/primitive/percent` — `@eristack/percent` — Percent and basis-point ratios as strings — tax, discount, markup without float literals
+- `packages/primitive/person` — `@eristack/person` — Structured person name and gender identity — normalize and display, not HRIS
+- `packages/primitive/phone` — `@eristack/phone` — E.164 phone normalization — strict plus prefix, no libphonenumber in core
+- `packages/primitive/timestamp` — `@eristack/timestamp` — Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)
+- `packages/primitive/uom` — `@eristack/uom` — Unit of measure quantities with fixed-ratio conversion — string decimal amounts, no silent float math
+
+### Registries (02)
+
+- `packages/registries/iso-3166` — `@eristack/iso-3166` — ISO 3166-1 country codes and ISO 3166-2 subdivision normalization — assigned alpha-2/alpha-3 registry
+- `packages/registries/unlocode` — `@eristack/unlocode` — UN/LOCODE port and place codes — normalize five-character locodes with ISO 3166 country validation
+
+### Capability (03)
+
+- `packages/capability/doc-number` — `@eristack/doc-number` — Document number format, parse, and sequence primitives for Eristack
+- `packages/capability/doc-transitions` — `@eristack/doc-transitions` — Preset ERP document status graphs for @eristack/pbac documents.transitions()
+- `packages/capability/financial-ledger` — `@eristack/financial-ledger` — Accounting ledger on hash-chained-ledger keyed by accountId, amounts via @eristack/money
+- `packages/capability/qups` — `@eristack/qups` — Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money
+- `packages/capability/rounding-policy` — `@eristack/rounding-policy` — Named rounding profiles that resolve to @eristack/money Rounding operators
+- `packages/capability/stock-movement` — `@eristack/stock-movement` — Inventory quantity ledger on hash-chained-ledger: locationId, lotId, composable locations, snapshots, tamper checks
+- `packages/capability/tax` — `@eristack/tax` — Tax code registry and effective-dated rates — math via @eristack/money Tax ops
+- `packages/capability/valuations` — `@eristack/valuations` — Product/lot cost valuation: FIFO, LIFO, FEFO, moving/weighted average, standard cost, specific ID, HIFO/LOFO — with hash-chained cost ledger
+
+### Service (04)
+
+- `packages/service/abac` — `@eristack/abac` — Attribute-based access control for Eristack: policy functions over subject/resource/environment attributes
+- `packages/service/api-key` — `@eristack/api-key` — Generate, hash, and timing-safe verify API keys for partner B2B routes
+- `packages/service/comms` — `@eristack/comms` — Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks
+- `packages/service/data-grid` — `@eristack/data-grid` — Dynamic list query primitives: multi-field filters, search mode, multi-sort, offset/cursor pagination for Eristack services and capabilities
+- `packages/service/email-template` — `@eristack/email-template` — {{var}} HTML/text email template render and key extraction — pair with @eristack/comms
+- `packages/service/epoch` — `@eristack/epoch` — Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default
+- `packages/service/file-manager` — `@eristack/file-manager` — Headless file uploads: S3 presigned PUT/GET, server uploads, FileRef for Drizzle columns, REST/Express/React dev tools
+- `packages/service/hash-chained-ledger` — `@eristack/hash-chained-ledger` — Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection
+- `packages/service/health` — `@eristack/health` — Liveness and readiness health check registry with Express and Nest mount helpers
+- `packages/service/idempotency` — `@eristack/idempotency` — Idempotency-Key guard with Drizzle store, scoped keys, lease, Express/Nest/client adapters
+- `packages/service/jwt-auth` — `@eristack/jwt-auth` — Canonical JWT access + refresh-token auth primitives for Eristack
+- `packages/service/oauth` — `@eristack/oauth` — OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth
+- `packages/service/opinion` — `@eristack/opinion` — Opinionated ERP HTTP route table: document CRUD + PATCH /:id/:action transitions
+- `packages/service/outbox` — `@eristack/outbox` — Transactional outbox enqueue + Drizzle worker batch for reliable comms and payment side effects
+- `packages/service/payment-manager` — `@eristack/payment-manager` — Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument
+- `packages/service/pbac` — `@eristack/pbac` — Policy-based (software) access control for Eristack: business document rules that return true or false
+- `packages/service/pdf-render` — `@eristack/pdf-render` — HTML to PDF driver interface — Puppeteer/Playwright stays in the app or optional adapter
+- `packages/service/rate-limit` — `@eristack/rate-limit` — Fixed-window in-memory rate limiter — Redis adapter in app or later package
+- `packages/service/rbac` — `@eristack/rbac` — Role-based access control for Eristack: subjects, roles, and boolean permissions
+- `packages/service/spreadsheet-render` — `@eristack/spreadsheet-render` — Declarative workbook model and xlsx/csv render drivers — ExcelJS/SheetJS in app or adapter
+
+### Infrastructure (05)
+
+- `packages/infrastructure/backseat` — `@eristack/backseat` — Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks
+- `packages/infrastructure/drizzle-kit-helpers` — `@eristack/drizzle-kit-helpers` — Shared drizzle-kit config fragments for Eristack consumer monorepos (pg prod, sqlite tests)
+- `packages/infrastructure/logger` — `@eristack/logger` — JSON-lines structured logger with request context and Express/Nest adapters
+- `packages/infrastructure/rest` — `@eristack/rest` — Declarative REST route definitions with Express and Nest mounting and OpenAPI 3.1 emit
+- `packages/infrastructure/vercel-adapters` — `@eristack/vercel-adapters` — Serverless-friendly Express entry helpers for Vercel — no Vercel SDK in core
+
+### UI (06)
+
+- `packages/ui/command-palette` — `@eristack/command-palette` — Headless command palette state and simple dialog shell
+- `packages/ui/design-system` — `@eristack/design-system` — Erista design tokens, Tailwind preset, and React density context for ERP UI
+- `packages/ui/doc-shell` — `@eristack/doc-shell` — Document detail page shell — header, actions, body slots
+- `packages/ui/filter-builder` — `@eristack/filter-builder` — Stub filter chip bar and sheet UI for data-grid list filters
+- `packages/ui/form-ui` — `@eristack/form-ui` — Native React form controls wired to @eristack money, percent, and timestamp
+- `packages/ui/line-grid` — `@eristack/line-grid` — Editable QUPS line table with patchLine recalculation hook
+- `packages/ui/list-shell` — `@eristack/list-shell` — Presentational list page layout, toolbar, and TanStack Query state banners
+- `packages/ui/master-detail` — `@eristack/master-detail` — Two-pane master list + detail layout for picker flows
+- `packages/ui/multitab` — `@eristack/multitab` — Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync
+- `packages/ui/policy-ui` — `@eristack/policy-ui` — RBAC and PBAC gate components with v0 allowed override
+
+### AI (08)
+
+- `packages/ai/ai-dev` — `@eristack/ai-dev` — Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP
+- `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` — Eristack knowledge pack for AI agents: recommend packages first, load the right Intent skills, and keep catalog facts in sync
+- `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` — Generate portable maintainer tickets (bugs + suggestions) for every @eristack package — logs, scenario, fix plan, and agent-ready handoff files
+- `packages/ai/ai-workflow` — `@eristack/ai-workflow` — Local-first AI workflow for Eristack projects: MCP server, FTS+vector index, backlog/sprint/ADR artifacts — low-token agent tools that do not replace existing editors or Intent
+
+### Features (07)
+
 - `packages/features/` — **under construction** — future `@eristack/feature-*`; apps compose spine today (`roadmap/features.md`)
-- `packages/ai/ai-dev` — `@eristack/ai-dev` (unified `eristack` CLI + MCP: plan, check profiles, sync)
-- `packages/ai/ai-knowledge` — `@eristack/ai-knowledge` (agent recommend/router + generated catalog sync)
-- `packages/ai/ai-workflow` — `@eristack/ai-workflow` (local MCP, FTS+vector index, sprint/backlog workflow)
-- `packages/ai/ai-ticket-generator` — `@eristack/ai-ticket-generator` (portable bug/suggestion tickets; mandatory `ticket.yaml` per package)
+
+### Repo-level
+
 - `roadmap/` — living priority stack for future packages (also rendered at `/roadmap` on the site); draft-only catalog at `roadmap/horizon.md`
 - `apps/web` — public Next.js site (Libraries → Layer → Library → Docs; changelogs at `/{slug}/changelog`; docs from `packages/<category>/*/docs`; Cmd/Ctrl+K search)
 - `_ai-docs/` — WIP (`wip/`), brainstorm (`brainstorm/`), audit snapshot (`audit/`); see `_ai-docs/README.md`
 - `examples/*` — private runnable demos (not published)
 - `internal/test-harness` — `@internal/test-harness` repo-only sqlite helpers for integration tests (not under `packages/`, not published)
+- `scripts/` — CI gate scripts (`check-changesets`, `check-publish-deps`, `check-package-exports`, `docs-check`/`docs-sync`, `lockfile-check`/`lockfile-sync`, `skills-validate`); package discovery comes from `@eristack/ai-dev/repo`, never hand-listed
 - `.changeset/` — pending release notes for Changesets
-- `.github/workflows/ci.yml` — PR/main checks
+- `.github/workflows/ci.yml` — PR (`pnpm eristack ci --base origin/main`) and `main` (`--profile pr`) checks
+- `.github/workflows/check-skills.yml` — `intent validate --github-summary` on skill/artifact PRs
 - `.github/workflows/release.yml` — Version Packages PR + npm publish on `main`

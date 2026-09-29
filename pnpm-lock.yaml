@@ -29,6 +29,9 @@ importers:
       '@eristack/abac':
         specifier: workspace:*
         version: link:packages/service/abac
+      '@eristack/address':
+        specifier: workspace:*
+        version: link:packages/primitive/address
       '@eristack/ai-dev':
         specifier: workspace:*
         version: link:packages/ai/ai-dev
@@ -41,51 +44,189 @@ importers:
       '@eristack/ai-workflow':
         specifier: workspace:*
         version: link:packages/ai/ai-workflow
+      '@eristack/api-key':
+        specifier: workspace:*
+        version: link:packages/service/api-key
       '@eristack/backseat':
         specifier: workspace:*
         version: link:packages/infrastructure/backseat
+      '@eristack/business-calendar':
+        specifier: workspace:*
+        version: link:packages/primitive/business-calendar
+      '@eristack/checksum':
+        specifier: workspace:*
+        version: link:packages/primitive/checksum
+      '@eristack/command-palette':
+        specifier: workspace:*
+        version: link:packages/ui/command-palette
+      '@eristack/comms':
+        specifier: workspace:*
+        version: link:packages/service/comms
+      '@eristack/contact':
+        specifier: workspace:*
+        version: link:packages/primitive/contact
+      '@eristack/currency-pair':
+        specifier: workspace:*
+        version: link:packages/primitive/currency-pair
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:packages/service/data-grid
+      '@eristack/design-system':
+        specifier: workspace:*
+        version: link:packages/ui/design-system
+      '@eristack/dimension':
+        specifier: workspace:*
+        version: link:packages/primitive/dimension
       '@eristack/doc-number':
         specifier: workspace:*
         version: link:packages/capability/doc-number
+      '@eristack/doc-shell':
+        specifier: workspace:*
+        version: link:packages/ui/doc-shell
+      '@eristack/doc-transitions':
+        specifier: workspace:*
+        version: link:packages/capability/doc-transitions
+      '@eristack/drizzle-kit-helpers':
+        specifier: workspace:*
+        version: link:packages/infrastructure/drizzle-kit-helpers
+      '@eristack/email-address':
+        specifier: workspace:*
+        version: link:packages/primitive/email-address
+      '@eristack/email-template':
+        specifier: workspace:*
+        version: link:packages/service/email-template
+      '@eristack/entity-id':
+        specifier: workspace:*
+        version: link:packages/primitive/entity-id
       '@eristack/epoch':
         specifier: workspace:*
         version: link:packages/service/epoch
+      '@eristack/file-manager':
+        specifier: workspace:*
+        version: link:packages/service/file-manager
+      '@eristack/filter-builder':
+        specifier: workspace:*
+        version: link:packages/ui/filter-builder
       '@eristack/financial-ledger':
         specifier: workspace:*
         version: link:packages/capability/financial-ledger
+      '@eristack/fiscal-calendar':
+        specifier: workspace:*
+        version: link:packages/primitive/fiscal-calendar
+      '@eristack/form-ui':
+        specifier: workspace:*
+        version: link:packages/ui/form-ui
+      '@eristack/fraction':
+        specifier: workspace:*
+        version: link:packages/primitive/fraction
+      '@eristack/geo':
+        specifier: workspace:*
+        version: link:packages/primitive/geo
       '@eristack/hash-chained-ledger':
         specifier: workspace:*
         version: link:packages/service/hash-chained-ledger
+      '@eristack/health':
+        specifier: workspace:*
+        version: link:packages/service/health
+      '@eristack/idempotency':
+        specifier: workspace:*
+        version: link:packages/service/idempotency
+      '@eristack/iso-3166':
+        specifier: workspace:*
+        version: link:packages/registries/iso-3166
       '@eristack/jwt-auth':
         specifier: workspace:*
         version: link:packages/service/jwt-auth
+      '@eristack/line-grid':
+        specifier: workspace:*
+        version: link:packages/ui/line-grid
+      '@eristack/list-shell':
+        specifier: workspace:*
+        version: link:packages/ui/list-shell
+      '@eristack/logger':
+        specifier: workspace:*
+        version: link:packages/infrastructure/logger
+      '@eristack/master-detail':
+        specifier: workspace:*
+        version: link:packages/ui/master-detail
       '@eristack/money':
         specifier: workspace:*
         version: link:packages/primitive/money
       '@eristack/multitab':
         specifier: workspace:*
         version: link:packages/ui/multitab
+      '@eristack/oauth':
+        specifier: workspace:*
+        version: link:packages/service/oauth
+      '@eristack/opinion':
+        specifier: workspace:*
+        version: link:packages/service/opinion
+      '@eristack/outbox':
+        specifier: workspace:*
+        version: link:packages/service/outbox
+      '@eristack/payment-instrument':
+        specifier: workspace:*
+        version: link:packages/primitive/payment-instrument
+      '@eristack/payment-manager':
+        specifier: workspace:*
+        version: link:packages/service/payment-manager
       '@eristack/pbac':
         specifier: workspace:*
         version: link:packages/service/pbac
+      '@eristack/pdf-render':
+        specifier: workspace:*
+        version: link:packages/service/pdf-render
+      '@eristack/percent':
+        specifier: workspace:*
+        version: link:packages/primitive/percent
+      '@eristack/person':
+        specifier: workspace:*
+        version: link:packages/primitive/person
+      '@eristack/phone':
+        specifier: workspace:*
+        version: link:packages/primitive/phone
+      '@eristack/policy-ui':
+        specifier: workspace:*
+        version: link:packages/ui/policy-ui
       '@eristack/qups':
         specifier: workspace:*
         version: link:packages/capability/qups
+      '@eristack/rate-limit':
+        specifier: workspace:*
+        version: link:packages/service/rate-limit
       '@eristack/rbac':
         specifier: workspace:*
         version: link:packages/service/rbac
+      '@eristack/rest':
+        specifier: workspace:*
+        version: link:packages/infrastructure/rest
+      '@eristack/rounding-policy':
+        specifier: workspace:*
+        version: link:packages/capability/rounding-policy
+      '@eristack/spreadsheet-render':
+        specifier: workspace:*
+        version: link:packages/service/spreadsheet-render
       '@eristack/stock-movement':
         specifier: workspace:*
         version: link:packages/capability/stock-movement
+      '@eristack/tax':
+        specifier: workspace:*
+        version: link:packages/capability/tax
       '@eristack/timestamp':
         specifier: workspace:*
         version: link:packages/primitive/timestamp
+      '@eristack/unlocode':
+        specifier: workspace:*
+        version: link:packages/registries/unlocode
+      '@eristack/uom':
+        specifier: workspace:*
+        version: link:packages/primitive/uom
       '@eristack/valuations':
         specifier: workspace:*
         version: link:packages/capability/valuations
+      '@eristack/vercel-adapters':
+        specifier: workspace:*
+        version: link:packages/infrastructure/vercel-adapters
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6
@@ -266,7 +407,7 @@ importers:
         version: 9.39.5(jiti@2.7.0)
       eslint-config-next:
         specifier: 16.3.0
-        version: 16.3.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+        version: 16.3.0(@typescript-eslint/parser@8.67.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       tailwindcss:
         specifier: ^4
         version: 4.3.3
@@ -348,7 +489,7 @@ importers:
         version: 9.39.5(jiti@2.7.0)
       eslint-config-next:
         specifier: 16.3.0
-        version: 16.3.0(@typescript-eslint/parser@8.67.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+        version: 16.3.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       tailwindcss:
         specifier: ^4
         version: 4.3.3
@@ -605,7 +746,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/ai/ai-knowledge:
     devDependencies:
@@ -11215,14 +11356,6 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))':
-    dependencies:
-      '@vitest/spy': 4.1.10
-      estree-walker: 3.0.3
-      magic-string: 0.30.21
-    optionalDependencies:
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
-
   '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.10
@@ -15030,21 +15163,6 @@ snapshots:
       tsx: 4.23.12
       yaml: 2.9.0
 
-  vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0):
-    dependencies:
-      lightningcss: 1.33.0
-      picomatch: 4.0.5
-      postcss: 8.5.26
-      rolldown: 1.2.3
-      tinyglobby: 0.2.17
-    optionalDependencies:
-      '@types/node': 22.20.1
-      esbuild: 0.27.7
-      fsevents: 2.3.3
-      jiti: 2.7.0
-      tsx: 4.23.12
-      yaml: 2.9.0
-
   vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
@@ -15074,34 +15192,6 @@ snapshots:
       jiti: 2.7.0
       tsx: 4.23.12
       yaml: 2.9.0
-
-  vitest@4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)):
-    dependencies:
-      '@vitest/expect': 4.1.10
-      '@vitest/mocker': 4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
-      '@vitest/pretty-format': 4.1.10
-      '@vitest/runner': 4.1.10
-      '@vitest/snapshot': 4.1.10
-      '@vitest/spy': 4.1.10
-      '@vitest/utils': 4.1.10
-      es-module-lexer: 2.3.1
-      expect-type: 1.4.0
-      magic-string: 0.30.21
-      obug: 2.1.4
-      pathe: 2.0.3
-      picomatch: 4.0.5
-      std-env: 4.2.0
-      tinybench: 2.9.0
-      tinyexec: 1.3.0
-      tinyglobby: 0.2.17
-      tinyrainbow: 3.1.1
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
-      why-is-node-running: 2.3.0
-    optionalDependencies:
-      '@types/node': 22.20.1
-      jsdom: 26.1.0
-    transitivePeerDependencies:
-      - msw
 
   vitest@4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)):
     dependencies:

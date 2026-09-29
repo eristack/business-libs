@@ -180,6 +180,7 @@ When adding a **new publishable package** under `packages/<category>/<name>/`, c
 | Package docs (source of truth) | `docs/` — getting-started with ≤3-file wiring, `_meta.json` sections |
 | Intent skills | `skills/**/SKILL.md` — actionable body; `sources` → **one** canonical guide when possible |
 | Ticket stub | `ticket.yaml` if repo convention requires it |
+| Root wiring | root `package.json`: add `workspace:@eristack/<name>` to `intent.skills` **and** `devDependencies` → `pnpm lockfile:sync` → `pnpm exec intent install --map` regenerates the `AGENTS.md` skills block |
 
 ### 2. Agent discoverability (`@eristack/ai-knowledge`)
 

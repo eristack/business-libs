@@ -33,13 +33,16 @@ Living priority stack for `@eristack/*` — not a calendar, not a promise date.
 ## Layer stack
 
 ```text
-01 Primitive       money, timestamp
-02 Capability      doc-number, qups, stock, financial, valuations
-03 Service         jwt-auth, rbac, abac, pbac, data-grid, hash-chained-ledger
-04 Infrastructure  backseat (alpha), logger, rest (planned)
-05 UI              multitab (scaffold), doc-shell (planned)
-06 Features        under construction — packages/features/ empty
-07 AI              ai-knowledge, ai-workflow, ai-ticket-generator, ai-dev
+01 Primitive       money, timestamp, entity-id, percent, uom, fraction, address, person, phone, email-address, contact, geo, dimension, checksum, currency-pair, business-calendar, fiscal-calendar, payment-instrument
+02 Registries      iso-3166, unlocode
+03 Capability      doc-number, qups, stock-movement, financial-ledger, valuations, tax, rounding-policy, doc-transitions
+04 Service         jwt-auth, oauth, api-key, rbac, abac, pbac, data-grid, epoch, hash-chained-ledger, idempotency, outbox, comms, email-template, file-manager, payment-manager, health, rate-limit, opinion, pdf-render, spreadsheet-render
+05 Infrastructure  backseat (alpha), logger, rest, drizzle-kit-helpers, vercel-adapters
+06 UI              multitab, design-system, doc-shell, list-shell, master-detail, line-grid, form-ui, filter-builder, command-palette, policy-ui
+07 Features        under construction — packages/features/ empty
+08 AI              ai-knowledge, ai-workflow, ai-ticket-generator, ai-dev
 ```
+
+The authoritative per-package list (with descriptions) is the root [`README.md`](../README.md) § Packages; [Layers](./layers.md) explains placement rules.
 
 When priorities shift, edit the doc that owns the topic — then run `pnpm knowledge:sync` if product language or recipes change.
