@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Normalize structured person names and optional gender identity for partner/contact masters — not a full HRIS.
+---
+
 # @eristack/person
 
 Normalize **structured person names** and optional **gender identity** for partner/contact masters — not a full HRIS.

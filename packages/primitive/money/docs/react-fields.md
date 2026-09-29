@@ -1,3 +1,8 @@
+---
+title: React headless fields
+description: Use @eristack/money/react/fields — useMoneyField for controlled amount strings with blur validation via submitAmountOnlyFormValue.
+---
+
 # React headless fields
 
 Use `@eristack/money/react/fields` — `useMoneyField` for controlled amount strings with blur validation via `submitAmountOnlyFormValue`.

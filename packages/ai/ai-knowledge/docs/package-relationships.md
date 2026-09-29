@@ -1,3 +1,8 @@
+---
+title: Package relationships
+description: One map of how @eristack/* packages depend on each other and which guide to load first.
+---
+
 # Package relationships
 
 One map of how `@eristack/*` packages depend on each other and which guide to load first. Use this before wiring multiple libraries or debugging “which package owns this?”

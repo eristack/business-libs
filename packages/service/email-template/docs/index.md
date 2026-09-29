@@ -1,3 +1,8 @@
+---
+title: Overview
+description: "{{key}} substitution for HTML and plain-text bodies. Use escapeHtml: true on HTML templates; send via @eristack/comms in the app."
+---
+
 # @eristack/email-template
 
 **`{{key}}`** substitution for HTML and plain-text bodies. Use **`escapeHtml: true`** on HTML templates; send via **`@eristack/comms`** in the app.

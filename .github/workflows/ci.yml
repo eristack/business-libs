@@ -12,6 +12,13 @@ concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # Turbo local cache is restored across runs via actions/cache (see below).
+  # Unchanged packages hit cache for build/typecheck/test → full-mode CI stays fast.
+  TURBO_CACHE_DIR: .turbo/cache
+  TURBO_TELEMETRY_DISABLED: 1
+  NEXT_TELEMETRY_DISABLED: 1
+
 jobs:
   check:
     name: Build, typecheck, test
@@ -21,19 +28,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          # Full history: `turbo --filter=...[origin/main]` and changesets need the merge base.
           fetch-depth: 0
 
       - name: Setup pnpm
+        # Version comes from root package.json "packageManager".
         uses: pnpm/action-setup@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Matches release.yml. Node 20 is EOL (April 2026) — do not pin below 22.
+          node-version: 22
           cache: pnpm
 
       - name: Install
         run: pnpm install --frozen-lockfile
+
+      - name: Restore turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo/cache
+          # Exact hit only for reruns of the same commit; the prefix restore key
+          # pulls the most recent cache from any branch so only changed packages rebuild.
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
       - name: Fetch main (PR diff base)
         if: github.event_name == 'pull_request'
@@ -49,5 +69,6 @@ jobs:
       - name: CI (PR — affected)
         if: github.event_name == 'pull_request'
         env:
+          # Label a PR `ci:full` to force the full profile (same as a main push).
           CI_FULL: ${{ contains(github.event.pull_request.labels.*.name, 'ci:full') }}
         run: pnpm eristack ci --base origin/main

@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Use on partner routes after @eristack/rate-limit and before @eristack/idempotency (recipe platform-api-guard).
+---
+
 # Getting started
 
 ```bash

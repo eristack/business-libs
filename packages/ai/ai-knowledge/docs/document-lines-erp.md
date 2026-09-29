@@ -1,3 +1,8 @@
+---
+title: Document-with-lines ERP (header + QUPS lines)
+description: Canonical guide for job orders, cost sheets, invoices, forwarding — header document + priced lines.
+---
+
 # Document-with-lines ERP (header + QUPS lines)
 
 **Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.

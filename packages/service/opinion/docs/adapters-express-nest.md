@@ -1,3 +1,8 @@
+---
+title: Express & Nest adapters
+description: mountOpinionRouter dispatches to @eristack/rest router — same pattern as other eristack Express mounts.
+---
+
 # Express & Nest adapters
 
 ## Express

@@ -1,3 +1,8 @@
+---
+title: Ledger-first apps (cashbook / household GL)
+description: Canonical guide for personal finance and cashbook products that post journals to @eristack/financial-ledger — not document-with-lines ERP.
+---
+
 # Ledger-first apps (cashbook / household GL)
 
 **Canonical guide** for personal finance and cashbook products that post journals to `@eristack/financial-ledger` — not document-with-lines ERP. Load: `@eristack/ai-knowledge#ledger-first`.

@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Sortable UUID v7 strings for primary keys — generate, parse, compare, and optional Drizzle $defaultFn.
+---
+
 # @eristack/entity-id
 
 Sortable **UUID v7** strings for primary keys — generate, parse, compare, and optional Drizzle `$defaultFn`.

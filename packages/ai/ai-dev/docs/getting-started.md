@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Unified agent-first dev tooling for Eristack monorepos.
+---
+
 # Getting started
 
 Unified agent-first dev tooling for Eristack monorepos.

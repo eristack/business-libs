@@ -2,6 +2,8 @@
 
 Previous public site — full docs renderer, layer nav, Backseat demos. Superseded by [`../web`](../web). Kept for porting reference.
 
+Excluded from turbo `build` / `typecheck` / `lint` (and therefore CI) — scripts are suffixed `:archived`. Run manually with `pnpm --filter @eristack/old-web build:archived`.
+
 ## Stack
 
 - Next.js 16 (App Router, Turbopack) + React 19.2 + TypeScript

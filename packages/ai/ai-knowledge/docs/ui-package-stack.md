@@ -1,3 +1,8 @@
+---
+title: ERP UI package stack
+description: Canonical map for styled React in packages/ui/ — list pages, document shells, line grids, and domain inputs.
+---
+
 # ERP UI package stack
 
 Canonical map for **styled React** in `packages/ui/` — list pages, document shells, line grids, and domain inputs. Headless domain math stays in `@eristack/qups`, `@eristack/data-grid`, `@eristack/multitab`, etc.

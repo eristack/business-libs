@@ -1,3 +1,8 @@
+---
+title: Recipes
+description: Call before @eristack/financial-ledger post in the same transaction.
+---
+
 # Recipes
 
 ## Journal post guard

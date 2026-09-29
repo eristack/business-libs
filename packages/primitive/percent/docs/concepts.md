@@ -1,3 +1,7 @@
+---
+title: Concepts
+---
+
 # Concepts
 
 ## Stored form: ratio

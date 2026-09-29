@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: parseEntityId rejects UUID v4. Migrate legacy rows in the app before enforcing on APIs.
+---
+
 # Gotchas
 
 ## v4 UUIDs

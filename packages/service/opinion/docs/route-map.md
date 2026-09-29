@@ -1,3 +1,8 @@
+---
+title: Route map
+description: Canonical ERP document/master REST shape. All paths are suffixes after basePath.
+---
+
 # Route map
 
 Canonical ERP document/master REST shape. All paths are suffixes after `basePath`.

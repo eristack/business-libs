@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Reliable side effects after commit — transactional outbox with idempotent enqueue.
+---
+
 # @eristack/outbox
 
 Reliable side effects after commit — transactional outbox with idempotent enqueue.

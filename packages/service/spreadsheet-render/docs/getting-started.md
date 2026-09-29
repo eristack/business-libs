@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Map @eristack/data-grid list rows to string cells in the app before render. Optional @eristack/checksum on download bytes. Recipe spreadsheet-export-download.
+---
+
 # Getting started
 
 ```bash

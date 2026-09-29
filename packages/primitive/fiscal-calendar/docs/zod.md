@@ -1,3 +1,8 @@
+---
+title: Zod
+description: Peer dependency zod ^4.
+---
+
 # Zod
 
 Peer dependency `zod ^4`.

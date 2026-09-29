@@ -1,3 +1,8 @@
+---
+title: Recipes
+description: Use transitionCatalog to seed internal docs or a settings screen — not for runtime BPM editing in v0.1.
+---
+
 # Recipes
 
 ## Invoice publish (publicationGraph)

@@ -87,16 +87,50 @@ function readDocCatalogMeta(packageSlug: string): DocCatalogMeta | null {
   };
 }
 
-function titleFromMeta(packageSlug: string, slug: string, fallback: string) {
+function titleFromMeta(packageSlug: string, slug: string): string | undefined {
   const metaPath = path.join(docsDir(packageSlug), "_meta.json");
-  if (!fs.existsSync(metaPath)) return fallback;
+  if (!fs.existsSync(metaPath)) return undefined;
 
   const raw = JSON.parse(fs.readFileSync(metaPath, "utf8")) as Record<
     string,
     unknown
   >;
   const label = raw[slug];
-  return typeof label === "string" ? label : fallback;
+  return typeof label === "string" ? label : undefined;
+}
+
+function titleFromHeading(content: string): string | undefined {
+  const match = content.match(/^#\s+(.+?)\s*$/m);
+  return match?.[1]?.replace(/`/g, "").trim() || undefined;
+}
+
+/** `getting-started` → `Getting started`; `api-reference` → `API reference`. */
+function humanizeSlug(slug: string): string {
+  if (slug === "index") return "Overview";
+  const words = slug.split("-").filter(Boolean);
+  return words
+    .map((word, i) => {
+      if (/^(api|http|rest|sql|jwt|oauth|pbac|rbac|abac|s3|zod|erp|ui)$/i.test(word)) {
+        return word.toUpperCase();
+      }
+      return i === 0 ? word[0].toUpperCase() + word.slice(1) : word;
+    })
+    .join(" ");
+}
+
+/** Frontmatter `title` is the contract (enforced by `pnpm docs:check`); the rest are safety nets. */
+function resolveDocTitle(
+  packageSlug: string,
+  slug: string,
+  data: Record<string, string>,
+  content: string,
+): string {
+  return (
+    data.title ||
+    titleFromMeta(packageSlug, slug) ||
+    titleFromHeading(content) ||
+    humanizeSlug(slug)
+  );
 }
 
 export function getDocPackages() {
@@ -122,8 +156,8 @@ export function listDocs(packageSlug: DocPackageSlug): DocMeta[] {
     files.map((file) => {
       const slug = file.replace(/\.md$/, "");
       const raw = fs.readFileSync(path.join(dir, file), "utf8");
-      const { data } = parseFrontmatter(raw);
-      const title = data.title || titleFromMeta(packageSlug, slug, slug);
+      const { data, content } = parseFrontmatter(raw);
+      const title = resolveDocTitle(packageSlug, slug, data, content);
       return [
         slug,
         {
@@ -188,7 +222,7 @@ export function getDoc(
 
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = parseFrontmatter(raw);
-  const title = data.title || titleFromMeta(packageSlug, slug, slug);
+  const title = resolveDocTitle(packageSlug, slug, data, content);
 
   return {
     packageSlug,

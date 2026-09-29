@@ -1,3 +1,8 @@
+---
+title: Presets reference
+description: "Full state/action tables for each built-in preset. Action names are the :action segment on PATCH /:id/:action."
+---
+
 # Presets reference
 
 Full state/action tables for each built-in preset. Action names are the `:action` segment on `PATCH /:id/:action`.

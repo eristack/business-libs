@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: "Production path, ledger dedup, outbox, and PO UNIQUE: one guide — load @eristack/ai-knowledge#idempotency-and-outbox (knowledge/idempotency-and-outbox.md)."
+---
+
 # Getting started
 
 ```bash

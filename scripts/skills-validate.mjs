@@ -52,12 +52,40 @@ function findSkillFiles(pkgDir) {
 
 const sourceWarnings = [];
 
-for (const pkg of PACKAGES) {
-  execSync(`pnpm exec intent validate ${pkg}`, {
-    cwd: repoRoot,
-    stdio: "inherit",
-  });
+/**
+ * One root `intent validate` covers every skill wired in root package.json
+ * `intent.skills` (~1s) — per-package spawns cost ~10s for the same result.
+ * Then assert it saw every skill file we discovered on disk, so a package
+ * missing from `intent.skills` / root devDependencies fails here, not in CI.
+ */
+const expectedSkillFiles = PACKAGES.flatMap((pkg) =>
+  findSkillFiles(path.join(repoRoot, pkg)),
+).length;
 
+let validateOutput = "";
+try {
+  validateOutput = execSync("pnpm exec intent validate", {
+    cwd: repoRoot,
+    stdio: ["ignore", "pipe", "pipe"],
+    encoding: "utf8",
+  });
+} catch (error) {
+  process.stderr.write(String(error.stdout ?? "") + String(error.stderr ?? ""));
+  process.exit(error.status ?? 1);
+}
+
+const validatedMatch = validateOutput.match(/Validated (\d+) skill files/);
+const validated = validatedMatch ? Number(validatedMatch[1]) : NaN;
+if (!Number.isFinite(validated) || validated < expectedSkillFiles) {
+  console.error(validateOutput);
+  console.error(
+    `\nskills-validate: intent validated ${validated} skill files but ${expectedSkillFiles} exist under packages/*/*/skills.\n` +
+      "A package is missing from root package.json intent.skills (workspace:@eristack/<name>) or root devDependencies.\n",
+  );
+  process.exit(1);
+}
+
+for (const pkg of PACKAGES) {
   const pkgDir = path.join(repoRoot, pkg);
   const allowFat = readAllowFatSkills(pkgDir);
   for (const skillPath of findSkillFiles(pkgDir)) {
@@ -77,4 +105,6 @@ if (sourceWarnings.length > 0) {
   process.exit(1);
 }
 
-console.log(`skills-validate: OK (${PACKAGES.length} packages)`);
+console.log(
+  `skills-validate: OK (${validated} skill files across ${PACKAGES.length} packages)`,
+);

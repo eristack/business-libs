@@ -1,3 +1,8 @@
+---
+title: Zod
+description: "Optional peer: zod ^4."
+---
+
 # Zod
 
 Optional peer: `zod` ^4.

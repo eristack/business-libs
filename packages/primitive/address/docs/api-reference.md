@@ -1,3 +1,8 @@
+---
+title: API reference
+description: No exports for geocoding, country name lookup, or postal authority validation. App owns partner tables and Drizzle columns.
+---
+
 # API reference
 
 ## Types

@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: "Party normalize handler: #party-and-platform-compose."
+---
+
 # Getting started
 
 ```bash

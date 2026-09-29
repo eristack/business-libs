@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Define a fiscal calendar, resolve posting dates to periods, and guard closed periods.
+---
+
 # Getting started
 
 Define a fiscal calendar, resolve posting dates to periods, and guard closed periods.

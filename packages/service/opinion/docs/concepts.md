@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: opinion is strict about shape, loose about implementation — omit handlers you have not built; routes are not registered until you supply a handler.
+---
+
 # Concepts
 
 ## Opinion vs app ownership

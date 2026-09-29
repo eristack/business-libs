@@ -1,3 +1,8 @@
+---
+title: Overview
+description: List page layout slots for data-grid driven ERP lists.
+---
+
 # @eristack/list-shell
 
 List page layout slots for data-grid driven ERP lists.

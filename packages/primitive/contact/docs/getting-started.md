@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Normalize phone/email with @eristack/phone / @eristack/email-address before passing strings here.
+---
+
 # Getting started
 
 ```ts

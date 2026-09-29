@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Rates live in app tables until @eristack/fx-table ships.
+---
+
 # Getting started
 
 ```bash

@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Length × width × height as decimal strings — normalize once, compute cubic volume without float literals.
+---
+
 # @eristack/dimension
 
 **Length × width × height** as decimal strings — normalize once, compute cubic volume without float literals.

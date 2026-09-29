@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: "Memory limiter is for tests and single-instance dev. Production: Redis or edge limiter in the app. First middleware in platform-api-guard."
+---
+
 # Getting started
 
 ```bash

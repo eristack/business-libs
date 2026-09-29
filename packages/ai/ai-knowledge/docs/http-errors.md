@@ -1,3 +1,8 @@
+---
+title: HTTP error envelope (409 and friends)
+description: Canonical guide for JSON error bodies across Backseat mock handlers, Express/Nest adapters, and TanStack Query clients.
+---
+
 # HTTP error envelope (409 and friends)
 
 **Canonical guide** for JSON error bodies across Backseat mock handlers, Express/Nest adapters, and TanStack Query clients. Load: `@eristack/ai-knowledge#http-errors`.

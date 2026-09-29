@@ -1,3 +1,8 @@
+---
+title: Wiring HTTP
+description: "Status mutations use PATCH /:id/:action — not ambiguous PUT body flags. Load @eristack/opinion for the route map."
+---
+
 # Wiring HTTP
 
 Status mutations use **`PATCH /:id/:action`** — not ambiguous `PUT` body flags. Load `@eristack/opinion` for the route map.

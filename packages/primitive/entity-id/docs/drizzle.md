@@ -1,3 +1,8 @@
+---
+title: Drizzle
+description: "Pass optional { sqlName: \"partner_id\" } when the property name differs from the SQL column."
+---
+
 # Drizzle
 
 ```bash

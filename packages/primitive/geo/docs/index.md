@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Latitude and longitude as decimal strings — normalize bounds, optional haversine distance in km.
+---
+
 # @eristack/geo
 
 **Latitude and longitude** as decimal strings — normalize bounds, optional haversine distance in km.

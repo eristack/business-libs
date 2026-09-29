@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Master data for tax codes and wall-date rate schedules.
+---
+
 # @eristack/tax
 
 Master data for tax codes and **wall-date** rate schedules. Resolve `ratePercent` for an `asOf` date, then apply with `applyTaxToAmount` or pass the rate into `@eristack/qups` line fields.

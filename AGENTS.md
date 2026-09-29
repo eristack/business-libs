@@ -360,7 +360,7 @@ Every one of these is a **generated artifact that must land in the same commit**
 | You changed… | Run before committing | CI step that fails otherwise |
 | --- | --- | --- |
 | `dependencies` / `devDependencies` / `peerDependencies` in any `package.json` | `pnpm lockfile:sync` (or `pnpm install`) | `pnpm install --frozen-lockfile`, `lockfile` |
-| Added / renamed / removed a `docs/*.md` page | `pnpm docs:sync` → commit `docs/_meta.json` | `docs`, `@eristack/ai-dev#test` |
+| Added / renamed / removed a `docs/*.md` page | `pnpm docs:sync` → commit `docs/_meta.json`; every page needs frontmatter `title:` + `description:` (the site renders `title` as sidebar label / `<h1>` / `<title>`) | `docs`, `@eristack/ai-dev#test` |
 | Any `skills/**/SKILL.md` (incl. frontmatter only) | `pnpm knowledge:sync` (+ `pnpm exec intent install --map` if a package was added) | `knowledge`, `skills` |
 | `recipes.yaml`, `knowledge/*.md`, package `description` | `pnpm knowledge:sync` | `knowledge` |
 | `knowledge/<topic>.md` canonical guide | mirror to `packages/ai/ai-knowledge/docs/<topic>.md` | `knowledge` (docs mirror) |

@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: "findPeriodForDate matches the wall clock's local calendar date (YYYY-MM-DD), not time-of-day."
+---
+
 # Gotchas
 
 ## Date vs time-of-day

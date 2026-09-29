@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: No country inference in v0 — callers supply full international numbers.
+---
+
 # Getting started
 
 ```bash

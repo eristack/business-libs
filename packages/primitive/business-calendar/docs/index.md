@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Working days on wall dates YYYY-MM-DD — weekend mask + holiday list. Compose with @eristack/fiscal-calendar for posting guards.
+---
+
 # @eristack/business-calendar
 
 **Working days** on wall dates `YYYY-MM-DD` — weekend mask + holiday list. Compose with `@eristack/fiscal-calendar` for posting guards.

@@ -1,3 +1,7 @@
+---
+title: Recipes
+---
+
 # Recipes
 
 ## Partner create / update

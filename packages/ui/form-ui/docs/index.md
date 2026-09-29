@@ -1,3 +1,8 @@
+---
+title: Overview
+description: React inputs wired to Eristack primitives.
+---
+
 # @eristack/form-ui
 
 React inputs wired to Eristack primitives.

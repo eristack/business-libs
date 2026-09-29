@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: "Load @eristack/ai-knowledge#party-and-platform-compose for posting-date-guard and invoice pipelines."
+---
+
 # Getting started
 
 ```bash

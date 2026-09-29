@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Recipe posting-date-guard — fiscal period + business day + @eristack/timestamp wall clocks at the app boundary.
+---
+
 # Getting started
 
 ```bash

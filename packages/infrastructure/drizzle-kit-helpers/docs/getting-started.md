@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Use eristackTestSqliteConfig for integration tests; Postgres template for production migrations.
+---
+
 # Getting started
 
 ```bash

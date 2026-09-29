@@ -1,3 +1,8 @@
+---
+title: Upgrading @eristack packages
+description: Canonical guide — read this file only. Do not open per-package docs/backseat.md files for upgrades or Backseat wiring; everything needed is below.
+---
+
 # Upgrading @eristack packages
 
 **Canonical guide — read this file only.** Do not open per-package `docs/backseat.md` files for upgrades or Backseat wiring; everything needed is below.

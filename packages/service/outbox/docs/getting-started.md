@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Enqueue in the same database transaction as your domain row (PO, invoice, …).
+---
+
 # Getting started
 
 ```bash

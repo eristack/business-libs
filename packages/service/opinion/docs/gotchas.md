@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: Routes without handlers are not registered. Clients calling unimplemented roles get 404 from parent app — document rollout order in API changelog.
+---
+
 # Gotchas
 
 ## PUT vs PATCH

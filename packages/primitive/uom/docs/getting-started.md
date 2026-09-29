@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Convert quantities with string decimals — no float literals.
+---
+
 # Getting started
 
 Convert quantities with string decimals — no float literals.

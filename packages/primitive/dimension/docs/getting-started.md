@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Load recipe dimension-logistics when wiring carton sizes on product or shipment rows.
+---
+
 # Getting started
 
 ```bash

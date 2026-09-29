@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Exact rational numbers as reduced fractions — integer string numerators and denominators, BigInt normalization, no JS float literals.
+---
+
 # @eristack/fraction
 
 Exact **rational** numbers as reduced fractions — integer string numerators and denominators, BigInt normalization, no JS float literals.

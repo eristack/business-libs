@@ -1,3 +1,8 @@
+---
+title: Recipes
+description: See OpenAPI compose — merge invoice + PO + doc-number format routes.
+---
+
 # Recipes
 
 ## Invoice API (Express + data-grid + transitions)

@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: App supplies HTML (often from @eristack/email-template). Install Puppeteer/Playwright in the app and implement PdfRenderDriver for production bytes.
+---
+
 # Getting started
 
 ```bash

@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: See defaultVercelDeployNotes for max duration and cold-start guidance. No Vercel SDK in this package.
+---
+
 # Getting started
 
 ```bash

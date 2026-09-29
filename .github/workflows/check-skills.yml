@@ -1,16 +1,13 @@
-# check-skills.yml — Drop this into your library repo's .github/workflows/
+# check-skills.yml
 #
-# Validates intent skills on PRs. After a release or manual run, opens or
-# updates one review PR when existing skills, artifact coverage, or workspace
-# package coverage need review.
+# PR job: validates Intent skills with the *workspace-pinned* @tanstack/intent
+# (pnpm exec), so results match `pnpm skills:validate` and the CI `skills` step —
+# never a floating `npm install -g` version with different rules.
 #
-# Triggers: pull requests touching skills/artifacts, new release published, or
-# manual workflow_dispatch.
+# Review job (release published / manual): opens or updates one review PR when
+# existing skills, artifact coverage, or workspace package coverage need review.
 #
 # intent-workflow-version: 3
-#
-# Template variables (replaced by `intent setup`):
-#   business-primitives — e.g. @tanstack/query or my-workspace workspace
 
 name: Check Skills
 
@@ -29,48 +26,62 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: skills-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     name: Validate intent skills
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: pnpm
 
-      - name: Install intent
-        run: npm install -g @tanstack/intent
+      - name: Install
+        run: pnpm install --frozen-lockfile
 
-      - name: Validate skills
-        run: intent validate --github-summary
+      - name: Validate skills (workspace intent)
+        run: pnpm exec intent validate --github-summary
 
   review:
     name: Check intent skill coverage
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: pnpm
 
-      - name: Install intent
-        run: npm install -g @tanstack/intent
+      - name: Install
+        run: pnpm install --frozen-lockfile
 
       - name: Check skills
         id: stale
         run: |
-          intent stale --github-review --package-label "business-primitives"
+          pnpm exec intent stale --github-review --package-label "business-primitives"
 
       - name: Open or update review PR
         if: steps.stale.outputs.has_review == 'true'

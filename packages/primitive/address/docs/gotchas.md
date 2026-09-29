@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: "Only ISO alpha-2 — \"USA\", \"IND\", numeric codes throw AddressParseError. Map legacy data in migrations before calling normalizeAddress."
+---
+
 # Gotchas
 
 ## Country code length

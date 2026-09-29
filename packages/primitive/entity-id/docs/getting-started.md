@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: "Optional peers: drizzle-orm, zod."
+---
+
 # Getting started
 
 ## Install

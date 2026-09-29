@@ -1,3 +1,8 @@
+---
+title: Idempotency and outbox
+description: One guide for duplicate POSTs, serverless races, ledger retries, and async side effects.
+---
+
 # Idempotency and outbox
 
 One guide for duplicate POSTs, serverless races, ledger retries, and async side effects.

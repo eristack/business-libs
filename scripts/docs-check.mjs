@@ -5,7 +5,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { discoverDocSlugs, validateMeta } from "./doc-meta-lib.mjs";
+import {
+  discoverDocSlugs,
+  validateDocFrontmatter,
+  validateMeta,
+} from "./doc-meta-lib.mjs";
 import { listDocPackages } from "./doc-packages.mjs";
 import { checkWebSitePackages } from "./web-site-check.mjs";
 
@@ -33,7 +37,10 @@ function main() {
 
     const diskSlugs = discoverDocSlugs(docsDir, fs);
     const meta = JSON.parse(fs.readFileSync(metaPath, "utf8"));
-    const errors = validateMeta(meta, diskSlugs);
+    const errors = [
+      ...validateMeta(meta, diskSlugs),
+      ...validateDocFrontmatter(docsDir, diskSlugs, fs, path),
+    ];
 
     if (errors.length > 0) {
       failed = true;

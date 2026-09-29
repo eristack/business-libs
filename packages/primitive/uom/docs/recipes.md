@@ -1,3 +1,7 @@
+---
+title: Recipes
+---
+
 # Recipes
 
 ## PO receive (convert to stock UOM)

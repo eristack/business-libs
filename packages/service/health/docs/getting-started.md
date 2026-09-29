@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: "Nest: HealthModule.forRoot({ registry }) from @eristack/health/nest."
+---
+
 # Getting started
 
 ```bash

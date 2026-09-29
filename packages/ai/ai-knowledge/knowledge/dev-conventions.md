@@ -110,6 +110,19 @@ Ship features in **one feature PR**; let Changesets + CI own version bumps in a 
 
 Do not document/catalog an export unless it passes `exports:check`.
 
+### CI pipeline (what runs where)
+
+| Trigger | Workflow · command | Scope | Speed levers |
+| --- | --- | --- | --- |
+| PR → `main` | `ci.yml` · `pnpm eristack ci --base origin/main` | **Affected**: drift gates first (lockfile, changesets, publish, skills, knowledge, docs, ticket), then turbo build/typecheck/test on `...[origin/main]`, web typecheck/build only when `apps/web` changed, exports, contrast. Switches to **full** when lockfile / root `package.json` / `scripts/check-*` / `ai-dev` change, or PR label `ci:full`. | turbo cache restored from `actions/cache` (`.turbo/cache`, prefix key → last run on any branch); single root `intent validate` |
+| Push → `main` | `ci.yml` · `pnpm eristack check --profile pr` | **Full** profile on every merge | same turbo cache; `@eristack/old-web` excluded (scripts suffixed `:archived`) |
+| Push → `main` | `release.yml` · build → `exports:check && publish:check` → `changesets/action` | Version Packages PR or npm publish | pre-publish gate is the last owner of what lands on npm — CI runs in parallel, not before |
+| PR touching `skills/` | `check-skills.yml` · `pnpm exec intent validate --github-summary` | Skills only, **workspace-pinned** intent (never `npm i -g`) | — |
+
+Node **22** everywhere (CI, skills, release) — Node 20 is EOL. `timeout-minutes: 15` on CI; `cancel-in-progress` per ref.
+
+Local parity: `pnpm prepush` = PR affected mode; `pnpm ci` = main push. Both are the *same* `eristack` runner CI uses — if it is green locally with a synced lockfile, it is green in CI.
+
 ## Adapter design rules
 
 - Core entry is framework-agnostic (no Express/Nest/React/Drizzle imports in core)
@@ -177,7 +190,7 @@ When adding a **new publishable package** under `packages/<category>/<name>/`, c
 | --- | --- |
 | Core + adapters + tests | `packages/.../src`, `tests/` — Drizzle integration where applicable; memory only in unit tests |
 | Public exports | `package.json` `exports` + `tsup` entries → `pnpm build` + `pnpm exports:check` |
-| Package docs (source of truth) | `docs/` — getting-started with ≤3-file wiring, `_meta.json` sections |
+| Package docs (source of truth) | `docs/` — getting-started with ≤3-file wiring, `_meta.json` sections; every page starts with frontmatter `title:` + `description:` (`pnpm docs:check` enforces `title`) |
 | Intent skills | `skills/**/SKILL.md` — actionable body; `sources` → **one** canonical guide when possible |
 | Ticket stub | `ticket.yaml` if repo convention requires it |
 | Root wiring | root `package.json`: add `workspace:@eristack/<name>` to `intent.skills` **and** `devDependencies` → `pnpm lockfile:sync` → `pnpm exec intent install --map` regenerates the `AGENTS.md` skills block |

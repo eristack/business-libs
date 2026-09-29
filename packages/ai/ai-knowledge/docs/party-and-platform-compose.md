@@ -1,3 +1,8 @@
+---
+title: Party and platform compose (Wave 13)
+description: One guide for multi-package pipelines approved in Wave 13 — party normalizers, measures, finance posting, API edge guards, and outbound render/export.
+---
+
 # Party and platform compose (Wave 13)
 
 One guide for **multi-package pipelines** approved in Wave 13 — party normalizers, measures, finance posting, API edge guards, and outbound render/export. Packages **collaborate through shared string contracts**; they do **not** require sibling `@eristack/*` dependencies in core.
