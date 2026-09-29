@@ -1,6 +1,6 @@
 {
   "name": "@eristack/spreadsheet-operator",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless spreadsheet keyboard operator — active-grid scope, cell navigation, Excel-like Enter/Tab editing",
   "repository": {
     "type": "git",

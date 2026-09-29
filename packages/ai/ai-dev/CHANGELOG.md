@@ -1,5 +1,11 @@
 # @eristack/ai-dev
 
+## 0.1.5
+
+### Patch Changes
+
+- eeb3104: Give the repo-wide `runSync` knowledge/docs tests an explicit 60s timeout so parallel `turbo run test` load cannot surface as a spurious `@eristack/ai-dev#test` CI failure.
+
 ## 0.1.4
 
 ### Patch Changes

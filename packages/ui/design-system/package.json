@@ -1,6 +1,6 @@
 {
   "name": "@eristack/design-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Erista design tokens, Tailwind preset, and React density context for ERP UI",
   "repository": {
     "type": "git",

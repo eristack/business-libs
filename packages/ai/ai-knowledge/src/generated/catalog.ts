@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-29T09:31:00.199Z",
+  "generatedAt": "2026-09-29T10:02:09.499Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -338,7 +338,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/design-system",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Erista design tokens, Tailwind preset, and React density context for ERP UI",
       "slug": "design-system",
       "adapters": [
@@ -447,7 +447,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/drizzle-kit-helpers",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Shared drizzle-kit config fragments for Eristack consumer monorepos (pg prod, sqlite tests)",
       "slug": "drizzle-kit-helpers",
       "adapters": [],
@@ -1365,7 +1365,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/spreadsheet-operator",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Headless spreadsheet keyboard operator — active-grid scope, cell navigation, Excel-like Enter/Tab editing",
       "slug": "spreadsheet-operator",
       "adapters": [
