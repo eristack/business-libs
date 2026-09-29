@@ -1,3 +1,8 @@
+---
+title: Errors & epoch
+description: "Use @eristack/rest / adapter jsonError envelopes — see @eristack/ai-knowledge#http-errors."
+---
+
 # Errors & epoch
 
 ## Unified JSON errors

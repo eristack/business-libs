@@ -1,3 +1,8 @@
+---
+title: Backseat-first ERP, then derive backend
+description: Canonical guide — read this file only for Horizon A → B on document/cost-sheet ERPs (jobs, invoices, forwarding, services).
+---
+
 # Backseat-first ERP, then derive backend
 
 **Canonical guide — read this file only** for Horizon A → B on document/cost-sheet ERPs (jobs, invoices, forwarding, services). Not an ERP spine recipe; no `@eristack/feature-*`.

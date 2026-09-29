@@ -2095,6 +2095,32 @@ export const recipes = [
     ]
   },
   {
+    "id": "spreadsheet-keyboard-operator",
+    "title": "Spreadsheet keyboard navigation for in-browser grids",
+    "priority": 15,
+    "triggers": [
+      "spreadsheet keyboard",
+      "excel like grid",
+      "arrow keys table",
+      "active cell",
+      "enter commit cell",
+      "cost sheet keyboard",
+      "spreadsheet operator",
+      "two grids keyboard"
+    ],
+    "rationale": "Load @eristack/spreadsheet-operator#spreadsheet-operator-core then /react adapters. Not spreadsheet-render (xlsx export) and not data-grid (HTTP lists). Commit → patchLine.",
+    "packages": [
+      {
+        "name": "@eristack/spreadsheet-operator",
+        "skills": [
+          "spreadsheet-operator-core",
+          "spreadsheet-operator-adapters"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "spreadsheet-export-download",
     "title": "Export list rows to xlsx or csv",
     "priority": 22,
@@ -2210,7 +2236,7 @@ export const recipes = [
       "command palette erp",
       "filter builder data grid"
     ],
-    "rationale": "UI stack: form-ui, list-shell, filter-builder, line-grid, doc-shell, policy-ui, master-detail, command-palette — load package skill getting-started per task.",
+    "rationale": "UI stack: form-ui, list-shell, filter-builder, line-grid, spreadsheet-operator, doc-shell, policy-ui, master-detail, command-palette — load package skill getting-started per task.",
     "packages": [
       {
         "name": "@eristack/form-ui",
@@ -2230,6 +2256,13 @@ export const recipes = [
         "name": "@eristack/line-grid",
         "skills": [
           "line-grid-core"
+        ],
+        "role": "supporting"
+      },
+      {
+        "name": "@eristack/spreadsheet-operator",
+        "skills": [
+          "spreadsheet-operator-core"
         ],
         "role": "supporting"
       },
@@ -2255,7 +2288,7 @@ export const recipes = [
     "canonicalSkills": [
       "@eristack/ai-knowledge#ui-package-stack"
     ],
-    "rationale": "One guide: knowledge/ui-package-stack.md — design-system through command-palette; headless fields on money/percent/timestamp.",
+    "rationale": "One guide: knowledge/ui-package-stack.md — design-system through spreadsheet-operator; headless fields on money/percent/timestamp.",
     "packages": [
       {
         "name": "@eristack/ai-knowledge",

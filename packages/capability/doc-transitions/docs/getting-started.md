@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Install doc-transitions with PBAC, pick a preset, register one policy, and authorize before mutating status.
+---
+
 # Getting started
 
 Install doc-transitions with PBAC, pick a preset, register one policy, and authorize before mutating status.

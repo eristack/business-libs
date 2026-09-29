@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: All values are strings. No structured street parsing — apps that need it layer validation on top.
+---
+
 # Concepts
 
 ## PostalAddress

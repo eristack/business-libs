@@ -21,7 +21,8 @@ export function defineEristackDrizzleConfig(
     schema: options.schema,
     out: options.out,
     dbCredentials: {
-      url: `process.env.${credsKey}`,
+      // Read at call time so `drizzle.config.ts` picks up dotenv / CI env.
+      url: process.env[credsKey] ?? "",
     },
     ...(options.migrationsFolder
       ? { migrations: { folder: options.migrationsFolder } }

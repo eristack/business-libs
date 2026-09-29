@@ -1,3 +1,8 @@
+---
+title: ERP UI package stack
+description: Canonical map for styled React in packages/ui/ — list pages, document shells, line grids, and domain inputs.
+---
+
 # ERP UI package stack
 
 Canonical map for **styled React** in `packages/ui/` — list pages, document shells, line grids, and domain inputs. Headless domain math stays in `@eristack/qups`, `@eristack/data-grid`, `@eristack/multitab`, etc.
@@ -20,6 +25,7 @@ Load: `@eristack/ai-knowledge#ui-package-stack` · Recipes: `erp-ui-design-syste
 | 8 | `@eristack/policy-ui` | `Can`, `BusinessPolicyGate` (presentation; logic in rbac/pbac) | `policy-ui` |
 | 9 | `@eristack/master-detail` | List + detail split | `master-detail` |
 | 10 | `@eristack/command-palette` | Cmd+K navigation shell | `command-palette` |
+| 11 | `@eristack/spreadsheet-operator` | In-browser grid keyboard + active cell (not xlsx) | `spreadsheet-operator` |
 | — | `@eristack/multitab` | Tab workspace (already published) | `multitab` |
 | — | App chrome | Compose in **`examples/react`** until a second consumer needs `@eristack/app-chrome` | — |
 
@@ -55,7 +61,7 @@ Monorepo contributors: see `scripts/changeset-sync-after-main.md` when rebasing 
 
 ```tsx
 // app/root.css or layout — copy tokens.css or inject ERISTACK_CSS_VARS
-import "@eristack/design-system/src/tokens.css";
+import "@eristack/design-system/tokens.css";
 
 import { DensityProvider } from "@eristack/design-system/react";
 
@@ -126,6 +132,7 @@ Wrap document routes with `@eristack/multitab/react/tanstack`. Register `useComm
 | list-shell | `design-system@^0.1.0`, `data-grid@^0.2.0`, `@tanstack/react-query@^5` | — |
 | filter-builder | `data-grid@^0.2.0`, `form-ui@^0.1.0` | — |
 | line-grid | `form-ui@^0.1.0`, `qups@^0.3.0`, `money@^0.3.0` | — |
+| spreadsheet-operator | `react` (optional on core) | Keyboard / active-grid; **not** spreadsheet-render |
 | doc-shell | `design-system@^0.1.0` | `multitab@^0.2.0` |
 | policy-ui | — | `rbac@^0.2.0`, `pbac@^0.2.0` |
 | master-detail | `list-shell@^0.1.0` | — |
@@ -140,6 +147,7 @@ Wrap document routes with `@eristack/multitab/react/tanstack`. Register `useComm
 
 ```text
 design-system → form-ui → line-grid ─┐
+spreadsheet-operator (keyboard scope; compose with line-grid)
 data-grid/react → list-shell → filter-builder
 doc-number/react, multitab → doc-shell
 rbac/pbac react → policy-ui
@@ -149,6 +157,7 @@ rbac/pbac react → policy-ui
 | --- | --- |
 | ERP list + filters | `#ui-package-stack` → `list-shell` getting-started + `#data-grid-core` |
 | Invoice / job lines UI | `#document-lines-erp` + `line-grid` + `form-ui` |
+| Spreadsheet keyboard / two grids on one page | `#spreadsheet-operator-core` — not `spreadsheet-render` |
 | Permissions on buttons | `#rbac-core` / `#pbac-core` + `policy-ui` |
 
 ---
@@ -162,3 +171,14 @@ Before merge: `pnpm build` · `pnpm exports:check` · `pnpm publish:check` · `p
 ## Per-package docs
 
 Each UI library has `packages/ui/<name>/docs/getting-started.md` — install line, peers, minimal example, production notes. Do not duplicate full API here; extend **this file** only for cross-package composition.
+
+---
+
+## ADR — spreadsheet keyboard vs line-grid embed
+
+**Ship `@eristack/spreadsheet-operator` as its own UI package** (headless `createSpreadsheetOperator` + `./react`). Do not embed the operator only inside `@eristack/line-grid`.
+
+- Cost-sheet dual grids, invoice pickers, and header strips need the same keymap without QUPS columns.
+- `@eristack/line-grid` composes the operator later; v0.1 documents the contract (`commit` → `patchLine`).
+- Stay table-agnostic (descriptor + `(row, col)`). Native text cells first; Select implements `SpreadsheetCellEditor`.
+- Name collision: `@eristack/spreadsheet-render` is **xlsx/csv export only**.

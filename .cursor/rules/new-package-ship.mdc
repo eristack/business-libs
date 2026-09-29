@@ -15,7 +15,7 @@ alwaysApply: false
 Adding a publishable package is **not** done when `src/` compiles. Same iteration must include:
 
 1. **Package docs** — `docs/getting-started.md`, `_meta.json`, production path (Drizzle/S3/etc.).
-2. **Skills + recipe** — `skills/`, `recipes.yaml`, `pnpm knowledge:sync` + `knowledge:check`.
+2. **Skills + recipe** — `skills/`, `recipes.yaml`, `pnpm knowledge:sync` + `knowledge:check`. Root `package.json`: add `workspace:@eristack/<name>` to `intent.skills` **and** `devDependencies`, `pnpm lockfile:sync`, then `pnpm exec intent install --map` (regenerates the `AGENTS.md` block).
 3. **Relationship docs** — `package-relationships.md`, `upgrading.md` rows.
 4. **`apps/web`** — `site.ts` product entry; **ecosystem-content.ts** (home tech stack); products/marketing copy when relevant; **`pnpm docs:sync`** after nav changes.
 5. **Build gate** — `pnpm build`, `pnpm exports:check`, package tests.

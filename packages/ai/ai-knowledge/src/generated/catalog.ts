@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-09-28T13:08:36.902Z",
+  "generatedAt": "2026-09-29T09:31:00.199Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -137,7 +137,7 @@ export const catalog = {
           "id": "api-key-core",
           "name": "api-key-core",
           "packageName": "@eristack/api-key",
-          "description": "@eristack/api-key — Wave 13.",
+          "description": "@eristack/api-key generateApiKey (prefix_secret + public keyId), hashApiKey (peppered SHA-256), verifyApiKey (constant-time, never throws) — partner/B2B machine credentials for /partner routes. App owns the api_keys table (keyId + hash, never the key). Guard order: rate-limit → api-key → idempotency. Not human login (@eristack/jwt-auth) or OAuth clients (@eristack/oauth/provider).",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/api-key#api-key-core"
         }
@@ -185,7 +185,7 @@ export const catalog = {
           "id": "business-calendar-core",
           "name": "business-calendar-core",
           "packageName": "@eristack/business-calendar",
-          "description": "@eristack/business-calendar createBusinessCalendar, isBusinessDay, addBusinessDays on YYYY-MM-DD wall dates (Wave 13 E2).",
+          "description": "@eristack/business-calendar createBusinessCalendar → isBusinessDay / nextBusinessDay / addBusinessDays on YYYY-MM-DD wall dates, plus normalizeWallDate/addWallDays. Use for due dates, SLA deadlines, and posting-date guards; holidays come from an app table. Not instants (@eristack/timestamp) or fiscal periods (@eristack/fiscal-calendar).",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/business-calendar#business-calendar-core"
         }
@@ -202,7 +202,7 @@ export const catalog = {
           "id": "checksum-core",
           "name": "checksum-core",
           "packageName": "@eristack/checksum",
-          "description": "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals — Wave 13 E3.",
+          "description": "@eristack/checksum sha256Hex, normalizeChecksumHex, checksumEquals — SHA-256 digests for file refs and exports with constant-time compare. Use when storing or verifying a checksum; not for password/API-key hashing or hash-chained ledgers.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/checksum#checksum-core"
         }
@@ -219,7 +219,7 @@ export const catalog = {
           "id": "command-palette-core",
           "name": "command-palette-core",
           "packageName": "@eristack/command-palette",
-          "description": "@eristack/command-palette — useCommandPalette, CommandPaletteDialog.",
+          "description": "@eristack/command-palette useCommandPalette(initialOpen?) → { open, setOpen, openPalette, closePalette, togglePalette } + CommandPaletteDialog { open, onClose, title, children } (aria-modal shell, backdrop click closes, null when closed, erista-command-palette* hooks). Use for Cmd/Ctrl+K navigation in ERP apps; app supplies commands (Router routes, rbac-filtered), search, arrow keys, Escape, and CSS. No fuzzy search, registry, or focus trap.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/command-palette#command-palette-core"
         }
@@ -275,7 +275,7 @@ export const catalog = {
           "id": "contact-core",
           "name": "contact-core",
           "packageName": "@eristack/contact",
-          "description": "@eristack/contact channel list + primary — Wave 13 A3.",
+          "description": "@eristack/contact normalizeContactList, primaryContact, CONTACT_ROLES — validate a party's contact channels (role, personId/phone/email, one isPrimary max) as a JSON value on app-owned partner rows. Normalize phone/email upstream with @eristack/phone / @eristack/email-address.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/contact#contact-core"
         }
@@ -294,7 +294,7 @@ export const catalog = {
           "id": "currency-pair-core",
           "name": "currency-pair-core",
           "packageName": "@eristack/currency-pair",
-          "description": "@eristack/currency-pair normalizeCurrencyPair, formatPairKey, invertPair — Wave 13 F1.",
+          "description": "@eristack/currency-pair normalizeCurrencyPair, formatPairKey (\"USD/IDR\"), invertPair, currencyPairSchema — validate base/quote against the money registry and key FX rate tables canonically. No rates or conversion here (that is @eristack/money Conversion).",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/currency-pair#currency-pair-core"
         }
@@ -342,14 +342,15 @@ export const catalog = {
       "description": "Erista design tokens, Tailwind preset, and React density context for ERP UI",
       "slug": "design-system",
       "adapters": [
-        "react"
+        "react",
+        "tokens.css"
       ],
       "skills": [
         {
           "id": "design-system-core",
           "name": "design-system-core",
           "packageName": "@eristack/design-system",
-          "description": "@eristack/design-system — Erista tokens, Tailwind preset, React density.",
+          "description": "@eristack/design-system Erista tokens (12 --erista-* CSS vars: HSL colour triplets, radius, density gaps) via tokens.css subpath or ERISTACK_CSS_VARS/eristaCssVarMap, Tailwind v3 tailwindPreset (background/foreground/primary/muted/border/destructive, rounded, density spacing), and React DensityProvider/useDensity()/densityClassNames. Load first for any @eristack/ui-* app; shadcn components stay in the app. No typography/shadow tokens; useDensity has no setter.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/design-system#design-system-core"
         }
@@ -368,7 +369,7 @@ export const catalog = {
           "id": "dimension-core",
           "name": "dimension-core",
           "packageName": "@eristack/dimension",
-          "description": "@eristack/dimension normalizeDimension, dimensionVolume, formatDimension — L×W×H decimal strings (Wave 13 B1). Optional unit label; pair with uom in the app.",
+          "description": "@eristack/dimension Dimension { length, width, height, unit? } positive decimal strings: normalizeDimension (trim, positive finite, canonical toFixed, unit label trimmed, DimensionParseError code DIMENSION_PARSE_ERROR), dimensionVolume (L×W×H HALF_UP to scale default 6, padded), formatDimension \"L × W × H unit\", zod dimensionSchema. Use for SKU packaging levels, parcel/pallet dims, volumetric weight, bin fit; unit conversion via @eristack/uom in the app. Drizzle numeric columns.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/dimension#dimension-core"
         }
@@ -421,7 +422,7 @@ export const catalog = {
           "id": "doc-shell-core",
           "name": "doc-shell-core",
           "packageName": "@eristack/doc-shell",
-          "description": "@eristack/doc-shell — DocShell, DocHeader, DocActionBar.",
+          "description": "@eristack/doc-shell presentational document page chrome: DocShell { header, actions, children }, DocHeader { title, subtitle, badges }, DocActionBar { leading, trailing } with stable erista-doc-* CSS hooks and data-component attributes. Use for invoice/PO/job detail routes (with line-grid, policy-ui gates, multitab tabs). No state, no styles shipped, no pbac logic — app owns those.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-shell#doc-shell-core"
         }
@@ -455,7 +456,7 @@ export const catalog = {
           "id": "drizzle-kit-helpers-core",
           "name": "drizzle-kit-helpers-core",
           "packageName": "@eristack/drizzle-kit-helpers",
-          "description": "@eristack/drizzle-kit-helpers — Wave 13.",
+          "description": "@eristack/drizzle-kit-helpers eristackProdPostgresConfig(schema) / eristackTestSqliteConfig(schema) / defineEristackDrizzleConfig({ dialect, schema, out, dbCredentialsEnv?, migrationsFolder? }) — conventional drizzle-kit configs (postgresql reads DATABASE_URL, sqlite reads SQLITE_URL, separate out folders per dialect) for apps composing Eristack Drizzle tables. Dev-only; URL read from env at call time. Not MySQL.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/drizzle-kit-helpers#drizzle-kit-helpers-core"
         }
@@ -474,7 +475,7 @@ export const catalog = {
           "id": "email-address-core",
           "name": "email-address-core",
           "packageName": "@eristack/email-address",
-          "description": "@eristack/email-address normalizeEmail — Wave 13 party spine.",
+          "description": "@eristack/email-address normalizeEmail, parseEmailAddress, emailEquals, emailAddressSchema — lower-case local@domain normalization at the API boundary so uniqueness and contact lookups are plain string compares. Not SMTP (@eristack/comms) or templates (@eristack/email-template).",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-address#email-address-core"
         }
@@ -491,7 +492,7 @@ export const catalog = {
           "id": "email-template-core",
           "name": "email-template-core",
           "packageName": "@eristack/email-template",
-          "description": "@eristack/email-template renderEmailTemplate and extractTemplateKeys — Wave 13 C1.",
+          "description": "@eristack/email-template renderEmailTemplate(template, vars, { escapeHtml? }) and extractTemplateKeys(template) — logic-free {{key}} substitution for tenant-editable transactional email (subject/html/text) rendered in an @eristack/outbox worker and sent via @eristack/comms. Missing keys render empty; validate against a per-message-type variable contract on save. Format money/dates in the app before passing vars.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/email-template#email-template-core"
         }
@@ -602,7 +603,7 @@ export const catalog = {
           "id": "filter-builder-core",
           "name": "filter-builder-core",
           "packageName": "@eristack/filter-builder",
-          "description": "@eristack/filter-builder — FilterChipBar, FilterSheet stubs.",
+          "description": "@eristack/filter-builder v0 chrome for data-grid list filters: FilterChipBar { children } and FilterSheet { open, title, children, footer } (role=dialog, null when closed) with erista-filter-* CSS hooks. Bind to @eristack/data-grid controller draft (filterRows, fields, opsForField, add/update/removeFilterRow, commitFilters, isDirty) and form-ui editors; string values only. No state, no pickers, no focus trap.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/filter-builder#filter-builder-core"
         }
@@ -668,7 +669,7 @@ export const catalog = {
           "id": "form-ui-core",
           "name": "form-ui-core",
           "packageName": "@eristack/form-ui",
-          "description": "@eristack/form-ui — MoneyInput, PercentInput, TimestampWallInput.",
+          "description": "@eristack/form-ui string-first native inputs: MoneyInput { amount, currency, onAmountChange, onParsed, round } (blur → submitAmountOnlyFormValue: HALF_EVEN to currency scale, \"12.345\"→\"12.34\", no padding, round:false keeps scale, invalid throws ParseError), PercentInput { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, FormField { label, hint, error }. Use for document header fields, line-grid cells, filter editors with TanStack Form; values equal API strings (MoneyJSON/decimal/wall). No number inputs, no styles.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/form-ui#form-ui-core"
         }
@@ -706,7 +707,7 @@ export const catalog = {
           "id": "geo-core",
           "name": "geo-core",
           "packageName": "@eristack/geo",
-          "description": "@eristack/geo normalizeGeoPoint, geoDistanceKm — lat/lng decimal strings (Wave 13 B2). No geocoding in core.",
+          "description": "@eristack/geo GeoPoint { latitude, longitude } decimal strings: normalizeGeoPoint (trim, range check lat ±90 / lng ±180, canonical toFixed, GeoParseError code GEO_PARSE_ERROR), geoDistanceKm (haversine, R=6371, HALF_UP to scale default 3, zero-padded), formatGeoPoint \"lat, lng\", zod geoPointSchema. Use for depot/site coordinates and radius checks; geocoding, routing, and PostGIS stay in the app. Drizzle numeric(10,7) not double.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/geo#geo-core"
         }
@@ -756,7 +757,7 @@ export const catalog = {
           "id": "health-core",
           "name": "health-core",
           "packageName": "@eristack/health",
-          "description": "@eristack/health — Wave 13.",
+          "description": "@eristack/health createHealthRegistry + registerCheck(name, fn) → runLiveness / runReadiness with per-check durationMs; aggregateStatus maps ok→200, degraded→503. Express createHealthRouter {liveness, readiness}; Nest HealthModule.forRoot + HEALTH_REGISTRY. Use for /health and /ready probes (Postgres, outbox lag, S3). Checks must be wrapped so they never throw or hang; they run sequentially.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/health#health-core"
         }
@@ -780,15 +781,15 @@ export const catalog = {
           "id": "idempotency-adapters",
           "name": "idempotency-adapters",
           "packageName": "@eristack/idempotency",
-          "description": "Drizzle idempotency store, Express wrapIdempotentHandler, client fetch helper — production path.",
-          "type": "core",
+          "description": "@eristack/idempotency adapters: drizzle createIdempotencyTables + createDrizzleIdempotencyStore (production store), express wrapIdempotentHandler({ guard, scopeFromReq }, handler) → replay 200 / 409 JSON, nest IdempotencyInterceptor + mapIdempotencyError, client createIdempotencyClientFetch (one key per submit intent), zod schemas. Use when wiring the guard into HTTP and the browser; no header means the handler runs unguarded.",
+          "type": "adapter",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-adapters"
         },
         {
           "id": "idempotency-core",
           "name": "idempotency-core",
           "packageName": "@eristack/idempotency",
-          "description": "@eristack/idempotency createIdempotencyGuard and memory store — Wave 13 C2.",
+          "description": "@eristack/idempotency createIdempotencyGuard({ store, defaultLeaseMs, waitOnPending }) → run(key, fn) / runScoped({ scope: { tenantId, scope }, key, requestHash, fn }): atomic claim with lease, run once, replay stored result, 409 IDEMPOTENCY_REQUEST_MISMATCH on different body, IDEMPOTENCY_CONFLICT while pending. Pair with domain UNIQUE(tenant_id, idempotency_key). Drizzle store is production; memory store tests only. Architecture: #idempotency-and-outbox.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/idempotency#idempotency-core"
         }
@@ -860,7 +861,7 @@ export const catalog = {
           "id": "line-grid-core",
           "name": "line-grid-core",
           "packageName": "@eristack/line-grid",
-          "description": "@eristack/line-grid — LineGrid + useLineGridRecalc on @eristack/qups.",
+          "description": "@eristack/line-grid useLineGridRecalc(CalculateLineInput) → { line: CalculatedLine, applyPatch (PatchLineInput → qups patchLine), recalculate } and LineGrid { line, columns {id, header}, renderCell(id, line) } single-row table with erista-line-grid hook. Use for invoice/PO/job line editors with form-ui cells; truth modes quantity+unitPrice | quantity+subtotal | unitPrice+subtotal; fields subtotal/net/total (no lineTotal). Same calculateLine on server insert. N lines = N grids or own table; keyboard via spreadsheet-operator.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/line-grid#line-grid-core"
         }
@@ -877,7 +878,7 @@ export const catalog = {
           "id": "list-shell-core",
           "name": "list-shell-core",
           "packageName": "@eristack/list-shell",
-          "description": "@eristack/list-shell — ListPageLayout, toolbar, QueryStateBanner.",
+          "description": "@eristack/list-shell presentational list page frame: ListPageLayout { toolbar, banner, children }, ListToolbar { leading, children, trailing }, QueryStateBanner { isLoading, isError, isEmpty, messages } (loading→error→empty precedence, role=status/alert) with erista-list-* CSS hooks. Use with @eristack/data-grid/react useDataGridList ({ schema, client }) → items/pageInfo/controller and filter-builder chips. No fetching, no table, no filter logic.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/list-shell#list-shell-core"
         }
@@ -897,7 +898,7 @@ export const catalog = {
           "id": "logger-core",
           "name": "logger-core",
           "packageName": "@eristack/logger",
-          "description": "@eristack/logger: JSON-lines structured logging with requestId/userId/tenantId context, debug/info/warn/error levels, Express middleware and Nest interceptor.",
+          "description": "@eristack/logger JSON-lines logger: createLogger({ name, level default info, context, sink }) → debug/info/warn(msg, data), error(msg, err, data), child(context); record { level, message, timestamp, name, context, data, error{name,message,stack} }. Express createLoggerMiddleware ({ logger, requestIdHeader x-request-id, resolveContext }) + getRequestLogger(req) logs request.start/finish with status+durationMs; Nest LoggerModule.forRoot + LoggingInterceptor (APP_INTERCEPTOR) adds request.error. Sink defaults console.log or __ERISTACK_LOGGER_SINK__. Server-only; no redaction/transport.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/logger#logger-core"
         }
@@ -914,7 +915,7 @@ export const catalog = {
           "id": "master-detail-core",
           "name": "master-detail-core",
           "packageName": "@eristack/master-detail",
-          "description": "@eristack/master-detail — MasterDetailLayout panes.",
+          "description": "@eristack/master-detail MasterDetailLayout { master, detail } — aside + section split with erista-master-detail__master/__detail CSS hooks for picker and list-then-edit workspaces. Master is usually @eristack/list-shell + data-grid; selection lives in Router search (?selected=), detail in TanStack Query. No selection state, no responsive logic, no className prop in v0.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/master-detail#master-detail-core"
         }
@@ -1050,7 +1051,7 @@ export const catalog = {
           "id": "outbox-core",
           "name": "outbox-core",
           "packageName": "@eristack/outbox",
-          "description": "@eristack/outbox transactional enqueue in the same TX as domain writes; Drizzle worker batch and idempotencyKey dedup for comms/payment side effects. Memory store tests only.",
+          "description": "@eristack/outbox transactional outbox: createOutbox(store).enqueue({ id, aggregateType, aggregateId, messageType, payloadJson, idempotencyKey }) inside the domain TX (build the Drizzle store on the tx handle), processBatch(limit, handlers) in a worker → comms/payment/PDF with outbox:${id} keys. Duplicate key returns existing row; failed is terminal until your SQL sweep; one worker per table. Drizzle store production, memory store tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/outbox#outbox-core"
         }
@@ -1156,7 +1157,7 @@ export const catalog = {
           "id": "pdf-render-core",
           "name": "pdf-render-core",
           "packageName": "@eristack/pdf-render",
-          "description": "@eristack/pdf-render — Wave 13.",
+          "description": "@eristack/pdf-render createPdfRenderer(driver).render({ html, title? }) → { bytes, contentType } behind a PdfRenderDriver seam; createStubPdfDriver for tests/Backseat (not a valid PDF). App owns the engine (Puppeteer singleton or Gotenberg HTTP). Use for invoice/delivery-note PDFs rendered in an @eristack/outbox worker and stored via @eristack/file-manager.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/pdf-render#pdf-render-core"
         }
@@ -1195,7 +1196,7 @@ export const catalog = {
           "id": "person-core",
           "name": "person-core",
           "packageName": "@eristack/person",
-          "description": "@eristack/person normalizePerson, formatPersonDisplay/Sortable, GENDER_IDENTITIES, personSchema — Wave 13 party spine. Compose with phone/email/contact at app boundary.",
+          "description": "@eristack/person Person { name { given, family, middle?, prefix?, suffix? }, gender?, genderOther? }: normalizePerson / normalizePersonName (trim, required given+family, genderOther iff gender \"other\", PersonParseError code PERSON_PARSE), GENDER_IDENTITIES [unknown, woman, man, non_binary, prefer_not_to_say, other], normalizeGenderIdentity (\"Non-Binary\" → non_binary), formatPersonDisplay \"Prefix Given Middle Family Suffix\", formatPersonSortable \"Family Suffix, Given Middle\", zod personSchema. Use for contact/employee rows with structured Drizzle columns; compose with phone/email/contact in the handler — no sibling imports. Not org names or HRIS.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/person#person-core"
         }
@@ -1214,7 +1215,7 @@ export const catalog = {
           "id": "phone-core",
           "name": "phone-core",
           "packageName": "@eristack/phone",
-          "description": "@eristack/phone E.164 normalizeE164 — Wave 13 party spine.",
+          "description": "@eristack/phone normalizeE164, isValidE164, e164PhoneSchema, branded E164Phone — strict \"+CC…\" normalization at the API boundary for contacts and @eristack/comms SMS/WhatsApp. No country inference or libphonenumber; national-number forms add the dial code in the app/UI.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/phone#phone-core"
         }
@@ -1231,7 +1232,7 @@ export const catalog = {
           "id": "policy-ui-core",
           "name": "policy-ui-core",
           "packageName": "@eristack/policy-ui",
-          "description": "@eristack/policy-ui — Can, BusinessPolicyGate (allowed prop v0).",
+          "description": "@eristack/policy-ui Can { permission, allowed, fallback } and BusinessPolicyGate { policyId, allowed, fallback } — React gates that render children or fallback from a boolean. Use for action buttons on document pages/list toolbars; allowed comes from rbac useCan, pbac useBusinessPolicy, or server allowedActions. v0: allowed defaults true, ids are labels only, hidden is not enforcement.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/policy-ui#policy-ui-core"
         }
@@ -1286,7 +1287,7 @@ export const catalog = {
           "id": "rate-limit-core",
           "name": "rate-limit-core",
           "packageName": "@eristack/rate-limit",
-          "description": "@eristack/rate-limit — Wave 13.",
+          "description": "@eristack/rate-limit createRateLimiter({ windowMs, max }).check(key, nowMs?) → { allowed, limit, remaining, resetAt } — fixed-window, in-process limiter for single-instance APIs, dev, and tests; first guard on partner routes before @eristack/api-key. Per-process counters: implement the same RateLimiter contract over Redis for multi-instance production.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rate-limit#rate-limit-core"
         }
@@ -1339,7 +1340,7 @@ export const catalog = {
           "id": "rest-core",
           "name": "rest-core",
           "packageName": "@eristack/rest",
-          "description": "@eristack/rest: declarative REST route definitions, Express/Nest mounting, minimal OpenAPI 3.1 emit. Pair with jwt-auth and data-grid in apps.",
+          "description": "@eristack/rest declarative route table: defineRoutes([{ method, path \"/orders/:id\", handler(ctx { params, query, body, headers }) → { status, body?, headers? }, summary, tags }]) → router.dispatch() for tests; mountExpressRest / createExpressRestMiddleware (Express 5, unmatched → next) / createExpressRestRouter (Express 4); RestModule.forRoutes (Nest catch-all, 404 JSON); toOpenApiDocument + mergeOpenApiDocuments (3.1 paths only). First-match, :param only, no middleware — auth/logging/idempotency mount before it. Prefer @eristack/opinion for ERP docs.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rest#rest-core"
         }
@@ -1356,9 +1357,36 @@ export const catalog = {
           "id": "rounding-policy-core",
           "name": "rounding-policy-core",
           "packageName": "@eristack/rounding-policy",
-          "description": "@eristack/rounding-policy createRoundingPolicyRegistry and roundingFor → money Rounding (Wave 13 F2).",
+          "description": "@eristack/rounding-policy createRoundingPolicyRegistry → roundingFor({ policyId, currency }) resolves named company rounding rules (invoice, tax, payroll) with per-currency overrides to @eristack/money Rounding operators. Use to round once at posting instead of scale/mode literals in services. Math stays in money; qups/tax outputs are unrounded until this is applied.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/rounding-policy#rounding-policy-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/spreadsheet-operator",
+      "version": "0.0.0",
+      "description": "Headless spreadsheet keyboard operator — active-grid scope, cell navigation, Excel-like Enter/Tab editing",
+      "slug": "spreadsheet-operator",
+      "adapters": [
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "spreadsheet-operator-adapters",
+          "name": "spreadsheet-operator-adapters",
+          "packageName": "@eristack/spreadsheet-operator",
+          "description": "@eristack/spreadsheet-operator/react: SpreadsheetScopeProvider { config, onCommit({ gridId, address, fieldKey, value }), deactivateOnOutsidePointerDown } (window keydown + outside click deactivate), SpreadsheetTable { descriptor } (role grid), SpreadsheetNavCell { address } (role gridcell, data-active / data-editing / aria-selected, roving tabIndex), SpreadsheetTextCell { address, value, onCommit }, useSpreadsheetGrid + SpreadsheetGridIdProvider for div grids, useSpreadsheetCellEditor({ address, readValue, writeValue, onCommit, onCancel }) to bridge form-ui MoneyInput or a Select. Style via data-spreadsheet-active / data-active; no CSS ships. Use when wiring keyboard grids in React ERP screens.",
+          "type": "adapter",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/spreadsheet-operator#spreadsheet-operator-adapters"
+        },
+        {
+          "id": "spreadsheet-operator-core",
+          "name": "spreadsheet-operator-core",
+          "packageName": "@eristack/spreadsheet-operator",
+          "description": "@eristack/spreadsheet-operator headless Excel-like keyboard machine: createSpreadsheetOperator(config) with registerGrid({ id, rowCount, colCount, cellAt → { kind editable|select|display|readonly, fieldKey } }), dispatch/handleKeyDown, state inactive → active → editing, effects startEdit/commit { fieldKey }/cancel, getNextEditableAddress. Defaults: Tab wraps, arrows stop at edges, Enter edits then commits and moves down, type-to-edit, arrows in edit move the caret. Use for in-browser grids with one active grid per scope; commit → qups patchLine in the app. Not xlsx export (spreadsheet-render) and not HTTP lists (data-grid).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/spreadsheet-operator#spreadsheet-operator-core"
         }
       ]
     },
@@ -1373,7 +1401,7 @@ export const catalog = {
           "id": "spreadsheet-render-core",
           "name": "spreadsheet-render-core",
           "packageName": "@eristack/spreadsheet-render",
-          "description": "@eristack/spreadsheet-render — Wave 13.",
+          "description": "@eristack/spreadsheet-render workbookFromRows(sheet, columns, string[][]) → SpreadsheetWorkbook; createSpreadsheetRenderer(driver).renderWorkbook(wb, \"csv\" | \"xlsx\") → { bytes, contentType }. Stub driver emits real RFC 4180 CSV (xlsx is a marker); wrap ExcelJS/SheetJS behind the same SpreadsheetRenderDriver for .xlsx. Use for data-grid \"Export\" and report downloads; cells stay strings (money amounts, IDs). Output only — not import, not PDF.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/spreadsheet-render#spreadsheet-render-core"
         }
@@ -1420,7 +1448,7 @@ export const catalog = {
           "id": "tax-core",
           "name": "tax-core",
           "packageName": "@eristack/tax",
-          "description": "@eristack/tax createTaxRegistry, resolveTaxRate, applyTaxToAmount — Wave 13 F3; math via money Tax ops.",
+          "description": "@eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) picks the effective-dated percent string; applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via @eristack/money Tax.onExclusive. Use for invoice/order line tax with versioned statutory rates; snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/tax#tax-core"
         }
@@ -1539,7 +1567,7 @@ export const catalog = {
           "id": "vercel-adapters-core",
           "name": "vercel-adapters-core",
           "packageName": "@eristack/vercel-adapters",
-          "description": "@eristack/vercel-adapters — Wave 13.",
+          "description": "@eristack/vercel-adapters createVercelExpressHandler(app) as the single Vercel Node function default export + defaultVercelDeployNotes (60s maxDuration, ~4.5MB body, singleton/lazy-pool cold-start rules). Use when deploying an Express + Drizzle Eristack API to Vercel: one rewrite to the function, module-scope app and pool, outbox via cron route, uploads via presigned S3. No Vercel SDK.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/vercel-adapters#vercel-adapters-core"
         }

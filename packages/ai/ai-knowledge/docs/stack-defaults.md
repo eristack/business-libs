@@ -1,3 +1,8 @@
+---
+title: Stack defaults
+description: Prefer these defaults when wiring Eristack packages into an app. Deviate only when the product requires it.
+---
+
 # Stack defaults
 
 Prefer these defaults when wiring **Eristack packages** into an app. Deviate only when the product requires it.

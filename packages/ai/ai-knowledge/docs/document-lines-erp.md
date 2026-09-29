@@ -1,3 +1,8 @@
+---
+title: Document-with-lines ERP (header + QUPS lines)
+description: Canonical guide for job orders, cost sheets, invoices, forwarding — header document + priced lines.
+---
+
 # Document-with-lines ERP (header + QUPS lines)
 
 **Canonical guide** for job orders, cost sheets, invoices, forwarding — header document + priced lines. Not warehouse GL. Partner/product masters stay **app-owned** — Eristack does not ship `@eristack/feature-*` vertical modules.
@@ -11,6 +16,7 @@ Load: `@eristack/ai-knowledge#document-lines-erp` · Package map: [package-relat
 | Concern | Package |
 | --- | --- |
 | Lines / GP | `@eristack/qups` — `calculateLine`, `patchLine`, `applyCellPatch`, `withQupsFields` |
+| Grid keyboard | `@eristack/spreadsheet-operator` — active cell / Enter / Tab; not xlsx (`spreadsheet-render`) |
 | Money / FX | `@eristack/money` — strings only; `convertAtQuotePerBase` for quote-per-base |
 | Document numbers | `@eristack/doc-number` — `{YYYY}` + optional `scope` per branch |
 | Lists | `@eristack/data-grid` — `type: wall`, `executeBackseatList` / `executeDrizzleList` |
@@ -80,6 +86,8 @@ Client-side on blur (no HTTP yet):
 const next = applyCellPatch(line, "unitPrice", edited);
 const calculated = calculateLine(next, { truthMode: "unitPrice" });
 ```
+
+Keyboard / active cell: `@eristack/spreadsheet-operator` emits commit; then `applyCellPatch` as above. Do not copy arrow-key logic into the app.
 
 On document save (header + lines array):
 

@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: uomQty rejects negative amounts. Use absolute qty with uom; apply sign in stock-movement or app ledger.
+---
+
 # Gotchas
 
 ## Negative amounts

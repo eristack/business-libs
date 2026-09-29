@@ -1,3 +1,8 @@
+---
+title: Catalog & dimensions
+description: "Source: BUILTIN_UOM export."
+---
+
 # Catalog & dimensions
 
 ## Built-in units

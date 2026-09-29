@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Parse and apply tax/discount rates without float literals.
+---
+
 # Getting started
 
 Parse and apply tax/discount rates without float literals.

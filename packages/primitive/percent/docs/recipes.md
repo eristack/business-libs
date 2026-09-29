@@ -1,3 +1,7 @@
+---
+title: Recipes
+---
+
 # Recipes
 
 ## Invoice VAT line

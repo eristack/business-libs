@@ -1,3 +1,8 @@
+---
+title: Package relationships
+description: One map of how @eristack/* packages depend on each other and which guide to load first.
+---
+
 # Package relationships
 
 One map of how `@eristack/*` packages depend on each other and which guide to load first. Use this before wiring multiple libraries or debugging “which package owns this?”
@@ -90,6 +95,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | PATCH `/:id/:action`, document route map | `#opinion-http` | opinion + rest + doc-transitions |
 | Inventory / GL / valuation | Dedicated recipes | **Do not** pull into document-lines products by default |
 | ERP **list / doc React UI** | `#ui-package-stack` | data-grid + qups skills when wiring filters or lines |
+| Spreadsheet **keyboard** (not xlsx) | `#spreadsheet-operator-core` | line-grid / form-ui on commit |
 
 ## UI layer (`packages/ui/`)
 
@@ -102,6 +108,7 @@ Styled React for ERP screens — **peers** spine packages; no QUPS or filter JSO
 | `@eristack/list-shell` | design-system, data-grid, react-query | List chrome |
 | `@eristack/filter-builder` | data-grid, form-ui | Filter sheet UI |
 | `@eristack/line-grid` | form-ui, qups, money | `patchLine` recalc |
+| `@eristack/spreadsheet-operator` | react (optional on core) | Keyboard / active-grid; **not** spreadsheet-render |
 | `@eristack/doc-shell` | design-system; optional multitab | Doc layout |
 | `@eristack/policy-ui` | optional rbac, pbac | Gate components |
 | `@eristack/master-detail` | list-shell | Split panes |

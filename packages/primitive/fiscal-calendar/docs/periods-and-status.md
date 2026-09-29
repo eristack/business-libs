@@ -1,3 +1,8 @@
+---
+title: Periods & status
+description: Status lives on each FiscalPeriod row. Update it when finance completes period close — typically in the same transaction that runs final GL reconciliation.
+---
+
 # Periods & status
 
 ## PeriodStatus

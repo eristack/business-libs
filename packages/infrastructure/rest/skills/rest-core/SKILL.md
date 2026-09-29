@@ -1,39 +1,52 @@
 ---
 name: rest-core
 description: >
-  @eristack/rest: declarative REST route definitions, Express/Nest mounting,
-  minimal OpenAPI 3.1 emit. Pair with jwt-auth and data-grid in apps.
+  @eristack/rest declarative route table: defineRoutes([{ method, path "/orders/:id", handler(ctx
+  { params, query, body, headers }) → { status, body?, headers? }, summary, tags }]) →
+  router.dispatch() for tests; mountExpressRest / createExpressRestMiddleware (Express 5, unmatched
+  → next) / createExpressRestRouter (Express 4); RestModule.forRoutes (Nest catch-all, 404 JSON);
+  toOpenApiDocument + mergeOpenApiDocuments (3.1 paths only). First-match, :param only, no
+  middleware — auth/logging/idempotency mount before it. Prefer @eristack/opinion for ERP docs.
 metadata:
+  author: eristack
+  version: "0.1"
   type: core
   library: "@eristack/rest"
-  library_version: "0.1.0"
 sources:
-  - "eristack/business-libs:packages/infrastructure/rest/docs/getting-started.md"
+  - packages/infrastructure/rest/docs/getting-started.md
 ---
 
-# REST core
+# @eristack/rest
 
-One HTTP shell pattern for Eristack examples and apps.
-
-## When to use
-
-- Multiple packages expose HTTP handlers you want to compose as data
-- Examples need the same route table on Express and Nest
-- You want OpenAPI paths without hand-maintaining YAML
-
-## Default wiring
+Routes are data; handlers return responses.
 
 ```ts
-import { mountExpressRest, createExpressRestRouter } from "@eristack/rest/express";
+import { defineRoutes, toOpenApiDocument, mergeOpenApiDocuments } from "@eristack/rest";
+import { mountExpressRest } from "@eristack/rest/express";      // Nest: RestModule.forRoutes({ router, basePath })
 
-const router = defineRoutes([/* handlers */]);
-// Express 5 — prefer dispatch mount (no splat *):
-mountExpressRest(app, { router, mountPath: "/api", basePath: "/api" });
-// Express 4 Router sub-app:
-app.use("/api", createExpressRestRouter({ router, basePath: "/api" }));
+export const api = defineRoutes([
+  { method: "GET",  path: "/orders/:id", summary: "Get order", tags: ["orders"],
+    handler: async ({ params }) => (await svc.get(params.id)) ? { status: 200, body: o } : { status: 404, body: { error: { code: "NOT_FOUND" } } } },
+  { method: "POST", path: "/orders",
+    handler: async ({ body }) => { const p = schema.safeParse(body); if (!p.success) return { status: 400, body: { error: { code: "VALIDATION", issues: p.error.issues } } };
+      return { status: 201, body: await svc.create(p.data) }; } },
+]);
+
+app.use(express.json()); app.use(createLoggerMiddleware()); app.use("/api", requireAuth);
+mountExpressRest(app, { router: api, mountPath: "/api", basePath: "/api" });
+const doc = mergeOpenApiDocuments(toOpenApiDocument(api.routes, { title, version }), opinionDoc);
 ```
+
+## Checklist
+
+1. Handlers: validate (Zod) → service → `{ status, body }`; no Drizzle/req/res inside.
+2. `mountPath === basePath`; `express.json()` before mount or `body` is undefined.
+3. Specific paths before `:param` paths (first match wins); trailing slash + method case normalised.
+4. Unit-test with `await api.dispatch({ method, path, body })` → `{ matched, response }`.
+5. Errors: throw → `next(error)` → `createMapDomainError` 409 envelope (`#http-errors`).
 
 ## Do not
 
-- Put Drizzle or React in route handlers — keep handlers thin; delegate to stores
-- Replace package-specific routers (jwt-auth, epoch) — mount those alongside
+- Expect wildcards, optional segments, HEAD/OPTIONS routing, streaming, or non-JSON bodies.
+- Put auth/rate-limit inside handlers — framework middleware before the mount.
+- Hand-write ERP document routes — `@eristack/opinion` generates them on this router.

@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: "@eristack/money percentOf(money, \"7\") means 7 percent points. @eristack/percent stores ratio 0.07. Convert explicitly."
+---
+
 # Gotchas
 
 ## Double scaling

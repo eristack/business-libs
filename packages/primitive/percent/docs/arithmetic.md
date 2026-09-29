@@ -1,3 +1,7 @@
+---
+title: Arithmetic
+---
+
 # Arithmetic
 
 ## percentOf

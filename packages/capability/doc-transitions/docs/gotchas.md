@@ -1,3 +1,8 @@
+---
+title: Gotchas
+description: PBAC assertValidTransitionTable rejects rows with zero actions.
+---
+
 # Gotchas
 
 ## Empty action arrays and PBAC

@@ -1,3 +1,8 @@
+---
+title: Recipes
+description: "Recipe id: entity-id-v7-primary-key (ai-knowledge catalog)."
+---
+
 # Recipes
 
 | Product ask | Load |

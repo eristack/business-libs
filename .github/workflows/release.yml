@@ -7,6 +7,11 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+env:
+  TURBO_CACHE_DIR: .turbo/cache
+  TURBO_TELEMETRY_DISABLED: 1
+  NEXT_TELEMETRY_DISABLED: 1
+
 permissions:
   contents: write
   pull-requests: write
@@ -41,8 +46,22 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Restore turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo/cache
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
       - name: Build
         run: pnpm build
+
+      - name: Pre-publish gate (export map + publish deps)
+        # CI runs in parallel on the same push; this is the last check that owns
+        # what actually lands on npm: every package.json export resolves to a built
+        # dist file and no published package depends on workspace:* at runtime.
+        run: pnpm exports:check && pnpm publish:check
 
       - name: Create Release PR or publish
         uses: changesets/action@v1

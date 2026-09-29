@@ -49,6 +49,7 @@ Agents must not implement `unlikely` / `needs-decision` without a human.
 
 ```text
 ---
+
 kind: bug
 package: @eristack/jwt-auth
 title: …

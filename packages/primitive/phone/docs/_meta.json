@@ -1,1 +1,16 @@
-{"title":"@eristack/phone","pages":["index","getting-started","zod","api-reference"],"sections":[{"label":"Start","pages":["index","getting-started"]},{"label":"Adapters","pages":["zod"]},{"label":"Reference","pages":["api-reference"]}]}
+{
+  "title": "@eristack/phone",
+  "pages": [
+    "index",
+    "getting-started"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    }
+  ]
+}

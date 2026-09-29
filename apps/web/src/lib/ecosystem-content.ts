@@ -189,7 +189,7 @@ export const technologyStack: TechStackGroup[] = [
   {
     label: "Frontend & agents",
     description:
-      "ERP UI stack (@eristack/design-system through command-palette) + headless hooks — see ui-package-stack guide.",
+      "ERP UI stack (@eristack/design-system through spreadsheet-operator) + headless hooks — see ui-package-stack guide.",
     items: [
       { name: "React", href: "https://react.dev/", note: "Headless hooks" },
       { name: "TanStack Query", href: "https://tanstack.com/query", note: "Client cache" },
@@ -205,7 +205,13 @@ export const technologyStack: TechStackGroup[] = [
       {
         name: "ERP UI stack",
         href: "/docs/ai-knowledge/ui-package-stack",
-        note: "List + doc screens",
+        note: "List + doc screens + spreadsheet keyboard",
+        logo: "eristack",
+      },
+      {
+        name: "@eristack/spreadsheet-operator",
+        href: "/docs/spreadsheet-operator",
+        note: "Active-grid keyboard nav",
         logo: "eristack",
       },
       { name: "Next.js", href: "https://nextjs.org/", note: "eristack.dev" },

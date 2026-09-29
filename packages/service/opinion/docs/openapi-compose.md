@@ -1,3 +1,8 @@
+---
+title: OpenAPI compose
+description: Emit document route fragments and merge with other @eristack/* OpenAPI helpers.
+---
+
 # OpenAPI compose
 
 Emit document route fragments and merge with other `@eristack/*` OpenAPI helpers.

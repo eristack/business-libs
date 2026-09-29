@@ -1,3 +1,8 @@
+---
+title: Approximation
+description: Do not use approximation for values that are already exact rationals — use parseFraction.
+---
+
 # Approximation
 
 ## When to use

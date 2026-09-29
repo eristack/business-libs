@@ -120,7 +120,7 @@ export const localSkills = [
     "id": "ui-package-stack",
     "name": "ui-package-stack",
     "packageName": "@eristack/ai-knowledge",
-    "description": "ERP UI stack: design-system tokens, form-ui domain inputs, list-shell, filter-builder, line-grid (QUPS), doc-shell, policy-ui, master-detail, command-palette. Use when building TanStack Router list/doc screens instead of one-off shadcn copies.",
+    "description": "ERP UI stack: design-system tokens, form-ui domain inputs, list-shell, filter-builder, line-grid (QUPS), spreadsheet-operator (keyboard grids), doc-shell, policy-ui, master-detail, command-palette. Use when building TanStack Router list/doc screens instead of one-off shadcn copies.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ui-package-stack"
   },

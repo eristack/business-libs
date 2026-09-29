@@ -1,3 +1,8 @@
+---
+title: Basis points
+description: Finance and ERP tables often store basis points (bps) — 1 bps = 0.01%.
+---
+
 # Basis points
 
 Finance and ERP tables often store **basis points (bps)** — 1 bps = 0.01%.

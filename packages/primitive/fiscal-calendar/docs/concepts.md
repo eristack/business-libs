@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: Period start and end are inclusive wall dates. No Date objects in the domain model — same string-first style as @eristack/money amounts.
+---
+
 # Concepts
 
 ## FiscalDate

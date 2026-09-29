@@ -13,7 +13,6 @@
     "http-errors",
     "ai-toolbox-decision-tree",
     "recommend",
-    "recipes",
     "authoring",
     "architecture",
     "stack-defaults",
@@ -22,7 +21,8 @@
     "rbac-permissions",
     "ledger-first",
     "dev-conventions",
-    "idempotency-and-outbox"
+    "idempotency-and-outbox",
+    "recipes"
   ],
   "sections": [
     {
@@ -44,18 +44,7 @@
         "optimistic-document-version",
         "http-errors",
         "ai-toolbox-decision-tree",
-        "recommend"
-      ]
-    },
-    {
-      "label": "Reference",
-      "pages": [
-        "recipes"
-      ]
-    },
-    {
-      "label": "Guides",
-      "pages": [
+        "recommend",
         "authoring",
         "architecture",
         "stack-defaults",
@@ -65,6 +54,12 @@
         "ledger-first",
         "dev-conventions",
         "idempotency-and-outbox"
+      ]
+    },
+    {
+      "label": "Reference",
+      "pages": [
+        "recipes"
       ]
     }
   ]

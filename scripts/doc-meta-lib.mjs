@@ -121,6 +121,33 @@ export function validateMeta(meta, diskSlugs) {
 }
 
 /**
+ * Every page must declare a frontmatter `title` — the web renders it as the
+ * sidebar label, <h1>, and <title>. Without it the site falls back to slugs
+ * like `getting-started`.
+ *
+ * @param {string} docsDir
+ * @param {string[]} diskSlugs
+ * @param {typeof import("node:fs")} fs
+ * @returns {string[]} errors
+ */
+export function validateDocFrontmatter(docsDir, diskSlugs, fs, path) {
+  /** @type {string[]} */
+  const errors = [];
+  for (const slug of diskSlugs) {
+    const raw = fs.readFileSync(path.join(docsDir, `${slug}.md`), "utf8");
+    const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!match) {
+      errors.push(`${slug}.md has no frontmatter — add title: (and description:)`);
+      continue;
+    }
+    if (!/^title:\s*\S/m.test(match[1])) {
+      errors.push(`${slug}.md frontmatter is missing title:`);
+    }
+  }
+  return errors;
+}
+
+/**
  * @param {object} meta
  * @param {string[]} diskSlugs
  */

@@ -15,7 +15,7 @@ Eight layers organize the monorepo and site. Lower layers never import higher on
 
 **Filesystem:** `packages/primitive` → `packages/registries` → `capability` → `service` → `infrastructure` → `ui` → `ai`. Layer 07 Features has no packages yet.
 
-**Today:** apps compose layers 01–05 (and AI tooling). Registries and payment-manager are **planned** — [`_ai-docs/brainstorm/registries-and-payment-manager.md`](../_ai-docs/brainstorm/registries-and-payment-manager.md).
+**Today:** apps compose layers 01–06 (and AI tooling). Registries (`iso-3166`, `unlocode`), `payment-manager`, `file-manager`, `idempotency`, and `outbox` are **shipped**; the full per-package list is the root [`README.md`](../README.md) § Packages.
 
 ## Next candidates (backlog)
 

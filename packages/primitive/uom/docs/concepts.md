@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: Construct with uomQty(amount, unit) — validates known unit and normalizes decimal formatting via decimal.js.
+---
+
 # Concepts
 
 ## UomQuantity

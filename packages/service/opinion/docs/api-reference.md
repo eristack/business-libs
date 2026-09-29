@@ -1,3 +1,7 @@
+---
+title: API reference
+---
+
 # API reference
 
 ## Core

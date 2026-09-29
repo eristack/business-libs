@@ -1,3 +1,7 @@
+---
+title: Wiring PBAC
+---
+
 # Wiring PBAC
 
 ## Install

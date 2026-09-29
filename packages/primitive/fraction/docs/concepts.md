@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: A fraction in this library is always a rational number — ratio of two integers. Operations stay exact until you choose to approximate or convert to decimal.
+---
+
 # Concepts
 
 ## Rational vs irrational

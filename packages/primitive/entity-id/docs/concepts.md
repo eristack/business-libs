@@ -1,3 +1,8 @@
+---
+title: Concepts
+description: normalizeEntityId / parseEntityId enforce both.
+---
+
 # Concepts
 
 ## Canonical form

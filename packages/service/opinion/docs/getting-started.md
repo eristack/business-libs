@@ -1,3 +1,8 @@
+---
+title: Getting started
+description: Opinionated ERP HTTP — install, mount Express routes, wire list + transition handlers.
+---
+
 # Getting started
 
 Opinionated ERP HTTP — install, mount Express routes, wire list + transition handlers.

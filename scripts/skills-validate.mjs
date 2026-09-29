@@ -7,35 +7,16 @@ import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { listEristackPackages } from "./lib/list-eristack-packages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const MAX_SOURCES = 3;
 
-const PACKAGES = [
-  "packages/primitive/money",
-  "packages/primitive/timestamp",
-  "packages/capability/doc-number",
-  "packages/capability/qups",
-  "packages/capability/stock-movement",
-  "packages/capability/financial-ledger",
-  "packages/capability/valuations",
-  "packages/service/data-grid",
-  "packages/service/jwt-auth",
-  "packages/service/epoch",
-  "packages/service/rbac",
-  "packages/service/abac",
-  "packages/service/pbac",
-  "packages/service/hash-chained-ledger",
-  "packages/infrastructure/backseat",
-  "packages/infrastructure/logger",
-  "packages/infrastructure/rest",
-  "packages/ui/multitab",
-  "packages/ai/ai-knowledge",
-  "packages/ai/ai-workflow",
-  "packages/ai/ai-ticket-generator",
-  "packages/ai/ai-dev",
-];
+/** Every publishable @eristack package that ships skills/ — auto-discovered, never hand-listed. */
+const PACKAGES = listEristackPackages(repoRoot, { hasSkills: true }).map(
+  (pkg) => pkg.relDir,
+);
 
 function readAllowFatSkills(pkgDir) {
   const ticketPath = path.join(pkgDir, "ticket.yaml");
@@ -71,12 +52,40 @@ function findSkillFiles(pkgDir) {
 
 const sourceWarnings = [];
 
-for (const pkg of PACKAGES) {
-  execSync(`pnpm exec intent validate ${pkg}`, {
-    cwd: repoRoot,
-    stdio: "inherit",
-  });
+/**
+ * One root `intent validate` covers every skill wired in root package.json
+ * `intent.skills` (~1s) — per-package spawns cost ~10s for the same result.
+ * Then assert it saw every skill file we discovered on disk, so a package
+ * missing from `intent.skills` / root devDependencies fails here, not in CI.
+ */
+const expectedSkillFiles = PACKAGES.flatMap((pkg) =>
+  findSkillFiles(path.join(repoRoot, pkg)),
+).length;
 
+let validateOutput = "";
+try {
+  validateOutput = execSync("pnpm exec intent validate", {
+    cwd: repoRoot,
+    stdio: ["ignore", "pipe", "pipe"],
+    encoding: "utf8",
+  });
+} catch (error) {
+  process.stderr.write(String(error.stdout ?? "") + String(error.stderr ?? ""));
+  process.exit(error.status ?? 1);
+}
+
+const validatedMatch = validateOutput.match(/Validated (\d+) skill files/);
+const validated = validatedMatch ? Number(validatedMatch[1]) : NaN;
+if (!Number.isFinite(validated) || validated < expectedSkillFiles) {
+  console.error(validateOutput);
+  console.error(
+    `\nskills-validate: intent validated ${validated} skill files but ${expectedSkillFiles} exist under packages/*/*/skills.\n` +
+      "A package is missing from root package.json intent.skills (workspace:@eristack/<name>) or root devDependencies.\n",
+  );
+  process.exit(1);
+}
+
+for (const pkg of PACKAGES) {
   const pkgDir = path.join(repoRoot, pkg);
   const allowFat = readAllowFatSkills(pkgDir);
   for (const skillPath of findSkillFiles(pkgDir)) {
@@ -96,4 +105,6 @@ if (sourceWarnings.length > 0) {
   process.exit(1);
 }
 
-console.log(`skills-validate: OK (${PACKAGES.length} packages)`);
+console.log(
+  `skills-validate: OK (${validated} skill files across ${PACKAGES.length} packages)`,
+);
