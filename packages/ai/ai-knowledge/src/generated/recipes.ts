@@ -644,9 +644,14 @@ export const recipes = [
       "attachment",
       "file manager",
       "blob storage",
-      "avatar upload"
+      "avatar upload",
+      "image preview",
+      "presigned download",
+      "inline file url",
+      "content disposition",
+      "img src s3"
     ],
-    "rationale": "Use @eristack/file-manager for S3 presigned browser PUT, server uploads, FileRef JSON or fileId on Drizzle rows, and Express /files routes. Load file-manager-core then file-manager-adapters — docs/getting-started.md only.",
+    "rationale": "Use @eristack/file-manager for S3 presigned browser PUT, server uploads, FileRef JSON or fileId on Drizzle rows, and Express /files routes. resolveDownloadUrl(fileId) is inline by default (img/iframe/video); pass downloadFilename only for Save-as attachment. Load file-manager-core then file-manager-adapters — docs/getting-started.md only.",
     "packages": [
       {
         "name": "@eristack/file-manager",

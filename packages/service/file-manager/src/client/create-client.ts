@@ -56,8 +56,21 @@ export function createFileManagerClient(config: FileManagerClientConfig) {
       const qs = params.toString();
       return request<{ items: StoredFile[] }>(qs ? `/?${qs}` : "/");
     },
-    getDownloadUrl(fileId: string) {
-      return request<{ url: string; expiresAt: string }>(`/${fileId}/download-url`);
+    getDownloadUrl(
+      fileId: string,
+      options?: { downloadFilename?: string; expiresInSeconds?: number },
+    ) {
+      const params = new URLSearchParams();
+      if (options?.downloadFilename) {
+        params.set("downloadFilename", options.downloadFilename);
+      }
+      if (options?.expiresInSeconds !== undefined) {
+        params.set("expiresInSeconds", String(options.expiresInSeconds));
+      }
+      const qs = params.toString();
+      return request<{ url: string; expiresAt: string }>(
+        `/${fileId}/download-url${qs ? `?${qs}` : ""}`,
+      );
     },
     deleteFile(fileId: string) {
       return request<void>(`/${fileId}`, { method: "DELETE" });

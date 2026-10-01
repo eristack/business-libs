@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { createFileManager } from "../src/core/create-file-manager.js";
 import { createMemoryStorageDriver } from "../src/core/memory-driver.js";
 import { createMemoryFileRecordStore } from "../src/core/memory-store.js";
@@ -46,5 +46,32 @@ describe("createRestFileManagerActions", () => {
       req({ method: "GET", params: { id: "missing" } }),
     );
     expect(res.status).toBe(404);
+  });
+
+  it("getDownloadUrl forwards downloadFilename query", async () => {
+    const stored = await fileManager.uploadFromServer({
+      originalName: "doc.pdf",
+      mimeType: "application/pdf",
+      body: new TextEncoder().encode("pdf"),
+    });
+    const spy = vi.spyOn(fileManager, "resolveDownloadUrl");
+
+    await actions.getDownloadUrl(
+      req({ method: "GET", params: { id: stored.id } }),
+    );
+    expect(spy).toHaveBeenLastCalledWith(stored.id, {});
+
+    await actions.getDownloadUrl(
+      req({
+        method: "GET",
+        params: { id: stored.id },
+        query: { downloadFilename: "doc.pdf" },
+      }),
+    );
+    expect(spy).toHaveBeenLastCalledWith(stored.id, {
+      downloadFilename: "doc.pdf",
+    });
+
+    spy.mockRestore();
   });
 });

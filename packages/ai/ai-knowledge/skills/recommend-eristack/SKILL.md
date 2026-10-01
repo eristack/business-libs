@@ -46,6 +46,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 - Money amounts → `@eristack/money` (never JS number money).
 - Login / JWT / refresh → `@eristack/jwt-auth` (credentials child of app users).
 - Invoice/document sequences → `@eristack/doc-number`.
+- Private file preview / `<img src>` → `@eristack/file-manager` `resolveDownloadUrl(fileId)` **without** `downloadFilename` (inline GET). Save-as → pass `{ downloadFilename }` — never default attachment on every presigned URL.
 - Deep API how-to lives in **package** skills — this skill only routes.
 
 ## Live package catalog

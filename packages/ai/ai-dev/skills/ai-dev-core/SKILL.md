@@ -23,7 +23,7 @@ sources:
 3. **`pnpm ci:affected`** — local only: force affected turbo when full mode is too slow.
 4. **`pnpm prepush`** — runs **`pnpm ci:affected`** (same as GitHub PR CI when the diff is small: drift + affected turbo build/typecheck/test). Use **`pnpm ci:pr`** for the full affected/default plan without forcing affected only.
 5. After **`package.json`** dependency edits: **`pnpm lockfile:sync`** then commit **`pnpm-lock.yaml`** (CI runs `pnpm install --frozen-lockfile` first).
-6. **`pnpm ci:drift`** or **`pnpm ticket:check`** — subset checks only.
+6. **`pnpm ci:drift`** or **`pnpm ticket:check`** — subset checks only (`ticket:check` bootstraps `@eristack/ai-ticket-generator` build first).
 7. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate; includes `debottleneck:check:ci` overlap budget).
 8. **`pnpm eristack sync knowledge`** / **`docs`** / **`deps`** — when recipes, skills, docs, or lockfile drift.
 

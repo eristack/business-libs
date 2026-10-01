@@ -262,6 +262,7 @@ Store **metadata in Postgres**, bytes in **S3** — not BLOB columns on line tab
 
 - Add nullable `attachmentFileId` (uuid) or `attachmentFileRef` (jsonb `FileRef` v1) on your header table.
 - Upload via `@eristack/file-manager` presign flow; persist returned `FileRef` on save.
+- **Preview:** `resolveDownloadUrl(fileId)` (no options) — safe for `<img src>`. **Download:** `{ downloadFilename }` or `GET /files/:id/download-url?downloadFilename=` — do not default attachment on every URL.
 - Horizon A: `registerFileManagerBackseat` + same `dbName` as jwt-auth/doc-number IndexedDB factories.
 
 ---

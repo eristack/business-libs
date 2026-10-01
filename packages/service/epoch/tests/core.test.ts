@@ -59,9 +59,9 @@ describe("createEpoch", () => {
   });
 });
 
-describe("package exports", () => {
-  it("resolves @eristack/epoch/backseat through package exports", async () => {
-    const mod = await import("@eristack/epoch/backseat");
+describe("package entrypoints (source)", () => {
+  it("loads backseat from src (dist export map checked by pnpm exports:check)", async () => {
+    const mod = await import("../src/backseat/index.js");
     expect(mod.registerEpochBackseat).toBeTypeOf("function");
     expect(mod.createBackseatEpochStores).toBeTypeOf("function");
   });

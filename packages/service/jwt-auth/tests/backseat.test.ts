@@ -3,8 +3,8 @@ import { createJwtAuth } from "../src/core/create-jwt-auth.js";
 import { createBackseatJwtAuthStores } from "../src/backseat/index.js";
 
 describe("backseat jwt-auth stores", () => {
-  it("resolves @eristack/jwt-auth/backseat through package exports", async () => {
-    const mod = await import("@eristack/jwt-auth/backseat");
+  it("loads backseat from src (dist export map checked by pnpm exports:check)", async () => {
+    const mod = await import("../src/backseat/index.js");
     expect(mod.registerJwtAuthBackseat).toBeTypeOf("function");
     expect(mod.createBackseatJwtAuthStores).toBeTypeOf("function");
   });

@@ -169,11 +169,49 @@ function commandForCheck(
   }
 }
 
+const TICKET_GENERATOR_PKG = "@eristack/ai-ticket-generator";
+
+/** ticket:check runs node dist/cli.js — bootstrap build when affected CI skips this package. */
+function runTicketCheck(repoRoot: string): CheckRunResult {
+  const started = Date.now();
+  const buildCmd =
+    "pnpm exec turbo run build --filter=@eristack/ai-ticket-generator --output-logs=errors-only";
+  const checkCmd = `pnpm --filter ${TICKET_GENERATOR_PKG} run check`;
+  const display = `${buildCmd}; ${checkCmd}`;
+  const execOpts = {
+    cwd: repoRoot,
+    stdio: "pipe" as const,
+    encoding: "utf8" as const,
+    env: { ...process.env, CI: process.env.CI ?? "true" },
+  };
+  try {
+    execSync(buildCmd, execOpts);
+    execSync(checkCmd, execOpts);
+    return {
+      id: "ticket",
+      ok: true,
+      ms: Date.now() - started,
+      command: display,
+    };
+  } catch (error) {
+    return {
+      id: "ticket",
+      ok: false,
+      ms: Date.now() - started,
+      command: display,
+      error: formatExecError(error),
+    };
+  }
+}
+
 function runOne(
   def: CheckDef,
   repoRoot: string,
   packages?: string[],
 ): CheckRunResult {
+  if (def.id === "ticket") {
+    return runTicketCheck(repoRoot);
+  }
   const started = Date.now();
   const { argv, display } = commandForCheck(def, packages);
   try {

@@ -13,7 +13,7 @@ Mount prefix example: `/files`.
 | `POST` | `/uploads/complete` | `{ fileId, checksumSha256? }` | stored file |
 | `GET` | `/` | `?namespace=&status=` | `{ items: StoredFile[] }` |
 | `GET` | `/:id` | — | stored file |
-| `GET` | `/:id/download-url` | — | `{ url, expiresAt }` |
+| `GET` | `/:id/download-url` | `?downloadFilename=` (optional attachment), `?expiresInSeconds=` | `{ url, expiresAt }` — inline view URL when query omitted |
 | `DELETE` | `/:id` | — | `204` |
 
 Errors: JSON `{ code, message }` — `404` not found, `409` not ready / object missing, `400` validation.

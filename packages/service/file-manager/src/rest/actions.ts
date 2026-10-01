@@ -12,6 +12,18 @@ import type { StoredFile } from "../core/types.js";
 
 const DEFAULT_MAX_PRESIGN_BYTES = 50 * 1024 * 1024;
 
+function readQueryString(
+  query: RestRequest["query"],
+  name: string,
+): string | undefined {
+  const raw = query?.[name];
+  if (typeof raw === "string" && raw.length > 0) return raw;
+  if (Array.isArray(raw) && typeof raw[0] === "string" && raw[0].length > 0) {
+    return raw[0];
+  }
+  return undefined;
+}
+
 function readBodyObject(req: RestRequest): Record<string, unknown> {
   if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
     return {};
@@ -94,7 +106,18 @@ export function createRestFileManagerActions(config: RestFileManagerConfig) {
       try {
         const id = req.params?.id;
         if (!id) throw new InvalidFileInputError("id is required");
-        const download = await config.fileManager.resolveDownloadUrl(id);
+        const downloadFilename = readQueryString(req.query, "downloadFilename");
+        const expiresRaw = readQueryString(req.query, "expiresInSeconds");
+        const expiresInSeconds =
+          expiresRaw !== undefined ? Number(expiresRaw) : undefined;
+        const download = await config.fileManager.resolveDownloadUrl(id, {
+          ...(downloadFilename !== undefined ? { downloadFilename } : {}),
+          ...(expiresInSeconds !== undefined &&
+          Number.isFinite(expiresInSeconds) &&
+          expiresInSeconds > 0
+            ? { expiresInSeconds }
+            : {}),
+        });
         return { status: 200, body: download };
       } catch (err) {
         return toFileManagerErrorResponse(err);

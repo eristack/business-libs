@@ -42,7 +42,7 @@ Persist with `serializeFileRef(ref)` or store `fileId` and resolve at read time.
 ### Rules
 
 1. **Never** store only a presigned URL — it expires.
-2. Store **`FileRef` or `fileId`**, then call `resolveDownloadUrl` when serving downloads.
+2. Store **`FileRef` or `fileId`**, then call `resolveDownloadUrl` for inline preview URLs or pass `{ downloadFilename }` for attachment downloads.
 3. Money/doc fields stay string-first; file fields are **`FileRef` v1** JSON or UUID FK.
 
 See `fileRefColumnHelpers()` in `@eristack/file-manager/drizzle` for to/from driver helpers.

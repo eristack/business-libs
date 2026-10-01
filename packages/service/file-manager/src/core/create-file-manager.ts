@@ -230,7 +230,8 @@ export function createFileManager(config: FileManagerConfig): FileManager {
         key: record.ref.key,
         options: {
           expiresInSeconds: options?.expiresInSeconds ?? presign.getExpiresInSeconds,
-          downloadFilename: options?.downloadFilename ?? record.ref.originalName,
+          // Inline by default (img/video/pdf in browser). Pass downloadFilename for attachment.
+          downloadFilename: options?.downloadFilename,
         },
       });
 

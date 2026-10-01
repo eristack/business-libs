@@ -21,7 +21,7 @@
     "debottleneck:check:ci": "node scripts/package-debottleneck-check.mjs --ci",
     "test:integration": "node scripts/run-integration-tests.mjs",
     "changesets:check": "node scripts/check-changesets.mjs",
-    "ticket:check": "pnpm --filter @eristack/ai-ticket-generator run check",
+    "ticket:check": "pnpm exec turbo run build --filter=@eristack/ai-ticket-generator --output-logs=errors-only && pnpm --filter @eristack/ai-ticket-generator run check",
     "ticket:triage": "node scripts/ticket-triage.mjs",
     "backseat:routes:check": "node scripts/backseat-routes-check.mjs check",
     "backseat:routes:diff": "node scripts/backseat-routes-check.mjs diff",
