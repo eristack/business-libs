@@ -92,7 +92,7 @@ These delegate to `eristack` — prefer `pnpm eristack` for new work:
 | `pnpm ci:pr` | Smart PR CI (full when lockfile/root changes; else affected turbo) |
 | `pnpm ci:affected` | Force affected turbo only — **local** pre-push when full CI is slow |
 | `pnpm ci:drift` | Catalog only (~seconds): docs, knowledge, skills, **ticket.yaml** |
-| `pnpm ticket:check` | Subscription scan only (fix ticket YAML before full CI) |
+| `pnpm ticket:check` | Builds `@eristack/ai-ticket-generator` then scans every `ticket.yaml` (affected CI runs this pre-turbo) |
 | `pnpm lockfile:sync` | After any `package.json` dep change — refresh `pnpm-lock.yaml` |
 | `pnpm lockfile:check` | Same as CI install gate (`--frozen-lockfile`) |
 | `pnpm prepush` | **Before push:** `ci:affected` — drift gates + build/typecheck/test on packages changed vs `origin/main` (~1–2 min) |
