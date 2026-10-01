@@ -25,6 +25,7 @@ export type PresignPutOptions = {
 
 export type PresignGetOptions = {
   expiresInSeconds?: number;
+  /** When set, S3 presign adds ResponseContentDisposition attachment. Omit for inline browser viewing. */
   downloadFilename?: string;
 };
 

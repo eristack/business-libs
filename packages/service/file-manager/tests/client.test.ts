@@ -56,4 +56,21 @@ describe("uploadViaPresign", () => {
     expect(stored.id).toBe("f1");
     expect(calls).toEqual(["presign", "put", "complete"]);
   });
+
+  it("getDownloadUrl adds downloadFilename query when requested", async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo) => {
+      const url = String(input);
+      expect(url).toBe(
+        "https://api.test/files/f1/download-url?downloadFilename=save.pdf",
+      );
+      return new Response(JSON.stringify({ url: "https://s3/get", expiresAt: "" }), {
+        status: 200,
+      });
+    });
+    const client = createFileManagerClient({
+      baseUrl: "https://api.test/files",
+      fetch: fetchMock as typeof fetch,
+    });
+    await client.getDownloadUrl("f1", { downloadFilename: "save.pdf" });
+  });
 });

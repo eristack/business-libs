@@ -70,7 +70,7 @@ Or use [`FileUploadDropzone`](./dev-tools.md) from `@eristack/file-manager/react
 | --- | --- |
 | **Presigned PUT** | Large files, direct browser → S3, API never buffers bytes |
 | **Server `uploadFromServer`** | Generated PDFs, imports, webhooks with body already in memory |
-| **`resolveDownloadUrl`** | Short-lived GET for private buckets |
+| **`resolveDownloadUrl`** | Short-lived GET for private buckets — **inline by default**; pass `{ downloadFilename }` for attachment |
 
 Always call **`completeUpload`** after a successful presigned PUT so metadata moves from `pending` → `ready`.
 

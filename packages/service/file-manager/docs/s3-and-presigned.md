@@ -41,6 +41,15 @@ Default TTL: **15 minutes** (override via `presign.putExpiresInSeconds` / `getEx
 
 ## Downloads
 
-`GET /files/:id/download-url` returns `{ url, expiresAt }` — redirect or open in a new tab.
+`GET /files/:id/download-url` returns `{ url, expiresAt }`.
 
-Optional `downloadFilename` is passed to S3 `ResponseContentDisposition` when using the core API directly.
+**Inline by default** — presigned GET URLs do **not** set `ResponseContentDisposition`, so browsers can render images/PDFs in `<img src>`, `<iframe>`, or `<video>`.
+
+Pass **`downloadFilename`** when you want a Save-as attachment:
+
+```ts
+await fileManager.resolveDownloadUrl(fileId);
+await fileManager.resolveDownloadUrl(fileId, { downloadFilename: record.ref.originalName });
+```
+
+HTTP: `GET /files/:id/download-url?downloadFilename=invoice.pdf` (optional `expiresInSeconds`).

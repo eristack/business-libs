@@ -5,6 +5,7 @@ import {
   memoryPutViaPresignedUrl,
 } from "../src/core/memory-driver.js";
 import { createMemoryFileRecordStore } from "../src/core/memory-store.js";
+import type { PresignGetOptions, StorageDriver } from "../src/core/types.js";
 
 describe("createFileManager", () => {
   it("presign → PUT → complete → download URL", async () => {
@@ -90,6 +91,34 @@ describe("createFileManager", () => {
     await files.deleteFile(stored.id);
     expect(await files.getFile(stored.id)).toBeNull();
     expect(await driver.headObject({ key: stored.ref.key })).toBeNull();
+  });
+
+  it("resolveDownloadUrl presignGet is inline by default", async () => {
+    const presignCalls: Array<{ options?: PresignGetOptions }> = [];
+    const base = createMemoryStorageDriver();
+    const driver: StorageDriver = {
+      ...base,
+      async presignGet(input) {
+        presignCalls.push({ options: input.options });
+        return base.presignGet(input);
+      },
+    };
+    const files = createFileManager({
+      driver,
+      store: createMemoryFileRecordStore(),
+    });
+    const stored = await files.uploadFromServer({
+      originalName: "photo.png",
+      mimeType: "image/png",
+      body: new TextEncoder().encode("png"),
+    });
+
+    await files.resolveDownloadUrl(stored.id);
+    expect(presignCalls[0]?.options?.downloadFilename).toBeUndefined();
+
+    presignCalls.length = 0;
+    await files.resolveDownloadUrl(stored.id, { downloadFilename: "photo.png" });
+    expect(presignCalls[0]?.options?.downloadFilename).toBe("photo.png");
   });
 
   it("resolveDownloadUrl rejects pending files", async () => {

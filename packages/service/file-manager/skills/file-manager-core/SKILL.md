@@ -2,7 +2,8 @@
 name: file-manager-core
 description: >
   Pure @eristack/file-manager: createFileManager, FileRef JSON for DB columns,
-  presigned upload sessions, server uploadFromServer, resolveDownloadUrl,
+  presigned upload sessions, server uploadFromServer, resolveDownloadUrl (inline
+  GET by default; pass downloadFilename for S3 attachment disposition),
   buildObjectKey. S3 via @eristack/file-manager/s3. Memory driver tests only.
 metadata:
   type: core
@@ -19,6 +20,7 @@ sources:
 - **Production:** S3 driver + Drizzle `file_manager_files` — never `createMemory*` in prod.
 - Persist **`fileId` or `FileRef`** on entities — not presigned URLs.
 - Browser flow: `beginPresignedUpload` → PUT to S3 → `completeUpload`.
+- **`resolveDownloadUrl(fileId)`** — inline preview (`<img src>`, PDF iframe). **`{ downloadFilename }`** — Save-as attachment via S3 `ResponseContentDisposition`.
 
 ## Minimal wiring
 

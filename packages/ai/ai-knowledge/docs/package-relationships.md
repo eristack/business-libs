@@ -67,7 +67,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/comms` | — | Email/SMS/WhatsApp vendor drivers; pairs with jwt-auth for magic-link content |
 | `@eristack/rbac` / `@eristack/abac` / `@eristack/pbac` | — | Boolean roles vs attrs vs document policies |
 | `@eristack/epoch` | — | Cache version scopes |
-| `@eristack/file-manager` | **peer:** backseat, AWS S3 SDK | Uploads + `FileRef`; optional `@eristack/jwt-auth` at app edge |
+| `@eristack/file-manager` | **peer:** backseat, AWS S3 SDK | Uploads + `FileRef`; `resolveDownloadUrl` inline by default — `{ downloadFilename }` for attachment only |
 | `@eristack/payment-manager` | money; **peer:** stripe, backseat | Intents + webhooks; **companion:** payment-instrument for saved cards |
 | `@eristack/hash-chained-ledger` | drizzle default | Primitive for stock/financial/valuations |
 | `@eristack/opinion` | **peers:** rest, pbac, data-grid, doc-transitions | ERP document REST **canon** (not generic REST) |

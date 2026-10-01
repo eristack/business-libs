@@ -147,7 +147,7 @@ tanstackIntent:
     for: "@eristack/file-manager adapters: drizzle tables/store, REST + express createFileManagerRouter, client uploadViaPresign, react FileUploadDropzone and FileManagerDevPanel. Use when wiring S3 uploads in API and Vite apps."
   - id: "@eristack/file-manager#file-manager-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/file-manager#file-manager-core"
-    for: "Pure @eristack/file-manager: createFileManager, FileRef JSON for DB columns, presigned upload sessions, server uploadFromServer, resolveDownloadUrl, buildObjectKey. S3 via @eristack/file-manager/s3. Memory driver tests only."
+    for: "Pure @eristack/file-manager: createFileManager, FileRef JSON for DB columns, presigned upload sessions, server uploadFromServer, resolveDownloadUrl (inline GET by default; pass downloadFilename for S3 attachment disposition), buildObjectKey. S3 via @eristack/file-manager/s3. Memory driver tests only."
   - id: "@eristack/filter-builder#filter-builder-core"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/filter-builder#filter-builder-core"
     for: "@eristack/filter-builder v0 chrome for data-grid list filters: FilterChipBar { children } and FilterSheet { open, title, children, footer } (role=dialog, null when closed) with erista-filter-* CSS hooks. Bind to @eristack/data-grid controller draft (filterRows, fields, opsForField, add/update/removeFilterRow, commitFilters, isDirty) and form-ui editors; string values only. No state, no pickers, no focus trap."

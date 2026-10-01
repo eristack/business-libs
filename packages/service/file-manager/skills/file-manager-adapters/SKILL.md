@@ -49,7 +49,7 @@ import { FileManagerDevPanel } from "@eristack/file-manager/react";
 
 ## HTTP surface
 
-See `docs/http.md`: `POST /uploads/presign`, `POST /uploads/complete`, `GET /:id/download-url`.
+See `docs/http.md`: `POST /uploads/presign`, `POST /uploads/complete`, `GET /:id/download-url` (inline by default; `?downloadFilename=` for attachment). Client: `getDownloadUrl(id, { downloadFilename })`.
 
 ## Zod
 

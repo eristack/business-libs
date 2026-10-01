@@ -142,7 +142,8 @@ React: [`FileUploadDropzone`](./dev-tools.md) + TanStack Query hooks from `@eris
 When rendering an invoice:
 
 ```ts
-const { url } = await fileManager.resolveDownloadUrl(invoice.attachmentFileId!);
+const { url } = await fileManager.resolveDownloadUrl(invoice.attachmentFileId!); // inline preview
+// Save-as download: resolveDownloadUrl(id, { downloadFilename: "invoice.pdf" })
 // redirect or <a href={url}> — URL expires; regenerate on each view
 ```
 

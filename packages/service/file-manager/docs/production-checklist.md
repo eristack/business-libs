@@ -31,7 +31,7 @@ Before shipping file uploads to production:
 ## Client
 
 - [ ] Upload uses presign → PUT → complete (or server upload for generated files)
-- [ ] Download uses fresh `resolveDownloadUrl` / `GET /:id/download-url`
+- [ ] Preview uses `resolveDownloadUrl(id)` (inline); Save-as uses `{ downloadFilename }` or `?downloadFilename=`
 - [ ] Failed PUT does not call `completeUpload`
 
 ## Operations
