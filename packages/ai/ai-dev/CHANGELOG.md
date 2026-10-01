@@ -1,5 +1,11 @@
 # @eristack/ai-dev
 
+## 0.1.6
+
+### Patch Changes
+
+- f221252: Affected CI: bootstrap-build `@eristack/ai-ticket-generator` before `ticket:check` so pre-turbo drift does not fail with missing `dist/cli.js`.
+
 ## 0.1.5
 
 ### Patch Changes

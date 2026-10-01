@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-01T08:10:05.114Z",
+  "generatedAt": "2026-10-01T08:26:15.731Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -557,7 +557,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/file-manager",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Headless file uploads: S3 presigned PUT/GET (inline view by default; optional attachment filename), server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
       "slug": "file-manager",
       "adapters": [
