@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.21
+
+### Patch Changes
+
+- 899beb6: Catalog `@eristack/spreadsheet-operator`: spreadsheet-keyboard-operator recipe, ui-package-stack ADR, package-relationships / document-lines rows.
+
 ## 0.1.20
 
 ### Patch Changes
