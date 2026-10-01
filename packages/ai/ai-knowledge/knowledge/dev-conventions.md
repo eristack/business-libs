@@ -106,7 +106,7 @@ Ship features in **one feature PR**; let Changesets + CI own version bumps in a 
 1. Every subpath imported by spine packages must appear in **`package.json` `exports`** (e.g. `"./adapters"` on `@eristack/backseat`).
 2. Every export subpath must have a **`tsup` entry** that builds `dist/…`.
 3. After **`pnpm build`**, run **`pnpm exports:check`** — CI enforces; catches Vite `Missing "./adapters" specifier`.
-4. Add **`import("@eristack/pkg/subpath")`** tests for new public subpaths.
+4. **`pnpm exports:check`** (after build) validates dist subpaths — do not duplicate that in vitest with `import("@eristack/pkg/subpath")` from unit tests. Vitest SSR re-bundles `dist/` chunks and causes flaky `ERR_MODULE_NOT_FOUND` on CI (mixed chunk hashes). Unit tests import **`../src/…`**; reserve package-name resolution tests for dedicated export suites (e.g. `@eristack/backseat` adapters) or integration/e2e.
 
 Do not document/catalog an export unless it passes `exports:check`.
 
