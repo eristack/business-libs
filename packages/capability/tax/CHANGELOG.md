@@ -1,5 +1,11 @@
 # @eristack/tax
 
+## 0.1.1
+
+### Patch Changes
+
+- 29e2d83: 3ss: add flat app tax catalog helpers `buildTaxCatalog`, `resolveTaxRateFromCatalog`, `listTaxCodesForPick`.
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@eristack/drizzle",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "App-owned Drizzle boot (openDrizzle) plus dialect column helpers and Eristack spine table composer for sqlite and Postgres",
   "repository": {
     "type": "git",
@@ -36,11 +36,11 @@
   },
   "peerDependencies": {
     "@eristack/backseat": "^0.1.0",
-    "@eristack/doc-number": "^0.1.0",
+    "@eristack/doc-number": "^0.3.5",
     "@eristack/entity-id": "^0.1.0",
     "@eristack/epoch": "^0.1.0",
-    "@eristack/jwt-auth": "^0.1.0",
-    "@eristack/rbac": "^0.1.0",
+    "@eristack/jwt-auth": "^0.4.6",
+    "@eristack/rbac": "^0.2.3",
     "better-sqlite3": "^9.0.0 || ^10.0.0 || ^11.0.0",
     "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
     "pg": "^8.11.0"

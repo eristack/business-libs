@@ -1,5 +1,11 @@
 # @eristack/epoch
 
+## 0.1.4
+
+### Patch Changes
+
+- 29e2d83: 3ss: add `useEpochInvalidation` React hook with default exact TanStack Query invalidation when a scope epoch bumps.
+
 ## 0.1.3
 
 ### Patch Changes

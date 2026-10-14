@@ -1,5 +1,11 @@
 # @eristack/jwt-auth
 
+## 0.4.6
+
+### Patch Changes
+
+- 759dc09: 3ss: refresh coordinator with cross-tab lock, network retries, and session clear only on 401/403 refresh.
+
 ## 0.4.5
 
 ### Patch Changes

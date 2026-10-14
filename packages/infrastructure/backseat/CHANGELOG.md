@@ -1,5 +1,11 @@
 # @eristack/backseat
 
+## 0.1.10
+
+### Patch Changes
+
+- 759dc09: 3ss: createErrorCatalog for HTTP/client disposition; patchDocumentWithExpectedVersion on @eristack/backseat/client.
+
 ## 0.1.9
 
 ### Patch Changes

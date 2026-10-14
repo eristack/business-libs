@@ -1,5 +1,12 @@
 # @eristack/ai-knowledge
 
+## 0.1.23
+
+### Patch Changes
+
+- 759dc09: 3ss: adoption checklist, package-relationships rows, B4/drizzle/print guides, program closure.
+- bfd90d2: Add indonesia-admin-divisions recipe and package-relationships row for @eristack/id-wilayah.
+
 ## 0.1.22
 
 ### Patch Changes

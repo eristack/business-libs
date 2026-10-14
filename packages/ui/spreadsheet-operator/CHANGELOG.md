@@ -1,5 +1,11 @@
 # @eristack/spreadsheet-operator
 
+## 0.1.1
+
+### Patch Changes
+
+- 29e2d83: 3ss: add `commitActiveCell` and `data-spreadsheet-popover` guard for portaled select commits.
+
 ## 0.1.0
 
 ### Minor Changes
