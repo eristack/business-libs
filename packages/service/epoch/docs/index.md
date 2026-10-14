@@ -35,7 +35,7 @@ After a mutation, should the client **keep cached list/detail data** or **refetc
 | `@eristack/epoch/express` | `createEpochRouter` |
 | `@eristack/epoch/nest` | `EpochModule.forRoot` |
 | `@eristack/epoch/client` | `createEpochClient` |
-| `@eristack/epoch/react` | `useEpochCachePolicy`, `useEpochCurrent` |
+| `@eristack/epoch/react` | `useEpochCachePolicy`, `useEpochCurrent`, `useEpochInvalidation` |
 | `@eristack/epoch/backseat` | Browser prototype registration |
 
 Full wiring: [Getting started](./getting-started.md).

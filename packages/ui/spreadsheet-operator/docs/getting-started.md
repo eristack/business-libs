@@ -212,7 +212,7 @@ function MoneyCell({ address, amount, currency, onCommit }: Props) {
 Rules for editors:
 
 - Let **Enter / Tab / Escape** bubble to `window` — the operator handles them. Stop propagation for everything else so type-to-edit does not re-trigger.
-- **Select / combobox:** on `editing === true`, open your listbox and keep arrows inside it (the default `arrowInEdit: "caret"` already leaves arrows to the input). Commit the chosen value on close. This package does not ship a Select.
+- **Select / combobox:** on `editing === true`, open your listbox. Portaled menus must carry `data-spreadsheet-popover` so an outside `pointerdown` does not commit a stale draft before the option click. On pick, call `commitActiveCell(chosenValue)` from `useSpreadsheetScope()` (same path as Enter — no blur timeout race). This package does not ship a Select.
 - The editor's `readValue()` is what `commit` reports — keep a ref to the draft rather than reading React state that may not have flushed.
 
 ## 6. Div grids and TanStack Table

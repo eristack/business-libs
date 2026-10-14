@@ -4,6 +4,8 @@
 
 Load: `@eristack/ai-knowledge#document-lines-erp` · Package map: [package-relationships](./package-relationships.md) · Horizon A: `@eristack/ai-knowledge#backseat-then-backend` (`registerHorizonDocumentSpine` + `examples/horizon-a`) · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
 
+**Tiga Sekawan 3ss:** consumer adoption checklist — [tiga-sekawan-3ss-adoption](./tiga-sekawan-3ss-adoption.md). Library ticket: `tickets/20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md`.
+
 ---
 
 ## Spine (generic layers)
@@ -135,6 +137,10 @@ await epoch.bumpMany(["invoices"]);
 ```
 
 `next()` never over HTTP — see [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md).
+
+### Print layout (company default vs document)
+
+Nullable `print_shipment_fields` (or equivalent) on the invoice: **`null` follows the live company print settings**; a saved object freezes that invoice’s field mask. Resolve at print/PDF time — see [print-layout-default-vs-document](./print-layout-default-vs-document.md). PATCH print-settings uses `expectedVersion` like any other document slice.
 
 ---
 

@@ -115,12 +115,13 @@ export const technologyStack: TechStackGroup[] = [
   },
   {
     label: "Registries & trade data",
-    description: "@eristack/iso-3166 + unlocode — validate assigned countries and UN/LOCODE ports.",
+    description: "@eristack/iso-3166, unlocode, id-wilayah — countries, ports, and Indonesia admin codes.",
     items: [
       { name: "ISO 3166", href: "https://www.iso.org/iso-3166-country-codes.html", note: "Assigned alpha-2/alpha-3", logo: "iso-3166" },
       { name: "UN/LOCODE", href: "https://unece.org/trade/cefact/unlocode-code-list-country-and-destination", note: "Five-char port codes", logo: "unlocode" },
       { name: "Country validation", href: "/docs/iso-3166/getting-started", note: "normalizeAlpha2, subdivisions", logo: "eristack" },
       { name: "Port codes", href: "/docs/unlocode/getting-started", note: "normalizeUnlocode + data-grid masters", logo: "eristack" },
+      { name: "Indonesia admin divisions", href: "/docs/id-wilayah/getting-started", note: "Official village codes + bundled registry", logo: "eristack" },
     ],
   },
   {

@@ -1,0 +1,23 @@
+{
+  "title": "@eristack/drizzle",
+  "pages": [
+    "index",
+    "getting-started",
+    "schema"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "index",
+        "getting-started"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "schema"
+      ]
+    }
+  ]
+}

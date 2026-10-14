@@ -5,6 +5,7 @@ import { ForbiddenError } from "../../../service/rbac/src/core/errors.js";
 import { BackseatVersionConflictError } from "../src/core/errors.js";
 import {
   createAsyncHandler,
+  createErrorCatalog,
   createMapDomainError,
   resolveDomainError,
 } from "../src/express/index.js";
@@ -59,6 +60,28 @@ describe("resolveDomainError", () => {
       }),
     });
     expect(mapped?.status).toBe(418);
+  });
+
+  it("maps app catalog codes and VALIDATION prefixes", () => {
+    const catalog = createErrorCatalog([
+      {
+        code: "INVOICE_NOT_DRAFT",
+        httpStatus: 409,
+        userMessage: "Only draft invoices can be edited",
+      },
+    ]);
+    const domainErr = Object.assign(new Error("bad state"), {
+      code: "INVOICE_NOT_DRAFT",
+    });
+    const mapped = resolveDomainError(domainErr, { catalog });
+    expect(mapped?.body.error.message).toBe("Only draft invoices can be edited");
+
+    const validation = Object.assign(new Error("qty required"), {
+      code: "VALIDATION_QTY",
+    });
+    expect(resolveDomainError(validation, { catalog })?.body.error.code).toBe(
+      "VALIDATION_ERROR",
+    );
   });
 });
 

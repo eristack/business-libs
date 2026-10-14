@@ -39,6 +39,11 @@ export type SpreadsheetScopeApi = {
   readonly operator: SpreadsheetOperator;
   readonly state: SpreadsheetOperatorState;
   registerEditor(gridId: GridId, address: CellAddress, editor: SpreadsheetCellEditor): () => void;
+  /**
+   * Commit the active edit (same as Enter). Pass `value` when a select/listbox picked a new string
+   * so the commit runs before outside-pointer deactivation races the dropdown.
+   */
+  commitActiveCell(value?: string): void;
 };
 
 const ScopeContext = createContext<SpreadsheetScopeApi | null>(null);
@@ -128,9 +133,13 @@ export function isKeyTargetOutsideActiveGrid(
   return grid?.getAttribute("data-spreadsheet-grid") !== activeGridId;
 }
 
-/** True when a pointer-down landed outside every registered grid element. */
+/**
+ * True when a pointer-down landed outside every registered grid element and outside portaled
+ * editors (mark dropdowns with `data-spreadsheet-popover`).
+ */
 export function isPointerTargetOutsideGrids(target: KeyTargetLike | null | undefined): boolean {
   if (!target) return false;
+  if (target.closest("[data-spreadsheet-popover]")) return false;
   return target.closest("[data-spreadsheet-grid]") === null;
 }
 
@@ -215,9 +224,23 @@ export function SpreadsheetScopeProvider({
     [],
   );
 
+  const commitActiveCell = useCallback(
+    (value?: string) => {
+      const current = operator.getState();
+      if (current.mode !== "editing") return;
+      const key = cellKey(current.gridId, current.address);
+      const editor = editorsRef.current.get(key);
+      if (value !== undefined) {
+        editor?.writeValue?.(value);
+      }
+      operator.dispatch({ type: "commit" });
+    },
+    [operator],
+  );
+
   const api = useMemo<SpreadsheetScopeApi>(
-    () => ({ operator, state, registerEditor }),
-    [operator, state, registerEditor],
+    () => ({ operator, state, registerEditor, commitActiveCell }),
+    [operator, state, registerEditor, commitActiveCell],
   );
 
   return createElement(ScopeContext.Provider, { value: api }, children);

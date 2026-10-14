@@ -132,6 +132,19 @@ describe("spreadsheet-operator/react", () => {
     expect(isPointerTargetOutsideGrids(null)).toBe(false);
   });
 
+  it("treats portaled select popovers as inside the grid scope", () => {
+    const popoverTarget: KeyTargetLike = {
+      matches: () => false,
+      closest: (selector: string) => {
+        if (selector === "[data-spreadsheet-popover]") {
+          return { getAttribute: () => "" };
+        }
+        return null;
+      },
+    };
+    expect(isPointerTargetOutsideGrids(popoverTarget)).toBe(false);
+  });
+
   it("throws outside the provider", () => {
     function Orphan() {
       useSpreadsheetScope();

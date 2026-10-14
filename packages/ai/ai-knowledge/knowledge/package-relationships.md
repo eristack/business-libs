@@ -14,6 +14,7 @@ Load: `@eristack/ai-knowledge#package-relationships` · ERP lines: `#document-li
 | --- | --- |
 | `@eristack/iso-3166` | Assigned ISO 3166-1/2 codes — validate, alpha-3 convert |
 | `@eristack/unlocode` | UN/LOCODE normalize/parse — **depends on** iso-3166 |
+| `@eristack/id-wilayah` | Indonesia official admin codes (2/4/7/10) + bundled villages; English unit kinds through neighborhood — pair with iso-3166 (`ID`) + address for postal |
 | `@eristack/iso-4217` | Currency metadata (pairs with money) |
 | `@eristack/reference-data` | **Capability** — versioned dataset packs over registries |
 
@@ -73,6 +74,8 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | --- | --- |
 | `@eristack/rest` | Declarative routes + OpenAPI shell |
 | `@eristack/backseat` | In-browser mock REST (Horizon A) |
+| `@eristack/drizzle` | App `openDrizzle` boot + `/schema` spine/columns + collection manifests (3ss B3/B4) |
+| `@eristack/drizzle-kit-helpers` | drizzle-kit pg/sqlite config fragments (dev) |
 | `@eristack/logger` | JSON-lines logging |
 
 ## Which recipe / skill first?
@@ -90,6 +93,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | PATCH `/:id/:action`, document route map | `#opinion-http` | opinion + rest + doc-transitions |
 | Inventory / GL / valuation | Dedicated recipes | **Do not** pull into document-lines products by default |
 | ERP **list / doc React UI** | `#ui-package-stack` | data-grid + qups skills when wiring filters or lines |
+| **Tiga Sekawan 3ss** library shipped → consumer adopt | `#tiga-sekawan-3ss-adoption` | Per-row package skills; `#drizzle-app-database`, `#collection-declaration-horizon-b` |
 | Spreadsheet **keyboard** (not xlsx) | `#spreadsheet-operator-core` | line-grid / form-ui on commit |
 
 ## UI layer (`packages/ui/`)
@@ -109,6 +113,7 @@ Styled React for ERP screens — **peers** spine packages; no QUPS or filter JSO
 | `@eristack/master-detail` | list-shell | Split panes |
 | `@eristack/command-palette` | react | Cmd+K shell |
 | `@eristack/multitab` | react-router (optional) | Tab workspace |
+| `@eristack/feedback` | react (optional on core) | Busy lock + action sequence (3ss B1/B5); app owns chrome |
 
 Canonical compose guide: `knowledge/ui-package-stack.md` · Recipes: `erp-ui-design-system`, `erp-ui-shell`, `erp-list-and-doc-screens`.
 

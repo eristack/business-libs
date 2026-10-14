@@ -1,0 +1,12 @@
+package: "@eristack/id-wilayah"
+title: id-wilayah
+maintainers:
+  - support@eristack.dev
+scope: >
+  Indonesia official admin division codes (2/4/7/10 digits), bundled registry through
+  villages, unit kinds through hamlet/community block/neighborhood, optional Zod.
+outOfScope: >
+  BPS bridging codes, postal codes, geocoding, Drizzle columns, mandatory national
+  registry for sub-village levels, automatic ministry sync in production.
+skills:
+  - id-wilayah-core

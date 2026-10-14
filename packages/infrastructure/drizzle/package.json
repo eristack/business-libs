@@ -1,0 +1,103 @@
+{
+  "name": "@eristack/drizzle",
+  "version": "0.1.0",
+  "description": "App-owned Drizzle boot (openDrizzle) plus dialect column helpers and Eristack spine table composer for sqlite and Postgres",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristack/business-libs.git",
+    "directory": "packages/infrastructure/drizzle"
+  },
+  "homepage": "https://github.com/eristack/business-libs/tree/main/packages/infrastructure/drizzle",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./schema": {
+      "import": {
+        "types": "./dist/schema/index.d.ts",
+        "default": "./dist/schema/index.js"
+      },
+      "require": {
+        "types": "./dist/schema/index.d.ts",
+        "default": "./dist/schema/index.cjs"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@eristack/backseat": "^0.1.0",
+    "@eristack/doc-number": "^0.1.0",
+    "@eristack/entity-id": "^0.1.0",
+    "@eristack/epoch": "^0.1.0",
+    "@eristack/jwt-auth": "^0.1.0",
+    "@eristack/rbac": "^0.1.0",
+    "better-sqlite3": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "drizzle-orm": "^0.39.0 || ^0.40.0 || ^0.41.0 || ^0.42.0 || ^0.43.0 || ^0.44.0",
+    "pg": "^8.11.0"
+  },
+  "peerDependenciesMeta": {
+    "@eristack/backseat": {
+      "optional": true
+    },
+    "better-sqlite3": {
+      "optional": true
+    },
+    "pg": {
+      "optional": true
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "skills",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tanstack-intent",
+    "drizzle",
+    "postgres",
+    "sqlite",
+    "eristack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@eristack/backseat": "workspace:*",
+    "@eristack/doc-number": "workspace:*",
+    "@eristack/entity-id": "workspace:*",
+    "@eristack/epoch": "workspace:*",
+    "@eristack/jwt-auth": "workspace:*",
+    "@eristack/rbac": "workspace:*",
+    "@tanstack/intent": "^0.3.6",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.15.29",
+    "@types/pg": "^8.11.0",
+    "better-sqlite3": "^11.9.1",
+    "drizzle-orm": "^0.41.0",
+    "pg": "^8.14.1",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^4.1.10"
+  },
+  "license": "MIT"
+}

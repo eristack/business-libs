@@ -34,7 +34,7 @@ export const packageCategories = [
     highlights: [
       {
         title: "One package per code system",
-        body: "iso-3166, unlocode, iso-4217 — not a grab-bag ISO layer.",
+        body: "iso-3166, unlocode, id-wilayah, iso-4217 — one package per code system.",
       },
       {
         title: "Not your CRM masters",
@@ -877,6 +877,42 @@ alpha3ToAlpha2("IDN") // "ID"`,
 
 const pol = normalizeUnlocode("ID JKT")
 formatUnlocodeDisplay(pol) // "ID JKT"`,
+    },
+  },
+  {
+    slug: "id-wilayah",
+    name: "@eristack/id-wilayah",
+    title: "Indonesia admin divisions",
+    category: "registries" as const,
+    directory: "packages/registries/id-wilayah",
+    href: "/id-wilayah",
+    docsHref: "/docs/id-wilayah",
+    tagline: "Official numeric admin codes — province through village.",
+    description:
+      "Normalize 2/4/7/10-digit ministry-style codes, bundled registry through ~84k villages, English unit kinds through hamlet and neighborhood. Pair with iso-3166 for country ID and address for postal shape.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/id-wilayah",
+    highlights: [
+      {
+        title: "Hierarchy parse",
+        body: "parseAdminDivisionCode — segments without hand-splitting strings.",
+      },
+      {
+        title: "Bundled snapshot",
+        body: "Node gzip loader for national registry; app owns pickers and deactivations.",
+      },
+      {
+        title: "Sub-village kinds",
+        body: "Hamlet, community block, neighborhood local ids under a village code.",
+      },
+    ],
+    sample: {
+      filename: "village.ts",
+      language: "ts",
+      code: `import { normalizeAdminDivisionCode, parseAdminDivisionCode } from "@eristack/id-wilayah"
+
+const code = normalizeAdminDivisionCode("3171010001")
+parseAdminDivisionCode(code).segments.district // "3171010"`,
     },
   },
   {
@@ -2041,6 +2077,35 @@ import { DensityProvider } from "@eristack/design-system/react"
     },
   },
   {
+    slug: "feedback",
+    name: "@eristack/feedback",
+    title: "Feedback",
+    category: "ui" as const,
+    directory: "packages/ui/feedback",
+    href: "/feedback",
+    docsHref: "/docs/feedback",
+    tagline: "Busy lock and confirm-run-success sequencing.",
+    description:
+      "Headless busy counter, optional progress observer, and confirm→run→callback sequence — the app paints lock UI and toasts.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/feedback @eristack/feedback/react react",
+    highlights: [
+      { title: "createBusy", body: "Nested run counter with optional label for lock dialogs." },
+      { title: "runFeedbackSequence", body: "Confirm, busy work, success/error hooks." },
+      { title: "Error catalog pair", body: "Use with @eristack/backseat/express createErrorCatalog." },
+    ],
+    sample: {
+      filename: "busy.tsx",
+      language: "tsx",
+      code: `import { BusyProvider, useBusyState } from "@eristack/feedback/react"
+import { runFeedbackSequence } from "@eristack/feedback"
+
+<BusyProvider>
+  <LockOverlay />
+</BusyProvider>`,
+    },
+  },
+  {
     slug: "line-grid",
     name: "@eristack/line-grid",
     title: "Line grid",
@@ -2339,6 +2404,36 @@ import { eristackProdPostgresConfig } from "@eristack/drizzle-kit-helpers"
 export default defineConfig({
   ...eristackProdPostgresConfig("./src/db/schema.ts"),
   dbCredentials: { url: process.env.DATABASE_URL! },
+})`,
+    },
+  },
+  {
+    slug: "drizzle",
+    name: "@eristack/drizzle",
+    title: "Drizzle app boot",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/drizzle",
+    href: "/drizzle",
+    docsHref: "/docs/drizzle",
+    tagline: "openDrizzle — one app-owned sqlite or Postgres handle.",
+    description:
+      "Lazy better-sqlite3/pg, APP_DB_DIALECT resolution, dialect migrations, redacted health location. 3ss B3 step 1 — table packages never open connections.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/drizzle drizzle-orm pg better-sqlite3",
+    highlights: [
+      { title: "App-owned pool", body: "Compose root calls openDrizzle once." },
+      { title: "Dual dialect", body: "Separate migration folders per sqlite/pgsql." },
+      { title: "Health-safe", body: "redactDatabaseLocation for readiness probes." },
+    ],
+    sample: {
+      filename: "database.ts",
+      language: "ts",
+      code: `import * as schema from "./schema.js"
+import { openDrizzle } from "@eristack/drizzle"
+
+export const databasePromise = openDrizzle({
+  schema,
+  migrationsFolder: { sqlite: "./drizzle/sqlite", pgsql: "./drizzle/pgsql" },
 })`,
     },
   },

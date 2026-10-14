@@ -410,6 +410,38 @@ export const recipes = [
     ]
   },
   {
+    "id": "erp-feedback-busy",
+    "title": "Busy lock, confirm-run sequence, and error disposition",
+    "priority": 13,
+    "triggers": [
+      "busy lock",
+      "shell inert",
+      "confirm then save",
+      "error catalog",
+      "error disposition",
+      "toast error message",
+      "feedback sequence",
+      "3ss"
+    ],
+    "rationale": "3ss platform seams: @eristack/feedback createBusy/runFeedbackSequence for confirm→run→toast; @eristack/backseat/express createErrorCatalog for HTTP + client disposition. Load feedback-core and #http-errors — not a second mapHandlerError.",
+    "packages": [
+      {
+        "name": "@eristack/feedback",
+        "skills": [
+          "feedback-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "epoch-cache-invalidation",
     "title": "Data-version epochs for cache invalidation",
     "priority": 14,
@@ -424,7 +456,7 @@ export const recipes = [
       "tanstack query invalidate",
       "bumpmany"
     ],
-    "rationale": "Use @eristack/epoch for headless per-scope version counters: bump after mutations, resolveCachePolicy returns use-cache vs refetch for TanStack Query. Drizzle default; client/react/express/backseat adapters. Read docs/getting-started.md only.",
+    "rationale": "Use @eristack/epoch for headless per-scope version counters: bump after mutations, resolveCachePolicy returns use-cache vs refetch for TanStack Query; useEpochInvalidation(scope, queryKey, { exact: true }) binds a detail query without prefix refetch. Drizzle default; client/react/express/backseat adapters. Read docs/getting-started.md only.",
     "packages": [
       {
         "name": "@eristack/epoch",
@@ -631,6 +663,42 @@ export const recipes = [
     ]
   },
   {
+    "id": "indonesia-admin-divisions",
+    "title": "Indonesia administrative division codes",
+    "priority": 15,
+    "triggers": [
+      "indonesia province",
+      "indonesia regency",
+      "kabupaten",
+      "kecamatan",
+      "desa",
+      "kelurahan",
+      "kode wilayah",
+      "wilayah administrasi",
+      "admin division indonesia",
+      "indonesia village code",
+      "rw rt indonesia",
+      "dusun"
+    ],
+    "rationale": "Use @eristack/id-wilayah for official 2/4/7/10-digit admin codes, bundled village registry, and English unit kinds through hamlet/community block/neighborhood. Pair with iso-3166 for country ID. Load id-wilayah-core — getting-started only.",
+    "packages": [
+      {
+        "name": "@eristack/id-wilayah",
+        "skills": [
+          "id-wilayah-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/iso-3166",
+        "skills": [
+          "iso-3166-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "file-upload-s3",
     "title": "File uploads, S3, and presigned URLs",
     "priority": 16,
@@ -811,6 +879,105 @@ export const recipes = [
         "role": "supporting"
       }
     ]
+  },
+  {
+    "id": "tiga-sekawan-3ss-adopt",
+    "title": "Adopt 3ss platform seams in a document-lines consumer app",
+    "priority": 20,
+    "triggers": [
+      "tiga sekawan adoption",
+      "3ss consumer",
+      "platform seams adopt",
+      "replace busy.tsx eristack"
+    ],
+    "rationale": "After business-libs 3ss release — load @eristack/ai-knowledge#tiga-sekawan-3ss-adoption only. Maps rows A1–B11 to packages and consumer file paths; no new library work.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#tiga-sekawan-3ss-adoption"
+    ],
+    "packages": []
+  },
+  {
+    "id": "erp-collection-declaration",
+    "title": "ERP collection manifest for Backseat and Drizzle (Horizon B)",
+    "priority": 21,
+    "triggers": [
+      "collection declaration",
+      "defineerpcollection",
+      "backseat drizzle same collection",
+      "routes snapshot mirror",
+      "horizon b collection"
+    ],
+    "rationale": "3ss B4 — defineErpCollection + #collection-declaration-horizon-b + @eristack/backseat/testing mirror smoke. Codegen later.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#collection-declaration-horizon-b"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/drizzle",
+        "skills": [
+          "drizzle-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "drizzle-open-app-database",
+    "title": "Open Drizzle once at app compose (sqlite or Postgres)",
+    "priority": 19,
+    "triggers": [
+      "open drizzle",
+      "createappdatabase",
+      "app_db_dialect",
+      "drizzle app boot",
+      "database url postgres pool"
+    ],
+    "rationale": "3ss B3 — openDrizzle + @eristack/drizzle/schema spine/columns + #drizzle-app-database. Table packages never open pools.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#drizzle-app-database",
+      "@eristack/drizzle#drizzle-core"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/drizzle",
+        "skills": [
+          "drizzle-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/drizzle-kit-helpers",
+        "skills": [
+          "drizzle-kit-helpers-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
+    "id": "print-layout-default-document",
+    "title": "Print layout company default vs frozen document mask",
+    "priority": 18,
+    "triggers": [
+      "print settings",
+      "print layout",
+      "shipment fields on invoice",
+      "ar print",
+      "print tax codes",
+      "frozen print mask"
+    ],
+    "rationale": "3ss A7 — app-owned company print singleton + nullable document mask. Load @eristack/ai-knowledge#print-layout-default and knowledge/print-layout-default-vs-document.md only.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#print-layout-default"
+    ],
+    "packages": []
   },
   {
     "id": "document-lines-erp",

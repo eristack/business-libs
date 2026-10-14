@@ -3,7 +3,7 @@ name: epoch-adapters
 description: >
   Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore,
   Express createEpochRouter, Nest EpochModule, createEpochClient,
-  useEpochCachePolicy React hook, registerEpochBackseat for prototypes.
+  useEpochCachePolicy and useEpochInvalidation React hooks, registerEpochBackseat for prototypes.
 metadata:
   type: adapters
   library: "@eristack/epoch"
@@ -35,10 +35,11 @@ app.use("/api/epoch", createEpochRouter({ epoch }));
 
 ```ts
 import { createEpochClient } from "@eristack/epoch/client";
-import { useEpochCachePolicy } from "@eristack/epoch/react";
+import { useEpochCachePolicy, useEpochInvalidation } from "@eristack/epoch/react";
 
 const client = createEpochClient({ baseUrl: API_URL, basePath: "/api/epoch" });
 // useEpochCachePolicy(client, "orders", cachedEpoch) → { policy, current }
+// useEpochInvalidation(client, "jobs", ["job", id], { exact: true }) → invalidates on scope bump
 ```
 
 ## Backseat

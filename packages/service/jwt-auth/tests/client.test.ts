@@ -119,4 +119,29 @@ describe("createJwtAuthClient", () => {
     expect(token).toBe("fresh");
     client.dispose();
   });
+
+  it("keeps refresh token when refresh fails with a network error", async () => {
+    const storage = createMemoryTokenStorage();
+    await storage.setAccessToken("stale");
+    await storage.setRefreshToken("refresh-1");
+    await storage.setAccessTokenExpiresAt(new Date(Date.now() + 10_000).toISOString());
+
+    const fetchMock = vi.fn(async () => {
+      throw new TypeError("Failed to fetch");
+    });
+
+    const client = createJwtAuthClient({
+      baseUrl: "https://api.example.com",
+      storage,
+      fetch: fetchMock as unknown as typeof fetch,
+      refreshSkewMs: 60_000,
+      credentials: "omit",
+      refreshCoordinator: { crossTabLock: false, maxNetworkRetries: 0 },
+    });
+
+    const token = await client.ensureAccessToken();
+    expect(token).toBe("stale");
+    expect(await storage.getRefreshToken()).toBe("refresh-1");
+    client.dispose();
+  });
 });

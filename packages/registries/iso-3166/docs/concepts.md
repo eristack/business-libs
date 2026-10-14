@@ -27,4 +27,4 @@ Dataset updates ship as **patch/minor package releases**; bulk exports belong in
 
 ## Registries layer on the site
 
-Browse **Registries** on [eristack.dev/docs](/docs) for `@eristack/unlocode` and future code-system packages. Tenant masters (which ports you operate) stay in **your** tables + `@eristack/data-grid`.
+Browse **Registries** on [eristack.dev/docs](/docs) for `@eristack/unlocode`, `@eristack/id-wilayah` (Indonesia admin codes), and related code-system packages. Tenant masters stay in **your** tables + `@eristack/data-grid`.

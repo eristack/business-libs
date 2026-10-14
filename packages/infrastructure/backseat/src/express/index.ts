@@ -12,6 +12,14 @@ export {
   type DomainErrorMapping,
   type MapDomainErrorOptions,
 } from "./domain-error-map.js";
+export {
+  createErrorCatalog,
+  parseJsonErrorEnvelope,
+  type ErrorCatalog,
+  type ErrorCatalogEntry,
+  type ErrorDisposition,
+  type ResolvedClientError,
+} from "./error-catalog.js";
 
 function sendEnvelope(
   res: Response,

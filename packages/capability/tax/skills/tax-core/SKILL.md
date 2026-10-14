@@ -1,10 +1,10 @@
 ---
 name: tax-core
 description: >
-  @eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) picks the effective-dated
-  percent string; applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via
-  @eristack/money Tax.onExclusive. Use for invoice/order line tax with versioned statutory
-  rates; snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.
+  @eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) for effective-dated schedules,
+  or buildTaxCatalog / resolveTaxRateFromCatalog / listTaxCodesForPick for flat app masters;
+  applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via @eristack/money Tax.onExclusive.
+  Snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.
 metadata:
   author: eristack
   version: "0.1"
@@ -30,6 +30,12 @@ const rate = tax.resolveTaxRate({ code: "VAT-STD", asOf: invoice.documentDate })
 const taxAmount = tax.applyTaxToAmount(net, rate.ratePercent);                    // tax portion, unrounded
 const gross = net.add(taxAmount.with(roundTax));                                  // round via @eristack/rounding-policy
 // errors: TaxCodeNotFoundError, TaxRateNotFoundError (no row on/before asOf)
+
+// Flat tenant master (no schedule):
+import { buildTaxCatalog, listTaxCodesForPick, resolveTaxRateFromCatalog } from "@eristack/tax";
+const catalog = buildTaxCatalog(rows.map((r) => ({ code: r.code, ratePercent: r.ratePercent, active: !r.deactivatedAt })));
+listTaxCodesForPick(catalog); // pickers
+resolveTaxRateFromCatalog(catalog, storedLine.taxCode); // inactive codes still resolve
 ```
 
 ## Checklist

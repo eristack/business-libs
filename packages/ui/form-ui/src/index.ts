@@ -5,3 +5,8 @@ export {
   TimestampWallInput,
   type TimestampWallInputProps,
 } from "./timestamp-wall-input.js";
+export {
+  SearchableSelect,
+  type SearchableSelectOption,
+  type SearchableSelectProps,
+} from "./searchable-select.js";

@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-01T08:26:15.731Z",
+  "generatedAt": "2026-10-14T14:41:48.733Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -422,7 +422,7 @@ export const catalog = {
           "id": "doc-shell-core",
           "name": "doc-shell-core",
           "packageName": "@eristack/doc-shell",
-          "description": "@eristack/doc-shell presentational document page chrome: DocShell { header, actions, children }, DocHeader { title, subtitle, badges }, DocActionBar { leading, trailing } with stable erista-doc-* CSS hooks and data-component attributes. Use for invoice/PO/job detail routes (with line-grid, policy-ui gates, multitab tabs). No state, no styles shipped, no pbac logic — app owns those.",
+          "description": "@eristack/doc-shell presentational document page chrome: DocShell { header, actions, children }, DocHeader { title, subtitle, badges }, DocDetailHeading { number, status, context, primary, print, more }, DocActionBar { leading, trailing } with stable erista-doc-* CSS hooks and data-component attributes. Use for invoice/PO/job detail routes (with line-grid, policy-ui gates, multitab tabs). No state, no styles shipped, no pbac logic — app owns those.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-shell#doc-shell-core"
         }
@@ -442,6 +442,25 @@ export const catalog = {
           "description": "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/drizzle",
+      "version": "0.1.0",
+      "description": "App-owned Drizzle boot (openDrizzle) plus dialect column helpers and Eristack spine table composer for sqlite and Postgres",
+      "slug": "drizzle",
+      "adapters": [
+        "schema"
+      ],
+      "skills": [
+        {
+          "id": "drizzle-core",
+          "name": "drizzle-core",
+          "packageName": "@eristack/drizzle",
+          "description": "@eristack/drizzle app-owned boot: openDrizzle({ schema, migrationsFolder, pool }) → { db, dialect, location, close } with lazy better-sqlite3/pg, APP_DB_DIALECT or DATABASE_URL resolution, migrate per dialect, redacted Postgres URL for health. App calls once — Eristack table packages never open connections. @eristack/drizzle/schema: dialect column helpers + createEristackSpineTables (3ss B3 step 2).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/drizzle#drizzle-core"
         }
       ]
     },
@@ -541,7 +560,7 @@ export const catalog = {
           "id": "epoch-adapters",
           "name": "epoch-adapters",
           "packageName": "@eristack/epoch",
-          "description": "Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore, Express createEpochRouter, Nest EpochModule, createEpochClient, useEpochCachePolicy React hook, registerEpochBackseat for prototypes.",
+          "description": "Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore, Express createEpochRouter, Nest EpochModule, createEpochClient, useEpochCachePolicy and useEpochInvalidation React hooks, registerEpochBackseat for prototypes.",
           "type": "adapters",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-adapters"
         },
@@ -552,6 +571,25 @@ export const catalog = {
           "description": "@eristack/epoch headless data-version counters: current/bump per scope, compareEpochs use-cache vs refetch, resolveCachePolicy, StaleEpochError. Drizzle default; memory store tests only.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/feedback",
+      "version": "0.1.0",
+      "description": "Headless busy lock, action sequence, and optional progress observer for ERP shells",
+      "slug": "feedback",
+      "adapters": [
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "feedback-core",
+          "name": "feedback-core",
+          "packageName": "@eristack/feedback",
+          "description": "@eristack/feedback createBusy().run(work, label) nested counter; runFeedbackSequence confirm→busy→callbacks; createProgressObserver for fetch/mutate/navigate signals. React BusyProvider/useBusyState. App owns lock UI and toasts. Pair with @eristack/backseat/express createErrorCatalog for B2 disposition. Use for ERP shell busy lock (3ss B1/B5).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/feedback#feedback-core"
         }
       ]
     },
@@ -669,7 +707,7 @@ export const catalog = {
           "id": "form-ui-core",
           "name": "form-ui-core",
           "packageName": "@eristack/form-ui",
-          "description": "@eristack/form-ui string-first native inputs: MoneyInput { amount, currency, onAmountChange, onParsed, round } (blur → submitAmountOnlyFormValue: HALF_EVEN to currency scale, \"12.345\"→\"12.34\", no padding, round:false keeps scale, invalid throws ParseError), PercentInput { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, FormField { label, hint, error }. Use for document header fields, line-grid cells, filter editors with TanStack Form; values equal API strings (MoneyJSON/decimal/wall). No number inputs, no styles.",
+          "description": "@eristack/form-ui string-first native inputs: MoneyInput { amount, currency, onAmountChange, onParsed, round } (blur → submitAmountOnlyFormValue: HALF_EVEN to currency scale, \"12.345\"→\"12.34\", no padding, round:false keeps scale, invalid throws ParseError), PercentInput { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, SearchableSelect { value, options, onValueChange, loading }, FormField { label, hint, error }. Use for document header fields, master pickers, line-grid cells, filter editors with TanStack Form; values equal API strings (MoneyJSON/decimal/wall). No number inputs, no styles.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/form-ui#form-ui-core"
         }
@@ -760,6 +798,26 @@ export const catalog = {
           "description": "@eristack/health createHealthRegistry + registerCheck(name, fn) → runLiveness / runReadiness with per-check durationMs; aggregateStatus maps ok→200, degraded→503. Express createHealthRouter {liveness, readiness}; Nest HealthModule.forRoot + HEALTH_REGISTRY. Use for /health and /ready probes (Postgres, outbox lag, S3). Checks must be wrapped so they never throw or hang; they run sequentially.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/health#health-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/id-wilayah",
+      "version": "0.0.0",
+      "description": "Indonesia official admin division codes — provinces through villages, unit kinds through hamlet, community block, and neighborhood",
+      "slug": "id-wilayah",
+      "adapters": [
+        "bundled",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "id-wilayah-core",
+          "name": "id-wilayah-core",
+          "packageName": "@eristack/id-wilayah",
+          "description": "@eristack/id-wilayah Indonesia official admin division codes (2/4/7/10 digits), bundled registry through villages, unit kinds through hamlet/community block/neighborhood. Use for Indonesian ERP address masters, KTP-style hierarchy pickers, and validating ministry numeric codes — not geocoding or postal validation alone.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/id-wilayah#id-wilayah-core"
         }
       ]
     },
@@ -915,7 +973,7 @@ export const catalog = {
           "id": "master-detail-core",
           "name": "master-detail-core",
           "packageName": "@eristack/master-detail",
-          "description": "@eristack/master-detail MasterDetailLayout { master, detail } — aside + section split with erista-master-detail__master/__detail CSS hooks for picker and list-then-edit workspaces. Master is usually @eristack/list-shell + data-grid; selection lives in Router search (?selected=), detail in TanStack Query. No selection state, no responsive logic, no className prop in v0.",
+          "description": "@eristack/master-detail MasterDetailLayout { master, detail } — aside + section split with erista-master-detail__master/__detail CSS hooks for picker and list-then-edit workspaces. Master is usually @eristack/list-shell + data-grid; selection lives in Router search (?selected=), detail in TanStack Query. pickerMasters(rows, currentId) for deactivated master pickers. No selection state, no responsive logic, no className prop in v0.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/master-detail#master-detail-core"
         }
@@ -1448,7 +1506,7 @@ export const catalog = {
           "id": "tax-core",
           "name": "tax-core",
           "packageName": "@eristack/tax",
-          "description": "@eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) picks the effective-dated percent string; applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via @eristack/money Tax.onExclusive. Use for invoice/order line tax with versioned statutory rates; snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.",
+          "description": "@eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) for effective-dated schedules, or buildTaxCatalog / resolveTaxRateFromCatalog / listTaxCodesForPick for flat app masters; applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via @eristack/money Tax.onExclusive. Snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/tax#tax-core"
         }

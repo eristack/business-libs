@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Wire MoneyInput, PercentInput, TimestampWallInput, and FormField into TanStack Form with money/percent/timestamp validators, handle blur normalisation and currency changes, style with shadcn classes, and test.
+description: Wire MoneyInput, PercentInput, TimestampWallInput, SearchableSelect, and FormField into TanStack Form with money/percent/timestamp validators, handle blur normalisation and currency changes, style with shadcn classes, and test.
 ---
 
 # Getting started
@@ -20,7 +20,7 @@ Apply Erista tokens first (`@eristack/design-system` getting-started).
 ## Basic fields
 
 ```tsx
-import { FormField, MoneyInput, PercentInput, TimestampWallInput } from "@eristack/form-ui";
+import { FormField, MoneyInput, PercentInput, TimestampWallInput, SearchableSelect } from "@eristack/form-ui";
 
 <FormField label="Unit price" error={errors.unitPrice}>
   <MoneyInput amount={amount} currency="USD" onAmountChange={setAmount} className="input" />
@@ -41,7 +41,7 @@ import { FormField, MoneyInput, PercentInput, TimestampWallInput } from "@erista
 
 ```tsx
 import { useForm } from "@tanstack/react-form";
-import { FormField, MoneyInput, PercentInput, TimestampWallInput } from "@eristack/form-ui";
+import { FormField, MoneyInput, PercentInput, TimestampWallInput, SearchableSelect } from "@eristack/form-ui";
 import { createAmountOnlyFieldValidators } from "@eristack/money/react";
 import { wallOf } from "@eristack/timestamp";
 
@@ -131,6 +131,29 @@ The inputs are plain `<input>`s: `className={cn(inputVariants(), "text-right tab
 - `TimestampWallInput` yields the browser's `YYYY-MM-DD`; it is not a timestamp. Attach the zone at the boundary.
 - `FormField` wraps children in a `<label>`; nesting two inputs inside one field makes the label ambiguous.
 
+## SearchableSelect (master pickers)
+
+Headless combobox: filter client-side on `label` + optional `searchText`, keyboard-friendly listbox. Pair with TanStack Query for async options.
+
+```tsx
+<FormField label="Customer" error={errors.customerId}>
+  <SearchableSelect
+    value={customerId}
+    onValueChange={setCustomerId}
+    placeholder="Search customers…"
+    loading={customersQuery.isLoading}
+    options={customers.map((c) => ({
+      value: c.id,
+      label: c.name,
+      searchText: `${c.code} ${c.taxId ?? ""}`,
+    }))}
+    aria-label="Customer"
+  />
+</FormField>
+```
+
+Store **`value` as the option id string** (same as API). Style `.erista-searchable-select*` hooks; v0 ships no CSS.
+
 ## Testing
 
 ```tsx
@@ -150,4 +173,5 @@ expect(onAmountChange).toHaveBeenLastCalledWith("12.34");
 | `MoneyInput` | Currency amount string, blur-rounded to currency scale |
 | `PercentInput` | Ratio / rate string |
 | `TimestampWallInput` | Wall date `YYYY-MM-DD` |
+| `SearchableSelect` | Filterable option list for master ids |
 | `*Props` | prop types for each |

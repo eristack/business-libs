@@ -1,36 +1,36 @@
-import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import Database from "better-sqlite3";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { migrate } from "drizzle-orm/better-sqlite3/migrator";
+import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
+import { openDrizzle } from "@eristack/drizzle";
 import * as schema from "./schema.js";
+
+export type AppDb = BetterSQLite3Database<typeof schema>;
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const migrationsFolder = path.join(here, "../../drizzle");
 
 /**
- * App-owned DB: open SQLite, apply Drizzle migrations, return injectable `db`.
- * @eristack/jwt-auth never opens connections or runs migrations.
+ * App-owned DB via @eristack/drizzle openDrizzle — packages never open connections here.
  */
-export function createAppDatabase(dbFile = process.env.SQLITE_PATH) {
+export async function bootAppDatabase(sqlitePath = process.env.SQLITE_PATH) {
   const file =
-    dbFile ??
+    sqlitePath?.trim() ||
     path.join(process.cwd(), "data", "express-jwt-auth.sqlite");
 
-  mkdirSync(path.dirname(file), { recursive: true });
-
-  const sqlite = new Database(file);
-  const db = drizzle(sqlite, { schema });
-
-  migrate(db, { migrationsFolder });
+  const opened = await openDrizzle({
+    schema,
+    dialect: "sqlite",
+    sqlitePath: file,
+    migrationsFolder,
+  });
 
   return {
-    sqlite,
-    db,
+    db: opened.db as AppDb,
+    dialect: opened.dialect,
+    location: opened.location,
+    close: opened.close,
     refreshTokenTable: schema.jwtAuthRefreshTokens,
     credentialsTable: schema.jwtAuthCredentials,
     usersTable: schema.users,
-    file,
   };
 }

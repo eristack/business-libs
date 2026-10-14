@@ -5,6 +5,7 @@ import {
 } from "../core/errors.js";
 import { BackseatErrorCodes, type JsonErrorBody } from "../core/json-error.js";
 import { versionConflict } from "../core/json-error.js";
+import type { ErrorCatalog } from "./error-catalog.js";
 
 export type DomainErrorEnvelope = {
   status: number;
@@ -23,6 +24,8 @@ export type DomainErrorMapping = {
 export type MapDomainErrorOptions = {
   /** Run first — return null to fall through to built-in mappings. */
   map?: (error: unknown) => DomainErrorMapping | null;
+  /** App-registered codes (`createErrorCatalog`) — runs after `map`, before built-ins. */
+  catalog?: ErrorCatalog;
   /** Last resort before default 500 — return null to send INTERNAL_ERROR. */
   onUnknown?: (error: unknown) => DomainErrorEnvelope | null;
 };
@@ -99,6 +102,11 @@ export function resolveDomainError(
   if (options?.map) {
     const custom = options.map(err);
     if (custom) return envelopeFromMapping(custom);
+  }
+
+  if (options?.catalog) {
+    const fromCatalog = options.catalog.mapThrown(err);
+    if (fromCatalog) return envelopeFromMapping(fromCatalog);
   }
 
   if (isNamedError(err, "TimestampParseError")) {

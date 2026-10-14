@@ -22,7 +22,11 @@
     "ledger-first",
     "dev-conventions",
     "idempotency-and-outbox",
-    "recipes"
+    "recipes",
+    "print-layout-default-vs-document",
+    "drizzle-app-database",
+    "tiga-sekawan-3ss-adoption",
+    "collection-declaration-horizon-b"
   ],
   "sections": [
     {
@@ -60,6 +64,15 @@
       "label": "Reference",
       "pages": [
         "recipes"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "print-layout-default-vs-document",
+        "drizzle-app-database",
+        "tiga-sekawan-3ss-adoption",
+        "collection-declaration-horizon-b"
       ]
     }
   ]

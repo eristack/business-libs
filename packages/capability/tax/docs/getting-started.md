@@ -57,6 +57,35 @@ export async function taxRegistryFor(tenantId: string) {
 
 Cache per tenant; bust on admin save. Registries are cheap to build (sorted array + map).
 
+## Flat app catalog (no schedule)
+
+When the tenant master is one row per code (`ratePercent` string, optional deactivate), skip schedules and hydrate a catalog:
+
+```ts
+import {
+  buildTaxCatalog,
+  listTaxCodesForPick,
+  resolveTaxRateFromCatalog,
+} from "@eristack/tax";
+
+const rows = await db.query.taxCodes.findMany({ where: eq(tenantId, tid) });
+const catalog = buildTaxCatalog(
+  rows.map((r) => ({
+    code: r.code,
+    ratePercent: r.ratePercent,
+    active: r.deactivatedAt == null,
+  })),
+);
+
+// New line pickers — active codes only
+listTaxCodesForPick(catalog);
+
+// Stored line code — inactive rows still resolve
+const { ratePercent } = resolveTaxRateFromCatalog(catalog, line.taxCode);
+```
+
+Unknown codes throw `TaxCodeNotFoundError`. Use `createTaxRegistry` when you need effective-dated statutory schedules; use the catalog helpers when the app master is the source of truth.
+
 ## Posting an invoice line
 
 ```ts

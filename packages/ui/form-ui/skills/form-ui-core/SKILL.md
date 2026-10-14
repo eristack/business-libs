@@ -4,8 +4,9 @@ description: >
   @eristack/form-ui string-first native inputs: MoneyInput { amount, currency, onAmountChange,
   onParsed, round } (blur → submitAmountOnlyFormValue: HALF_EVEN to currency scale, "12.345"→"12.34",
   no padding, round:false keeps scale, invalid throws ParseError), PercentInput
-  { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, FormField
-  { label, hint, error }. Use for document header fields, line-grid cells, filter editors with
+  { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, SearchableSelect
+  { value, options, onValueChange, loading }, FormField { label, hint, error }. Use for document
+  header fields, master pickers, line-grid cells, filter editors with
   TanStack Form; values equal API strings (MoneyJSON/decimal/wall). No number inputs, no styles.
 metadata:
   author: eristack
@@ -30,6 +31,7 @@ const money = createAmountOnlyFieldValidators({ currency, required: true });   /
 </form.Field>
 <PercentInput value={rate} onValueChange={setRate} />
 <TimestampWallInput value={due} onValueChange={setDue} />   // → wallOf(due, tz) at submit
+<SearchableSelect value={partnerId} onValueChange={setPartnerId} options={partnerOptions} loading={loading} aria-label="Partner" />
 ```
 
 ## Checklist

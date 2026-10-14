@@ -1,0 +1,17 @@
+{
+  "0": "index.md",
+  "1": "getting-started.md",
+  "pages": [
+    "getting-started",
+    "index"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "getting-started",
+        "index"
+      ]
+    }
+  ]
+}

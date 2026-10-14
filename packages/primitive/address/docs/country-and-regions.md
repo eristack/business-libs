@@ -89,6 +89,10 @@ formatAddressOneLine(address, { separator: " · " });
 
 ERP partners often have bill-to, ship-to, and remit-to. Each row is a `PostalAddress` — same normalize/format pipeline. `isSameCountry` helps when bill-to country drives tax but ship-to drives freight.
 
+## Indonesia admin division codes
+
+For **province → regency/city → district → village** numeric codes (and app-owned hamlet / community block / neighborhood), use `@eristack/id-wilayah` — not the `region` field alone. Keep `countryCode` as `ID` via `@eristack/iso-3166`; store admin codes on app-owned columns validated with `normalizeAdminDivisionCode`. See `@eristack/id-wilayah` getting started.
+
 ## What we deliberately omit
 
 - CLDR or UN country name lists

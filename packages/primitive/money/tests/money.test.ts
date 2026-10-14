@@ -3,6 +3,7 @@ import {
   ArithmeticError,
   Conversion,
   convertAtQuotePerBase,
+  resolveQuotePerBaseForWallDate,
   CurrencyMismatchError,
   formatMoney,
   Money,
@@ -141,6 +142,21 @@ describe("Conversion & JSON", () => {
     expect(() =>
       convertAtQuotePerBase(usd, 16250 as unknown as string, "IDR"),
     ).toThrow(ArithmeticError);
+  });
+
+  it("resolveQuotePerBaseForWallDate picks inclusive wall period", () => {
+    const rate = resolveQuotePerBaseForWallDate("USD", "IDR", "2026-03-15", [
+      {
+        base: "USD",
+        term: "IDR",
+        effectiveFrom: "2026-03-01",
+        effectiveTo: "2026-03-31",
+        quotePerBase: "16250",
+      },
+    ]);
+    expect(rate).toBe("16250");
+    const usd = Money.of("1500", "USD");
+    expect(convertAtQuotePerBase(usd, rate, "IDR").amountString()).toBe("24375000");
   });
 
   it("round-trips JSON", () => {

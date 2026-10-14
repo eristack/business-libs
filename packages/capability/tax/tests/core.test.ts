@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { Money } from "@eristack/money";
 import {
+  buildTaxCatalog,
   createTaxRegistry,
+  listTaxCodesForPick,
+  resolveTaxRateFromCatalog,
+  TaxCodeNotFoundError,
   TaxRateNotFoundError,
 } from "../src/index.js";
 
@@ -40,5 +44,16 @@ describe("tax", () => {
     expect(() =>
       tax.resolveTaxRate({ code: "X", asOf: "2025-12-31" }),
     ).toThrow(TaxRateNotFoundError);
+  });
+
+  it("resolves app catalog rates and hides inactive codes from picks", () => {
+    const catalog = buildTaxCatalog([
+      { code: "PPN", ratePercent: "11", active: true },
+      { code: "PPh23", ratePercent: "2", active: false },
+    ]);
+    expect(resolveTaxRateFromCatalog(catalog, "PPN").ratePercent).toBe("11");
+    expect(resolveTaxRateFromCatalog(catalog, "PPh23").ratePercent).toBe("2");
+    expect(listTaxCodesForPick(catalog).map((r) => r.code)).toEqual(["PPN"]);
+    expect(() => resolveTaxRateFromCatalog(catalog, "UNKNOWN")).toThrow(TaxCodeNotFoundError);
   });
 });

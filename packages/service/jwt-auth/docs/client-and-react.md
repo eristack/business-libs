@@ -29,6 +29,7 @@ const client = createJwtAuthClient({
   storage: createLocalStorageTokenStorage("acme"),
   credentials: "same-origin",
   getHeaders: () => ({ "X-Tenant": tenantId }),
+  refreshCoordinator: { crossTabLock: true, maxNetworkRetries: 3 },
 });
 ```
 
@@ -48,6 +49,7 @@ const client = createJwtAuthClient({
 | `refreshPath` | `/auth/refresh` | |
 | `logoutPath` | `/auth/logout` | |
 | `logoutAllPath` | `/auth/logout-all` | |
+| `refreshCoordinator` | — | `{ crossTabLock?, maxNetworkRetries?, resumeOnFocus? }` — dedupe refresh, retry network blips, resume on focus/online (3ss B10) |
 | `sessionsPath` | `/auth/sessions` | Used for both `GET` and `DELETE /:id` |
 
 > Defaults assume the routes are mounted under `/auth`, which is what `createJwtAuthRouter` at `app.use("/auth", …)` and the Nest controller both give you. Override the paths if your API differs — the client will not guess.

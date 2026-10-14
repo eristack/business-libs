@@ -88,6 +88,19 @@ const idr = convertAtQuotePerBase(usd, "16250", "IDR");
 
 `quotePerBase` must be a **string** — JS number literals for rates are rejected.
 
+### Wall-date period lookup (app master)
+
+Cost-sheet **order date** FX uses inclusive `YYYY-MM-DD` periods on an app-owned table — no feed, no float rates:
+
+```ts
+import { convertAtQuotePerBase, Money, resolveQuotePerBaseForWallDate } from "@eristack/money";
+
+const quotePerBase = resolveQuotePerBaseForWallDate("USD", "IDR", orderDateWall, periods);
+const idr = convertAtQuotePerBase(Money.of(usdTotal, "USD"), quotePerBase, "IDR");
+```
+
+`periods` rows: `{ base, term, effectiveFrom, effectiveTo, quotePerBase }`. Overlapping matches throw; missing period throws `MissingWallPeriodFxRateError`.
+
 ### The base must match
 
 ```ts
