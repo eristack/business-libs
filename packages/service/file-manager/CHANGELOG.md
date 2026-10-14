@@ -1,5 +1,11 @@
 # @eristack/file-manager
 
+## 0.1.2
+
+### Patch Changes
+
+- 1153779: `resolveDownloadUrl` no longer defaults `downloadFilename` to `originalName` — presigned GET URLs are inline-viewable by default. Pass `{ downloadFilename }` (or `GET …/download-url?downloadFilename=`) for attachment downloads. Client `getDownloadUrl` accepts the same options.
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.22
+
+### Patch Changes
+
+- 1153779: Recipe `file-upload-s3`, document-lines attachments, package-relationships, recommend hard rule (file-manager inline GET), and dev-conventions: vitest unit tests import `../src` — not `@eristack/pkg/subpath` through dist (CI flake).
+
 ## 0.1.21
 
 ### Patch Changes
