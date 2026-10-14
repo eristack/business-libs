@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-01T08:10:05.114Z",
+  "generatedAt": "2026-10-14T13:47:54.675Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -541,7 +541,7 @@ export const catalog = {
           "id": "epoch-adapters",
           "name": "epoch-adapters",
           "packageName": "@eristack/epoch",
-          "description": "Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore, Express createEpochRouter, Nest EpochModule, createEpochClient, useEpochCachePolicy React hook, registerEpochBackseat for prototypes.",
+          "description": "Wire @eristack/epoch: Drizzle createEpochTables/createDrizzleEpochStore, Express createEpochRouter, Nest EpochModule, createEpochClient, useEpochCachePolicy and useEpochInvalidation React hooks, registerEpochBackseat for prototypes.",
           "type": "adapters",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/epoch#epoch-adapters"
         },
@@ -1448,7 +1448,7 @@ export const catalog = {
           "id": "tax-core",
           "name": "tax-core",
           "packageName": "@eristack/tax",
-          "description": "@eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) picks the effective-dated percent string; applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via @eristack/money Tax.onExclusive. Use for invoice/order line tax with versioned statutory rates; snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.",
+          "description": "@eristack/tax createTaxRegistry → resolveTaxRate({ code, asOf }) for effective-dated schedules, or buildTaxCatalog / resolveTaxRateFromCatalog / listTaxCodesForPick for flat app masters; applyTaxToAmount(net, rate) returns the unrounded TAX PORTION via @eristack/money Tax.onExclusive. Snapshot the resolved rate on the line. Jurisdiction rules and rounding stay outside.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/tax#tax-core"
         }

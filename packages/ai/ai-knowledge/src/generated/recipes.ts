@@ -424,7 +424,7 @@ export const recipes = [
       "tanstack query invalidate",
       "bumpmany"
     ],
-    "rationale": "Use @eristack/epoch for headless per-scope version counters: bump after mutations, resolveCachePolicy returns use-cache vs refetch for TanStack Query. Drizzle default; client/react/express/backseat adapters. Read docs/getting-started.md only.",
+    "rationale": "Use @eristack/epoch for headless per-scope version counters: bump after mutations, resolveCachePolicy returns use-cache vs refetch for TanStack Query; useEpochInvalidation(scope, queryKey, { exact: true }) binds a detail query without prefix refetch. Drizzle default; client/react/express/backseat adapters. Read docs/getting-started.md only.",
     "packages": [
       {
         "name": "@eristack/epoch",

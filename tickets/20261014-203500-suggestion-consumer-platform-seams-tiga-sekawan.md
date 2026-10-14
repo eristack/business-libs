@@ -5,6 +5,7 @@
 ## Meta
 
 - **id:** `20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan`
+- **batch:** `3ss` (Tiga Sekawan consumer platform seams — not Wave 13; use commit scope `3ss` for this program)
 - **kind:** suggestion
 - **package:** `@eristack/ai-knowledge` (program brief; child work lands in the packages named below)
 - **feasibility:** `needs-decision`

@@ -53,14 +53,14 @@ const grid = useMemo<GridDescriptor>(
 | `SpreadsheetTextCell { address, value, onCommit }` | `<span data-spreadsheet-display>` → uncontrolled `<input data-spreadsheet-editor>`; blur commits |
 | `useSpreadsheetGrid(descriptor)` → `{ gridProps, activeAddress, editing, isGridActive }` | Spread `gridProps` on a div / TanStack Table container; wrap children in `SpreadsheetGridIdProvider { gridId }` |
 | `useSpreadsheetCellEditor({ address, readValue, writeValue?, onCommit?, onCancel?, focus?, selectAll? })` → `{ editing, seed }` | Register any editor (form-ui `MoneyInput`, Radix Select, date picker) |
-| `useSpreadsheetScope()` → `{ operator, state, registerEditor }` | Toolbars, status bars, programmatic `operator.dispatch` |
+| `useSpreadsheetScope()` → `{ operator, state, registerEditor, commitActiveCell }` | Toolbars; `commitActiveCell(value?)` for select picks (same as Enter) |
 
 ## Checklist
 
 1. One provider per screen/tab; every `SpreadsheetTable` inside gets a unique `descriptor.id`.
 2. Memoize the descriptor on `rows.length`; derived columns `kind: "display"`.
 3. Custom editors: let **Enter / Tab / Escape** bubble; `stopPropagation()` on other keys; keep the draft in a ref and return it from `readValue()`.
-4. Select cells: open the listbox when `editing` flips true; commit on close. This package ships no Select.
+4. Select cells: portaled listboxes need `data-spreadsheet-popover`; on pick call `commitActiveCell(chosen)`. This package ships no Select.
 5. CSS: `[data-spreadsheet-active] { outline: 2px solid hsl(var(--erista-color-primary)) }` and `[data-spreadsheet-cell][data-active] { box-shadow: inset 0 0 0 2px … }`.
 6. Div grids: `useSpreadsheetGrid` + `SpreadsheetGridIdProvider`; cells need `data-spreadsheet-cell`, `data-row`, `data-col`.
 
