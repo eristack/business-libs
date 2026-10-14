@@ -410,6 +410,38 @@ export const recipes = [
     ]
   },
   {
+    "id": "erp-feedback-busy",
+    "title": "Busy lock, confirm-run sequence, and error disposition",
+    "priority": 13,
+    "triggers": [
+      "busy lock",
+      "shell inert",
+      "confirm then save",
+      "error catalog",
+      "error disposition",
+      "toast error message",
+      "feedback sequence",
+      "3ss"
+    ],
+    "rationale": "3ss platform seams: @eristack/feedback createBusy/runFeedbackSequence for confirm→run→toast; @eristack/backseat/express createErrorCatalog for HTTP + client disposition. Load feedback-core and #http-errors — not a second mapHandlerError.",
+    "packages": [
+      {
+        "name": "@eristack/feedback",
+        "skills": [
+          "feedback-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/backseat",
+        "skills": [
+          "backseat-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "epoch-cache-invalidation",
     "title": "Data-version epochs for cache invalidation",
     "priority": 14,

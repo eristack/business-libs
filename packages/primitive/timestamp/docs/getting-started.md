@@ -126,6 +126,22 @@ formatInstant(posted, { style: "datetime" });
 formatWall(due);
 ```
 
+### Company wall fields (React — 3ss B7)
+
+One timezone for every business date on forms (e.g. `Asia/Jakarta`):
+
+```tsx
+import {
+  readWallDateField,
+  writeWallDateField,
+  formatPostedAt,
+} from "@eristack/timestamp/react";
+
+const date = readWallDateField(invoice.invoiceDate, APP_TIMEZONE);
+const onSave = () => api.patch({ invoiceDate: writeWallDateField(date, APP_TIMEZONE) });
+const postedLabel = formatPostedAt(invoice.postedAt, APP_TIMEZONE, { locale: "id-ID" });
+```
+
 ---
 
 ## Step 4 — Wire JSON (APIs and JSON columns)

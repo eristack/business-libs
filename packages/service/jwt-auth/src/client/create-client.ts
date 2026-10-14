@@ -1,4 +1,10 @@
 import type { TokenStorage } from "./storage.js";
+import { JwtAuthHttpError, isRefreshAuthFailure } from "./http-error.js";
+import {
+  attachRefreshResume,
+  createRefreshCoordinator,
+  type RefreshCoordinatorOptions,
+} from "./refresh-coordinator.js";
 import {
   createDataGrid,
   serializeQuery,
@@ -60,6 +66,10 @@ export interface JwtAuthClientConfig {
   credentials?: RequestCredentials | (() => MaybeAsync<RequestCredentials>);
   /** Extra headers merged into every request (e.g. tenant id, CSRF). */
   getHeaders?: () => MaybeAsync<Record<string, string>>;
+  /** Dedupe refresh in-tab / across tabs and retry network blips (3ss B10). */
+  refreshCoordinator?: RefreshCoordinatorOptions & {
+    resumeOnFocus?: boolean;
+  };
 }
 
 export interface JwtAuthClient {
@@ -119,6 +129,7 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
   };
   let refreshTimer: ReturnType<typeof setTimeout> | null = null;
   let refreshInFlight: Promise<TokenPairResponse> | null = null;
+  let disposeResume: (() => void) | undefined;
 
   function emit() {
     for (const listener of listeners) listener(state);
@@ -221,7 +232,7 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
 
     const data = await parseJson(res);
     if (!res.ok) {
-      throw new Error(errorMessage(data, res.status));
+      throw new JwtAuthHttpError(res.status, errorMessage(data, res.status), data);
     }
     return data;
   }
@@ -276,7 +287,7 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
     async refresh() {
       if (refreshInFlight) return refreshInFlight;
 
-      refreshInFlight = (async () => {
+      const performRefresh = async (): Promise<TokenPairResponse> => {
         const refreshToken = await storage.getRefreshToken();
         const body = refreshToken ? { refreshToken } : {};
         const data = (await postJson(
@@ -285,7 +296,13 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
         )) as TokenPairResponse;
         await persistPair(data);
         return data;
-      })();
+      };
+
+      const runRefresh = config.refreshCoordinator
+        ? createRefreshCoordinator(performRefresh, config.refreshCoordinator)
+        : performRefresh;
+
+      refreshInFlight = runRefresh();
 
       try {
         return await refreshInFlight;
@@ -372,17 +389,32 @@ export function createJwtAuthClient(config: JwtAuthClientConfig): JwtAuthClient 
       try {
         const pair = await client.refresh();
         return pair.accessToken;
-      } catch {
-        await clearSession();
-        return null;
+      } catch (error) {
+        if (error instanceof JwtAuthHttpError && isRefreshAuthFailure(error.status)) {
+          await clearSession();
+          return null;
+        }
+        return accessToken;
       }
     },
 
     dispose() {
       clearRefreshTimer();
+      disposeResume?.();
       listeners.clear();
     },
   };
+
+  if (config.refreshCoordinator && config.refreshCoordinator.resumeOnFocus !== false) {
+    disposeResume = attachRefreshResume({
+      refresh: async () => {
+        await client.refresh();
+      },
+      onAccessTokenCleared: () => {
+        void clearSession();
+      },
+    });
+  }
 
   void (async () => {
     const accessToken = await storage.getAccessToken();

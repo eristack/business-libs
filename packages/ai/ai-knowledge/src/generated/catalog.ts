@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-14T13:50:23.343Z",
+  "generatedAt": "2026-10-14T14:01:37.545Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -556,6 +556,25 @@ export const catalog = {
       ]
     },
     {
+      "name": "@eristack/feedback",
+      "version": "0.1.0",
+      "description": "Headless busy lock, action sequence, and optional progress observer for ERP shells",
+      "slug": "feedback",
+      "adapters": [
+        "react"
+      ],
+      "skills": [
+        {
+          "id": "feedback-core",
+          "name": "feedback-core",
+          "packageName": "@eristack/feedback",
+          "description": "@eristack/feedback createBusy().run(work, label) nested counter; runFeedbackSequence confirm→busy→callbacks; createProgressObserver for fetch/mutate/navigate signals. React BusyProvider/useBusyState. App owns lock UI and toasts. Pair with @eristack/backseat/express createErrorCatalog for B2 disposition. Use for ERP shell busy lock (3ss B1/B5).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/feedback#feedback-core"
+        }
+      ]
+    },
+    {
       "name": "@eristack/file-manager",
       "version": "0.1.2",
       "description": "Headless file uploads: S3 presigned PUT/GET (inline view by default; optional attachment filename), server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
@@ -915,7 +934,7 @@ export const catalog = {
           "id": "master-detail-core",
           "name": "master-detail-core",
           "packageName": "@eristack/master-detail",
-          "description": "@eristack/master-detail MasterDetailLayout { master, detail } — aside + section split with erista-master-detail__master/__detail CSS hooks for picker and list-then-edit workspaces. Master is usually @eristack/list-shell + data-grid; selection lives in Router search (?selected=), detail in TanStack Query. No selection state, no responsive logic, no className prop in v0.",
+          "description": "@eristack/master-detail MasterDetailLayout { master, detail } — aside + section split with erista-master-detail__master/__detail CSS hooks for picker and list-then-edit workspaces. Master is usually @eristack/list-shell + data-grid; selection lives in Router search (?selected=), detail in TanStack Query. pickerMasters(rows, currentId) for deactivated master pickers. No selection state, no responsive logic, no className prop in v0.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/master-detail#master-detail-core"
         }

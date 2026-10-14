@@ -1,0 +1,3 @@
+package: "@eristack/feedback"
+kind: ui
+notes: 3ss B1 busy lock, B5 feedback sequence

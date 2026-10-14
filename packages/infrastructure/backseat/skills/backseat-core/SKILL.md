@@ -38,11 +38,12 @@ Frontend-first **fake backend** in the browser — store + router + **your** con
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore()` — **browser default** |
 | `@eristack/backseat/drizzle` | `createDrizzleBackseatStore` — Horizon B; sqlite needs `runSyncTransaction` + `sqlite` for `atomic()` |
 | `@eristack/backseat/workshop` | `bootWorkshopServer` — headless API boot (no Vite import) |
-| `@eristack/backseat/express` | `createMapDomainError`, `createAsyncHandler` — Horizon B error envelope |
+| `@eristack/backseat/express` | `createMapDomainError`, `createErrorCatalog`, `createAsyncHandler` — Horizon B error envelope |
 | `@eristack/backseat/nest` | `createDomainErrorExceptionFilter` — same mapping for Nest |
 | `@eristack/backseat/testing` | Memory store; `assertRoutesSnapshotsEqual`, `assertDataGridEnvelope` for API mirror CI |
 | `@eristack/backseat/react` | Provider, hooks, `BackseatDevtools` |
 | `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `createErpDemoSnapshot()` |
+| `@eristack/backseat/client` | `patchDocumentWithExpectedVersion`, `withExpectedVersion` — optimistic PATCH from TanStack Query cache |
 
 ## Default wiring
 

@@ -20,6 +20,7 @@ Load: `@eristack/ai-knowledge#ui-package-stack` · Recipes: `erp-ui-design-syste
 | 3 | `@eristack/form-ui` | `MoneyInput`, `PercentInput`, `TimestampWallInput`, `FormField` | `form-ui` |
 | 4 | `@eristack/list-shell` | List layout, toolbar, query state banner | `list-shell` |
 | 5 | `@eristack/filter-builder` | Filter chips + advanced sheet (data-grid JSON) | `filter-builder` |
+| 5b | `@eristack/feedback` | Busy lock + confirm→run sequence (app paints UI) | `feedback` |
 | 6 | `@eristack/line-grid` | QUPS line editor → `calculateLine` / `patchLine` | `line-grid` |
 | 7 | `@eristack/doc-shell` | Doc header, status slot, action bar | `doc-shell` |
 | 8 | `@eristack/policy-ui` | `Can`, `BusinessPolicyGate` (presentation; logic in rbac/pbac) | `policy-ui` |

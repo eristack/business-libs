@@ -202,6 +202,32 @@ app.patch("/jobs/:id", asyncHandler(async (req, res) => { /* … */ }));
 
 Built-in mappings (by `error.name` / fields — peers optional at install time): `BackseatVersionConflictError` / `DocumentVersionConflictError` → 409 `CONFLICT_VERSION`; `PolicyDeniedError` / `BusinessPolicyDeniedError` → 409; `ForbiddenError` → 403; `StaleEpochError` → 409 + `X-Epoch-Current`; `TimestampParseError`, `ZodError`, Postgres `23505`; other `BackseatError` subclasses use their `code`/`status`.
 
+### App error catalog (3ss B2)
+
+Register business codes once for HTTP mapping **and** client disposition (`toast`, `not-found`, `login`, `refetch-document`):
+
+```ts
+import { createErrorCatalog, createMapDomainError } from "@eristack/backseat/express";
+
+export const appErrors = createErrorCatalog([
+  {
+    code: "INVOICE_NOT_DRAFT",
+    httpStatus: 409,
+    userMessage: "Only draft invoices can be edited",
+    disposition: "toast",
+    retry: false,
+  },
+]);
+
+const mapDomainError = createMapDomainError({ catalog: appErrors });
+
+// After fetch — same catalog on the client:
+const resolved = appErrors.resolveFromJsonBody(await res.json());
+// resolved.disposition drives toast vs 404 page vs refetch vs login
+```
+
+Thrown errors with a string `code` field map through `catalog.mapThrown` (including `VALIDATION*` → 400 and `*LOCKED*` patterns). Extend this table — do not add a second mapper per app.
+
 Nest: `createDomainErrorExceptionFilter()` from `@eristack/backseat/nest` (global filter) or `toDomainHttpException(err)` for manual throws.
 
 ### PATCH handler with version + PBAC + epoch bump

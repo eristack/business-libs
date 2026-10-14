@@ -247,6 +247,24 @@ form.setFieldValue("expectedVersion", job.version);
 
 On successful save, replace local state with response body (new `version`).
 
+### TanStack Query helper (3ss B6)
+
+Use `@eristack/backseat/client` so partial saves (print settings, one section) read version from cache, refetch on conflict, and do not throw away in-progress edits:
+
+```ts
+import { patchDocumentWithExpectedVersion } from "@eristack/backseat/client";
+
+const result = await patchDocumentWithExpectedVersion({
+  cached: queryClient.getQueryData(["invoice", id]),
+  body: { printTaxCodes: ["PPN"] },
+  patch: (payload) => invoiceClient.patch(id, payload),
+  refetchDetail: () => queryClient.refetchQueries({ queryKey: ["invoice", id], exact: true }),
+  onConflict: (message) => toast.error(message),
+});
+
+if (result.ok) queryClient.setQueryData(["invoice", id], result.data);
+```
+
 ---
 
 ## Related

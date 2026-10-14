@@ -97,6 +97,7 @@ import { useForm } from "@tanstack/react-form";
 
 // /client = HTTP + token machine (framework-agnostic base for Vue/Svelte later)
 const client = createJwtAuthClient({
+  refreshCoordinator: { crossTabLock: true, maxNetworkRetries: 3 },
   baseUrl: () => appConfig.apiBaseUrl,
   storage: createLocalStorageTokenStorage(),
   getHeaders: () => ({ "X-Tenant": tenantId }),

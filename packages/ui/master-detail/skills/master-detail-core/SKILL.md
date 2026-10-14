@@ -4,7 +4,8 @@ description: >
   @eristack/master-detail MasterDetailLayout { master, detail } — aside + section split with
   erista-master-detail__master/__detail CSS hooks for picker and list-then-edit workspaces. Master
   is usually @eristack/list-shell + data-grid; selection lives in Router search (?selected=), detail
-  in TanStack Query. No selection state, no responsive logic, no className prop in v0.
+  in TanStack Query. pickerMasters(rows, currentId) for deactivated master pickers. No selection
+  state, no responsive logic, no className prop in v0.
 metadata:
   author: eristack
   version: "0.1"

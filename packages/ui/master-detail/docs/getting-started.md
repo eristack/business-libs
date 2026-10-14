@@ -15,6 +15,18 @@ pnpm add @eristack/master-detail @eristack/list-shell react
 
 Peer: `list-shell@^0.1.0`.
 
+## Master pickers (inactive rows)
+
+Hide deactivated master rows from new picks; keep the row already on the document:
+
+```ts
+import { pickerMasters } from "@eristack/master-detail";
+
+const options = pickerMasters(taxRows, line.taxCodeId);
+```
+
+Rows need `{ id, deactivatedAt? }`. Active rows have `deactivatedAt == null`.
+
 ## Layout with URL selection
 
 ```tsx
