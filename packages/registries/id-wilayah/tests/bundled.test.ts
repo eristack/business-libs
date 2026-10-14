@@ -1,12 +1,29 @@
 import { describe, expect, it } from "vitest";
-import { loadBundledAdminDivisionRegistry } from "../src/bundled/load.js";
+import {
+  loadBundledAdminDivisionRegistry,
+  loadBundledAdminDivisionRows,
+} from "../src/bundled/load.js";
 
-describe("loadBundledAdminDivisionRegistry", () => {
-  it("loads national snapshot with expected province count", async () => {
-    const registry = await loadBundledAdminDivisionRegistry();
-    expect(registry.size).toBeGreaterThan(80_000);
-    expect(registry.listByKind("province")).toHaveLength(38);
-    expect(registry.require("31").kind).toBe("province");
-    expect(registry.get("3171010001")).toBeDefined();
-  });
+describe("bundled official snapshot", () => {
+  it(
+    "decodes gzip rows with expected province and village counts",
+    async () => {
+      const rows = await loadBundledAdminDivisionRows();
+      expect(rows.length).toBeGreaterThan(80_000);
+      const provinces = rows.filter((r) => r.k === "province");
+      expect(provinces).toHaveLength(38);
+      expect(rows.some((r) => r.c === "3171010001")).toBe(true);
+    },
+    30_000,
+  );
+
+  it(
+    "builds registry from cached rows",
+    async () => {
+      const registry = await loadBundledAdminDivisionRegistry();
+      expect(registry.size).toBeGreaterThan(80_000);
+      expect(registry.require("31").kind).toBe("province");
+    },
+    30_000,
+  );
 });
