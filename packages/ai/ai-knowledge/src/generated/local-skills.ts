@@ -144,7 +144,7 @@ export const localSkills = [
     "id": "tiga-sekawan-3ss-adoption",
     "name": "tiga-sekawan-3ss-adoption",
     "packageName": "@eristack/ai-knowledge",
-    "description": "Consumer checklist for batch 3ss platform seams: map A1–B11 rows to @eristack packages, migration order, and Tiga Sekawan file paths. Use in the consumer app after business-libs releases — not for new library APIs.",
+    "description": "Consumer checklist for batch 3ss — library program complete in business-libs; map A1–B11 to packages, migration order, Tiga file paths. Use in consumer app only (B4 SQL codegen still deferred).",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#tiga-sekawan-3ss-adoption"
   },

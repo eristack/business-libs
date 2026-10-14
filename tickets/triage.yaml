@@ -15,6 +15,9 @@ batches:
   - id: horizon-a-20260827
     index: 20260827-index-tiga-sekawan-horizon-a-eristack-gaps.md
     reporter: Tiga Sekawan ERP (Horizon A mockup)
+  - id: 3ss-platform-seams-20261014
+    index: 20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md
+    reporter: Tiga Sekawan ERP (3ss consumer platform seams)
 
 done:
   - rank: 1
@@ -85,7 +88,7 @@ done:
     notes: opinion-core + ledger-first masters guidance
   - rank: 23
     file: 20260925-201504-suggestion-drizzle-app-spine-bootstrap-bundle-m3n4o5.md
-    notes: ADR deferred — backseat-then-backend section only
+    notes: folded into @eristack/drizzle/schema createEristackSpineTables (3ss B3 step 2)
   - rank: 24
     file: 20260925-163607-suggestion-propose-eristack-chart-posting-tree-capability-01a5dd.md
     notes: ledger-first roadmap note (app-owned COA until capability)
@@ -169,8 +172,14 @@ done:
   - rank: 50
     file: 20260929-152500-suggestion-unified-spreadsheet-operator-package-a8f2c1.md
     notes: "@eristack/spreadsheet-operator — headless operator + /react; ADR new package not line-grid embed"
+  - rank: 51
+    file: 20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md
+    notes: "3ss library shipped (A1–B11, B3, B4 manifest); consumer adopt via #tiga-sekawan-3ss-adoption; B4 codegen deferred"
 
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack: []
 
-backlog: []
+backlog:
+  - files:
+      - 20261001-072239-bug-resolvedownloadurl-forces-content-disposition-at-f2cd7c.md
+    notes: unlisted ingest — triage when picked up

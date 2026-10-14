@@ -66,7 +66,7 @@ tanstackIntent:
     for: "Preferred Eristack app stack defaults: TypeScript, Drizzle (pgsql dialect), Express/Nest/React headless adapters, string-first money, credentials as a child of app users, doc-number token patterns. Use when scaffolding apps or choosing persistence/HTTP/frontend wiring around @eristack packages."
   - id: "@eristack/ai-knowledge#tiga-sekawan-3ss-adoption"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#tiga-sekawan-3ss-adoption"
-    for: "Consumer checklist for batch 3ss platform seams: map A1–B11 rows to @eristack packages, migration order, and Tiga Sekawan file paths. Use in the consumer app after business-libs releases — not for new library APIs."
+    for: "Consumer checklist for batch 3ss — library program complete in business-libs; map A1–B11 to packages, migration order, Tiga file paths. Use in consumer app only (B4 SQL codegen still deferred)."
   - id: "@eristack/ai-knowledge#ui-package-stack"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ui-package-stack"
     for: "ERP UI stack: design-system tokens, form-ui domain inputs, list-shell, filter-builder, line-grid (QUPS), spreadsheet-operator (keyboard grids), doc-shell, policy-ui, master-detail, command-palette. Use when building TanStack Router list/doc screens instead of one-off shadcn copies."

@@ -4,6 +4,12 @@ Library work for batch **`3ss`** lives in **business-libs**. This guide is the *
 
 Load `@eristack/ai-knowledge#document-lines-erp` first.
 
+## Library program (business-libs) — complete
+
+All rows **A1–B11** and **B3** (step 1 + 2) shipped in `@eristack/*` with changesets under `.changeset/3ss-*.md`. **B4** manifest contract shipped (`defineErpCollection`, `backseatCollectionsFromManifests`); SQL/codegen from manifests is **deferred**. **A6** is `resolveQuotePerBaseForWallDate` on `@eristack/money` (no `@eristack/fx-rate` package). Reference: `examples/express` (`openDrizzle`, `collections.ts`), ticket `tickets/20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md` § Library status.
+
+**Remaining work is consumer-only** (Tiga Sekawan app repo) unless you pick up B4 codegen in a future library iteration.
+
 ## Row → library mapping
 
 | Row | Consumer touch | Package / skill |

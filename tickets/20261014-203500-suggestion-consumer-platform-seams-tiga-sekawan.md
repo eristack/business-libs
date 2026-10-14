@@ -8,7 +8,7 @@
 - **batch:** `3ss` (Tiga Sekawan consumer platform seams — not Wave 13; use commit scope `3ss` for this program)
 - **kind:** suggestion
 - **package:** `@eristack/ai-knowledge` (program brief; child work lands in the packages named below)
-- **feasibility:** `needs-decision`
+- **feasibility:** `partial` (library **shipped** in business-libs 2026-10; consumer adoption + B4 codegen deferred)
 - **created:** 2026-10-14T20:35:00+07:00
 - **reporter:** Tiga Sekawan ERP (consumer)
 - **source:** invoice print, tax master, AR/AP document chrome, and the workshop mirror already in this repo
@@ -227,6 +227,34 @@ Do not reopen these as if they were new. Extend them when the row below overlaps
 2. For the row you pick, load that package’s Intent skill. Do not implement a second row in the same change.
 3. Consumer evidence stays in this repo. Do not move job, invoice, or partner types into Eristack.
 4. Changesets on the package that changes. No `@eristack/feature-*`.
+
+## Library status (business-libs — shipped)
+
+| Row | Deliverable |
+| --- | --- |
+| A1 | `@eristack/tax` catalog helpers |
+| A2 | `@eristack/money` `Money.sum([], currency)` (existing) + conversion docs |
+| A3 | `@eristack/multitab` `replaceTab` (existing); adoption: `closeGuard` |
+| A4 | `@eristack/spreadsheet-operator` pointer commit |
+| A5 | `@eristack/doc-shell` `DocDetailHeading` |
+| A6 | `@eristack/money` `resolveQuotePerBaseForWallDate` (not separate fx-rate pkg) |
+| A7 | `#print-layout-default` recipe + guide |
+| B1/B5 | `@eristack/feedback` |
+| B2 | `@eristack/backseat/express` `createErrorCatalog` + `#http-errors` |
+| B3 | `@eristack/drizzle` + `/schema` (`openDrizzle`, spine, columns) |
+| B4 | `defineErpCollection` + mirror recipe; **codegen deferred** |
+| B6 | `@eristack/backseat/client` patch helpers + optimistic-version guide |
+| B7 | `@eristack/timestamp/react` company wall helpers |
+| B8 | `@eristack/master-detail` `pickerMasters` |
+| B9 | `@eristack/epoch/react` `useEpochInvalidation` |
+| B10 | `@eristack/jwt-auth/client` refresh coordinator |
+| B11 | `@eristack/form-ui` `SearchableSelect` |
+
+**Agent load for consumer work:** `@eristack/ai-knowledge#tiga-sekawan-3ss-adoption` only.
+
+**Examples:** `examples/express/src/db/client.ts`, `collections.ts`.
+
+**Pending changesets (human commit):** `.changeset/3ss-*.md`, `epoch-use-epoch-invalidation.md`, `spreadsheet-operator-select-commit.md`, `tax-app-catalog.md`.
 
 ## Notes
 

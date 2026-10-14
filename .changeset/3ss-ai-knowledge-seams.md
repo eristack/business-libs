@@ -2,4 +2,4 @@
 "@eristack/ai-knowledge": patch
 ---
 
-3ss: 3ss adoption checklist, B4 collection guide, drizzle-app-database, print-layout, seam guides.
+3ss: adoption checklist, package-relationships rows, B4/drizzle/print guides, program closure.
