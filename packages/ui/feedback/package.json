@@ -1,6 +1,6 @@
 {
   "name": "@eristack/feedback",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Headless busy lock, action sequence, and optional progress observer for ERP shells",
   "repository": {
     "type": "git",

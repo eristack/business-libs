@@ -1,6 +1,6 @@
 {
   "name": "@eristack/master-detail",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Two-pane master list + detail layout for picker flows",
   "repository": {
     "type": "git",

@@ -1,5 +1,11 @@
 # @eristack/master-detail
 
+## 0.1.1
+
+### Patch Changes
+
+- 759dc09: 3ss: export pickerMasters for inactive master rows on document pickers.
+
 ## 0.1.0
 
 ### Minor Changes

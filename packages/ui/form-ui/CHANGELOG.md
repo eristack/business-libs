@@ -1,5 +1,11 @@
 # @eristack/form-ui
 
+## 0.1.1
+
+### Patch Changes
+
+- 9c7c1ac: 3ss: add SearchableSelect combobox for master pickers (value, label, searchText, loading).
+
 ## 0.1.0
 
 ### Minor Changes

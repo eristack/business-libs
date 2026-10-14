@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-14T14:41:48.733Z",
+  "generatedAt": "2026-10-14T15:11:24.017Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -145,7 +145,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.9",
+      "version": "0.1.10",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -413,7 +413,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-shell",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Document detail page shell — header, actions, body slots",
       "slug": "doc-shell",
       "adapters": [],
@@ -447,7 +447,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/drizzle",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "App-owned Drizzle boot (openDrizzle) plus dialect column helpers and Eristack spine table composer for sqlite and Postgres",
       "slug": "drizzle",
       "adapters": [
@@ -539,7 +539,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/epoch",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
       "slug": "epoch",
       "adapters": [
@@ -576,7 +576,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/feedback",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Headless busy lock, action sequence, and optional progress observer for ERP shells",
       "slug": "feedback",
       "adapters": [
@@ -698,7 +698,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/form-ui",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Native React form controls wired to @eristack money, percent, and timestamp",
       "slug": "form-ui",
       "adapters": [],
@@ -803,7 +803,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/id-wilayah",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Indonesia official admin division codes — provinces through villages, unit kinds through hamlet, community block, and neighborhood",
       "slug": "id-wilayah",
       "adapters": [
@@ -874,7 +874,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.4.5",
+      "version": "0.4.6",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -964,7 +964,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/master-detail",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Two-pane master list + detail layout for picker flows",
       "slug": "master-detail",
       "adapters": [],
@@ -981,7 +981,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/money",
-      "version": "0.3.5",
+      "version": "0.3.6",
       "description": "Money primitives for Eristack",
       "slug": "money",
       "adapters": [
@@ -1423,7 +1423,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/spreadsheet-operator",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Headless spreadsheet keyboard operator — active-grid scope, cell navigation, Excel-like Enter/Tab editing",
       "slug": "spreadsheet-operator",
       "adapters": [
@@ -1497,7 +1497,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/tax",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Tax code registry and effective-dated rates — math via @eristack/money Tax ops",
       "slug": "tax",
       "adapters": [],
@@ -1514,7 +1514,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/timestamp",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "description": "Business timestamps: UTC instants for facts, wall-clock for schedules (DST-safe)",
       "slug": "timestamp",
       "adapters": [

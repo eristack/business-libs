@@ -1,6 +1,6 @@
 {
   "name": "@eristack/id-wilayah",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Indonesia official admin division codes — provinces through villages, unit kinds through hamlet, community block, and neighborhood",
   "repository": {
     "type": "git",

@@ -1,5 +1,11 @@
 # @eristack/money
 
+## 0.3.6
+
+### Patch Changes
+
+- 068a2a1: 3ss A6: resolveQuotePerBaseForWallDate for inclusive wall-period FX masters (lookup only, no feed).
+
 ## 0.3.5
 
 ### Patch Changes
