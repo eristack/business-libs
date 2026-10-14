@@ -13,6 +13,7 @@ export {
   type EristackSpineTables,
 } from "./spine.js";
 export {
+  backseatCollectionsFromManifests,
   defineErpCollection,
   erpCollectionManifests,
   type DefineErpCollectionOptions,

@@ -5,7 +5,7 @@ description: Install openDrizzle, resolve sqlite vs Postgres from env, run diale
 
 # Getting started
 
-Pair with `@eristack/drizzle-kit-helpers` for drizzle-kit configs and `@eristack/health` for readiness probes.
+Pair with `@eristack/drizzle-kit-helpers` for drizzle-kit configs and `@eristack/health` for readiness probes. Working sample: `examples/express/src/db/client.ts` (`bootAppDatabase` → `openDrizzle`).
 
 ## Install
 

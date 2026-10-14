@@ -511,6 +511,9 @@ importers:
       '@eristack/data-grid':
         specifier: workspace:*
         version: link:../../packages/service/data-grid
+      '@eristack/drizzle':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/drizzle
       '@eristack/entity-id':
         specifier: workspace:*
         version: link:../../packages/primitive/entity-id

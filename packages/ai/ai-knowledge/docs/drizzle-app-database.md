@@ -31,7 +31,7 @@ Pool defaults: `max: 5`, `idleTimeoutMs: 30_000`. Pass `migrate: false` in tests
 
 1. App `schema.ts` calls `createJwtAuthTables(dialect)`, `createRbacTables(dialect)`, … plus business tables.
 2. `@eristack/drizzle-kit-helpers` — drizzle-kit config for two `out` folders.
-3. Inject `db` into Express/Nest compose — same as `examples/express` but replace hand-rolled `createAppDatabase` with `openDrizzle`.
+3. Inject `db` into Express/Nest compose — see `examples/express/src/db/client.ts` (`bootAppDatabase` → `openDrizzle`).
 
 ## Step 2 — `@eristack/drizzle/schema`
 

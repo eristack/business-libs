@@ -32,14 +32,15 @@ export const erpCollections = erpCollectionManifests([
 
 ```ts
 import { createBackseat } from "@eristack/backseat";
+import { backseatCollectionsFromManifests } from "@eristack/drizzle/schema";
 
 const api = createBackseat({
   store,
-  collections: Object.fromEntries(
-    erpCollections.map((m) => [m.collection, { path: m.path ?? m.collection }]),
-  ),
+  collections: backseatCollectionsFromManifests(erpCollections),
 });
 ```
+
+Reference: `examples/express/src/db/collections.ts`.
 
 Custom routes stay `registerRoute` — manifests do not replace handlers.
 

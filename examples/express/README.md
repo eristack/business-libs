@@ -4,8 +4,9 @@ Injection path:
 
 1. App schema: [`src/db/schema.ts`](./src/db/schema.ts) (users, jwt-auth tables, **customers / products / orders / order_lines**)
 2. App migrations: `pnpm db:generate` → committed under [`drizzle/`](./drizzle)
-3. App opens SQLite and runs `migrate()` — [`src/db/client.ts`](./src/db/client.ts)
-4. jwt-auth stores + **orders list** use the same injected `db`
+3. App opens SQLite via **`openDrizzle`** — [`src/db/client.ts`](./src/db/client.ts) (`@eristack/drizzle`)
+4. Optional B4 manifests — [`src/db/collections.ts`](./src/db/collections.ts) (`defineErpCollection` + `backseatCollectionsFromManifests`)
+5. jwt-auth stores + **orders list** use the same injected `db`
 
 ## Orders data-grid (battle test)
 

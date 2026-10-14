@@ -48,3 +48,12 @@ export function erpCollectionManifests<const T extends readonly ErpCollectionDec
 ): T {
   return manifests;
 }
+
+/** Map manifests to `createBackseat({ collections })` options. */
+export function backseatCollectionsFromManifests(
+  manifests: readonly ErpCollectionDeclaration[],
+): Record<string, { path?: string }> {
+  return Object.fromEntries(
+    manifests.map((m) => [m.collection, { path: m.path ?? m.collection }]),
+  );
+}

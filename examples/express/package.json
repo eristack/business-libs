@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@eristack/data-grid": "workspace:*",
+    "@eristack/drizzle": "workspace:*",
     "@eristack/entity-id": "workspace:*",
     "@eristack/idempotency": "workspace:*",
     "@eristack/jwt-auth": "workspace:*",

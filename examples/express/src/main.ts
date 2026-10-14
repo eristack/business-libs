@@ -21,7 +21,7 @@ import { createIdempotencyGuard } from "@eristack/idempotency";
 import {
   createDrizzleIdempotencyStore,
 } from "@eristack/idempotency/drizzle";
-import { createAppDatabase } from "./db/client.js";
+import { bootAppDatabase } from "./db/client.js";
 import { idempotencyTables, users } from "./db/schema.js";
 import { createOrdersRouter } from "./orders/router.js";
 import { seedOrdersDemo } from "./orders/seed-orders.js";
@@ -30,8 +30,9 @@ const accessSecret =
   process.env.JWT_ACCESS_SECRET ?? "dev-only-access-secret-change-me";
 const port = Number(process.env.PORT ?? 3001);
 
-// 1) App owns DB + Drizzle migrations
-const { db, refreshTokenTable, credentialsTable, file } = createAppDatabase();
+// 1) App owns DB + Drizzle migrations (@eristack/drizzle openDrizzle)
+const { db, refreshTokenTable, credentialsTable, location, dialect } =
+  await bootAppDatabase();
 
 // 2) Inject app `db` into package stores
 const store = createDrizzleRefreshTokenStore({
@@ -107,7 +108,7 @@ app.use(
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true, example: "express", db: file });
+  res.json({ ok: true, example: "express", dialect, db: location });
 });
 
 app.use(
@@ -154,7 +155,7 @@ app.use(
 
 app.listen(port, () => {
   console.log(`[@eristack/example-express] http://localhost:${port}`);
-  console.log(`  sqlite db: ${file}`);
+  console.log(`  sqlite db: ${location}`);
   console.log(`  demo login: username=demo password=password123`);
   console.log(`  POST   /auth/login              { "username": "demo", "password": "password123" }`);
   console.log(`  POST   /auth/refresh            { "refreshToken": "..." }`);

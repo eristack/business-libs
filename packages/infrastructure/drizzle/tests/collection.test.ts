@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { defineErpCollection, erpCollectionManifests } from "../src/schema/collection.js";
+import {
+  backseatCollectionsFromManifests,
+  defineErpCollection,
+  erpCollectionManifests,
+} from "../src/schema/collection.js";
 
 describe("defineErpCollection", () => {
   it("returns a trimmed manifest", () => {
@@ -20,5 +24,12 @@ describe("defineErpCollection", () => {
       defineErpCollection({ collection: "invoices", idField: "id" }),
     ] as const);
     expect(list).toHaveLength(2);
+  });
+
+  it("maps to Backseat collection options", () => {
+    const opts = backseatCollectionsFromManifests([
+      defineErpCollection({ collection: "orders", path: "sales/orders" }),
+    ]);
+    expect(opts.orders).toEqual({ path: "sales/orders" });
   });
 });
