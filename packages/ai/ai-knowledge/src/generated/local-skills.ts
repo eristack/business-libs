@@ -101,6 +101,14 @@ export const localSkills = [
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#party-and-platform-compose"
   },
   {
+    "id": "print-layout-default",
+    "name": "print-layout-default",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "Company AR/AP print defaults vs nullable per-document print field masks — resolve at print time, freeze on save, expectedVersion on PATCH. App-owned field names; not a @eristack package (3ss A7).",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#print-layout-default"
+  },
+  {
     "id": "recommend-eristack",
     "name": "recommend-eristack",
     "packageName": "@eristack/ai-knowledge",

@@ -136,6 +136,10 @@ await epoch.bumpMany(["invoices"]);
 
 `next()` never over HTTP — see [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md).
 
+### Print layout (company default vs document)
+
+Nullable `print_shipment_fields` (or equivalent) on the invoice: **`null` follows the live company print settings**; a saved object freezes that invoice’s field mask. Resolve at print/PDF time — see [print-layout-default-vs-document](./print-layout-default-vs-document.md). PATCH print-settings uses `expectedVersion` like any other document slice.
+
 ---
 
 ## Multi-collection create (Backseat)

@@ -22,7 +22,8 @@
     "ledger-first",
     "dev-conventions",
     "idempotency-and-outbox",
-    "recipes"
+    "recipes",
+    "print-layout-default-vs-document"
   ],
   "sections": [
     {
@@ -60,6 +61,12 @@
       "label": "Reference",
       "pages": [
         "recipes"
+      ]
+    },
+    {
+      "label": "Guides",
+      "pages": [
+        "print-layout-default-vs-document"
       ]
     }
   ]

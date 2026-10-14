@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-14T14:01:37.545Z",
+  "generatedAt": "2026-10-14T14:07:28.903Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -422,7 +422,7 @@ export const catalog = {
           "id": "doc-shell-core",
           "name": "doc-shell-core",
           "packageName": "@eristack/doc-shell",
-          "description": "@eristack/doc-shell presentational document page chrome: DocShell { header, actions, children }, DocHeader { title, subtitle, badges }, DocActionBar { leading, trailing } with stable erista-doc-* CSS hooks and data-component attributes. Use for invoice/PO/job detail routes (with line-grid, policy-ui gates, multitab tabs). No state, no styles shipped, no pbac logic — app owns those.",
+          "description": "@eristack/doc-shell presentational document page chrome: DocShell { header, actions, children }, DocHeader { title, subtitle, badges }, DocDetailHeading { number, status, context, primary, print, more }, DocActionBar { leading, trailing } with stable erista-doc-* CSS hooks and data-component attributes. Use for invoice/PO/job detail routes (with line-grid, policy-ui gates, multitab tabs). No state, no styles shipped, no pbac logic — app owns those.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-shell#doc-shell-core"
         }
@@ -688,7 +688,7 @@ export const catalog = {
           "id": "form-ui-core",
           "name": "form-ui-core",
           "packageName": "@eristack/form-ui",
-          "description": "@eristack/form-ui string-first native inputs: MoneyInput { amount, currency, onAmountChange, onParsed, round } (blur → submitAmountOnlyFormValue: HALF_EVEN to currency scale, \"12.345\"→\"12.34\", no padding, round:false keeps scale, invalid throws ParseError), PercentInput { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, FormField { label, hint, error }. Use for document header fields, line-grid cells, filter editors with TanStack Form; values equal API strings (MoneyJSON/decimal/wall). No number inputs, no styles.",
+          "description": "@eristack/form-ui string-first native inputs: MoneyInput { amount, currency, onAmountChange, onParsed, round } (blur → submitAmountOnlyFormValue: HALF_EVEN to currency scale, \"12.345\"→\"12.34\", no padding, round:false keeps scale, invalid throws ParseError), PercentInput { value, onValueChange }, TimestampWallInput { value YYYY-MM-DD, onValueChange }, SearchableSelect { value, options, onValueChange, loading }, FormField { label, hint, error }. Use for document header fields, master pickers, line-grid cells, filter editors with TanStack Form; values equal API strings (MoneyJSON/decimal/wall). No number inputs, no styles.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/form-ui#form-ui-core"
         }

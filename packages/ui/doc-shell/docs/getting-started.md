@@ -50,6 +50,28 @@ function InvoicePage({ invoice, canPost, onSave, onPost, children }: Props) {
 
 `canPost` comes from `@eristack/pbac/react` `useBusinessPolicy({ pbac, policyId, input }).allowed` (or the server's `allowedActions` on the document payload). The shell never decides.
 
+### Invoice-style detail heading (optional)
+
+When the title row needs number + status + context + primary/print/more actions in one band, use `DocDetailHeading` **inside** the body (or above fields) instead of cramming everything into `DocHeader`:
+
+```tsx
+import { DocShell, DocHeader, DocActionBar, DocDetailHeading } from "@eristack/doc-shell";
+
+<DocShell header={<DocHeader title="Invoice" subtitle={partnerName} />} actions={…}>
+  <DocDetailHeading
+    number={invoice.number}
+    status={<StatusBadge status={invoice.status} />}
+    context={<span>Posted {formatPostedAt(invoice.postedAt)}</span>}
+    primary={<button type="button" onClick={onSave}>Save</button>}
+    print={<button type="button" onClick={onPrint}>Print</button>}
+    more={<DocumentOverflowMenu invoice={invoice} />}
+  />
+  …
+</DocShell>
+```
+
+Hooks: `.erista-doc-detail-heading`, `__number`, `__status`, `__context`, `__actions`, `__primary`, `__print`, `__more`. Omit any slot to hide it.
+
 ## Body: fields + lines
 
 ```tsx
@@ -101,4 +123,4 @@ expect(screen.getByText("INV-1").closest("[data-component='doc-header']")).toBeT
 
 ## Exports
 
-`DocShell`, `DocHeader`, `DocActionBar` + `DocShellProps`, `DocHeaderProps`, `DocActionBarProps`.
+`DocShell`, `DocHeader`, `DocActionBar`, `DocDetailHeading` + matching `*Props` types.

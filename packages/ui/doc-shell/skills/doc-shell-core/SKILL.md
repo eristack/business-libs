@@ -2,7 +2,8 @@
 name: doc-shell-core
 description: >
   @eristack/doc-shell presentational document page chrome: DocShell { header, actions, children },
-  DocHeader { title, subtitle, badges }, DocActionBar { leading, trailing } with stable erista-doc-*
+  DocHeader { title, subtitle, badges }, DocDetailHeading { number, status, context, primary, print, more },
+  DocActionBar { leading, trailing } with stable erista-doc-*
   CSS hooks and data-component attributes. Use for invoice/PO/job detail routes (with line-grid,
   policy-ui gates, multitab tabs). No state, no styles shipped, no pbac logic — app owns those.
 metadata:

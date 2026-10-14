@@ -723,6 +723,23 @@ recipes:
           - jwt-auth-adapters
         role: supporting
 
+  - id: print-layout-default-document
+    title: Print layout company default vs frozen document mask
+    priority: 18
+    triggers:
+      - print settings
+      - print layout
+      - shipment fields on invoice
+      - ar print
+      - print tax codes
+      - frozen print mask
+    rationale: >
+      3ss A7 — app-owned company print singleton + nullable document mask. Load
+      @eristack/ai-knowledge#print-layout-default and knowledge/print-layout-default-vs-document.md only.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#print-layout-default"
+    packages: []
+
   - id: document-lines-erp
     title: Document-with-lines ERP (job, cost sheet, invoice)
     priority: 7
