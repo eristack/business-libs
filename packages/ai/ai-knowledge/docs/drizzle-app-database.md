@@ -33,9 +33,19 @@ Pool defaults: `max: 5`, `idleTimeoutMs: 30_000`. Pass `migrate: false` in tests
 2. `@eristack/drizzle-kit-helpers` — drizzle-kit config for two `out` folders.
 3. Inject `db` into Express/Nest compose — same as `examples/express` but replace hand-rolled `createAppDatabase` with `openDrizzle`.
 
-## Step 2 (same package, later)
+## Step 2 — `@eristack/drizzle/schema`
 
-Dialect-agnostic column helpers (`text`, `flag`, JSON lists) and `createEristackSpineTables(dialect)` fold in `20260925-201504` — not a second package beside the client. **B4** collection declaration waits on step 2.
+```ts
+import { createEristackSpineTables, dialectJsonMap, dialectText, entityIdColumn } from "@eristack/drizzle/schema";
+
+const DIALECT = resolveAppDbDialect(); // or env constant in schema.ts
+
+export const spine = createEristackSpineTables({ dialect: DIALECT, backseatDocuments: true });
+```
+
+Column helpers: `dialectText`, `dialectFlag`, `dialectJson`, `dialectStringList`, `dialectJsonMap`, `dialectTimestampJson`, plus `entityIdColumn` re-export. Spine composes jwt-auth, rbac, epoch, doc-number, optional backseat documents — app still owns `users` and business tables. Folds `20260925-201504` into this package, not a second bootstrap package.
+
+**B4** one collection declaration is next — needs consumer mirror tests; do not codegen collections until apps adopt step 2 in `schema.ts`.
 
 ## Do not
 

@@ -416,7 +416,7 @@ importers:
         version: 9.39.5(jiti@2.7.0)
       eslint-config-next:
         specifier: 16.3.0
-        version: 16.3.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+        version: 16.3.0(@typescript-eslint/parser@8.67.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       tailwindcss:
         specifier: ^4
         version: 4.3.3
@@ -498,7 +498,7 @@ importers:
         version: 9.39.5(jiti@2.7.0)
       eslint-config-next:
         specifier: 16.3.0
-        version: 16.3.0(@typescript-eslint/parser@8.67.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+        version: 16.3.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       tailwindcss:
         specifier: ^4
         version: 4.3.3
@@ -1217,6 +1217,24 @@ importers:
 
   packages/infrastructure/drizzle:
     devDependencies:
+      '@eristack/backseat':
+        specifier: workspace:*
+        version: link:../backseat
+      '@eristack/doc-number':
+        specifier: workspace:*
+        version: link:../../capability/doc-number
+      '@eristack/entity-id':
+        specifier: workspace:*
+        version: link:../../primitive/entity-id
+      '@eristack/epoch':
+        specifier: workspace:*
+        version: link:../../service/epoch
+      '@eristack/jwt-auth':
+        specifier: workspace:*
+        version: link:../../service/jwt-auth
+      '@eristack/rbac':
+        specifier: workspace:*
+        version: link:../../service/rbac
       '@tanstack/intent':
         specifier: ^0.3.6
         version: 0.3.6

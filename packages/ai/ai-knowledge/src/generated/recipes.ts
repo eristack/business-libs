@@ -855,7 +855,7 @@ export const recipes = [
       "drizzle app boot",
       "database url postgres pool"
     ],
-    "rationale": "3ss B3 step 1 — @eristack/drizzle openDrizzle + @eristack/ai-knowledge#drizzle-app-database. Table packages never open pools.",
+    "rationale": "3ss B3 — openDrizzle + @eristack/drizzle/schema spine/columns + #drizzle-app-database. Table packages never open pools.",
     "canonicalSkills": [
       "@eristack/ai-knowledge#drizzle-app-database",
       "@eristack/drizzle#drizzle-core"
