@@ -12,3 +12,11 @@ export {
   type CreateEristackSpineTablesOptions,
   type EristackSpineTables,
 } from "./spine.js";
+export {
+  defineErpCollection,
+  erpCollectionManifests,
+  type DefineErpCollectionOptions,
+  type ErpCollectionDeclaration,
+  type ErpCollectionRowMapper,
+  type ErpDocumentShape,
+} from "./collection.js";

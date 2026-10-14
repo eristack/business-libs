@@ -45,7 +45,7 @@ export const spine = createEristackSpineTables({ dialect: DIALECT, backseatDocum
 
 Column helpers: `dialectText`, `dialectFlag`, `dialectJson`, `dialectStringList`, `dialectJsonMap`, `dialectTimestampJson`, plus `entityIdColumn` re-export. Spine composes jwt-auth, rbac, epoch, doc-number, optional backseat documents — app still owns `users` and business tables. Folds `20260925-201504` into this package, not a second bootstrap package.
 
-**B4** one collection declaration is next — needs consumer mirror tests; do not codegen collections until apps adopt step 2 in `schema.ts`.
+**B4** — `defineErpCollection` / `erpCollectionManifests` on `@eristack/drizzle/schema` + `#collection-declaration-horizon-b`. Mirror CI via `@eristack/backseat/testing`; SQL codegen from manifests is later.
 
 ## Do not
 

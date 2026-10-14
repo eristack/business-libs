@@ -2,4 +2,4 @@
 "@eristack/ai-knowledge": patch
 ---
 
-3ss: drizzle-app-database (B3 step 2 schema), print-layout, document-lines print, seam guides.
+3ss: 3ss adoption checklist, B4 collection guide, drizzle-app-database, print-layout, seam guides.

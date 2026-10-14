@@ -37,6 +37,14 @@ export const localSkills = [
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#backseat-then-backend"
   },
   {
+    "id": "collection-declaration-horizon-b",
+    "name": "collection-declaration-horizon-b",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "3ss B4 — defineErpCollection manifests in @eristack/drizzle/schema, CollectionDocumentStore port, createDrizzleBackseatStore JSON path vs normalized row mappers, routesSnapshot mirror CI via @eristack/backseat/testing. Codegen later; manifests + mirror smoke now.",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#collection-declaration-horizon-b"
+  },
+  {
     "id": "dev-conventions",
     "name": "dev-conventions",
     "packageName": "@eristack/ai-knowledge",
@@ -131,6 +139,14 @@ export const localSkills = [
     "description": "Preferred Eristack app stack defaults: TypeScript, Drizzle (pgsql dialect), Express/Nest/React headless adapters, string-first money, credentials as a child of app users, doc-number token patterns. Use when scaffolding apps or choosing persistence/HTTP/frontend wiring around @eristack packages.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#stack-defaults"
+  },
+  {
+    "id": "tiga-sekawan-3ss-adoption",
+    "name": "tiga-sekawan-3ss-adoption",
+    "packageName": "@eristack/ai-knowledge",
+    "description": "Consumer checklist for batch 3ss platform seams: map A1–B11 rows to @eristack packages, migration order, and Tiga Sekawan file paths. Use in the consumer app after business-libs releases — not for new library APIs.",
+    "type": "core",
+    "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#tiga-sekawan-3ss-adoption"
   },
   {
     "id": "ui-package-stack",

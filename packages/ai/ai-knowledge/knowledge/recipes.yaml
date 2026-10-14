@@ -723,6 +723,45 @@ recipes:
           - jwt-auth-adapters
         role: supporting
 
+  - id: tiga-sekawan-3ss-adopt
+    title: Adopt 3ss platform seams in a document-lines consumer app
+    priority: 20
+    triggers:
+      - tiga sekawan adoption
+      - 3ss consumer
+      - platform seams adopt
+      - replace busy.tsx eristack
+    rationale: >
+      After business-libs 3ss release — load @eristack/ai-knowledge#tiga-sekawan-3ss-adoption only.
+      Maps rows A1–B11 to packages and consumer file paths; no new library work.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#tiga-sekawan-3ss-adoption"
+    packages: []
+
+  - id: erp-collection-declaration
+    title: ERP collection manifest for Backseat and Drizzle (Horizon B)
+    priority: 21
+    triggers:
+      - collection declaration
+      - defineErpCollection
+      - backseat drizzle same collection
+      - routes snapshot mirror
+      - horizon b collection
+    rationale: >
+      3ss B4 — defineErpCollection + #collection-declaration-horizon-b + @eristack/backseat/testing
+      mirror smoke. Codegen later.
+    canonicalSkills:
+      - "@eristack/ai-knowledge#collection-declaration-horizon-b"
+    packages:
+      - name: "@eristack/drizzle"
+        skills:
+          - drizzle-core
+        role: primary
+      - name: "@eristack/backseat"
+        skills:
+          - backseat-core
+        role: supporting
+
   - id: drizzle-open-app-database
     title: Open Drizzle once at app compose (sqlite or Postgres)
     priority: 19

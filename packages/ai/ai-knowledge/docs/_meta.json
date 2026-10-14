@@ -24,7 +24,9 @@
     "idempotency-and-outbox",
     "recipes",
     "print-layout-default-vs-document",
-    "drizzle-app-database"
+    "drizzle-app-database",
+    "tiga-sekawan-3ss-adoption",
+    "collection-declaration-horizon-b"
   ],
   "sections": [
     {
@@ -68,7 +70,9 @@
       "label": "Guides",
       "pages": [
         "print-layout-default-vs-document",
-        "drizzle-app-database"
+        "drizzle-app-database",
+        "tiga-sekawan-3ss-adoption",
+        "collection-declaration-horizon-b"
       ]
     }
   ]

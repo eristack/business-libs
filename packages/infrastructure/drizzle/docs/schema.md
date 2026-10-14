@@ -45,7 +45,19 @@ export const {
 } = spine;
 ```
 
-App-owned business tables use the same `DIALECT` constant and column helpers so `schema.ts` type-checks once per dialect. **B4** collection codegen builds on this — do not duplicate row mappers until step 2 is in the consumer.
+App-owned business tables use the same `DIALECT` constant and column helpers so `schema.ts` type-checks once per dialect.
+
+## Collection manifests (B4)
+
+```ts
+import { defineErpCollection, erpCollectionManifests } from "@eristack/drizzle/schema";
+
+export const erpCollections = erpCollectionManifests([
+  defineErpCollection({ collection: "invoices", idField: "id" }),
+]);
+```
+
+See `@eristack/ai-knowledge#collection-declaration-horizon-b` for Backseat wiring and mirror CI. SQL/codegen from manifests is not shipped yet.
 
 ## Exports
 

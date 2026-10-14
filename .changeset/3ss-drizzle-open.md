@@ -2,4 +2,4 @@
 "@eristack/drizzle": patch
 ---
 
-3ss B3: openDrizzle boot plus /schema column helpers and createEristackSpineTables composer.
+3ss B3/B4: openDrizzle, /schema spine+columns, defineErpCollection manifests (codegen later).
