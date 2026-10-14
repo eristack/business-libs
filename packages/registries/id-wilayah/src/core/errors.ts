@@ -8,8 +8,6 @@ export class AdminDivisionError extends Error {
 }
 
 export class AdminDivisionNotFoundError extends AdminDivisionError {
-  readonly code = "ADMIN_DIVISION_NOT_FOUND" as const;
-
   constructor(code: string) {
     super(`Admin division code not found in registry: "${code}"`);
     this.name = "AdminDivisionNotFoundError";

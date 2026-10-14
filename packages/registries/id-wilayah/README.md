@@ -8,4 +8,4 @@ Indonesia **official administrative division codes** (province → regency/city 
 
 Bundled place **names** stay as published in the source dataset (often uppercase Indonesian); API identifiers and metadata labels are English.
 
-Docs: [`docs/getting-started.md`](./docs/getting-started.md) when shipped.
+Docs: [`docs/getting-started.md`](./docs/getting-started.md)

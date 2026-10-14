@@ -73,7 +73,8 @@ export function parentAdminDivisionCode(code: AdminDivisionCode): AdminDivisionC
   const level = officialLevelForCodeLength(code.length);
   if (!level || level === "province") return null;
   const idx = OFFICIAL_LENGTHS.indexOf(level);
-  const parentLevel = OFFICIAL_LENGTHS[idx - 1];
+  if (idx <= 0) return null;
+  const parentLevel = OFFICIAL_LENGTHS[idx - 1]!;
   const len = LENGTH_BY_LEVEL[parentLevel];
   return code.slice(0, len) as AdminDivisionCode;
 }

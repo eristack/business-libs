@@ -34,7 +34,7 @@ export const packageCategories = [
     highlights: [
       {
         title: "One package per code system",
-        body: "iso-3166, unlocode, iso-4217 — not a grab-bag ISO layer.",
+        body: "iso-3166, unlocode, id-wilayah, iso-4217 — one package per code system.",
       },
       {
         title: "Not your CRM masters",
@@ -877,6 +877,42 @@ alpha3ToAlpha2("IDN") // "ID"`,
 
 const pol = normalizeUnlocode("ID JKT")
 formatUnlocodeDisplay(pol) // "ID JKT"`,
+    },
+  },
+  {
+    slug: "id-wilayah",
+    name: "@eristack/id-wilayah",
+    title: "Indonesia admin divisions",
+    category: "registries" as const,
+    directory: "packages/registries/id-wilayah",
+    href: "/id-wilayah",
+    docsHref: "/docs/id-wilayah",
+    tagline: "Official numeric admin codes — province through village.",
+    description:
+      "Normalize 2/4/7/10-digit ministry-style codes, bundled registry through ~84k villages, English unit kinds through hamlet and neighborhood. Pair with iso-3166 for country ID and address for postal shape.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/id-wilayah",
+    highlights: [
+      {
+        title: "Hierarchy parse",
+        body: "parseAdminDivisionCode — segments without hand-splitting strings.",
+      },
+      {
+        title: "Bundled snapshot",
+        body: "Node gzip loader for national registry; app owns pickers and deactivations.",
+      },
+      {
+        title: "Sub-village kinds",
+        body: "Hamlet, community block, neighborhood local ids under a village code.",
+      },
+    ],
+    sample: {
+      filename: "village.ts",
+      language: "ts",
+      code: `import { normalizeAdminDivisionCode, parseAdminDivisionCode } from "@eristack/id-wilayah"
+
+const code = normalizeAdminDivisionCode("3171010001")
+parseAdminDivisionCode(code).segments.district // "3171010"`,
     },
   },
   {

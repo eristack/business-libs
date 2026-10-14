@@ -6,5 +6,7 @@ export default defineConfig({
   dts: false,
   sourcemap: true,
   clean: true,
+  platform: "node",
+  shims: true,
   external: ["zod"],
 });

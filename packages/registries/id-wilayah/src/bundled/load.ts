@@ -10,19 +10,27 @@ import {
 } from "../core/registry.js";
 import type { BundledAdminDivisionRow } from "../core/types.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const GZ_NAME = "official-registry-2024.json.gz";
+
+declare const __dirname: string | undefined;
+
+function bundledAssetDir(): string {
+  if (typeof __dirname !== "undefined") {
+    return __dirname;
+  }
+  return dirname(fileURLToPath(import.meta.url));
+}
 
 let cachedRegistry: AdminDivisionRegistry | null = null;
 let cachedRows: BundledAdminDivisionRow[] | null = null;
 
 async function readGzJson(): Promise<BundledAdminDivisionRow[]> {
   if (cachedRows) return cachedRows;
-  const gzPath = join(__dirname, GZ_NAME);
+  const gzPath = join(bundledAssetDir(), GZ_NAME);
   const chunks: Buffer[] = [];
   const collector = new Writable({
-    write(chunk, _enc, cb) {
-      chunks.push(Buffer.from(chunk));
+    write(chunk: Buffer | string, _enc, cb) {
+      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
       cb();
     },
   });

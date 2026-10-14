@@ -1,0 +1,14 @@
+{
+  "title": "Indonesia admin divisions",
+  "pages": ["index", "getting-started", "concepts"],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": ["index", "getting-started"]
+    },
+    {
+      "label": "Guides",
+      "pages": ["concepts"]
+    }
+  ]
+}

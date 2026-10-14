@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-14T14:30:31.020Z",
+  "generatedAt": "2026-10-14T14:41:48.733Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -798,6 +798,26 @@ export const catalog = {
           "description": "@eristack/health createHealthRegistry + registerCheck(name, fn) → runLiveness / runReadiness with per-check durationMs; aggregateStatus maps ok→200, degraded→503. Express createHealthRouter {liveness, readiness}; Nest HealthModule.forRoot + HEALTH_REGISTRY. Use for /health and /ready probes (Postgres, outbox lag, S3). Checks must be wrapped so they never throw or hang; they run sequentially.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/health#health-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/id-wilayah",
+      "version": "0.0.0",
+      "description": "Indonesia official admin division codes — provinces through villages, unit kinds through hamlet, community block, and neighborhood",
+      "slug": "id-wilayah",
+      "adapters": [
+        "bundled",
+        "zod"
+      ],
+      "skills": [
+        {
+          "id": "id-wilayah-core",
+          "name": "id-wilayah-core",
+          "packageName": "@eristack/id-wilayah",
+          "description": "@eristack/id-wilayah Indonesia official admin division codes (2/4/7/10 digits), bundled registry through villages, unit kinds through hamlet/community block/neighborhood. Use for Indonesian ERP address masters, KTP-style hierarchy pickers, and validating ministry numeric codes — not geocoding or postal validation alone.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/id-wilayah#id-wilayah-core"
         }
       ]
     },

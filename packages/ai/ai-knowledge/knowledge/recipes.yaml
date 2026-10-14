@@ -568,6 +568,36 @@ recipes:
           - iso-3166-core
         role: primary
 
+  - id: indonesia-admin-divisions
+    title: Indonesia administrative division codes
+    priority: 15
+    triggers:
+      - indonesia province
+      - indonesia regency
+      - kabupaten
+      - kecamatan
+      - desa
+      - kelurahan
+      - kode wilayah
+      - wilayah administrasi
+      - admin division indonesia
+      - indonesia village code
+      - rw rt indonesia
+      - dusun
+    rationale: >
+      Use @eristack/id-wilayah for official 2/4/7/10-digit admin codes, bundled
+      village registry, and English unit kinds through hamlet/community block/neighborhood.
+      Pair with iso-3166 for country ID. Load id-wilayah-core — getting-started only.
+    packages:
+      - name: "@eristack/id-wilayah"
+        skills:
+          - id-wilayah-core
+        role: primary
+      - name: "@eristack/iso-3166"
+        skills:
+          - iso-3166-core
+        role: supporting
+
   - id: file-upload-s3
     title: File uploads, S3, and presigned URLs
     priority: 16
