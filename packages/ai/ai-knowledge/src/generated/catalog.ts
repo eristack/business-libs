@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-14T14:07:28.903Z",
+  "generatedAt": "2026-10-14T14:15:37.620Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -442,6 +442,23 @@ export const catalog = {
           "description": "@eristack/doc-transitions preset status graphs (publication, decision, journal, lock, outstanding) for pbac documents.transitions(). Use instead of copy-paste status tables when wiring ERP document PATCH actions.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/doc-transitions#doc-transitions-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/drizzle",
+      "version": "0.1.0",
+      "description": "App-owned Drizzle boot: openDrizzle for sqlite or Postgres with lazy drivers and redacted health location",
+      "slug": "drizzle",
+      "adapters": [],
+      "skills": [
+        {
+          "id": "drizzle-core",
+          "name": "drizzle-core",
+          "packageName": "@eristack/drizzle",
+          "description": "@eristack/drizzle app-owned boot: openDrizzle({ schema, migrationsFolder, pool }) → { db, dialect, location, close } with lazy better-sqlite3/pg, APP_DB_DIALECT or DATABASE_URL resolution, migrate per dialect, redacted Postgres URL for health. App calls once — Eristack table packages never open connections. Step 2 schema recipe ships here later (3ss B3).",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/drizzle#drizzle-core"
         }
       ]
     },

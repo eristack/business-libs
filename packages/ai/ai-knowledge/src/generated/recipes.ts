@@ -845,6 +845,39 @@ export const recipes = [
     ]
   },
   {
+    "id": "drizzle-open-app-database",
+    "title": "Open Drizzle once at app compose (sqlite or Postgres)",
+    "priority": 19,
+    "triggers": [
+      "open drizzle",
+      "createappdatabase",
+      "app_db_dialect",
+      "drizzle app boot",
+      "database url postgres pool"
+    ],
+    "rationale": "3ss B3 step 1 — @eristack/drizzle openDrizzle + @eristack/ai-knowledge#drizzle-app-database. Table packages never open pools.",
+    "canonicalSkills": [
+      "@eristack/ai-knowledge#drizzle-app-database",
+      "@eristack/drizzle#drizzle-core"
+    ],
+    "packages": [
+      {
+        "name": "@eristack/drizzle",
+        "skills": [
+          "drizzle-core"
+        ],
+        "role": "primary"
+      },
+      {
+        "name": "@eristack/drizzle-kit-helpers",
+        "skills": [
+          "drizzle-kit-helpers-core"
+        ],
+        "role": "supporting"
+      }
+    ]
+  },
+  {
     "id": "print-layout-default-document",
     "title": "Print layout company default vs frozen document mask",
     "priority": 18,

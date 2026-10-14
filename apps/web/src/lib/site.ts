@@ -2372,6 +2372,36 @@ export default defineConfig({
     },
   },
   {
+    slug: "drizzle",
+    name: "@eristack/drizzle",
+    title: "Drizzle app boot",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/drizzle",
+    href: "/drizzle",
+    docsHref: "/docs/drizzle",
+    tagline: "openDrizzle — one app-owned sqlite or Postgres handle.",
+    description:
+      "Lazy better-sqlite3/pg, APP_DB_DIALECT resolution, dialect migrations, redacted health location. 3ss B3 step 1 — table packages never open connections.",
+    status: "alpha" as const,
+    install: "pnpm add @eristack/drizzle drizzle-orm pg better-sqlite3",
+    highlights: [
+      { title: "App-owned pool", body: "Compose root calls openDrizzle once." },
+      { title: "Dual dialect", body: "Separate migration folders per sqlite/pgsql." },
+      { title: "Health-safe", body: "redactDatabaseLocation for readiness probes." },
+    ],
+    sample: {
+      filename: "database.ts",
+      language: "ts",
+      code: `import * as schema from "./schema.js"
+import { openDrizzle } from "@eristack/drizzle"
+
+export const databasePromise = openDrizzle({
+  schema,
+  migrationsFolder: { sqlite: "./drizzle/sqlite", pgsql: "./drizzle/pgsql" },
+})`,
+    },
+  },
+  {
     slug: "rest",
     name: "@eristack/rest",
     title: "REST",

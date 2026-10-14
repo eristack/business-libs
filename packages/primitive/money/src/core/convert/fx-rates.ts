@@ -11,6 +11,84 @@ import {
   type ExchangeRate,
 } from "./conversion.js";
 
+/** App-supplied FX period master row (wall dates, quote-per-base string). */
+export type WallPeriodQuoteRate = {
+  base: string | CurrencyUnit;
+  term: string | CurrencyUnit;
+  /** Inclusive YYYY-MM-DD wall start. */
+  effectiveFrom: string;
+  /** Inclusive YYYY-MM-DD wall end. */
+  effectiveTo: string;
+  /** Quote currency amount per one unit of base — same shape as `convertAtQuotePerBase`. */
+  quotePerBase: string;
+};
+
+export class MissingWallPeriodFxRateError extends MoneyError {
+  readonly base: string;
+  readonly term: string;
+  readonly asOfWall: string;
+
+  constructor(base: string, term: string, asOfWall: string) {
+    super(`No FX period for ${base}/${term} on wall date ${asOfWall}`);
+    this.name = "MissingWallPeriodFxRateError";
+    this.base = base;
+    this.term = term;
+    this.asOfWall = asOfWall;
+  }
+}
+
+function normalizeWallDate(value: string, field: string): string {
+  const trimmed = value.trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    throw new MoneyError(`${field} must be YYYY-MM-DD`);
+  }
+  return trimmed;
+}
+
+/**
+ * Resolve quote-per-base for a wall calendar day from app-owned period rows (cost-sheet order date).
+ * Does not convert — pair with `convertAtQuotePerBase`.
+ */
+export function resolveQuotePerBaseForWallDate(
+  base: string | CurrencyUnit,
+  term: string | CurrencyUnit,
+  asOfWall: string,
+  periods: readonly WallPeriodQuoteRate[],
+): string {
+  const baseCode = resolveCurrency(base).currencyCode;
+  const termCode = resolveCurrency(term).currencyCode;
+  const wall = normalizeWallDate(asOfWall, "asOfWall");
+
+  let match: WallPeriodQuoteRate | undefined;
+  for (const row of periods) {
+    if (
+      resolveCurrency(row.base).currencyCode !== baseCode ||
+      resolveCurrency(row.term).currencyCode !== termCode
+    ) {
+      continue;
+    }
+    const from = normalizeWallDate(row.effectiveFrom, "effectiveFrom");
+    const to = normalizeWallDate(row.effectiveTo, "effectiveTo");
+    if (from > to) {
+      throw new MoneyError(`FX period ${baseCode}/${termCode} has effectiveFrom after effectiveTo`);
+    }
+    if (wall >= from && wall <= to) {
+      if (match) {
+        throw new MoneyError(
+          `Multiple FX periods match ${baseCode}/${termCode} on ${wall} — periods must not overlap`,
+        );
+      }
+      match = row;
+    }
+  }
+
+  if (!match) {
+    throw new MissingWallPeriodFxRateError(baseCode, termCode, wall);
+  }
+
+  return match.quotePerBase.trim();
+}
+
 export class MissingFxRateError extends MoneyError {
   readonly base: string;
   readonly term: string;

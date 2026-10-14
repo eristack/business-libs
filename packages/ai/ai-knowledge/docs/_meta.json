@@ -23,7 +23,8 @@
     "dev-conventions",
     "idempotency-and-outbox",
     "recipes",
-    "print-layout-default-vs-document"
+    "print-layout-default-vs-document",
+    "drizzle-app-database"
   ],
   "sections": [
     {
@@ -66,7 +67,8 @@
     {
       "label": "Guides",
       "pages": [
-        "print-layout-default-vs-document"
+        "print-layout-default-vs-document",
+        "drizzle-app-database"
       ]
     }
   ]

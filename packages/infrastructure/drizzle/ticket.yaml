@@ -1,0 +1,3 @@
+package: "@eristack/drizzle"
+kind: infrastructure
+notes: 3ss B3 step 1 openDrizzle app boot

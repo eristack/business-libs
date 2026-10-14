@@ -77,7 +77,10 @@ export {
   convertAtViaPivot,
   invertFactor,
   pickRate,
+  resolveQuotePerBaseForWallDate,
   MissingFxRateError,
+  MissingWallPeriodFxRateError,
+  type WallPeriodQuoteRate,
 } from "./convert/fx-rates.js";
 
 export {

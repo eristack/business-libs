@@ -2,4 +2,4 @@
 "@eristack/ai-knowledge": patch
 ---
 
-3ss: erp-feedback-busy, print-layout recipe, document-lines print note, epoch/tax/patch/wall/jwt guides.
+3ss: drizzle-app-database recipe, print-layout, document-lines print, erp-feedback-busy, seam guides.
