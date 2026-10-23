@@ -48,8 +48,8 @@
 | **compat** | deprecate-then-remove — trim duplicate prose after enforcement phase |
 | **rollback** | Keep old rules until migration row verified; do not delete cursor rules without STAB task |
 | **verify** | `pnpm knowledge:check`; optional future `check-skill-sources`; conflicts empty in [07-ai-workflow-audit.md](./07-ai-workflow-audit.md) |
-| **status** | in_progress |
-| **tasks** | STAB-AI-2/3/4 verified; STAB-ENF-1 verified; STAB-MIG-AIWF open |
+| **status** | complete |
+| **tasks** | STAB-AI-*; STAB-MIG-AIWF; MIG-04 map |
 
 ### MIG-2026-10-23-03 — Drizzle proof vs “Drizzle default” prose (target)
 
@@ -65,21 +65,19 @@
 | **status** | planned |
 | **tasks** | STAB-INT-HCL, STAB-INT-DATAGRID, STAB-INT-VAL, STAB-MEM-1 |
 
-### MIG-2026-10-23-04 — New AI workflow (efficiency + migration) — placeholder
+### MIG-2026-10-23-04 — Efficient agent entry + migration map
 
 | Field | Value |
 | --- | --- |
 | **area** | agent-workflow / tooling |
-| **old_order** | `recommend`/`loadPlan` + scattered rules; optional `@eristack/ai-workflow` in consumer repos only |
-| **new_order** | *To be defined when approved:* e.g. tightened `loadPlan`, fewer skill sources, eristack plan/check as mandatory entry; explicit mapping from old load commands to new |
+| **old_order** | Ad-hoc scripts; fat recommend skill; multi-source cross-cutting skills; human-only commits |
+| **new_order** | [data/agent-workflow-migration-map.md](./data/agent-workflow-migration-map.md): `eristack plan` → `recommend`/`loadPlan` → single-source skills → sync → granular commits; batch npm release |
 | **audience** | all |
-| **compat** | TBD — must include compat window and recipe/skill redirects |
-| **rollback** | TBD |
-| **verify** | TBD — likely `pnpm knowledge:check` + recommend tests + debottleneck |
-| **status** | planned |
-| **tasks** | *Add STAB-AI-* when scoped* |
-
-*Fill MIG-2026-10-23-04 when the “better and more efficient” workflow is specified (see `notes/main.md` reminder).*
+| **compat** | additive — APIs unchanged |
+| **rollback** | Revert ai-knowledge skills/knowledge; restore recommend catalog table in sync if needed |
+| **verify** | `pnpm knowledge:check`; `check-skill-sources --ci`; recommend tests |
+| **status** | complete |
+| **tasks** | STAB-MIG-AIWF, STAB-AI-2/3/4 |
 
 ---
 
