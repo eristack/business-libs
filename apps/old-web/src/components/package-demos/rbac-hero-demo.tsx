@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { createMemoryRbacStore, createRbac } from "@eristack/rbac";
+import { createRbac } from "@eristack/rbac";
+import { createMemoryRbacStore } from "@eristack/rbac/testing";
 import {
   DecisionBadge,
   DemoShell,

@@ -19,6 +19,9 @@ sources:
 Permissions are **boolean**. Roles are permission sets. Subjects are your user ids.
 
 ```ts
+import { createRbac } from "@eristack/rbac";
+import { createMemoryRbacStore } from "@eristack/rbac/testing";
+
 const rbac = createRbac({ store: createMemoryRbacStore() });
 await rbac.definePermission({ name: "orders.create" });
 await rbac.defineRole({ name: "clerk", permissions: ["orders.create"] });

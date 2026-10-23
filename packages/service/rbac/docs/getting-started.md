@@ -25,7 +25,8 @@ pnpm add @eristack/rbac
 ## Create the instance
 
 ```ts
-import { createRbac, createMemoryRbacStore } from "@eristack/rbac";
+import { createRbac } from "@eristack/rbac";
+import { createMemoryRbacStore } from "@eristack/rbac/testing";
 
 const rbac = createRbac({
   store: createMemoryRbacStore(),
