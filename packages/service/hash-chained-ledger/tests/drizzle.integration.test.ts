@@ -117,4 +117,33 @@ describe.skipIf(!canUseBetterSqlite())("hash-chained-ledger drizzle integration"
     expect(verified.entries).toBe(0);
     expect(verified.tipHash).toBeNull();
   });
+
+  it("keeps chain intact after many sequential appends (depth smoke)", async () => {
+    harness = setupHclSqlite();
+    const { ledger } = harness;
+
+    await ledger.append({
+      chainId: "depth",
+      openingBalance: "0",
+      inAmount: "1",
+      entryType: "open",
+      entryTypeId: "0",
+    });
+
+    for (let i = 1; i <= 24; i++) {
+      await ledger.append({
+        chainId: "depth",
+        inAmount: "1",
+        entryType: "receipt",
+        entryTypeId: String(i),
+      });
+    }
+
+    const snap = await ledger.snapshot("depth");
+    expect(snap?.balance).toBe("25");
+
+    const verified = await ledger.verify("depth");
+    expect(verified.ok).toBe(true);
+    expect(verified.entries).toBe(25);
+  });
 });
