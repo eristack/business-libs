@@ -129,13 +129,29 @@ tasks:
         - redesign/data/agent-workflow-migration-map.md
         - redesign/migration-from-old-order.md
 
+  - id: STAB-MEM-2-rbac
+    title: "@eristack/rbac — createMemoryRbacStore only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
   - id: STAB-MEM-2
     title: Move createMemory off root export (one package per PR)
     phase: 2
-    state: proposed
+    state: in_progress
     priority: 4
     findings: [F-007]
-    notes: Shrink ALLOWLIST in check-memory-root-exports.mjs as each package migrates to /testing
+    notes: rbac done; 9 packages remain on allowlist
+
+  - id: STAB-INT-JWT
+    title: jwt-auth drizzle refresh store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
 
   - id: STAB-INT-HCL
     title: Integration test createDrizzleLedgerStore append/verify

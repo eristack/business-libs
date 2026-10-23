@@ -18,12 +18,12 @@
 | `@eristack/epoch` | yes | |
 | `@eristack/file-manager` | yes | |
 | `@eristack/payment-manager` | yes | |
+| `@eristack/jwt-auth` | yes | refresh token store save/find |
 
 ## Packages with `/drizzle` but **no** `drizzle.integration.test.ts` (debt)
 
 | Package | Drizzle path |
 | --- | --- |
-| `@eristack/jwt-auth` | `src/drizzle/` |
 | `@eristack/comms` | `src/drizzle/` |
 | `@eristack/oauth` | `src/drizzle/` |
 | `@eristack/outbox` | `src/drizzle/` |
