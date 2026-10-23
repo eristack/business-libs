@@ -1,10 +1,10 @@
 import express from "express";
 import { createFileManager } from "../src/core/create-file-manager.js";
 import {
+  createMemoryFileRecordStore,
   createMemoryStorageDriver,
   memoryPutViaPresignedUrl,
-} from "../src/core/memory-driver.js";
-import { createMemoryFileRecordStore } from "../src/core/memory-store.js";
+} from "../src/testing/index.js";
 import { createFileManagerRouter } from "../src/express/index.js";
 
 export function createTestFileManagerApp(options?: { maxPresignBytes?: number }) {

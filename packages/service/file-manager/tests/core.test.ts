@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { createFileManager } from "../src/core/create-file-manager.js";
 import {
+  createMemoryFileRecordStore,
   createMemoryStorageDriver,
   memoryPutViaPresignedUrl,
-} from "../src/core/memory-driver.js";
-import { createMemoryFileRecordStore } from "../src/core/memory-store.js";
+} from "../src/testing/index.js";
 import type { PresignGetOptions, StorageDriver } from "../src/core/types.js";
 
 describe("createFileManager", () => {

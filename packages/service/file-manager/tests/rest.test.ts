@@ -1,7 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import { createFileManager } from "../src/core/create-file-manager.js";
-import { createMemoryStorageDriver } from "../src/core/memory-driver.js";
-import { createMemoryFileRecordStore } from "../src/core/memory-store.js";
+import {
+  createMemoryFileRecordStore,
+  createMemoryStorageDriver,
+} from "../src/testing/index.js";
 import { createRestFileManagerActions } from "../src/rest/index.js";
 import type { RestRequest } from "../src/rest/types.js";
 

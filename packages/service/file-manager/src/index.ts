@@ -16,10 +16,6 @@ export {
   InvalidFileInputError,
   StorageObjectMissingError,
 } from "./core/errors.js";
-/** @deprecated Import from `@eristack/file-manager/testing` instead. */
-export { createMemoryStorageDriver, memoryPutViaPresignedUrl } from "./core/memory-driver.js";
-/** @deprecated Import from `@eristack/file-manager/testing` instead. */
-export { createMemoryFileRecordStore } from "./core/memory-store.js";
 export type {
   BeginPresignedUploadInput,
   CompleteUploadInput,

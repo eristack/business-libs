@@ -1,7 +1,5 @@
-import {
-  createMemoryBackseatStore,
-  type BackseatStore,
-} from "@eristack/backseat";
+import type { BackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import { createMemoryStorageDriver } from "../core/memory-driver.js";
 import { createFileManager } from "../core/create-file-manager.js";
 import type { FileManager, StorageDriver } from "../core/types.js";
