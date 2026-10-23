@@ -137,13 +137,21 @@ tasks:
     findings: [F-007]
     parent: STAB-MEM-2
 
+  - id: STAB-MEM-2-epoch
+    title: "@eristack/epoch — createMemoryEpochStore only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
   - id: STAB-MEM-2
     title: Move createMemory off root export (one package per PR)
     phase: 2
     state: in_progress
     priority: 4
     findings: [F-007]
-    notes: rbac done; 9 packages remain on allowlist
+    notes: rbac + epoch done; 8 packages remain on allowlist
 
   - id: STAB-INT-JWT
     title: jwt-auth drizzle refresh store integration test

@@ -19,7 +19,6 @@ const ALLOWLIST = {
   "@eristack/backseat": ["createMemoryBackseatStore"],
   "@eristack/comms": ["createMemoryCommsStore", "createMemoryCommsDriver"],
   "@eristack/doc-number": ["createMemoryFormatStore", "createMemorySequenceStore"],
-  "@eristack/epoch": ["createMemoryEpochStore"],
   "@eristack/file-manager": [
     "createMemoryStorageDriver",
     "memoryPutViaPresignedUrl",
