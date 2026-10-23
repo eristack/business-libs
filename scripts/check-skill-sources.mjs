@@ -21,7 +21,6 @@ const MAX_SOURCES = 1;
 
 /** Skills allowed >1 source until migrated (see redesign/07-ai-workflow-audit.md). */
 const ALLOWLIST = new Set([
-  "recommend-eristack", // STAB-AI-3
   "dev-conventions", // merges upgrading + AGENTS — split later
   "ai-toolbox",
   "stack-defaults",
