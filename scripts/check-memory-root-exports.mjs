@@ -17,16 +17,11 @@ const ci = process.argv.includes("--ci");
 /** @type {Record<string, string[]>} package name → allowed createMemory export names */
 const ALLOWLIST = {
   "@eristack/backseat": ["createMemoryBackseatStore"],
-  "@eristack/comms": ["createMemoryCommsStore", "createMemoryCommsDriver"],
   "@eristack/doc-number": ["createMemoryFormatStore", "createMemorySequenceStore"],
   "@eristack/file-manager": [
     "createMemoryStorageDriver",
     "memoryPutViaPresignedUrl",
     "createMemoryFileRecordStore",
-  ],
-  "@eristack/jwt-auth": [
-    "createMemoryRefreshTokenStore",
-    "createMemoryCredentialStore",
   ],
   "@eristack/payment-manager": [
     "createMemoryPaymentDriver",
