@@ -3,7 +3,7 @@ import {
   createDrizzleLayerStore,
   createValuationLayerTables,
 } from "../src/drizzle/index.js";
-import { createValuationEngine } from "../src/index.js";
+import { createValuationEngine, type ValuationMethod } from "../src/index.js";
 import { createTestSqliteDb, execSql, canUseBetterSqlite } from "@internal/test-harness";
 import { setupHclSqlite, type HclHarness } from "@eristack/hash-chained-ledger/testing";
 
@@ -20,33 +20,98 @@ const LAYER_DDL = [
   )`,
 ];
 
-describe.skipIf(!canUseBetterSqlite())("valuations drizzle integration", () => {
-  let hcl: HclHarness;
-  let layerDb: ReturnType<typeof createTestSqliteDb>;
+type DrizzleEngineCtx = {
+  engine: ReturnType<typeof createValuationEngine>;
+  hcl: HclHarness;
+  layerDb: ReturnType<typeof createTestSqliteDb>;
+  key: { productId: string; lotId: string; currency: string };
+};
 
-  afterEach(() => {
-    hcl?.close();
-    layerDb?.close();
+function createDrizzleEngine(method: ValuationMethod): DrizzleEngineCtx {
+  const hcl = setupHclSqlite(`val_${method}`);
+  const layerDb = createTestSqliteDb();
+  execSql(layerDb.sqlite, LAYER_DDL);
+
+  const layerTable = createValuationLayerTables("sqlite", "val");
+  const layers = createDrizzleLayerStore({
+    db: layerDb.db,
+    table: layerTable,
   });
 
-  it("persists layers and posts qty/value chains via Drizzle", async () => {
-    hcl = setupHclSqlite("val");
-    layerDb = createTestSqliteDb();
-    execSql(layerDb.sqlite, LAYER_DDL);
+  const engine = createValuationEngine({
+    method,
+    ledger: { store: hcl.store },
+    layers,
+  });
 
-    const layerTable = createValuationLayerTables("sqlite", "val");
-    const layers = createDrizzleLayerStore({
-      db: layerDb.db,
-      table: layerTable,
+  const key = { productId: "SKU-1", lotId: "L1", currency: "USD" };
+  return { engine, hcl, layerDb, key };
+}
+
+describe.skipIf(!canUseBetterSqlite())("valuations drizzle integration", () => {
+  const open: DrizzleEngineCtx[] = [];
+
+  afterEach(() => {
+    while (open.length > 0) {
+      const ctx = open.pop()!;
+      ctx.hcl.close();
+      ctx.layerDb.close();
+    }
+  });
+
+  function track(method: ValuationMethod) {
+    const ctx = createDrizzleEngine(method);
+    open.push(ctx);
+    return ctx;
+  }
+
+  async function assertChains(
+    engine: DrizzleEngineCtx["engine"],
+    key: DrizzleEngineCtx["key"],
+  ) {
+    expect(await engine.verify(key)).toEqual({ qty: true, value: true });
+  }
+
+  async function seedTwoLayerReceipts(
+    engine: DrizzleEngineCtx["engine"],
+    key: DrizzleEngineCtx["key"],
+    method: ValuationMethod,
+  ) {
+    const blendLayer =
+      method === "movingAverage" || method === "weightedAverage";
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "2",
+      entryTypeId: "po-1",
+      layerId: "layer-a",
+      receivedAt: "2026-01-01T00:00:00.000Z",
+      expiresAt: method === "fefo" ? "2026-06-01T00:00:00.000Z" : undefined,
+      standardUnitCost: method === "standardCost" ? "2.50" : undefined,
     });
-
-    const engine = createValuationEngine({
-      method: "fifo",
-      ledger: { store: hcl.store },
-      layers,
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "3",
+      entryTypeId: "po-2",
+      layerId: blendLayer ? "layer-a" : "layer-b",
+      receivedAt: "2026-02-01T00:00:00.000Z",
+      expiresAt: method === "fefo" ? "2026-03-01T00:00:00.000Z" : undefined,
+      standardUnitCost: method === "standardCost" ? "2.50" : undefined,
     });
+  }
 
-    const key = { productId: "SKU-1", lotId: "L1", currency: "USD" };
+  const REMAINING_METHODS: ValuationMethod[] = [
+    "hifo",
+    "lofo",
+    "weightedAverage",
+    "standardCost",
+    "specificIdentification",
+  ];
+
+  it("fifo persists layers and posts qty/value chains via Drizzle", async () => {
+    const { engine, key } = track("fifo");
+
     await engine.receive({
       key,
       qty: "10",
@@ -64,8 +129,107 @@ describe.skipIf(!canUseBetterSqlite())("valuations drizzle integration", () => {
     const stored = await engine.layers(key);
     expect(stored).toHaveLength(1);
     expect(stored[0]?.qty).toBe("6");
-
-    const ok = await engine.verify(key);
-    expect(ok).toEqual({ qty: true, value: true });
+    await assertChains(engine, key);
   });
+
+  it("lifo issues newest layer first through Drizzle stores", async () => {
+    const { engine, key } = track("lifo");
+
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "2",
+      entryTypeId: "po-1",
+      layerId: "layer-a",
+      receivedAt: "2026-01-01T00:00:00.000Z",
+    });
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "3",
+      entryTypeId: "po-2",
+      layerId: "layer-b",
+      receivedAt: "2026-02-01T00:00:00.000Z",
+    });
+
+    const issued = await engine.issue({ key, qty: "5", entryTypeId: "so-1" });
+    expect(issued.result.totalCost).toBe("15");
+    expect(issued.result.picks[0]?.layerId).toBe("layer-b");
+    await assertChains(engine, key);
+  });
+
+  it("movingAverage blends cost on a single Drizzle layer row set", async () => {
+    const { engine, key } = track("movingAverage");
+
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "2",
+      entryTypeId: "po-1",
+      layerId: "avg",
+      receivedAt: "2026-01-01T00:00:00.000Z",
+    });
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "4",
+      entryTypeId: "po-2",
+      layerId: "avg",
+      receivedAt: "2026-02-01T00:00:00.000Z",
+    });
+
+    const issued = await engine.issue({ key, qty: "5", entryTypeId: "so-1" });
+    expect(issued.result.totalCost).toBe("15");
+    await assertChains(engine, key);
+  });
+
+  it("fefo respects expiresAt with Drizzle layer persistence", async () => {
+    const { engine, key } = track("fefo");
+
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "2",
+      entryTypeId: "po-1",
+      layerId: "layer-a",
+      receivedAt: "2026-01-01T00:00:00.000Z",
+      expiresAt: "2026-06-01T00:00:00.000Z",
+    });
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "3",
+      entryTypeId: "po-2",
+      layerId: "layer-b",
+      receivedAt: "2026-02-01T00:00:00.000Z",
+      expiresAt: "2026-03-01T00:00:00.000Z",
+    });
+
+    const issued = await engine.issue({ key, qty: "11", entryTypeId: "so-1" });
+    expect(issued.result.picks[0]?.layerId).toBe("layer-b");
+    expect(issued.result.totalCost).toBe("32");
+    await assertChains(engine, key);
+  });
+
+  it.each(REMAINING_METHODS)(
+    "%s receive/issue through Drizzle stores",
+    async (method) => {
+      const { engine, key } = track(method);
+      await seedTwoLayerReceipts(engine, key, method);
+
+      const issued =
+        method === "specificIdentification"
+          ? await engine.issue({
+              key,
+              qty: "5",
+              entryTypeId: "so-1",
+              layerId: "layer-a",
+            })
+          : await engine.issue({ key, qty: "5", entryTypeId: "so-1" });
+
+      expect(Number(issued.result.totalCost)).toBeGreaterThan(0);
+      expect(issued.result.picks.length).toBeGreaterThan(0);
+      await assertChains(engine, key);
+    },
+  );
 });

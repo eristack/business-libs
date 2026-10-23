@@ -7,7 +7,6 @@ export {
   OAuthStateError,
   UnknownOAuthProviderError,
 } from "./core/errors.js";
-export { createMemoryOAuthPendingStore } from "./core/memory-pending-store.js";
 export { codeChallengeS256, generateCodeVerifier, generatePkcePair } from "./core/pkce.js";
 export { assertRedirectUriAllowed } from "./core/redirect-uri.js";
 export type {

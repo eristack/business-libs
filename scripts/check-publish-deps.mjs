@@ -29,6 +29,16 @@ function listPublishablePackages() {
   return found;
 }
 
+/** @eristack/* peers must ship caret 0.x floors (not workspace:). */
+const ERISTACK_PEER_RANGE = /^\^0\.\d+\.\d+/;
+
+/** Audit D-003–D-005 — adapter packages must declare these @eristack peers. */
+const REQUIRED_ERISTACK_PEERS = {
+  "@eristack/jwt-auth": ["@eristack/data-grid"],
+  "@eristack/data-grid": ["@eristack/timestamp"],
+  "@eristack/doc-number": ["@eristack/data-grid", "@eristack/timestamp"],
+};
+
 const errors = [];
 for (const pkg of listPublishablePackages()) {
   const deps = pkg.pkgJson.dependencies ?? {};
@@ -36,6 +46,43 @@ for (const pkg of listPublishablePackages()) {
     if (String(version).startsWith("workspace:")) {
       errors.push(
         `${pkg.name}: dependencies["${dep}"] = "${version}" — move to peerDependencies + devDependencies`,
+      );
+    }
+  }
+
+  const peerDeps = pkg.pkgJson.peerDependencies ?? {};
+  const devDeps = pkg.pkgJson.devDependencies ?? {};
+  for (const [peer, range] of Object.entries(peerDeps)) {
+    if (!peer.startsWith("@eristack/")) continue;
+    const rangeStr = String(range);
+    if (rangeStr.startsWith("workspace:")) {
+      errors.push(
+        `${pkg.name}: peerDependencies["${peer}"] must be semver (got workspace:*)`,
+      );
+      continue;
+    }
+    if (!ERISTACK_PEER_RANGE.test(rangeStr)) {
+      errors.push(
+        `${pkg.name}: peerDependencies["${peer}"] = "${rangeStr}" — use ^0.minor.patch floor`,
+      );
+    }
+    const optional = pkg.pkgJson.peerDependenciesMeta?.[peer]?.optional === true;
+    const devVersion = devDeps[peer];
+    if (
+      !optional &&
+      !String(devVersion ?? "").startsWith("workspace:")
+    ) {
+      errors.push(
+        `${pkg.name}: devDependencies["${peer}"] must be workspace:* for monorepo tests`,
+      );
+    }
+  }
+
+  const required = REQUIRED_ERISTACK_PEERS[pkg.name] ?? [];
+  for (const peer of required) {
+    if (!(peer in peerDeps)) {
+      errors.push(
+        `${pkg.name}: missing required peerDependencies["${peer}"] (publish adapter map)`,
       );
     }
   }

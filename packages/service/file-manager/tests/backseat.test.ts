@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
-import { memoryPutViaPresignedUrl } from "../src/core/memory-driver.js";
+import { createBackseat } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
+import { memoryPutViaPresignedUrl } from "../src/testing/index.js";
 import {
   createBackseatFileManagerStores,
   registerFileManagerBackseat,

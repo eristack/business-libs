@@ -21,12 +21,11 @@ Business-only document number primitives. No HTTP or Drizzle in this entry.
 ## Setup
 
 ```ts
+import { createDocNumber, formatDocumentNumber } from "@eristack/doc-number";
 import {
-  createDocNumber,
   createMemoryFormatStore,
   createMemorySequenceStore,
-  formatDocumentNumber,
-} from "@eristack/doc-number";
+} from "@eristack/doc-number/testing";
 
 formatDocumentNumber({
   pattern: "INV-{YYYY}{MM}-{SEQ:5}",

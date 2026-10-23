@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createMemoryBackseatStore } from "../src/core/memory-store.js";
+import { createMemoryBackseatStore } from "../src/testing/index.js";
 import { bootWorkshopServer } from "../src/workshop/index.js";
 
 describe("bootWorkshopServer", () => {

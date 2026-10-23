@@ -57,7 +57,7 @@ A one-function escape hatch. When supplied it **replaces** `sequences.allocateNe
 import {
   createMemoryFormatStore,
   createMemorySequenceStore,
-} from "@eristack/doc-number";
+} from "@eristack/doc-number/testing";
 ```
 
 | Store | Behaviour |

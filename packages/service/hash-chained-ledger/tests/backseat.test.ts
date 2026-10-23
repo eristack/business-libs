@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
+import { createBackseat } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import { createBackseatLedgerStore } from "../src/backseat/ledger-store.js";
 import { createHashChainedLedger } from "../src/core/create-ledger.js";
 

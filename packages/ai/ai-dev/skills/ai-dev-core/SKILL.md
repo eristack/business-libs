@@ -31,7 +31,7 @@ sources:
 
 | Profile | Use |
 | --- | --- |
-| `catalog` | Drift only: docs, knowledge, skills, ticket, changesets, exports* |
+| `catalog` | Drift only: docs, knowledge, skills, **agents-intent-sync** (AGENTS ↔ intent.skills), skill-sources, memory-exports, ticket, changesets, exports* |
 | `pr` | **Main CI** — build + typecheck + test + integration + catalog |
 | `full` | `pr` + lint |
 | `fast` | Turbo filter on changed packages (from `plan`) |

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createBackseat } from "../src/core/create-backseat.js";
-import { createMemoryBackseatStore } from "../src/core/memory-store.js";
+import { createMemoryBackseatStore } from "../src/testing/index.js";
 import { applyCollectionFilter, parseListFilter } from "../src/core/filter.js";
 import { createErpDemoSnapshot } from "../src/seeds/erp-demo.js";
 

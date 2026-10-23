@@ -38,7 +38,7 @@ chore(ui): site catalog and deep docs for erp ui stack
 
 - Subject lines like `Prepare ERP UI stack release: site, deep docs, and peer floors.` (no type prefix; reads like a PR blurb).
 - Multi-paragraph commit bodies unless the user asks for a body.
-- `git` at all unless the user explicitly requests a commit (see `no-git.mdc`).
+- Bulk commits — split per `git-iteration-commits.mdc`. Push/PR remain human (see `no-git.mdc`).
 
 ## Picking type + scope
 

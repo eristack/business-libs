@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createMemoryBackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import { createDataGrid } from "../src/core/create-data-grid.js";
 import { executeBackseatList } from "../src/backseat/execute.js";
 

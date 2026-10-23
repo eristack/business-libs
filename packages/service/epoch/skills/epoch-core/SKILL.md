@@ -26,7 +26,8 @@ Monotonic **epoch counters** per scope for **cache invalidation** — tell clien
 ## Core API
 
 ```ts
-import { createEpoch, createMemoryEpochStore, compareEpochs } from "@eristack/epoch";
+import { createEpoch, compareEpochs } from "@eristack/epoch";
+import { createMemoryEpochStore } from "@eristack/epoch/testing";
 
 const epoch = createEpoch({ store: createMemoryEpochStore() }); // tests only
 

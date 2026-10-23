@@ -14,12 +14,11 @@ metadata:
   library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/architecture.md'
-  - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/stack-defaults.md'
 ---
 
 # Architecture recommendation
 
-Full guide: `knowledge/architecture.md` in `@eristack/ai-knowledge`.
+Full guide: `knowledge/architecture.md`. Package wiring defaults: load `@eristack/ai-knowledge#stack-defaults` / `knowledge/stack-defaults.md`.
 
 ## Recommend this stack first
 

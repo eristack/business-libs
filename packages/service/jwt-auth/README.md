@@ -31,11 +31,11 @@ pnpm add @eristack/jwt-auth
 ## Core
 
 ```ts
+import { createJwtAuth } from "@eristack/jwt-auth";
 import {
-  createJwtAuth,
   createMemoryCredentialStore,
   createMemoryRefreshTokenStore,
-} from "@eristack/jwt-auth";
+} from "@eristack/jwt-auth/testing";
 
 const auth = createJwtAuth({
   accessSecret: process.env.JWT_ACCESS_SECRET!,

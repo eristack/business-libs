@@ -130,6 +130,7 @@ function driftChecksForCatalogOnly(changed: string[]): CheckId[] {
   for (const rel of paths) {
     if (rel.startsWith(".changeset/")) checks.add("changesets");
     if (rel.includes("/skills/")) checks.add("skills");
+    if (rel === "AGENTS.md") checks.add("agents-intent-sync");
     if (rel.startsWith("packages/ai/ai-knowledge/")) checks.add("knowledge");
     if (rel.includes("/docs/")) checks.add("docs");
     if (rel.endsWith("ticket.yaml")) checks.add("ticket");
@@ -158,6 +159,7 @@ function driftChecksForAffected(changed: string[]): CheckId[] {
     "changesets",
     "publish",
     "skills",
+    "agents-intent-sync",
     "knowledge",
     "docs",
     "ticket",

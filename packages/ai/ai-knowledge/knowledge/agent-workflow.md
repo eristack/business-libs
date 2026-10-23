@@ -88,4 +88,8 @@ When the user asks to **upgrade**, **bump**, or **what changed** in `@eristack/*
 
 ## 7. Version control ownership
 
-In Eristack repos, agents do **not** run git/commit/PR operations unless a human explicitly owns that workflow outside agent taboo rules. Humans handle branches, commits, and PRs.
+Agents may **commit locally** in small auditable slices (`.cursor/rules/git-iteration-commits.mdc`); **humans push** and open PRs. Do not force-push or merge without explicit human request.
+
+## 8. Releases (batch, not per iteration)
+
+Changesets accumulate on the branch; **npm versions ship when maintainers merge the Version Packages PR** — not after every agent iteration. Stabilization work still adds or updates `.changeset/*.md` when user-facing package behavior changes, but expect **one release cut** for the whole batch.

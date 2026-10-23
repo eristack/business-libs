@@ -26,6 +26,9 @@ export type CheckId =
   | "contrast"
   | "features"
   | "debottleneck"
+  | "skill-sources"
+  | "agents-intent-sync"
+  | "memory-exports"
   | "lockfile";
 
 export type CheckDef = {
@@ -114,6 +117,24 @@ export const CHECK_DEFS: CheckDef[] = [
     label: "intent skills validate",
     profiles: ["catalog", "pr", "full"],
     order: 50,
+  },
+  {
+    id: "agents-intent-sync",
+    label: "AGENTS.md intent block vs intent.skills",
+    profiles: ["catalog", "pr", "full"],
+    order: 50.5,
+  },
+  {
+    id: "skill-sources",
+    label: "ai-knowledge cross-cutting skill sources",
+    profiles: ["catalog", "pr", "full"],
+    order: 51,
+  },
+  {
+    id: "memory-exports",
+    label: "no new createMemory on package root export",
+    profiles: ["catalog", "pr", "full"],
+    order: 52,
   },
   {
     id: "knowledge",

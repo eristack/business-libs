@@ -39,6 +39,13 @@ export function createMemoryLedgerStore(): LedgerEntryStore {
         }
       }
       const list = byChain.get(entry.chainId) ?? [];
+      if (list.some((row) => row.sequence === entry.sequence)) {
+        const dup: Error & { code?: string } = new Error(
+          "ledger sequence conflict",
+        );
+        dup.code = "23505";
+        throw dup;
+      }
       list.push(entry);
       byChain.set(entry.chainId, list);
       if (entry.idempotencyKey) {

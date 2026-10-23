@@ -56,6 +56,9 @@ describe("checksForProfile", () => {
     expect(ids).toContain("test");
     expect(ids).toContain("publish");
     expect(ids).toContain("knowledge");
+    expect(ids).toContain("skill-sources");
+    expect(ids).toContain("agents-intent-sync");
+    expect(ids).toContain("memory-exports");
     expect(ids).toContain("debottleneck");
     expect(ids).toContain("integration");
     expect(ids).toContain("examples");

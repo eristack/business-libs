@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createOAuthConsumer } from "../src/core/create-oauth-consumer.js";
-import { createMemoryOAuthPendingStore } from "../src/core/memory-pending-store.js";
 import { createMemoryOAuthIdpDriver } from "../src/client/memory-idp-driver.js";
+import { createMemoryOAuthPendingStore } from "../src/testing/index.js";
 import { codeChallengeS256, generateCodeVerifier } from "../src/core/pkce.js";
 
 describe("createOAuthConsumer", () => {

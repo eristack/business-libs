@@ -118,6 +118,8 @@ Still protect `POST /orders` with `createRequirePermission`.
 ## Strict unknown permissions in tests
 
 ```ts
+import { createMemoryRbacStore } from "@eristack/rbac/testing";
+
 const rbac = createRbac({
   store: createMemoryRbacStore(),
   unknownPermissionDenied: false,

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createMemoryRbacStore, createRbac, importRolesFromYaml } from "../src/index.js";
+import { createRbac, importRolesFromYaml } from "../src/index.js";
+import { createMemoryRbacStore } from "../src/testing/index.js";
 
 const SAMPLE = `
 permissions:

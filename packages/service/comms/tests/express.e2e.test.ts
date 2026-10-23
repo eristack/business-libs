@@ -2,8 +2,10 @@ import express from "express";
 import request from "supertest";
 import { describe, expect, it } from "vitest";
 import { createCommsHub } from "../src/core/create-comms-hub.js";
-import { createMemoryCommsDriver } from "../src/core/memory-driver.js";
-import { createMemoryCommsStore } from "../src/core/memory-store.js";
+import {
+  createMemoryCommsDriver,
+  createMemoryCommsStore,
+} from "../src/testing/index.js";
 import { createCommsRouter } from "../src/express/index.js";
 
 describe("comms express", () => {

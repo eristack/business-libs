@@ -23,6 +23,7 @@ The core needs nothing else. Optional peers are pulled in only by the entry poin
 | Entry | Peer you must already have |
 | --- | --- |
 | `@eristack/jwt-auth` | — (bundles `jose`) |
+| `@eristack/jwt-auth/testing` | — (memory stores; tests only) |
 | `@eristack/jwt-auth/drizzle` | `drizzle-orm` + your driver |
 | `@eristack/jwt-auth/rest` | — |
 | `@eristack/jwt-auth/express` | `express` |
@@ -35,11 +36,11 @@ The core needs nothing else. Optional peers are pulled in only by the entry poin
 `createJwtAuth` is the only factory in core. It takes a secret, a refresh-token store, and — if you want password login — a credential store.
 
 ```ts
+import { createJwtAuth } from "@eristack/jwt-auth";
 import {
-  createJwtAuth,
   createMemoryCredentialStore,
   createMemoryRefreshTokenStore,
-} from "@eristack/jwt-auth";
+} from "@eristack/jwt-auth/testing";
 
 const auth = createJwtAuth({
   accessSecret: appConfig.jwtAccessSecret,

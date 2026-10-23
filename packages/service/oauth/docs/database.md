@@ -18,6 +18,6 @@ const tables = createOAuthTables("pgsql", "oauth");
 | `oauth_provider_authorization_codes` | One-time codes |
 | `oauth_provider_access_tokens` | Opaque integrator access tokens |
 
-Stores: `createDrizzleOAuthPendingStore`, `createDrizzleOAuthProviderStore`.
+Stores: `createDrizzleOAuthPendingStore`, `createDrizzleOAuthProviderStore`. CI: `tests/drizzle.integration.test.ts` (pending login path).
 
 Tests: `@eristack/oauth/testing` memory stores only.

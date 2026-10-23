@@ -146,6 +146,9 @@
     }
   },
   "devDependencies": {
+    "@internal/test-harness": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.29",
     "@types/supertest": "^6.0.3",

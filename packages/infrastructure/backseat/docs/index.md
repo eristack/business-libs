@@ -33,7 +33,7 @@ Do **not** use it for production auth, server validation, or deployed persistenc
 
 | Import | Contents |
 | --- | --- |
-| `@eristack/backseat` | `createBackseat`, memory store, types, CRUD helpers, context utilities |
+| `@eristack/backseat` | `createBackseat`, types, CRUD helpers, context utilities |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore` — **browser prototype default** |
 | `@eristack/backseat/react` | Provider, Query hooks, `<BackseatDevtools />` |
 | `@eristack/backseat/seeds` | `createErpDemoBackseat()`, `registerErpDemoControllers()`, `createErpDemoSnapshot()` |

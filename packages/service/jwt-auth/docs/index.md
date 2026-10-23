@@ -67,11 +67,11 @@ Keep access TTLs short precisely because they cannot be revoked. Everything revo
 ## A minute of code
 
 ```ts
+import { createJwtAuth } from "@eristack/jwt-auth";
 import {
-  createJwtAuth,
   createMemoryCredentialStore,
   createMemoryRefreshTokenStore,
-} from "@eristack/jwt-auth";
+} from "@eristack/jwt-auth/testing";
 
 const auth = createJwtAuth({
   accessSecret: appConfig.jwtAccessSecret, // ≥ 16 characters

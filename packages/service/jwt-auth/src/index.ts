@@ -1,8 +1,4 @@
 export { createJwtAuth } from "./core/create-jwt-auth.js";
-/** @deprecated Import from `@eristack/jwt-auth/testing` instead. */
-export { createMemoryRefreshTokenStore } from "./core/memory-store.js";
-/** @deprecated Import from `@eristack/jwt-auth/testing` instead. */
-export { createMemoryCredentialStore } from "./core/memory-credential-store.js";
 export { hashPassword, verifyPassword } from "./core/password.js";
 export { durationToMs } from "./core/duration.js";
 export { generateId, generateOpaqueToken, hashToken } from "./core/crypto.js";

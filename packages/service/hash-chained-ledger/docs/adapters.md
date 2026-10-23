@@ -27,10 +27,10 @@ const ledger = createHashChainedLedger({
 
 | Table | Purpose |
 | --- | --- |
-| `{prefix}_entries` | Append-only rows |
+| `{prefix}_entries` | Append-only rows; **UNIQUE** `(chain_id, sequence)` and `(chain_id, idempotency_key)` |
 | `{prefix}_snapshots` | Tip balance per chain |
 
-App owns migrations. Prefer **Postgres (`pgsql`)** on Vercel.
+`createHashChainedLedger().append()` retries on sequence UNIQUE conflicts (concurrent writers). App owns migrations — add `{prefix}_entries_chain_seq_uq` when upgrading existing DBs. Prefer **Postgres (`pgsql`)** on Vercel.
 
 ### Store contract
 

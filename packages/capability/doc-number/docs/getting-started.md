@@ -55,11 +55,11 @@ Two things to notice:
 `createDocNumber` binds a **format store** (what patterns exist) and a **sequence store** (what counter each period is on).
 
 ```ts
+import { createDocNumber } from "@eristack/doc-number";
 import {
-  createDocNumber,
   createMemoryFormatStore,
   createMemorySequenceStore,
-} from "@eristack/doc-number";
+} from "@eristack/doc-number/testing";
 
 const docNumber = createDocNumber({
   formats: createMemoryFormatStore(),

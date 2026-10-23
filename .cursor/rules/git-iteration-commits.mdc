@@ -1,0 +1,74 @@
+---
+description: Granular git commits during agent iterations — auditable history, repo commit subject format
+alwaysApply: true
+---
+
+# Iteration commits (allowed)
+
+Agents **may** run git **locally** to record work during an iteration when the user has enabled this policy (default for this repo).
+
+## Allowed
+
+- `git status`, `git diff`, `git log` — inspect before every commit
+- `git add` + `git commit` — **small, logical units** (see granularity below)
+- One commit per coherent step that a reviewer could replay
+
+## Still taboo (human unless explicitly asked)
+
+- `git push`, `pull`, `fetch`, `merge`, `rebase`, `checkout` (branch switches), force-push, tags, releases
+- `gh pr …`, opening/updating/merging PRs
+- Amending commits unless user rule conditions for amend are all met
+- `git config` changes
+
+## Granularity — generous commit count
+
+Prefer **many small commits** over one bulk commit. Audit/accounting mindset: each commit should answer “what single thing changed?”
+
+| Good (separate commits) | Bad (one blob) |
+| --- | --- |
+| Program hub README, then tasks.yaml, then findings register | Entire `redesign/` in one commit |
+| One STAB task’s code + its test | Unrelated package fix + redesign docs + skill trim |
+| Cursor rule add, then rule that amends no-git exception | “WIP stabilization” mixing 10 concerns |
+
+**Split when:** different scope (`redesign` vs `packages/ai/ai-knowledge` vs `.cursor/rules`), different finding/task ID, or you would need “and also” in the subject line.
+
+**Same commit OK when:** generated artifacts from one command (e.g. `knowledge:sync` catalog + skill mirror in one pass), or test + minimal fix for that test.
+
+## Commit message
+
+Follow `.cursor/rules/commit-messages.mdc` exactly:
+
+```text
+<type>(<scope>): <message>
+```
+
+Examples for this program:
+
+```text
+chore(redesign): add macro expectations and migration register
+chore(redesign): verify phase 0 drizzle and memory inventories
+test(ai-knowledge): assert loadPlan includes recipe canonicalSkills
+chore(ci): add check-skill-sources script for STAB-AI-1
+chore(rules): allow granular iteration commits
+```
+
+Read `git log -15 --oneline` and match voice before committing.
+
+## Before each commit
+
+1. Run relevant checks for that slice (e.g. package test, `pnpm knowledge:check` if skills/recipes touched).
+2. Do not commit secrets (`.env`, tokens).
+3. Do not commit broken intermediate state unless the user asked for a checkpoint — prefer commit after green checks for that slice.
+
+## Releases (batch)
+
+Many commits on a branch ≠ many npm releases. Use **one file per package** in `.changeset/` (repo policy); version bumps ship on the **Version Packages** PR to `main`, not after each commit. Extend existing stabilization changesets instead of adding a new changeset every iteration unless a new package’s behavior changed.
+
+## Relationship to stabilization program
+
+When working under `redesign/`, reference task IDs in commit subjects or body only if it helps audit (`STAB-AI-2` in scope is fine). Update `redesign/tasks.yaml` state in a **dedicated** commit when verification completes, not mixed with unrelated code.
+
+## Apps
+
+- **Shipped site:** `apps/web` only.
+- **`apps/old-web`:** archived — not in CI; do not touch during package/stabilization iterations unless the user requests archive work.

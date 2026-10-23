@@ -5,7 +5,7 @@ import {
   type BackseatHandlerContext,
   type BackseatResponse,
 } from "@eristack/backseat";
-import { policyDenied } from "@eristack/backseat/adapters";
+import { businessPolicyDenied } from "@eristack/backseat/adapters";
 import { calculateLine, type CalculateLineInput } from "@eristack/qups";
 import { transitionPolicyId } from "@eristack/doc-transitions";
 import { BusinessPolicyDeniedError, type Pbac } from "@eristack/pbac";
@@ -226,7 +226,7 @@ export function registerOrderRoutes(
           });
         } catch (error) {
           if (error instanceof BusinessPolicyDeniedError) {
-            return policyDenied(error.message);
+            return businessPolicyDenied(error.policyId, error.message);
           }
           throw error;
         }

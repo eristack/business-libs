@@ -50,7 +50,7 @@ pnpm eristack packages list --json
 
 | Profile | Includes |
 | --- | --- |
-| `catalog` | changesets, skills, knowledge, docs, ticket, exports, debottleneck (auto-builds if needed) |
+| `catalog` | changesets, skills, **agents-intent-sync**, skill-sources, memory-exports, knowledge, docs, ticket, exports, debottleneck (auto-builds if needed) |
 | `pr` | build, typecheck, test, integration + catalog |
 | `full` | pr + lint |
 | `fast` | build, typecheck, test on **changed packages** (from git diff) |
@@ -106,3 +106,4 @@ pnpm prepush          # catch ticket/docs/knowledge/lockfile before push
 | `pnpm docs:check` | `pnpm eristack sync docs --check` |
 | `pnpm knowledge:check` | `pnpm eristack sync knowledge --check` |
 | `pnpm skills:validate` | `node scripts/skills-validate.mjs` (used internally by check) |
+| `node scripts/check-agents-intent-sync.mjs --ci` | AGENTS.md intent block ↔ `intent.skills` ↔ skill files (`agents-intent-sync` check) |

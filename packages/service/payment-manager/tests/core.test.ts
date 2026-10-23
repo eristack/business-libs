@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { createPaymentManager } from "../src/core/create-payment-manager.js";
-import { createMemoryPaymentDriver } from "../src/core/memory-driver.js";
-import { createMemoryPaymentManagerStore } from "../src/core/memory-store.js";
+import {
+  createMemoryPaymentDriver,
+  createMemoryPaymentManagerStore,
+} from "../src/testing/index.js";
 
 function manager() {
   return createPaymentManager({

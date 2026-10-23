@@ -81,7 +81,7 @@ await rbac.assignRole({ subject: userId, role: "clerk" });
 await rbac.can(userId, "orders.create");
 ```
 
-> Prefer **Drizzle + Postgres** in production (including **Vercel**). `createMemoryRbacStore` is for tests/demos only — serverless instances do not share memory. See [Getting started](./getting-started.md) and [Adapters](./adapters.md).
+> Prefer **Drizzle + Postgres** in production (including **Vercel**). `createMemoryRbacStore` from `@eristack/rbac/testing` is for tests/demos only — serverless instances do not share memory. See [Getting started](./getting-started.md) and [Adapters](./adapters.md).
 
 ## Stack with ABAC / PBAC
 

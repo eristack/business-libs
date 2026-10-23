@@ -1,7 +1,5 @@
-import {
-  createMemoryBackseatStore,
-  type BackseatStore,
-} from "@eristack/backseat";
+import type { BackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 
 /** ABAC policies are code-registered; Backseat adapter wires HTTP/actions only. */
 export function createBackseatAbacContext(options: {

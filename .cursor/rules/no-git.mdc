@@ -1,17 +1,23 @@
 ---
-description: Never run git, commits, PRs, pushes, or any VCS operations
+description: Git push/PR/branch ops taboo; local granular commits allowed per git-iteration-commits.mdc
 alwaysApply: true
 ---
 
-# No git — absolute taboo
+# Git — limited agent access
 
-Never perform any git or GitHub VCS action. This includes, but is not limited to:
+## Allowed (see `git-iteration-commits.mdc`)
 
-- `git` commands of any kind (`status`, `diff`, `log`, `add`, `commit`, `push`, `pull`, `checkout`, `branch`, `rebase`, `merge`, …)
-- Creating, amending, or suggesting the agent will create commits
-- Opening, updating, or merging pull requests (`gh pr …`)
-- Pushing, force-pushing, tagging, or releasing via git/gh
+- Inspect: `git status`, `git diff`, `git log`
+- **Granular `git add` + `git commit`** during iterations — many small commits, repo subject format
 
-If the user asks for a commit or PR, refuse and remind them this is taboo for the agent — they handle all version control themselves.
+## Taboo — human unless explicitly asked
 
-Code edits, docs, builds, and tests are fine. Version control is not.
+- `git push`, `pull`, `fetch`, `merge`, `rebase`, `checkout`, `branch`, cherry-pick, reset, stash (except when user directs)
+- Force-push, tags, releases
+- `gh pr …` and any PR/issue VCS on GitHub
+- `git config` changes
+- Bulk commits that mix unrelated scopes (split per iteration-commits rule)
+
+If the user asks only for a **push** or **PR**, remind them agents commit locally; they push and open PRs.
+
+Code edits, docs, builds, and tests are always fine.

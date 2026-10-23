@@ -1,7 +1,5 @@
-import {
-  createMemoryBackseatStore,
-  type BackseatStore,
-} from "@eristack/backseat";
+import type { BackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import type { LedgerEntryStore } from "../core/types.js";
 import { createBackseatLedgerStore } from "./ledger-store.js";
 

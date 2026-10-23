@@ -12,13 +12,11 @@ metadata:
   library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/dev-conventions.md'
-  - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/upgrading.md'
-  - 'eristack/business-libs:AGENTS.md'
 ---
 
 # Development conventions
 
-Full guide: `knowledge/dev-conventions.md`.
+Full guide: `knowledge/dev-conventions.md`. Upgrades / Backseat matrix: load `@eristack/ai-knowledge#upgrading-eristack`. Repo Intent index: root `AGENTS.md` (generated via `intent install --map`).
 
 ## Package design targets
 

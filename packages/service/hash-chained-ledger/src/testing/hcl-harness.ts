@@ -20,7 +20,8 @@ function hclDdl(prefix: string): string[] {
     occurred_at TEXT NOT NULL,
     prev_hash TEXT,
     entry_hash TEXT NOT NULL,
-    meta_json TEXT
+    meta_json TEXT,
+    idempotency_key TEXT
   )`,
     `CREATE TABLE IF NOT EXISTS ${prefix}_snapshots (
     chain_id TEXT PRIMARY KEY NOT NULL,
@@ -29,7 +30,8 @@ function hclDdl(prefix: string): string[] {
     entry_hash TEXT NOT NULL,
     updated_at TEXT NOT NULL
   )`,
-    `CREATE INDEX IF NOT EXISTS ${prefix}_entries_chain_seq ON ${prefix}_entries (chain_id, sequence)`,
+    `CREATE UNIQUE INDEX IF NOT EXISTS ${prefix}_entries_chain_seq_uq ON ${prefix}_entries (chain_id, sequence)`,
+    `CREATE UNIQUE INDEX IF NOT EXISTS ${prefix}_entries_idem_uq ON ${prefix}_entries (chain_id, idempotency_key)`,
   ];
 }
 

@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
-import {
-  createMemoryRbacStore,
-  createRbac,
-  ForbiddenError,
-} from "../src/index.js";
+import { createRbac, ForbiddenError } from "../src/index.js";
+import { createMemoryRbacStore } from "../src/testing/index.js";
 
 async function setup() {
   const rbac = createRbac({ store: createMemoryRbacStore() });

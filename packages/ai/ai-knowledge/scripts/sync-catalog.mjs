@@ -249,19 +249,12 @@ export const recipes = ${JSON.stringify(recipes, null, 2)} as Recipe[];
 }
 
 function renderCatalogMarkdown(catalog) {
+  const skillCount = catalog.reduce((n, pkg) => n + pkg.skills.length, 0);
   const lines = [
-    `**${catalog.length} sibling packages** — full machine-readable catalog: \`getCatalog()\` from \`@eristack/ai-knowledge\` or run \`pnpm knowledge:sync\`.`,
+    `**${catalog.length} sibling packages**, **${skillCount} Intent skills** — machine-readable catalog: \`getCatalog()\` / \`listPackages()\` from \`@eristack/ai-knowledge\` (run \`pnpm knowledge:sync\` after package skill changes). Do not paste the full table here — use \`recommend()\` / \`loadPlan()\`.`,
     "",
-    "| Package | Skills |",
-    "| --- | ---: |",
-  ];
-  for (const pkg of catalog) {
-    lines.push(`| ${pkg.name} | ${pkg.skills.length} |`);
-  }
-  lines.push("");
-  lines.push(
     "Load `@eristack/ai-knowledge#recommend-eristack` then `loadPlan(goals)` — canonical ERP guides merge via `canonicalSkills` on recipes.",
-  );
+  ];
   return lines.join("\n").trimEnd() + "\n";
 }
 

@@ -8,7 +8,7 @@ import {
 import {
   createMemoryStorageDriver,
   memoryPutViaPresignedUrl,
-} from "../src/core/memory-driver.js";
+} from "../src/testing/index.js";
 
 const DDL = [
   `CREATE TABLE file_manager_files (

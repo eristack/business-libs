@@ -1,0 +1,434 @@
+# Stabilization task backlog — append new tasks at bottom
+# States: proposed | approved | in_progress | review | verified | closed | deferred | blocked
+# Agents: implement only `approved`+ tasks
+
+program: eristack-stabilization
+as_of: 2026-10-24
+active_phase: 4
+macro_expectations: redesign/macro-expectations.md
+migration_register: redesign/migration-from-old-order.md
+
+tasks:
+  - id: STAB-INV-1
+    title: Per-package drizzle adapter + test file inventory
+    phase: 0
+    state: verified
+    priority: 2
+    findings: [F-001, F-002, F-003]
+    acceptance:
+      commands:
+        - pnpm eristack check --profile integration
+      artifacts:
+        - redesign/data/drizzle-integration.md
+    notes: |
+      last_command: pnpm eristack check --profile integration
+      last_result: OK — 16 packages (2026-10-23); STAB-INT-DRIZZLE-GAPS verified
+
+  - id: STAB-INV-2
+    title: loadPlan vs recipes canonicalSkills matrix
+    phase: 0
+    state: verified
+    priority: 1
+    findings: [F-004]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/ai-knowledge test
+      artifacts: [redesign/03-findings-register.md]
+    notes: |
+      last_result: 28 tests pass; matrix test covers all matching recipes
+
+  - id: STAB-INV-3
+    title: Grep createMemory exports on main entrypoints
+    phase: 0
+    state: verified
+    priority: 2
+    findings: [F-007]
+    acceptance:
+      artifacts: [redesign/data/memory-root-exports.md]
+
+  - id: STAB-PUB-1
+    title: Re-run publish profile — workspace dep hygiene
+    phase: 0
+    state: verified
+    priority: 2
+    findings: [F-005, F-013]
+    acceptance:
+      commands:
+        - pnpm eristack check --profile publish
+    notes: OK 2026-10-23; peer floors — STAB-PUB-PEERS
+
+  - id: STAB-PUB-PEERS
+    title: Extend publish check — @eristack peer floors + adapter map
+    phase: 1
+    state: verified
+    priority: 2
+    findings: [F-013]
+    acceptance:
+      commands:
+        - node scripts/check-publish-deps.mjs
+      artifacts:
+        - redesign/data/peer-deps-publish.md
+
+  - id: STAB-EX-HTTP-409
+    title: Horizon A tests for CONFLICT_VERSION and BUSINESS_POLICY_DENIED
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-014]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/example-horizon-a test
+
+  - id: STAB-INT-HCL-DEPTH
+    title: Hash-chained-ledger drizzle — sequential depth smoke
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/hash-chained-ledger test
+
+  - id: STAB-AI-2
+    title: Fix or verify loadPlan canonicalSkills merge
+    phase: 1
+    state: verified
+    priority: 1
+    findings: [F-004]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/ai-knowledge test
+    notes: Added all-recipe canonicalSkills test in recommend.test.ts
+
+  - id: STAB-AI-1
+    title: CI check — cross-cutting skills max one source
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-009]
+    acceptance:
+      commands:
+        - node scripts/check-skill-sources.mjs --ci
+        - pnpm eristack check --profile catalog --only skill-sources
+      artifacts:
+        - scripts/check-skill-sources.mjs
+        - redesign/data/skill-sources-allowlist.md
+
+  - id: STAB-ENF-1
+    title: Wire check-skill-sources into eristack catalog/pr profile
+    phase: 2
+    state: verified
+    priority: 3
+    findings: [F-009]
+    acceptance:
+      commands:
+        - pnpm eristack check --profile catalog --only skill-sources
+
+  - id: STAB-AI-3
+    title: Trim recommend-eristack embedded catalog / sources
+    phase: 1
+    state: verified
+    priority: 4
+    findings: [F-015]
+    acceptance:
+      commands:
+        - pnpm knowledge:sync
+        - pnpm knowledge:check
+        - node scripts/check-skill-sources.mjs --ci
+
+  - id: STAB-AI-4
+    title: Collapse ai-knowledge cross-cutting skills to single source
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-009]
+    acceptance:
+      commands:
+        - node scripts/check-skill-sources.mjs --ci
+        - pnpm knowledge:check
+
+  - id: STAB-AI-RECIPES
+    title: Verify recommend() triggers for audit API language
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-010]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/ai-knowledge test
+        - node scripts/package-debottleneck-check.mjs --ci
+    notes: recommend.test.ts routes applyCellPatch, atomic backseat, wall/decimal grid
+
+  - id: STAB-AI-AGENTS
+    title: CI gate — AGENTS intent block vs intent.skills and skill files
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-011]
+    acceptance:
+      commands:
+        - node scripts/check-agents-intent-sync.mjs --ci
+        - pnpm eristack check --profile catalog --only agents-intent-sync
+      artifacts:
+        - scripts/check-agents-intent-sync.mjs
+
+  - id: STAB-MIG-AIWF
+    title: Specify and migrate to improved agent workflow (old load path → new)
+    phase: 1
+    state: verified
+    priority: 2
+    findings: [F-004, F-015]
+    acceptance:
+      commands:
+        - pnpm knowledge:check
+      artifacts:
+        - redesign/data/agent-workflow-migration-map.md
+        - redesign/migration-from-old-order.md
+
+  - id: STAB-MEM-2-rbac
+    title: "@eristack/rbac — createMemoryRbacStore only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-epoch
+    title: "@eristack/epoch — createMemoryEpochStore only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2
+    title: Move createMemory off root export (one package per PR)
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    notes: all 10 packages migrated; empty allowlist
+
+  - id: STAB-MEM-2-backseat
+    title: "@eristack/backseat — memory store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-file-manager
+    title: "@eristack/file-manager — memory driver/store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-qups
+    title: "@eristack/qups — pricing stores only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-payment-manager
+    title: "@eristack/payment-manager — memory driver/store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-doc-number
+    title: "@eristack/doc-number — format/sequence stores only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-jwt-auth
+    title: "@eristack/jwt-auth — memory stores only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-comms
+    title: "@eristack/comms — memory store/driver only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-oauth
+    title: "@eristack/oauth — pending store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-INT-JWT
+    title: jwt-auth drizzle refresh store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-INT-HCL
+    title: Integration test createDrizzleLedgerStore append/verify
+    phase: 3
+    state: closed
+    priority: 1
+    findings: [F-001]
+    notes: Already present — hash-chained-ledger integration test; audit stale
+
+  - id: STAB-INT-DATAGRID
+    title: Integration test executeDrizzleList wall + decimal
+    phase: 3
+    state: closed
+    priority: 1
+    findings: [F-002]
+
+  - id: STAB-INT-VAL
+    title: Valuations — broaden method coverage beyond FIFO drizzle smoke
+    phase: 3
+    state: verified
+    priority: 2
+    findings: [F-003]
+    notes: all nine ValuationMethod values on drizzle.integration.test.ts
+    acceptance:
+      commands:
+        - pnpm eristack check --profile integration
+
+  - id: STAB-INT-DOCNUM
+    title: doc-number format/sequence concurrency integration
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    notes: Promise.all 10× next() unique sequences in drizzle.integration.test.ts
+
+  - id: STAB-INT-HCL-CONCURRENT
+    title: HCL drizzle — UNIQUE (chain, sequence) + concurrent append verify
+    phase: 3
+    state: verified
+    priority: 2
+    findings: [F-001]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/hash-chained-ledger test
+
+  - id: STAB-INT-DRIZZLE-GAPS
+    title: Integration tests for jwt-auth, comms, oauth, outbox, backseat drizzle
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    notes: all spine drizzle packages in matrix have drizzle.integration.test.ts
+    acceptance:
+      artifacts: [redesign/data/drizzle-integration.md]
+
+  - id: STAB-INT-OAUTH
+    title: oauth drizzle pending login store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-INT-BACKSEAT
+    title: backseat drizzle sqlite store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-INT-COMMS
+    title: comms drizzle message + delivery event store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-INT-OUTBOX
+    title: outbox drizzle enqueue dedupe integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-BS-1
+    title: Unify Backseat register normalizeBasePath helpers
+    phase: 2
+    state: verified
+    priority: 6
+    findings: [F-008]
+    notes: single export in @eristack/backseat/adapters; spine register.ts imports only — 2026-10-23 grep
+
+  - id: STAB-MEM-1
+    title: Export gate — block new createMemory on root export
+    phase: 2
+    state: verified
+    priority: 5
+    findings: [F-007]
+    acceptance:
+      commands:
+        - node scripts/check-memory-root-exports.mjs --ci
+        - pnpm eristack check --profile catalog --only memory-exports
+
+  - id: STAB-EX-HORIZON
+    title: Horizon A composite smoke in examples CI
+    phase: 3
+    state: closed
+    priority: 4
+    findings: [F-006]
+    notes: examples profile builds all example apps
+
+  - id: STAB-PROG-META
+    title: Close stabilization meta findings F-016–F-020
+    phase: 4
+    state: verified
+    priority: 5
+    findings: [F-016, F-017, F-018, F-019, F-020]
+    acceptance:
+      artifacts:
+        - redesign/03-findings-register.md
+        - redesign/12-acceptance-model.md
+        - redesign/data/comms-vendors.md
+    notes: F-018 waived (3ss B4); phase 3 exit → active_phase 4
+
+  - id: STAB-MAT-1
+    title: Optional — refresh package maturity vs Aug audit
+    phase: 4
+    state: verified
+    priority: 99
+    findings: []
+    acceptance:
+      commands:
+        - pnpm prepush
+      artifacts:
+        - redesign/data/maturity-vs-audit-20261024.md
+    notes: prepush OK 2026-10-24; top-15 theme matrix + selective grade deltas
+
+# Template for new tasks (copy):
+#  - id: STAB-NEW-1
+#    title: ...
+#    phase: 0
+#    state: proposed
+#    priority: 99
+#    findings: []
+#    blocks: []
+#    acceptance:
+#      commands: []
+#      artifacts: []
+#    notes: |

@@ -49,7 +49,7 @@ Returns a `Backseat` instance.
 ### `createMemoryBackseatStore()`
 
 ```ts
-import { createMemoryBackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 ```
 
 In-process Map storage. **Tests and Storybook only** — not the browser app default.

@@ -1,6 +1,4 @@
 export { createRbac } from "./core/create-rbac.js";
-/** @deprecated Import from `@eristack/rbac/testing` instead. */
-export { createMemoryRbacStore } from "./core/memory-store.js";
 export {
   ForbiddenError,
   PermissionNotFoundError,

@@ -10,8 +10,6 @@ export {
   UnknownGatewayError,
   WebhookVerificationError,
 } from "./core/errors.js";
-export { createMemoryPaymentDriver } from "./core/memory-driver.js";
-export { createMemoryPaymentManagerStore } from "./core/memory-store.js";
 export { moneyJsonEqual, toMoneyAmountJson } from "./core/money-json.js";
 export {
   PAYMENT_INTENT_STATUSES,

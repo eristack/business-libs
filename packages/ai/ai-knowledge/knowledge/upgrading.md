@@ -135,7 +135,8 @@ Shared REST bridge: `@eristack/backseat/adapters` (`registerRestLikeRoutes`, dat
 
 | Import | Key symbols |
 | --- | --- |
-| `@eristack/backseat` | `createBackseat`, `createMemoryBackseatStore`, types, CRUD helpers |
+| `@eristack/backseat` | `createBackseat`, types, CRUD helpers |
+| `@eristack/backseat/testing` | `createMemoryBackseatStore` — Vitest only |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore({ dbName })` — **browser default** |
 | `@eristack/backseat/react` | `BackseatProvider`, `BackseatDevtools`, Query hooks |
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, `toRestLikeRequest` |

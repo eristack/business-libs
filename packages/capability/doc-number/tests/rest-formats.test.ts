@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { createDocNumber } from "../src/index.js";
 import {
-  createDocNumber,
   createMemoryFormatStore,
   createMemorySequenceStore,
-} from "../src/index.js";
+} from "../src/testing/index.js";
 import { createRestActions } from "../src/rest/index.js";
 
 function req(partial: {

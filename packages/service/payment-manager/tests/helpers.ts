@@ -1,7 +1,9 @@
 import express from "express";
 import { createPaymentManager } from "../src/core/create-payment-manager.js";
-import { createMemoryPaymentDriver } from "../src/core/memory-driver.js";
-import { createMemoryPaymentManagerStore } from "../src/core/memory-store.js";
+import {
+  createMemoryPaymentDriver,
+  createMemoryPaymentManagerStore,
+} from "../src/testing/index.js";
 import { createPaymentManagerRouter } from "../src/express/index.js";
 
 export function createTestPaymentManagerApp(gateway = "memory") {

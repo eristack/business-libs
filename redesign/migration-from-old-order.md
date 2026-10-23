@@ -1,0 +1,106 @@
+# Migration notes — old order → new order
+
+**Purpose:** Prudent trail when agent workflow, documentation SoT, enforcement, or program structure **changes**. Append rows; do not delete history — mark `status: complete` when verified.
+
+**Related:** [macro-expectations.md](./macro-expectations.md) §6 · [06-documentation-strategy.md](./06-documentation-strategy.md) · [08-canonical-agent-workflow.md](./08-canonical-agent-workflow.md)
+
+## How to add a row
+
+| Field | Required |
+| --- | --- |
+| `id` | `MIG-YYYY-MM-DD-NN` |
+| `area` | e.g. agent-workflow, docs-sot, ci, cursor-rules, package-api |
+| `old_order` | What people/agents did before |
+| `new_order` | What they do after redesign |
+| `audience` | maintainers \| consumers \| agents \| all |
+| `compat` | breaking \| deprecate-then-remove \| docs-only \| additive |
+| `rollback` | How to revert safely (one paragraph) |
+| `verify` | Commands or checks that prove migration landed |
+| `status` | planned \| in_progress \| complete \| waived |
+| `tasks` | `STAB-*` / PR refs |
+
+---
+
+## Register
+
+### MIG-2026-10-23-01 — Program hub replaces monolithic redesign README
+
+| Field | Value |
+| --- | --- |
+| **area** | program structure |
+| **old_order** | Single long README as the only program artifact; plans lived in chat |
+| **new_order** | [README.md](./README.md) hub + numbered deliverables + [tasks.yaml](./tasks.yaml) + [roadmap.md](./roadmap.md) |
+| **audience** | maintainers, agents |
+| **compat** | additive — no library API change |
+| **rollback** | Revert `redesign/` folder; library unaffected |
+| **verify** | Human can start from README and find active phase + next task without chat |
+| **status** | complete |
+| **tasks** | STAB-INV-* |
+
+### MIG-2026-10-23-02 — Canonical agent workflow (target)
+
+| Field | Value |
+| --- | --- |
+| **area** | agent-workflow |
+| **old_order** | Overlapping instructions: `.cursor/rules/*`, AGENTS.md, many skills, ad-hoc `_ai-docs/` |
+| **new_order** | [08-canonical-agent-workflow.md](./08-canonical-agent-workflow.md) as single state machine; rules/skills **converge** via approved STAB tasks; cross-cutting facts in one `knowledge/<topic>.md` |
+| **audience** | agents, maintainers |
+| **compat** | deprecate-then-remove — trim duplicate prose after enforcement phase |
+| **rollback** | Keep old rules until migration row verified; do not delete cursor rules without STAB task |
+| **verify** | `pnpm knowledge:check`; optional future `check-skill-sources`; conflicts empty in [07-ai-workflow-audit.md](./07-ai-workflow-audit.md) |
+| **status** | complete |
+| **tasks** | STAB-AI-*; STAB-MIG-AIWF; MIG-04 map |
+
+### MIG-2026-10-23-03 — Drizzle proof vs “Drizzle default” prose (target)
+
+| Field | Value |
+| --- | --- |
+| **area** | reliability / docs |
+| **old_order** | Skills and docs state Drizzle-first; many packages lack integration tests; memory stores on main export |
+| **new_order** | [05-engineering-standards.md](./05-engineering-standards.md) + `/testing` exports + `STAB-INT-*` prove stores in CI |
+| **audience** | integrators, agents |
+| **compat** | additive tests first; memory export moves may be breaking — changesets per package |
+| **rollback** | Revert integration tests; restore exports if needed (document in row) |
+| **verify** | `pnpm eristack check --profile integration`; F-003 closed; F-001 matrix complete |
+| **status** | complete |
+| **tasks** | STAB-INT-*, STAB-MEM-1/2, STAB-INT-DRIZZLE-GAPS, STAB-INT-VAL |
+
+### MIG-2026-10-23-04 — Efficient agent entry + migration map
+
+| Field | Value |
+| --- | --- |
+| **area** | agent-workflow / tooling |
+| **old_order** | Ad-hoc scripts; fat recommend skill; multi-source cross-cutting skills; human-only commits |
+| **new_order** | [data/agent-workflow-migration-map.md](./data/agent-workflow-migration-map.md): `eristack plan` → `recommend`/`loadPlan` → single-source skills → sync → granular commits; batch npm release |
+| **audience** | all |
+| **compat** | additive — APIs unchanged |
+| **rollback** | Revert ai-knowledge skills/knowledge; restore recommend catalog table in sync if needed |
+| **verify** | `pnpm knowledge:check`; `check-skill-sources --ci`; recommend tests |
+| **status** | complete |
+| **tasks** | STAB-MIG-AIWF, STAB-AI-2/3/4 |
+
+---
+
+### MIG-2026-10-23-05 — Agent git during iteration
+
+| Field | Value |
+| --- | --- |
+| **area** | agent-workflow / VCS |
+| **old_order** | Agents must not run git; human commits everything |
+| **new_order** | Agents may **local commit** in small slices; human **push/PR**; see `.cursor/rules/git-iteration-commits.mdc` |
+| **audience** | agents, maintainers |
+| **compat** | additive |
+| **rollback** | Restore prior `no-git.mdc`; revert granular commits if needed |
+| **verify** | Rule files present; commit log shows split subjects not bulk WIP |
+| **status** | complete |
+| **tasks** | — |
+
+## Superseded instruction sources (watch list)
+
+When a migration completes, move the old source here with **superseded_by** link.
+
+| Old source | Superseded by (target) | Status |
+| --- | --- | --- |
+| Per-package upgrade doc chains | `#upgrading-eristack` only | partial — rule exists, stubs remain |
+| Large embed in recommend-eristack skill | Compact sync stub + `getCatalog()` | complete (STAB-AI-3) |
+| Memory store from package root export | `@eristack/*/testing` | complete (STAB-MEM-2, F-007) |

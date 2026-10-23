@@ -1,8 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
   createJwtAuth,
-  createMemoryCredentialStore,
-  createMemoryRefreshTokenStore,
   InvalidAccessTokenError,
   InvalidCredentialsError,
   InvalidRefreshTokenError,
@@ -10,6 +8,10 @@ import {
   SessionNotFoundError,
   UsernameTakenError,
 } from "../src/index.js";
+import {
+  createMemoryCredentialStore,
+  createMemoryRefreshTokenStore,
+} from "../src/testing/index.js";
 
 function createAuth(credentials = false) {
   return createJwtAuth({

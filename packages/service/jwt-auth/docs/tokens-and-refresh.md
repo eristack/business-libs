@@ -231,6 +231,9 @@ Changing `accessSecret` invalidates every outstanding access token — users see
 Inject a clock and both TTL boundaries become deterministic:
 
 ```ts
+import { createJwtAuth } from "@eristack/jwt-auth";
+import { createMemoryRefreshTokenStore } from "@eristack/jwt-auth/testing";
+
 let now = new Date("2026-01-01T00:00:00Z");
 const auth = createJwtAuth({
   accessSecret: "test-secret-at-least-16",
