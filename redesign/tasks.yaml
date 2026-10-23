@@ -105,10 +105,21 @@ tasks:
         - pnpm knowledge:check
         - node scripts/check-skill-sources.mjs --ci
 
+  - id: STAB-AI-4
+    title: Collapse ai-knowledge cross-cutting skills to single source
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-009]
+    acceptance:
+      commands:
+        - node scripts/check-skill-sources.mjs --ci
+        - pnpm knowledge:check
+
   - id: STAB-MIG-AIWF
     title: Specify and migrate to improved agent workflow (old load path → new)
     phase: 1
-    state: proposed
+    state: in_progress
     priority: 2
     findings: [F-004, F-015]
     blocks: [STAB-AI-3]

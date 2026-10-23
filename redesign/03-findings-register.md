@@ -14,7 +14,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-006 | fact | med | closed | Example apps build in CI | `pnpm eristack check --profile examples` OK 2026-10-23 |
 | F-007 | fact | high | open | **10** packages export `createMemory*` from root `index.ts` | [data/memory-root-exports.md](./data/memory-root-exports.md) STAB-INV-3 |
 | F-008 | fact | high | open | Backseat register/bootstrap duplicated across packages | Audit rank 8 |
-| F-009 | fact | high | open | Some skills list 5+ `sources` (token budget violation) | `docs-depth-tokens.mdc`; audit rank 9 |
+| F-009 | fact | high | closed | ai-knowledge cross-cutting skills >1 source | STAB-AI-4; `skill-sources` check, no allowlist |
 | F-010 | inference | high | open | Recipe triggers missing for newer APIs (wall grid, atomic backseat, etc.) | Audit rank 10 |
 | F-011 | inference | high | open | AGENTS.md intent block may lag new package skills | Audit rank 11; compare `intent.skills` vs packages with skills/ |
 | F-012 | fact | high | open | Examples build is part of pr CI | `CHECK_DEFS` examples profile; audit rank 12 |

@@ -49,7 +49,7 @@
 | **rollback** | Keep old rules until migration row verified; do not delete cursor rules without STAB task |
 | **verify** | `pnpm knowledge:check`; optional future `check-skill-sources`; conflicts empty in [07-ai-workflow-audit.md](./07-ai-workflow-audit.md) |
 | **status** | in_progress |
-| **tasks** | STAB-AI-2 verified; STAB-AI-1 script; STAB-AI-3 approved |
+| **tasks** | STAB-AI-2/3/4 verified; STAB-ENF-1 verified; STAB-MIG-AIWF open |
 
 ### MIG-2026-10-23-03 — Drizzle proof vs “Drizzle default” prose (target)
 

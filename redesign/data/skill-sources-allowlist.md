@@ -1,15 +1,7 @@
-# ai-knowledge skills — multi-source allowlist (STAB-AI-1)
+# ai-knowledge skills — cross-cutting sources (STAB-AI-1)
 
-**Check:** `node scripts/check-skill-sources.mjs --ci`
+**Check:** `node scripts/check-skill-sources.mjs --ci` · wired as eristack `skill-sources` (catalog/pr).
 
-These skills still have **>1** `sources` entry; shrink via STAB-AI-3 / doc consolidation:
+**Status (2026-10-23):** All `@eristack/ai-knowledge/skills/*/SKILL.md` entries have **≤1** `sources` line. No allowlist — violations fail CI.
 
-| Skill ID | Sources | Target |
-| --- | ---: | --- |
-| `dev-conventions` | 3 | one `dev-conventions.md` only |
-| `ai-toolbox` | 3 | one toolbox index doc |
-| `stack-defaults` | 4 | one `stack-defaults.md` |
-| `architecture-recommend` | 2 | one `architecture.md` |
-| `agent-workflow` | 2 | one `agent-workflow.md` |
-
-All other `@eristack/ai-knowledge` skills: **≤1 source** (enforced by script).
+Previously multi-source skills (`dev-conventions`, `agent-workflow`, `architecture-recommend`, `stack-defaults`, `ai-toolbox`) now point at one canonical `knowledge/*.md` each; related loads are named in the skill body (`#upgrading-eristack`, `#stack-defaults`, toolbox prompts/checklists paths).
