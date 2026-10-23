@@ -4,7 +4,7 @@
 
 program: eristack-stabilization
 as_of: 2026-10-23
-active_phase: 1
+active_phase: 2
 macro_expectations: redesign/macro-expectations.md
 migration_register: redesign/migration-from-old-order.md
 
@@ -119,16 +119,23 @@ tasks:
   - id: STAB-MIG-AIWF
     title: Specify and migrate to improved agent workflow (old load path → new)
     phase: 1
-    state: in_progress
+    state: verified
     priority: 2
     findings: [F-004, F-015]
-    blocks: [STAB-AI-3]
     acceptance:
       commands:
         - pnpm knowledge:check
       artifacts:
+        - redesign/data/agent-workflow-migration-map.md
         - redesign/migration-from-old-order.md
-    notes: Complete MIG-2026-10-23-04
+
+  - id: STAB-MEM-2
+    title: Move createMemory off root export (one package per PR)
+    phase: 2
+    state: proposed
+    priority: 4
+    findings: [F-007]
+    notes: Shrink ALLOWLIST in check-memory-root-exports.mjs as each package migrates to /testing
 
   - id: STAB-INT-HCL
     title: Integration test createDrizzleLedgerStore append/verify
@@ -173,15 +180,15 @@ tasks:
       artifacts: [redesign/data/drizzle-integration.md]
 
   - id: STAB-MEM-1
-    title: Export gate — block createMemory from root export
+    title: Export gate — block new createMemory on root export
     phase: 2
-    state: proposed
+    state: verified
     priority: 5
-    blocks: [STAB-INV-3]
     findings: [F-007]
     acceptance:
       commands:
-        - pnpm exports:check
+        - node scripts/check-memory-root-exports.mjs --ci
+        - pnpm eristack check --profile catalog --only memory-exports
 
   - id: STAB-EX-HORIZON
     title: Horizon A composite smoke in examples CI

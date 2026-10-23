@@ -96,3 +96,4 @@ CI: `examples` check in pr profile (audit rank 12 — confirm green on main).
 | Script | Purpose |
 | --- | --- |
 | `scripts/check-skill-sources.mjs` | ai-knowledge cross-cutting skills ≤1 source (STAB-AI-1) |
+| `scripts/check-memory-root-exports.mjs` | no new `createMemory*` on package root (STAB-MEM-1) |

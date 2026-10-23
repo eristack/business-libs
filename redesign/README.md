@@ -1,6 +1,6 @@
 # Eristack stabilization & AI workflow redesign (program hub)
 
-**Status:** Phase **1** (Align) — Phase 0 verification logged in [data/phase0-verification-log.md](./data/phase0-verification-log.md). Repo remediation: **approved** for stabilization tasks marked `approved`/`in_progress` in [tasks.yaml](./tasks.yaml).
+**Status:** Phase **2** (Enforce baseline) — Phase 1 align complete ([MIG-2026-10-23-04](./migration-from-old-order.md)). Active tasks in [tasks.yaml](./tasks.yaml).
 
 **Operating constitution:** [macro-expectations.md](./macro-expectations.md) — small margin for error, rigorous processing, slow but sure, audit/accounting mindset, prudent trail, and documented migration from old order to new order.
 

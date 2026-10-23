@@ -20,7 +20,7 @@
 | Cross-cutting skill ≤1 source | `scripts/check-skill-sources.mjs` + `skill-sources` check | STAB-AI-1 ✓ |
 | loadPlan includes recipe canonicalSkills | extend `recommend.test.ts` + CI | STAB-AI-2 |
 | New `/drizzle` export requires integration test file | lint script listing adapters | STAB-INT-GATE |
-| Memory store not from `.` export | grep + allowlist in exports check | STAB-MEM-1 |
+| Memory store not from `.` export | `check-memory-root-exports.mjs` + `memory-exports` check (allowlisted debt) | STAB-MEM-1 ✓ |
 
 ## Tier 3 — Advisory (stay in Cursor rules)
 
