@@ -1,5 +1,11 @@
 # @eristack/qups
 
+## 0.3.5
+
+### Patch Changes
+
+- f7ea773: Remove `createMemoryPricingProfileStore` and `createMemoryPricingLineStore` from root export; use `@eristack/qups/testing` in tests.
+
 ## 0.3.4
 
 ### Patch Changes

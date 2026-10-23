@@ -1,5 +1,11 @@
 # @eristack/oauth
 
+## 0.1.1
+
+### Patch Changes
+
+- 99499e8: Remove `createMemoryOAuthPendingStore` from root export; use `@eristack/oauth/testing` in tests.
+
 ## 0.1.0
 
 ### Minor Changes

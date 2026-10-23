@@ -1,5 +1,11 @@
 # @eristack/jwt-auth
 
+## 0.4.7
+
+### Patch Changes
+
+- 26d7af0: Remove `createMemoryRefreshTokenStore` and `createMemoryCredentialStore` from root export; use `@eristack/jwt-auth/testing` in tests and docs.
+
 ## 0.4.6
 
 ### Patch Changes

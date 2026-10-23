@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.24
+
+### Patch Changes
+
+- 327fcf0: Stabilization batch (release with train, not per iteration): recommend skill trim, cross-cutting skills single-source.
+
 ## 0.1.23
 
 ### Patch Changes
