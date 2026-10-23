@@ -1,16 +1,11 @@
 # Memory factories on root `@eristack/*` entry (verified 2026-10-23)
 
-**Task:** STAB-INV-3 · **Finding:** F-007
+**Task:** STAB-INV-3 · **Finding:** F-007 — **closed** (STAB-MEM-2 complete)
 
-These packages export `createMemory*` from **`src/index.ts`** (main public surface):
+No packages export `createMemory*` (or `memoryPutViaPresignedUrl`) from **`src/index.ts`** on the main public surface. CI: `node scripts/check-memory-root-exports.mjs --ci` with an **empty allowlist**.
 
-| Package | Symbols |
-| --- | --- |
-| `@eristack/backseat` | `createMemoryBackseatStore` |
-| `@eristack/file-manager` | `createMemoryStorageDriver`, `createMemoryFileRecordStore`, … |
+**Migrated off root (STAB-MEM-2):** `@eristack/rbac`, `@eristack/epoch`, `@eristack/oauth`, `@eristack/comms`, `@eristack/jwt-auth`, `@eristack/doc-number`, `@eristack/payment-manager`, `@eristack/qups`, `@eristack/file-manager`, `@eristack/backseat` → `@eristack/<pkg>/testing` (spine `./backseat` adapters import memory store from `@eristack/backseat/testing`).
 
-**Migrated off root (STAB-MEM-2):** `@eristack/rbac`, `@eristack/epoch`, `@eristack/oauth`, `@eristack/comms`, `@eristack/jwt-auth`, `@eristack/doc-number`, `@eristack/payment-manager`, `@eristack/qups` → `*/testing` only.
+**Also on non-root paths (acceptable):** `*/testing/index.ts`, `*/backseat/index.ts`, internal `core/` memory modules, `hash-chained-ledger/core`, `idempotency/core`, `outbox/core`, `valuations/core`.
 
-**Also on non-root paths (acceptable for backseat/tests):** `*/testing/index.ts`, `*/backseat/index.ts`, `hash-chained-ledger/core`, `idempotency/core`, `outbox/core`, `valuations/core`.
-
-**Target (STAB-MEM-*):** move root exports to `@eristack/<pkg>/testing` only; changesets per package.
+**Policy:** production and shared deploys use Drizzle/DB (or IndexedDB for browser Backseat); memory helpers are tests, workshops, and local scratch only.

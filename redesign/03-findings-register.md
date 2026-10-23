@@ -12,7 +12,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-004 | fact | med | closed | `loadPlan()` merges `canonicalSkills` | `recommend.ts` L196–205; 28 tests incl. all-recipe matrix |
 | F-005 | fact | med | closed | Publish dep hygiene passes on current main | `pnpm eristack check --profile publish` OK 2026-10-23 |
 | F-006 | fact | med | closed | Example apps build in CI | `pnpm eristack check --profile examples` OK 2026-10-23 |
-| F-007 | fact | high | open | **10** packages export `createMemory*` from root `index.ts` | [data/memory-root-exports.md](./data/memory-root-exports.md) STAB-INV-3 |
+| F-007 | fact | high | closed | Root `createMemory*` exports moved to `*/testing`; allowlist empty | STAB-MEM-2; `check-memory-root-exports.mjs --ci` 2026-10-23 |
 | F-008 | fact | high | open | Backseat register/bootstrap duplicated across packages | Audit rank 8 |
 | F-009 | fact | high | closed | ai-knowledge cross-cutting skills >1 source | STAB-AI-4; `skill-sources` check, no allowlist |
 | F-010 | inference | high | open | Recipe triggers missing for newer APIs (wall grid, atomic backseat, etc.) | Audit rank 10 |

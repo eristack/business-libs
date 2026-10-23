@@ -14,15 +14,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const ci = process.argv.includes("--ci");
 
-/** @type {Record<string, string[]>} package name → allowed createMemory export names */
-const ALLOWLIST = {
-  "@eristack/backseat": ["createMemoryBackseatStore"],
-  "@eristack/file-manager": [
-    "createMemoryStorageDriver",
-    "memoryPutViaPresignedUrl",
-    "createMemoryFileRecordStore",
-  ],
-};
+/** @type {Record<string, string[]>} package name → allowed createMemory export names (STAB-MEM-2 debt) */
+const ALLOWLIST = {};
 
 function memoryExportsFromIndex(indexPath) {
   const text = fs.readFileSync(indexPath, "utf8");

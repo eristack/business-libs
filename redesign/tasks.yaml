@@ -148,10 +148,26 @@ tasks:
   - id: STAB-MEM-2
     title: Move createMemory off root export (one package per PR)
     phase: 2
-    state: in_progress
+    state: verified
     priority: 4
     findings: [F-007]
-    notes: rbac, epoch, oauth, comms, jwt-auth, doc-number, payment-manager, qups done; 2 remain (backseat, file-manager)
+    notes: all 10 packages migrated; empty allowlist
+
+  - id: STAB-MEM-2-backseat
+    title: "@eristack/backseat — memory store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-file-manager
+    title: "@eristack/file-manager — memory driver/store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
 
   - id: STAB-MEM-2-qups
     title: "@eristack/qups — pricing stores only on /testing"
