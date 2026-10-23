@@ -20,7 +20,8 @@ pnpm add @eristack/epoch express @eristack/epoch/react @tanstack/react-query
 ## Core (server or shared)
 
 ```ts
-import { createEpoch, createMemoryEpochStore } from "@eristack/epoch";
+import { createEpoch } from "@eristack/epoch";
+import { createMemoryEpochStore } from "@eristack/epoch/testing";
 
 const epoch = createEpoch({ store: createMemoryEpochStore() }); // tests only
 
