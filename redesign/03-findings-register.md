@@ -6,7 +6,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 
 | ID | Type | Severity | Status | Finding | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| F-001 | fact | crit | open | Drizzle integration matrix complete for spine packages; ledger depth/concurrency not fully audited | STAB-INT-DRIZZLE-GAPS verified 2026-10-23; [data/drizzle-integration.md](./data/drizzle-integration.md) |
+| F-001 | fact | crit | open | Drizzle integration matrix complete; HCL depth smoke added; concurrent append / UNIQUE(chain,seq) still deferred | STAB-INT-HCL depth test 2026-10-24; [data/drizzle-integration.md](./data/drizzle-integration.md) |
 | F-002 | fact | high | closed | `executeDrizzleList` integration test present | `packages/service/data-grid/tests/drizzle.integration.test.ts`; integration profile OK |
 | F-003 | fact | high | closed | All nine valuation methods exercised on Drizzle + HCL integration test | STAB-INT-VAL; `drizzle.integration.test.ts` 2026-10-23 |
 | F-004 | fact | med | closed | `loadPlan()` merges `canonicalSkills` | `recommend.ts` L196–205; 28 tests incl. all-recipe matrix |
@@ -18,8 +18,8 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-010 | inference | high | closed | Recipe triggers for wall grid, atomic backseat, applyCellPatch, compareDecimalStrings | STAB-AI-RECIPES; `recommend.test.ts`; `debottleneck:check --ci` 2026-10-23 |
 | F-011 | inference | high | closed | AGENTS.md intent block stays aligned with disk skills + `intent.skills` | STAB-AI-AGENTS; `check-agents-intent-sync.mjs --ci`; `intent install --map` current |
 | F-012 | fact | high | closed | Examples build is part of pr CI | Same as F-006; `STAB-EX-HORIZON` closed |
-| F-013 | inference | high | open | Peer dependency floors may be incomplete on adapters | Audit rank 13; `check-publish-deps.mjs` |
-| F-014 | fact | med | open | 409 error canon documented; thin end-to-end demo | `#http-errors` skill; audit rank 14 |
+| F-013 | inference | high | closed | Publishable packages: no workspace runtime deps; @eristack peers use ^0.x floors + required adapter map | STAB-PUB-PEERS; extended `check-publish-deps.mjs` 2026-10-24 |
+| F-014 | fact | med | closed | 409 CONFLICT_VERSION + BUSINESS_POLICY_DENIED exercised in Horizon A tests | STAB-EX-HTTP-409; `examples/horizon-a/tests/http-errors.test.ts` |
 | F-015 | fact | med | closed | `recommend-eristack` skill embeds large generated catalog | STAB-AI-3: compact catalog stub + one `sources` entry; sync regenerates stub |
 | F-016 | fact | med | open | Stabilization program docs live in `redesign/` only | This folder |
 | F-017 | fact | low | open | `redesign/SPEC.md` stub — full charter was prior README | Git history if verbatim needed |

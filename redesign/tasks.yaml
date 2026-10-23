@@ -55,7 +55,39 @@ tasks:
     acceptance:
       commands:
         - pnpm eristack check --profile publish
-    notes: OK 2026-10-23
+    notes: OK 2026-10-23; peer floors — STAB-PUB-PEERS
+
+  - id: STAB-PUB-PEERS
+    title: Extend publish check — @eristack peer floors + adapter map
+    phase: 1
+    state: verified
+    priority: 2
+    findings: [F-013]
+    acceptance:
+      commands:
+        - node scripts/check-publish-deps.mjs
+      artifacts:
+        - redesign/data/peer-deps-publish.md
+
+  - id: STAB-EX-HTTP-409
+    title: Horizon A tests for CONFLICT_VERSION and BUSINESS_POLICY_DENIED
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-014]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/example-horizon-a test
+
+  - id: STAB-INT-HCL-DEPTH
+    title: Hash-chained-ledger drizzle — sequential depth smoke
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/hash-chained-ledger test
 
   - id: STAB-AI-2
     title: Fix or verify loadPlan canonicalSkills merge
