@@ -146,4 +146,33 @@ describe.skipIf(!canUseBetterSqlite())("hash-chained-ledger drizzle integration"
     expect(verified.ok).toBe(true);
     expect(verified.entries).toBe(25);
   });
+
+  it("concurrent appends on one chain stay verifiable (sequence UNIQUE + retry)", async () => {
+    harness = setupHclSqlite();
+    const { ledger } = harness;
+
+    await ledger.append({
+      chainId: "race",
+      openingBalance: "0",
+      inAmount: "0",
+      entryType: "open",
+      entryTypeId: "open",
+    });
+
+    const results = await Promise.all(
+      Array.from({ length: 12 }, (_, i) =>
+        ledger.append({
+          chainId: "race",
+          inAmount: "1",
+          entryType: "receipt",
+          entryTypeId: `parallel-${i}`,
+        }),
+      ),
+    );
+
+    expect(new Set(results.map((e) => e.sequence)).size).toBe(12);
+    const verified = await ledger.verify("race");
+    expect(verified.ok).toBe(true);
+    expect(verified.entries).toBe(13);
+  });
 });

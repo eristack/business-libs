@@ -15,6 +15,8 @@ import type {
 import { isLedgerUniqueViolation } from "./idempotency.js";
 import { assertChainIntact, verifyEntries } from "./verify.js";
 
+const MAX_SEQUENCE_CONTENTION_RETRIES = 8;
+
 export function createHashChainedLedger(
   options: CreateHashChainedLedgerOptions,
 ): HashChainedLedger {
@@ -30,91 +32,103 @@ export function createHashChainedLedger(
         if (existing) return existing;
       }
 
-      const tip = await store.getTip(input.chainId);
-      const inAmount = input.inAmount ?? zeroAmount();
-      const outAmount = input.outAmount ?? zeroAmount();
-      const adjustment = input.adjustment ?? zeroAmount();
+      for (let attempt = 0; attempt < MAX_SEQUENCE_CONTENTION_RETRIES; attempt++) {
+        const tip = await store.getTip(input.chainId);
+        const inAmount = input.inAmount ?? zeroAmount();
+        const outAmount = input.outAmount ?? zeroAmount();
+        const adjustment = input.adjustment ?? zeroAmount();
 
-      let openingBalance: string;
-      let sequence: number;
-      let prevHash: string | null;
+        let openingBalance: string;
+        let sequence: number;
+        let prevHash: string | null;
 
-      if (!tip) {
-        if (input.openingBalance == null) {
-          throw new HashChainedLedgerError(
-            `openingBalance is required to open chain "${input.chainId}"`,
-          );
+        if (!tip) {
+          if (input.openingBalance == null) {
+            throw new HashChainedLedgerError(
+              `openingBalance is required to open chain "${input.chainId}"`,
+            );
+          }
+          openingBalance = input.openingBalance;
+          sequence = 1;
+          prevHash = null;
+        } else {
+          openingBalance = tip.closingBalance;
+          sequence = tip.sequence + 1;
+          prevHash = tip.entryHash;
+          if (
+            input.openingBalance != null &&
+            input.openingBalance !== openingBalance
+          ) {
+            throw new HashChainedLedgerError(
+              `openingBalance must equal tip closing (${openingBalance}); got ${input.openingBalance}`,
+            );
+          }
         }
-        openingBalance = input.openingBalance;
-        sequence = 1;
-        prevHash = null;
-      } else {
-        openingBalance = tip.closingBalance;
-        sequence = tip.sequence + 1;
-        prevHash = tip.entryHash;
-        if (
-          input.openingBalance != null &&
-          input.openingBalance !== openingBalance
-        ) {
-          throw new HashChainedLedgerError(
-            `openingBalance must equal tip closing (${openingBalance}); got ${input.openingBalance}`,
-          );
+
+        const closingBalance = computeClosing({
+          openingBalance,
+          inAmount,
+          outAmount,
+          adjustment,
+        });
+
+        const occurredAt =
+          input.occurredAt instanceof Date
+            ? input.occurredAt.toISOString()
+            : (input.occurredAt ?? now().toISOString());
+
+        const unsigned: Omit<LedgerEntry, "entryHash"> = {
+          id: input.id ?? idFactory(),
+          chainId: input.chainId,
+          sequence,
+          openingBalance,
+          inAmount,
+          outAmount,
+          adjustment,
+          closingBalance,
+          entryType: input.entryType,
+          entryTypeId: input.entryTypeId,
+          occurredAt,
+          prevHash,
+          meta: input.meta,
+          idempotencyKey: input.idempotencyKey?.trim() || null,
+        };
+
+        assertBalanceEquation(unsigned);
+        const entryHash = await hashLedgerEntry(unsigned);
+        const entry: LedgerEntry = { ...unsigned, entryHash };
+
+        try {
+          await store.append(entry);
+          await store.upsertSnapshot({
+            chainId: entry.chainId,
+            sequence: entry.sequence,
+            balance: entry.closingBalance,
+            entryHash: entry.entryHash,
+            updatedAt: entry.occurredAt,
+          });
+          return entry;
+        } catch (err) {
+          if (input.idempotencyKey?.trim() && isLedgerUniqueViolation(err)) {
+            const again = await store.findByIdempotencyKey(
+              input.chainId,
+              input.idempotencyKey.trim(),
+            );
+            if (again) return again;
+          }
+          if (
+            isLedgerUniqueViolation(err) &&
+            attempt < MAX_SEQUENCE_CONTENTION_RETRIES - 1
+          ) {
+            continue;
+          }
+          throw err;
         }
       }
 
-      const closingBalance = computeClosing({
-        openingBalance,
-        inAmount,
-        outAmount,
-        adjustment,
-      });
-
-      const occurredAt =
-        input.occurredAt instanceof Date
-          ? input.occurredAt.toISOString()
-          : (input.occurredAt ?? now().toISOString());
-
-      const unsigned: Omit<LedgerEntry, "entryHash"> = {
-        id: input.id ?? idFactory(),
-        chainId: input.chainId,
-        sequence,
-        openingBalance,
-        inAmount,
-        outAmount,
-        adjustment,
-        closingBalance,
-        entryType: input.entryType,
-        entryTypeId: input.entryTypeId,
-        occurredAt,
-        prevHash,
-        meta: input.meta,
-        idempotencyKey: input.idempotencyKey?.trim() || null,
-      };
-
-      assertBalanceEquation(unsigned);
-      const entryHash = await hashLedgerEntry(unsigned);
-      const entry: LedgerEntry = { ...unsigned, entryHash };
-
-      try {
-        await store.append(entry);
-      } catch (err) {
-        if (input.idempotencyKey?.trim() && isLedgerUniqueViolation(err)) {
-          const again = await store.findByIdempotencyKey(
-            input.chainId,
-            input.idempotencyKey.trim(),
-          );
-          if (again) return again;
-        }
-        throw err;
-      }
-      await store.upsertSnapshot({
-        chainId: entry.chainId,
-        sequence: entry.sequence,
-        balance: entry.closingBalance,
-        entryHash: entry.entryHash,
-        updatedAt: entry.occurredAt,
-      });
-      return entry;
+      throw new HashChainedLedgerError(
+        `append failed after ${MAX_SEQUENCE_CONTENTION_RETRIES} sequence contention retries on "${input.chainId}"`,
+      );
     },
 
     list(chainId) {

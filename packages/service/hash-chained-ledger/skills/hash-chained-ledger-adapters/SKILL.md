@@ -7,6 +7,8 @@ metadata:
   type: adapter
   library: "@eristack/hash-chained-ledger"
   library_version: "0.0.0"
+sources:
+  - packages/service/hash-chained-ledger/docs/adapters.md
 ---
 
 # Hash-chained ledger adapters
@@ -15,3 +17,5 @@ metadata:
 const tables = createHashChainedLedgerTables("pgsql");
 const store = createDrizzleLedgerStore({ db, tables });
 ```
+
+Entries table ships **UNIQUE `(chain_id, sequence)`** — `append()` retries on contention. Migrate existing apps with `{prefix}_entries_chain_seq_uq`.

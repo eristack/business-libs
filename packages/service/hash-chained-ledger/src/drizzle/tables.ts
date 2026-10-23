@@ -64,6 +64,7 @@ function createPgsql(prefix: string) {
       idempotencyKey: pgText("idempotency_key"),
     },
     (t) => [
+      pgUniqueIndex(`${prefix}_entries_chain_seq_uq`).on(t.chainId, t.sequence),
       pgUniqueIndex(`${prefix}_entries_idem_uq`).on(t.chainId, t.idempotencyKey),
     ],
   );
@@ -98,6 +99,10 @@ function createMysql(prefix: string) {
       idempotencyKey: mysqlVarchar("idempotency_key", { length: 255 }),
     },
     (t) => [
+      mysqlUniqueIndex(`${prefix}_entries_chain_seq_uq`).on(
+        t.chainId,
+        t.sequence,
+      ),
       mysqlUniqueIndex(`${prefix}_entries_idem_uq`).on(t.chainId, t.idempotencyKey),
     ],
   );
@@ -132,6 +137,10 @@ function createSqlite(prefix: string) {
       idempotencyKey: sqliteText("idempotency_key"),
     },
     (t) => [
+      sqliteUniqueIndex(`${prefix}_entries_chain_seq_uq`).on(
+        t.chainId,
+        t.sequence,
+      ),
       sqliteUniqueIndex(`${prefix}_entries_idem_uq`).on(t.chainId, t.idempotencyKey),
     ],
   );
