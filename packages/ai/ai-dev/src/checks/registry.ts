@@ -27,6 +27,7 @@ export type CheckId =
   | "features"
   | "debottleneck"
   | "skill-sources"
+  | "agents-intent-sync"
   | "memory-exports"
   | "lockfile";
 
@@ -116,6 +117,12 @@ export const CHECK_DEFS: CheckDef[] = [
     label: "intent skills validate",
     profiles: ["catalog", "pr", "full"],
     order: 50,
+  },
+  {
+    id: "agents-intent-sync",
+    label: "AGENTS.md intent block vs intent.skills",
+    profiles: ["catalog", "pr", "full"],
+    order: 50.5,
   },
   {
     id: "skill-sources",

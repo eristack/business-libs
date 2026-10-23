@@ -139,6 +139,11 @@ function commandForCheck(
         argv: ["node", "scripts/skills-validate.mjs"],
         display: "pnpm skills:validate",
       };
+    case "agents-intent-sync":
+      return {
+        argv: ["node", "scripts/check-agents-intent-sync.mjs", "--ci"],
+        display: "node scripts/check-agents-intent-sync.mjs --ci",
+      };
     case "skill-sources":
       return {
         argv: ["node", "scripts/check-skill-sources.mjs", "--ci"],
