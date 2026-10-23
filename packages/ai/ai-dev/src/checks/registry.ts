@@ -26,6 +26,7 @@ export type CheckId =
   | "contrast"
   | "features"
   | "debottleneck"
+  | "skill-sources"
   | "lockfile";
 
 export type CheckDef = {
@@ -114,6 +115,12 @@ export const CHECK_DEFS: CheckDef[] = [
     label: "intent skills validate",
     profiles: ["catalog", "pr", "full"],
     order: 50,
+  },
+  {
+    id: "skill-sources",
+    label: "ai-knowledge cross-cutting skill sources",
+    profiles: ["catalog", "pr", "full"],
+    order: 51,
   },
   {
     id: "knowledge",

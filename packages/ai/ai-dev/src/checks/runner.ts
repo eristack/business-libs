@@ -139,6 +139,11 @@ function commandForCheck(
         argv: ["node", "scripts/skills-validate.mjs"],
         display: "pnpm skills:validate",
       };
+    case "skill-sources":
+      return {
+        argv: ["node", "scripts/check-skill-sources.mjs", "--ci"],
+        display: "node scripts/check-skill-sources.mjs --ci",
+      };
     case "knowledge":
       return {
         argv: ["pnpm", "--filter", "@eristack/ai-knowledge", "sync:check"],
