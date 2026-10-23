@@ -1,4 +1,5 @@
-import { createBackseat, createMemoryBackseatStore, type Backseat } from "@eristack/backseat";
+import { createBackseat, type Backseat } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import { registerHorizonDocumentSpine } from "@eristack/backseat/seeds";
 import { createJwtAuth } from "@eristack/jwt-auth";
 import {

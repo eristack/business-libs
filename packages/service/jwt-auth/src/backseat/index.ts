@@ -1,7 +1,5 @@
-import {
-  createMemoryBackseatStore,
-  type BackseatStore,
-} from "@eristack/backseat";
+import type { BackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import type { CredentialStore, RefreshTokenStore } from "../core/types.js";
 import { createBackseatCredentialStore } from "./credential-store.js";
 import { createBackseatRefreshTokenStore } from "./refresh-token-store.js";

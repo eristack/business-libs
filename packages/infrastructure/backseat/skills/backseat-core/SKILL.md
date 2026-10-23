@@ -33,7 +33,7 @@ Frontend-first **fake backend** in the browser — store + router + **your** con
 
 | Import | Use |
 | --- | --- |
-| `@eristack/backseat` | `createBackseat`, memory store, types |
+| `@eristack/backseat` | `createBackseat`, types, CRUD helpers |
 | `@eristack/backseat/adapters` | `registerRestLikeRoutes`, REST bridge helpers |
 | `@eristack/backseat/store` | `createIndexedDbBackseatStore()` — **browser default** |
 | `@eristack/backseat/drizzle` | `createDrizzleBackseatStore` — Horizon B; sqlite needs `runSyncTransaction` + `sqlite` for `atomic()` |

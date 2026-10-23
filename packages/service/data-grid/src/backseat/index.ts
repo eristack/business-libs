@@ -1,7 +1,5 @@
-import {
-  createMemoryBackseatStore,
-  type BackseatStore,
-} from "@eristack/backseat";
+import type { BackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 
 /** Data-grid has no dedicated store — it parses queries and wraps list loaders. */
 export function createBackseatDataGridContext(options: {

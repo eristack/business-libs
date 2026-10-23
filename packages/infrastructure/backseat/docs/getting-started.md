@@ -266,7 +266,8 @@ Prefer handlers for new code — fewer moving parts, easier graduation.
 Always use the memory store in Node/Vitest:
 
 ```ts
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
+import { createBackseat } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 
 const api = createBackseat({
   store: createMemoryBackseatStore(),

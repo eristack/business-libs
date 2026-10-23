@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createBackseat, createMemoryBackseatStore } from "@eristack/backseat";
+import { createBackseat } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import { createPbac, documents } from "../src/index.js";
 import { registerPbacBackseat } from "../src/backseat/register.js";
 

@@ -1,5 +1,5 @@
 import { createBackseat } from "../core/create-backseat.js";
-import { createMemoryBackseatStore } from "../core/memory-store.js";
+import { createMemoryBackseatStore } from "../testing/index.js";
 import type { Backseat, BackseatStore } from "../core/types.js";
 import { createErpDemoSnapshot } from "./erp-demo.js";
 import { registerErpDemoControllers } from "./erp-demo-controllers.js";

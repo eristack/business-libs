@@ -1,7 +1,5 @@
-import {
-  createMemoryBackseatStore,
-  type BackseatStore,
-} from "@eristack/backseat";
+import type { BackseatStore } from "@eristack/backseat";
+import { createMemoryBackseatStore } from "@eristack/backseat/testing";
 import type { FormatStore, SequenceStore } from "../core/types.js";
 import { createBackseatFormatStore } from "./format-store.js";
 import { createBackseatSequenceStore } from "./sequence-store.js";
