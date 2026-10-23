@@ -83,6 +83,20 @@
 
 ---
 
+### MIG-2026-10-23-05 — Agent git during iteration
+
+| Field | Value |
+| --- | --- |
+| **area** | agent-workflow / VCS |
+| **old_order** | Agents must not run git; human commits everything |
+| **new_order** | Agents may **local commit** in small slices; human **push/PR**; see `.cursor/rules/git-iteration-commits.mdc` |
+| **audience** | agents, maintainers |
+| **compat** | additive |
+| **rollback** | Restore prior `no-git.mdc`; revert granular commits if needed |
+| **verify** | Rule files present; commit log shows split subjects not bulk WIP |
+| **status** | complete |
+| **tasks** | — |
+
 ## Superseded instruction sources (watch list)
 
 When a migration completes, move the old source here with **superseded_by** link.
