@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createEpoch } from "../src/core/create-epoch.js";
-import { createMemoryEpochStore } from "../src/core/memory-store.js";
+import { createMemoryEpochStore } from "../src/testing/index.js";
 import {
   logEpochCachePolicy,
   withEpochStaleLogging,

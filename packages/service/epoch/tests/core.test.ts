@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { compareEpochs, createEpoch, createMemoryEpochStore } from "../src/index.js";
+import { compareEpochs, createEpoch } from "../src/index.js";
+import { createMemoryEpochStore } from "../src/testing/index.js";
 import { StaleEpochError } from "../src/core/errors.js";
 
 describe("compareEpochs", () => {
