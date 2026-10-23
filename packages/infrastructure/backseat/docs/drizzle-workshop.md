@@ -20,6 +20,8 @@ import { bootWorkshopServer } from "@eristack/backseat/workshop";
 
 Peer: `drizzle-orm` plus your driver (`better-sqlite3` workshop / `postgres` production).
 
+Integration profile: `tests/drizzle.integration.test.ts` (sqlite create + `atomic()`).
+
 ## Tables
 
 ```ts
