@@ -20,4 +20,4 @@ Store: `createDrizzleCommsStore({ db, tables })`.
 
 Message statuses: `queued`, `sent`, `delivered`, `failed`, `bounced`.
 
-Tests: `@eristack/comms/testing` memory store only.
+Unit tests: `@eristack/comms/testing` memory store. SQL path: `tests/drizzle.integration.test.ts` (integration profile).
