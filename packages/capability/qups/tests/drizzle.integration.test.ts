@@ -5,7 +5,8 @@ import {
   createDrizzlePricingProfileStore,
   createQupsProfileTables,
 } from "../src/drizzle/index.js";
-import { PricingLine, createMemoryPricingLineStore, createQups, fieldsForTruth } from "../src/index.js";
+import { PricingLine, createQups, fieldsForTruth } from "../src/index.js";
+import { createMemoryPricingLineStore } from "../src/testing/index.js";
 
 const QUPS_PROFILE_DDL = [
   `CREATE TABLE qups_pricing_profiles (

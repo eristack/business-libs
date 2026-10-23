@@ -63,10 +63,6 @@ export {
   pricingLineInputFromParts,
   lineFieldMap,
 } from "./stores/serialize.js";
-export {
-  createMemoryPricingProfileStore,
-  createMemoryPricingLineStore,
-} from "./stores/memory.js";
 export type {
   BuiltinPricingFieldKey,
   PricingField,

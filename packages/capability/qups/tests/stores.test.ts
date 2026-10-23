@@ -3,14 +3,16 @@ import { pgTable, text } from "drizzle-orm/pg-core";
 import { Money } from "@eristack/money";
 import {
   PricingLine,
-  createMemoryPricingLineStore,
-  createMemoryPricingProfileStore,
   createQups,
   editableFieldKeys,
   fieldsForTruth,
   moneyColumnPair,
   qupsRolesFor,
 } from "../src/index.js";
+import {
+  createMemoryPricingLineStore,
+  createMemoryPricingProfileStore,
+} from "../src/testing/index.js";
 import {
   createQupsLineSideTables,
   createQupsProfileTables,

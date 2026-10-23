@@ -44,10 +44,6 @@ export {
   recordsToModifiers,
   pricingLineInputFromParts,
   lineFieldMap,
-  /** @deprecated Import from `@eristack/qups/testing` instead. */
-  createMemoryPricingProfileStore,
-  /** @deprecated Import from `@eristack/qups/testing` instead. */
-  createMemoryPricingLineStore,
   type BuiltinPricingFieldKey,
   type PricingField,
   type PricingFieldKind,
