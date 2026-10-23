@@ -9,7 +9,7 @@
 | `@eristack/hash-chained-ledger` | yes | HCL store |
 | `@eristack/financial-ledger` | yes | Uses HCL harness |
 | `@eristack/stock-movement` | yes | |
-| `@eristack/valuations` | yes | FIFO + layer store (single scenario) |
+| `@eristack/valuations` | yes | Drizzle layers + HCL: fifo, lifo, movingAverage, fefo |
 | `@eristack/doc-number` | yes | format/sequence |
 | `@eristack/qups` | yes | profile/line stores |
 | `@eristack/data-grid` | yes | `executeDrizzleList` wall + decimal |
@@ -30,4 +30,4 @@
 | --- | --- |
 | `@eristack/drizzle` | infrastructure (unit tests in package) |
 
-**Finding:** F-001–F-003 **partially closed** — spine ledger/list/valuations have CI proof; depth (all valuation methods, concurrency) still audit debt.
+**Finding:** F-001 **partially closed** (matrix complete); F-003 **partially closed** (four methods on Drizzle integration; hifo/lofo/weightedAverage/standardCost/specificIdentification unit-only).

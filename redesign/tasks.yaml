@@ -243,9 +243,10 @@ tasks:
   - id: STAB-INT-VAL
     title: Valuations — broaden method coverage beyond FIFO drizzle smoke
     phase: 3
-    state: proposed
+    state: verified
     priority: 2
     findings: [F-003]
+    notes: fifo, lifo, movingAverage, fefo on drizzle.integration.test.ts
     acceptance:
       commands:
         - pnpm eristack check --profile integration
