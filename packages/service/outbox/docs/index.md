@@ -86,7 +86,7 @@ const processed = await outbox.processBatch(50, {
 | Export | Notes |
 | --- | --- |
 | `createOutboxTables(dialect, prefix = "outbox")` | `pgsql \| mysql \| sqlite`; table `${prefix}_messages` with `UNIQUE(idempotency_key)`. |
-| `createDrizzleOutboxStore({ db, tables })` | `db` may be a transaction handle — that is how you get same-TX enqueue. Duplicate key (`23505` / `SQLITE_CONSTRAINT_UNIQUE`) → returns existing row. |
+| `createDrizzleOutboxStore({ db, tables })` | `db` may be a transaction handle — that is how you get same-TX enqueue. Duplicate key (`23505` / `SQLITE_CONSTRAINT_UNIQUE`) → returns existing row. CI: `tests/drizzle.integration.test.ts`. |
 
 ## Works with
 
