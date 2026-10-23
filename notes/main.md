@@ -1,1 +1,1 @@
-1. Do not forget to add new ai workflow that is better and more efficient, with proper migration from the old ones too
+1. Do not forget to add new ai workflow that is better and more efficient, with proper migration from the old ones too — track in `redesign/migration-from-old-order.md` (MIG-2026-10-23-04) and task `STAB-MIG-AIWF`; constitution in `redesign/macro-expectations.md`.

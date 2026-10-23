@@ -2,6 +2,8 @@
 
 Not a single date — **exit criteria** by phase ([program-guide.md](./program-guide.md)).
 
+**Macro bar:** [macro-expectations.md](./macro-expectations.md) applies to every phase — verified means evidenced, not merely merged.
+
 ## Phase 0 complete
 
 - [ ] [02-inventory.md](./02-inventory.md) reviewed; STAB-INV-* done or waived
@@ -45,6 +47,14 @@ acceptance:
 
 **Verified** = all commands passed on stated branch/commit (note hash in task).
 
+## Migration acceptance
+
+Any phase that changes agent or integrator **order of operations**:
+
+- [ ] Row in [migration-from-old-order.md](./migration-from-old-order.md) is `complete` or explicitly `waived`
+- [ ] Rollback and verify commands documented
+- [ ] Superseded sources listed if old paths still exist
+
 ## Explicit non-completion
 
 Program is **not** complete while:
@@ -52,3 +62,4 @@ Program is **not** complete while:
 - Valuations or data-grid production claims lack drizzle proof
 - Agents must read &gt;3 files for standard upgrade/integration tasks
 - Stabilization tasks remain `proposed` with no waiver
+- Material SoT moves lack a migration register row

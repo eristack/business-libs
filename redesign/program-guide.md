@@ -1,5 +1,7 @@
 # Program guide — incremental execution
 
+All execution follows [macro-expectations.md](./macro-expectations.md): narrow diffs, evidence-backed findings, phased gates, audit-style reconciliation, handoff trails, and migration notes when the old order changes.
+
 ## Phases (dependency order)
 
 | Phase | Goal | Exit criterion |
@@ -60,3 +62,12 @@ One **reviewable** unit per PR where possible:
 - One package test gap, one CI gate, one canonical doc merge, or one workflow consolidation — not “fix all docs.”
 
 Match repo norm: **≤3 files** for agent integration tasks ([`agent-workflow.md`](../packages/ai/ai-knowledge/knowledge/agent-workflow.md) design targets).
+
+## Migration and supersession
+
+When **new order** replaces **old order** (workflow, SoT, CI gate, export surface):
+
+1. Add or update a row in [migration-from-old-order.md](./migration-from-old-order.md) **before** marking the task `verified`.
+2. List **audience**, **compat**, **rollback**, and **verify** commands.
+3. If old instructions remain temporarily, add to the **Superseded instruction sources** table — do not leave silent duplicates.
+4. For a **better, more efficient AI workflow**, scope a dedicated migration row (see MIG-2026-10-23-04) and link STAB tasks — do not swap agent entrypoints without that trail.

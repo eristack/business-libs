@@ -5,6 +5,8 @@
 program: eristack-stabilization
 as_of: 2026-10-23
 active_phase: 0
+macro_expectations: redesign/macro-expectations.md
+migration_register: redesign/migration-from-old-order.md
 
 tasks:
   - id: STAB-INV-1
@@ -145,6 +147,20 @@ tasks:
     acceptance:
       commands:
         - pnpm eristack ci --base origin/main
+
+  - id: STAB-MIG-AIWF
+    title: Specify and migrate to improved agent workflow (old load path → new)
+    phase: 1
+    state: proposed
+    priority: 2
+    findings: [F-004, F-015]
+    blocks: [STAB-AI-2]
+    acceptance:
+      commands:
+        - pnpm knowledge:check
+      artifacts:
+        - redesign/migration-from-old-order.md
+    notes: Complete MIG-2026-10-23-04; map every superseded skill/rule entry; notes/main.md reminder
 
   - id: STAB-PUB-1
     title: Re-run publish profile — workspace dep hygiene

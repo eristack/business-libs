@@ -2,6 +2,8 @@
 
 **Status:** Phase 0 — discovery drafts populated; **no remediation authorized** until a phase is explicitly approved in [roadmap.md](./roadmap.md).
 
+**Operating constitution:** [macro-expectations.md](./macro-expectations.md) — small margin for error, rigorous processing, slow but sure, audit/accounting mindset, prudent trail, and documented migration from old order to new order.
+
 This folder is the **only** place for stabilization-program planning. It does **not** replace:
 
 | Authoritative today | Role |
@@ -14,11 +16,13 @@ This folder is the **only** place for stabilization-program planning. It does **
 
 ## How to use this program
 
-1. Read **[program-guide.md](./program-guide.md)** — phases, how to add work, handoff rules.
-2. Read **[01-executive-assessment.md](./01-executive-assessment.md)** — why we are doing this.
-3. Execute the **current phase** in **[roadmap.md](./roadmap.md)** (one initiative at a time).
-4. Log new findings in **[03-findings-register.md](./03-findings-register.md)** and new tasks in **[tasks.yaml](./tasks.yaml)**.
-5. When a task ships to the real repo, mark it **verified** with command evidence — do not claim done without CI paths.
+1. Read **[macro-expectations.md](./macro-expectations.md)** — how we work (non-negotiable unless waived in `tasks.yaml`).
+2. Read **[program-guide.md](./program-guide.md)** — phases, how to add work, handoff rules.
+3. Read **[01-executive-assessment.md](./01-executive-assessment.md)** — why we are doing this.
+4. Execute the **current phase** in **[roadmap.md](./roadmap.md)** (one initiative at a time).
+5. Log new findings in **[03-findings-register.md](./03-findings-register.md)** and new tasks in **[tasks.yaml](./tasks.yaml)**.
+6. When behavior or SoT **moves**, append **[migration-from-old-order.md](./migration-from-old-order.md)** before calling the step done.
+7. When a task ships to the real repo, mark it **verified** with command evidence — do not claim done without CI paths.
 
 ## Document map (deliverables A–H)
 
@@ -37,6 +41,8 @@ This folder is the **only** place for stabilization-program planning. It does **
 | [roadmap.md](./roadmap.md) | H | Phased initiatives (dependency order) |
 | [12-acceptance-model.md](./12-acceptance-model.md) | H | Program complete criteria |
 | [tasks.yaml](./tasks.yaml) | H | Append-only task backlog |
+| [macro-expectations.md](./macro-expectations.md) | — | Program constitution (6 principles) |
+| [migration-from-old-order.md](./migration-from-old-order.md) | — | Old → new order trail |
 
 Charter text: [SPEC.md](./SPEC.md).
 
