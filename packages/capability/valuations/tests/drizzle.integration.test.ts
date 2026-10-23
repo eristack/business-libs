@@ -72,6 +72,43 @@ describe.skipIf(!canUseBetterSqlite())("valuations drizzle integration", () => {
     expect(await engine.verify(key)).toEqual({ qty: true, value: true });
   }
 
+  async function seedTwoLayerReceipts(
+    engine: DrizzleEngineCtx["engine"],
+    key: DrizzleEngineCtx["key"],
+    method: ValuationMethod,
+  ) {
+    const blendLayer =
+      method === "movingAverage" || method === "weightedAverage";
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "2",
+      entryTypeId: "po-1",
+      layerId: "layer-a",
+      receivedAt: "2026-01-01T00:00:00.000Z",
+      expiresAt: method === "fefo" ? "2026-06-01T00:00:00.000Z" : undefined,
+      standardUnitCost: method === "standardCost" ? "2.50" : undefined,
+    });
+    await engine.receive({
+      key,
+      qty: "10",
+      unitCost: "3",
+      entryTypeId: "po-2",
+      layerId: blendLayer ? "layer-a" : "layer-b",
+      receivedAt: "2026-02-01T00:00:00.000Z",
+      expiresAt: method === "fefo" ? "2026-03-01T00:00:00.000Z" : undefined,
+      standardUnitCost: method === "standardCost" ? "2.50" : undefined,
+    });
+  }
+
+  const REMAINING_METHODS: ValuationMethod[] = [
+    "hifo",
+    "lofo",
+    "weightedAverage",
+    "standardCost",
+    "specificIdentification",
+  ];
+
   it("fifo persists layers and posts qty/value chains via Drizzle", async () => {
     const { engine, key } = track("fifo");
 
@@ -173,4 +210,26 @@ describe.skipIf(!canUseBetterSqlite())("valuations drizzle integration", () => {
     expect(issued.result.totalCost).toBe("32");
     await assertChains(engine, key);
   });
+
+  it.each(REMAINING_METHODS)(
+    "%s receive/issue through Drizzle stores",
+    async (method) => {
+      const { engine, key } = track(method);
+      await seedTwoLayerReceipts(engine, key, method);
+
+      const issued =
+        method === "specificIdentification"
+          ? await engine.issue({
+              key,
+              qty: "5",
+              entryTypeId: "so-1",
+              layerId: "layer-a",
+            })
+          : await engine.issue({ key, qty: "5", entryTypeId: "so-1" });
+
+      expect(Number(issued.result.totalCost)).toBeGreaterThan(0);
+      expect(issued.result.picks.length).toBeGreaterThan(0);
+      await assertChains(engine, key);
+    },
+  );
 });
