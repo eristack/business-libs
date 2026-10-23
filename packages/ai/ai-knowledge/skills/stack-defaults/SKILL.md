@@ -11,9 +11,6 @@ metadata:
   library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/stack-defaults.md'
-  - 'eristack/business-libs:examples/express'
-  - 'eristack/business-libs:examples/nestjs'
-  - 'eristack/business-libs:examples/react'
 ---
 
 # Stack defaults

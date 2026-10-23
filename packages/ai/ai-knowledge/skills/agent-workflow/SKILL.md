@@ -12,7 +12,6 @@ metadata:
   library_version: '0.1.1'
 sources:
   - 'eristack/business-libs:packages/ai/ai-knowledge/knowledge/agent-workflow.md'
-  - 'eristack/business-libs:packages/ai/ai-knowledge/docs/sync.md'
 ---
 
 # Agent workflow
