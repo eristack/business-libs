@@ -7,12 +7,9 @@ These packages export `createMemory*` from **`src/index.ts`** (main public surfa
 | Package | Symbols |
 | --- | --- |
 | `@eristack/backseat` | `createMemoryBackseatStore` |
-| `@eristack/doc-number` | `createMemoryFormatStore`, `createMemorySequenceStore` |
 | `@eristack/file-manager` | `createMemoryStorageDriver`, `createMemoryFileRecordStore`, … |
-| `@eristack/payment-manager` | `createMemoryPaymentDriver`, `createMemoryPaymentManagerStore` |
-| `@eristack/qups` | `createMemoryPricingProfileStore`, `createMemoryPricingLineStore` |
 
-**Migrated off root (STAB-MEM-2):** `@eristack/rbac`, `@eristack/epoch`, `@eristack/oauth`, `@eristack/comms`, `@eristack/jwt-auth` → `*/testing` only.
+**Migrated off root (STAB-MEM-2):** `@eristack/rbac`, `@eristack/epoch`, `@eristack/oauth`, `@eristack/comms`, `@eristack/jwt-auth`, `@eristack/doc-number`, `@eristack/payment-manager`, `@eristack/qups` → `*/testing` only.
 
 **Also on non-root paths (acceptable for backseat/tests):** `*/testing/index.ts`, `*/backseat/index.ts`, `hash-chained-ledger/core`, `idempotency/core`, `outbox/core`, `valuations/core`.
 

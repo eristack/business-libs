@@ -151,7 +151,31 @@ tasks:
     state: in_progress
     priority: 4
     findings: [F-007]
-    notes: rbac, epoch, oauth, comms, jwt-auth done; 5 packages remain on allowlist
+    notes: rbac, epoch, oauth, comms, jwt-auth, doc-number, payment-manager, qups done; 2 remain (backseat, file-manager)
+
+  - id: STAB-MEM-2-qups
+    title: "@eristack/qups — pricing stores only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-payment-manager
+    title: "@eristack/payment-manager — memory driver/store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
+
+  - id: STAB-MEM-2-doc-number
+    title: "@eristack/doc-number — format/sequence stores only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
 
   - id: STAB-MEM-2-jwt-auth
     title: "@eristack/jwt-auth — memory stores only on /testing"
