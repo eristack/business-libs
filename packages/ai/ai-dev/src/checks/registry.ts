@@ -27,6 +27,7 @@ export type CheckId =
   | "features"
   | "debottleneck"
   | "skill-sources"
+  | "memory-exports"
   | "lockfile";
 
 export type CheckDef = {
@@ -121,6 +122,12 @@ export const CHECK_DEFS: CheckDef[] = [
     label: "ai-knowledge cross-cutting skill sources",
     profiles: ["catalog", "pr", "full"],
     order: 51,
+  },
+  {
+    id: "memory-exports",
+    label: "no new createMemory on package root export",
+    profiles: ["catalog", "pr", "full"],
+    order: 52,
   },
   {
     id: "knowledge",

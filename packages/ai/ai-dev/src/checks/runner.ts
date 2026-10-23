@@ -144,6 +144,11 @@ function commandForCheck(
         argv: ["node", "scripts/check-skill-sources.mjs", "--ci"],
         display: "node scripts/check-skill-sources.mjs --ci",
       };
+    case "memory-exports":
+      return {
+        argv: ["node", "scripts/check-memory-root-exports.mjs", "--ci"],
+        display: "node scripts/check-memory-root-exports.mjs --ci",
+      };
     case "knowledge":
       return {
         argv: ["pnpm", "--filter", "@eristack/ai-knowledge", "sync:check"],

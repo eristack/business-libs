@@ -2,4 +2,4 @@
 "@eristack/ai-dev": patch
 ---
 
-Stabilization batch (release with train, not per iteration): eristack check id skill-sources.
+Stabilization batch (release with train, not per iteration): eristack checks skill-sources and memory-exports.
