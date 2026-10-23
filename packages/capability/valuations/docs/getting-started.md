@@ -95,6 +95,6 @@ Pass `method` into `createValuationEngine({ method, … })`. Choose once per val
 
 ### Audit note
 
-Only **FIFO**, **movingAverage**, and **engine+ledger posting** have Vitest coverage today. Drizzle layer/ledger stores are **not integration-tested** (see package audit). Run `pnpm --filter @eristack/valuations test` before changing method ordering.
+**Drizzle integration** (`tests/drizzle.integration.test.ts`): `fifo`, `lifo`, `movingAverage`, `fefo` through `createDrizzleLayerStore` + hash-chained ledger (integration profile). All nine methods have **unit** coverage in `methods.adversarial.test.ts`. Run `pnpm --filter @eristack/valuations test` before changing method ordering.
 
 Details: [Methods](./methods.md) · Dual chains: [Concepts](./concepts.md).
