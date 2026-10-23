@@ -13,7 +13,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-005 | fact | med | closed | Publish dep hygiene passes on current main | `pnpm eristack check --profile publish` OK 2026-10-23 |
 | F-006 | fact | med | closed | Example apps build in CI | `pnpm eristack check --profile examples` OK 2026-10-23 |
 | F-007 | fact | high | closed | Root `createMemory*` exports moved to `*/testing`; allowlist empty | STAB-MEM-2; `check-memory-root-exports.mjs --ci` 2026-10-23 |
-| F-008 | fact | high | open | Backseat register/bootstrap duplicated across packages | Audit rank 8 |
+| F-008 | fact | high | closed | Backseat `normalizeBasePath` unified in `@eristack/backseat/adapters` | STAB-BS-1 verified 2026-10-23; register bootstrap patterns may still differ |
 | F-009 | fact | high | closed | ai-knowledge cross-cutting skills >1 source | STAB-AI-4; `skill-sources` check, no allowlist |
 | F-010 | inference | high | open | Recipe triggers missing for newer APIs (wall grid, atomic backseat, etc.) | Audit rank 10 |
 | F-011 | inference | high | open | AGENTS.md intent block may lag new package skills | Audit rank 11; compare `intent.skills` vs packages with skills/ |

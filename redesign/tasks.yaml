@@ -261,11 +261,36 @@ tasks:
   - id: STAB-INT-DRIZZLE-GAPS
     title: Integration tests for jwt-auth, comms, oauth, outbox, backseat drizzle
     phase: 3
-    state: proposed
+    state: in_progress
     priority: 3
     findings: [F-001]
+    notes: jwt-auth, comms, outbox done; oauth + backseat drizzle remain
     acceptance:
       artifacts: [redesign/data/drizzle-integration.md]
+
+  - id: STAB-INT-COMMS
+    title: comms drizzle message + delivery event store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-INT-OUTBOX
+    title: outbox drizzle enqueue dedupe integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-BS-1
+    title: Unify Backseat register normalizeBasePath helpers
+    phase: 2
+    state: verified
+    priority: 6
+    findings: [F-008]
+    notes: single export in @eristack/backseat/adapters; spine register.ts imports only — 2026-10-23 grep
 
   - id: STAB-MEM-1
     title: Export gate — block new createMemory on root export
@@ -285,16 +310,6 @@ tasks:
     priority: 4
     findings: [F-006]
     notes: examples profile builds all example apps
-
-  - id: STAB-BS-1
-    title: Unify Backseat register normalizeBasePath helpers
-    phase: 2
-    state: proposed
-    priority: 6
-    findings: [F-008]
-    acceptance:
-      commands:
-        - pnpm eristack ci --base origin/main
 
 # Template for new tasks (copy):
 #  - id: STAB-NEW-1

@@ -19,14 +19,14 @@
 | `@eristack/file-manager` | yes | |
 | `@eristack/payment-manager` | yes | |
 | `@eristack/jwt-auth` | yes | refresh token store save/find |
+| `@eristack/comms` | yes | message + delivery event store |
+| `@eristack/outbox` | yes | enqueue idempotency dedupe |
 
 ## Packages with `/drizzle` but **no** `drizzle.integration.test.ts` (debt)
 
 | Package | Drizzle path |
 | --- | --- |
-| `@eristack/comms` | `src/drizzle/` |
 | `@eristack/oauth` | `src/drizzle/` |
-| `@eristack/outbox` | `src/drizzle/` |
 | `@eristack/backseat` | `src/drizzle/` |
 | `@eristack/drizzle` | infrastructure (unit tests in package) |
 
