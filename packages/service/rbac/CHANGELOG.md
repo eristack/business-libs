@@ -1,5 +1,11 @@
 # @eristack/rbac
 
+## 0.2.4
+
+### Patch Changes
+
+- 5282910: Remove `createMemoryRbacStore` from root export; import from `@eristack/rbac/testing` in apps and tests.
+
 ## 0.2.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @eristack/backseat
 
+## 0.1.11
+
+### Patch Changes
+
+- 9edfcc5: Remove `createMemoryBackseatStore` from root export; use `@eristack/backseat/testing` in tests, seeds, and spine `./backseat` adapters.
+
 ## 0.1.10
 
 ### Patch Changes

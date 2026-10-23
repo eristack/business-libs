@@ -1,5 +1,11 @@
 # @eristack/doc-number
 
+## 0.3.6
+
+### Patch Changes
+
+- 119bda4: Remove `createMemoryFormatStore` and `createMemorySequenceStore` from root export; use `@eristack/doc-number/testing` in tests and docs.
+
 ## 0.3.5
 
 ### Patch Changes

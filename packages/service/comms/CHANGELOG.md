@@ -1,5 +1,11 @@
 # @eristack/comms
 
+## 0.1.3
+
+### Patch Changes
+
+- ff376c3: Remove `createMemoryCommsStore` and `createMemoryCommsDriver` from root export; use `@eristack/comms/testing` in tests.
+
 ## 0.1.2
 
 ### Patch Changes

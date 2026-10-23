@@ -1,5 +1,11 @@
 # @eristack/file-manager
 
+## 0.1.3
+
+### Patch Changes
+
+- 5c0ef3f: Remove `createMemoryStorageDriver`, `memoryPutViaPresignedUrl`, and `createMemoryFileRecordStore` from root export; use `@eristack/file-manager/testing` in tests.
+
 ## 0.1.2
 
 ### Patch Changes
