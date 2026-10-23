@@ -21,11 +21,11 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-013 | inference | high | closed | Publishable packages: no workspace runtime deps; @eristack peers use ^0.x floors + required adapter map | STAB-PUB-PEERS; extended `check-publish-deps.mjs` 2026-10-24 |
 | F-014 | fact | med | closed | 409 CONFLICT_VERSION + BUSINESS_POLICY_DENIED exercised in Horizon A tests | STAB-EX-HTTP-409; `examples/horizon-a/tests/http-errors.test.ts` |
 | F-015 | fact | med | closed | `recommend-eristack` skill embeds large generated catalog | STAB-AI-3: compact catalog stub + one `sources` entry; sync regenerates stub |
-| F-016 | fact | med | open | Stabilization program docs live in `redesign/` only | This folder |
-| F-017 | fact | low | open | `redesign/SPEC.md` stub — full charter was prior README | Git history if verbatim needed |
-| F-018 | fact | med | open | 3ss library program largely shipped; B4 SQL codegen still deferred | `#tiga-sekawan-3ss-adoption`, `#collection-declaration-horizon-b` |
-| F-019 | fact | med | open | `@eristack/id-wilayah` shipped with bundled registry; CI needed 30s test timeout | `packages/registries/id-wilayah/vitest.config.ts` |
-| F-020 | fact | low | open | WAHA driver removed from comms; WhatsApp via Twilio/Meta only | `packages/service/comms` — no waha path |
+| F-016 | fact | med | closed | Stabilization program docs live in `redesign/` only (intentional SoT) | [06-documentation-strategy.md](./06-documentation-strategy.md) § Sources; STAB-PROG-META 2026-10-24 |
+| F-017 | fact | low | closed | `SPEC.md` is intentional charter stub → README / program-guide | STAB-PROG-META; avoids duplicating hub in two long files |
+| F-018 | fact | med | waived | 3ss B4 SQL codegen deferred — product horizon, not stabilization blocker | [roadmap.md](./roadmap.md) INIT-3SS-FOLLOWUP; `#collection-declaration-horizon-b` |
+| F-019 | fact | med | closed | `@eristack/id-wilayah` bundled registry tests green with 30s vitest timeout | `vitest.config.ts`; `pnpm --filter @eristack/id-wilayah test` OK 2026-10-24 |
+| F-020 | fact | low | closed | No WAHA driver in comms; WhatsApp via Twilio/Meta vendors only | `rg waha packages/service/comms` empty; [data/comms-vendors.md](./data/comms-vendors.md) |
 
 ## Disposition workflow
 

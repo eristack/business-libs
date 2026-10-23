@@ -1,6 +1,6 @@
 # Eristack stabilization & AI workflow redesign (program hub)
 
-**Status:** Phase **3** (Drizzle proof) — Phase 2 enforce baseline complete (memory export gate + STAB-MEM-2, STAB-BS-1). Active tasks in [tasks.yaml](./tasks.yaml).
+**Status:** Phase **4** (optional maturity) — Phases 0–3 **exit criteria met** ([12-acceptance-model.md](./12-acceptance-model.md)). Core stabilization gates shipped; backlog in [tasks.yaml](./tasks.yaml).
 
 **Operating constitution:** [macro-expectations.md](./macro-expectations.md) — small margin for error, rigorous processing, slow but sure, audit/accounting mindset, prudent trail, and documented migration from old order to new order.
 
@@ -46,13 +46,14 @@ This folder is the **only** place for stabilization-program planning. It does **
 
 Charter text: [SPEC.md](./SPEC.md).
 
-## Current snapshot (verified 2026-10-23)
+## Current snapshot (verified 2026-10-24)
 
-- **71** publishable `@eristack/*` packages under `packages/<category>/<name>/` (see [02-inventory.md](./02-inventory.md)).
-- **CI:** `.github/workflows/ci.yml` → PR: `pnpm eristack ci --base origin/main`; main push: `pnpm eristack check --profile pr`.
-- **Agent entry:** `pnpm eristack plan --json`, `@eristack/ai-dev`, `@eristack/ai-knowledge` (82 recipes per last sync).
-- **Enforcement:** `createMemory*` root gate empty allowlist; `skill-sources` CI; integration matrix in [data/drizzle-integration.md](./data/drizzle-integration.md) (16 packages).
-- **Existing audit:** `_ai-docs/audit/executive-summary.md` (B− / C+ grades) — reconcile, do not blindly trust without re-verification.
+- **71** publishable `@eristack/*` packages (see [02-inventory.md](./02-inventory.md)).
+- **CI:** PR `pnpm eristack ci --base origin/main`; gates include integration, examples, publish peers, agents-intent-sync, memory-exports, skill-sources.
+- **Findings:** F-001–F-015 closed; F-016–F-017, F-019–F-020 closed; **F-018 waived** (3ss B4 codegen — product horizon).
+- **Agent entry:** `pnpm eristack plan --json`, `@eristack/ai-knowledge` (82 recipes).
+- **Integration matrix:** [data/drizzle-integration.md](./data/drizzle-integration.md) (16 packages).
+- **Aug audit:** `_ai-docs/audit/executive-summary.md` — refresh grades in Phase 4 optional (STAB-MAT-*).
 
 ## Adding work “along the way”
 

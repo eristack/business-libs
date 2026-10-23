@@ -3,8 +3,8 @@
 # Agents: implement only `approved`+ tasks
 
 program: eristack-stabilization
-as_of: 2026-10-23
-active_phase: 3
+as_of: 2026-10-24
+active_phase: 4
 macro_expectations: redesign/macro-expectations.md
 migration_register: redesign/migration-from-old-order.md
 
@@ -393,6 +393,27 @@ tasks:
     priority: 4
     findings: [F-006]
     notes: examples profile builds all example apps
+
+  - id: STAB-PROG-META
+    title: Close stabilization meta findings F-016–F-020
+    phase: 4
+    state: verified
+    priority: 5
+    findings: [F-016, F-017, F-018, F-019, F-020]
+    acceptance:
+      artifacts:
+        - redesign/03-findings-register.md
+        - redesign/12-acceptance-model.md
+        - redesign/data/comms-vendors.md
+    notes: F-018 waived (3ss B4); phase 3 exit → active_phase 4
+
+  - id: STAB-MAT-1
+    title: Optional — refresh package maturity vs Aug audit
+    phase: 4
+    state: proposed
+    priority: 99
+    findings: []
+    notes: See _ai-docs/audit/executive-summary.md; not blocking stabilization exit
 
 # Template for new tasks (copy):
 #  - id: STAB-NEW-1

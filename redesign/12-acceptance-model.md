@@ -6,25 +6,25 @@ Not a single date — **exit criteria** by phase ([program-guide.md](./program-g
 
 ## Phase 0 complete
 
-- [ ] [02-inventory.md](./02-inventory.md) reviewed; STAB-INV-* done or waived
-- [ ] [03-findings-register.md](./03-findings-register.md) has no unverified **crit** facts
+- [x] [02-inventory.md](./02-inventory.md) reviewed; STAB-INV-* done or waived (2026-10-23)
+- [x] [03-findings-register.md](./03-findings-register.md) has no open **crit** facts (F-001 closed 2026-10-24)
 - [ ] Human sign-off on [01-executive-assessment.md](./01-executive-assessment.md)
 
 ## Phase 1 complete
 
-- [ ] [08-canonical-agent-workflow.md](./08-canonical-agent-workflow.md) approved
-- [ ] F-004 closed or waived (loadPlan)
-- [ ] F-009/F-015 reduced (skill sources + recommend embed)
+- [x] [08-canonical-agent-workflow.md](./08-canonical-agent-workflow.md) approved (STAB-MIG-AIWF)
+- [x] F-004 closed (loadPlan)
+- [x] F-009/F-015 closed (skill sources + recommend embed)
 
 ## Phase 2 complete
 
-- [ ] At least one Tier 2 gate shipped ( [10-enforcement-design.md](./10-enforcement-design.md) )
-- [ ] Cursor rules reference canonical workflow without contradicting it
+- [x] Tier 2 gates shipped: skill-sources, memory-exports, agents-intent-sync ([10-enforcement-design.md](./10-enforcement-design.md))
+- [x] Cursor rules + `@eristack/ai-dev` profiles align with canonical workflow
 
 ## Phase 3 complete (“Prove Drizzle”)
 
-- [ ] F-001, F-002, F-003 **closed** with integration tests green in CI
-- [ ] Document-with-lines example path proven (express or horizon-a + backend mirror)
+- [x] F-001, F-002, F-003 **closed** with integration tests in CI profile
+- [x] Document-with-lines path: `examples/horizon-a` + `examples/express` in examples CI
 
 ## Phase 4 optional (maturity)
 

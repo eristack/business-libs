@@ -1,3 +1,3 @@
-1. Program hub `redesign/README.md` — **phase 3**; F-010/F-011 closed (recipes + AGENTS sync gate).
-2. Open findings: program meta F-016–F-020 only (F-001 closed).
-3. Releases: batch on Version Packages PR; extend per-package `stab-mem-*` changesets — one file per package.
+1. Program hub `redesign/README.md` — **phase 4** (optional maturity); phases 0–3 exit criteria met.
+2. Findings register: all STAB findings closed or waived (F-018 = 3ss B4 deferred).
+3. Releases: batch on Version Packages PR; pending `stab-*` changesets on branch.

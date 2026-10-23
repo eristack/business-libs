@@ -1,6 +1,6 @@
 # Roadmap — dependency-ordered initiatives
 
-**Active phase:** 3 (Drizzle proof) — integration matrix complete; optional depth (concurrency, doc-number allocate race) deferred.
+**Active phase:** 4 (optional maturity) — Phase 3 exit met 2026-10-24 ([12-acceptance-model.md](./12-acceptance-model.md)).
 
 No calendar dates. Pull the **next** initiative when its `blocks` are cleared in [tasks.yaml](./tasks.yaml).
 
@@ -77,3 +77,4 @@ Phase 4 ──► STAB-MAT-* (maturity dashboard — optional)
 | --- | --- |
 | 2026-10-23 | Initial roadmap from audit top 15 + program structure |
 | 2026-10-23 | Phase 2 complete (F-007, F-008); Phase 3 integration gaps closed (STAB-INT-DRIZZLE-GAPS, STAB-INT-VAL); active_phase → 3 |
+| 2026-10-24 | Phase 3 complete (F-001 HCL concurrency, F-013/F-014, meta F-016–F-020); active_phase → 4 |
