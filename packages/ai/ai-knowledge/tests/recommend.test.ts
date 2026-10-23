@@ -161,6 +161,31 @@ describe("loadPlan", () => {
     );
   });
 
+  it("includes every canonicalSkill when its recipe matches recommend()", () => {
+    const skipped: string[] = [];
+    for (const recipe of listRecipes()) {
+      const canon = recipe.canonicalSkills;
+      if (!canon?.length) continue;
+
+      const result = recommend(recipe.triggers.slice(0, 5));
+      if (!result.matches.some((m) => m.recipe.id === recipe.id)) {
+        skipped.push(recipe.id);
+        continue;
+      }
+
+      const plan = loadPlan(result);
+      const keys = new Set(
+        plan.steps.map((step) => `${step.packageName}#${step.skillId}`),
+      );
+      for (const ref of canon) {
+        expect(keys.has(ref), `recipe ${recipe.id} missing ${ref}`).toBe(true);
+      }
+    }
+    expect(skipped, "recipes with canonicalSkills that never matched").toEqual(
+      [],
+    );
+  });
+
 });
 
 describe("recommend disambiguation", () => {
