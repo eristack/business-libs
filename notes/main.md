@@ -1,2 +1,2 @@
-1. New agent workflow: `redesign/data/agent-workflow-migration-map.md` (MIG-2026-10-23-04). Program hub `redesign/README.md` — phase 2 enforce.
-2. Releases: batch on Version Packages PR; changesets `stab-program-ai-*` — extend, don’t add per iteration unless new package behavior.
+1. Program hub `redesign/README.md` — **phase 3**; integration matrix + memory gate done.
+2. Releases: batch on Version Packages PR; extend `stab-program-*` / per-package stab changesets — one file per package.

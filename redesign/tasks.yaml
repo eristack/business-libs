@@ -4,7 +4,7 @@
 
 program: eristack-stabilization
 as_of: 2026-10-23
-active_phase: 2
+active_phase: 3
 macro_expectations: redesign/macro-expectations.md
 migration_register: redesign/migration-from-old-order.md
 
@@ -22,8 +22,7 @@ tasks:
         - redesign/data/drizzle-integration.md
     notes: |
       last_command: pnpm eristack check --profile integration
-      last_result: OK — 12 packages
-      next_action: Add jwt-auth/comms/oauth/outbox/backseat drizzle integration debt to roadmap
+      last_result: OK — 16 packages (2026-10-23); STAB-INT-DRIZZLE-GAPS verified
 
   - id: STAB-INV-2
     title: loadPlan vs recipes canonicalSkills matrix
@@ -246,7 +245,7 @@ tasks:
     state: verified
     priority: 2
     findings: [F-003]
-    notes: fifo, lifo, movingAverage, fefo on drizzle.integration.test.ts
+    notes: all nine ValuationMethod values on drizzle.integration.test.ts
     acceptance:
       commands:
         - pnpm eristack check --profile integration

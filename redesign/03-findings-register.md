@@ -8,7 +8,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | --- | --- | --- | --- | --- | --- |
 | F-001 | fact | crit | open | Drizzle integration matrix complete for spine packages; ledger depth/concurrency not fully audited | STAB-INT-DRIZZLE-GAPS verified 2026-10-23; [data/drizzle-integration.md](./data/drizzle-integration.md) |
 | F-002 | fact | high | closed | `executeDrizzleList` integration test present | `packages/service/data-grid/tests/drizzle.integration.test.ts`; integration profile OK |
-| F-003 | fact | high | open | Valuations Drizzle integration covers fifo/lifo/movingAverage/fefo; five methods unit-only | STAB-INT-VAL 2026-10-23 |
+| F-003 | fact | high | closed | All nine valuation methods exercised on Drizzle + HCL integration test | STAB-INT-VAL; `drizzle.integration.test.ts` 2026-10-23 |
 | F-004 | fact | med | closed | `loadPlan()` merges `canonicalSkills` | `recommend.ts` L196–205; 28 tests incl. all-recipe matrix |
 | F-005 | fact | med | closed | Publish dep hygiene passes on current main | `pnpm eristack check --profile publish` OK 2026-10-23 |
 | F-006 | fact | med | closed | Example apps build in CI | `pnpm eristack check --profile examples` OK 2026-10-23 |
@@ -17,7 +17,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-009 | fact | high | closed | ai-knowledge cross-cutting skills >1 source | STAB-AI-4; `skill-sources` check, no allowlist |
 | F-010 | inference | high | open | Recipe triggers missing for newer APIs (wall grid, atomic backseat, etc.) | Audit rank 10 |
 | F-011 | inference | high | open | AGENTS.md intent block may lag new package skills | Audit rank 11; compare `intent.skills` vs packages with skills/ |
-| F-012 | fact | high | open | Examples build is part of pr CI | `CHECK_DEFS` examples profile; audit rank 12 |
+| F-012 | fact | high | closed | Examples build is part of pr CI | Same as F-006; `STAB-EX-HORIZON` closed |
 | F-013 | inference | high | open | Peer dependency floors may be incomplete on adapters | Audit rank 13; `check-publish-deps.mjs` |
 | F-014 | fact | med | open | 409 error canon documented; thin end-to-end demo | `#http-errors` skill; audit rank 14 |
 | F-015 | fact | med | closed | `recommend-eristack` skill embeds large generated catalog | STAB-AI-3: compact catalog stub + one `sources` entry; sync regenerates stub |

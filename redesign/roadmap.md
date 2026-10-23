@@ -1,6 +1,6 @@
 # Roadmap — dependency-ordered initiatives
 
-**Active phase:** 0 (Discover) — expand inventory tasks; human review before Phase 1 approvals.
+**Active phase:** 3 (Drizzle proof) — integration matrix complete; optional depth (concurrency, doc-number allocate race) deferred.
 
 No calendar dates. Pull the **next** initiative when its `blocks` are cleared in [tasks.yaml](./tasks.yaml).
 
@@ -76,3 +76,4 @@ Phase 4 ──► STAB-MAT-* (maturity dashboard — optional)
 | Date | Change |
 | --- | --- |
 | 2026-10-23 | Initial roadmap from audit top 15 + program structure |
+| 2026-10-23 | Phase 2 complete (F-007, F-008); Phase 3 integration gaps closed (STAB-INT-DRIZZLE-GAPS, STAB-INT-VAL); active_phase → 3 |

@@ -9,7 +9,7 @@
 | `@eristack/hash-chained-ledger` | yes | HCL store |
 | `@eristack/financial-ledger` | yes | Uses HCL harness |
 | `@eristack/stock-movement` | yes | |
-| `@eristack/valuations` | yes | Drizzle layers + HCL: fifo, lifo, movingAverage, fefo |
+| `@eristack/valuations` | yes | All nine methods via Drizzle layers + HCL |
 | `@eristack/doc-number` | yes | format/sequence |
 | `@eristack/qups` | yes | profile/line stores |
 | `@eristack/data-grid` | yes | `executeDrizzleList` wall + decimal |
@@ -30,4 +30,4 @@
 | --- | --- |
 | `@eristack/drizzle` | infrastructure (unit tests in package) |
 
-**Finding:** F-001 **partially closed** (matrix complete); F-003 **partially closed** (four methods on Drizzle integration; hifo/lofo/weightedAverage/standardCost/specificIdentification unit-only).
+**Finding:** F-001 **partially closed** (matrix complete; ledger concurrency depth optional); F-003 **closed** (all valuation methods on Drizzle integration).

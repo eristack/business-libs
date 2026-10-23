@@ -61,9 +61,9 @@
 | **audience** | integrators, agents |
 | **compat** | additive tests first; memory export moves may be breaking — changesets per package |
 | **rollback** | Revert integration tests; restore exports if needed (document in row) |
-| **verify** | `pnpm eristack check --profile integration`; F-001–F-003 closed |
-| **status** | planned |
-| **tasks** | STAB-INT-HCL, STAB-INT-DATAGRID, STAB-INT-VAL, STAB-MEM-1 |
+| **verify** | `pnpm eristack check --profile integration`; F-003 closed; F-001 matrix complete |
+| **status** | complete |
+| **tasks** | STAB-INT-*, STAB-MEM-1/2, STAB-INT-DRIZZLE-GAPS, STAB-INT-VAL |
 
 ### MIG-2026-10-23-04 — Efficient agent entry + migration map
 
@@ -103,4 +103,4 @@ When a migration completes, move the old source here with **superseded_by** link
 | --- | --- | --- |
 | Per-package upgrade doc chains | `#upgrading-eristack` only | partial — rule exists, stubs remain |
 | Large embed in recommend-eristack skill | Compact sync stub + `getCatalog()` | complete (STAB-AI-3) |
-| Memory store from package root export | `@eristack/*/testing` | planned (STAB-MEM-*) |
+| Memory store from package root export | `@eristack/*/testing` | complete (STAB-MEM-2, F-007) |

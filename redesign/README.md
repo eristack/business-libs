@@ -1,6 +1,6 @@
 # Eristack stabilization & AI workflow redesign (program hub)
 
-**Status:** Phase **2** (Enforce baseline) — Phase 1 align complete ([MIG-2026-10-23-04](./migration-from-old-order.md)). Active tasks in [tasks.yaml](./tasks.yaml).
+**Status:** Phase **3** (Drizzle proof) — Phase 2 enforce baseline complete (memory export gate + STAB-MEM-2, STAB-BS-1). Active tasks in [tasks.yaml](./tasks.yaml).
 
 **Operating constitution:** [macro-expectations.md](./macro-expectations.md) — small margin for error, rigorous processing, slow but sure, audit/accounting mindset, prudent trail, and documented migration from old order to new order.
 
@@ -51,6 +51,7 @@ Charter text: [SPEC.md](./SPEC.md).
 - **71** publishable `@eristack/*` packages under `packages/<category>/<name>/` (see [02-inventory.md](./02-inventory.md)).
 - **CI:** `.github/workflows/ci.yml` → PR: `pnpm eristack ci --base origin/main`; main push: `pnpm eristack check --profile pr`.
 - **Agent entry:** `pnpm eristack plan --json`, `@eristack/ai-dev`, `@eristack/ai-knowledge` (82 recipes per last sync).
+- **Enforcement:** `createMemory*` root gate empty allowlist; `skill-sources` CI; integration matrix in [data/drizzle-integration.md](./data/drizzle-integration.md) (16 packages).
 - **Existing audit:** `_ai-docs/audit/executive-summary.md` (B− / C+ grades) — reconcile, do not blindly trust without re-verification.
 
 ## Adding work “along the way”
