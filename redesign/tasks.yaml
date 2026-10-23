@@ -115,6 +115,31 @@ tasks:
         - node scripts/check-skill-sources.mjs --ci
         - pnpm knowledge:check
 
+  - id: STAB-AI-RECIPES
+    title: Verify recommend() triggers for audit API language
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-010]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/ai-knowledge test
+        - node scripts/package-debottleneck-check.mjs --ci
+    notes: recommend.test.ts routes applyCellPatch, atomic backseat, wall/decimal grid
+
+  - id: STAB-AI-AGENTS
+    title: CI gate — AGENTS intent block vs intent.skills and skill files
+    phase: 1
+    state: verified
+    priority: 3
+    findings: [F-011]
+    acceptance:
+      commands:
+        - node scripts/check-agents-intent-sync.mjs --ci
+        - pnpm eristack check --profile catalog --only agents-intent-sync
+      artifacts:
+        - scripts/check-agents-intent-sync.mjs
+
   - id: STAB-MIG-AIWF
     title: Specify and migrate to improved agent workflow (old load path → new)
     phase: 1

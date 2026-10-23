@@ -15,8 +15,8 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-007 | fact | high | closed | Root `createMemory*` exports moved to `*/testing`; allowlist empty | STAB-MEM-2; `check-memory-root-exports.mjs --ci` 2026-10-23 |
 | F-008 | fact | high | closed | Backseat `normalizeBasePath` unified in `@eristack/backseat/adapters` | STAB-BS-1 verified 2026-10-23; register bootstrap patterns may still differ |
 | F-009 | fact | high | closed | ai-knowledge cross-cutting skills >1 source | STAB-AI-4; `skill-sources` check, no allowlist |
-| F-010 | inference | high | open | Recipe triggers missing for newer APIs (wall grid, atomic backseat, etc.) | Audit rank 10 |
-| F-011 | inference | high | open | AGENTS.md intent block may lag new package skills | Audit rank 11; compare `intent.skills` vs packages with skills/ |
+| F-010 | inference | high | closed | Recipe triggers for wall grid, atomic backseat, applyCellPatch, compareDecimalStrings | STAB-AI-RECIPES; `recommend.test.ts`; `debottleneck:check --ci` 2026-10-23 |
+| F-011 | inference | high | closed | AGENTS.md intent block stays aligned with disk skills + `intent.skills` | STAB-AI-AGENTS; `check-agents-intent-sync.mjs --ci`; `intent install --map` current |
 | F-012 | fact | high | closed | Examples build is part of pr CI | Same as F-006; `STAB-EX-HORIZON` closed |
 | F-013 | inference | high | open | Peer dependency floors may be incomplete on adapters | Audit rank 13; `check-publish-deps.mjs` |
 | F-014 | fact | med | open | 409 error canon documented; thin end-to-end demo | `#http-errors` skill; audit rank 14 |
