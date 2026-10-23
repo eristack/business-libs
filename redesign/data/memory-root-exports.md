@@ -15,7 +15,8 @@ These packages export `createMemory*` from **`src/index.ts`** (main public surfa
 | `@eristack/oauth` | `createMemoryOAuthPendingStore` |
 | `@eristack/payment-manager` | `createMemoryPaymentDriver`, `createMemoryPaymentManagerStore` |
 | `@eristack/qups` | `createMemoryPricingProfileStore`, `createMemoryPricingLineStore` |
-| `@eristack/rbac` | `createMemoryRbacStore` |
+
+**Migrated off root (STAB-MEM-2):** `@eristack/rbac` → `@eristack/rbac/testing` only.
 
 **Also on non-root paths (acceptable for backseat/tests):** `*/testing/index.ts`, `*/backseat/index.ts`, `hash-chained-ledger/core`, `idempotency/core`, `outbox/core`, `valuations/core`.
 

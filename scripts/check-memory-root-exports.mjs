@@ -38,7 +38,6 @@ const ALLOWLIST = {
     "createMemoryPricingProfileStore",
     "createMemoryPricingLineStore",
   ],
-  "@eristack/rbac": ["createMemoryRbacStore"],
 };
 
 function memoryExportsFromIndex(indexPath) {
