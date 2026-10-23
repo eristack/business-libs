@@ -410,10 +410,15 @@ tasks:
   - id: STAB-MAT-1
     title: Optional — refresh package maturity vs Aug audit
     phase: 4
-    state: proposed
+    state: verified
     priority: 99
     findings: []
-    notes: See _ai-docs/audit/executive-summary.md; not blocking stabilization exit
+    acceptance:
+      commands:
+        - pnpm prepush
+      artifacts:
+        - redesign/data/maturity-vs-audit-20261024.md
+    notes: prepush OK 2026-10-24; top-15 theme matrix + selective grade deltas
 
 # Template for new tasks (copy):
 #  - id: STAB-NEW-1

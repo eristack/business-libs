@@ -1,3 +1,3 @@
-1. Program hub `redesign/README.md` — **phase 4** (optional maturity); phases 0–3 exit criteria met.
-2. Findings register: all STAB findings closed or waived (F-018 = 3ss B4 deferred).
-3. Releases: batch on Version Packages PR; pending `stab-*` changesets on branch.
+1. Stabilization **technical exit** met — `pnpm prepush` green 2026-10-24; see `redesign/data/maturity-vs-audit-20261024.md`.
+2. Human-only: sign-off on `redesign/01-executive-assessment.md` (acceptance model phase 0).
+3. Releases: Version Packages PR batches pending `stab-*` / `stab-hcl-*` changesets.

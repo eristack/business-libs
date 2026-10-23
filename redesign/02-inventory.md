@@ -27,9 +27,12 @@ Discovery: `packages/**/package.json` (excluding examples).
 | examples | example apps build | pr, full, examples |
 | exports | `scripts/check-package-exports.mjs` | catalog, pr, full |
 | changesets | `scripts/check-changesets.mjs` | catalog, pr, full |
-| publish | `scripts/check-publish-deps.mjs` | pr, full, publish |
+| publish | `scripts/check-publish-deps.mjs` (+ @eristack peer floors) | pr, full, publish |
 | debottleneck | `scripts/package-debottleneck-check.mjs` | catalog, pr, full |
 | skills | `scripts/skills-validate.mjs` | catalog, pr, full |
+| agents-intent-sync | `scripts/check-agents-intent-sync.mjs` | catalog, pr, full |
+| skill-sources | `scripts/check-skill-sources.mjs` | catalog, pr, full |
+| memory-exports | `scripts/check-memory-root-exports.mjs` | catalog, pr, full |
 | knowledge | `packages/ai/ai-knowledge/scripts/*` + mirror check | catalog, pr, full |
 | docs | `scripts/docs-check.mjs` | catalog, pr, full |
 | ticket | `scripts/ticket-triage.mjs` | catalog, pr, full |

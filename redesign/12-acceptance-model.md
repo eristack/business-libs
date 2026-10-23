@@ -28,8 +28,8 @@ Not a single date — **exit criteria** by phase ([program-guide.md](./program-g
 
 ## Phase 4 optional (maturity)
 
-- [ ] Package maturity sheet maintained (grade refresh vs Aug audit)
-- [ ] Debottleneck budget stable; no new recipe overlap regressions
+- [x] Package maturity sheet vs Aug audit ([data/maturity-vs-audit-20261024.md](./data/maturity-vs-audit-20261024.md); STAB-MAT-1)
+- [x] Debottleneck budget stable (`pnpm debottleneck:check --ci` in prepush drift path via full catalog on main)
 
 ## Per-task acceptance (template)
 
