@@ -67,3 +67,8 @@ Many commits on a branch ≠ many npm releases. Use **one file per package** in 
 ## Relationship to stabilization program
 
 When working under `redesign/`, reference task IDs in commit subjects or body only if it helps audit (`STAB-AI-2` in scope is fine). Update `redesign/tasks.yaml` state in a **dedicated** commit when verification completes, not mixed with unrelated code.
+
+## Apps
+
+- **Shipped site:** `apps/web` only.
+- **`apps/old-web`:** archived — not in CI; do not touch during package/stabilization iterations unless the user requests archive work.

@@ -34,6 +34,13 @@ node scripts/check-skill-sources.mjs --ci
 pnpm eristack check --profile catalog --only skill-sources   # after ai-dev build
 ```
 
+## Monorepo apps
+
+| App | Use |
+| --- | --- |
+| `apps/web` | Public Next site — ecosystem + docs nav (`site.ts`) |
+| `apps/old-web` | **Archived** — do not edit during stabilization |
+
 ## Consumer repos (unchanged optional)
 
 | Tool | When |

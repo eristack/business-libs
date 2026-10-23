@@ -59,6 +59,15 @@ Optional: use `@eristack/ai-workflow` MCP in consumer repos; in **business-libs*
 | `.cursor/rules/*.mdc` | **Enforcement targets** — change only via approved STAB tasks |
 | `pnpm eristack check` | **Verification** — cite profile in acceptance |
 
+## App surface (agents)
+
+| App | Path | Rule |
+| --- | --- | --- |
+| **Public site** | `apps/web` | Marketing, ecosystem copy, `site.ts`, docs UI — **edit here** |
+| **Archived** | `apps/old-web` | Reference only; **excluded from CI** — do **not** modify unless the user explicitly asks for archive cleanup |
+
+Package samples on the live site come from `apps/web/src/lib/site.ts` and package docs under `packages/*/docs/`.
+
 ## Incremental rule
 
 One **reviewable** unit per PR where possible:
