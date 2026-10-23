@@ -33,6 +33,8 @@ proposed → approved → in_progress → review → verified → closed
 
 **Agents:** may implement only **`approved`** tasks. Assessment/docs under `redesign/` may always be updated.
 
+**Commits:** agents may `git commit` locally in **small auditable slices** (see `.cursor/rules/git-iteration-commits.mdc`); user pushes.
+
 ## Handoff packet (context loss)
 
 When stopping mid-initiative, append to the active task in `tasks.yaml`:

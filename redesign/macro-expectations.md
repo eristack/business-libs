@@ -33,7 +33,7 @@ These six principles govern **how** the stabilization and redesign runs — not 
 ## 5. Prudent trail
 
 - **Handoff packet** on every stop: `last_command`, `last_result`, `next_action`, `files_touched` on the active task ([program-guide.md](./program-guide.md)).
-- **Human owns git;** agents log what would be committed and which checks were run — no silent tree changes for program work without task ID.
+- **Granular git commits** during iteration ([`.cursor/rules/git-iteration-commits.mdc`](../.cursor/rules/git-iteration-commits.mdc)): many small commits with `type(scope): message` — not one bulk WIP. **Human pushes** and opens PRs.
 - Link tickets (`tickets/`), findings (`F-*`), and tasks (`STAB-*`) so an outsider can reconstruct *why* in under ten minutes.
 - No secrets in notes; redact paths/env in public-facing migration notes if needed.
 

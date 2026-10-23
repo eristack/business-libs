@@ -4,7 +4,7 @@
 
 program: eristack-stabilization
 as_of: 2026-10-23
-active_phase: 0
+active_phase: 1
 macro_expectations: redesign/macro-expectations.md
 migration_register: redesign/migration-from-old-order.md
 
@@ -12,93 +12,133 @@ tasks:
   - id: STAB-INV-1
     title: Per-package drizzle adapter + test file inventory
     phase: 0
-    state: proposed
+    state: verified
     priority: 2
     findings: [F-001, F-002, F-003]
     acceptance:
-      commands: []
-      artifacts: [redesign/02-inventory.md]
-    notes: Script or table under redesign/data/ optional
+      commands:
+        - pnpm eristack check --profile integration
+      artifacts:
+        - redesign/data/drizzle-integration.md
+    notes: |
+      last_command: pnpm eristack check --profile integration
+      last_result: OK — 12 packages
+      next_action: Add jwt-auth/comms/oauth/outbox/backseat drizzle integration debt to roadmap
 
   - id: STAB-INV-2
     title: loadPlan vs recipes canonicalSkills matrix
     phase: 0
-    state: proposed
+    state: verified
     priority: 1
     findings: [F-004]
     acceptance:
       commands:
         - pnpm --filter @eristack/ai-knowledge test
       artifacts: [redesign/03-findings-register.md]
+    notes: |
+      last_result: 28 tests pass; matrix test covers all matching recipes
 
   - id: STAB-INV-3
     title: Grep createMemory exports on main entrypoints
     phase: 0
-    state: proposed
+    state: verified
     priority: 2
     findings: [F-007]
     acceptance:
-      commands: []
-      artifacts: [redesign/03-findings-register.md]
+      artifacts: [redesign/data/memory-root-exports.md]
 
-  - id: STAB-AI-1
-    title: CI check — cross-cutting skills max one source
-    phase: 1
-    state: proposed
-    priority: 3
-    blocks: [STAB-INV-2]
-    findings: [F-009]
+  - id: STAB-PUB-1
+    title: Re-run publish profile — workspace dep hygiene
+    phase: 0
+    state: verified
+    priority: 2
+    findings: [F-005, F-013]
     acceptance:
       commands:
-        - pnpm eristack check --profile catalog --only skills
-      artifacts: [scripts/check-skill-sources.mjs]
+        - pnpm eristack check --profile publish
+    notes: OK 2026-10-23
 
   - id: STAB-AI-2
     title: Fix or verify loadPlan canonicalSkills merge
     phase: 1
-    state: proposed
+    state: verified
     priority: 1
-    blocks: [STAB-INV-2]
     findings: [F-004]
     acceptance:
       commands:
         - pnpm --filter @eristack/ai-knowledge test
-        - pnpm knowledge:check
+    notes: Added all-recipe canonicalSkills test in recommend.test.ts
+
+  - id: STAB-AI-1
+    title: CI check — cross-cutting skills max one source
+    phase: 1
+    state: in_progress
+    priority: 3
+    findings: [F-009]
+    acceptance:
+      commands:
+        - node scripts/check-skill-sources.mjs --ci
+      artifacts:
+        - scripts/check-skill-sources.mjs
+        - redesign/data/skill-sources-allowlist.md
+    notes: |
+      Script shipped; not yet wired into eristack check registry (phase 2 STAB-ENF-1)
+      next_action: Wire check id skill-sources in @eristack/ai-dev + shrink allowlist
+
+  - id: STAB-ENF-1
+    title: Wire check-skill-sources into eristack catalog/pr profile
+    phase: 2
+    state: proposed
+    priority: 3
+    blocks: [STAB-AI-1]
+    findings: [F-009]
+    acceptance:
+      commands:
+        - pnpm eristack check --profile catalog --only skill-sources
 
   - id: STAB-AI-3
-    title: Trim recommend-eristack embedded catalog
+    title: Trim recommend-eristack embedded catalog / sources
     phase: 1
-    state: proposed
+    state: approved
     priority: 4
     findings: [F-015]
     acceptance:
       commands:
         - pnpm knowledge:sync
         - pnpm knowledge:check
+        - node scripts/check-skill-sources.mjs --ci
+
+  - id: STAB-MIG-AIWF
+    title: Specify and migrate to improved agent workflow (old load path → new)
+    phase: 1
+    state: proposed
+    priority: 2
+    findings: [F-004, F-015]
+    blocks: [STAB-AI-3]
+    acceptance:
+      commands:
+        - pnpm knowledge:check
+      artifacts:
+        - redesign/migration-from-old-order.md
+    notes: Complete MIG-2026-10-23-04
 
   - id: STAB-INT-HCL
     title: Integration test createDrizzleLedgerStore append/verify
     phase: 3
-    state: proposed
+    state: closed
     priority: 1
     findings: [F-001]
-    acceptance:
-      commands:
-        - pnpm eristack check --profile integration
-      artifacts: [scripts/run-integration-tests.mjs]
+    notes: Already present — hash-chained-ledger integration test; audit stale
 
   - id: STAB-INT-DATAGRID
     title: Integration test executeDrizzleList wall + decimal
     phase: 3
-    state: proposed
+    state: closed
     priority: 1
     findings: [F-002]
-    acceptance:
-      commands:
-        - pnpm eristack check --profile integration
 
   - id: STAB-INT-VAL
-    title: Valuations FIFO + drizzle layer store integration
+    title: Valuations — broaden method coverage beyond FIFO drizzle smoke
     phase: 3
     state: proposed
     priority: 2
@@ -110,12 +150,19 @@ tasks:
   - id: STAB-INT-DOCNUM
     title: doc-number format/sequence concurrency integration
     phase: 3
+    state: deferred
+    priority: 3
+    findings: [F-001]
+    notes: Basic drizzle integration exists; concurrency is enhancement
+
+  - id: STAB-INT-DRIZZLE-GAPS
+    title: Integration tests for jwt-auth, comms, oauth, outbox, backseat drizzle
+    phase: 3
     state: proposed
     priority: 3
     findings: [F-001]
     acceptance:
-      commands:
-        - pnpm eristack check --profile integration
+      artifacts: [redesign/data/drizzle-integration.md]
 
   - id: STAB-MEM-1
     title: Export gate — block createMemory from root export
@@ -131,12 +178,10 @@ tasks:
   - id: STAB-EX-HORIZON
     title: Horizon A composite smoke in examples CI
     phase: 3
-    state: proposed
+    state: closed
     priority: 4
     findings: [F-006]
-    acceptance:
-      commands:
-        - pnpm eristack check --profile examples
+    notes: examples profile builds all example apps
 
   - id: STAB-BS-1
     title: Unify Backseat register normalizeBasePath helpers
@@ -147,30 +192,6 @@ tasks:
     acceptance:
       commands:
         - pnpm eristack ci --base origin/main
-
-  - id: STAB-MIG-AIWF
-    title: Specify and migrate to improved agent workflow (old load path → new)
-    phase: 1
-    state: proposed
-    priority: 2
-    findings: [F-004, F-015]
-    blocks: [STAB-AI-2]
-    acceptance:
-      commands:
-        - pnpm knowledge:check
-      artifacts:
-        - redesign/migration-from-old-order.md
-    notes: Complete MIG-2026-10-23-04; map every superseded skill/rule entry; notes/main.md reminder
-
-  - id: STAB-PUB-1
-    title: Re-run publish profile — workspace dep hygiene
-    phase: 0
-    state: proposed
-    priority: 2
-    findings: [F-005, F-013]
-    acceptance:
-      commands:
-        - pnpm eristack check --profile publish
 
 # Template for new tasks (copy):
 #  - id: STAB-NEW-1

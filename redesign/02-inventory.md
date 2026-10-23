@@ -82,10 +82,17 @@ Source: `packages/ai/ai-dev/src/checks/registry.ts`, `.github/workflows/ci.yml`.
 
 CI: `examples` check in pr profile (audit rank 12 — confirm green on main).
 
-## A6 — Gaps to fill in inventory (proposed tasks)
+## A6 — Discovery artifacts (Phase 0)
 
-- [ ] STAB-INV-1: Per-package test file counts + drizzle adapter presence (script or spreadsheet)
-- [ ] STAB-INV-2: `loadPlan()` output matrix vs all recipes with `canonicalSkills`
-- [ ] STAB-INV-3: List packages exporting `createMemory*` from main entry (grep)
+| Artifact | Path |
+| --- | --- |
+| Drizzle integration matrix | [data/drizzle-integration.md](./data/drizzle-integration.md) |
+| Memory root exports | [data/memory-root-exports.md](./data/memory-root-exports.md) |
+| Verification log | [data/phase0-verification-log.md](./data/phase0-verification-log.md) |
+| Skill source allowlist | [data/skill-sources-allowlist.md](./data/skill-sources-allowlist.md) |
 
-Update this section as tasks close.
+## A7 — Stabilization scripts (program)
+
+| Script | Purpose |
+| --- | --- |
+| `scripts/check-skill-sources.mjs` | ai-knowledge cross-cutting skills ≤1 source (STAB-AI-1) |

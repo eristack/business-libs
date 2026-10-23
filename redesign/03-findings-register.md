@@ -6,13 +6,13 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 
 | ID | Type | Severity | Status | Finding | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| F-001 | fact | crit | open | Hash-chained / financial ledger Drizzle store lacks integration proof in CI | `_ai-docs/audit/executive-summary.md` rank 1; grades HCL/financial **C** |
-| F-002 | fact | crit | open | `executeDrizzleList` has no integration test | Audit rank 2; data-grid **B−** |
-| F-003 | fact | crit | open | Valuations: most methods + drizzle layer store untested | Audit rank 3; **D+** |
-| F-004 | inference | crit | open | `loadPlan()` may omit canonical skills that recipes describe in prose | Audit rank 4; verify via STAB-INV-2 |
-| F-005 | inference | crit | open | Published packages may still declare bad runtime deps | Audit rank 5; run `pnpm eristack check --profile publish` |
-| F-006 | fact | crit | open | No composite Horizon A example in CI matrix | Audit rank 6; `examples/horizon-a` exists — confirm in examples check |
-| F-007 | fact | high | open | Memory stores exported from main package entrypoints | Audit rank 7; conflicts with skills/recipes |
+| F-001 | fact | crit | open | Ledger drizzle proof **exists**; depth/concurrency not fully audited | `pnpm eristack check --profile integration` OK 2026-10-23; see [data/drizzle-integration.md](./data/drizzle-integration.md) |
+| F-002 | fact | high | closed | `executeDrizzleList` integration test present | `packages/service/data-grid/tests/drizzle.integration.test.ts`; integration profile OK |
+| F-003 | fact | high | open | Valuations drizzle test covers FIFO path only; 8 other methods not integration-proven | `valuations/tests/drizzle.integration.test.ts` |
+| F-004 | fact | med | closed | `loadPlan()` merges `canonicalSkills` | `recommend.ts` L196–205; 28 tests incl. all-recipe matrix |
+| F-005 | fact | med | closed | Publish dep hygiene passes on current main | `pnpm eristack check --profile publish` OK 2026-10-23 |
+| F-006 | fact | med | closed | Example apps build in CI | `pnpm eristack check --profile examples` OK 2026-10-23 |
+| F-007 | fact | high | open | **10** packages export `createMemory*` from root `index.ts` | [data/memory-root-exports.md](./data/memory-root-exports.md) STAB-INV-3 |
 | F-008 | fact | high | open | Backseat register/bootstrap duplicated across packages | Audit rank 8 |
 | F-009 | fact | high | open | Some skills list 5+ `sources` (token budget violation) | `docs-depth-tokens.mdc`; audit rank 9 |
 | F-010 | inference | high | open | Recipe triggers missing for newer APIs (wall grid, atomic backseat, etc.) | Audit rank 10 |
