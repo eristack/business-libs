@@ -20,7 +20,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 | F-012 | fact | high | open | Examples build is part of pr CI | `CHECK_DEFS` examples profile; audit rank 12 |
 | F-013 | inference | high | open | Peer dependency floors may be incomplete on adapters | Audit rank 13; `check-publish-deps.mjs` |
 | F-014 | fact | med | open | 409 error canon documented; thin end-to-end demo | `#http-errors` skill; audit rank 14 |
-| F-015 | fact | med | open | `recommend-eristack` skill embeds large generated catalog | Audit rank 15; prefer generated block only in sync artifact |
+| F-015 | fact | med | closed | `recommend-eristack` skill embeds large generated catalog | STAB-AI-3: compact catalog stub + one `sources` entry; sync regenerates stub |
 | F-016 | fact | med | open | Stabilization program docs live in `redesign/` only | This folder |
 | F-017 | fact | low | open | `redesign/SPEC.md` stub — full charter was prior README | Git history if verbatim needed |
 | F-018 | fact | med | open | 3ss library program largely shipped; B4 SQL codegen still deferred | `#tiga-sekawan-3ss-adoption`, `#collection-declaration-horizon-b` |

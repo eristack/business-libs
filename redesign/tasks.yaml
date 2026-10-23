@@ -72,25 +72,22 @@ tasks:
   - id: STAB-AI-1
     title: CI check — cross-cutting skills max one source
     phase: 1
-    state: in_progress
+    state: verified
     priority: 3
     findings: [F-009]
     acceptance:
       commands:
         - node scripts/check-skill-sources.mjs --ci
+        - pnpm eristack check --profile catalog --only skill-sources
       artifacts:
         - scripts/check-skill-sources.mjs
         - redesign/data/skill-sources-allowlist.md
-    notes: |
-      Script shipped; not yet wired into eristack check registry (phase 2 STAB-ENF-1)
-      next_action: Wire check id skill-sources in @eristack/ai-dev + shrink allowlist
 
   - id: STAB-ENF-1
     title: Wire check-skill-sources into eristack catalog/pr profile
     phase: 2
-    state: proposed
+    state: verified
     priority: 3
-    blocks: [STAB-AI-1]
     findings: [F-009]
     acceptance:
       commands:
@@ -99,7 +96,7 @@ tasks:
   - id: STAB-AI-3
     title: Trim recommend-eristack embedded catalog / sources
     phase: 1
-    state: approved
+    state: verified
     priority: 4
     findings: [F-015]
     acceptance:

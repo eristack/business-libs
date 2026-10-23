@@ -104,5 +104,5 @@ When a migration completes, move the old source here with **superseded_by** link
 | Old source | Superseded by (target) | Status |
 | --- | --- | --- |
 | Per-package upgrade doc chains | `#upgrading-eristack` only | partial — rule exists, stubs remain |
-| Large embed in recommend-eristack skill | Generated catalog + thin skill | planned (STAB-AI-3) |
+| Large embed in recommend-eristack skill | Compact sync stub + `getCatalog()` | complete (STAB-AI-3) |
 | Memory store from package root export | `@eristack/*/testing` | planned (STAB-MEM-*) |
