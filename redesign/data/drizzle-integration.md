@@ -6,11 +6,11 @@
 
 | Package | Integration file | Notes |
 | --- | --- | --- |
-| `@eristack/hash-chained-ledger` | yes | HCL store |
+| `@eristack/hash-chained-ledger` | yes | HCL store; depth + concurrent append (UNIQUE chain+seq) |
 | `@eristack/financial-ledger` | yes | Uses HCL harness |
 | `@eristack/stock-movement` | yes | |
 | `@eristack/valuations` | yes | All nine methods via Drizzle layers + HCL |
-| `@eristack/doc-number` | yes | format/sequence |
+| `@eristack/doc-number` | yes | format/sequence; concurrent `next()` smoke |
 | `@eristack/qups` | yes | profile/line stores |
 | `@eristack/data-grid` | yes | `executeDrizzleList` wall + decimal |
 | `@eristack/idempotency` | yes | |
@@ -30,4 +30,4 @@
 | --- | --- |
 | `@eristack/drizzle` | infrastructure (unit tests in package) |
 
-**Finding:** F-001 **partially closed** (matrix complete; ledger concurrency depth optional); F-003 **closed** (all valuation methods on Drizzle integration).
+**Finding:** F-001 **closed** (matrix + HCL depth + concurrent append); F-003 **closed** (all valuation methods on Drizzle integration).

@@ -6,7 +6,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 
 | ID | Type | Severity | Status | Finding | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| F-001 | fact | crit | open | Drizzle integration matrix complete; HCL depth smoke added; concurrent append / UNIQUE(chain,seq) still deferred | STAB-INT-HCL depth test 2026-10-24; [data/drizzle-integration.md](./data/drizzle-integration.md) |
+| F-001 | fact | crit | closed | Drizzle integration matrix + HCL depth + concurrent append (UNIQUE chain+seq, append retry) | STAB-INT-HCL-CONCURRENT 2026-10-24; [data/drizzle-integration.md](./data/drizzle-integration.md) |
 | F-002 | fact | high | closed | `executeDrizzleList` integration test present | `packages/service/data-grid/tests/drizzle.integration.test.ts`; integration profile OK |
 | F-003 | fact | high | closed | All nine valuation methods exercised on Drizzle + HCL integration test | STAB-INT-VAL; `drizzle.integration.test.ts` 2026-10-23 |
 | F-004 | fact | med | closed | `loadPlan()` merges `canonicalSkills` | `recommend.ts` L196–205; 28 tests incl. all-recipe matrix |

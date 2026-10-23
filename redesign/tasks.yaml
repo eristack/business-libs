@@ -310,10 +310,20 @@ tasks:
   - id: STAB-INT-DOCNUM
     title: doc-number format/sequence concurrency integration
     phase: 3
-    state: deferred
+    state: verified
     priority: 3
     findings: [F-001]
-    notes: Basic drizzle integration exists; concurrency is enhancement
+    notes: Promise.all 10× next() unique sequences in drizzle.integration.test.ts
+
+  - id: STAB-INT-HCL-CONCURRENT
+    title: HCL drizzle — UNIQUE (chain, sequence) + concurrent append verify
+    phase: 3
+    state: verified
+    priority: 2
+    findings: [F-001]
+    acceptance:
+      commands:
+        - pnpm --filter @eristack/hash-chained-ledger test
 
   - id: STAB-INT-DRIZZLE-GAPS
     title: Integration tests for jwt-auth, comms, oauth, outbox, backseat drizzle
