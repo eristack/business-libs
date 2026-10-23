@@ -6,7 +6,7 @@ Add rows when discovery or CI proves something new. Link tasks in [tasks.yaml](.
 
 | ID | Type | Severity | Status | Finding | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| F-001 | fact | crit | open | Ledger drizzle proof **exists**; depth/concurrency not fully audited | `pnpm eristack check --profile integration` OK 2026-10-23; see [data/drizzle-integration.md](./data/drizzle-integration.md) |
+| F-001 | fact | crit | open | Drizzle integration matrix complete for spine packages; ledger depth/concurrency not fully audited | STAB-INT-DRIZZLE-GAPS verified 2026-10-23; [data/drizzle-integration.md](./data/drizzle-integration.md) |
 | F-002 | fact | high | closed | `executeDrizzleList` integration test present | `packages/service/data-grid/tests/drizzle.integration.test.ts`; integration profile OK |
 | F-003 | fact | high | open | Valuations drizzle test covers FIFO path only; 8 other methods not integration-proven | `valuations/tests/drizzle.integration.test.ts` |
 | F-004 | fact | med | closed | `loadPlan()` merges `canonicalSkills` | `recommend.ts` L196–205; 28 tests incl. all-recipe matrix |

@@ -21,13 +21,13 @@
 | `@eristack/jwt-auth` | yes | refresh token store save/find |
 | `@eristack/comms` | yes | message + delivery event store |
 | `@eristack/outbox` | yes | enqueue idempotency dedupe |
+| `@eristack/oauth` | yes | pending login save/consume |
+| `@eristack/backseat` | yes | sqlite document store + atomic |
 
 ## Packages with `/drizzle` but **no** `drizzle.integration.test.ts` (debt)
 
 | Package | Drizzle path |
 | --- | --- |
-| `@eristack/oauth` | `src/drizzle/` |
-| `@eristack/backseat` | `src/drizzle/` |
 | `@eristack/drizzle` | infrastructure (unit tests in package) |
 
 **Finding:** F-001–F-003 **partially closed** — spine ledger/list/valuations have CI proof; depth (all valuation methods, concurrency) still audit debt.

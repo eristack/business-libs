@@ -261,12 +261,28 @@ tasks:
   - id: STAB-INT-DRIZZLE-GAPS
     title: Integration tests for jwt-auth, comms, oauth, outbox, backseat drizzle
     phase: 3
-    state: in_progress
+    state: verified
     priority: 3
     findings: [F-001]
-    notes: jwt-auth, comms, outbox done; oauth + backseat drizzle remain
+    notes: all spine drizzle packages in matrix have drizzle.integration.test.ts
     acceptance:
       artifacts: [redesign/data/drizzle-integration.md]
+
+  - id: STAB-INT-OAUTH
+    title: oauth drizzle pending login store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
+
+  - id: STAB-INT-BACKSEAT
+    title: backseat drizzle sqlite store integration test
+    phase: 3
+    state: verified
+    priority: 3
+    findings: [F-001]
+    parent: STAB-INT-DRIZZLE-GAPS
 
   - id: STAB-INT-COMMS
     title: comms drizzle message + delivery event store integration test
