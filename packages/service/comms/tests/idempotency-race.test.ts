@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createCommsHub, createMemoryCommsStore } from "../src/index.js";
+import { createCommsHub } from "../src/index.js";
+import { createMemoryCommsStore } from "../src/testing/index.js";
 import type { CommsDriver } from "../src/core/types.js";
 
 describe("comms idempotency race", () => {

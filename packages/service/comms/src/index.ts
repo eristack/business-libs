@@ -1,6 +1,4 @@
 export { createCommsHub } from "./core/create-comms-hub.js";
-export { createMemoryCommsStore } from "./core/memory-store.js";
-export { createMemoryCommsDriver } from "./core/memory-driver.js";
 export {
   CommsError,
   CommsChannelNotSupportedError,
