@@ -35,6 +35,8 @@ proposed → approved → in_progress → review → verified → closed
 
 **Commits:** agents may `git commit` locally in **small auditable slices** (see `.cursor/rules/git-iteration-commits.mdc`); user pushes.
 
+**Releases:** one **batch** Version Packages cut on `main` — not a new npm version per iteration. Accumulate `.changeset/*.md` during the program; merge or extend a single batch changeset when appropriate (see `knowledge/agent-workflow.md` § Releases).
+
 ## Handoff packet (context loss)
 
 When stopping mid-initiative, append to the active task in `tasks.yaml`:

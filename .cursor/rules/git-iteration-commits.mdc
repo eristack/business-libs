@@ -60,6 +60,10 @@ Read `git log -15 --oneline` and match voice before committing.
 2. Do not commit secrets (`.env`, tokens).
 3. Do not commit broken intermediate state unless the user asked for a checkpoint — prefer commit after green checks for that slice.
 
+## Releases (batch)
+
+Many commits on a branch ≠ many npm releases. Use **one file per package** in `.changeset/` (repo policy); version bumps ship on the **Version Packages** PR to `main`, not after each commit. Extend existing stabilization changesets instead of adding a new changeset every iteration unless a new package’s behavior changed.
+
 ## Relationship to stabilization program
 
 When working under `redesign/`, reference task IDs in commit subjects or body only if it helps audit (`STAB-AI-2` in scope is fine). Update `redesign/tasks.yaml` state in a **dedicated** commit when verification completes, not mixed with unrelated code.
