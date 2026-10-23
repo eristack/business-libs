@@ -151,7 +151,15 @@ tasks:
     state: in_progress
     priority: 4
     findings: [F-007]
-    notes: rbac + epoch done; 8 packages remain on allowlist
+    notes: rbac, epoch, oauth done; 7 packages remain on allowlist
+
+  - id: STAB-MEM-2-oauth
+    title: "@eristack/oauth — pending store only on /testing"
+    phase: 2
+    state: verified
+    priority: 4
+    findings: [F-007]
+    parent: STAB-MEM-2
 
   - id: STAB-INT-JWT
     title: jwt-auth drizzle refresh store integration test

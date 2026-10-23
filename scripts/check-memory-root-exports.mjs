@@ -28,7 +28,6 @@ const ALLOWLIST = {
     "createMemoryRefreshTokenStore",
     "createMemoryCredentialStore",
   ],
-  "@eristack/oauth": ["createMemoryOAuthPendingStore"],
   "@eristack/payment-manager": [
     "createMemoryPaymentDriver",
     "createMemoryPaymentManagerStore",
