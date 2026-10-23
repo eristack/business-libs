@@ -5,7 +5,7 @@ import {
   createDrizzlePaymentManagerStore,
   createPaymentManagerTables,
 } from "../src/drizzle/index.js";
-import { createMemoryPaymentDriver } from "../src/core/memory-driver.js";
+import { createMemoryPaymentDriver } from "../src/testing/index.js";
 
 const DDL = [
   `CREATE TABLE payment_manager_payment_intents (
