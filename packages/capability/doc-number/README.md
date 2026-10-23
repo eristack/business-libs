@@ -31,12 +31,11 @@ pnpm add @eristack/doc-number
 ## Quick start
 
 ```ts
+import { createDocNumber, formatDocumentNumber } from "@eristack/doc-number";
 import {
-  createDocNumber,
   createMemoryFormatStore,
   createMemorySequenceStore,
-  formatDocumentNumber,
-} from "@eristack/doc-number";
+} from "@eristack/doc-number/testing";
 
 formatDocumentNumber({
   pattern: "INV-{YYYY}{MM}-{SEQ:5}",

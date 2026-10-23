@@ -1,7 +1,8 @@
 import { describe, expect, it, afterEach } from "vitest";
 import { generateEntityId } from "@eristack/entity-id";
 import { createTestSqliteDb, execSql, canUseBetterSqlite } from "@internal/test-harness";
-import { createDocNumber, createMemoryFormatStore } from "../src/index.js";
+import { createDocNumber } from "../src/index.js";
+import { createMemoryFormatStore } from "../src/testing/index.js";
 import {
   createDocNumberSequenceTable,
   createDrizzleSequenceStore,

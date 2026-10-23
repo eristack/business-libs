@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
   createDocNumber,
-  createMemoryFormatStore,
-  createMemorySequenceStore,
   FormatNotFoundError,
   MissingDependencyError,
 } from "../src/index.js";
+import {
+  createMemoryFormatStore,
+  createMemorySequenceStore,
+} from "../src/testing/index.js";
 
 describe("createDocNumber allocate", () => {
   it("registers format and allocates next numbers", async () => {

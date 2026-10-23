@@ -237,7 +237,7 @@ Unit tests may use:
 import {
   createMemoryFormatStore,
   createMemorySequenceStore,
-} from "@eristack/doc-number";
+} from "@eristack/doc-number/testing";
 ```
 
 Memory sequence store serializes `allocateNext` with a mutex — fine for Vitest, **not** for multi-process production.
