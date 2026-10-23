@@ -19,15 +19,6 @@ const skillsDir = path.join(
 const ci = process.argv.includes("--ci");
 const MAX_SOURCES = 1;
 
-/** Skills allowed >1 source until migrated (see redesign/07-ai-workflow-audit.md). */
-const ALLOWLIST = new Set([
-  "dev-conventions", // merges upgrading + AGENTS — split later
-  "ai-toolbox",
-  "stack-defaults",
-  "architecture-recommend",
-  "agent-workflow",
-]);
-
 function countSources(skillPath) {
   const content = fs.readFileSync(skillPath, "utf8");
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
@@ -49,13 +40,13 @@ for (const entry of fs.readdirSync(skillsDir, { withFileTypes: true })) {
   if (!fs.existsSync(skillPath)) continue;
   const id = skillIdFromPath(skillPath);
   const count = countSources(skillPath);
-  if (count <= MAX_SOURCES || ALLOWLIST.has(id)) continue;
+  if (count <= MAX_SOURCES) continue;
   violations.push({ id, count, skillPath });
 }
 
 if (violations.length === 0) {
   console.log(
-    `check-skill-sources: OK (ai-knowledge cross-cutting ≤${MAX_SOURCES} source, allowlist ${ALLOWLIST.size})`,
+    `check-skill-sources: OK (ai-knowledge cross-cutting ≤${MAX_SOURCES} source)`,
   );
   process.exit(0);
 }
