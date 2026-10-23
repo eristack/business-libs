@@ -236,6 +236,12 @@ Run it nightly. Keep a longer retention window if you want an audit trail of rot
 Use SQLite plus the memory stores rather than mocking:
 
 ```ts
+import { createJwtAuth } from "@eristack/jwt-auth";
+import {
+  createMemoryCredentialStore,
+  createMemoryRefreshTokenStore,
+} from "@eristack/jwt-auth/testing";
+
 // unit tests — no database at all
 const auth = createJwtAuth({
   accessSecret: "test-secret-at-least-16",

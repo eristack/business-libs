@@ -257,13 +257,13 @@ Horizon A → B: only change `VITE_API_URL` — paths stay `/auth/login`, etc.
 
 ## 7. Testing subpath note
 
-Production uses Drizzle stores above. For unit tests, prefer **`@eristack/jwt-auth/testing`** when exported, or construct stores inline:
+Production uses Drizzle stores above. For unit tests, use **`@eristack/jwt-auth/testing`**:
 
 ```ts
 import {
   createMemoryCredentialStore,
   createMemoryRefreshTokenStore,
-} from "@eristack/jwt-auth"; // tests ONLY — not production exports long-term
+} from "@eristack/jwt-auth/testing";
 ```
 
 Package tests use memory stores for speed. **Do not** import memory stores in `src/server.ts` or Nest `AppModule`.

@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   createJwtAuth,
+} from "../src/index.js";
+import {
   createMemoryCredentialStore,
   createMemoryRefreshTokenStore,
-} from "../src/index.js";
+} from "../src/testing/index.js";
 import {
   createRequireAuth,
   createRestActions,

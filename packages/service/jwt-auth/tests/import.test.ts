@@ -8,8 +8,9 @@ describe("package import", () => {
   });
 
   it("createJwtAuth works immediately after import (no credentials path)", async () => {
-    const { createJwtAuth, createMemoryRefreshTokenStore } = await import(
-      "../src/index.js"
+    const { createJwtAuth } = await import("../src/index.js");
+    const { createMemoryRefreshTokenStore } = await import(
+      "../src/testing/index.js"
     );
     const auth = createJwtAuth({
       accessSecret: "test-secret-at-least-16-chars",

@@ -23,9 +23,11 @@ Business-only auth primitives. No HTTP, Drizzle, Express, Nest, or React in this
 ```ts
 import {
   createJwtAuth,
+} from "@eristack/jwt-auth";
+import {
   createMemoryCredentialStore,
   createMemoryRefreshTokenStore,
-} from "@eristack/jwt-auth";
+} from "@eristack/jwt-auth/testing";
 
 const auth = createJwtAuth({
   accessSecret: process.env.JWT_ACCESS_SECRET!,
