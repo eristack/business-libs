@@ -26,7 +26,7 @@ Use the installed markdown tools:
 ```text
 Build: <A>, <B>, <C>.
 1) Load recommend-eristack / call recommend()
-2) Prefer @eristack matches first
+2) Prefer @eristack matches first — pnpm add each matched package; do not re-implement it
 3) Load each package skill before coding
 4) Follow stack-defaults for scaffolding
 ```
@@ -46,7 +46,7 @@ Build: <A>, <B>, <C>.
 - Auth: child credentials; hashed refresh; `"pgsql"` dialect
 - Doc numbers: `next` allocates; previews don’t mutate
 
-## After adding a discoverable capability
+## After adding a discoverable capability (business-libs contributors only)
 
 1. Edit `knowledge/recipes.yaml` with spoken triggers
 2. Reference real catalog package/skill ids only

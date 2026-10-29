@@ -50,6 +50,31 @@ describe("checksForProfile", () => {
     expect(String(mocked.mock.calls[1]?.[0])).toContain("check");
   });
 
+  it("skipBuild never inserts a build before needsBuild checks", () => {
+    const mocked = vi.mocked(execSync);
+    mocked.mockClear();
+    runChecks({ repoRoot, profile: "pr", only: ["exports"], skipBuild: true });
+    expect(mocked).toHaveBeenCalledTimes(1);
+    expect(String(mocked.mock.calls[0]?.[0])).toContain("check-package-exports");
+  });
+
+  it("integration verifies turbo-test coverage in pr, runs suites in its own profile", () => {
+    const mocked = vi.mocked(execSync);
+    mocked.mockClear();
+    runChecks({ repoRoot, profile: "pr", only: ["integration"], skipBuild: true });
+    expect(String(mocked.mock.calls[0]?.[0])).toContain("--verify-covered");
+    mocked.mockClear();
+    runChecks({ repoRoot, profile: "integration", skipBuild: true });
+    expect(String(mocked.mock.calls[0]?.[0])).toBe("pnpm test:integration");
+  });
+
+  it("examples filter is quoted so the shell cannot expand it", () => {
+    const mocked = vi.mocked(execSync);
+    mocked.mockClear();
+    runChecks({ repoRoot, profile: "examples", skipBuild: true });
+    expect(String(mocked.mock.calls[0]?.[0])).toContain("'--filter=./examples/*'");
+  });
+
   it("pr profile includes build, test, publish, and catalog checks", () => {
     const ids = checksForProfile("pr").map((c) => c.id);
     expect(ids).toContain("build");

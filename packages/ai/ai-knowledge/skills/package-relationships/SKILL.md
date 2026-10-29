@@ -18,11 +18,11 @@ Load **once**: `knowledge/package-relationships.md`.
 
 | Ask | First skill |
 | --- | --- |
-| Document with QUPS lines | `#document-lines-erp` |
-| Backseat mock → Drizzle API | `#backseat-then-backend` |
+| Document with QUPS lines | `@eristack/ai-knowledge#document-lines-erp` |
+| Backseat mock → Drizzle API | `@eristack/ai-knowledge#backseat-then-backend` |
 | Which packages to install | This skill, then `loadPlan()` |
-| Generic REST shell | `#rest-core` / `#declarative-rest-routes` — not opinion |
-| ERP PATCH actions | `#opinion-http` |
+| Generic REST shell | `@eristack/rest#rest-core` — not opinion |
+| ERP PATCH actions | `@eristack/opinion#opinion-core` |
 
 ## Rules
 

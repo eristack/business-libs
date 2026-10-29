@@ -30,7 +30,7 @@ Load: `@eristack/ai-knowledge#ui-package-stack` · Recipes: `erp-ui-design-syste
 | — | `@eristack/multitab` | Tab workspace (already published) | `multitab` |
 | — | App chrome | Compose in **`examples/react`** until a second consumer needs `@eristack/app-chrome` | — |
 
-**Not merged:** `@eristack/form-kit` (headless TanStack Form recipes) stays separate from `form-ui`.
+**Headless TanStack Form helpers** (`useMoneyField`, `createAmountOnlyFieldValidators`) ship on the primitive packages' `/react` subpaths (`@eristack/money/react`, …), not in `form-ui`; there is no separate form-kit package.
 
 ---
 
@@ -183,3 +183,4 @@ Each UI library has `packages/ui/<name>/docs/getting-started.md` — install lin
 - `@eristack/line-grid` composes the operator later; v0.1 documents the contract (`commit` → `patchLine`).
 - Stay table-agnostic (descriptor + `(row, col)`). Native text cells first; Select implements `SpreadsheetCellEditor`.
 - Name collision: `@eristack/spreadsheet-render` is **xlsx/csv export only**.
+

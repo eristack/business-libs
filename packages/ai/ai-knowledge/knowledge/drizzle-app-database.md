@@ -1,4 +1,4 @@
-# Drizzle app database (3ss B3 step 1)
+# Drizzle app database
 
 Eristack packages expose **table factories** under `@eristack/*/drizzle`. They **never** open connections, read `DATABASE_URL`, or run migrations. The app owns one boot path.
 

@@ -78,6 +78,34 @@ You do **not** cut a release per skill. Edit skills in-tree, sync the catalog, a
 
 When sibling packages gain skills/recipes, bump **those** packages as usual **and** bump `@eristack/ai-knowledge` so consumers get the regenerated catalog embedded in this package.
 
+## Publishing the Agensi pack
+
+The same skills are listed free on [Agensi](https://www.agensi.io) as **Eristack AI Knowledge Pack**. Every `@eristack/ai-knowledge` release flows there in three steps:
+
+| Step | Who | What happens |
+| --- | --- | --- |
+| 1. Release | `release.yml` (automatic) | After npm publish of `@eristack/ai-knowledge`, runs `agensi:release` and attaches `eristack-ai-knowledge-pack.zip` + `submission.json` to the `@eristack/ai-knowledge@<version>` GitHub release. If a check fails, the run shows a warning instead (npm publish is unaffected). |
+| 2. Send | Maintainer's agent in Cursor | Ask "publish the Eristack pack to Agensi" → project skill `.cursor/skills/agensi-publish` rebuilds, picks `submit_skill` (first time) or `update_skill`, and shows the preview. |
+| 3. Approve | Maintainer | Reply "yes"; Agensi scans and reviews. The live version keeps serving until the update is approved. |
+
+Step 2 cannot run headless in CI: Agensi accepts only OAuth tokens (no API keys), refresh tokens rotate on every use, and a new client on the account signs out every other client — a CI bot would keep disconnecting the maintainer's own agent.
+
+```bash
+pnpm --filter @eristack/ai-knowledge agensi:pack      # local preview: folder, zip, submission.json
+pnpm --filter @eristack/ai-knowledge agensi:release   # + version on npm + clean changelog (network)
+```
+
+Listing fields (summary, description, demo, tags, keywords, use cases, FAQ, `agensi_id`) live in `agensi/listing.yaml`; the build enforces Agensi limits and keeps pricing `free`. The changelog comes from this package's `CHANGELOG.md` section with commit hashes removed; if that text is not public-safe, add `agensi/changelog/<version>.md` instead.
+
+The build copies `skills/`, `knowledge/`, `agensi/README.md` (pack title + generated skill table) and `LICENSE`; renames skills to `eristack-<name>` (`recommend-eristack` → `eristack-recommend`, `upgrading-eristack` → `eristack-upgrading`) because Agensi names are global; and rewrites frontmatter to `name`, `description`, `version`, `docs_url`.
+
+| Left out of the pack | Why |
+| --- | --- |
+| `dev-conventions` skill + guide | Monorepo contributor rules |
+| `tiga-sekawan-3ss-adoption` skill, guide, recipe | Client-specific |
+
+The build **fails** on: more than 50 skills, client names or batch codes, demo passwords or secret-shaped strings, `@eristack/*` names missing from the catalog (except placeholders the guides mark as not shipped), dead `@eristack/<pkg>#<skill>` anchors, and dead relative links. `tests/agensi-pack.test.ts` runs it in CI.
+
 ## Tooling prompts
 
 The `ai-toolbox` skill (in this package) carries feature-brief prompts and checklists for money/auth/doc-number. Use it when drafting new recipes or agent runbooks.

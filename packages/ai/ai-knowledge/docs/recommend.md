@@ -48,17 +48,17 @@ Each match:
 
 ### Scoring
 
-For each recipe, for each trigger × token:
+For each recipe, each input token adds the score of its **best** matching trigger (not one score per matching trigger — a recipe with many overlapping triggers like `github login`, `okta login` does not outrank an exact `login` match):
 
-| Condition | Score |
+| Condition | Trigger score |
 | --- | --- |
-| `token === trigger` | +4 |
-| `token.includes(trigger)` or `trigger.includes(token)` | +2 |
-| Plus length bonus | `min(trigger.length, 24) / 24` |
+| `token === trigger` | 40 |
+| `token.includes(trigger)` or `trigger.includes(token)` | 20 |
+| Plus length bonus | `10 × min(trigger.length, 24) / 24` |
 
 If no trigger matched → recipe discarded.
 
-Then add priority boost: `max(0, 40 - recipe.priority)`. **Lower `priority` number = stronger product routing** (e.g. `erp-app-core` at `5`).
+Then add priority boost: `max(0, 40 - recipe.priority)`. Match quality dominates; **lower `priority` number = stronger product routing** among similar matches (e.g. `erp-app-core` at `5`).
 
 ### Sort order
 

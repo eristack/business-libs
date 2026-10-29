@@ -8,7 +8,7 @@ export const localSkills = [
     "id": "agent-workflow",
     "name": "agent-workflow",
     "packageName": "@eristack/ai-knowledge",
-    "description": "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, load skills before coding, prefer examples, HARD RULE docs+skills+ recipes + pnpm knowledge:sync every iteration. Use for multi-package work or monorepo contributions.",
+    "description": "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, install and load skills before coding, prefer examples. Contributor section: HARD RULE docs+skills+recipes + pnpm knowledge:sync every iteration. Use for multi-package app work or monorepo contributions.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
   },
@@ -40,7 +40,7 @@ export const localSkills = [
     "id": "collection-declaration-horizon-b",
     "name": "collection-declaration-horizon-b",
     "packageName": "@eristack/ai-knowledge",
-    "description": "3ss B4 — defineErpCollection manifests in @eristack/drizzle/schema, CollectionDocumentStore port, createDrizzleBackseatStore JSON path vs normalized row mappers, routesSnapshot mirror CI via @eristack/backseat/testing. Codegen later; manifests + mirror smoke now.",
+    "description": "defineErpCollection manifests in @eristack/drizzle/schema, CollectionDocumentStore port, createDrizzleBackseatStore JSON path vs normalized row mappers, routesSnapshot mirror CI via @eristack/backseat/testing. Codegen later; manifests + mirror smoke now.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#collection-declaration-horizon-b"
   },
@@ -64,7 +64,7 @@ export const localSkills = [
     "id": "drizzle-app-database",
     "name": "drizzle-app-database",
     "packageName": "@eristack/ai-knowledge",
-    "description": "3ss B3 step 1 — app-owned Drizzle boot with @eristack/drizzle openDrizzle: one pool or sqlite file, dialect from APP_DB_DIALECT/DATABASE_URL, lazy drivers, redacted health location. Table factories stay on @eristack/*/drizzle; inject db at compose root. Step 2 schema recipe same package.",
+    "description": "App-owned Drizzle boot with @eristack/drizzle openDrizzle: one pool or sqlite file, dialect from APP_DB_DIALECT/DATABASE_URL, lazy drivers, redacted health location. Table factories stay on @eristack/*/drizzle; inject db at compose root. Step 2 schema recipe same package.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#drizzle-app-database"
   },
@@ -112,7 +112,7 @@ export const localSkills = [
     "id": "party-and-platform-compose",
     "name": "party-and-platform-compose",
     "packageName": "@eristack/ai-knowledge",
-    "description": "Wave 13 compose-at-the-boundary: party normalizers, measures, finance posting, platform API guard order, outbound template/PDF/spreadsheet export. No sibling hard deps in primitives. Use before scaffolding person, entity-id, tax, idempotency, etc.",
+    "description": "Compose-at-the-boundary: party normalizers, measures, finance posting, platform API guard order, outbound template/PDF/spreadsheet export. No sibling hard deps in primitives. Use before scaffolding person, entity-id, tax, idempotency, etc.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#party-and-platform-compose"
   },
@@ -120,7 +120,7 @@ export const localSkills = [
     "id": "print-layout-default",
     "name": "print-layout-default",
     "packageName": "@eristack/ai-knowledge",
-    "description": "Company AR/AP print defaults vs nullable per-document print field masks — resolve at print time, freeze on save, expectedVersion on PATCH. App-owned field names; not a @eristack package (3ss A7).",
+    "description": "Company AR/AP print defaults vs nullable per-document print field masks — resolve at print time, freeze on save, expectedVersion on PATCH. App-owned field names; not a @eristack package.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#print-layout-default"
   },

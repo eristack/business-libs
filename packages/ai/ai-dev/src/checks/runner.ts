@@ -51,6 +51,7 @@ function turboFilterArg(packages: string[] | undefined): string[] {
 function commandForCheck(
   def: CheckDef,
   packages?: string[],
+  profile?: CheckProfile,
 ): { argv: string[]; display: string } {
   const filter = def.turboFilter ? turboFilterArg(packages) : [];
 
@@ -95,14 +96,25 @@ function commandForCheck(
         display: `turbo run test${filter.length ? " (filtered)" : ""}`,
       };
     case "integration":
-      return {
-        argv: ["pnpm", "test:integration"],
-        display: "pnpm test:integration",
-      };
+      // Suites already run inside turbo `test`; only the integration profile re-runs them.
+      return profile === "integration"
+        ? { argv: ["pnpm", "test:integration"], display: "pnpm test:integration" }
+        : {
+            argv: ["node", "scripts/run-integration-tests.mjs", "--verify-covered"],
+            display: "pnpm test:integration --verify-covered",
+          };
     case "examples":
       return {
-        argv: ["pnpm", "--filter", "./examples/*", "run", "build"],
-        display: "pnpm --filter './examples/*' run build",
+        argv: [
+          "pnpm",
+          "exec",
+          "turbo",
+          "run",
+          "build",
+          "--output-logs=errors-only",
+          "'--filter=./examples/*'",
+        ],
+        display: "turbo run build --filter='./examples/*'",
       };
     case "lint":
       return {
@@ -223,12 +235,13 @@ function runOne(
   def: CheckDef,
   repoRoot: string,
   packages?: string[],
+  profile?: CheckProfile,
 ): CheckRunResult {
   if (def.id === "ticket") {
     return runTicketCheck(repoRoot);
   }
   const started = Date.now();
-  const { argv, display } = commandForCheck(def, packages);
+  const { argv, display } = commandForCheck(def, packages, profile);
   try {
     execSync(argv.join(" "), {
       cwd: repoRoot,
@@ -262,19 +275,20 @@ export function runChecks(options: RunChecksOptions): CheckRunResult[] {
   }
 
   const results: CheckRunResult[] = [];
-  let built = false;
+  // skipBuild means the caller already built; never sneak a second full build in.
+  let built = options.skipBuild === true;
 
   for (const def of defs) {
     if (def.needsBuild && !built && def.id !== "build") {
       const buildDef = CHECK_DEFS.find((d) => d.id === "build");
       if (buildDef && !results.some((r) => r.id === "build")) {
-        results.push(runOne(buildDef, repoRoot, packages));
+        results.push(runOne(buildDef, repoRoot, packages, profile));
         built = true;
         if (!results.at(-1)?.ok) break;
       }
     }
     if (def.id === "build") built = true;
-    results.push(runOne(def, repoRoot, packages));
+    results.push(runOne(def, repoRoot, packages, profile));
     if (!results.at(-1)?.ok) break;
   }
 

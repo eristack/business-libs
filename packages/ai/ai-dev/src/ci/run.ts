@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import type { CheckId } from "../checks/registry.js";
+import { checksForProfile, type CheckId } from "../checks/registry.js";
 import {
   formatExecError,
   runChecks,
@@ -269,9 +269,60 @@ function turboAffected(
   const display = `turbo run ${tasks.join(" ")} ${filter}${exclude}`;
   return runCommand(
     repoRoot,
-    ["pnpm", "exec", "turbo", "run", ...tasks, filter, ...(excludeWebBuild ? ["--filter=!@eristack/web"] : [])],
+    [
+      "pnpm",
+      "exec",
+      "turbo",
+      "run",
+      ...tasks,
+      "--output-logs=errors-only",
+      filter,
+      ...(excludeWebBuild ? ["--filter=!@eristack/web"] : []),
+    ],
     display,
   );
+}
+
+const TURBO_TASK_CHECKS = new Set<CheckId>(["build", "typecheck", "test"]);
+
+/** Same checks as `check --profile pr`, ordered for speed: cheap drift first, one parallel turbo graph, then post-build checks. */
+export function fullPrSteps(): {
+  preTurbo: CheckId[];
+  postTurbo: CheckId[];
+} {
+  const defs = checksForProfile("pr");
+  const preTurbo = defs
+    .filter((d) => !TURBO_TASK_CHECKS.has(d.id) && !d.needsBuild && d.id !== "examples")
+    .map((d) => d.id);
+  const postTurbo = defs
+    .filter((d) => !TURBO_TASK_CHECKS.has(d.id) && !preTurbo.includes(d.id))
+    .map((d) => d.id);
+  return { preTurbo, postTurbo };
+}
+
+function runFullPr(repoRoot: string): CheckRunResult[] {
+  const { preTurbo, postTurbo } = fullPrSteps();
+  const results = runChecks({
+    repoRoot,
+    profile: "pr",
+    only: preTurbo,
+    skipBuild: true,
+  });
+  if (!summarizeResults(results).ok) return results;
+
+  results.push(
+    runCommand(
+      repoRoot,
+      ["pnpm", "exec", "turbo", "run", "build", "typecheck", "test", "--output-logs=errors-only"],
+      "turbo run build typecheck test",
+    ),
+  );
+  if (!results.at(-1)?.ok) return results;
+
+  results.push(
+    ...runChecks({ repoRoot, profile: "pr", only: postTurbo, skipBuild: true }),
+  );
+  return results;
 }
 
 export type RunCiOptions = {
@@ -295,9 +346,7 @@ export function runCi(options: RunCiOptions): RunCiResult {
   const results: CheckRunResult[] = [];
 
   if (plan.mode === "full") {
-    results.push(
-      ...runChecks({ repoRoot, profile: "pr", skipBuild: false }),
-    );
+    results.push(...runFullPr(repoRoot));
     return { plan, results, summary: summarizeResults(results) };
   }
 
@@ -306,7 +355,7 @@ export function runCi(options: RunCiOptions): RunCiResult {
       results.push(
         runCommand(
           repoRoot,
-          ["pnpm", "exec", "turbo", "run", "build", "--filter=!@eristack/web"],
+          ["pnpm", "exec", "turbo", "run", "build", "--output-logs=errors-only", "--filter=!@eristack/web"],
           "turbo run build --filter=!@eristack/web (exports prep)",
           "build",
         ),
@@ -379,7 +428,7 @@ export function runCi(options: RunCiOptions): RunCiResult {
     results.push(
       runCommand(
         repoRoot,
-        ["pnpm", "exec", "turbo", "run", "build", "--filter=!@eristack/web"],
+        ["pnpm", "exec", "turbo", "run", "build", "--output-logs=errors-only", "--filter=!@eristack/web"],
         "turbo run build --filter=!@eristack/web (exports prep)",
       ),
     );

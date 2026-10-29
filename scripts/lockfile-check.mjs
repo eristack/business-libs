@@ -8,6 +8,11 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 
+if (process.env.ERISTACK_LOCKFILE_VERIFIED === "1") {
+  console.log("OK — lockfile already verified by `pnpm install --frozen-lockfile` in this job");
+  process.exit(0);
+}
+
 const result = spawnSync("pnpm", ["install", "--frozen-lockfile"], {
   cwd: repoRoot,
   stdio: "inherit",

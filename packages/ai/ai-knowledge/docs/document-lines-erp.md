@@ -9,8 +9,6 @@ description: Canonical guide for job orders, cost sheets, invoices, forwarding �
 
 Load: `@eristack/ai-knowledge#document-lines-erp` · Package map: [package-relationships](./package-relationships.md) · Horizon A: `@eristack/ai-knowledge#backseat-then-backend` (`registerHorizonDocumentSpine` + `examples/horizon-a`) · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
 
-**Tiga Sekawan 3ss:** consumer adoption checklist — [tiga-sekawan-3ss-adoption](./tiga-sekawan-3ss-adoption.md). Library ticket: `tickets/20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md`.
-
 ---
 
 ## Spine (generic layers)
@@ -141,7 +139,7 @@ return db.transaction(async (tx) => {
 await epoch.bumpMany(["invoices"]);
 ```
 
-`next()` never over HTTP — see [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md).
+`next()` never over HTTP — see [doc-number wiring-production](https://github.com/eristack/business-libs/blob/main/packages/capability/doc-number/docs/wiring-production.md).
 
 ### Print layout (company default vs document)
 
@@ -261,11 +259,11 @@ Product language that should hit this recipe (not FIFO/stock):
 
 Package-specific production guides:
 
-- [jwt-auth wiring-production](../../service/jwt-auth/docs/wiring-production.md)
-- [doc-number wiring-production](../../capability/doc-number/docs/wiring-production.md)
-- [money wiring-production](../../primitive/money/docs/wiring-production.md)
-- [data-grid wiring-production](../../service/data-grid/docs/wiring-production.md)
-- [file-manager wiring-production](../../service/file-manager/docs/wiring-production.md)
+- [jwt-auth wiring-production](https://github.com/eristack/business-libs/blob/main/packages/service/jwt-auth/docs/wiring-production.md)
+- [doc-number wiring-production](https://github.com/eristack/business-libs/blob/main/packages/capability/doc-number/docs/wiring-production.md)
+- [money wiring-production](https://github.com/eristack/business-libs/blob/main/packages/primitive/money/docs/wiring-production.md)
+- [data-grid wiring-production](https://github.com/eristack/business-libs/blob/main/packages/service/data-grid/docs/wiring-production.md)
+- [file-manager wiring-production](https://github.com/eristack/business-libs/blob/main/packages/service/file-manager/docs/wiring-production.md)
 
 ### Document attachments (optional)
 

@@ -1,7 +1,7 @@
 ---
 name: collection-declaration-horizon-b
 description: >
-  3ss B4 — defineErpCollection manifests in @eristack/drizzle/schema, CollectionDocumentStore port,
+  defineErpCollection manifests in @eristack/drizzle/schema, CollectionDocumentStore port,
   createDrizzleBackseatStore JSON path vs normalized row mappers, routesSnapshot mirror CI via
   @eristack/backseat/testing. Codegen later; manifests + mirror smoke now.
 metadata:

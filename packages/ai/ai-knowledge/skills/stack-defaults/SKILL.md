@@ -19,6 +19,8 @@ Eristack **package** wiring defaults. For full app architecture (Vite, TanStack 
 
 Read the Eristack-focused guide: `knowledge/stack-defaults.md`.
 
+Every row below is an **installed `@eristack/*` package**, not a pattern to re-implement: `pnpm add @eristack/money @eristack/jwt-auth @eristack/doc-number drizzle-orm zod` — required `@eristack/*` peers (`entity-id`, `data-grid`, `timestamp`) are pulled in by pnpm / npm 7+ peer auto-install; add them explicitly if your installer does not.
+
 ## Defaults to apply
 
 | Concern | Prefer |

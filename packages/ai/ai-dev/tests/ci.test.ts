@@ -1,7 +1,9 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { checksForProfile } from "../src/checks/registry.js";
 import {
+  fullPrSteps,
   packageJsonChanged,
   requiresFullCi,
   resolveCiPlanFromChanged,
@@ -12,6 +14,20 @@ import { findRepoRoot } from "../src/repo/root.js";
 const repoRoot = findRepoRoot(
   path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."),
 );
+
+describe("fullPrSteps", () => {
+  it("covers every pr check (build/typecheck/test run as one turbo graph)", () => {
+    const { preTurbo, postTurbo } = fullPrSteps();
+    const turbo = ["build", "typecheck", "test"];
+    expect([...preTurbo, ...postTurbo, ...turbo].sort()).toEqual(
+      checksForProfile("pr").map((d) => d.id).sort(),
+    );
+    expect(postTurbo).toEqual(
+      expect.arrayContaining(["exports", "examples", "integration"]),
+    );
+    expect(preTurbo).toEqual(expect.arrayContaining(["lockfile", "knowledge", "docs"]));
+  });
+});
 
 describe("requiresFullCi", () => {
   it("forces full when lockfile changes", () => {

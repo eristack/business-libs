@@ -28,14 +28,19 @@ function scoreRecipe(recipe: Recipe, tokens: string[]): RecommendationMatch | nu
   const matchedTriggers: string[] = [];
   let score = 0;
 
-  for (const trigger of recipe.triggers) {
-    for (const token of tokens) {
+  // One score per token (its best trigger), so recipes with many overlapping
+  // triggers ("github login", "okta login", …) cannot outrank an exact match.
+  // Match quality is weighted above the 0–40 priority bonus.
+  for (const token of tokens) {
+    let best = 0;
+    for (const trigger of recipe.triggers) {
       if (token === trigger || token.includes(trigger) || trigger.includes(token)) {
         if (!matchedTriggers.includes(trigger)) matchedTriggers.push(trigger);
-        score += token === trigger ? 4 : 2;
-        score += Math.min(trigger.length, 24) / 24;
+        const triggerScore = (token === trigger ? 40 : 20) + (Math.min(trigger.length, 24) / 24) * 10;
+        best = Math.max(best, triggerScore);
       }
     }
+    score += best;
   }
 
   if (matchedTriggers.length === 0) return null;

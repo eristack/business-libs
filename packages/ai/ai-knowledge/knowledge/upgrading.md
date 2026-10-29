@@ -321,11 +321,10 @@ registerDataGridBackseat(api, { routes: [/* … */] });
 `registerValuationsBackseat` requires **`method`** (`"fifo" | "lifo" | …`):
 
 ```ts
-import { createValuations } from "@eristack/valuations";
 import { registerValuationsBackseat } from "@eristack/valuations/backseat";
 
-const engine = createValuations({ store: layers, ledger, method: "fifo" });
-registerValuationsBackseat(api, { method: "fifo", engine, basePath: "/valuations" });
+// Omit `engine` and Backseat builds createValuationEngine() over its own store.
+const engine = registerValuationsBackseat(api, { method: "fifo", basePath: "/valuations" });
 ```
 
 ---

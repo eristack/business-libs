@@ -81,16 +81,32 @@ export function normalizePartyInput(body: PartyInput) {
 | 8 | `@eristack/qups` | Line extension; app passes resolved rate strings |
 
 ```ts
-import { assertPeriodOpen } from "@eristack/fiscal-calendar";
-import { isBusinessDay } from "@eristack/business-calendar";
-import { roundingFor } from "@eristack/rounding-policy";
-import { resolveTaxRate, applyTaxToAmount } from "@eristack/tax";
+import { Money } from "@eristack/money";
+import { wallOf } from "@eristack/timestamp";
+import { assertPeriodOpen, requirePeriodForDate } from "@eristack/fiscal-calendar";
+import { createBusinessCalendar } from "@eristack/business-calendar";
+import { createRoundingPolicyRegistry } from "@eristack/rounding-policy";
+import { createTaxRegistry } from "@eristack/tax";
 
-assertPeriodOpen(fiscalCal, input.postingWallDate);
-const rounding = roundingFor({ policyId: company.defaultRoundingId, currency: line.currency });
-const rate = resolveTaxRate({ code: line.taxCode, asOf: input.postingWallDate });
-const tax = applyTaxToAmount(line.amount, rate, { rounding });
+// Build once at the compose root (rows come from app-owned tables).
+const businessCal = createBusinessCalendar({ weekendDays: [0, 6], holidays: holidayRows });
+const roundingPolicies = createRoundingPolicyRegistry(roundingPolicyRows);
+const taxRegistry = createTaxRegistry({ codes: taxCodeRows, rates: taxRateRows });
+
+// Per posting (input.postingWallDate is "YYYY-MM-DD").
+const period = requirePeriodForDate(fiscalCal, wallOf(`${input.postingWallDate}T00:00:00`, fiscalCal.timezone));
+assertPeriodOpen(period); // single argument: the resolved period
+if (!businessCal.isBusinessDay(input.postingWallDate)) throw new Error("POSTING_DATE_NOT_BUSINESS_DAY");
+
+const { ratePercent } = taxRegistry.resolveTaxRate({ code: line.taxCode, asOf: input.postingWallDate });
+const net = Money.of(line.amount, line.currency);
+const taxUnrounded = taxRegistry.applyTaxToAmount(net, ratePercent); // tax portion, not gross
+const tax = taxUnrounded.with(
+  roundingPolicies.roundingFor({ policyId: company.defaultRoundingId, currency: line.currency }),
+);
 ```
+
+`applyTaxToAmount(base: Money, ratePercent: string)` returns the **unrounded tax portion**; apply the rounding policy once at the ledger boundary. For flat app masters without effective dates, use the top-level `buildTaxCatalog` / `resolveTaxRateFromCatalog` instead of the registry.
 
 **Do not duplicate:** money rounding math, qups line tax application, or Avalara-style engines in `@eristack/tax` v0.
 

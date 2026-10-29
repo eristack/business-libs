@@ -44,7 +44,7 @@ Full guide: `knowledge/architecture.md`. Package wiring defaults: load `@eristac
 3. Do **not** put server entity caches in Zustand — use Query.
 4. Do **not** mix Express and Nest in the same API app without an explicit user override.
 5. Do **not** ship `createMemory*Store` to Vercel/production — use Drizzle + Postgres.
-6. After architecture, load `recommend-eristack` for money/auth/doc-number features.
+6. After architecture, load `recommend-eristack` and **install the matched `@eristack/*` packages** (`pnpm add @eristack/<name>`) for money/auth/doc-number/list/ledger features — do not hand-roll them in `packages/domain`.
 
 ## Suggested layout
 
