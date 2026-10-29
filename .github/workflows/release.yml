@@ -64,6 +64,7 @@ jobs:
         run: pnpm exports:check && pnpm publish:check
 
       - name: Create Release PR or publish
+        id: changesets
         uses: changesets/action@v1
         with:
           title: "chore: version packages"
@@ -78,3 +79,27 @@ jobs:
           # setup-node (registry-url) writes an .npmrc that reads NODE_AUTH_TOKEN;
           # without this, publish looks unauthenticated and npm returns 404
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Agensi pack for the new ai-knowledge release
+        # Builds + checks the Agensi upload and attaches it to the GitHub release. Uploading to
+        # Agensi itself stays a human-confirmed step (.cursor/skills/agensi-publish): Agensi only
+        # accepts the creator's own OAuth agent, one per account, and every submit needs a confirm.
+        if: steps.changesets.outputs.published == 'true' && contains(steps.changesets.outputs.publishedPackages, '"@eristack/ai-knowledge"')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version=$(node -p "require('./packages/ai/ai-knowledge/package.json').version")
+          tag="@eristack/ai-knowledge@${version}"
+          if pnpm --filter @eristack/ai-knowledge agensi:release; then
+            gh release upload "$tag" \
+              packages/ai/ai-knowledge/agensi-dist/eristack-ai-knowledge-pack.zip \
+              packages/ai/ai-knowledge/agensi-dist/submission.json --clobber
+            {
+              echo "### Agensi pack ready — ${tag}"
+              echo
+              echo "ZIP + submission.json attached to the GitHub release. Nothing was sent to Agensi."
+              echo "Publish: in Cursor with the Agensi MCP connected, ask the agent to run the \`agensi-publish\` skill."
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning title=Agensi pack not release-ready::${tag} published to npm, but agensi:release failed — see log. Fix (often add packages/ai/ai-knowledge/agensi/changelog/${version}.md) and run the agensi-publish skill."
+          fi
