@@ -18,6 +18,8 @@ env:
   TURBO_CACHE_DIR: .turbo/cache
   TURBO_TELEMETRY_DISABLED: 1
   NEXT_TELEMETRY_DISABLED: 1
+  # The Install step is `pnpm install --frozen-lockfile`; the lockfile check would repeat it.
+  ERISTACK_LOCKFILE_VERIFIED: 1
 
 jobs:
   check:
@@ -64,7 +66,8 @@ jobs:
 
       - name: CI (full on main)
         if: github.event_name == 'push'
-        run: pnpm eristack check --profile pr
+        # Same checks as `check --profile pr`, one parallel turbo graph instead of three passes.
+        run: pnpm eristack ci --full
 
       - name: CI (PR — affected)
         if: github.event_name == 'pull_request'
