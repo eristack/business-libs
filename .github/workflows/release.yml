@@ -54,8 +54,9 @@ jobs:
           restore-keys: |
             turbo-${{ runner.os }}-
 
-      - name: Build
-        run: pnpm build
+      - name: Build publishable packages
+        # Only packages/* reach npm; the private site and examples are built by ci.yml.
+        run: pnpm exec turbo run build --output-logs=errors-only --filter='./packages/**'
 
       - name: Pre-publish gate (export map + publish deps)
         # CI runs in parallel on the same push; this is the last check that owns
