@@ -76,10 +76,12 @@ Desktop.ini
 .classpath
 .settings/
 
-# Cursor (local agent/session state) — keep shared rules tracked
+# Cursor (local agent/session state) — keep shared rules and project skills tracked
 .cursor/*
 !.cursor/rules/
 !.cursor/rules/**
+!.cursor/skills/
+!.cursor/skills/**
 
 # AI local artifacts
 .eristack/tickets/

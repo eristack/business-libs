@@ -121,3 +121,6 @@ docs_url: https://github.com/eristack/business-libs/tree/main/packages/ai/ai-kno
 # Square 512 × 512. Upload once at agensi.io/dashboard/submit?media-upload=logo and paste the
 # returned URL here so the agensi-publish runbook can call upload_skill_media.
 logo_url: null
+
+# Set after the first submit_skill so the agensi-publish runbook can go straight to update_skill.
+agensi_id: null
