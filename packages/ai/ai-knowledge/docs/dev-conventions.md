@@ -120,11 +120,11 @@ Do not document/catalog an export unless it passes `exports:check`.
 | Trigger | Workflow · command | Scope | Speed levers |
 | --- | --- | --- | --- |
 | PR → `main` | `ci.yml` · `pnpm eristack ci --base origin/main` | **Affected**: drift gates first (lockfile, changesets, publish, skills, knowledge, docs, ticket), then turbo build/typecheck/test on `...[origin/main]`, web typecheck/build only when `apps/web` changed, exports, contrast. Switches to **full** when lockfile / root `package.json` / `scripts/check-*` / `ai-dev` change, or PR label `ci:full`. | turbo cache restored from `actions/cache` (`.turbo/cache`, prefix key → last run on any branch); single root `intent validate` |
-| Push → `main` | `ci.yml` · `pnpm eristack check --profile pr` | **Full** profile on every merge | same turbo cache; `@eristack/old-web` excluded (scripts suffixed `:archived`) |
+| Push → `main` | `ci.yml` · `pnpm eristack ci --full` | **Full** `pr` profile on every merge, ordered: cheap drift gates → one parallel `turbo run build typecheck test` graph → examples, exports, integration coverage | same turbo cache; `@eristack/old-web` excluded (scripts suffixed `:archived`) |
 | Push → `main` | `release.yml` · build → `exports:check && publish:check` → `changesets/action` | Version Packages PR or npm publish | pre-publish gate is the last owner of what lands on npm — CI runs in parallel, not before |
 | PR touching `skills/` | `check-skills.yml` · `pnpm exec intent validate --github-summary` | Skills only, **workspace-pinned** intent (never `npm i -g`) | — |
 
-Node **22** everywhere (CI, skills, release) — Node 20 is EOL. `timeout-minutes: 15` on CI; `cancel-in-progress` per ref.
+Node **22** everywhere (CI, skills, release) — Node 20 is EOL. `timeout-minutes: 15` on CI; `cancel-in-progress` per ref. CI sets `ERISTACK_LOCKFILE_VERIFIED=1` because its Install step already ran `pnpm install --frozen-lockfile`; locally the lockfile check still runs. `typecheck` ignores `*.md`, `docs/`, `skills/`, `knowledge/` in its turbo hash, so docs-only edits hit cache.
 
 Local parity: `pnpm prepush` = PR affected mode; `pnpm ci` = main push. Both are the *same* `eristack` runner CI uses — if it is green locally with a synced lockfile, it is green in CI.
 
@@ -182,6 +182,7 @@ Production paths default to Drizzle; prove them with sqlite integration tests �
 | Hash-chain harness | `@eristack/hash-chained-ledger/testing` — `setupHclSqlite`, tamper helpers |
 | Per-package test | `packages/<layer>/<name>/tests/drizzle.integration.test.ts` |
 | Run all | `pnpm test:integration` (root) or `pnpm eristack check --profile integration` |
+| In CI | Suites run **once**, inside each package's turbo `test` (cached). The `integration` check in `pr`/`ci` only verifies (`--verify-covered`) that every `drizzle.integration.test.ts` is matched by the package vitest `include` — keep `tests/**/*.test.ts` in it. |
 
 **Pattern:** wrap suites in `describe.skipIf(!canUseBetterSqlite())` so CI without native bindings skips cleanly. When adding a new Drizzle store, add or extend an integration test in the same PR.
 

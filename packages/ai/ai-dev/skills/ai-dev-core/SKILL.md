@@ -24,7 +24,7 @@ sources:
 4. **`pnpm prepush`** — runs **`pnpm ci:affected`** (same as GitHub PR CI when the diff is small: drift + affected turbo build/typecheck/test). Use **`pnpm ci:pr`** for the full affected/default plan without forcing affected only.
 5. After **`package.json`** dependency edits: **`pnpm lockfile:sync`** then commit **`pnpm-lock.yaml`** (CI runs `pnpm install --frozen-lockfile` first).
 6. **`pnpm ci:drift`** or **`pnpm ticket:check`** — subset checks only (`ticket:check` bootstraps `@eristack/ai-ticket-generator` build first).
-7. **`pnpm eristack check --profile pr`** — **main branch CI** (full gate; includes `debottleneck:check:ci` overlap budget).
+7. **`pnpm eristack ci --full`** — **main branch CI**: every `pr` check (incl. `debottleneck:check:ci`), ordered cheap drift → one parallel `turbo run build typecheck test` → examples/exports/integration coverage. `check --profile pr` runs the same checks sequentially.
 8. **`pnpm eristack sync knowledge`** / **`docs`** / **`deps`** — when recipes, skills, docs, or lockfile drift.
 
 ## Profiles
@@ -32,11 +32,11 @@ sources:
 | Profile | Use |
 | --- | --- |
 | `catalog` | Drift only: docs, knowledge, skills, **agents-intent-sync** (AGENTS ↔ intent.skills), skill-sources, memory-exports, ticket, changesets, exports* |
-| `pr` | **Main CI** — build + typecheck + test + integration + catalog |
+| `pr` | **Main CI** — build + typecheck + test + integration coverage + examples + catalog |
 | `full` | `pr` + lint |
 | `fast` | Turbo filter on changed packages (from `plan`) |
-| `integration` | Drizzle integration tests only (`pnpm test:integration`) |
-| `examples` | Example apps build (`pnpm --filter './examples/*' build`) |
+| `integration` | Runs Drizzle integration suites (`pnpm test:integration`). In `pr`/`ci` the check only verifies each `drizzle.integration.test.ts` is in the package vitest `include` — turbo `test` already runs it once, cached |
+| `examples` | Example apps build (`turbo run build --filter='./examples/*'`, cached) |
 | `publish` | `pnpm publish:check` only (no workspace:* in published deps) |
 | `ci` command | PR path: affected + drift + integration; `--full` or `ci:full` label → `pr` |
 

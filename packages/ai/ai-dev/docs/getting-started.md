@@ -28,7 +28,13 @@ pnpm add -D @eristack/ai-dev
 # Token-minimal: what to run next (agents run this first)
 pnpm eristack plan --json
 
-# CI gate (GitHub runs: pnpm build && pnpm eristack check --profile pr --skip-build)
+# Main-branch CI gate (same checks as --profile pr; one parallel turbo graph)
+pnpm eristack ci --full
+
+# PR CI (affected turbo; full when root/lockfile/.github/ai-dev change)
+pnpm eristack ci --base origin/main
+
+# Same pr checks, sequential, after your own pnpm build
 pnpm eristack check --profile pr --skip-build
 
 # Local full bar (includes lint)
@@ -51,11 +57,13 @@ pnpm eristack packages list --json
 | Profile | Includes |
 | --- | --- |
 | `catalog` | changesets, skills, **agents-intent-sync**, skill-sources, memory-exports, knowledge, docs, ticket, exports, debottleneck (auto-builds if needed) |
-| `pr` | build, typecheck, test, integration + catalog |
+| `pr` | build, typecheck, test, integration coverage, examples + catalog |
 | `full` | pr + lint |
 | `fast` | build, typecheck, test on **changed packages** (from git diff) |
-| `integration` | `pnpm test:integration` only (Drizzle sqlite harness) |
-| `examples` | Example apps build only |
+| `integration` | `pnpm test:integration` only (Drizzle sqlite harness). Inside `pr`/`ci` this check is `--verify-covered`: suites already run once in turbo `test`, so it only asserts the package vitest `include` matches `tests/drizzle.integration.test.ts` |
+| `examples` | Example apps build only (`turbo run build --filter='./examples/*'`, cached) |
+
+`--skip-build` means "already built": checks that need `dist/` run without triggering another build. CI sets `ERISTACK_LOCKFILE_VERIFIED=1` after its frozen install, so the `lockfile` check does not reinstall.
 | `publish` | `pnpm publish:check` only (dependency hygiene) |
 
 ## MCP
