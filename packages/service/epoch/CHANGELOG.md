@@ -1,5 +1,11 @@
 # @eristack/epoch
 
+## 0.1.5
+
+### Patch Changes
+
+- dde57d1: Remove `createMemoryEpochStore` from root export; import from `@eristack/epoch/testing` in tests.
+
 ## 0.1.4
 
 ### Patch Changes

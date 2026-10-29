@@ -1,5 +1,11 @@
 # @eristack/payment-manager
 
+## 0.1.2
+
+### Patch Changes
+
+- 2aeeb78: Remove `createMemoryPaymentDriver` and `createMemoryPaymentManagerStore` from root export; use `@eristack/payment-manager/testing` in tests.
+
 ## 0.1.1
 
 ### Patch Changes

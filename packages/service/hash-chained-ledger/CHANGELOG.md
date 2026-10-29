@@ -1,5 +1,11 @@
 # @eristack/hash-chained-ledger
 
+## 0.1.5
+
+### Patch Changes
+
+- a311d81: Add UNIQUE (chain_id, sequence) on Drizzle entry tables and retry append on sequence contention. Existing apps must add `{prefix}_entries_chain_seq_uq` in a migration.
+
 ## 0.1.4
 
 ### Patch Changes

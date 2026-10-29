@@ -1,5 +1,11 @@
 # @eristack/ai-dev
 
+## 0.1.7
+
+### Patch Changes
+
+- 327fcf0: Stabilization batch (release with train, not per iteration): eristack checks skill-sources, memory-exports, and agents-intent-sync (AGENTS.md intent block).
+
 ## 0.1.6
 
 ### Patch Changes

@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-29T04:43:11.683Z",
+  "generatedAt": "2026-10-29T05:02:22.346Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.6",
+      "version": "0.1.7",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
@@ -145,7 +145,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/backseat",
-      "version": "0.1.10",
+      "version": "0.1.11",
       "description": "Frontend mock backend engine: in-browser REST server with pluggable store, controllers, and TanStack Query hooks",
       "slug": "backseat",
       "adapters": [
@@ -227,7 +227,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/comms",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Transactional email, SMS, and WhatsApp — SendGrid, Postmark, Mailgun, Resend, Twilio, Vonage, Meta drivers, Drizzle delivery log, Express webhooks",
       "slug": "comms",
       "adapters": [
@@ -377,7 +377,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/doc-number",
-      "version": "0.3.5",
+      "version": "0.3.6",
       "description": "Document number format, parse, and sequence primitives for Eristack",
       "slug": "doc-number",
       "adapters": [
@@ -539,7 +539,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/epoch",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "description": "Headless data-version epochs for cache invalidation: compare client epoch vs server, bump on mutation, Drizzle default",
       "slug": "epoch",
       "adapters": [
@@ -595,7 +595,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/file-manager",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "Headless file uploads: S3 presigned PUT/GET (inline view by default; optional attachment filename), server uploads, FileRef for Drizzle columns, REST/Express/React dev tools",
       "slug": "file-manager",
       "adapters": [
@@ -753,7 +753,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/hash-chained-ledger",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "description": "Append-only hash-chained ledger primitive: opening/in/out/adjustment/closing, type refs, chain verify and tamper detection",
       "slug": "hash-chained-ledger",
       "adapters": [
@@ -874,7 +874,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/jwt-auth",
-      "version": "0.4.6",
+      "version": "0.4.7",
       "description": "Canonical JWT access + refresh-token auth primitives for Eristack",
       "slug": "jwt-auth",
       "adapters": [
@@ -1043,7 +1043,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/oauth",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "OAuth2 client with 17+ IdP drivers (Google, Microsoft, GitHub, Apple, Okta, …) and authorization-server provider — PKCE, Drizzle, Express; hand off to jwt-auth",
       "slug": "oauth",
       "adapters": [
@@ -1137,7 +1137,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/payment-manager",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Headless payment intents: Stripe/Xendit drivers, Drizzle history, webhooks, REST/Express/client — pairs with payment-instrument",
       "slug": "payment-manager",
       "adapters": [
@@ -1298,7 +1298,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/qups",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "description": "Quantity / unit price / subtotal (QUPS) with 2-of-3 sources of truth, plus modifiers and tax — business line pricing on @eristack/money",
       "slug": "qups",
       "adapters": [
@@ -1353,7 +1353,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/rbac",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "Role-based access control for Eristack: subjects, roles, and boolean permissions",
       "slug": "rbac",
       "adapters": [
