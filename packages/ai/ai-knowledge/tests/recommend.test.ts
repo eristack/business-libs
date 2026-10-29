@@ -42,6 +42,13 @@ describe("recommend", () => {
     expect(result.fallbackNote).toBeNull();
   });
 
+  it("routes plain login to jwt-auth sessions, not every IdP-login trigger", () => {
+    expect(recommend("login").matches[0]?.recipe.id).toBe("jwt-auth-sessions");
+    expect(recommend("sign in with google").matches[0]?.recipe.id).toBe(
+      "oauth-sso-google-oidc",
+    );
+  });
+
   it("returns a fallback note when nothing matches", () => {
     const result = recommend("quantum teleportation scheduler");
     expect(result.matches).toEqual([]);
