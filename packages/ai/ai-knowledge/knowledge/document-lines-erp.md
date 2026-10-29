@@ -4,8 +4,6 @@
 
 Load: `@eristack/ai-knowledge#document-lines-erp` · Package map: [package-relationships](./package-relationships.md) · Horizon A: `@eristack/ai-knowledge#backseat-then-backend` (`registerHorizonDocumentSpine` + `examples/horizon-a`) · Version conflicts: [optimistic-document-version](./optimistic-document-version.md) · 409 canon: [http-errors](./http-errors.md).
 
-**Tiga Sekawan 3ss:** consumer adoption checklist — [tiga-sekawan-3ss-adoption](./tiga-sekawan-3ss-adoption.md). Library ticket: `tickets/20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md`.
-
 ---
 
 ## Spine (generic layers)

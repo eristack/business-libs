@@ -167,7 +167,7 @@ Checklist when adding new demo entities:
 
 | Step | Action |
 | --- | --- |
-| 1 | Seed user + jwt-auth credentials (`demo` / `password123`) |
+| 1 | Seed user + jwt-auth credentials (`demo` / `<demo-password>` from your seed env) |
 | 2 | Seed partners with `branchId` for ABAC |
 | 3 | Register doc-number formats per `entityKey` + branch `scope` |
 | 4 | Seed jobs `{ version: 1, etd: wall, branchId, trade }` |
@@ -226,7 +226,7 @@ Load `@eristack/ai-knowledge#upgrading-eristack` for adapter matrix and semver.
 
 ## Derive-backend checklist (Horizon B mirror)
 
-Use this when Express proxies the same routes as Backseat (Tiga Sekawan-style **workshop mirror**). Goal: same paths, same list envelopes, same scope rules — different persistence.
+Use this when Express proxies the same routes as Backseat (a **workshop mirror**). Goal: same paths, same list envelopes, same scope rules — different persistence.
 
 ### Document store vs list projections
 
