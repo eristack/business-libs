@@ -1440,7 +1440,7 @@ export const recipes = [
       "posting period",
       "closed period"
     ],
-    "rationale": "Load @eristack/fiscal-calendar#fiscal-calendar-core for findPeriodForDate and assertPeriodOpen on @eristack/timestamp wall dates — pair with doc-transitions lockGraph.",
+    "rationale": "Load @eristack/fiscal-calendar#fiscal-calendar-core for findPeriodForDate(calendar, wallClock) then assertPeriodOpen(period) on @eristack/timestamp wall dates — pair with doc-transitions lockGraph.",
     "packages": [
       {
         "name": "@eristack/fiscal-calendar",
@@ -2167,7 +2167,7 @@ export const recipes = [
       "vat rate",
       "sales tax rate"
     ],
-    "rationale": "@eristack/tax resolveTaxRate + applyTaxToAmount; @eristack/qups line math; @eristack/money Tax ops.",
+    "rationale": "@eristack/tax createTaxRegistry() → registry.resolveTaxRate({ code, asOf }) + registry.applyTaxToAmount(net, ratePercent) (unrounded tax portion); @eristack/qups line math; @eristack/money Tax ops.",
     "packages": [
       {
         "name": "@eristack/tax",
@@ -2202,7 +2202,7 @@ export const recipes = [
       "ledger rounding",
       "half even policy"
     ],
-    "rationale": "@eristack/rounding-policy roundingFor → money.with at post time; pair with tax and qups totals.",
+    "rationale": "@eristack/rounding-policy createRoundingPolicyRegistry() → registry.roundingFor({ policyId, currency }) → money.with at post time; pair with tax and qups totals.",
     "packages": [
       {
         "name": "@eristack/rounding-policy",
