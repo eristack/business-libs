@@ -5,7 +5,7 @@ description: Company print defaults vs nullable per-document field masks for AR/
 
 # Print layout: company default vs frozen document mask
 
-**Canonical pattern** for AR/AP print settings in document-with-lines apps (3ss A7). Not a package — app-owned tables and field names.
+**Canonical pattern** for AR/AP print settings in document-with-lines apps. Not a package — app-owned tables and field names.
 
 Load with `@eristack/ai-knowledge#document-lines-erp` when wiring invoices or print routes.
 

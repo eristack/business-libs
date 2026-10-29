@@ -364,9 +364,8 @@ recipes:
       - error disposition
       - toast error message
       - feedback sequence
-      - 3ss
     rationale: >
-      3ss platform seams: @eristack/feedback createBusy/runFeedbackSequence for confirm→run→toast;
+      Platform seams: @eristack/feedback createBusy/runFeedbackSequence for confirm→run→toast;
       @eristack/backseat/express createErrorCatalog for HTTP + client disposition. Load feedback-core
       and #http-errors — not a second mapHandlerError.
     packages:
@@ -778,7 +777,7 @@ recipes:
       - routes snapshot mirror
       - horizon b collection
     rationale: >
-      3ss B4 — defineErpCollection + #collection-declaration-horizon-b + @eristack/backseat/testing
+      defineErpCollection + #collection-declaration-horizon-b + @eristack/backseat/testing
       mirror smoke. Codegen later.
     canonicalSkills:
       - "@eristack/ai-knowledge#collection-declaration-horizon-b"
@@ -802,7 +801,7 @@ recipes:
       - drizzle app boot
       - database url postgres pool
     rationale: >
-      3ss B3 — openDrizzle + @eristack/drizzle/schema spine/columns + #drizzle-app-database.
+      openDrizzle + @eristack/drizzle/schema spine/columns + #drizzle-app-database.
       Table packages never open pools.
     canonicalSkills:
       - "@eristack/ai-knowledge#drizzle-app-database"
@@ -828,7 +827,7 @@ recipes:
       - print tax codes
       - frozen print mask
     rationale: >
-      3ss A7 — app-owned company print singleton + nullable document mask. Load
+      app-owned company print singleton + nullable document mask. Load
       @eristack/ai-knowledge#print-layout-default and knowledge/print-layout-default-vs-document.md only.
     canonicalSkills:
       - "@eristack/ai-knowledge#print-layout-default"

@@ -3,7 +3,7 @@ title: Drizzle app database
 description: App-owned openDrizzle boot for sqlite and Postgres, env dialect resolution, migrations, and health — Eristack table packages never open connections.
 ---
 
-# Drizzle app database (3ss B3 step 1)
+# Drizzle app database
 
 Eristack packages expose **table factories** under `@eristack/*/drizzle`. They **never** open connections, read `DATABASE_URL`, or run migrations. The app owns one boot path.
 

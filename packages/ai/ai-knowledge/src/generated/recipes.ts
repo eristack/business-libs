@@ -420,10 +420,9 @@ export const recipes = [
       "error catalog",
       "error disposition",
       "toast error message",
-      "feedback sequence",
-      "3ss"
+      "feedback sequence"
     ],
-    "rationale": "3ss platform seams: @eristack/feedback createBusy/runFeedbackSequence for confirm→run→toast; @eristack/backseat/express createErrorCatalog for HTTP + client disposition. Load feedback-core and #http-errors — not a second mapHandlerError.",
+    "rationale": "Platform seams: @eristack/feedback createBusy/runFeedbackSequence for confirm→run→toast; @eristack/backseat/express createErrorCatalog for HTTP + client disposition. Load feedback-core and #http-errors — not a second mapHandlerError.",
     "packages": [
       {
         "name": "@eristack/feedback",
@@ -907,7 +906,7 @@ export const recipes = [
       "routes snapshot mirror",
       "horizon b collection"
     ],
-    "rationale": "3ss B4 — defineErpCollection + #collection-declaration-horizon-b + @eristack/backseat/testing mirror smoke. Codegen later.",
+    "rationale": "defineErpCollection + #collection-declaration-horizon-b + @eristack/backseat/testing mirror smoke. Codegen later.",
     "canonicalSkills": [
       "@eristack/ai-knowledge#collection-declaration-horizon-b"
     ],
@@ -939,7 +938,7 @@ export const recipes = [
       "drizzle app boot",
       "database url postgres pool"
     ],
-    "rationale": "3ss B3 — openDrizzle + @eristack/drizzle/schema spine/columns + #drizzle-app-database. Table packages never open pools.",
+    "rationale": "openDrizzle + @eristack/drizzle/schema spine/columns + #drizzle-app-database. Table packages never open pools.",
     "canonicalSkills": [
       "@eristack/ai-knowledge#drizzle-app-database",
       "@eristack/drizzle#drizzle-core"
@@ -973,7 +972,7 @@ export const recipes = [
       "print tax codes",
       "frozen print mask"
     ],
-    "rationale": "3ss A7 — app-owned company print singleton + nullable document mask. Load @eristack/ai-knowledge#print-layout-default and knowledge/print-layout-default-vs-document.md only.",
+    "rationale": "app-owned company print singleton + nullable document mask. Load @eristack/ai-knowledge#print-layout-default and knowledge/print-layout-default-vs-document.md only.",
     "canonicalSkills": [
       "@eristack/ai-knowledge#print-layout-default"
     ],

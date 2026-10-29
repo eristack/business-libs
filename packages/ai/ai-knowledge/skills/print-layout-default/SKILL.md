@@ -2,7 +2,7 @@
 name: print-layout-default
 description: >
   Company AR/AP print defaults vs nullable per-document print field masks — resolve at print time,
-  freeze on save, expectedVersion on PATCH. App-owned field names; not a @eristack package (3ss A7).
+  freeze on save, expectedVersion on PATCH. App-owned field names; not a @eristack package.
 metadata:
   type: core
   library: "@eristack/ai-knowledge"

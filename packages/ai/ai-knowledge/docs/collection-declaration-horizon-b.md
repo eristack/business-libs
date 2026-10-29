@@ -1,9 +1,9 @@
 ---
 title: Collection declaration (Horizon B)
-description: defineErpCollection manifests for Backseat and Drizzle, CollectionDocumentStore port, and dual-target routesSnapshot mirror CI for 3ss B4.
+description: defineErpCollection manifests for Backseat and Drizzle, CollectionDocumentStore port, and dual-target routesSnapshot mirror CI.
 ---
 
-# Collection declaration (3ss B4 — Horizon B)
+# Collection declaration (Horizon B)
 
 One **manifest per ERP collection** ties together Backseat, Drizzle, and Express. Full codegen is not shipped yet; **`defineErpCollection`** in `@eristack/drizzle/schema` is the contract apps and future generators share.
 

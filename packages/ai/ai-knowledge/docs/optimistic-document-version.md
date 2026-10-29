@@ -247,7 +247,7 @@ form.setFieldValue("expectedVersion", job.version);
 
 On successful save, replace local state with response body (new `version`).
 
-### TanStack Query helper (3ss B6)
+### TanStack Query helper
 
 Use `@eristack/backseat/client` so partial saves (print settings, one section) read version from cache, refetch on conflict, and do not throw away in-progress edits:
 

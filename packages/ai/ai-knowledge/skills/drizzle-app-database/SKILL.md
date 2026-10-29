@@ -1,7 +1,7 @@
 ---
 name: drizzle-app-database
 description: >
-  3ss B3 step 1 — app-owned Drizzle boot with @eristack/drizzle openDrizzle: one pool or sqlite
+  App-owned Drizzle boot with @eristack/drizzle openDrizzle: one pool or sqlite
   file, dialect from APP_DB_DIALECT/DATABASE_URL, lazy drivers, redacted health location. Table
   factories stay on @eristack/*/drizzle; inject db at compose root. Step 2 schema recipe same package.
 metadata:
