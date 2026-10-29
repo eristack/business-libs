@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-29T05:11:33.809Z",
+  "generatedAt": "2026-10-29T05:22:30.652Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -59,7 +59,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/ai-dev",
-      "version": "0.1.7",
+      "version": "0.1.8",
       "description": "Unified agent-first dev tooling for Eristack monorepos: plan (token-minimal), check profiles, sync, compact JSON + MCP",
       "slug": "ai-dev",
       "adapters": [
