@@ -8,7 +8,7 @@ export const localSkills = [
     "id": "agent-workflow",
     "name": "agent-workflow",
     "packageName": "@eristack/ai-knowledge",
-    "description": "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, load skills before coding, prefer examples, HARD RULE docs+skills+ recipes + pnpm knowledge:sync every iteration. Use for multi-package work or monorepo contributions.",
+    "description": "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, install and load skills before coding, prefer examples. Contributor section: HARD RULE docs+skills+recipes + pnpm knowledge:sync every iteration. Use for multi-package app work or monorepo contributions.",
     "type": "core",
     "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
   },

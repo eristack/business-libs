@@ -15,7 +15,7 @@ tanstackIntent:
     for: "@eristack/ai-dev unified monorepo tooling: eristack plan (token-minimal), eristack check profiles (catalog/pr/full = CI), sync docs/knowledge, MCP dev_plan/dev_check. Use before ad-hoc pnpm script chains or reading every check doc."
   - id: "@eristack/ai-knowledge#agent-workflow"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#agent-workflow"
-    for: "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, load skills before coding, prefer examples, HARD RULE docs+skills+ recipes + pnpm knowledge:sync every iteration. Use for multi-package work or monorepo contributions."
+    for: "Agent workflow for @eristack: four design targets (cheap tokens, predictable, reliable, clear boundaries — consumers must not reinvent exports), recommend first, install and load skills before coding, prefer examples. Contributor section: HARD RULE docs+skills+recipes + pnpm knowledge:sync every iteration. Use for multi-package app work or monorepo contributions."
   - id: "@eristack/ai-knowledge#ai-toolbox"
     run: "pnpm dlx @tanstack/intent@latest load @eristack/ai-knowledge#ai-toolbox"
     for: "Practical AI agent toolbox for Eristack: feature-brief prompts, skill-load order, money/auth/doc-number guardrail checklists, and recipe-authoring template for keeping @eristack/ai-knowledge discoverable. Use when briefing agents, reviewing plans, or adding recipes after new package capabilities."
