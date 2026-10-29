@@ -20,8 +20,7 @@ Load: `@eristack/ai-knowledge#package-relationships` · ERP lines: `#document-li
 | `@eristack/iso-3166` | Assigned ISO 3166-1/2 codes — validate, alpha-3 convert |
 | `@eristack/unlocode` | UN/LOCODE normalize/parse — **depends on** iso-3166 |
 | `@eristack/id-wilayah` | Indonesia official admin codes (2/4/7/10) + bundled villages; English unit kinds through neighborhood — pair with iso-3166 (`ID`) + address for postal |
-| `@eristack/iso-4217` | Currency metadata (pairs with money) |
-| `@eristack/reference-data` | **Capability** — versioned dataset packs over registries |
+Currency codes and minor-unit scales live in `@eristack/money` (its built-in currency registry) — there is no separate ISO 4217 package.
 
 Registry packages validate/normalize only — tenant masters stay app-owned.
 
@@ -85,21 +84,23 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 
 ## Which recipe / skill first?
 
+Every "Load first" cell is a loadable Intent skill (`pnpm dlx @tanstack/intent@latest load <id>`). Recipe ids (for `recommend()` / `loadPlan()`) are labelled *recipe*.
+
 | User ask | Load first | Then |
 | --- | --- | --- |
-| Job / cost sheet / invoice **with lines** | `#document-lines-erp` | qups, pbac, doc-number, data-grid skills |
-| Clickable ERP mock → real API | `#backseat-then-backend` | Same spine; upgrading §3 for peers |
-| “Which modules for an ERP?” | `#package-relationships` (this file) | `#compose-spine` recipe lists defaults — **not** a second implementation guide |
-| Auth + money + numbering only (no lines spine) | `#erp-app-core` | Redirects here; load jwt + money + doc-number skills |
-| Wave 13 party / platform / tax | `#party-and-platform-compose` | Shipped packages listed in § Wave 13 below |
-| Attachments / S3 / presigned upload | `#file-upload-s3` | file-manager-core → adapters; jwt guard in app |
-| Stripe / Xendit / payment intents | `#payment-gateway-stripe-xendit` | payment-manager-core → adapters; payment-instrument for tokens |
-| Generic REST / OpenAPI shell | `#declarative-rest-routes` | `@eristack/rest` — **not** opinion |
-| PATCH `/:id/:action`, document route map | `#opinion-http` | opinion + rest + doc-transitions |
+| Job / cost sheet / invoice **with lines** | `@eristack/ai-knowledge#document-lines-erp` | qups, pbac, doc-number, data-grid skills |
+| Clickable ERP mock → real API | `@eristack/ai-knowledge#backseat-then-backend` | Same spine; upgrading §3 for peers |
+| “Which modules for an ERP?” | `@eristack/ai-knowledge#package-relationships` (this file) | *recipe* `compose-spine` lists defaults — **not** a second implementation guide |
+| Auth + money + numbering only (no lines spine) | `@eristack/jwt-auth#jwt-auth-core` | `@eristack/money#money-amounts`, `@eristack/doc-number#doc-number-core` (*recipe* `erp-app-core`) |
+| Party / platform API / tax / posting | `@eristack/ai-knowledge#party-and-platform-compose` | Shipped packages listed in § Wave 13 below |
+| Attachments / S3 / presigned upload | `@eristack/file-manager#file-manager-core` | `#file-manager-adapters`; jwt guard in app (*recipe* `file-upload-s3`) |
+| Stripe / Xendit / payment intents | `@eristack/payment-manager#payment-manager-core` | `#payment-manager-adapters`; `@eristack/payment-instrument#payment-instrument-core` for tokens (*recipe* `payment-gateway-stripe-xendit`) |
+| Generic REST / OpenAPI shell | `@eristack/rest#rest-core` | **Not** opinion (*recipe* `declarative-rest-routes`) |
+| PATCH `/:id/:action`, document route map | `@eristack/opinion#opinion-core` | `@eristack/rest#rest-core`, `@eristack/doc-transitions#doc-transitions-core` (*recipe* `opinion-http`) |
 | Inventory / GL / valuation | Dedicated recipes | **Do not** pull into document-lines products by default |
-| ERP **list / doc React UI** | `#ui-package-stack` | data-grid + qups skills when wiring filters or lines |
-| **Tiga Sekawan 3ss** library shipped → consumer adopt | `#tiga-sekawan-3ss-adoption` | Per-row package skills; `#drizzle-app-database`, `#collection-declaration-horizon-b` |
-| Spreadsheet **keyboard** (not xlsx) | `#spreadsheet-operator-core` | line-grid / form-ui on commit |
+| ERP **list / doc React UI** | `@eristack/ai-knowledge#ui-package-stack` | data-grid + qups skills when wiring filters or lines |
+| Drizzle boot + collection manifests | `@eristack/ai-knowledge#drizzle-app-database` | `@eristack/ai-knowledge#collection-declaration-horizon-b` |
+| Spreadsheet **keyboard** (not xlsx) | `@eristack/spreadsheet-operator#spreadsheet-operator-core` | line-grid / form-ui on commit |
 
 ## UI layer (`packages/ui/`)
 

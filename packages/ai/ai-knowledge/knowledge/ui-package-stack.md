@@ -25,7 +25,7 @@ Load: `@eristack/ai-knowledge#ui-package-stack` · Recipes: `erp-ui-design-syste
 | — | `@eristack/multitab` | Tab workspace (already published) | `multitab` |
 | — | App chrome | Compose in **`examples/react`** until a second consumer needs `@eristack/app-chrome` | — |
 
-**Not merged:** `@eristack/form-kit` (headless TanStack Form recipes) stays separate from `form-ui`.
+**Headless TanStack Form helpers** (`useMoneyField`, `createAmountOnlyFieldValidators`) ship on the primitive packages' `/react` subpaths (`@eristack/money/react`, …), not in `form-ui`; there is no separate form-kit package.
 
 ---
 
