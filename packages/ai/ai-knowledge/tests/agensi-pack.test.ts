@@ -28,5 +28,15 @@ describe("build-agensi-pack", () => {
     expect(fs.readFileSync(path.join(packDir, "README.md"), "utf8")).toMatch(/^# Eristack AI Knowledge Pack\n/);
     expect(fs.existsSync(path.join(packDir, "LICENSE"))).toBe(true);
     expect(fs.readFileSync(path.join(packDir, "knowledge/recipes.yaml"), "utf8")).not.toMatch(/tiga|sekawan/i);
+
+    const submission = JSON.parse(
+      fs.readFileSync(path.join(packageRoot, "agensi-dist/submission.json"), "utf8"),
+    );
+    expect(submission.listing.name).toBe("Eristack AI Knowledge Pack");
+    expect(submission.listing.pricing).toBe("free");
+    expect(submission.listing.summary.length).toBeLessThanOrEqual(300);
+    expect(submission.listing.description).toContain(`${skills.length} skills`);
+    expect(submission.files).toHaveLength(new Set(submission.files).size);
+    expect(submission.files.length).toBeLessThanOrEqual(100);
   });
 });

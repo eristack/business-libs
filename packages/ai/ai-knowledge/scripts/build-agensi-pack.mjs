@@ -2,10 +2,16 @@
 /**
  * Build the Agensi (agensi.io) upload ZIP from skills/ + knowledge/ + agensi/README.md + LICENSE.
  *
- *   pnpm --filter @eristack/ai-knowledge agensi:pack            # folder + zip
+ *   pnpm --filter @eristack/ai-knowledge agensi:pack            # folder + zip + submission.json
+ *   pnpm --filter @eristack/ai-knowledge agensi:release         # same, and fail unless publishable
  *   node scripts/build-agensi-pack.mjs --no-zip                  # folder + checks only (tests)
  *
- * Output (gitignored): agensi-dist/eristack-ai-knowledge-pack/ and agensi-dist/eristack-ai-knowledge-pack.zip
+ * Output (gitignored) in agensi-dist/: eristack-ai-knowledge-pack/, eristack-ai-knowledge-pack.zip,
+ * submission.json (listing + version + changelog + file list for the Agensi MCP submit_skill /
+ * update_skill tools — see .cursor/skills/agensi-publish).
+ *
+ * --release additionally requires: this version published on npm, and a changelog for it that
+ * passes the same content checks (override with agensi/changelog/<version>.md).
  *
  * Skill names get an `eristack-` prefix (Agensi names are globally unique). The build fails when the
  * pack would exceed Agensi limits or ship client names, demo passwords, secrets, unpublished
@@ -61,7 +67,21 @@ const FORBIDDEN = [
   [/\bgh[pousr]_[A-Za-z0-9]{36}\b/, "GitHub token"],
 ];
 
-const LIMITS = { skills: 50, files: 1000, otherTextFiles: 200, chars: 6_000_000 };
+/** Website upload + "Upload from your agent" (MCP) limits — the pack must fit both. */
+const LIMITS = {
+  skills: 50,
+  files: 100,
+  fileBytes: 5 * 1024 * 1024,
+  otherTextFiles: 200,
+  chars: 6_000_000,
+  name: 60,
+  summary: 300,
+  tags: 10,
+  keywords: 10,
+  useCases: 8,
+};
+
+const RELEASE = process.argv.includes("--release");
 
 const packName = (name) => NAME_OVERRIDES[name] ?? `eristack-${name}`;
 
@@ -204,10 +224,8 @@ function validate(skills) {
     chars += text.length;
     const where = rel(file);
 
-    for (const [pattern, label] of FORBIDDEN) {
-      const hit = text.match(pattern);
-      if (hit) errors.push(`${where}: ${label} (${hit[0]})`);
-    }
+    if (fs.statSync(file).size > LIMITS.fileBytes) errors.push(`${where}: larger than 5 MB`);
+    errors.push(...forbiddenHits(text, where));
     for (const [, name] of text.matchAll(/@eristack\/([a-z0-9-]+)/g)) {
       if (!packages.has(`@eristack/${name}`) && !UNPUBLISHED_ALLOWED.has(name)) {
         errors.push(`${where}: unpublished package @eristack/${name}`);
@@ -231,11 +249,84 @@ function validate(skills) {
     if (EXCLUDED_RECIPES.has(recipe.id)) errors.push(`recipes.yaml still has ${recipe.id}`);
   }
 
-  return { errors, files: files.length, chars };
+  return { errors, files: files.map(rel).sort(), chars, recipeCount: recipes.recipes?.length ?? 0 };
+}
+
+function forbiddenHits(text, where) {
+  return FORBIDDEN.flatMap(([pattern, label]) => {
+    const hit = text.match(pattern);
+    return hit ? [`${where}: ${label} (${hit[0]})`] : [];
+  });
+}
+
+function loadListing({ skillCount, recipeCount }) {
+  const listing = YAML.parse(fs.readFileSync(path.join(pkgRoot, "agensi", "listing.yaml"), "utf8"));
+  const fill = (text) =>
+    typeof text === "string"
+      ? text.replaceAll("{{skillCount}}", String(skillCount)).replaceAll("{{recipeCount}}", String(recipeCount))
+      : text;
+  listing.description = fill(listing.description);
+  listing.summary = oneLine(listing.summary);
+
+  const errors = [];
+  if (!listing.name || listing.name.length > LIMITS.name) errors.push(`listing name must be 1–${LIMITS.name} chars`);
+  if (!listing.summary || listing.summary.length > LIMITS.summary) errors.push(`listing summary must be 1–${LIMITS.summary} chars`);
+  if (listing.pricing !== "free") errors.push(`listing pricing must stay "free" (got ${listing.pricing})`);
+  if ((listing.tags ?? []).length > LIMITS.tags) errors.push(`more than ${LIMITS.tags} tags`);
+  if ((listing.keywords ?? []).length > LIMITS.keywords) errors.push(`more than ${LIMITS.keywords} keywords`);
+  if ((listing.use_cases ?? []).length > LIMITS.useCases) errors.push(`more than ${LIMITS.useCases} use cases`);
+  if (/\{\{\w+\}\}/.test(JSON.stringify(listing))) errors.push("listing has an unfilled {{placeholder}}");
+  errors.push(...forbiddenHits(JSON.stringify(listing), "agensi/listing.yaml"));
+  return { listing, errors };
+}
+
+/** Changelog for `version`: agensi/changelog/<version>.md, else the CHANGELOG.md section minus commit hashes. */
+function loadChangelog(version) {
+  const override = path.join(pkgRoot, "agensi", "changelog", `${version}.md`);
+  let text = null;
+  let source = null;
+  if (fs.existsSync(override)) {
+    text = fs.readFileSync(override, "utf8").trim();
+    source = path.relative(pkgRoot, override);
+  } else {
+    const changelog = fs.readFileSync(path.join(pkgRoot, "CHANGELOG.md"), "utf8");
+    const section = changelog.split(/^## /m).find((s) => s.startsWith(`${version}\n`));
+    if (section) {
+      text = section
+        .slice(version.length)
+        .replace(/^### .*$/gm, "")
+        .replace(/^- [0-9a-f]{7,}: /gm, "- ")
+        .trim();
+      source = "CHANGELOG.md";
+    }
+  }
+  const issues = [];
+  if (!text) issues.push(`no changelog for ${version} (CHANGELOG.md section or agensi/changelog/${version}.md)`);
+  else issues.push(...forbiddenHits(text, source));
+  return { text, source, issues };
+}
+
+function publishedOnNpm(version) {
+  try {
+    return execFileSync("npm", ["view", `${pkg.name}@${version}`, "version"], { encoding: "utf8" }).trim() === version;
+  } catch {
+    return false;
+  }
 }
 
 const skills = build();
-const { errors, files, chars } = validate(skills);
+const result = validate(skills);
+const { listing, errors: listingErrors } = loadListing({
+  skillCount: skills.length,
+  recipeCount: result.recipeCount,
+});
+const changelog = loadChangelog(pkg.version);
+
+const errors = [...result.errors, ...listingErrors];
+if (RELEASE) {
+  errors.push(...changelog.issues.map((issue) => `changelog: ${issue}`));
+  if (!publishedOnNpm(pkg.version)) errors.push(`${pkg.name}@${pkg.version} is not on npm yet — release first`);
+}
 if (errors.length > 0) {
   console.error(`Agensi pack check failed (${errors.length}):\n`);
   for (const error of errors) console.error(`  - ${error}`);
@@ -243,16 +334,23 @@ if (errors.length > 0) {
 }
 
 if (!process.argv.includes("--no-zip")) {
+  fs.rmSync(zipPath, { force: true });
   execFileSync("zip", ["-r", "-X", "-q", zipPath, PACK, "-x", "*.DS_Store"], { cwd: outRoot });
 }
 fs.writeFileSync(
-  path.join(outRoot, "manifest.json"),
+  path.join(outRoot, "submission.json"),
   `${JSON.stringify(
     {
+      package: pkg.name,
       version: pkg.version,
+      releaseReady: RELEASE,
+      listing,
+      changelog: changelog.issues.length === 0 ? changelog.text : null,
+      changelogIssues: changelog.issues,
+      packDir: path.relative(pkgRoot, packDir),
       zip: path.relative(pkgRoot, zipPath),
-      files,
-      chars,
+      files: result.files,
+      chars: result.chars,
       skills: skills.map((s) => ({ name: s.name, intent: `${pkg.name}#${s.original}` })),
       excluded: { skills: [...EXCLUDED_SKILLS], knowledge: [...EXCLUDED_KNOWLEDGE], recipes: [...EXCLUDED_RECIPES] },
     },
@@ -260,4 +358,9 @@ fs.writeFileSync(
     2,
   )}\n`,
 );
-console.log(`OK — ${skills.length} skills, ${files} files, ${chars} chars → ${path.relative(pkgRoot, zipPath)}`);
+if (!RELEASE && changelog.issues.length > 0) {
+  console.warn(`note: changelog not release-ready — ${changelog.issues.join("; ")}`);
+}
+console.log(
+  `OK — ${skills.length} skills, ${result.files.length} files, ${result.chars} chars → ${path.relative(pkgRoot, zipPath)}${RELEASE ? " (release-ready)" : ""}`,
+);

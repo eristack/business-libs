@@ -45,6 +45,7 @@
     "sync": "node scripts/sync-catalog.mjs",
     "sync:check": "node scripts/sync-catalog.mjs --check && node scripts/check-knowledge-docs-mirror.mjs",
     "agensi:pack": "node scripts/build-agensi-pack.mjs",
+    "agensi:release": "node scripts/build-agensi-pack.mjs --release",
     "prebuild": "node scripts/sync-catalog.mjs",
     "build": "tsup && tsc -p tsconfig.build.json",
     "dev": "tsup --watch",
