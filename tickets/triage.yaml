@@ -1,6 +1,6 @@
 # Maintainer triage — ordering source of truth for repo-root tickets/
 # Ingest date = filename prefix YYYYMMDD (not ISO created alone).
-as_of: 2026-09-25
+as_of: 2026-11-02
 
 batches:
   - id: maintainer-stack
@@ -180,6 +180,9 @@ done:
 stack: []
 
 backlog:
+  - files:
+      - 20261102-112500-suggestion-local-monorepo-versioning-eristack.md
+    notes: "@eristack/local-monorepo-versioning — private monorepo lock + bump (no Changesets); feasibility possible"
   - files:
       - 20261001-072239-bug-resolvedownloadurl-forces-content-disposition-at-f2cd7c.md
     notes: unlisted ingest — triage when picked up
