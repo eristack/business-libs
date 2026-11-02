@@ -80,6 +80,7 @@ Apps compose across layers. **Do not** import Express/React/Drizzle from `*/core
 | `@eristack/backseat` | In-browser mock REST (Horizon A) |
 | `@eristack/drizzle` | App `openDrizzle` boot + `/schema` spine/columns + collection manifests |
 | `@eristack/drizzle-kit-helpers` | drizzle-kit pg/sqlite config fragments (dev) |
+| `@eristack/local-monorepo-versioning` | Private monorepo `version.lock.json` bump math (not Changesets) |
 | `@eristack/logger` | JSON-lines logging |
 
 ## Which recipe / skill first?

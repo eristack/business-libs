@@ -1,0 +1,4 @@
+[
+  { "key": "web", "path": "apps/web" },
+  { "key": "api", "path": "apps/api" }
+]

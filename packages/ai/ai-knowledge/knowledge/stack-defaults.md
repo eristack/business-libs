@@ -113,3 +113,5 @@ Production paths stay **`./drizzle`**, **`./express`**, **`./react`**. Full spin
 - User-facing package changes need a **Changeset**
 - Docs-only / CI-only changes do not
 - Publishing follows Version Packages → merge to `main`
+
+**Private product monorepos** (deploy-only, no npm): use `@eristack/local-monorepo-versioning` and `version.lock.json` — recipe *local-monorepo-versioning* · not Changesets (see `dev-conventions.md`).

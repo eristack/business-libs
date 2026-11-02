@@ -1,0 +1,9 @@
+package: "@eristack/local-monorepo-versioning"
+title: local-monorepo-versioning
+maintainers:
+  - support@eristack.dev
+scope: Private monorepo version.lock.json bump math without Changesets.
+skills:
+  - local-monorepo-versioning-core
+subscriptions:
+  - tickets/20261102-112500-suggestion-local-monorepo-versioning-eristack.md

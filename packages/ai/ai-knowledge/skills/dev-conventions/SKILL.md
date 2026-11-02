@@ -32,6 +32,7 @@ Full table: `knowledge/agent-workflow.md` § Design targets.
 - **New `@eristack/*` package** — same PR: package docs + skills + recipe + `apps/web` (`site.ts`, `ecosystem-content.ts`) + `pnpm docs:sync` — see § Shipping a new package in the full guide
 - **GitHub Flow** — feature branch → PR → `main` only
 - **Changesets** required for user-facing package changes; not for docs/CI-only
+- **Private deploy monorepos** (consumer apps, no npm) — `@eristack/local-monorepo-versioning` + recipe *local-monorepo-versioning*, not Changesets
 - **Debottleneck** — `#package-relationships` before multi-package work; `pnpm debottleneck:check:ci` in PR profile
 - **One file per package**, **`patch` on 0.1.x** — `pnpm changesets:check` enforces (no mega changelog, no accidental 1.0.0)
 - **Core vs adapters** — no framework imports in core; adapters are separate exports

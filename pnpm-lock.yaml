@@ -152,6 +152,9 @@ importers:
       '@eristack/list-shell':
         specifier: workspace:*
         version: link:packages/ui/list-shell
+      '@eristack/local-monorepo-versioning':
+        specifier: workspace:*
+        version: link:packages/infrastructure/local-monorepo-versioning
       '@eristack/logger':
         specifier: workspace:*
         version: link:packages/infrastructure/logger
@@ -361,7 +364,7 @@ importers:
         version: 0.511.0(react@19.2.8)
       next:
         specifier: 16.3.0
-        version: 16.3.0(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -440,7 +443,7 @@ importers:
         version: 0.511.0(react@19.2.8)
       next:
         specifier: 16.3.0
-        version: 16.3.0(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -679,6 +682,12 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 7.0.2
+
+  examples/node-bump:
+    dependencies:
+      '@eristack/local-monorepo-versioning':
+        specifier: workspace:*
+        version: link:../../packages/infrastructure/local-monorepo-versioning
 
   examples/react:
     dependencies:
@@ -1143,28 +1152,28 @@ importers:
     dependencies:
       '@eristack/abac':
         specifier: ^0.2.0
-        version: 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
+        version: 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
       '@eristack/data-grid':
         specifier: ^0.2.0
-        version: 0.2.5(7150f8fda29464a9cb93bb486b65046b)
+        version: 0.2.5(07f18d0c32c9bf6f808015ce01e38931)
       '@eristack/doc-transitions':
         specifier: ^0.1.0
         version: 0.1.1(@eristack/pbac@0.2.3)
       '@eristack/epoch':
         specifier: ^0.1.0
-        version: 0.1.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+        version: 0.1.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@eristack/jwt-auth':
         specifier: ^0.4.0
-        version: 0.4.5(@eristack/backseat@0.1.10)(@eristack/data-grid@0.2.5)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+        version: 0.4.5(@eristack/backseat@0.1.11)(@eristack/data-grid@0.2.5)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@eristack/pbac':
         specifier: ^0.2.0
-        version: 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
+        version: 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
       '@eristack/qups':
         specifier: ^0.3.0
-        version: 0.3.4(@eristack/backseat@0.1.10)(@eristack/money@0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))
+        version: 0.3.4(@eristack/backseat@0.1.11)(@eristack/money@0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))
       '@eristack/rbac':
         specifier: ^0.2.0
-        version: 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)
+        version: 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)
       '@eristack/timestamp':
         specifier: ^0.1.0
         version: 0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
@@ -1276,6 +1285,24 @@ importers:
         version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
   packages/infrastructure/drizzle-kit-helpers:
+    devDependencies:
+      '@tanstack/intent':
+        specifier: ^0.3.6
+        version: 0.3.6
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.20.1
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.26)(tsx@4.23.12)(typescript@7.0.2)(yaml@2.9.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+
+  packages/infrastructure/local-monorepo-versioning:
     devDependencies:
       '@tanstack/intent':
         specifier: ^0.3.6
@@ -3412,8 +3439,8 @@ packages:
       react:
         optional: true
 
-  '@eristack/backseat@0.1.10':
-    resolution: {integrity: sha512-4PE7A5ihG23U0dpT5/T52Qf4DVqfT5tHqIL32mhCr4jHbZeeEf10254rgTPYj8SiVSJwypp6TQu6R60WXLdYrg==}
+  '@eristack/backseat@0.1.11':
+    resolution: {integrity: sha512-hvHh49DDttK9Rh7vMpI82rXgqfKBE0/fTZUqowWRUqKiqIZvcSdy+BSnNyDINybW4JSLrYQ8/MfbIgjFbjUUHw==}
     peerDependencies:
       '@eristack/abac': ^0.2.0
       '@eristack/data-grid': ^0.2.0
@@ -5277,6 +5304,7 @@ packages:
   '@smithy/core@3.35.0':
     resolution: {integrity: sha512-zRMhfkByhT2snNdr1si24vJitU6Cr9ix2MikUfWmkAgp4jrNP0GcKSP5YvwQ+TlI8AZXER5QOGJn3JsVtSD9/A==}
     engines: {node: '>=18.0.0'}
+    deprecated: Deprecated due to a bug in custom logger data redaction. See https://github.com/aws/aws-sdk-js-v3/issues/8393.
 
   '@smithy/credential-provider-imds@4.5.2':
     resolution: {integrity: sha512-A9uSdn72ozbRUSit0eib0TW7nXuNPlaeM0zcGkJ+nE6tFcSDbnmtwoxbTCFBukVQcszDAyvsd7+rTduPTXpygg==}
@@ -9795,26 +9823,26 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@eristack/abac@0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)':
+  '@eristack/abac@0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)':
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       express: 5.2.1
       react: 19.2.8
 
-  '@eristack/backseat@0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)':
+  '@eristack/backseat@0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)':
     dependencies:
       '@eristack/entity-id': link:packages/primitive/entity-id
     optionalDependencies:
-      '@eristack/abac': 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
-      '@eristack/data-grid': 0.2.5(7150f8fda29464a9cb93bb486b65046b)
+      '@eristack/abac': 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
+      '@eristack/data-grid': 0.2.5(07f18d0c32c9bf6f808015ce01e38931)
       '@eristack/doc-transitions': 0.1.1(@eristack/pbac@0.2.3)
-      '@eristack/epoch': 0.1.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
-      '@eristack/jwt-auth': 0.4.5(@eristack/backseat@0.1.10)(@eristack/data-grid@0.2.5)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
-      '@eristack/pbac': 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
-      '@eristack/qups': 0.3.4(@eristack/backseat@0.1.10)(@eristack/money@0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))
-      '@eristack/rbac': 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)
+      '@eristack/epoch': 0.1.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/jwt-auth': 0.4.5(@eristack/backseat@0.1.11)(@eristack/data-grid@0.2.5)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/pbac': 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
+      '@eristack/qups': 0.3.4(@eristack/backseat@0.1.11)(@eristack/money@0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))
+      '@eristack/rbac': 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)
       '@eristack/timestamp': 0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
@@ -9824,11 +9852,11 @@ snapshots:
       zod: 4.4.3
     optional: true
 
-  '@eristack/data-grid@0.2.5(7150f8fda29464a9cb93bb486b65046b)':
+  '@eristack/data-grid@0.2.5(07f18d0c32c9bf6f808015ce01e38931)':
     dependencies:
       '@eristack/money': 0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@eristack/timestamp': 0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -9841,11 +9869,11 @@ snapshots:
 
   '@eristack/doc-transitions@0.1.1(@eristack/pbac@0.2.3)':
     dependencies:
-      '@eristack/pbac': 0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
+      '@eristack/pbac': 0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)
 
-  '@eristack/epoch@0.1.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)':
+  '@eristack/epoch@0.1.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)':
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
@@ -9854,14 +9882,14 @@ snapshots:
       react: 19.2.8
       zod: 4.4.3
 
-  '@eristack/jwt-auth@0.4.5(@eristack/backseat@0.1.10)(@eristack/data-grid@0.2.5)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)':
+  '@eristack/jwt-auth@0.4.5(@eristack/backseat@0.1.11)(@eristack/data-grid@0.2.5)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)':
     dependencies:
-      '@eristack/data-grid': 0.2.5(7150f8fda29464a9cb93bb486b65046b)
+      '@eristack/data-grid': 0.2.5(07f18d0c32c9bf6f808015ce01e38931)
       '@noble/hashes': 1.8.0
       jose: 6.2.8
       zod: 4.4.3
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@tanstack/react-form': 1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -9881,25 +9909,25 @@ snapshots:
       react: 19.2.8
       zod: 4.4.3
 
-  '@eristack/pbac@0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)':
+  '@eristack/pbac@0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(express@5.2.1)(react@19.2.8)':
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       express: 5.2.1
       react: 19.2.8
 
-  '@eristack/qups@0.3.4(@eristack/backseat@0.1.10)(@eristack/money@0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))':
+  '@eristack/qups@0.3.4(@eristack/backseat@0.1.11)(@eristack/money@0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))':
     dependencies:
       '@eristack/money': 0.3.6(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       decimal.js: 10.6.0
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       drizzle-orm: 0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1)
 
-  '@eristack/rbac@0.2.3(@eristack/backseat@0.1.10)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)':
+  '@eristack/rbac@0.2.3(@eristack/backseat@0.1.11)(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)':
     optionalDependencies:
-      '@eristack/backseat': 0.1.10(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
+      '@eristack/backseat': 0.1.11(@eristack/abac@0.2.3)(@eristack/data-grid@0.2.5)(@eristack/doc-transitions@0.1.1)(@eristack/entity-id@packages+primitive+entity-id)(@eristack/epoch@0.1.3)(@eristack/jwt-auth@0.4.5)(@eristack/pbac@0.2.3)(@eristack/qups@0.3.4)(@eristack/rbac@0.2.3)(@eristack/timestamp@0.1.2(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-form@1.33.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3))(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@tanstack/react-query@5.101.4(react@19.2.8))(drizzle-orm@0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1))(express@5.2.1)(react@19.2.8)(zod@4.4.3)
       '@nestjs/common': 11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.29(@nestjs/common@11.1.29(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       drizzle-orm: 0.44.7(@types/better-sqlite3@7.6.13)(@types/pg@8.23.1)(better-sqlite3@11.10.0)(gel@2.2.0)(pg@8.23.1)
@@ -14011,7 +14039,7 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next@16.3.0(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  next@16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       '@next/env': 16.3.0
       '@swc/helpers': 0.5.15
@@ -14020,7 +14048,7 @@ snapshots:
       postcss: 8.5.23
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
-      styled-jsx: 5.1.6(react@19.2.8)
+      styled-jsx: 5.1.6(@babel/core@7.29.7)(react@19.2.8)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.3.0
       '@next/swc-darwin-x64': 16.3.0
@@ -14999,10 +15027,12 @@ snapshots:
     dependencies:
       '@tokenizer/token': 0.3.0
 
-  styled-jsx@5.1.6(react@19.2.8):
+  styled-jsx@5.1.6(@babel/core@7.29.7)(react@19.2.8):
     dependencies:
       client-only: 0.0.1
       react: 19.2.8
+    optionalDependencies:
+      '@babel/core': 7.29.7
 
   sucrase@3.35.1:
     dependencies:

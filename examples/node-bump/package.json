@@ -1,0 +1,11 @@
+{
+  "name": "@eristack/example-node-bump",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "node demo.mjs"
+  },
+  "dependencies": {
+    "@eristack/local-monorepo-versioning": "workspace:*"
+  }
+}

@@ -1,6 +1,6 @@
 # Maintainer triage — ordering source of truth for repo-root tickets/
 # Ingest date = filename prefix YYYYMMDD (not ISO created alone).
-as_of: 2026-09-25
+as_of: 2026-11-02
 
 batches:
   - id: maintainer-stack
@@ -175,6 +175,9 @@ done:
   - rank: 51
     file: 20261014-203500-suggestion-consumer-platform-seams-tiga-sekawan.md
     notes: "3ss library shipped (A1–B11, B3, B4 manifest); consumer adopt via #tiga-sekawan-3ss-adoption; B4 codegen deferred"
+  - rank: 52
+    file: 20261102-112500-suggestion-local-monorepo-versioning-eristack.md
+    notes: "@eristack/local-monorepo-versioning v0.1 — core planRelease, node adapter, eristack-version CLI"
 
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack: []
