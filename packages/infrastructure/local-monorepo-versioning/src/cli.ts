@@ -91,6 +91,7 @@ try {
     const bumpArgs: string[] = [];
     for (let i = 1; i < args.length; i++) {
       const a = args[i];
+      if (!a) continue;
       if (a.startsWith("--")) {
         if (a === "--lock" || a === "--workspace" || a === "--out") i++;
         continue;
