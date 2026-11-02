@@ -1,6 +1,6 @@
 {
   "name": "@eristack/local-monorepo-versioning",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Headless version.lock.json bump math for private pnpm monorepos without Changesets or npm publish",
   "repository": {
     "type": "git",

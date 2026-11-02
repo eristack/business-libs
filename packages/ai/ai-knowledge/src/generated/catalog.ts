@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-11-02T04:36:57.870Z",
+  "generatedAt": "2026-11-02T04:42:47.813Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -944,7 +944,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/local-monorepo-versioning",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Headless version.lock.json bump math for private pnpm monorepos without Changesets or npm publish",
       "slug": "local-monorepo-versioning",
       "adapters": [
