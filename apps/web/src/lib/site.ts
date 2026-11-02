@@ -2378,6 +2378,31 @@ app.use(createLoggerMiddleware({ logger: log }))`,
     },
   },
   {
+    slug: "local-monorepo-versioning",
+    name: "@eristack/local-monorepo-versioning",
+    title: "Local monorepo versioning",
+    category: "infrastructure" as const,
+    directory: "packages/infrastructure/local-monorepo-versioning",
+    href: "/local-monorepo-versioning",
+    docsHref: "/docs/local-monorepo-versioning",
+    tagline: "version.lock.json for private deploy monorepos without Changesets.",
+    description:
+      "planRelease root bump math, validateLock, Node apply/manifest, eristack-version CLI — for consumer products that ship as one release train, not npm library publish.",
+    status: "alpha" as const,
+    install: "pnpm add -D @eristack/local-monorepo-versioning",
+    highlights: [
+      { title: "Lock file", body: "Root + per-package semver with releases[] audit trail." },
+      { title: "Batch rule", body: "Root steps once at the largest bump level in the batch." },
+      { title: "Not Changesets", body: "Private monorepos only — libraries still use Changesets here." },
+    ],
+    sample: {
+      filename: "bump.sh",
+      language: "bash",
+      code: `pnpm exec eristack-version bump web:patch api:minor
+pnpm exec eristack-version manifest --out version.manifest.json`,
+    },
+  },
+  {
     slug: "drizzle-kit-helpers",
     name: "@eristack/drizzle-kit-helpers",
     title: "Drizzle kit helpers",
