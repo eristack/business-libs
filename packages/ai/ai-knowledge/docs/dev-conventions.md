@@ -63,6 +63,17 @@ GitHub CI runs **`pnpm install --frozen-lockfile`** before any tests. Any worksp
 - User-facing package changes need `pnpm changeset`
 - Docs-only / CI-only changes do not need a changeset
 
+### Private consumer monorepos (no npm publish)
+
+**business-libs** and every published `@eristack/*` library use **Changesets** (above). A **consumer app monorepo** that deploys as one product (web + API + libs, no npm) should **not** copy that model.
+
+| Context | Versioning |
+| --- | --- |
+| This repo + npm `@eristack/*` | Changesets → Version Packages PR → npm |
+| Private pnpm product monorepo | `@eristack/local-monorepo-versioning` — `version.lock.json`, root + per-package semver, `eristack-version` CLI |
+
+Load `@eristack/local-monorepo-versioning#local-monorepo-versioning-core` or recipe *local-monorepo-versioning* (`recommend()` triggers: `version.lock.json`, private monorepo release). Package guide: `packages/infrastructure/local-monorepo-versioning/docs/getting-started.md`.
+
 ### Changesets on `0.x` (contributors)
 
 | Changeset type | On `0.0.0` | On `0.1.0+` (still pre-1.0) |
