@@ -1,0 +1,17 @@
+{
+  "0": {
+    "slug": "getting-started",
+    "title": "Getting started"
+  },
+  "pages": [
+    "getting-started"
+  ],
+  "sections": [
+    {
+      "label": "Start",
+      "pages": [
+        "getting-started"
+      ]
+    }
+  ]
+}
