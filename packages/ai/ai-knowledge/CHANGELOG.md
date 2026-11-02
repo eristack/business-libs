@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.26
+
+### Patch Changes
+
+- ba515f7: Document when to use @eristack/local-monorepo-versioning vs Changesets in dev-conventions and stack-defaults.
+
 ## 0.1.25
 
 ### Patch Changes
