@@ -59,7 +59,7 @@ const docPlan = loadPlan(docLines); // plan.suppressedPackages when filtered
 
 <!-- catalog:start -->
 
-**70 sibling packages**, **94 Intent skills** — machine-readable catalog: `getCatalog()` / `listPackages()` from `@eristack/ai-knowledge` (run `pnpm knowledge:sync` after package skill changes). Do not paste the full table here — use `recommend()` / `loadPlan()`.
+**71 sibling packages**, **95 Intent skills** — machine-readable catalog: `getCatalog()` / `listPackages()` from `@eristack/ai-knowledge` (run `pnpm knowledge:sync` after package skill changes). Do not paste the full table here — use `recommend()` / `loadPlan()`.
 
 Load `@eristack/ai-knowledge#recommend-eristack` then `loadPlan(goals)` — canonical ERP guides merge via `canonicalSkills` on recipes.
 

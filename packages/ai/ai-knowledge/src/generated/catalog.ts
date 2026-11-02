@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-10-29T05:11:33.809Z",
+  "generatedAt": "2026-11-02T04:28:30.986Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -939,6 +939,25 @@ export const catalog = {
           "description": "@eristack/list-shell presentational list page frame: ListPageLayout { toolbar, banner, children }, ListToolbar { leading, children, trailing }, QueryStateBanner { isLoading, isError, isEmpty, messages } (loading→error→empty precedence, role=status/alert) with erista-list-* CSS hooks. Use with @eristack/data-grid/react useDataGridList ({ schema, client }) → items/pageInfo/controller and filter-builder chips. No fetching, no table, no filter logic.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/list-shell#list-shell-core"
+        }
+      ]
+    },
+    {
+      "name": "@eristack/local-monorepo-versioning",
+      "version": "0.1.0",
+      "description": "Headless version.lock.json bump math for private pnpm monorepos without Changesets or npm publish",
+      "slug": "local-monorepo-versioning",
+      "adapters": [
+        "node"
+      ],
+      "skills": [
+        {
+          "id": "local-monorepo-versioning-core",
+          "name": "local-monorepo-versioning-core",
+          "packageName": "@eristack/local-monorepo-versioning",
+          "description": "@eristack/local-monorepo-versioning planRelease + version.lock.json schema for private pnpm monorepos without Changesets: root advances one step at the batch's largest bump level, independent package semver, releases[] audit trail, validateLock, Node load/save/apply, eristack-version CLI bump/apply/manifest/validate. Not for npm-published @eristack library repos.",
+          "type": "core",
+          "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/local-monorepo-versioning#local-monorepo-versioning-core"
         }
       ]
     },

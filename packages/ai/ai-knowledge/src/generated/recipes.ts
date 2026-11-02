@@ -2335,6 +2335,28 @@ export const recipes = [
     ]
   },
   {
+    "id": "local-monorepo-versioning",
+    "title": "Private monorepo versioning without Changesets",
+    "priority": 14,
+    "triggers": [
+      "version.lock.json",
+      "local monorepo versioning",
+      "private monorepo release",
+      "bump without changesets",
+      "product version lock"
+    ],
+    "rationale": "@eristack/local-monorepo-versioning planRelease + eristack-version CLI for deploy-only pnpm monorepos. Use Changesets (@eristack/ai-knowledge#dev-conventions) when publishing npm libraries.",
+    "packages": [
+      {
+        "name": "@eristack/local-monorepo-versioning",
+        "skills": [
+          "local-monorepo-versioning-core"
+        ],
+        "role": "primary"
+      }
+    ]
+  },
+  {
     "id": "drizzle-kit-monorepo",
     "title": "drizzle-kit config for Eristack apps",
     "priority": 12,
