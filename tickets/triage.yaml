@@ -178,6 +178,9 @@ done:
   - rank: 52
     file: 20261102-112500-suggestion-local-monorepo-versioning-eristack.md
     notes: "@eristack/local-monorepo-versioning v0.1 — core planRelease, node adapter, eristack-version CLI"
+  - rank: 53
+    file: 20261105-091600-suggestion-multitab-persist-route-search-on-tab-cache-b4e8f2.md
+    notes: "@eristack/multitab — searchByTabId, TanStack adapter restore + persistence"
 
 # Global execution order (lower rank = sooner). Re-run `pnpm ticket:triage check` after adding files.
 stack: []

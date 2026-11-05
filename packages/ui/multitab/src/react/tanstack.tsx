@@ -26,11 +26,15 @@ import {
   routeTabId,
   saveMultitabState,
   syncStateForRouteVisit,
+  getTabSearch,
+  searchSnapshotEqual,
   type BeforeCloseHandler,
   type MultitabState,
+  type NavigateToRouteOptions,
   type OpenTabInput,
   type RouteTabResolver,
   type Tab,
+  type TabSearch,
 } from "../index.js";
 import type { CloseTabOptions } from "./provider.js";
 import { useDirtyTabFromApi } from "./use-dirty-tab.js";
@@ -61,7 +65,7 @@ export type MultitabRouterApi = {
   readonly isWorkspaceEmpty: boolean;
   readonly isActiveTabNew: boolean;
   /** Navigate to a module route (opens or activates the matching tab). */
-  navigateToRoute(pathname: string): void;
+  navigateToRoute(pathname: string, options?: NavigateToRouteOptions): void;
   /** Insert a unique new tab and navigate to `/new/{id}`. */
   openNewTab(): string;
   closeTab(id: string, options?: CloseTabOptions): void;
@@ -98,6 +102,18 @@ function resolveInitialState(
   return initialMultitabState;
 }
 
+function navigateWithSearch(
+  router: ReturnType<typeof useRouter>,
+  to: string,
+  search?: TabSearch,
+): void {
+  if (search && Object.keys(search).length > 0) {
+    void router.navigate({ to, search });
+    return;
+  }
+  void router.navigate({ to });
+}
+
 function tabsEqual(left: readonly Tab[], right: readonly Tab[]): boolean {
   if (left.length !== right.length) return false;
   return left.every((tab, index) => {
@@ -132,6 +148,15 @@ export function MultitabRouterProvider({
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   });
+  const search = useRouterState({
+    select: (state) => {
+      const raw = state.location.search;
+      if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
+        return { ...(raw as Record<string, unknown>) };
+      }
+      return {};
+    },
+  });
   const [state, dispatch] = useReducer(
     multitabReducer,
     undefined as unknown as MultitabState,
@@ -146,6 +171,7 @@ export function MultitabRouterProvider({
   const beforeCloseRef = useRef(beforeClose);
   beforeCloseRef.current = beforeClose;
   const [optimisticPath, setOptimisticPath] = useState<string | null>(null);
+  const previousTabIdRef = useRef<string | null>(null);
 
   const effectivePath = optimisticPath ?? pathname;
 
@@ -179,6 +205,30 @@ export function MultitabRouterProvider({
     dispatch({ type: "replaceState", state: next });
   }, [pathname]);
 
+  useLayoutEffect(() => {
+    const tabId = activeTabIdFromRoute(pathname, resolveTabIdRef.current);
+    const previousTabId = previousTabIdRef.current;
+    previousTabIdRef.current = tabId;
+
+    if (!tabId || tabId === previousTabId) return;
+
+    const cached = getTabSearch(stateRef.current, tabId);
+    if (!cached || Object.keys(cached).length === 0) return;
+    if (searchSnapshotEqual(cached, search)) return;
+
+    navigateWithSearch(router, pathname, cached);
+  }, [pathname, router, search]);
+
+  useEffect(() => {
+    const tabId = activeTabIdFromRoute(pathname, resolveTabIdRef.current);
+    if (!tabId) return;
+
+    const cached = getTabSearch(stateRef.current, tabId);
+    if (searchSnapshotEqual(cached, search)) return;
+
+    dispatch({ type: "setTabSearch", tabId, search: { ...search } });
+  }, [pathname, search]);
+
   useEffect(() => {
     if (!storageKey) return;
     writeStorage(storageKey, state);
@@ -197,9 +247,12 @@ export function MultitabRouterProvider({
       activeTab,
       isWorkspaceEmpty: isWorkspaceEmpty(state),
       isActiveTabNew: activeTab ? isNewTab(activeTab) : false,
-      navigateToRoute(routePathname) {
+      navigateToRoute(routePathname, options) {
+        const tabId = resolveTabIdRef.current(routePathname);
+        const restored =
+          options?.search ?? getTabSearch(stateRef.current, tabId);
         setOptimisticPath(routePathname);
-        void router.navigate({ to: routePathname });
+        navigateWithSearch(router, routePathname, restored);
       },
       openNewTab() {
         const input = createNewTabInput();
@@ -213,10 +266,13 @@ export function MultitabRouterProvider({
         if (!canCloseTab(tab, options)) return;
 
         const runClose = () => {
-          const { nextState, nextPath } = planCloseTabNavigation(state, id);
+          const { nextState, nextPath, nextSearch } = planCloseTabNavigation(
+            state,
+            id,
+          );
           setOptimisticPath(nextPath);
           dispatch({ type: "replaceState", state: nextState });
-          void router.navigate({ to: nextPath });
+          navigateWithSearch(router, nextPath, nextSearch);
         };
 
         const handler = beforeCloseRef.current;
@@ -232,7 +288,10 @@ export function MultitabRouterProvider({
       replaceTab(tabId, input) {
         dispatch({ type: "replace", tabId, input });
         if (input.kind !== "new") {
-          void router.navigate({ to: input.id });
+          const prior = getTabSearch(stateRef.current, tabId);
+          const restored =
+            input.search ?? prior ?? getTabSearch(stateRef.current, input.id);
+          navigateWithSearch(router, input.id, restored);
         }
       },
       reorderTab(id, newIndex) {

@@ -1,4 +1,5 @@
-import type { MultitabState, OpenTabInput, Tab } from "./types.js";
+import { getTabSearch } from "./search.js";
+import type { MultitabState, OpenTabInput, Tab, TabSearch } from "./types.js";
 import {
   activateTab,
   clearActiveTab,
@@ -114,7 +115,11 @@ export function syncStateForRouteVisit(
 export function planCloseTabNavigation(
   state: MultitabState,
   tabId: string,
-): { readonly nextState: MultitabState; readonly nextPath: string } {
+): {
+  readonly nextState: MultitabState;
+  readonly nextPath: string;
+  readonly nextSearch?: TabSearch;
+} {
   const nextState = closeTab(state, tabId);
 
   if (nextState.tabs.length === 0) {
@@ -123,10 +128,16 @@ export function planCloseTabNavigation(
 
   const nextActiveId = nextState.activeTabId;
   const nextTab = nextActiveId ? findTabById(nextState, nextActiveId) : null;
+  const nextPath = nextTab ? pathForTab(nextTab) : emptyTabPath();
+  const nextSearch =
+    nextActiveId && nextTab?.kind === "route"
+      ? getTabSearch(nextState, nextActiveId)
+      : undefined;
 
   return {
     nextState,
-    nextPath: nextTab ? pathForTab(nextTab) : emptyTabPath(),
+    nextPath,
+    nextSearch,
   };
 }
 

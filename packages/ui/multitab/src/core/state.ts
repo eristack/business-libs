@@ -4,6 +4,7 @@ import type {
   OpenTabInput,
   RouteTabOpenPlan,
   Tab,
+  TabSearch,
 } from "./types.js";
 import {
   emptyRecentTabIds,
@@ -11,6 +12,7 @@ import {
   removeFromRecent,
   withActivation,
 } from "./mru.js";
+import { getTabSearch, withTabSearch, withoutTabSearch } from "./search.js";
 import { createNewTabInput, NEW_TAB_KIND } from "./workspace.js";
 
 export const initialMultitabState: MultitabState = {
@@ -68,7 +70,11 @@ export function openTab(state: MultitabState, input: OpenTabInput): MultitabStat
     },
   ]);
 
-  return withActivation(state, { tabs, activeTabId: input.id });
+  let next = withActivation(state, { tabs, activeTabId: input.id });
+  if (input.search && Object.keys(input.search).length > 0) {
+    next = withTabSearch(next, input.id, input.search);
+  }
+  return next;
 }
 
 /** Activate an existing route tab, or insert a new one right after the active tab. */
@@ -92,10 +98,14 @@ export function openRouteTabAdjacent(
     sequence: plan.insertIndex,
   });
 
-  return withActivation(state, {
+  let result = withActivation(state, {
     tabs: normalizeSequences(next),
     activeTabId: plan.input.id,
   });
+  if (plan.input.search && Object.keys(plan.input.search).length > 0) {
+    result = withTabSearch(result, plan.input.id, plan.input.search);
+  }
+  return result;
 }
 
 export function closeTab(state: MultitabState, id: string): MultitabState {
@@ -118,7 +128,16 @@ export function closeTab(state: MultitabState, id: string): MultitabState {
     state.activeTabId,
   );
 
-  return { tabs, activeTabId, recentTabIds };
+  return withoutTabSearch({ tabs, activeTabId, recentTabIds, searchByTabId: state.searchByTabId }, id);
+}
+
+export function setTabSearch(
+  state: MultitabState,
+  tabId: string,
+  search: TabSearch,
+): MultitabState {
+  if (!state.tabs.some((tab) => tab.id === tabId)) return state;
+  return withTabSearch(state, tabId, search);
 }
 
 export function clearActiveTab(state: MultitabState): MultitabState {
@@ -203,7 +222,10 @@ export function replaceTab(
   if (duplicateTarget) {
     const tabs = normalizeSequences(state.tabs.filter((tab) => tab.id !== tabId));
     const recentTabIds = removeFromRecent(state.recentTabIds ?? [], tabId);
-    return withActivation({ ...state, tabs, recentTabIds }, { activeTabId: input.id });
+    return withoutTabSearch(
+      withActivation({ ...state, tabs, recentTabIds }, { activeTabId: input.id }),
+      tabId,
+    );
   }
 
   const tabs = normalizeSequences(
@@ -222,7 +244,18 @@ export function replaceTab(
 
   const recentTabIds = removeFromRecent(state.recentTabIds ?? [], tabId);
 
-  return withActivation({ ...state, tabs, recentTabIds }, { activeTabId: input.id });
+  let next = withActivation(
+    { ...state, tabs, recentTabIds },
+    { activeTabId: input.id },
+  );
+  next = withoutTabSearch(next, tabId);
+  const prior = getTabSearch(state, tabId);
+  if (input.search && Object.keys(input.search).length > 0) {
+    next = withTabSearch(next, input.id, input.search);
+  } else if (prior) {
+    next = withTabSearch(next, input.id, prior);
+  }
+  return next;
 }
 
 export function ensureRouteTab(
@@ -292,6 +325,8 @@ export function multitabReducer(
       return updateTab(state, action.id, action.patch);
     case "setCloseGuard":
       return setTabCloseGuard(state, action.id, action.closeGuard);
+    case "setTabSearch":
+      return setTabSearch(state, action.tabId, action.search);
     case "replaceState":
       return {
         ...action.state,

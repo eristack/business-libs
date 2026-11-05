@@ -10,11 +10,15 @@ export type Tab = {
   readonly closeGuard?: boolean;
 };
 
+export type TabSearch = Record<string, unknown>;
+
 export type MultitabState = {
   readonly tabs: readonly Tab[];
   readonly activeTabId: string | null;
   /** MRU stack — most recently active tab ids (excludes current active). */
   readonly recentTabIds?: readonly string[];
+  /** Last TanStack Router `search` per tab id (pathname for route tabs). */
+  readonly searchByTabId?: Readonly<Record<string, TabSearch>>;
 };
 
 export type OpenTabInput = {
@@ -22,6 +26,12 @@ export type OpenTabInput = {
   readonly title: string;
   readonly description?: string;
   readonly kind?: TabKind;
+  /** Initial router search when opening a route tab (optional). */
+  readonly search?: TabSearch;
+};
+
+export type NavigateToRouteOptions = {
+  readonly search?: TabSearch;
 };
 
 export type RouteTabOpenPlan =
@@ -48,6 +58,7 @@ export type MultitabAction =
       patch: Partial<Pick<Tab, "title" | "description" | "closeGuard">>;
     }
   | { type: "setCloseGuard"; id: string; closeGuard: boolean }
+  | { type: "setTabSearch"; tabId: string; search: TabSearch }
   | { type: "replaceState"; state: MultitabState };
 
 export type BeforeCloseHandler = (

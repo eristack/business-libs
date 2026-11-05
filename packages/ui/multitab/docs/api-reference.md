@@ -12,7 +12,8 @@ description: Core and React exports
 - `initialMultitabState` — empty workspace
 - `multitabReducer(state, action)` — pure reducer
 - `createTabWorkspace({ initialState? })` — headless store with `dispatch` / `subscribe`
-- `openTab`, `openRouteTabAdjacent`, `openNewTab`, `closeTab`, `activateTab`, `reorderTab`, `replaceTab`, `ensureTab`, `updateTab`, `setTabCloseGuard`
+- `openTab`, `openRouteTabAdjacent`, `openNewTab`, `closeTab`, `activateTab`, `reorderTab`, `replaceTab`, `ensureTab`, `updateTab`, `setTabCloseGuard`, `setTabSearch`
+- `getTabSearch`, `withTabSearch`, `withoutTabSearch`, `parseSearchByTabId`, `pruneSearchByTabId`, `searchSnapshotEqual`
 - `findTabById`, `planRouteTabOpen`
 - `canCloseTab(tab, { force? })` — respects `closeGuard`
 
@@ -22,7 +23,7 @@ description: Core and React exports
 - `parseMultitabRoute(pathname)` — `{ kind: 'empty' | 'new' | 'route' }`
 - `activeTabIdFromRoute(pathname, resolveTabId?)`
 - `syncStateForRouteVisit(state, pathname, resolveRouteTab, resolveTabId?)`
-- `planCloseTabNavigation(state, tabId)` → `{ nextState, nextPath }`
+- `planCloseTabNavigation(state, tabId)` → `{ nextState, nextPath, nextSearch? }`
 - `planOpenNewTabNavigation(state, input?)` → `{ nextState, nextPath, tabId }`
 - `pathForTab(tab)`, `emptyTabPath()`, `newTabPath(tabId)`
 
@@ -34,7 +35,7 @@ description: Core and React exports
 
 ### Types
 
-- `Tab`, `TabKind`, `MultitabState` (`tabs`, `activeTabId`, optional `recentTabIds`), `MultitabAction`, `OpenTabInput`
+- `Tab`, `TabKind`, `MultitabState` (`tabs`, `activeTabId`, optional `recentTabIds`, optional `searchByTabId`), `MultitabAction`, `OpenTabInput` (optional `search`), `NavigateToRouteOptions`, `TabSearch`
 - `RouteTabResolver`, `BeforeCloseHandler`
 
 ## React (`@eristack/multitab/react`)
@@ -53,7 +54,7 @@ description: Core and React exports
 
 | Method | Behavior |
 | --- | --- |
-| `navigateToRoute(pathname)` | Optimistic path + router.navigate |
+| `navigateToRoute(pathname, options?)` | Optimistic path + router.navigate with cached or explicit `search` |
 | `openNewTab()` | Creates uuid tab at `/new/{id}` |
 | `closeTab(id, options?)` | Plans next path; honors guard + `beforeClose` |
 | `replaceTab(tabId, input)` | Converts new → route; navigates when route |
