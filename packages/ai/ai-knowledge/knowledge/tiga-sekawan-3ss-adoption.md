@@ -16,7 +16,7 @@ All rows **A1–B11** and **B3** (step 1 + 2) shipped in `@eristack/*` with chan
 | --- | --- | --- |
 | A1 tax catalog | Replace app `APP_TAX_CODES`-only path with `buildTaxCatalog` / `resolveTaxRateFromCatalog` | `@eristack/tax` |
 | A2 empty totals | `Money.sum([], currency)`; print tax via money, not `Math.round(Number())` | `@eristack/money` |
-| A3 replace create tab | `replaceTab` after successful create; set `closeGuard` on dirty drafts | `@eristack/multitab` |
+| A3 replace create tab | `replaceTab` after successful create; `closeGuard` on dirty drafts; **≥0.2.4** use library `searchByTabId` — remove app sessionStorage search cache + custom tab navigate | `@eristack/multitab` |
 | A4 spreadsheet select | Pointer commit on charge/tax selects | `@eristack/spreadsheet-operator` |
 | A5 doc heading | `DocDetailHeading` slots on invoice detail | `@eristack/doc-shell` |
 | A6 FX period | `resolveQuotePerBaseForWallDate` + `convertAtQuotePerBase` | `@eristack/money` |

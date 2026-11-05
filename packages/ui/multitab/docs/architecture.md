@@ -14,7 +14,7 @@ description: Core vs React vs TanStack Router responsibilities
                             │
 ┌───────────────────────────▼─────────────────────────────┐
 │  @eristack/multitab/react/tanstack                      │
-│  MultitabRouterProvider — pathname sync, navigate plans │
+│  MultitabRouterProvider — pathname + search sync, navigate plans │
 └───────────────────────────┬─────────────────────────────┘
                             │
 ┌───────────────────────────▼─────────────────────────────┐
@@ -35,7 +35,8 @@ description: Core vs React vs TanStack Router responsibilities
 | `state.ts` | Reducer actions: open, close, reorder, replace, ensure |
 | `mru.ts` | Activation history (`recentTabIds`) and MRU pick on close |
 | `routes.ts` | Parse `/`, `/new/{uuid}`, module paths; navigation plans |
-| `persistence.ts` | Serialize/sanitize localStorage payloads |
+| `search.ts` | `searchByTabId` helpers; parse/prune for persistence |
+| `persistence.ts` | Serialize/sanitize localStorage payloads (incl. search) |
 | `workspace.ts` | New-tab ids, `closeGuard` helpers |
 | `create-workspace.ts` | Headless `createTabWorkspace()` store |
 
@@ -57,7 +58,11 @@ Saved state drops invalid entries:
 - New tabs without UUID ids
 - Route tabs whose id does not start with `/`
 
-Active tab id is revalidated against remaining tabs on load. Optional `recentTabIds` (MRU stack) is persisted for browser-like close behavior.
+Active tab id is revalidated against remaining tabs on load. Optional `recentTabIds` (MRU stack) is persisted for browser-like close behavior. Optional `searchByTabId` stores the last TanStack Router `search` object per route tab id; older blobs without it load as `{}` per tab.
+
+## Router search (TanStack)
+
+Pathname alone is not enough for ERP document routes that use `validateSearch`. While a route tab is active, the TanStack adapter writes `location.search` into `searchByTabId[tabId]`. Activating another tab navigates with the cached search; changing search on the active tab updates the cache. Closing a tab drops its search entry. See [TanStack Router recipe](./router-recipe.md#tanstack-router-search-validatesearch).
 
 ## MRU close
 
