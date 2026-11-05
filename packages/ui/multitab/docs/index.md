@@ -5,7 +5,7 @@ description: Headless multi-tab ERP workspace
 
 # @eristack/multitab
 
-**Status: alpha (0.1.0)** — core tab engine ported from production ERP shell patterns.
+**Status: alpha (0.2.x)** — core tab engine ported from production ERP shell patterns; TanStack adapter restores router `search` per tab.
 
 ## Problem
 

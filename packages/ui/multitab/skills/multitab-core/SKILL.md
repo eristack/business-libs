@@ -1,16 +1,15 @@
 ---
 name: multitab-core
 description: >
-  @eristack/multitab: headless multi-tab workspace for React ERP screens — tab
-  model, closeGuard, TanStack Router sync. UI chrome stays in the app.
+  @eristack/multitab: headless multi-tab workspace for React ERP screens — pathname
+  tab ids, searchByTabId (TanStack validateSearch restore on tab switch), closeGuard,
+  MultitabRouterProvider URL sync. UI chrome stays in the app.
 metadata:
   type: core
   library: "@eristack/multitab"
-  library_version: "0.1.0"
+  library_version: "0.2.3"
 sources:
-  - "eristack/business-libs:packages/ui/multitab/docs/index.md"
-  - "eristack/business-libs:packages/ui/multitab/docs/getting-started.md"
-  - "eristack/business-libs:packages/ui/multitab/docs/architecture.md"
+  - "eristack/business-libs:packages/ui/multitab/docs/router-recipe.md"
 ---
 
 # Multitab core
