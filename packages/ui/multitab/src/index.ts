@@ -2,11 +2,21 @@ export type {
   BeforeCloseHandler,
   MultitabAction,
   MultitabState,
+  NavigateToRouteOptions,
   OpenTabInput,
   RouteTabOpenPlan,
   Tab,
   TabKind,
+  TabSearch,
 } from "./core/types.js";
+export {
+  getTabSearch,
+  parseSearchByTabId,
+  pruneSearchByTabId,
+  searchSnapshotEqual,
+  withTabSearch,
+  withoutTabSearch,
+} from "./core/search.js";
 export {
   activateTab,
   closeTab,
@@ -23,6 +33,7 @@ export {
   reorderTab,
   replaceTab,
   setTabCloseGuard,
+  setTabSearch,
   updateTab,
 } from "./core/state.js";
 export {

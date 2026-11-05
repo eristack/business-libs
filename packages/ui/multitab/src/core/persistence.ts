@@ -3,6 +3,7 @@ import {
   emptyRecentTabIds,
   normalizeRecentTabIds,
 } from "./mru.js";
+import { parseSearchByTabId, pruneSearchByTabId } from "./search.js";
 import { isNewTab, isNewTabId } from "./workspace.js";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -59,7 +60,7 @@ export function sanitizePersistedState(state: MultitabState): MultitabState {
     tabs,
   );
 
-  return { tabs, activeTabId, recentTabIds };
+  return pruneSearchByTabId({ tabs, activeTabId, recentTabIds, searchByTabId: state.searchByTabId });
 }
 
 export function parseMultitabState(raw: string): MultitabState | null {
@@ -75,8 +76,14 @@ export function parseMultitabState(raw: string): MultitabState | null {
         ? parsed.activeTabId
         : null;
     const recentTabIds = parseRecentTabIds(parsed.recentTabIds, tabs);
+    const searchByTabId = parseSearchByTabId(parsed.searchByTabId);
 
-    return sanitizePersistedState({ tabs, activeTabId, recentTabIds });
+    return sanitizePersistedState({
+      tabs,
+      activeTabId,
+      recentTabIds,
+      searchByTabId,
+    });
   } catch {
     return null;
   }
