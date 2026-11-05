@@ -1,6 +1,6 @@
 {
   "name": "@eristack/multitab",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Headless multi-tab workspace for React ERP screens — document tabs, per-tab TanStack Router search cache, persistence, URL sync",
   "repository": {
     "type": "git",

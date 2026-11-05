@@ -1,5 +1,11 @@
 # @eristack/multitab
 
+## 0.2.4
+
+### Patch Changes
+
+- f64aa91: Persist TanStack Router search per workspace tab: `searchByTabId` on state, restore on tab activate and optional `storageKey` persistence.
+
 ## 0.2.3
 
 ### Patch Changes
