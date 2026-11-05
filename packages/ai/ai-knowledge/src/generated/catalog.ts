@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-11-05T02:58:24.537Z",
+  "generatedAt": "2026-11-05T03:05:06.050Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -1042,7 +1042,7 @@ export const catalog = {
     },
     {
       "name": "@eristack/multitab",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "Headless multi-tab workspace for React ERP screens — document tabs, per-tab TanStack Router search cache, persistence, URL sync",
       "slug": "multitab",
       "adapters": [

@@ -1,5 +1,11 @@
 # @eristack/ai-knowledge
 
+## 0.1.27
+
+### Patch Changes
+
+- faef5d9: Document multitab per-tab TanStack Router search in ui-package-stack, recipes, and 3ss adoption checklist.
+
 ## 0.1.26
 
 ### Patch Changes
