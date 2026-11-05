@@ -4,7 +4,7 @@
 import type { KnowledgeCatalog } from "../types.js";
 
 export const catalog = {
-  "generatedAt": "2026-11-05T02:26:41.196Z",
+  "generatedAt": "2026-11-05T02:58:24.537Z",
   "packages": [
     {
       "name": "@eristack/abac",
@@ -1043,7 +1043,7 @@ export const catalog = {
     {
       "name": "@eristack/multitab",
       "version": "0.2.3",
-      "description": "Headless multi-tab workspace for React ERP screens — document tabs, state preservation, Router sync",
+      "description": "Headless multi-tab workspace for React ERP screens — document tabs, per-tab TanStack Router search cache, persistence, URL sync",
       "slug": "multitab",
       "adapters": [
         "react",
@@ -1054,7 +1054,7 @@ export const catalog = {
           "id": "multitab-core",
           "name": "multitab-core",
           "packageName": "@eristack/multitab",
-          "description": "@eristack/multitab: headless multi-tab workspace for React ERP screens — tab model, closeGuard, TanStack Router sync. UI chrome stays in the app.",
+          "description": "@eristack/multitab: headless multi-tab workspace for React ERP screens — pathname tab ids, searchByTabId (TanStack validateSearch restore on tab switch), closeGuard, MultitabRouterProvider URL sync. UI chrome stays in the app.",
           "type": "core",
           "loadCommand": "pnpm dlx @tanstack/intent@latest load @eristack/multitab#multitab-core"
         }

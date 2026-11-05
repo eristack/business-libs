@@ -1111,9 +1111,14 @@ export const recipes = [
       "tab workspace",
       "workspace tabs",
       "open in tab",
-      "browser tabs erp"
+      "browser tabs erp",
+      "validatesearch",
+      "router search",
+      "query params tab switch",
+      "persist search per tab",
+      "tab cache search"
     ],
-    "rationale": "Use @eristack/multitab for headless ERP tab chrome: pathname-keyed route tabs, /new/{uuid} placeholders, adjacent insert, localStorage persistence, closeGuard, and MultitabRouterProvider for TanStack Router (URL is source of truth). App owns tab bar UI and keyboard shortcuts. Alpha infra — see repo roadmap/horizon.md.",
+    "rationale": "Load @eristack/multitab#multitab-core. Headless ERP tab chrome: pathname = tab id, TanStack Router search cached per tab (searchByTabId) and restored on tab switch, MRU close, and optional storageKey reload; /new/{uuid} placeholders, adjacent insert, closeGuard. MultitabRouterProvider keeps URL source of truth — do not duplicate a parallel pathname-only cache for validateSearch document routes. App owns tab bar UI.",
     "packages": [
       {
         "name": "@eristack/multitab",
