@@ -120,7 +120,11 @@ Wire `allowed` from `@eristack/rbac/react` `useCan` and `@eristack/pbac/react` `
 
 ### 4. Optional multitab + command palette
 
-Wrap document routes with `@eristack/multitab/react/tanstack`. Register `useCommandPalette()` at app root; style dialog with Erista token classes.
+Wrap document routes with `@eristack/multitab/react/tanstack`. Tab **identity** is the normalized pathname; in-document UI state (section tabs, filters, layout mode) belongs in TanStack Router **`search`** (`validateSearch` on job/invoice routes).
+
+The adapter caches `location.search` on `MultitabState.searchByTabId`, restores it when activating a workspace tab (`navigateToTab`, `navigateToRoute`, MRU close), and persists it with `storageKey`. Use `navigateToRoute(path, { search })` or `OpenTabInput.search` when opening with explicit params — do not reimplement sessionStorage pathname caches in the app.
+
+Register `useCommandPalette()` at app root; style dialog with Erista token classes.
 
 ---
 
